@@ -10,6 +10,7 @@
 
 DEBUG_VALUE ?= 0
 DBG ?= 1
+FULL_NAME ?= 0
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -DDEBUG_VALUE=${DEBUG_VALUE}
@@ -36,7 +37,8 @@ lib/
 
 # path to .h for the main project basic
 MY_HEADER = \
-includes/cub3d.h
+includes/cub3d.h	\
+includes/debug.h
 
 # set the path to the .h main project bonus
 HEADER_BONUS = \
@@ -46,19 +48,16 @@ HEADER_DIR = \
 includes
 
 # set the path to the .a lib
-STATIC_LIB = \
-
-# set the dir where the makefile for lib is
-STATIC_LIB_DIR = \
-
-# set the full path to the .h lib
-STATIC_LIB_HEADER = \
-
+STATIC_LIB	=						\
+lib/printf_fd_buffer/ft_printf.a	\
+lib/t_lst/t_lst.a
 
 # set the -I before the path
 # the path to the header lib dir
-ALL_I_DIR_HEADER = \
--I includes \
+ALL_I_DIR_HEADER	=				\
+-I includes							\
+-I lib/printf_fd_buffer/header		\
+-I lib/t_lst/header
 
 # exec name for bonus
 BONUS_NAME = cub3D_bonus
@@ -93,9 +92,11 @@ CFLAGS += -g3
 endif
 
 ifeq ($(NAME), FULL)
-NAME = FULL
+FULL_NAME = 1
 else
-NAME = NO_FULL
+	ifneq ($(NAME),)
+		FULL_NAME = 0
+	endif
 endif
 
 ifeq (${DBG}, 1)
@@ -122,26 +123,26 @@ endif
 #	▙▌█▌▄▌▌▙▖▄▌
 
 .PHONY:all
-all: clear_console reset_debug $(STATIC_LIB) start_build_aff ${MY_NAME}
+all: change_name_full clear_console reset_debug $(STATIC_LIB) start_build_aff ${MY_NAME}
 
 
-${MY_NAME}:  $(STATIC_LIB) $(OBJS) $(STATIC_LIB_HEADER)
+${MY_NAME}:  $(STATIC_LIB) $(OBJS)
 	@echo -e "    ${_BOLD}${_GREEN}💿  ◀◀◀ ${_LIME}Creating Executable 📑🗂️   ${_YELLOW}$(MY_NAME)${_END}"
 	@$(CC) $(OBJS) $(STATIC_LIB) -o $(MY_NAME) $(EXECFLAGS)
 
 
 .PHONY:bonus
-bonus: clear_console $(STATIC_LIB) start_build_aff_bonus $(BONUS_NAME)
+bonus: change_name_full clear_console $(STATIC_LIB) start_build_aff_bonus $(BONUS_NAME)
 
 
-$(BONUS_NAME): $(STATIC_LIB)  $(OBJS_BONUS) $(HEADER_BONUS) $(STATIC_LIB_HEADER)
+$(BONUS_NAME): $(STATIC_LIB) $(OBJS_BONUS)
 	@echo -e "    ${_BOLD}${_GREEN}💿  ◀◀◀ ${_LIME}Creating Executable 📑🗂️   ${_YELLOW}$(BONUS_NAME)${_END}"
 	@$(CC) $(OBJS_BONUS) $(STATIC_LIB) -o $(BONUS_NAME) $(EXECFLAGS)
 
 
 .obj/%.o: %.c
 	@mkdir -p $(call GET_ALL_FOLDER,$@)
-	@if [ ${NAME} = "FULL" ]; then\
+	@if [ "${FULL_NAME}" = "1" ]; then\
 		echo -e "	${_LIME}${_BOLD}${MY_NAME}	${_END}${_GREEN}Compiling : ${_END}$(CC) ${_BLUE} $(CFLAGS) ${_PURPLE} $<${_END}";\
 	else \
 		echo -e "	${_LIME}${_BOLD}${MY_NAME}	${_END}${_GREEN}Compiling : ${_END}$(CC) ${_BLUE} $(CFLAGS) ${_PURPLE} $(call GET_FILE,$(call DELETE_EXT,$<))${_END}";\
@@ -203,22 +204,22 @@ cln_all: cln cln_lib
 
 .PHONY:clean_lib
 clean_lib:
-	@for lib in $(STATIC_LIB_DIR); do\
-		make -C lib/$$lib clean;\
+	@for lib in $(STATIC_LIB); do\
+		make -C $(call GET_ALL_FOLDER,$$lib) clean;\
 	done
 
 
 .PHONY:fclean_lib
 fclean_lib:
-	@for lib in $(STATIC_LIB_DIR); do\
-		make -C lib/$$lib fclean;\
+	@for lib in $(STATIC_LIB); do\
+		make -C  $(call GET_ALL_FOLDER,$$lib) fclean;\
 	done
 
 
 .PHONY:cln_lib
 cln_lib:
-	@for lib in $(STATIC_LIB_DIR); do\
-		make -C lib/$$lib cln;\
+	@for lib in $(STATIC_LIB); do\
+		make -C $(call GET_ALL_FOLDER,$$lib) cln;\
 	done
 
 #
@@ -261,7 +262,7 @@ clear_console:
 #			╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝      ╚═╝   ╚══════╝
 
 .PHONY:norm
-norm: clear_console
+norm: change_name_full clear_console
 	@echo -e "\n	${_BOLD}${_RED}Do you want to ignore INVALID_HEADER error?${_END} ${_ORANGE}(y/n)${_END}";\
 	echo -n ">>> ";\
 	read -n 1 response;\
@@ -273,7 +274,7 @@ norm: clear_console
 	for file in ${FILES} ${MY_HEADER} $(addprefix lib/, ${STATIC_LIB_DIR}) ; do\
 		STATE=$$(((STATE + 1) % 5));\
 		echo -e -n "${_ERASE}\r $${tmp_tab[$$STATE]}\r";\
-		if [ "${NAME}" = "FULL" ]; then\
+		if [ "${FULL_NAME}" = "1" ]; then\
 			tmp_name="$$file";\
 		else \
 			tmp_name="$(call GET_FILE,$$file)";\
@@ -313,11 +314,20 @@ norm: clear_console
 #			╚═════╝ ╚══════╝╚═════╝  ╚═════╝  ╚═════╝
 
 
-
 #	      ▌ ▜                ▐▘  ▜ ▜ 
 #	█▌▛▌▀▌▛▌▐ █▌  ▛▌▀▌▛▛▌█▌  ▜▘▌▌▐ ▐ 
 #	▙▖▌▌█▌▙▌▐▖▙▖  ▌▌█▌▌▌▌▙▖  ▐ ▙▌▐▖▐▖
 #                                 
+
+.PHONY:change_name_full
+change_name_full:
+	@if [ "${NAME}" = "FULL" ]; then\
+		$(call MODIF_FULL_NAME_VALUE,1)\
+	else \
+		if [ "${NAME}" != "" ]; then\
+			$(call MODIF_FULL_NAME_VALUE,0)\
+		fi;\
+	fi
 
 
 #	      ▌ ▜         ▘  ▗    ▌  ▌
@@ -513,10 +523,11 @@ content="$$(cat Makefile | sed -E "s/DEBUG_VALUE \?= [0-9]/DEBUG_VALUE \?= $(1)/
 echo "$$content" > Makefile;
 endef
 
-define	MODIF_FNAME_VALUE
-content="$$(cat Makefile | sed -E "s/DEBUG_VALUE \?= [0-9]/DEBUG_VALUE \?= $(1)/g")";\
+define	MODIF_FULL_NAME_VALUE
+content="$$(cat Makefile | sed -E "s/FULL_NAME \?= [0-9]/FULL_NAME \?= $(1)/g")";\
 echo "$$content" > Makefile;
 endef
+
 
 #
 #
