@@ -1,0 +1,94 @@
+INC=/usr/include
+
+
+INCLIB=$(INC)/../lib
+
+UNAME := $(shell uname)
+
+CFLAGS= -I$(INC) -O3 -I.. -g
+
+override NAME= mlx-test
+SRC = main.c
+OBJ = $(SRC:%.c=%.o)
+
+LFLAGS = -L.. -lmlx -L$(INCLIB) -lXext -lX11 -lm
+
+ifeq ($(UNAME), Darwin)
+	# mac
+	CC = clang
+else ifeq ($(UNAME), FreeBSD)
+	# FreeBSD
+	CC = clang
+else
+	#Linux and others...
+	CC	= gcc
+	LFLAGS += -lbsd
+endif
+
+all: start_build_aff $(NAME)
+
+.PHONY:start_build_aff
+start_build_aff:
+	@echo "\n${_BOLD}${_RED}Start Building  ⚙️  🛠️  ⚙️ 	${_GREEN}${_UNDER}$(NAME)${_END} :"
+
+$(NAME): $(OBJ)
+	@$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
+	@echo "    ${_BOLD}${_GREEN}💿  ◀◀◀ ${_LIME}Creating Executable 📑🗂️   ${_YELLOW}$(NAME)${_END}"
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -c -o $@ $<
+	@echo "	${_LIME}${_BOLD}${NAME}	${_END}${_GREEN}Compiling : ${_END}$(CC) ${_BLUE} $(CFLAGS) ${_PURPLE} $<${_END}";
+
+show:
+	@printf "UNAME		: $(UNAME)\n"
+	@printf "NAME  		: $(NAME)\n"
+	@printf "CC		: $(CC)\n"
+	@printf "CFLAGS		: $(CFLAGS)\n"
+	@printf "LFLAGS		: $(LFLAGS)\n"
+	@printf "SRC		:\n	$(SRC)\n"
+	@printf "OBJ		:\n	$(OBJ)\n"
+
+clean:
+	@rm -f $(NAME) $(OBJ) *~ core *.core
+	@echo "    ${_RED}${_BOLD}🗑️  ◀◀◀ Deleting files 🚮 ${_YELLOW}$(NAME) $(OBJ) *~ core *.core${_END}\n"
+
+re: clean all
+
+#			 ██████╗ ██████╗ ██╗      ██████╗ ██████╗
+#			██╔════╝██╔═══██╗██║     ██╔═══██╗██╔══██╗
+#			██║     ██║   ██║██║     ██║   ██║██████╔╝
+#			██║     ██║   ██║██║     ██║   ██║██╔══██╗
+#			╚██████╗╚██████╔╝███████╗╚██████╔╝██║  ██║
+#			 ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝
+
+_END=		\033[0m
+_BOLD=		\033[1m
+_ITALIC=	\033[3m
+_UNDER=		\033[4m
+_REV=		\033[7m
+_ROD=		\033[9m
+_ERASE=		\033[2K
+
+# Colors
+_GREY=		\033[30m
+_RED=		\033[31m
+_GREEN=		\033[32m
+_YELLOW=	\033[33m
+_BLUE=		\033[34m
+_PURPLE=	\033[35m
+_CYAN=		\033[36m
+_WHITE=		\033[37m
+_LIME=		\033[38;2;0;255;0m
+_ORANGE=	\033[38;2;255;165;0m
+
+# Backgroud Colors
+_BGREY=		\033[40m
+_BRED=		\033[41m
+_BGREEN=	\033[42m
+_BYELLOW=	\033[43m
+_BBLUE=		\033[44m
+_BPURPLE=	\033[45m
+_BCYAN=		\033[46m
+_BWHITE=	\033[47m
+_BLIME=		\033[48;2;0;255;0m
+_BORANGE=	\033[48;2;255;165;0m

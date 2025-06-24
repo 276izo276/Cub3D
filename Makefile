@@ -10,7 +10,7 @@
 
 DEBUG_VALUE ?= 0
 DBG ?= 1
-FULL_NAME ?= 0
+FULL_NAME ?= 1
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -DDEBUG_VALUE=${DEBUG_VALUE}
@@ -38,7 +38,10 @@ lib/
 # path to .h for the main project basic
 MY_HEADER = \
 includes/cub3d.h	\
-includes/debug.h
+includes/debug.h	\
+includes/image.h	\
+includes/mlx.h		\
+includes/parsing.h
 
 # set the path to the .h main project bonus
 HEADER_BONUS = \
@@ -50,7 +53,10 @@ includes
 # set the path to the .a lib
 STATIC_LIB	=						\
 lib/printf_fd_buffer/ft_printf.a	\
-lib/t_lst/t_lst.a
+lib/t_lst/t_lst.a					
+
+EXTERN_LIB	=						\
+minilibx-linux/libmlx_Linux.a
 
 # set the -I before the path
 # the path to the header lib dir
@@ -123,21 +129,21 @@ endif
 #	▙▌█▌▄▌▌▙▖▄▌
 
 .PHONY:all
-all: change_name_full clear_console reset_debug $(STATIC_LIB) start_build_aff ${MY_NAME}
+all: change_name_full clear_console reset_debug $(STATIC_LIB) $(EXTERN_LIB) start_build_aff ${MY_NAME}
 
 
-${MY_NAME}:  $(STATIC_LIB) $(OBJS)
+${MY_NAME}:  $(STATIC_LIB) $(EXTERN_LIB) $(OBJS)
 	@echo -e "    ${_BOLD}${_GREEN}💿  ◀◀◀ ${_LIME}Creating Executable 📑🗂️   ${_YELLOW}$(MY_NAME)${_END}"
-	@$(CC) $(OBJS) $(STATIC_LIB) -o $(MY_NAME) $(EXECFLAGS)
+	@$(CC) $(OBJS) $(STATIC_LIB) $(EXTERN_LIB) -o $(MY_NAME) $(EXECFLAGS)
 
 
 .PHONY:bonus
-bonus: change_name_full clear_console $(STATIC_LIB) start_build_aff_bonus $(BONUS_NAME)
+bonus: change_name_full clear_console $(STATIC_LIB) $(EXTERN_LIB) start_build_aff_bonus $(BONUS_NAME)
 
 
-$(BONUS_NAME): $(STATIC_LIB) $(OBJS_BONUS)
+$(BONUS_NAME): $(STATIC_LIB) $(EXTERN_LIB) $(OBJS_BONUS)
 	@echo -e "    ${_BOLD}${_GREEN}💿  ◀◀◀ ${_LIME}Creating Executable 📑🗂️   ${_YELLOW}$(BONUS_NAME)${_END}"
-	@$(CC) $(OBJS_BONUS) $(STATIC_LIB) -o $(BONUS_NAME) $(EXECFLAGS)
+	@$(CC) $(OBJS_BONUS) $(STATIC_LIB) $(EXTERN_LIB) -o $(BONUS_NAME) $(EXECFLAGS)
 
 
 .obj/%.o: %.c
@@ -204,7 +210,7 @@ cln_all: cln cln_lib
 
 .PHONY:clean_lib
 clean_lib:
-	@for lib in $(STATIC_LIB); do\
+	@for lib in $(STATIC_LIB) $(EXTERN_LIB); do\
 		make -C $(call GET_ALL_FOLDER,$$lib) clean;\
 	done
 
@@ -271,7 +277,11 @@ norm: change_name_full clear_console
 	L_KO="";\
 	STATE=0;\
 	tmp_tab=(" ." " .." " ..." " ...." " .....");\
-	for file in ${FILES} ${MY_HEADER} $(addprefix lib/, ${STATIC_LIB_DIR}) ; do\
+	lib="";\
+	for l in ${STATIC_LIB}; do\
+		lib="$$lib $(call GET_ALL_FOLDER,$$l)";\
+	done;\
+	for file in ${FILES} ${MY_HEADER} $$lib ; do\
 		STATE=$$(((STATE + 1) % 5));\
 		echo -e -n "${_ERASE}\r $${tmp_tab[$$STATE]}\r";\
 		if [ "${FULL_NAME}" = "1" ]; then\

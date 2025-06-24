@@ -1,0 +1,112 @@
+INC=/usr/include
+##
+## Makefile for MiniLibX in /home/boulon/work/c/raytraceur/minilibx
+## 
+## Made by Olivier Crouzet
+## Login   <ol@epitech.net>
+## 
+## Started on  Tue Oct  5 15:56:43 2004 Olivier Crouzet
+## Last update Tue May 15 15:41:20 2007 Olivier Crouzet
+##
+
+## Please use configure script
+
+
+
+UNAME = $(shell uname)
+CC	= gcc
+ifeq ($(UNAME),FreeBSD)
+	CC = clang
+endif
+
+override NAME		= libmlx.a
+override NAME_UNAME	= libmlx_$(UNAME).a
+
+SRC	= mlx_init.c mlx_new_window.c mlx_pixel_put.c mlx_loop.c \
+	mlx_mouse_hook.c mlx_key_hook.c mlx_expose_hook.c mlx_loop_hook.c \
+	mlx_int_anti_resize_win.c mlx_int_do_nothing.c \
+	mlx_int_wait_first_expose.c mlx_int_get_visual.c \
+	mlx_flush_event.c mlx_string_put.c mlx_set_font.c \
+	mlx_new_image.c mlx_get_data_addr.c \
+	mlx_put_image_to_window.c mlx_get_color_value.c mlx_clear_window.c \
+	mlx_xpm.c mlx_int_str_to_wordtab.c mlx_destroy_window.c \
+	mlx_int_param_event.c mlx_int_set_win_event_mask.c mlx_hook.c \
+	mlx_rgb.c mlx_destroy_image.c mlx_mouse.c mlx_screen_size.c \
+	mlx_destroy_display.c
+
+OBJ_DIR = .obj
+OBJ	= $(addprefix $(OBJ_DIR)/,$(SRC:%.c=%.o))
+CFLAGS	= -O3 -I$(INC)
+
+all	: start_build_aff $(NAME)
+
+.PHONY:start_build_aff
+start_build_aff:
+	@echo "\n${_BOLD}${_RED}Start Building  ⚙️  🛠️  ⚙️ 	${_GREEN}${_UNDER}$(NAME_UNAME)${_END} :"
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+	@echo "	${_LIME}${_BOLD}${NAME_UNAME}	${_END}${_GREEN}Compiling : ${_END}$(CC) ${_BLUE} $(CFLAGS) ${_PURPLE} $<${_END}";\
+
+$(NAME)	: $(OBJ)
+	@echo "    ${_BOLD}${_GREEN}🗂️  ◀◀◀ ${_LIME}Creating Archive 📑📑📑   ${_YELLOW}$(BONUS_NAME)${_END}"
+	@ar -r $(NAME) $(OBJ) 2>/dev/null 
+	@ranlib $(NAME)
+	@cp $(NAME) $(NAME_UNAME)
+
+check: all
+	@test/run_tests.sh
+
+show:
+	@printf "NAME  		: $(NAME)\n"
+	@printf "NAME_UNAME	: $(NAME_UNAME)\n"
+	@printf "CC		: $(CC)\n"
+	@printf "CFLAGS		: $(CFLAGS)\n"
+	@printf "SRC		:\n	$(SRC)\n"
+	@printf "OBJ		:\n	$(OBJ)\n"
+
+clean	:
+	@rm -rf $(OBJ_DIR)/ $(NAME) $(NAME_UNAME) *~ core *.core
+	@echo "    ${_RED}${_BOLD}🗑️  ◀◀◀ Deleting files 🚮 ${_YELLOW}$(OBJ_DIR)/ $(NAME) $(NAME_UNAME) *~ core *.core${_END}\n"
+
+.PHONY: all check show clean
+
+#			 ██████╗ ██████╗ ██╗      ██████╗ ██████╗
+#			██╔════╝██╔═══██╗██║     ██╔═══██╗██╔══██╗
+#			██║     ██║   ██║██║     ██║   ██║██████╔╝
+#			██║     ██║   ██║██║     ██║   ██║██╔══██╗
+#			╚██████╗╚██████╔╝███████╗╚██████╔╝██║  ██║
+#			 ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝
+
+_END=		\033[0m
+_BOLD=		\033[1m
+_ITALIC=	\033[3m
+_UNDER=		\033[4m
+_REV=		\033[7m
+_ROD=		\033[9m
+_ERASE=		\033[2K
+
+# Colors
+_GREY=		\033[30m
+_RED=		\033[31m
+_GREEN=		\033[32m
+_YELLOW=	\033[33m
+_BLUE=		\033[34m
+_PURPLE=	\033[35m
+_CYAN=		\033[36m
+_WHITE=		\033[37m
+_LIME=		\033[38;2;0;255;0m
+_ORANGE=	\033[38;2;255;165;0m
+
+# Backgroud Colors
+_BGREY=		\033[40m
+_BRED=		\033[41m
+_BGREEN=	\033[42m
+_BYELLOW=	\033[43m
+_BBLUE=		\033[44m
+_BPURPLE=	\033[45m
+_BCYAN=		\033[46m
+_BWHITE=	\033[47m
+_BLIME=		\033[48;2;0;255;0m
+_BORANGE=	\033[48;2;255;165;0m
