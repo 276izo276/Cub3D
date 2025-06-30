@@ -1,22 +1,24 @@
-#include "cub3d.h"
+#include "struct.h"
+#include "ft_printf.h"
+#include "parsing.h"
+#include "utils.h"
+#include "mlx.h"
+#include <stdlib.h>
 
-void	parsing(int ac, char **av)
+void	init_data(t_data *data, int ac, char **av)
 {
-	(void)ac;
-	(void)av;
-	// get_content_file();
-	// get_north_texture();
-	// get_south_texture();
-	// get_west_texture();
-	// get_east_texture();
-	// get_floor_color();
-	// get_ceiling_color();
+	ft_bzero(data, sizeof(t_data));
+	data->mlx.mlx = mlx_init();
+	data->ac = ac;
+	data->av = av;
 }
 
 int	main(int ac, char **av)
 {
-	t_data data;
+	t_data	data;
 
-	(void)data;
-	parsing(ac, av);
+	init_data(&data, ac, av);
+	parsing(&data);
+	f_exit(&data, 0);
+	return (1);
 }

@@ -16,10 +16,35 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -DDEBUG_VALUE=${DEBUG_VALUE}
 SHELL = /bin/bash
 
-EXECFLAGS = 
+EXECFLAGS = -lXext -lX11
 
 FILES	=									\
 				main.c
+
+UTILS	=									\
+				debug.c						\
+				dup.c						\
+				free.c						\
+				ft_bzero.c					\
+				ft_strcmp.c					\
+				ft_strlen.c					
+
+FILES	+=	$(addprefix srcs/utils/,$(UTILS))
+
+PARSING	=									\
+				read_content.c				\
+				start_parsing.c				\
+				fill_color.c				\
+				fill_texture.c				\
+				open_texture.c				\
+				verif_map.c					
+
+FILES	+=	$(addprefix srcs/parsing/,$(PARSING))
+
+STRUCT	=									\
+				init_t_coo.c				
+
+FILES	+=	$(addprefix srcs/struct/,$(STRUCT))
 
 FILES_BONUS =
 
@@ -53,7 +78,8 @@ includes
 # set the path to the .a lib
 STATIC_LIB	=						\
 lib/printf_fd_buffer/ft_printf.a	\
-lib/t_lst/t_lst.a					
+lib/t_lst/t_lst.a					\
+lib/gnl/get_next_line.a					
 
 EXTERN_LIB	=						\
 minilibx-linux/libmlx_Linux.a
@@ -63,7 +89,9 @@ minilibx-linux/libmlx_Linux.a
 ALL_I_DIR_HEADER	=				\
 -I includes							\
 -I lib/printf_fd_buffer/header		\
--I lib/t_lst/header
+-I lib/t_lst/header					\
+-I lib/gnl/header					\
+-I minilibx-linux					
 
 # exec name for bonus
 BONUS_NAME = cub3D_bonus

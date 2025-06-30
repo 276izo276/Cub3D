@@ -1,0 +1,17 @@
+#ifndef UTILS_H
+# define UTILS_H
+
+#include "struct.h"
+#include <stdlib.h>
+
+char	*ft_strndup(char *s, int size);
+char	*rmbn_dup(char *line);
+void	f_elem(void *elem);
+int		ft_strlen(const char *str);
+int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t size);
+void	ft_bzero(void *s, size_t n);
+void	f_exit(t_data *data, int code);
+void	print_map(t_data *data);
+
+#endif
