@@ -78,6 +78,7 @@ void	create_tabmap(t_data *data)
 		i++;
 		map = map->next;
 	}
+	data->map.tabmap_height = i;
 }
 
 void	parsing(t_data *data)

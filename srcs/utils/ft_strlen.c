@@ -7,3 +7,13 @@ int	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
+
+int	ft_tab_strlen(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
+}

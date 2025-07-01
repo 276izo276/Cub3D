@@ -3,12 +3,18 @@
 #include "get_next_line.h"
 #include "unistd.h"
 #include <fcntl.h>
+#include "color.h"
+#include "ft_printf.h"
 
 void	verif_file_name(t_data *data)
 {
 	if (data->ac != 2 || ft_strlen(data->av[1]) <= 4
 		|| ft_strcmp(&data->av[1][ft_strlen(data->av[1]) - 4], ".cub"))
+	{
+		ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"Map >>>"\
+			" no map in argument\n"_END);
 		f_exit(data, 1);
+	}
 }
 
 void	get_content_file(t_data *data)

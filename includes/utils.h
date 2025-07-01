@@ -12,6 +12,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t size);
 void	ft_bzero(void *s, size_t n);
 void	f_exit(t_data *data, int code);
+int		ft_tab_strlen(char **tab);
 void	print_map(t_data *data);
 
 #endif
