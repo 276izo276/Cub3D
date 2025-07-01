@@ -17,10 +17,18 @@ _BOLD"' is not a valid path\n"_END, img->path);
 	}
 }
 
+
+
 void	open_textures(t_data *data)
 {
 	open_img(data->map.north, data);
 	open_img(data->map.south, data);
 	open_img(data->map.west, data);
 	open_img(data->map.east, data);
+	if (!data->map.ceiling || !data->map.floor)
+	{
+		ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"Texture >>> "\
+			"color not found !!\n"_END);
+		f_exit(data, 1);
+	}
 }
