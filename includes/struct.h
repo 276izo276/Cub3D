@@ -25,6 +25,7 @@ struct s_mlx
 struct s_map
 {
 	int		fd;
+	int		tabmap_height;
 	char	**tabmap;
 	t_coo	*player_start;
 	t_lst	*lines;
@@ -61,6 +62,6 @@ struct s_color
 	int	b;
 };
 
-t_coo	*init_t_coo(t_data *data, int y, int x);
+t_coo	*init_t_coo(int y, int x);
 
 #endif
