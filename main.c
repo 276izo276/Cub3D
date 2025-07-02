@@ -95,8 +95,9 @@ int	main(int ac, char **av)
 	// 	f_exit(&data, 1);
 	// display_mini_map(&data, &data.map);
 	aff_mini_map(&data);
-	data.map.mini.player_coo->x = 32;
-	data.map.mini.player_coo->y = 32;
+	data.map.mini.player_coo = init_t_coo(32, 32);
+	if (!data.map.mini.player_coo) // msg error
+		f_exit(&data, 1);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
 	mlx_hook(data.mlx.win, ON_KEYDOWN, 1L<<0, key_press, &data);
     mlx_hook(data.mlx.win, ON_KEYUP, 1L<<1, key_release, &data);
