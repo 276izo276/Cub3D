@@ -26,7 +26,7 @@ static bool	init_img_mini(t_mini *mini)
 	i = 0;
 	mini->path[MINI_FLOOR] = "texture/mini_map/floor.xpm";
 	mini->path[MINI_WALL] = "texture/mini_map/wall.xpm";
-	mini->path[MINI_PLAYER] = "texture/mini_map/player.xpm";
+	mini->path[MINI_PLAYER] = "texture/mini_map/cursor.xpm";
 	mini->path[MINI_DOOR] = "texture/mini_map/door.xpm";
 	mini->path[MINI_MOB] = "texture/mini_map/mob.xpm";
 	mini->path[5] = NULL;
