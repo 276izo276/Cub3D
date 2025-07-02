@@ -7,7 +7,7 @@ void	f_elem(void *elem)
 	free(elem);
 }
 
-void	f_texture(t_img *img)
+void	f_img(t_img *img)
 {
 	if (!img)
 		return ;
@@ -17,12 +17,12 @@ void	f_texture(t_img *img)
 	free(img);
 }
 
-void	f_textures(t_data *data)
+void	f_imgs(t_data *data)
 {
-	f_texture(data->map.north);
-	f_texture(data->map.south);
-	f_texture(data->map.west);
-	f_texture(data->map.east);
+	f_img(data->map.north);
+	f_img(data->map.south);
+	f_img(data->map.west);
+	f_img(data->map.east);
 	free(data->map.floor);
 	free(data->map.ceiling);
 }
@@ -42,8 +42,9 @@ void	f_tab_char(char **tab)
 
 void	f_exit(t_data *data, int code)
 {
-	(void)data;
-	f_textures(data);
+	if (data->mlx.mlx)
+		mlx_do_key_autorepeatoff(data->mlx.mlx);
+	f_imgs(data);
 	f_all_lst(data->map.map);
 	f_all_lst(data->map.lines);
 	f_tab_char(data->map.tabmap);

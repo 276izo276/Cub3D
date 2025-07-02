@@ -19,20 +19,6 @@ void	init_data(t_data *data, int ac, char **av)
 	data->av = av;
 }
 
-#define KEY_W 13 // 'W' key
-#define KEY_A 0  // 'A' key
-
-enum {
-	ON_KEYDOWN = 2,
-	ON_KEYUP = 3,
-	ON_MOUSEDOWN = 4,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_EXPOSE = 12,
-	ON_DESTROY = 17
-};
-
-
 int key_press(int keycode) {
     // Add more conditions for other keys
     printf("Key pressed: %d\n", keycode);
@@ -56,6 +42,36 @@ int	close_win(t_data *data)
 	return (1);
 }
 
+void	aff_mini_map(t_data *data)
+{
+	t_img	*mini;
+	int		size;
+
+	data->wh = malloc(sizeof(t_img));
+	ft_bzero(data->wh,sizeof(t_img));
+	data->wh->path = ft_strdup("texture/mini_map/white.xpm");
+	data->wh->img = mlx_xpm_file_to_image(data->mlx.mlx,data->wh->path,&data->wh->width,&data->wh->height);
+
+	data->wh = malloc(sizeof(t_img));
+	ft_bzero(data->wh,sizeof(t_img));
+	data->wh->path = ft_strdup("texture/mini_map/black.xpm");
+	data->wh->img = mlx_xpm_file_to_image(data->mlx.mlx,data->wh->path,&data->wh->width,&data->wh->height);
+
+	size = 9 * 64;
+	mini = malloc(sizeof(t_img));
+	mini->img = mlx_new_image(data->mlx.mlx, size, size);
+	mini->data_addr = mlx_get_data_addr(mini->img, &mini->bits_per_pixel, &mini->size_line, &mini->endian);
+ 	for (int y = 0; y < size; y++)
+    {
+        for (int x = 0; x < size; x++)
+        {
+            char *pixel_addr = mini->data_addr + (y * mini->size_line + x * (mini->bits_per_pixel / 8));
+            *(unsigned int *)pixel_addr = 0x00FF0000;
+        }
+    }
+	mlx_put_image_to_window(data->mlx.mlx,data->mlx.win,mini->img,0,data->mlx.height - MARGIN - size);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -63,9 +79,10 @@ int	main(int ac, char **av)
 	init_data(&data, ac, av);
 	parsing(&data);
 	open_win(&data, &data.mlx);
-	if (!load_img_mini_map(&data.mlx, &data.map.mini))
-		f_exit(&data, 1);
-	display_mini_map(&data, &data.map);
+	// if (!load_img_mini_map(&data.mlx, &data.map.mini))
+	// 	f_exit(&data, 1);
+	// display_mini_map(&data, &data.map);
+	aff_mini_map(&data);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
 	mlx_hook(data.mlx.win, ON_KEYDOWN, 1L<<0, key_press, 0);
     mlx_hook(data.mlx.win, ON_KEYUP, 1L<<1, key_release, 0);
