@@ -36,6 +36,8 @@ PARSING	=									\
 				start_parsing.c				\
 				fill_color.c				\
 				fill_texture.c				\
+				fill_texture_utils.c		\
+				check_map_is_closed.c		\
 				open_texture.c				\
 				verif_map.c					
 

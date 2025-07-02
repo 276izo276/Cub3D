@@ -5,6 +5,9 @@
 
 typedef void	(*t_txt_set)(char *, t_data *data);
 
+// check_map_is_closed
+void	check_map_is_closed(t_data *data);
+
 // start_parsing
 void	parsing(t_data *data);
 
@@ -17,6 +20,10 @@ void	set_east(char *line, t_data *data);
 void	set_west(char *line, t_data *data);
 void	set_south(char *line, t_data *data);
 void	set_north(char *line, t_data *data);
+
+// fill_texture_utils
+int		get_start_path(char *line);
+int		calc_path_size(char *line);
 
 // fill_color
 void	set_ceiling(char *line, t_data *data);

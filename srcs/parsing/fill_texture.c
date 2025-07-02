@@ -5,20 +5,10 @@
 #include "ft_printf.h"
 #include "color.h"
 
-static int	calc_path_size(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && line[i] != ' ')
-	{
-		i++;
-	}
-	return (i);
-}
-
 void	set_north(char *line, t_data *data)
 {
+	int	start;
+
 	if (!line[2])
 		return ;
 	if (data->map.north)
@@ -32,13 +22,18 @@ Texture >>> Duplicate entry for north\n");
 		f_exit(data, 1);
 	ft_bzero(data->map.north, sizeof(t_img));
 	data->map.north->mlx = data->mlx.mlx;
-	data->map.north->path = ft_strndup(&line[3], calc_path_size(&line[3]));
+	start = 3;
+	start += get_start_path(&line[3]);
+	data->map.north->path = ft_strndup(&line[start],
+			calc_path_size(&line[start]));
 	if (!data->map.north->path)
 		f_exit(data, 1);
 }
 
 void	set_south(char *line, t_data *data)
 {
+	int	start;
+
 	if (!line[2])
 		return ;
 	if (data->map.south)
@@ -52,13 +47,18 @@ Texture >>> Duplicate entry for south\n");
 		f_exit(data, 1);
 	ft_bzero(data->map.south, sizeof(t_img));
 	data->map.south->mlx = data->mlx.mlx;
-	data->map.south->path = ft_strndup(&line[3], calc_path_size(&line[3]));
+	start = 3;
+	start += get_start_path(&line[3]);
+	data->map.south->path = ft_strndup(&line[start],
+			calc_path_size(&line[start]));
 	if (!data->map.south->path)
 		f_exit(data, 1);
 }
 
 void	set_west(char *line, t_data *data)
 {
+	int	start;
+
 	if (!line[2])
 		return ;
 	if (data->map.west)
@@ -72,13 +72,18 @@ Texture >>> Duplicate entry for west\n");
 		f_exit(data, 1);
 	ft_bzero(data->map.west, sizeof(t_img));
 	data->map.west->mlx = data->mlx.mlx;
-	data->map.west->path = ft_strndup(&line[3], calc_path_size(&line[3]));
+	start = 3;
+	start += get_start_path(&line[3]);
+	data->map.west->path = ft_strndup(&line[start],
+			calc_path_size(&line[start]));
 	if (!data->map.west->path)
 		f_exit(data, 1);
 }
 
 void	set_east(char *line, t_data *data)
 {
+	int	start;
+
 	if (!line[2])
 		return ;
 	if (data->map.east)
@@ -92,7 +97,10 @@ Texture >>> Duplicate entry for east\n");
 		f_exit(data, 1);
 	ft_bzero(data->map.east, sizeof(t_img));
 	data->map.east->mlx = data->mlx.mlx;
-	data->map.east->path = ft_strndup(&line[3], calc_path_size(&line[3]));
+	start = 3;
+	start += get_start_path(&line[3]);
+	data->map.east->path = ft_strndup(&line[start],
+			calc_path_size(&line[start]));
 	if (!data->map.east->path)
 		f_exit(data, 1);
 }

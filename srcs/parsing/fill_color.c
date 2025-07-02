@@ -19,7 +19,11 @@ static int	get_color(char *line, int *i)
 	int	nb;
 	int	get_nb;
 
+	while (line[*i] && line[*i] == ' ')
+		(*i)++;
 	while (line[*i] && line[*i] == ',')
+		(*i)++;
+	while (line[*i] && line[*i] == ' ')
 		(*i)++;
 	nb = 0;
 	get_nb = 0;
