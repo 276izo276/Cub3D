@@ -20,6 +20,8 @@ struct s_mlx
 {
 	void	*mlx;
 	void	*win;
+	int		height;
+	int		width;
 };
 
 struct s_map
