@@ -9,6 +9,7 @@ typedef struct s_img	t_img;
 typedef struct s_color	t_color;
 typedef	struct s_mlx	t_mlx;
 typedef struct s_coo	t_coo;
+typedef	struct s_mini	t_mini;
 
 struct s_coo
 {
@@ -20,6 +21,14 @@ struct s_mlx
 {
 	void	*mlx;
 	void	*win;
+	int		height;
+	int		width;
+};
+
+struct s_mini
+{
+	char	*path[6];
+	char	*sprite[6];
 	int		height;
 	int		width;
 };
@@ -36,6 +45,7 @@ struct s_map
 	t_img	*south;
 	t_img	*west;
 	t_img	*east;
+	t_mini	mini;
 	t_color	*floor;
 	t_color	*ceiling;
 };
