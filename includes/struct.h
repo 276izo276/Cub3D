@@ -56,15 +56,21 @@ struct s_data
 	char	**av;
 	t_map	map;
 	t_mlx	mlx;
+	t_img	*wh;
+	t_img	*bl;
 };
 
 struct	s_img
 {
 	void	*mlx;
 	char	*path;
+    char    *data_addr;
 	void	*img;
 	int		width;
 	int		height;
+    int     bits_per_pixel;
+    int     size_line;
+    int     endian;
 };
 
 struct s_color
