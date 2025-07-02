@@ -4,6 +4,7 @@
 #include "cub3d.h"
 #include "utils.h"
 #include "mlx.h"
+#include "player.h"
 #include <stdlib.h>
 
 void	init_data(t_data *data, int ac, char **av)
@@ -19,9 +20,20 @@ void	init_data(t_data *data, int ac, char **av)
 	data->av = av;
 }
 
-int key_press(int keycode) {
+int key_press(int keycode, t_data *data)
+{
     // Add more conditions for other keys
     printf("Key pressed: %d\n", keycode);
+	if (keycode == KEY_ESCAPE)
+		f_exit(data, 0);
+	else if (keycode == KEY_W)
+		move_up(&data->map, &data->map.mini);
+	else if (keycode == KEY_D)
+		move_right(&data->map, &data->map.mini);
+	else if (keycode == KEY_A)
+		move_left(&data->map, &data->map.mini);
+	else if (keycode == KEY_S)
+		move_down(&data->map, &data->map.mini);
     return (0);
 }
 
@@ -83,9 +95,11 @@ int	main(int ac, char **av)
 	// 	f_exit(&data, 1);
 	// display_mini_map(&data, &data.map);
 	aff_mini_map(&data);
+	data.map.mini.player_coo->x = 32;
+	data.map.mini.player_coo->y = 32;
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
-	mlx_hook(data.mlx.win, ON_KEYDOWN, 1L<<0, key_press, 0);
-    mlx_hook(data.mlx.win, ON_KEYUP, 1L<<1, key_release, 0);
+	mlx_hook(data.mlx.win, ON_KEYDOWN, 1L<<0, key_press, &data);
+    mlx_hook(data.mlx.win, ON_KEYUP, 1L<<1, key_release, &data);
     mlx_hook(data.mlx.win, ON_DESTROY, 0, close_win, &data);
     mlx_loop_hook(data.mlx.mlx, game_loop, 0);
 	mlx_loop(data.mlx.mlx);

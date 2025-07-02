@@ -31,6 +31,7 @@ struct s_mini
 	char	*sprite[6];
 	int		height;
 	int		width;
+	t_coo	*player_coo;
 };
 
 struct s_map
@@ -38,7 +39,7 @@ struct s_map
 	int		fd;
 	int		tabmap_height;
 	char	**tabmap;
-	t_coo	*player_start;
+	t_coo	*player_coo;
 	t_lst	*lines;
 	t_lst	*map;
 	t_img	*north;

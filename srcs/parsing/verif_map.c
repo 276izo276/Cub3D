@@ -14,14 +14,14 @@ static void	is_valid_char_map(char c, int y, int x, t_data *data)
 	{
 		if (tab[i] == c && i >= 3)
 		{
-			if (data->map.player_start)
+			if (data->map.player_coo)
 			{
 				ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"Map >>> "\
 					"2 player start found\n"_END);
 				f_exit(data, 1);
 			}
-			data->map.player_start = init_t_coo(y, x);
-			if (!data->map.player_start)
+			data->map.player_coo = init_t_coo(y, x);
+			if (!data->map.player_coo)
 				f_exit(data, 1);
 			return ;
 		}
@@ -60,7 +60,7 @@ static void	check_map_valid_char(t_data *data)
 void	verif_map(t_data *data)
 {
 	check_map_valid_char(data);
-	if (!data->map.player_start)
+	if (!data->map.player_coo)
 	{
 		ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"Map >>> "\
 			"no player start found\n"_END);

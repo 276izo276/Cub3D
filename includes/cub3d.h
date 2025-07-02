@@ -44,7 +44,8 @@ typedef enum e_key
 	KEY_E = 101 , 
 	KEY_C = 99 ,
 	KEY_SPACE = 32, 
-	KEY_SHIFT = 65505
+	KEY_SHIFT = 65505,
+	KEY_ESCAPE = 65307
 }	t_key;
 
 #endif
