@@ -14,7 +14,7 @@ void	init_data(t_data *data, int ac, char **av)
 	{
 		// error msg
 		f_exit(data, 1);
-	}	
+	}
 	data->ac = ac;
 	data->av = av;
 }
@@ -63,6 +63,9 @@ int	main(int ac, char **av)
 	init_data(&data, ac, av);
 	parsing(&data);
 	open_win(&data, &data.mlx);
+	if (!load_img_mini_map(&data.mlx, &data.map.mini))
+		f_exit(&data, 1);
+	display_mini_map(&data, &data.map);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
 	mlx_hook(data.mlx.win, ON_KEYDOWN, 1L<<0, key_press, 0);
     mlx_hook(data.mlx.win, ON_KEYUP, 1L<<1, key_release, 0);
