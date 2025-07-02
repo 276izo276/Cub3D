@@ -50,7 +50,8 @@ FILES	+=	$(addprefix srcs/struct/,$(STRUCT))
 
 MLX_UTILS = 								\
 				handle_win.c				\
-				mini_map.c					
+				mini_map.c					\
+				mini_move.c					
 
 FILES	+=	$(addprefix srcs/mlx_utils/,$(MLX_UTILS))
 
@@ -74,7 +75,8 @@ includes/cub3d.h	\
 includes/debug.h	\
 includes/image.h	\
 includes/mlx.h		\
-includes/parsing.h
+includes/parsing.h	\
+includes/player.h
 
 # set the path to the .h main project bonus
 HEADER_BONUS = \

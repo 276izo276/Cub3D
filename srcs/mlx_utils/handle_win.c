@@ -14,3 +14,4 @@ void	open_win(t_data *data, t_mlx *mlx)
 		f_exit(data, 1);
 	}
 }
+

@@ -43,12 +43,12 @@ void	f_tab_char(char **tab)
 void	f_exit(t_data *data, int code)
 {
 	if (data->mlx.mlx)
-		mlx_do_key_autorepeatoff(data->mlx.mlx);
+		mlx_do_key_autorepeaton(data->mlx.mlx);
 	f_imgs(data);
 	f_all_lst(data->map.map);
 	f_all_lst(data->map.lines);
 	f_tab_char(data->map.tabmap);
-	free(data->map.player_start);
+	free(data->map.player_coo);
 	mlx_destroy_window(data->mlx.mlx, data->mlx.win);
 	mlx_destroy_display(data->mlx.mlx);
 	free(data->mlx.mlx);
