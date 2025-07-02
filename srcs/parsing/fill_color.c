@@ -29,7 +29,7 @@ static int	get_color(char *line, int *i)
 		(*i)++;
 		get_nb++;
 	}
-	if ((line[*i] != ',' && line[*i] != 0) || !get_nb || get_nb >= 3)
+	if ((line[*i] != ',' && line[*i] != 0) || !get_nb || get_nb > 3)
 		return (-1);
 	return (nb);
 }
@@ -46,7 +46,8 @@ static int	fill_color(char *line, t_color *color)
 	color->r = get_color(line, &i);
 	color->g = get_color(line, &i);
 	color->b = get_color(line, &i);
-	if (color->r == -1 || color->g == -1 || color->b == -1 || line[i] != 0 || check_color(color))
+	if (color->r == -1 || color->g == -1 || color->b == -1
+		|| line[i] != 0 || check_color(color))
 		return (1);
 	return (0);
 }
