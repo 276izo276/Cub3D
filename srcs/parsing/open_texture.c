@@ -17,8 +17,6 @@ _BOLD"' is not a valid path\n"_END, img->path);
 	}
 }
 
-
-
 void	open_textures(t_data *data)
 {
 	open_img(data->map.north, data);
