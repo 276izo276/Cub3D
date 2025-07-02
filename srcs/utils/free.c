@@ -48,6 +48,7 @@ void	f_exit(t_data *data, int code)
 	f_all_lst(data->map.lines);
 	f_tab_char(data->map.tabmap);
 	free(data->map.player_start);
+	mlx_destroy_window(data->mlx.mlx, data->mlx.win);
 	mlx_destroy_display(data->mlx.mlx);
 	free(data->mlx.mlx);
 	exit(code);

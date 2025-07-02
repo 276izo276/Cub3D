@@ -19,7 +19,7 @@ SHELL = /bin/bash
 EXECFLAGS = -lXext -lX11
 
 FILES	=									\
-				main.c
+				main.c						\
 
 UTILS	=									\
 				debug.c						\
@@ -45,6 +45,11 @@ STRUCT	=									\
 				init_t_coo.c				
 
 FILES	+=	$(addprefix srcs/struct/,$(STRUCT))
+
+MLX_UTILS = 								\
+				handle_win.c
+
+FILES	+=	$(addprefix srcs/mlx_utils/,$(MLX_UTILS))
 
 FILES_BONUS =
 
