@@ -49,7 +49,8 @@ STRUCT	=									\
 FILES	+=	$(addprefix srcs/struct/,$(STRUCT))
 
 MLX_UTILS = 								\
-				handle_win.c
+				handle_win.c				\
+				mini_map.c					
 
 FILES	+=	$(addprefix srcs/mlx_utils/,$(MLX_UTILS))
 
