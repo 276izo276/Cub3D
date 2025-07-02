@@ -73,14 +73,73 @@ void	aff_mini_map(t_data *data)
 	mini = malloc(sizeof(t_img));
 	mini->img = mlx_new_image(data->mlx.mlx, size, size);
 	mini->data_addr = mlx_get_data_addr(mini->img, &mini->bits_per_pixel, &mini->size_line, &mini->endian);
- 	for (int y = 0; y < size; y++)
-    {
-        for (int x = 0; x < size; x++)
-        {
-            char *pixel_addr = mini->data_addr + (y * mini->size_line + x * (mini->bits_per_pixel / 8));
-            *(unsigned int *)pixel_addr = 0x00FF0000;
-        }
-    }
+	int	y = -5;
+	while (y < 6)
+	{
+		int	x = -5;
+		while (x < 6)
+		{
+			// 32,32
+			// 4*64
+			// 4*64
+
+			int	new_y = data->map.player_coo->y + y;
+			int	new_x = data->map.player_coo->x + x;
+			if (new_y >= data->map.tabmap_height || new_y < 0
+			|| new_x >= ft_strlen(data->map.tabmap[new_y]) || new_x < 0
+			|| data->map.tabmap[new_y][new_x] == ' ')
+			{
+				int	sy = 3*64+32 + (y*64+data->map.mini.player_coo->y);
+				int	iy = 0;
+				while (iy < 64)
+				{
+					int	sx = 3*64+32 + (x*64+data->map.mini.player_coo->y);
+					int	ix = 0;
+					while(sy+iy >= 0 && sy+iy<size && ix < 64)
+					{
+						if (sx+ix >= 0 && sx+ix<size)
+						{
+							char *pixel_addr = mini->data_addr + ((sy+iy) * mini->size_line + (sx+ix) * (mini->bits_per_pixel / 8));
+							*(unsigned int *)pixel_addr = 0x00FF0000;
+							
+						}
+						ix++;
+					}
+					iy++;
+				}
+			}
+			else
+			{
+				ft_printf_fd(2,"HERE");
+				int	sy = 3*64+32 + (y*64+data->map.mini.player_coo->y);
+				int	iy = 0;
+				while (iy < 64)
+				{
+					int	sx = 3*64+32 + (x*64+data->map.mini.player_coo->y);
+					int	ix = 0;
+					while(sy+iy >= 0 && sy+iy<size && ix < 64)
+					{
+						if (sx+ix >= 0 && sx+ix<size)
+						{
+							char *pixel_addr = mini->data_addr + ((sy+iy) * mini->size_line + (sx+ix) * (mini->bits_per_pixel / 8));
+							if (data->map.tabmap[new_y][new_x] == '0')
+								*(unsigned int *)pixel_addr = 0x0000FF00;
+							else if (data->map.tabmap[new_y][new_x] == '1')
+								*(unsigned int *)pixel_addr = 0x000000FF;
+							else
+								*(unsigned int *)pixel_addr = 0x00FFFFFF;
+						}
+						ix++;
+					}
+					iy++;
+				}
+			}
+			x++;
+		}
+		y++;
+	}
+	// char *pixel_addr = mini->data_addr + (y * mini->size_line + x * (mini->bits_per_pixel / 8));
+	// *(unsigned int *)pixel_addr = 0x00FF0000;
 	mlx_put_image_to_window(data->mlx.mlx,data->mlx.win,mini->img,0,data->mlx.height - MARGIN - size);
 }
 
@@ -94,10 +153,10 @@ int	main(int ac, char **av)
 	// if (!load_img_mini_map(&data.mlx, &data.map.mini))
 	// 	f_exit(&data, 1);
 	// display_mini_map(&data, &data.map);
-	aff_mini_map(&data);
 	data.map.mini.player_coo = init_t_coo(32, 32);
 	if (!data.map.mini.player_coo) // msg error
 		f_exit(&data, 1);
+	aff_mini_map(&data);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
 	mlx_hook(data.mlx.win, ON_KEYDOWN, 1L<<0, key_press, &data);
     mlx_hook(data.mlx.win, ON_KEYUP, 1L<<1, key_release, &data);
