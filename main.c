@@ -6,6 +6,7 @@
 #include "mlx.h"
 #include "player.h"
 #include <stdlib.h>
+#include "texture.h"
 
 #include <X11/keysym.h>   // Pour les définitions de Keysym (XK_w, XK_a, etc.)
 #include <X11/Xlib.h>     // Pour Display et d'autres fonctions X11
@@ -133,9 +134,16 @@ void	aff_mini_map(t_data *data)
 						{
 							char *pixel_addr = mini->data_addr + ((sy+iy) * mini->size_line + (sx+ix) * (mini->bits_per_pixel / 8));
 							if (data->map.tabmap[new_y][new_x] == '1')
-								*(unsigned int *)pixel_addr = 0x000000FF;
+							{
+								// data->map.mini.img[MINI_WALL].data_addr + ((iy) * data->map.mini.img[MINI_WALL].size_line + (ix) * (data->map.mini.img[MINI_WALL].bits_per_pixel / 8)); 
+								char *tmp = data->map.mini.img[MINI_WALL].data_addr + ((iy) * data->map.mini.img[MINI_WALL].size_line + (ix) * (data->map.mini.img[MINI_WALL].bits_per_pixel / 8));
+								*(unsigned int *)pixel_addr = *(unsigned int *)tmp;
+							}
 							else
-								*(unsigned int *)pixel_addr = 0x0000FF00;
+							{
+								char *tmp = data->map.mini.img[MINI_FLOOR].data_addr + ((iy) * data->map.mini.img[MINI_FLOOR].size_line + (ix) * (data->map.mini.img[MINI_FLOOR].bits_per_pixel / 8));
+								*(unsigned int *)pixel_addr = *(unsigned int *)tmp;
+							}
 						}
 						ix++;
 					}
@@ -151,12 +159,12 @@ void	aff_mini_map(t_data *data)
 		for(int x = size/2-2;x<=size/2+2;x++)
 		{
 			char *pixel_addr = mini->data_addr + (y * mini->size_line + x * (mini->bits_per_pixel / 8));
-			*(unsigned int *)pixel_addr = 0x00000000;
+			*(unsigned int *)pixel_addr = 0x00FF0000;
 		}
 	}
 	// char *pixel_addr = mini->data_addr + (y * mini->size_line + x * (mini->bits_per_pixel / 8));
 	// *(unsigned int *)pixel_addr = 0x00FF0000;
-	mlx_put_image_to_window(data->mlx.mlx,data->mlx.win,mini->img,0,data->mlx.height/2 - MARGIN - size);
+	mlx_put_image_to_window(data->mlx.mlx,data->mlx.win,mini->img,0,data->mlx.height - MARGIN - size);
 	mlx_destroy_image(data->mlx.mlx,mini->img);
 	free(mini);
 }
@@ -231,7 +239,7 @@ int	main(int ac, char **av)
 	init_data(&data, ac, av);
 	parsing(&data);
 	open_win(&data, &data.mlx);
-	init_img_mini(&data);
+	init_img_mini(&data, &data.map.mini);
 	data.map.mini.player_coo.y = 32;
 	data.map.mini.player_coo.x = 32;
 	// aff_mini_map(&data);
