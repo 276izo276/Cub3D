@@ -29,7 +29,7 @@ int key_press(int keycode, t_data *data)
 {
 	int	i;
 
-    printf("Key pressed: %d\n", keycode);
+    // printf("Key pressed: %d\n", keycode);
 	i = 0;
 	while (data->keycode[i] != 0 && i < 100)
 		i++;
@@ -41,7 +41,7 @@ int key_release(int keycode, t_data *data)
 {
 	int	i;
 
-	printf("Key released: %d\n", keycode);
+	// printf("Key released: %d\n", keycode);
 	i = 0;
 	while (i < 100)
 	{
@@ -71,6 +71,14 @@ int	close_win(t_data *data)
 	return (1);
 }
 
+bool	is_move_player(t_data *data, int i)
+{
+	if (data->keycode[i] == KEY_W || data->keycode[i] == KEY_D
+		|| data->keycode[i] == KEY_A || data->keycode[i] == KEY_S)
+		return (true);
+	return (false);
+}
+
 int game_loop(t_data *data) 
 {
 	int	i;
@@ -80,18 +88,12 @@ int game_loop(t_data *data)
 	{
 		if (data->keycode[i] == KEY_ESCAPE)
 			f_exit(data, 0);
-		else if (data->keycode[i] == KEY_W)
-			move_up(&data->map, &data->map.mini);
-		else if (data->keycode[i] == KEY_D)
-			move_right(&data->map, &data->map.mini);
-		else if (data->keycode[i] == KEY_A)
-			move_left(&data->map, &data->map.mini);
-		else if (data->keycode[i] == KEY_S)
-			move_down(&data->map, &data->map.mini);
+		else if (is_move_player(data, i))
+			move(&data->map, &data->map.mini, data->keycode[i]);
 		else if (data->keycode[i] == KEY_E)
-			rotate_right(data);
-		else if (data->keycode[i] == KEY_Q)
 			rotate_left(data);
+		else if (data->keycode[i] == KEY_Q)
+			rotate_right(data);
 		i++;
 	}
 	aff_mini_map(data);
@@ -160,7 +162,3 @@ int	main(int ac, char **av)
 
 	// mlx_mouse_move();
 }
-
-
-
-
