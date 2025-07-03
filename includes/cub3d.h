@@ -17,7 +17,10 @@ void	display_mini_map(t_data *data, t_map *map);
 // bool	load_img_mini_map(t_mlx *mlx, t_mini *mini);
 void	init_img_mini(t_data *data, t_mini *mini);
 
-
+void	print_mini_map(t_utils_mini *u);
+void	init_utils_mini(t_utils_mini *u,t_data *data);
+char	*get_pixel_color(t_utils_mini *u, int type);
+void	aff_mini_map(t_data *data);
 
 
 typedef enum e_key_down

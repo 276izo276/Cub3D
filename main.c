@@ -12,7 +12,6 @@
 #include <X11/Xlib.h>     // Pour Display et d'autres fonctions X11
 #include <X11/XKBlib.h>   // Pour XkbKeycodeToKeysym
 
-
 void	init_data(t_data *data, int ac, char **av)
 {
 	ft_bzero(data, sizeof(t_data));
@@ -72,103 +71,6 @@ int	close_win(t_data *data)
 	return (1);
 }
 
-void	aff_mini_map(t_data *data)
-{
-	t_img	*mini;
-	int		size;
-
-	// data->wh = malloc(sizeof(t_img));
-	// ft_bzero(data->wh,sizeof(t_img));
-	// data->wh->path = ft_strdup("texture/mini_map/white.xpm");
-	// data->wh->img = mlx_xpm_file_to_image(data->mlx.mlx,data->wh->path,&data->wh->width,&data->wh->height);
-
-	// data->wh = malloc(sizeof(t_img));
-	// ft_bzero(data->wh,sizeof(t_img));
-	// data->wh->path = ft_strdup("texture/mini_map/black.xpm");
-	// data->wh->img = mlx_xpm_file_to_image(data->mlx.mlx,data->wh->path,&data->wh->width,&data->wh->height);
-
-	size = 5 * 64;
-	mini = malloc(sizeof(t_img));
-	mini->img = mlx_new_image(data->mlx.mlx, size, size);
-	mini->data_addr = mlx_get_data_addr(mini->img, &mini->bits_per_pixel, &mini->size_line, &mini->endian);
-	int	y = -5;
-	while (y < 6)
-	{
-		int	x = -5;
-		while (x < 6)
-		{
-			int	new_y = data->map.player_coo->y + y;
-			int	new_x = data->map.player_coo->x + x;
-			int	sy = 1*64+32 + (y*64+64-data->map.mini.player_coo.y);
-			int	iy = 0;
-			if (new_y >= data->map.tabmap_height || new_y < 0
-			|| new_x >= ft_strlen(data->map.tabmap[new_y]) || new_x < 0
-			|| data->map.tabmap[new_y][new_x] == ' ')
-			{
-				while (iy < 64)
-				{
-					int	sx = 1*64+32 + (x*64+64-data->map.mini.player_coo.x);
-					int	ix = 0;
-					while(sy+iy >= 0 && sy+iy<size && ix < 64)
-					{
-						if (sx+ix >= 0 && sx+ix<size)
-						{
-							char *pixel_addr = mini->data_addr + ((sy+iy) * mini->size_line + (sx+ix) * (mini->bits_per_pixel / 8));
-							*(unsigned int *)pixel_addr = 0x00000000;
-							
-						}
-						ix++;
-					}
-					iy++;
-				}
-			}
-			else
-			{
-				while (iy < 64)
-				{
-					int	sx = 1*64+32 + (x*64+64-data->map.mini.player_coo.x);
-					int	ix = 0;
-					while(sy+iy >= 0 && sy+iy<size && ix < 64)
-					{
-						if (sx+ix >= 0 && sx+ix<size)
-						{
-							char *pixel_addr = mini->data_addr + ((sy+iy) * mini->size_line + (sx+ix) * (mini->bits_per_pixel / 8));
-							if (data->map.tabmap[new_y][new_x] == '1')
-							{
-								// data->map.mini.img[MINI_WALL].data_addr + ((iy) * data->map.mini.img[MINI_WALL].size_line + (ix) * (data->map.mini.img[MINI_WALL].bits_per_pixel / 8)); 
-								char *tmp = data->map.mini.img[MINI_WALL].data_addr + ((iy) * data->map.mini.img[MINI_WALL].size_line + (ix) * (data->map.mini.img[MINI_WALL].bits_per_pixel / 8));
-								*(unsigned int *)pixel_addr = *(unsigned int *)tmp;
-							}
-							else
-							{
-								char *tmp = data->map.mini.img[MINI_FLOOR].data_addr + ((iy) * data->map.mini.img[MINI_FLOOR].size_line + (ix) * (data->map.mini.img[MINI_FLOOR].bits_per_pixel / 8));
-								*(unsigned int *)pixel_addr = *(unsigned int *)tmp;
-							}
-						}
-						ix++;
-					}
-					iy++;
-				}
-			}
-			x++;
-		}
-		y++;
-	}
-	for (int y = size/2-2;y<=size/2+2;y++)
-	{
-		for(int x = size/2-2;x<=size/2+2;x++)
-		{
-			char *pixel_addr = mini->data_addr + (y * mini->size_line + x * (mini->bits_per_pixel / 8));
-			*(unsigned int *)pixel_addr = 0x00FF0000;
-		}
-	}
-	// char *pixel_addr = mini->data_addr + (y * mini->size_line + x * (mini->bits_per_pixel / 8));
-	// *(unsigned int *)pixel_addr = 0x00FF0000;
-	mlx_put_image_to_window(data->mlx.mlx,data->mlx.win,mini->img,0,data->mlx.height - MARGIN - size);
-	mlx_destroy_image(data->mlx.mlx,mini->img);
-	free(mini);
-}
-
 int game_loop(t_data *data) 
 {
 	int	i;
@@ -201,9 +103,6 @@ int game_loop(t_data *data)
 #include <unistd.h>
 #include <fcntl.h>
 #include "get_next_line.h"
-int	main(int ac, char **av)
-{
-	t_data	data;
 	// double	t1 = 0;
 
 	// int fd = open("/proc/uptime",O_RDONLY);
@@ -233,15 +132,20 @@ int	main(int ac, char **av)
 	// close(fd);
 	// printf("double nb >>> %lf\n",t1);
 
+int	main(int ac, char **av)
+{
+	t_data	data;
+
+
 	(void)data;
 	(void)ac;
 	(void)av;
 	init_data(&data, ac, av);
 	parsing(&data);
 	open_win(&data, &data.mlx);
-	init_img_mini(&data, &data.map.mini);
 	data.map.mini.player_coo.y = 32;
 	data.map.mini.player_coo.x = 32;
+	init_img_mini(&data, &data.map.mini);
 	// aff_mini_map(&data);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
 	mlx_hook(data.mlx.win, ON_KEYDOWN, 1L<<0, key_press, &data);
@@ -252,6 +156,9 @@ int	main(int ac, char **av)
 	mlx_loop(data.mlx.mlx);
 	f_exit(&data, 0);
 	return (1);
+
+
+	// mlx_mouse_move();
 }
 
 

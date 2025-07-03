@@ -3,13 +3,14 @@
 
 #include "t_lst.h"
 
-typedef struct s_data	t_data;
-typedef struct s_map	t_map;
-typedef struct s_img	t_img;
-typedef struct s_color	t_color;
-typedef	struct s_mlx	t_mlx;
-typedef struct s_coo	t_coo;
-typedef	struct s_mini	t_mini;
+typedef struct s_data		t_data;
+typedef struct s_map		t_map;
+typedef struct s_img		t_img;
+typedef struct s_color		t_color;
+typedef	struct s_mlx		t_mlx;
+typedef struct s_coo		t_coo;
+typedef	struct s_mini		t_mini;
+typedef struct s_utils_mini	t_utils_mini;
 
 struct s_coo
 {
@@ -44,6 +45,22 @@ struct s_mlx
 	int		height;
 	int		width;
 };
+
+struct s_utils_mini
+{
+	int		new_y;
+	int		new_x;
+	int		y;
+	int		x;
+	t_coo	s;
+	t_coo	i;
+	int		size;
+	char	*pixel_addr;
+	char	*color;
+	t_data	*data;
+	t_img	*mmap;
+};
+
 
 struct s_mini
 {
