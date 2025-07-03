@@ -5,12 +5,19 @@
 # include <stdbool.h>
 # define MARGIN 100
 
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
+
 //open_win
 void	open_win(t_data *data, t_mlx *mlx);
 
 //mini_map
 void	display_mini_map(t_data *data, t_map *map);
-bool	load_img_mini_map(t_mlx *mlx, t_mini *mini);
+// bool	load_img_mini_map(t_mlx *mlx, t_mini *mini);
+void	init_img_mini(t_data *data);
+
+
 
 
 typedef enum e_key_down
