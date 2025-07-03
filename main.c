@@ -86,7 +86,7 @@ void	aff_mini_map(t_data *data)
 	// data->wh->path = ft_strdup("texture/mini_map/black.xpm");
 	// data->wh->img = mlx_xpm_file_to_image(data->mlx.mlx,data->wh->path,&data->wh->width,&data->wh->height);
 
-	size = 7 * 64;
+	size = 5 * 64;
 	mini = malloc(sizeof(t_img));
 	mini->img = mlx_new_image(data->mlx.mlx, size, size);
 	mini->data_addr = mlx_get_data_addr(mini->img, &mini->bits_per_pixel, &mini->size_line, &mini->endian);
@@ -98,7 +98,7 @@ void	aff_mini_map(t_data *data)
 		{
 			int	new_y = data->map.player_coo->y + y;
 			int	new_x = data->map.player_coo->x + x;
-			int	sy = 3*64+32 + (y*64+64-data->map.mini.player_coo.y);
+			int	sy = 1*64+32 + (y*64+64-data->map.mini.player_coo.y);
 			int	iy = 0;
 			if (new_y >= data->map.tabmap_height || new_y < 0
 			|| new_x >= ft_strlen(data->map.tabmap[new_y]) || new_x < 0
@@ -106,7 +106,7 @@ void	aff_mini_map(t_data *data)
 			{
 				while (iy < 64)
 				{
-					int	sx = 3*64+32 + (x*64+64-data->map.mini.player_coo.x);
+					int	sx = 1*64+32 + (x*64+64-data->map.mini.player_coo.x);
 					int	ix = 0;
 					while(sy+iy >= 0 && sy+iy<size && ix < 64)
 					{
@@ -125,7 +125,7 @@ void	aff_mini_map(t_data *data)
 			{
 				while (iy < 64)
 				{
-					int	sx = 3*64+32 + (x*64+64-data->map.mini.player_coo.x);
+					int	sx = 1*64+32 + (x*64+64-data->map.mini.player_coo.x);
 					int	ix = 0;
 					while(sy+iy >= 0 && sy+iy<size && ix < 64)
 					{
@@ -146,9 +146,9 @@ void	aff_mini_map(t_data *data)
 		}
 		y++;
 	}
-	for (int y = 287;y<=289;y++)
+	for (int y = size/2-2;y<=size/2+2;y++)
 	{
-		for(int x = 287;x<=289;x++)
+		for(int x = size/2-2;x<=size/2+2;x++)
 		{
 			char *pixel_addr = mini->data_addr + (y * mini->size_line + x * (mini->bits_per_pixel / 8));
 			*(unsigned int *)pixel_addr = 0x00000000;
@@ -178,10 +178,10 @@ int game_loop(t_data *data)
 			move_left(&data->map, &data->map.mini);
 		else if (data->keycode[i] == KEY_S)
 			move_down(&data->map, &data->map.mini);
-		// else if (data->keycode[i] == KEY_E)
-		// 	rotate_right(&data);
-		// else if (data->keycode[i] == KEY_Q)
-		// 	rotate_left(&data);
+		else if (data->keycode[i] == KEY_E)
+			rotate_right(data);
+		else if (data->keycode[i] == KEY_Q)
+			rotate_left(data);
 		i++;
 	}
 	aff_mini_map(data);
@@ -239,7 +239,7 @@ int	main(int ac, char **av)
 	mlx_hook(data.mlx.win, ON_KEYDOWN, 1L<<0, key_press, &data);
     mlx_hook(data.mlx.win, ON_KEYUP, 1L<<1, key_release, &data);
     mlx_hook(data.mlx.win, ON_DESTROY, 0, close_win, &data);
-	mlx_hook(data.mlx.win, ON_MOUSEMOVE, 1L << 6, mouse_move, &data);
+	// mlx_hook(data.mlx.win, ON_MOUSEMOVE, 1L << 6, mouse_move, &data);
     mlx_loop_hook(data.mlx.mlx, game_loop, &data);
 	mlx_loop(data.mlx.mlx);
 	f_exit(&data, 0);

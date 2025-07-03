@@ -16,7 +16,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -DDEBUG_VALUE=${DEBUG_VALUE}
 SHELL = /bin/bash
 
-EXECFLAGS = -lXext -lX11
+EXECFLAGS = -lXext -lX11 -lm
 
 FILES	=									\
 				main.c						\
@@ -48,10 +48,11 @@ STRUCT	=									\
 
 FILES	+=	$(addprefix srcs/struct/,$(STRUCT))
 
-MLX_UTILS = 								\
+MLX_UTILS	=								\
 				handle_win.c				\
 				mini_map.c					\
-				mini_move.c					
+				mini_move.c					\
+				mini_rotate.c				
 
 FILES	+=	$(addprefix srcs/mlx_utils/,$(MLX_UTILS))
 
