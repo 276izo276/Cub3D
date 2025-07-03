@@ -17,6 +17,26 @@ struct s_coo
 	int	y;
 };
 
+struct	s_img
+{
+	void	*mlx;
+	char	*path;
+    char    *data_addr;
+	void	*img;
+	int		width;
+	int		height;
+    int     bits_per_pixel;
+    int     size_line;
+    int     endian;
+};
+
+struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+};
+
 struct s_mlx
 {
 	void	*mlx;
@@ -27,11 +47,12 @@ struct s_mlx
 
 struct s_mini
 {
-	char	*path[6];
-	char	*sprite[6];
+	t_img	img[6];
 	int		height;
 	int		width;
-	t_coo	*player_coo;
+	t_coo	player_coo;
+	double	deg;
+	double	rad;
 };
 
 struct s_map
@@ -57,29 +78,12 @@ struct s_data
 	char	**av;
 	t_map	map;
 	t_mlx	mlx;
-	t_img	*wh;
-	t_img	*bl;
+	int		keycode[100];
+	// t_img	*wh;
+	// t_img	*bl;
 };
 
-struct	s_img
-{
-	void	*mlx;
-	char	*path;
-    char    *data_addr;
-	void	*img;
-	int		width;
-	int		height;
-    int     bits_per_pixel;
-    int     size_line;
-    int     endian;
-};
 
-struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-};
 
 t_coo	*init_t_coo(int y, int x);
 

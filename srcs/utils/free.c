@@ -19,12 +19,17 @@ void	f_img(t_img *img)
 
 void	f_imgs(t_data *data)
 {
+	int	i;
+
 	f_img(data->map.north);
 	f_img(data->map.south);
 	f_img(data->map.west);
 	f_img(data->map.east);
 	free(data->map.floor);
 	free(data->map.ceiling);
+	i = -1;
+	while (++i < 5)
+		mlx_destroy_image(data->mlx.mlx, data->map.mini.img[i].img);
 }
 
 void	f_tab_char(char **tab)
