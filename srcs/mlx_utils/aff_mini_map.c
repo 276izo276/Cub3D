@@ -2,6 +2,7 @@
 #include "texture.h"
 #include "cub3d.h"
 #include "utils.h"
+#include <math.h>
 #include <stdlib.h>
 
 void	aff_pix_in_img(t_utils_mini *u, t_mini *mini)
@@ -57,24 +58,75 @@ void	aff_color_in_img(t_utils_mini *u, t_mini *mini)
 }
 
 
-void	set_player_in_mini_map(t_utils_mini *u)
+// void	set_player_in_mini_map(t_utils_mini *u)
+// {
+// 	u->y = u->size / 2 - 2;
+// 	while (u->y < u->size / 2 + 2)
+// 	{
+// 		u->x = u->size / 2 - 2;
+// 		while (u->x < u->size / 2 + 2)
+// 		{
+// 			char *pixel_addr = u->mmap->data_addr
+// 				+ (u->y * u->mmap->size_line + u->x
+// 				* (u->mmap->bits_per_pixel / 8));
+// 			*(unsigned int *)pixel_addr = 0x00FF0000;
+// 			u->x++;
+// 		}
+// 		u->y++;
+// 	}
+// }
+
+int	get_color(double sin_a, double cos_a, double dx, double dy)
 {
-	u->y = u->size / 2 - 2;
-	while (u->y < u->size / 2 + 2)
-	{
-		u->x = u->size / 2 - 2;
-		while (u->x < u->size / 2 + 2)
-		{
-			char *pixel_addr = u->mmap->data_addr
-				+ (u->y * u->mmap->size_line + u->x
-				* (u->mmap->bits_per_pixel / 8));
-			*(unsigned int *)pixel_addr = 0x00FF0000;
-			u->x++;
-		}
-		u->y++;
-	}
+	double r_dx;
+	double r_dy;
+
+	r_dx = -dx * cos_a + dy * sin_a;
+	r_dy = dx * sin_a + dy * cos_a;
+	if ((r_dy >= -3.5 && r_dy <= -2.5 && r_dx >= -0.5 && r_dx <= 0.5)
+		|| (r_dy >= -2.5 && r_dy <= -1.5 && r_dx >= -1.5 && r_dx <= 1.5)
+		|| (r_dy >= -1.5 && r_dy <= -0.5 && r_dx >= -2.5 && r_dx <= 2.5))
+		return (0x00FFFF00);
+	else if (r_dy >= -0.5 && r_dy <= 3.5 && r_dx >= -1.5 && r_dx <= 1.5)
+		return (0x00FF0000);
+	return (0);
 }
 
+void	set_player_in_mini_map(t_utils_mini *u, double angle)
+{
+	double	center_x;
+	double	center_y;
+	double	cos_a;
+	double sin_a;
+	double	dy;
+	double	dx;
+	int		color;
+
+	dy = -3;
+	center_x = u->size / 2;
+	center_y = u->size / 2;
+	cos_a = cos(angle);
+	sin_a = sin(angle);
+	while (dy <= 3)
+	{
+		dx = -3;
+		while (dx <= 3)
+		{
+			color = get_color(sin_a, cos_a, dx, dy);
+			if (color)
+			{
+				u->x = center_x + dx;
+				u->y = center_y + dy;
+				char *pixel_addr = u->mmap->data_addr
+				+ (u->y * u->mmap->size_line + u->x
+					* (u->mmap->bits_per_pixel / 8));
+					*(unsigned int *)pixel_addr = color;
+			}
+			++dx;
+		}
+		++dy;
+	}
+}
 
 void	aff_mini_map(t_data *data)
 {
@@ -100,6 +152,6 @@ void	aff_mini_map(t_data *data)
 			}
 		}
 	}
-	set_player_in_mini_map(&u);
+	set_player_in_mini_map(&u, data->map.mini.rad);
 	print_mini_map(&u);
 }
