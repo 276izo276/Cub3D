@@ -145,8 +145,9 @@ int	main(int ac, char **av)
 	init_data(&data, ac, av);
 	parsing(&data);
 	open_win(&data, &data.mlx);
-	data.map.mini.player_coo.y = 32;
-	data.map.mini.player_coo.x = 32;
+	init_t_coo_mini(32, 32);
+	// data.map.mini.player_coo.y = 32;
+	// data.map.mini.player_coo.x = 32;
 	init_img_mini(&data, &data.map.mini);
 	// aff_mini_map(&data);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);

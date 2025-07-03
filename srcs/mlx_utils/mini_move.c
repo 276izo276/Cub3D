@@ -8,7 +8,6 @@ static void	move_x(t_map *map, t_mini *mini, int angle)
 	double	dx;
 
 	dx = mini->player_coo.x - sin(mini->rad + angle * (M_PI / 180.0));
-	dx = round(dx);
 	if (dx < 0)
 	{
 		if (map->tabmap[map->player_coo->y][map->player_coo->x - 1] == '1')
@@ -36,7 +35,6 @@ static void	move_y(t_map *map, t_mini *mini, int angle)
 	double	dy;
 
 	dy = mini->player_coo.y - cos(mini->rad + angle * (M_PI / 180.0));
-	dy = round(dy);
 	if (dy < 0)
 	{
 		if (map->tabmap[map->player_coo->y - 1][map->player_coo->x] == '1')

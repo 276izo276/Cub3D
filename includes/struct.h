@@ -9,6 +9,7 @@ typedef struct s_img		t_img;
 typedef struct s_color		t_color;
 typedef	struct s_mlx		t_mlx;
 typedef struct s_coo		t_coo;
+typedef struct s_coo_mini		t_coo_mini;
 typedef	struct s_mini		t_mini;
 typedef struct s_utils_mini	t_utils_mini;
 
@@ -16,6 +17,12 @@ struct s_coo
 {
 	int	x;
 	int	y;
+};
+
+struct s_coo_mini
+{
+	double	x;
+	double	y;
 };
 
 struct	s_img
@@ -67,7 +74,7 @@ struct s_mini
 	t_img	img[6];
 	int		height;
 	int		width;
-	t_coo	player_coo;
+	t_coo_mini	player_coo;
 	double	deg;
 	double	rad;
 };
