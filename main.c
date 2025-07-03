@@ -186,11 +186,11 @@ int game_loop(t_data *data)
 		if (data->keycode[i] == KEY_ESCAPE)
 			f_exit(data, 0);
 		else if (is_move_player(data, i))
-			move(&data->map, &data->map.mini, data->keycode[i]);
+			handle_move(&data->map, &data->map.mini, data->keycode[i]);
 		else if (data->keycode[i] == KEY_E)
-			rotate_left(data);
-		else if (data->keycode[i] == KEY_Q)
 			rotate_right(data);
+		else if (data->keycode[i] == KEY_Q)
+			rotate_left(data);
 		i++;
 	}
 	aff_mini_map(data);
