@@ -137,7 +137,7 @@ bool	is_move_player(t_data *data, int i)
 
 void	ray_launch(t_data *data)
 {
-	int	i = 270;
+	int	i = 180;
 	while (1)
 	{
 		double pos_y = data->map.mini.player_coo.y;
@@ -155,10 +155,10 @@ void	ray_launch(t_data *data)
 				// double rad = deg * (M_PI / 180);
 				double dx = 64 - data->map.mini.player_coo.x;
 				double dy = tan((270 - deg) * (M_PI / 180)) * dx;
-				printf("dx=%lf   dy=%lf\n",dx,dy);
+				// printf("dx=%lf   dy=%lf\n",dx,dy);
 				if (dy > dx)
 				{
-					printf("HIT HORI\n");
+					// printf("HIT HORI\n");
 					if(data->map.tabmap[case_y + 1][case_x] != '1')
 					{
 						case_y++;
@@ -182,7 +182,7 @@ void	ray_launch(t_data *data)
 				}
 				else
 				{
-					printf("HIT VERTI\n");
+					// printf("HIT VERTI\n");
 					if(data->map.tabmap[case_y][case_x + 1] != '1')
 					{
 						case_x++;
@@ -205,10 +205,66 @@ void	ray_launch(t_data *data)
 					}
 				}
 			}
+			else if (deg >= 0 && deg <= 90)
+			{
+				printf("in \n ");
+				// double rad = deg * (M_PI / 180);
+				double dx = data->map.mini.player_coo.x;
+				double dy = tan((90 - deg) * (M_PI / 180)) * dx;
+				printf("dx=%lf   dy=%lf\n",dx,dy);
+				if (dy > dx)
+				{
+					printf("HIT HORI\n");
+					if(data->map.tabmap[case_y - 1][case_x] != '1')
+					{
+						case_y--;
+						dy = 64 - pos_y;
+						// printf("1dy >> %lf   %lf\n",dx,deg);
+						dx = tan((deg - 180) * (M_PI / 180)) * dy;
+						// printf("1dy >> %lf   %lf\n",dy,deg);
+						pos_x -= dx;
+						pos_y = 64;
+					}
+					else
+					{
+						dy = 64 - pos_y;
+						// printf("2dy >> %lf   %lf\n",dx,deg);
+						dx = tan((deg - 180) * (M_PI / 180)) * dy;
+						// printf("2dy >> %lf   %lf\n",dy,deg);
+						pos_x -= dx;
+						pos_y = 0;
+						break;
+					}
+				}
+				else
+				{
+					printf("HIT VERTI\n");
+					if(data->map.tabmap[case_y][case_x - 1] != '1')
+					{
+						case_x--;
+						dx = pos_x;
+						// printf("1dy >> %lf   %lf\n",dx,deg);
+						dy = tan((90 - deg) * (M_PI / 180)) * dx;
+						// printf("1dy >> %lf   %lf\n",dy,deg);
+						pos_y -= dy;
+						pos_x = 64;
+					}
+					else
+					{
+						dx = pos_x;
+						// printf("2dy >> %lf   %lf\n",dx,deg);
+						dy = tan((90 - deg) * (M_PI / 180)) * dx;
+						// printf("2dy >> %lf   %lf\n",dy,deg);
+						pos_y -= dy;
+						pos_x = 0;
+						break;
+					}
+				}
+			}
 			else
 				break;
 		}
-		if (deg >= 180 && deg <= 270)
+		if ((deg >= 180 && deg <= 270) || (deg >= 0 && deg <= 90))
 		{
 			printf("end >>>y=%d  x=%d  y=%d  x= %d\n y=%lf   x=%lf\n",case_y,case_x,data->map.player_coo->y,data->map.player_coo->x,pos_y,pos_x);
 
