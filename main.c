@@ -139,11 +139,11 @@ bool	is_move_player(t_data *data, int i)
 void	ray_launch(t_data *data)
 {
 
-	int	i = 90;
+	int	i = 0;
 	(void)data;
 	while (1)
 	{
-		double deg = data->map.mini.deg + i + 90;
+		double deg = data->map.mini.deg + i + 270;
 		double	coo_y = data->map.mini.player_coo.y;
 		double	coo_x = data->map.mini.player_coo.x;
 		int		case_y = data->map.player_coo->y;
@@ -157,14 +157,25 @@ void	ray_launch(t_data *data)
 			double	rad = deg * (M_PI / 180);
 			double	delta_x = -cos(rad);
 			if (fabs(delta_x) <= 0.0000000001)
-				delta_x += 0.0000000001;
+				delta_x = 0.0000000001;
 			double	delta_y = sin(rad);
 			if (fabs(delta_y) <= 0.0000000001)
-				delta_y += 0.0000000001;
+				delta_y = 0.0000000001;
 			// printf("delta_x >>> %lf\n",delta_x);
 			// printf("delta_yi >>> %lf\n",delta_y);
-			double	rx = (64 - coo_x)/delta_x;
-			double	ry = (64 - coo_y)/delta_y;
+			double rx, ry;
+            
+            // Distance jusqu'au prochain bord vertical
+            if (delta_x > 0)
+                rx = (64 - coo_x) / delta_x;  // Bord droit
+            else
+                rx = -coo_x / delta_x;        // Bord gauche
+            
+            // Distance jusqu'au prochain bord horizontal
+            if (delta_y > 0)
+                ry = (64 - coo_y) / delta_y;  // Bord haut
+            else
+                ry = -coo_y / delta_y;        // Bord bas
 			// printf("t ____ >>>%lf\n",rx);
 			// printf("t |||| >>>%lf\n",ry);
 			// if (rx < 0)
