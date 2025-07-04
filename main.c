@@ -137,6 +137,70 @@ bool	is_move_player(t_data *data, int i)
 
 void	ray_launch(t_data *data)
 {
+	int	i = 270;
+	while (1)
+	{
+		double pos_y = data->map.mini.player_coo.y;
+		double pos_x = data->map.mini.player_coo.x;
+		int		case_x = data->map.player_coo->x;
+		int		case_y = data->map.player_coo->y;
+		double deg = data->map.mini.deg + i;
+		while (1)
+		{
+			if (deg <= 270 && deg >= 180)
+			{
+				double rad = deg * (M_PI / 180);
+				double dx = 64 - data->map.mini.player_coo.x;
+				double dy = tan(270 - deg) * dx;
+				if (dy > dx)
+				{
+					print("HIT HORI\n");
+					if(data->map.tabmap[case_y + 1][case_x] != '1')
+					{
+						case_y++;
+						pos_y = 0;
+						dy = 64 - data->map.mini.player_coo.y;
+						dx = tan(180 - deg) * dy;
+						pos_x += 64 - data->map.mini.player_coo.x;
+					}
+					else
+					{
+						pos_y = 64;
+						dy = 64 - data->map.mini.player_coo.y;
+						dx = tan(180 - deg) * dy;
+						pos_x += 64 - data->map.mini.player_coo.x;
+						break;
+					}
+				}
+				else
+				{
+					print("HIT VERTI\n");
+					if(data->map.tabmap[case_y + 1][case_x] != '1')
+					{
+						case_y++;
+						pos_y = 0;
+						dy = 64 - data->map.mini.player_coo.y;
+						dx = tan(180 - deg) * dy;
+						pos_x += 64 - data->map.mini.player_coo.x;
+					}
+					else
+					{
+						pos_y = 64;
+						dy = 64 - data->map.mini.player_coo.y;
+						dx = tan(180 - deg) * dy;
+						pos_x += 64 - data->map.mini.player_coo.x;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+}
+
+
+void	ray_launchs(t_data *data)
+{
 	double	i = 270;
 	while (1)
 	{
@@ -158,100 +222,103 @@ void	ray_launch(t_data *data)
 		printf("\nstart >>>y=%d  x=%d   y=%lf   x=%lf     gy=%lf  gx=%lf\n",case_y,case_x,pos_y,pos_x,gap_y,gap_x);
 		while (1)
 		{
-			nb_gap_y = 0;
-			nb_gap_x = 0;
-			double	tmpy = pos_y;
-			double	tmpx = pos_x;
-			while (tmpy >= 0 && tmpy < 64 && fabs(gap_y) >= epsilon)
-			{
-				// printf("ingpx %lf\n",gap_y);
-				tmpy += gap_y;
-				nb_gap_y++;
-			}
-			while (tmpx >= 0 && tmpx < 64 && fabs(gap_x) >= epsilon)
-			{
-				// printf("ingpx %lf\n",gap_x);
-				tmpx += gap_x;
-				nb_gap_x++;
-			}
-			printf("nbgapx>%lf<  gpx>%lf<     nbgapy>%lf< gpy >%lf<\n",nb_gap_x,gap_x,nb_gap_y,gap_y);
-			if (gap_y < gap_x)
-			{
-				printf("PAROI HORIZONTAL\n");
-				if (gap_y < 0)
-				{
-					if(data->map.tabmap[case_y - 1][case_x] != '1')
-					{
-						case_y--;
-						pos_y = 64;
-						pos_x += nb_gap_y * gap_x;
-						printf("not 1\n");
-					}
-					else
-					{
-						// pos_y = 0;
-						pos_x += nb_gap_y * gap_x;
-						printf("is a 1\n");
-						break;
-					}
-				}
-				else
-				{
-					if(data->map.tabmap[case_y + 1][case_x] != '1')
-					{
-						case_y++;
-						pos_y = 0;
-						pos_x += nb_gap_x * gap_y;
-						printf("not 1\n");
-					}
-					else
-					{
-						// pos_y = 64;
-						pos_x += nb_gap_x * gap_y;
-						printf("is a 1\n");
-						break;
-					}
-				}
-			}
-			else
-			{
-				printf("PAROI VERTICAL\n");
-				if (gap_x < 0)
-				{
-					if(data->map.tabmap[case_y][case_x - 1] != '1')
-					{
-						case_x--;
-						pos_x = 64;
-						pos_y += nb_gap_y * gap_x;
-						printf("not 1\n");
-					}
-					else
-					{
-						// pos_x = 0;
-						pos_y += nb_gap_y * gap_x;
-						printf("is a 1\n");
-						break;
-					}
-				}
-				else
-				{
-					if(data->map.tabmap[case_y][case_x + 1] != '1')
-					{
-						case_x++;
-						pos_x = 0;
-						pos_y += nb_gap_y * gap_x;
-						printf("not 1\n");
-					}
-					else
-					{
-						// pos_x = 64;
-						pos_y += nb_gap_y * gap_x;
-						printf("is a 1\n");
-						break;
-					}
-				}
-			}
-			printf("search\n");
+			double	
+
+
+			// nb_gap_y = 0;
+			// nb_gap_x = 0;
+			// double	tmpy = pos_y;
+			// double	tmpx = pos_x;
+			// while (tmpy >= 0 && tmpy < 64 && fabs(gap_y) >= epsilon)
+			// {
+			// 	// printf("ingpx %lf\n",gap_y);
+			// 	tmpy += gap_y;
+			// 	nb_gap_y++;
+			// }
+			// while (tmpx >= 0 && tmpx < 64 && fabs(gap_x) >= epsilon)
+			// {
+			// 	// printf("ingpx %lf\n",gap_x);
+			// 	tmpx += gap_x;
+			// 	nb_gap_x++;
+			// }
+			// printf("nbgapx>%lf<  gpx>%lf<     nbgapy>%lf< gpy >%lf<\n",nb_gap_x,gap_x,nb_gap_y,gap_y);
+			// if (gap_y < gap_x)
+			// {
+			// 	printf("PAROI HORIZONTAL\n");
+			// 	if (gap_y < 0)
+			// 	{
+			// 		if(data->map.tabmap[case_y - 1][case_x] != '1')
+			// 		{
+			// 			case_y--;
+			// 			pos_y = 64;
+			// 			pos_x += nb_gap_y * gap_x;
+			// 			printf("not 1\n");
+			// 		}
+			// 		else
+			// 		{
+			// 			// pos_y = 0;
+			// 			pos_x += nb_gap_y * gap_x;
+			// 			printf("is a 1\n");
+			// 			break;
+			// 		}
+			// 	}
+			// 	else
+			// 	{
+			// 		if(data->map.tabmap[case_y + 1][case_x] != '1')
+			// 		{
+			// 			case_y++;
+			// 			pos_y = 0;
+			// 			pos_x += nb_gap_x * gap_y;
+			// 			printf("not 1\n");
+			// 		}
+			// 		else
+			// 		{
+			// 			// pos_y = 64;
+			// 			pos_x += nb_gap_x * gap_y;
+			// 			printf("is a 1\n");
+			// 			break;
+			// 		}
+			// 	}
+			// }
+			// else
+			// {
+			// 	printf("PAROI VERTICAL\n");
+			// 	if (gap_x < 0)
+			// 	{
+			// 		if(data->map.tabmap[case_y][case_x - 1] != '1')
+			// 		{
+			// 			case_x--;
+			// 			pos_x = 64;
+			// 			pos_y += nb_gap_y * gap_x;
+			// 			printf("not 1\n");
+			// 		}
+			// 		else
+			// 		{
+			// 			// pos_x = 0;
+			// 			pos_y += nb_gap_y * gap_x;
+			// 			printf("is a 1\n");
+			// 			break;
+			// 		}
+			// 	}
+			// 	else
+			// 	{
+			// 		if(data->map.tabmap[case_y][case_x + 1] != '1')
+			// 		{
+			// 			case_x++;
+			// 			pos_x = 0;
+			// 			pos_y += nb_gap_y * gap_x;
+			// 			printf("not 1\n");
+			// 		}
+			// 		else
+			// 		{
+			// 			// pos_x = 64;
+			// 			pos_y += nb_gap_y * gap_x;
+			// 			printf("is a 1\n");
+			// 			break;
+			// 		}
+			// 	}
+			// }
+			// printf("search\n");
 		printf("end >>>y=%d  x=%d  y=%d  x= %d\n y=%lf   x=%lf\n",case_y,case_x,data->map.player_coo->y,data->map.player_coo->x,pos_y,pos_x);
 
 		}
