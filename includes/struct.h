@@ -80,6 +80,7 @@ struct s_mini
 	t_coo_mini	player_coo;
 	double		deg;
 	double		rad;
+	double		speed;
 };
 
 struct s_map

@@ -7,7 +7,7 @@ static void	move_x(t_map *map, t_mini *mini, int angle)
 {
 	double	dx;
 
-	dx = mini->player_coo.x - sin(mini->rad + angle * (M_PI / 180.0));
+	dx = mini->player_coo.x - sin(mini->rad + angle * (M_PI / 180.0)) * mini->speed;
 	if (dx < 0)
 	{
 		if (map->tabmap[map->player_coo->y][map->player_coo->x - 1] == '1')
@@ -34,7 +34,7 @@ static void	move_y(t_map *map, t_mini *mini, int angle)
 {
 	double	dy;
 
-	dy = mini->player_coo.y - cos(mini->rad + angle * (M_PI / 180.0));
+	dy = mini->player_coo.y - cos(mini->rad + angle * (M_PI / 180.0)) * mini->speed;
 	if (dy < 0)
 	{
 		if (map->tabmap[map->player_coo->y - 1][map->player_coo->x] == '1')
@@ -65,11 +65,16 @@ void	handle_move(t_map *map, t_mini *mini, int keycode)
 	if (keycode == KEY_W)
 		angle = 0;
 	else if (keycode == KEY_S)
+	{
+		mini->speed -= 0.2;
 		angle = 180;
+	}
 	else if (keycode == KEY_D)
 		angle = 270;
 	else if (keycode == KEY_A)
 		angle = 90;
 	move_x(map, mini, angle);
 	move_y(map, mini, angle);
+	if (keycode == KEY_S)
+		mini->speed += 0.2;
 }

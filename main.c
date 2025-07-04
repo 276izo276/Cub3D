@@ -64,6 +64,8 @@ int key_press(int keycode, t_data *data)
 	data->keycode[i] = keycode;
 	if (keycode == KEY_ALT)
 		mlx_mouse_show(data->mlx.mlx, data->mlx.win);
+	else if (keycode == KEY_SHIFT)
+		data->map.mini.speed = 0.65;
     return (0);
 }
 
@@ -82,6 +84,8 @@ int key_release(int keycode, t_data *data)
 			mlx_mouse_hide(data->mlx.mlx, data->mlx.win);
 			mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width / 4, data->mlx.height / 2);
 		}
+		else if (keycode == KEY_SHIFT)
+			data->map.mini.speed = 0.4;
 		i++;
 	}
     return (0);
@@ -228,6 +232,7 @@ int	main(int ac, char **av)
 	open_win(&data, &data.mlx);
 	data.map.mini.player_coo.y = 32;
 	data.map.mini.player_coo.x = 32;
+	data.map.mini.speed = 0.4;
 	init_img_mini(&data, &data.map.mini);
 	// aff_mini_map(&data);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
