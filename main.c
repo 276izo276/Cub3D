@@ -6,9 +6,6 @@
 #include "struct.h"
 #include "texture.h"
 #include "utils.h"
-#include <X11/XKBlib.h> // Pour XkbKeycodeToKeysym
-#include <X11/Xlib.h>   // Pour Display et d'autres fonctions X11
-#include <X11/keysym.h> // Pour les définitions de Keysym (XK_w, XK_a, etc.)
 #include <math.h>
 #include <stdlib.h>
 
@@ -56,7 +53,7 @@ int	key_press(int keycode, t_data *data)
 {
 	int	i;
 
-	printf("Key pressed: %d\n", keycode);
+	// printf("Key pressed: %d\n", keycode);
 	i = 0;
 	while (data->keycode[i] != 0 && i < 100)
 		i++;
@@ -112,15 +109,11 @@ int	mouse_move(int x, int y, t_data *data)
 	if ((x != data->mlx.width / 4 || y != data->mlx.height / 2)
 		&& !is_key_pressed(data, KEY_ALT))
 	{
-		// printf("Souris déplacée à X: %d, Y: %d    move: %lf\n", x, y,
-			(double)(x - data->mlx.width / 4) / 5);
 		data->map.mini.deg += (double)-(x - data->mlx.width / 4) / 10;
-			// INFO baisser le 10 pour avoir plus de sensi et augenter pour avoir moins de sensi
 		data->map.mini.deg = fmod(data->map.mini.deg, 360.0);
 		if (data->map.mini.deg < 0)
 			data->map.mini.deg += 360;
 		data->map.mini.rad = data->map.mini.deg * (M_PI / 180.0);
-		// printf("new angle >>> %lf %lf\n",data->map.mini.deg,data->map.mini.rad);
 		mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width / 4,
 			data->mlx.height / 2);
 	}
@@ -141,6 +134,97 @@ bool	is_move_player(t_data *data, int i)
 	return (false);
 }
 
+void	ray_launch(t_data *data)
+{
+	int	i = 0;
+	while (i < 46)
+	{
+		double deg = data->map.mini.deg + i;
+		double rad = fmod(deg, 360.0);
+		double gap_y = sin(rad);
+		double gap_x = cos(rad);
+		double nb_gap_y = 0;
+		double nb_gap_x = 0;
+		double pos_y = data->map.mini.player_coo.y;
+		double pos_x = data->map.mini.player_coo.x;
+		int		case_x = data->map.player_coo->x;
+		int		case_y = data->map.player_coo->y;
+		printf("start >>>y=%d  x=%d   y=%lf   x=%lf\n",case_y,case_x,pos_y,pos_x);
+		while (1)
+		{
+			while (pos_y > 0 && pos_y < 64 && gap_y != 0)
+			{
+				pos_y += gap_y;
+				nb_gap_y++;
+			}
+			while (pos_x > 0 && pos_x < 64 && gap_x != 0)
+			{
+				pos_x += gap_x;
+				nb_gap_x++;
+			}
+			if (nb_gap_x > nb_gap_y)
+			{
+				if (gap_x < 0)
+				{
+					if(data->map.tabmap[case_y][case_x - 1] != '1')
+					{
+						case_x--;
+						pos_x = 64;
+						pos_y = nb_gap_x * gap_y;
+					}
+					else
+						break;
+				}
+				else
+				{
+					if(data->map.tabmap[case_y][case_x + 1] != '1')
+					{
+						case_x++;
+						pos_x = 0;
+						pos_y = nb_gap_x * gap_y;
+					}
+					else
+						break;
+				}
+			}
+			else
+			{
+				if (gap_y < 0)
+				{
+					if(data->map.tabmap[case_y - 1][case_x] != '1')
+					{
+						case_y--;
+						pos_y = 64;
+						pos_x = nb_gap_y * gap_x;
+					}
+					else
+						break;
+				}
+				else
+				{
+					if(data->map.tabmap[case_y + 1][case_x] != '1')
+					{
+						case_y++;
+						pos_y = 0;
+						pos_x = nb_gap_y * gap_x;
+					}
+					else
+						break;
+				}
+			}
+		}
+		printf("end >>>y=%d  x=%d  y=%d  x= %d\n y=%lf   x=%lf\n",case_y,case_x,data->map.player_coo->y,data->map.player_coo->x,pos_y,pos_x);
+		if (case_x >= data->map.player_coo->x && case_y >= data->map.player_coo->y)
+		{
+			mlx_put_image_to_window(data->mlx.mlx,data->mlx.win,data->map.mini.img[MINI_DOOR].img,160 + (case_x - data->map.player_coo->x - 1) * 64 + (pos_x - data->map.mini.player_coo.x),data->mlx.height-160 + (case_y - data->map.player_coo->y - 1) * 64 + (pos_y - data->map.mini.player_coo.y));
+		}
+		i++;
+		break;
+	}
+}
+
+#include <unistd.h>
+
 int	game_loop(t_data *data)
 {
 	int	i;
@@ -159,77 +243,14 @@ int	game_loop(t_data *data)
 		i++;
 	}
 	aff_mini_map(data);
-	// ft_printf_fd(2,"loop");
+	ray_launch(data);
+	usleep(100000);
 	return (0);
 }
 
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <unistd.h>
-
-// double	t1 = 0;
-
-// int fd = open("/proc/uptime",O_RDONLY);
-// int	i = 0;
-// char	*line;
-// get_next_line(fd, &line);
-// int	pt = 1;
-// while (line[i] && line[i] != ' ')
-// {
-// 	if (line[i] == '.')
-// 	{
-// 		i++;
-// 		pt *= 10;
-// 	}
-// 	if (pt == 1)
-// 	{
-// 		t1 = t1 * 10 + line[i] - 48;
-// 	}
-// 	else
-// 	{
-// 		t1 = t1 + (double)(line[i] - 48) / pt;
-// 		// printf("HERE %lf    %d    %d\n",t1,(line[i] - 48) / pt, pt);
-// 		pt *= 10;
-// 	}
-// 	i++;
-// }
-// close(fd);
-// printf("double nb >>> %lf\n",t1);
-
-void	rotate_image(void)
-{
-	int		x_dest;
-	int		y_dest;
-	int		center_x;
-	int		center_y;
-	double	translated_x_dest;
-	double	translated_y_dest;
-	double	rad;
-	double	cos_theta;
-	double	sin_theta;
-	double	src_x_float;
-	double	src_y_float;
-
-	x_dest = 288;
-	y_dest = 288 - 10;
-	center_x = 288;
-	center_y = 288;
-	translated_x_dest = x_dest - center_x;
-	translated_y_dest = y_dest - center_y;
-	rad = 90 * M_PI / 180.0;
-	cos_theta = cos(rad);
-	sin_theta = sin(rad);
-	// Appliquer la transformation inverse pour trouver la coordonnée correspondante dans l'image source
-	// Note: rotation inverse de l'angle -theta
-	src_x_float = translated_x_dest * cos_theta + translated_y_dest * sin_theta
-		+ center_x;
-	src_y_float = -translated_x_dest * sin_theta + translated_y_dest * cos_theta
-		+ center_y;
-	printf("data >>> %lf    %lf", src_x_float, src_y_float);
-	// int src_x = (int)round(src_x_float);
-		// Utilise round pour une meilleure précision
-	// int src_y = (int)round(src_y_float); // Utilise round
-}
 
 int	main(int ac, char **av)
 {
@@ -238,15 +259,13 @@ int	main(int ac, char **av)
 	(void)data;
 	(void)ac;
 	(void)av;
-	// rotate_image();
 	init_data(&data, ac, av);
 	parsing(&data);
-	open_win(&data, &data.mlx);
+	open_window(&data, &data.mlx);
 	data.map.mini.player_coo.y = 32;
 	data.map.mini.player_coo.x = 32;
 	data.map.mini.speed = 0.4;
 	init_img_mini(&data, &data.map.mini);
-	// aff_mini_map(&data);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
 	mlx_mouse_hide(data.mlx.mlx, data.mlx.win);
 	mlx_mouse_move(data.mlx.mlx, data.mlx.win, data.mlx.width / 4,
@@ -259,5 +278,4 @@ int	main(int ac, char **av)
 	mlx_loop(data.mlx.mlx);
 	f_exit(&data, 0);
 	return (1);
-	// mlx_mouse_move();
 }

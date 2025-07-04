@@ -3,8 +3,7 @@
 #include "utils.h"
 #include "mlx.h"
 
-
-void	open_win(t_data *data, t_mlx *mlx)
+void	open_window(t_data *data, t_mlx *mlx)
 {
 	mlx_get_screen_size(mlx->mlx, &mlx->width, &mlx->height);
 	mlx->win = mlx_new_window(mlx->mlx, mlx->width/2, mlx->height - MARGIN, "./CUB3D");
@@ -14,4 +13,3 @@ void	open_win(t_data *data, t_mlx *mlx)
 		f_exit(data, 1);
 	}
 }
-
