@@ -49,7 +49,7 @@ STRUCT	=									\
 FILES	+=	$(addprefix srcs/struct/,$(STRUCT))
 
 MLX_UTILS	=								\
-				handle_win.c				\
+				handle_window.c				\
 				mini_map.c					\
 				mini_move.c					\
 				mini_rotate.c				\

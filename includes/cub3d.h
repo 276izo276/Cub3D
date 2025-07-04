@@ -9,8 +9,8 @@
 # define M_PI 3.14159265358979323846
 #endif
 
-//open_win
-void	open_win(t_data *data, t_mlx *mlx);
+//open_window
+void	open_window(t_data *data, t_mlx *mlx);
 
 //mini_map
 void	display_mini_map(t_data *data, t_map *map);
