@@ -68,6 +68,12 @@ struct s_utils_mini
 	unsigned int	color;
 	t_data			*data;
 	t_img			*mmap;
+	double			cos_val;
+	double			sin_val;
+	double			xdest;
+	double			ydest;
+	double			xfloat;
+	double			yfloat;
 };
 
 
