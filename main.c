@@ -386,7 +386,7 @@ bool	is_move_player(t_data *data, int i)
 void	ray_launch(t_data *data)
 {
 
-	int	i = 0;
+	int	i = 170;
 	(void)data;
 	while (1)
 	{
@@ -401,8 +401,8 @@ void	ray_launch(t_data *data)
 		{
 			double	mx = 0;
 			double	my = 0;
-			int	x = 0;
-			int	y = 0;
+			int	x = 1;
+			int	y = 1;
 			if (deg > 180)
 			{
 				mx = coo_x;
@@ -410,8 +410,7 @@ void	ray_launch(t_data *data)
 			}
 			else if (deg != 0 && deg != 180)
 			{
-				mx = 64 - coo_x;
-				x = 1;
+				mx = coo_x;
 			}
 			if (deg > 90 && deg < 270)
 			{
@@ -422,6 +421,7 @@ void	ray_launch(t_data *data)
 			{
 				my = coo_y;
 				y = 1;
+				x = -1;
 			}
 			double	dx = 0;
 			double	dy = 0;
@@ -434,6 +434,19 @@ void	ray_launch(t_data *data)
 			else
 				dx = mx * x;
 			printf("mx=%lf   dy=%lf   my=%lf   dx=%lf\n",mx * x,dy,my * y,dx);
+			double ax1 = data->map.mini.player_coo.x + mx * x;
+			double ay1 = data->map.mini.player_coo.y + dy;
+			double ax2 = data->map.mini.player_coo.x + dx * x;
+			double ay2 = data->map.mini.player_coo.y + my * y;
+
+			printf("2 ax=%lf  ay=%lf\n",ax2,ay2);
+			printf("1 ax=%lf  ay=%lf\n",ax1,ay1);
+			if (ax1 < 0 || ax1 > 64 || ay1 < 0 || ay1 > 64)
+			{
+				printf("\n2 ax=%lf  ay=%lf\n",ax2,ay2);
+			}
+			else
+				printf("\n1 ax=%lf  ay=%lf\n",ax1,ay1);
 			exit(1);
 			break;
 		}
