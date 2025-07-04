@@ -145,6 +145,7 @@ void	ray_launch(t_data *data)
 		int		case_x = data->map.player_coo->x;
 		int		case_y = data->map.player_coo->y;
 		double deg = data->map.mini.deg + i;
+		deg = fmod(deg,360);
 		while (1)
 		{
 
@@ -153,25 +154,29 @@ void	ray_launch(t_data *data)
 			{
 				// double rad = deg * (M_PI / 180);
 				double dx = 64 - data->map.mini.player_coo.x;
-				double dy = tan(270 - deg) * dx;
-				// printf("dx=%lf   dy=%lf",dx,dy);
+				double dy = tan((270 - deg) * (M_PI / 180)) * dx;
+				printf("dx=%lf   dy=%lf\n",dx,dy);
 				if (dy > dx)
 				{
 					printf("HIT HORI\n");
 					if(data->map.tabmap[case_y + 1][case_x] != '1')
 					{
 						case_y++;
+						dy = 64 - pos_y;
+						// printf("1dy >> %lf   %lf\n",dx,deg);
+						dx = tan((deg - 180) * (M_PI / 180)) * dy;
+						// printf("1dy >> %lf   %lf\n",dy,deg);
+						pos_x += dx;
 						pos_y = 0;
-						dy = 64 - data->map.mini.player_coo.y;
-						dx = tan(deg - 180) * dy;
-						pos_x += 64 - data->map.mini.player_coo.x;
 					}
 					else
 					{
+						dy = 64 - pos_y;
+						// printf("2dy >> %lf   %lf\n",dx,deg);
+						dx = tan((deg - 180) * (M_PI / 180)) * dy;
+						// printf("2dy >> %lf   %lf\n",dy,deg);
+						pos_x += dx;
 						pos_y = 64;
-						dy = 64 - data->map.mini.player_coo.y;
-						dx = tan(deg - 180) * dy;
-						pos_x += 64 - data->map.mini.player_coo.x;
 						break;
 					}
 				}
@@ -182,14 +187,18 @@ void	ray_launch(t_data *data)
 					{
 						case_x++;
 						dx = 64 - pos_x;
-						dy = tan(270 - deg) * dy;
+						// printf("1dy >> %lf   %lf\n",dx,deg);
+						dy = tan((270 - deg) * (M_PI / 180)) * dx;
+						// printf("1dy >> %lf   %lf\n",dy,deg);
 						pos_y += dy;
 						pos_x = 0;
 					}
 					else
 					{
 						dx = 64 - pos_x;
-						dy = tan(270 - deg) * dx;
+						// printf("2dy >> %lf   %lf\n",dx,deg);
+						dy = tan((270 - deg) * (M_PI / 180)) * dx;
+						// printf("2dy >> %lf   %lf\n",dy,deg);
 						pos_y += dy;
 						pos_x = 64;
 						break;
@@ -207,7 +216,7 @@ void	ray_launch(t_data *data)
 
 			int y = data->mlx.height - MARGIN - (5 * 64 / 2) - 32 + (case_y - data->map.player_coo->y) * 64 + (pos_y - data->map.mini.player_coo.y);
 
-			printf("y=%d   x=%d\n",y,x);
+			// printf("y=%d   x=%d\n",y,x);
 
 			mlx_put_image_to_window(data->mlx.mlx,data->mlx.win,data->map.mini.img[MINI_DOOR].img,x,y);
 			usleep(1000);
