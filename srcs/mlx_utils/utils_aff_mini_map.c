@@ -2,13 +2,24 @@
 #include "cub3d.h"
 #include "utils.h"
 #include "mlx.h"
+#include "math.h"
 
-char	*get_pixel_color(t_utils_mini *u, int type)
+
+#include "ft_printf.h"
+
+void	get_pixel_color(t_utils_mini *u, int type)
 {
-	return (u->data->map.mini.img[type].data_addr + ((u->i.y)
-		* u->data->map.mini.img[type].size_line
-		+ (u->i.x) * (u->data->map.mini.img[type]
-			.bits_per_pixel / 8)));
+	if (u->data->map.mini.need_print[u->s.y + u->i.y][u->s.x + u->i.x] == 0)
+	{
+		u->color = 0x00000000;
+	}
+	else
+	{
+		u->color = *(unsigned int *)(u->data->map.mini.img[type].data_addr + ((u->i.y)
+			* u->data->map.mini.img[type].size_line
+			+ (u->i.x) * (u->data->map.mini.img[type]
+				.bits_per_pixel / 8)));
+	}
 }
 
 void	init_utils_mini(t_utils_mini *u,t_data *data)

@@ -7,14 +7,42 @@
 #include "player.h"
 #include <stdlib.h>
 #include "texture.h"
+#include <math.h>
 
 #include <X11/keysym.h>   // Pour les définitions de Keysym (XK_w, XK_a, etc.)
 #include <X11/Xlib.h>     // Pour Display et d'autres fonctions X11
 #include <X11/XKBlib.h>   // Pour XkbKeycodeToKeysym
 
+void	fill_need_print(t_data *data)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < SIZE_MAP)
+	{
+		x = 0;
+		while (x < SIZE_MAP)
+		{
+			if (sqrt(pow(y - SIZE_MAP / 2, 2)
+				+ pow(x - SIZE_MAP / 2, 2)) > SIZE_MAP / 2)
+			{
+				data->map.mini.need_print[y][x] = 0;
+			}
+			else
+			{
+				data->map.mini.need_print[y][x] = 1;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 void	init_data(t_data *data, int ac, char **av)
 {
 	ft_bzero(data, sizeof(t_data));
+	fill_need_print(data);
 	data->mlx.mlx = mlx_init();
 	if (!data->mlx.mlx)
 	{
@@ -29,11 +57,13 @@ int key_press(int keycode, t_data *data)
 {
 	int	i;
 
-    // printf("Key pressed: %d\n", keycode);
+    printf("Key pressed: %d\n", keycode);
 	i = 0;
 	while (data->keycode[i] != 0 && i < 100)
 		i++;
 	data->keycode[i] = keycode;
+	if (keycode == KEY_ALT)
+		mlx_mouse_show(data->mlx.mlx, data->mlx.win);
     return (0);
 }
 
@@ -47,6 +77,11 @@ int key_release(int keycode, t_data *data)
 	{
 		if (data->keycode[i] == keycode)
 			data->keycode[i] = 0;
+		if (keycode == KEY_ALT)
+		{
+			mlx_mouse_hide(data->mlx.mlx, data->mlx.win);
+			mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width / 4, data->mlx.height / 2);
+		}
 		i++;
 	}
     return (0);
@@ -54,15 +89,37 @@ int key_release(int keycode, t_data *data)
     return (0);
 }
 
+int	is_key_pressed(t_data *data, int keycode)
+{
+	int	i;
+
+	i = 0;
+	while (i < 100)
+	{
+		if (data->keycode[i] == keycode)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int mouse_move(int x, int y, t_data *data)
 {
-    // 'vars' est le pointeur 'param' que tu as passé à mlx_hook.
-    // Tu peux l'utiliser pour accéder à mlx-> ou win-> si besoin,
-    // ou à d'autres données spécifiques à ton programme.
-    (void)data; // Supprime l'avertissement si 'vars' n'est pas utilisé directement ici.
+    (void)data;
 
-    printf("Souris déplacée à X: %d, Y: %d\n", x, y);
-    return (0); // Toujours retourner 0 pour indiquer que l'événement a été traité
+	if ((x != data->mlx.width/4 || y != data->mlx.height /2) && !is_key_pressed(data, KEY_ALT))
+	{
+    	// printf("Souris déplacée à X: %d, Y: %d    move: %lf\n", x, y, (double)(x - data->mlx.width / 4) / 5);
+
+		data->map.mini.deg += (double)-(x - data->mlx.width / 4) / 10; // INFO baisser le 10 pour avoir plus de sensi et augenter pour avoir moins de sensi
+		data->map.mini.deg = fmod(data->map.mini.deg, 360.0);
+		if (data->map.mini.deg < 0)
+			data->map.mini.deg += 360;
+		data->map.mini.rad = data->map.mini.deg * (M_PI / 180.0);
+		// printf("new angle >>> %lf    %lf\n",data->map.mini.deg,data->map.mini.rad);
+		mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width / 4, data->mlx.height / 2);
+	}
+    return (0);
 }
 
 int	close_win(t_data *data)
@@ -134,6 +191,29 @@ int game_loop(t_data *data)
 	// close(fd);
 	// printf("double nb >>> %lf\n",t1);
 
+void rotate_image(void)
+{
+	int	x_dest = 288;
+	int	y_dest = 288 - 10;
+	int	center_x = 288;
+	int	center_y = 288;
+
+	double translated_x_dest = x_dest - center_x;
+	double translated_y_dest = y_dest - center_y;
+
+	double rad = 90 * M_PI / 180.0;
+	double cos_theta = cos(rad);
+    double sin_theta = sin(rad);
+	// Appliquer la transformation inverse pour trouver la coordonnée correspondante dans l'image source
+	// Note: rotation inverse de l'angle -theta
+	double src_x_float = translated_x_dest * cos_theta + translated_y_dest * sin_theta + center_x;
+	double src_y_float = -translated_x_dest * sin_theta + translated_y_dest * cos_theta + center_y;
+
+	printf("data >>> %lf    %lf",src_x_float,src_y_float);
+	// int src_x = (int)round(src_x_float); // Utilise round pour une meilleure précision
+	// int src_y = (int)round(src_y_float); // Utilise round
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -142,19 +222,21 @@ int	main(int ac, char **av)
 	(void)data;
 	(void)ac;
 	(void)av;
+	// rotate_image();
 	init_data(&data, ac, av);
 	parsing(&data);
 	open_win(&data, &data.mlx);
-	init_t_coo_mini(32, 32);
-	// data.map.mini.player_coo.y = 32;
-	// data.map.mini.player_coo.x = 32;
+	data.map.mini.player_coo.y = 32;
+	data.map.mini.player_coo.x = 32;
 	init_img_mini(&data, &data.map.mini);
 	// aff_mini_map(&data);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
+	mlx_mouse_hide(data.mlx.mlx, data.mlx.win);
+	mlx_mouse_move(data.mlx.mlx, data.mlx.win, data.mlx.width / 4, data.mlx.height / 2);
 	mlx_hook(data.mlx.win, ON_KEYDOWN, 1L<<0, key_press, &data);
     mlx_hook(data.mlx.win, ON_KEYUP, 1L<<1, key_release, &data);
     mlx_hook(data.mlx.win, ON_DESTROY, 0, close_win, &data);
-	// mlx_hook(data.mlx.win, ON_MOUSEMOVE, 1L << 6, mouse_move, &data);
+	mlx_hook(data.mlx.win, ON_MOUSEMOVE, 1L << 6, mouse_move, &data);
     mlx_loop_hook(data.mlx.mlx, game_loop, &data);
 	mlx_loop(data.mlx.mlx);
 	f_exit(&data, 0);

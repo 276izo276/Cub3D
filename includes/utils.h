@@ -15,5 +15,6 @@ void	ft_bzero(void *s, size_t n);
 void	f_exit(t_data *data, int code);
 int		ft_tab_strlen(char **tab);
 void	print_map(t_data *data);
+int		abs_value(int value);
 
 #endif

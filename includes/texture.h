@@ -6,5 +6,6 @@
 # define MINI_PLAYER 2
 # define MINI_MOB 3
 # define MINI_DOOR 4
+# define MINI_CURS 5
 
 #endif

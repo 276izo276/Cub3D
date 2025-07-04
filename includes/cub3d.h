@@ -19,7 +19,7 @@ t_coo_mini	*init_t_coo_mini(double y, double x);
 void	init_img_mini(t_data *data, t_mini *mini);
 void	print_mini_map(t_utils_mini *u);
 void	init_utils_mini(t_utils_mini *u,t_data *data);
-char	*get_pixel_color(t_utils_mini *u, int type);
+void	get_pixel_color(t_utils_mini *u, int type);
 void	aff_mini_map(t_data *data);
 
 
@@ -55,7 +55,8 @@ typedef enum e_key
 	KEY_C = 99 ,
 	KEY_SPACE = 32, 
 	KEY_SHIFT = 65505,
-	KEY_ESCAPE = 65307
+	KEY_ESCAPE = 65307,
+	KEY_ALT = 65513
 }	t_key;
 
 #endif
