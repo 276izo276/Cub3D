@@ -139,55 +139,69 @@ bool	is_move_player(t_data *data, int i)
 void	ray_launch(t_data *data)
 {
 
-	int	i = 270;
+	int	i = 90;
 	(void)data;
 	while (1)
 	{
-		double deg = data->map.mini.deg + i + 180;
+		double deg = data->map.mini.deg + i + 90;
 		double	coo_y = data->map.mini.player_coo.y;
 		double	coo_x = data->map.mini.player_coo.x;
 		int		case_y = data->map.player_coo->y;
 		int		case_x = data->map.player_coo->x;
 		printf("\n\n\nSTART\n");
+		printf("Case   y=%d  x=%d\n",case_y,case_x);
 		while (1)
 		{
 			deg = fmod(deg,360);
 			printf("deg >>> %lf\n",deg);
 			double	rad = deg * (M_PI / 180);
-			double	rhori = cos(rad);
-			if (fmod(rhori,90) == 0)
-				rhori += 0.0000000001;
-			double	rvert = sin(rad);
-			if (fmod(rvert,90) == 0)
-				rhori += 0.0000000001;
-			// printf("rhori >>> %lf\n",rhori);
-			// printf("rverti >>> %lf\n",rvert);
-			double	rx = 64 - coo_x/rhori;
-			double	ry = 64 - coo_y/rvert;
-			if (rx < 0)
-				rx = -rx;
-			if (ry < 0)
-				ry = -ry;
+			double	delta_x = -cos(rad);
+			if (fabs(delta_x) <= 0.0000000001)
+				delta_x += 0.0000000001;
+			double	delta_y = sin(rad);
+			if (fabs(delta_y) <= 0.0000000001)
+				delta_y += 0.0000000001;
+			// printf("delta_x >>> %lf\n",delta_x);
+			// printf("delta_yi >>> %lf\n",delta_y);
+			double	rx = (64 - coo_x)/delta_x;
+			double	ry = (64 - coo_y)/delta_y;
+			// printf("t ____ >>>%lf\n",rx);
+			// printf("t |||| >>>%lf\n",ry);
+			// if (rx < 0)
+			// 	rx = -rx;
+			// if (ry < 0)
+			// 	ry = -ry;
+			rx = fabs(rx);
+			ry = fabs(ry);
 			printf("t ____ >>>%lf\n",rx);
 			printf("t |||| >>>%lf\n",ry);
 			if (rx < ry)
 			{
-				printf("VERTI\n");
-				printf("coo y >>>%lf\n",coo_y + rx * sin(rad));
-				printf("coo x >>>%lf\n",coo_x + rx * cos(rad));
-				if (rhori < 0)
+				printf("MOVE XXXX\n");
+				printf("coo y >>>%lf\n",coo_y + rx * delta_y);
+				printf("coo x >>>%lf\n",coo_x + rx * delta_x);
+				if (delta_x < 0)
 				{
 					if (data->map.tabmap[case_y][case_x - 1] != '1')
 					{
 						case_x--;
 						coo_x = 63;
-						coo_y = coo_y + rx * rvert;
+						coo_y = coo_y + rx * delta_y;
 					}
 					else
 					{
 						coo_x = 0;
-						coo_y = coo_y + rx * rvert;
-						printf("AFF COL\n");
+						coo_y = coo_y + rx * delta_y;
+						printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
+						for (int i = -2;i < 2;i++)
+						{
+							for (int j = -2; j< 2; j++)
+							{
+								int	x = i + (5 * 64 / 2) + (case_x - data->map.player_coo->x) * 64 + (coo_x - data->map.mini.player_coo.x);
+								int	y = j + data->mlx.height - MARGIN - (5 * 64 / 2) + (case_y - data->map.player_coo->y) * 64 + (coo_y  - data->map.mini.player_coo.y);
+								mlx_pixel_put(data->mlx.mlx,data->mlx.win,x,y,0xFF0000);
+							}
+						}
 						break;
 					}
 				}
@@ -197,57 +211,77 @@ void	ray_launch(t_data *data)
 					{
 						case_x++;
 						coo_x = 0;
-						coo_y = coo_y + rx * rvert;
+						coo_y = coo_y + rx * delta_y;
 					}
 					else
 					{
 						coo_x = 63;
-						coo_y = coo_y + rx * rvert;
-						printf("AFF COL\n");
+						coo_y = coo_y + rx * delta_y;
+						printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
+						for (int i = -2;i < 2;i++)
+						{
+							for (int j = -2; j< 2; j++)
+							{
+								int	x = i + (5 * 64 / 2) + (case_x - data->map.player_coo->x) * 64 + (coo_x - data->map.mini.player_coo.x);
+								int	y = j + data->mlx.height - MARGIN - (5 * 64 / 2) + (case_y - data->map.player_coo->y) * 64 + (coo_y  - data->map.mini.player_coo.y);
+								mlx_pixel_put(data->mlx.mlx,data->mlx.win,x,y,0xFF0000);
+							}
+						}
 						break;
 					}
 				}
 			}
 			else
 			{
-				printf("HORI\n");
-				printf("coo y >>>%lf\n",coo_y + ry * sin(rad));
-				printf("coo x >>>%lf\n",coo_x + ry * cos(rad));
-				if (rvert < 0)
+				printf("MOVE YYYY\n");
+				printf("coo y >>>%lf\n",coo_y + ry * delta_y);
+				printf("coo x >>>%lf\n",coo_x + ry * delta_x);
+				if (delta_y < 0)
 				{
+					printf("NEGA DELTA Y %lf",delta_y);
 					if (data->map.tabmap[case_y - 1][case_x] != '1')
 					{
 						case_y--;
 						coo_y = 63;
-						coo_x = coo_x + ry * rhori;
+						coo_x = coo_x + ry * delta_x;
 					}
 					else
 					{
 						coo_y = 0;
-						coo_x = coo_x + ry * rhori;
-						printf("AFF COL\n");
+						coo_x = coo_x + ry * delta_x;
+						printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
+						for (int i = -2;i < 2;i++)
+						{
+							for (int j = -2; j< 2; j++)
+							{
+								int	x = i + (5 * 64 / 2) + (case_x - data->map.player_coo->x) * 64 + (coo_x - data->map.mini.player_coo.x);
+								int	y = j + data->mlx.height - MARGIN - (5 * 64 / 2) + (case_y - data->map.player_coo->y) * 64 + (coo_y  - data->map.mini.player_coo.y);
+								mlx_pixel_put(data->mlx.mlx,data->mlx.win,x,y,0xFF0000);
+							}
+						}
 						break;
 					}
 				}
 				else
 				{
+					printf("POSI DELTA Y %lf",delta_y);
 					if (data->map.tabmap[case_y + 1][case_x] != '1')
 					{
 						case_y++;
 						coo_y = 0;
-						coo_x = coo_x + ry * rhori;
+						coo_x = coo_x + ry * delta_x;
 					}
 					else
 					{
 						coo_y = 63;
-						coo_x = coo_x + ry * rhori;
-						printf("AFF COL\n");
+						coo_x = coo_x + ry * delta_x;
+						printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
 						for (int i = -2;i < 2;i++)
 						{
 							for (int j = -2; j< 2; j++)
 							{
-								int	x = i + (5 * 64 / 2 - 32) + (case_x - data->map.player_coo->x) * 64 + (coo_x - data->map.mini.player_coo.x);
-								int	y = j + data->mlx.height - MARGIN - (5 * 64 / 2 - 32) + (case_y - data->map.player_coo->y) + (coo_y - data->map.mini.player_coo.y);
+								int	x = i + (5 * 64 / 2) + (case_x - data->map.player_coo->x) * 64 + (coo_x - data->map.mini.player_coo.x);
+								int	y = j + data->mlx.height - MARGIN - (5 * 64 / 2) + (case_y - data->map.player_coo->y) * 64 + (coo_y  - data->map.mini.player_coo.y);
 								mlx_pixel_put(data->mlx.mlx,data->mlx.win,x,y,0xFF0000);
 							}
 						}
