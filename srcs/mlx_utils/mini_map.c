@@ -11,14 +11,14 @@ void	init_img_mini(t_data *data, t_mini *mini)
 {
 	int	i;
 
-	i = 0;
 	mini->img[MINI_FLOOR].path = "texture/mini_map/floor.xpm";
 	mini->img[MINI_WALL].path = "texture/mini_map/wall.xpm";
 	mini->img[MINI_PLAYER].path = "texture/mini_map/cursor.xpm";
 	mini->img[MINI_DOOR].path = "texture/mini_map/door.xpm";
 	mini->img[MINI_MOB].path = "texture/mini_map/mob.xpm";
+	mini->img[MINI_CURS].path = "texture/mini_map/curs.xpm";
 	i = 0;
-	while (i < 5)
+	while (i < 6)
 	{
 		mini->img[i].img = mlx_xpm_file_to_image(data->mlx.mlx,
 				mini->img[i].path, &mini->img[i].width,

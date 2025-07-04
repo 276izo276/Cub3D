@@ -5,7 +5,7 @@ static char * collectible_xpm[] = {
 ". 	c #8CB229",
 "+ 	c #CEFB42",
 "@ 	c #BDBA00",
-"# 	c #000000",
+"# 	c #010101",
 "$ 	c #000001",
 "% 	c #000100",
 "& 	c #FEBD36",

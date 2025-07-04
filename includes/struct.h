@@ -3,6 +3,8 @@
 
 #include "t_lst.h"
 
+# define SIZE_MAP (5 * 64)
+
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
 typedef struct s_img		t_img;
@@ -55,28 +57,30 @@ struct s_mlx
 
 struct s_utils_mini
 {
-	int		new_y;
-	int		new_x;
-	int		y;
-	int		x;
-	t_coo	s;
-	t_coo	i;
-	int		size;
-	char	*pixel_addr;
-	char	*color;
-	t_data	*data;
-	t_img	*mmap;
+	int				new_y;
+	int				new_x;
+	int				y;
+	int				x;
+	t_coo			s;
+	t_coo			i;
+	int				size;
+	char			*pixel_addr;
+	unsigned int	color;
+	t_data			*data;
+	t_img			*mmap;
 };
 
 
 struct s_mini
 {
-	t_img	img[6];
-	int		height;
-	int		width;
+	int			need_print[SIZE_MAP][SIZE_MAP];
+	t_img		img[7];
+	int			height;
+	int			width;
 	t_coo_mini	player_coo;
-	double	deg;
-	double	rad;
+	double		deg;
+	double		rad;
+	double		speed;
 };
 
 struct s_map
