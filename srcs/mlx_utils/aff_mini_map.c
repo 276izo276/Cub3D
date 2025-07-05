@@ -128,3 +128,4 @@ void	aff_mini_map(t_data *data)
 			data->map.mini.rad);
 	print_mini_map(&u);
 }
+

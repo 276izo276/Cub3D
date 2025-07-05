@@ -8,4 +8,10 @@
 # define MINI_DOOR 4
 # define MINI_CURS 5
 
+
+# define NORTH 0
+# define SOUTH 1
+# define EAST 2
+# define WEST 3
+
 #endif

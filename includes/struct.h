@@ -11,6 +11,7 @@ typedef struct s_img		t_img;
 typedef struct s_color		t_color;
 typedef	struct s_mlx		t_mlx;
 typedef struct s_coo		t_coo;
+// typedef struct s_display		t_display;
 typedef struct s_coo_mini		t_coo_mini;
 typedef	struct s_mini		t_mini;
 typedef struct s_utils_mini	t_utils_mini;
@@ -106,12 +107,30 @@ struct s_map
 	t_color	*ceiling;
 };
 
+// struct s_display
+// {
+// 	void 	*img;
+// 	void	*sprite[5];
+// 	char	*data_addr;
+// 	int		endian;
+// 	int		size_line;
+// 	int		bits_per_pixel;
+// 	int		width;
+// 	int		height;
+// 	int		new_y;
+// 	int		new_x;
+// 	int		x;
+// 	int		y;
+// 	int		size;
+// };
+
 struct s_data
 {
 	int		ac;
 	char	**av;
 	t_map	map;
 	t_mlx	mlx;
+	// t_display	f_display;
 	int		keycode[100];
 	// t_img	*wh;
 	// t_img	*bl;

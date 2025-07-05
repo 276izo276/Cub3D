@@ -135,25 +135,23 @@ bool	is_move_player(t_data *data, int i)
 	return (false);
 }
 
-
 void	ray_launch(t_data *data)
 {
 
-	int	i = 0;
-	(void)data;
-	while (1)
+	double	i = -45;
+	while (i <= 45)
 	{
 		double deg = data->map.mini.deg + i + 270;
 		double	coo_y = data->map.mini.player_coo.y;
 		double	coo_x = data->map.mini.player_coo.x;
 		int		case_y = data->map.player_coo->y;
 		int		case_x = data->map.player_coo->x;
-		printf("\n\n\nSTART\n");
-		printf("Case   y=%d  x=%d\n",case_y,case_x);
+		// printf("\n\n\nSTART\n");
+		// printf("Case   y=%d  x=%d\n",case_y,case_x);
 		while (1)
 		{
 			deg = fmod(deg,360);
-			printf("deg >>> %lf\n",deg);
+			// printf("deg >>> %lf\n",deg);
 			double	rad = deg * (M_PI / 180);
 			double	delta_x = -cos(rad);
 			if (fabs(delta_x) <= 0.0000000001)
@@ -161,36 +159,26 @@ void	ray_launch(t_data *data)
 			double	delta_y = sin(rad);
 			if (fabs(delta_y) <= 0.0000000001)
 				delta_y = 0.0000000001;
-			// printf("delta_x >>> %lf\n",delta_x);
-			// printf("delta_yi >>> %lf\n",delta_y);
+
 			double rx, ry;
-            
-            // Distance jusqu'au prochain bord vertical
+
             if (delta_x > 0)
-                rx = (64 - coo_x) / delta_x;  // Bord droit
+                rx = (64 - coo_x) / delta_x;
             else
-                rx = -coo_x / delta_x;        // Bord gauche
-            
-            // Distance jusqu'au prochain bord horizontal
+                rx = -coo_x / delta_x;
             if (delta_y > 0)
-                ry = (64 - coo_y) / delta_y;  // Bord haut
+                ry = (64 - coo_y) / delta_y;
             else
-                ry = -coo_y / delta_y;        // Bord bas
-			// printf("t ____ >>>%lf\n",rx);
-			// printf("t |||| >>>%lf\n",ry);
-			// if (rx < 0)
-			// 	rx = -rx;
-			// if (ry < 0)
-			// 	ry = -ry;
+                ry = -coo_y / delta_y;
 			rx = fabs(rx);
 			ry = fabs(ry);
-			printf("t ____ >>>%lf\n",rx);
-			printf("t |||| >>>%lf\n",ry);
+			// printf("t ____ >>>%lf\n",rx);
+			// printf("t |||| >>>%lf\n",ry);
 			if (rx < ry)
 			{
-				printf("MOVE XXXX\n");
-				printf("coo y >>>%lf\n",coo_y + rx * delta_y);
-				printf("coo x >>>%lf\n",coo_x + rx * delta_x);
+				// printf("MOVE XXXX\n");
+				// printf("coo y >>>%lf\n",coo_y + rx * delta_y);
+				// printf("coo x >>>%lf\n",coo_x + rx * delta_x);
 				if (delta_x < 0)
 				{
 					if (data->map.tabmap[case_y][case_x - 1] != '1')
@@ -203,7 +191,7 @@ void	ray_launch(t_data *data)
 					{
 						coo_x = 0;
 						coo_y = coo_y + rx * delta_y;
-						printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
+						// printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
 						for (int i = -2;i < 2;i++)
 						{
 							for (int j = -2; j< 2; j++)
@@ -228,7 +216,7 @@ void	ray_launch(t_data *data)
 					{
 						coo_x = 63;
 						coo_y = coo_y + rx * delta_y;
-						printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
+						// printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
 						for (int i = -2;i < 2;i++)
 						{
 							for (int j = -2; j< 2; j++)
@@ -244,12 +232,12 @@ void	ray_launch(t_data *data)
 			}
 			else
 			{
-				printf("MOVE YYYY\n");
-				printf("coo y >>>%lf\n",coo_y + ry * delta_y);
-				printf("coo x >>>%lf\n",coo_x + ry * delta_x);
+				// printf("MOVE YYYY\n");
+				// printf("coo y >>>%lf\n",coo_y + ry * delta_y);
+				// printf("coo x >>>%lf\n",coo_x + ry * delta_x);
 				if (delta_y < 0)
 				{
-					printf("NEGA DELTA Y %lf",delta_y);
+					// printf("NEGA DELTA Y %lf",delta_y);
 					if (data->map.tabmap[case_y - 1][case_x] != '1')
 					{
 						case_y--;
@@ -260,7 +248,7 @@ void	ray_launch(t_data *data)
 					{
 						coo_y = 0;
 						coo_x = coo_x + ry * delta_x;
-						printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
+						// printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
 						for (int i = -2;i < 2;i++)
 						{
 							for (int j = -2; j< 2; j++)
@@ -275,7 +263,7 @@ void	ray_launch(t_data *data)
 				}
 				else
 				{
-					printf("POSI DELTA Y %lf",delta_y);
+					// printf("POSI DELTA Y %lf",delta_y);
 					if (data->map.tabmap[case_y + 1][case_x] != '1')
 					{
 						case_y++;
@@ -286,7 +274,7 @@ void	ray_launch(t_data *data)
 					{
 						coo_y = 63;
 						coo_x = coo_x + ry * delta_x;
-						printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
+						// printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
 						for (int i = -2;i < 2;i++)
 						{
 							for (int j = -2; j< 2; j++)
@@ -301,16 +289,8 @@ void	ray_launch(t_data *data)
 				}
 			}
 		}
-		
-
-
-		// int	x = (5 * 64 / 2) - 32 + (case_x - data->map.player_coo->x) * 64 + (pos_x - data->map.mini.player_coo.x);
-
-		// int y = data->mlx.height - MARGIN - (5 * 64 / 2) - 32 + (case_y - data->map.player_coo->y) * 64 + (pos_y - data->map.mini.player_coo.y);
-
-
-		// mlx_put_image_to_window(data->mlx.mlx,data->mlx.win,data->map.mini.img[MINI_DOOR].img,x,y);
-		break;
+		// display_game(data, &data->f_display, case_y, case_x);
+		i += 0.1;
 	}
 }
 
@@ -345,9 +325,6 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 
-	(void)data;
-	(void)ac;
-	(void)av;
 	init_data(&data, ac, av);
 	parsing(&data);
 	open_window(&data, &data.mlx);

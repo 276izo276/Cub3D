@@ -54,7 +54,8 @@ MLX_UTILS	=								\
 				mini_move.c					\
 				mini_rotate.c				\
 				aff_mini_map.c				\
-				utils_aff_mini_map.c		
+				utils_aff_mini_map.c		\
+				display_game.c	
 
 FILES	+=	$(addprefix srcs/mlx_utils/,$(MLX_UTILS))
 
