@@ -297,7 +297,17 @@ void	ray_launch(t_data *data)
 			}
 		}
 		// display_game(data, &data->f_display, case_y, case_x);
-		i += .1;
+		// printf("Angle=%lf   Distance_x=%d    %d   %lf   %lf    Distance_y=%d    %d   %lf   %lf\n",
+		// 	i,case_x,data->map.player_coo->x,coo_x,data->map.mini.player_coo.x,
+		// 	case_y,data->map.player_coo->y,coo_y,data->map.mini.player_coo.y
+		// );
+		printf("Angle=%lf   Distance_x=%lf    Distance_y=%lf     Distance_total=%lf\n",
+		i,
+		sqrt(((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))),
+		sqrt( ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y)) ),
+		sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
+	+	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))  ));
+		i += .5;
 	}
 }
 
