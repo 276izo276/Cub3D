@@ -307,7 +307,8 @@ void	ray_launch(t_data *data)
 		sqrt( ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y)) ),
 		sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
 	+	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))  ));
-		i += .5;
+		i += .1;
+		
 	}
 }
 
