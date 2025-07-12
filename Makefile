@@ -22,12 +22,14 @@ FILES	=									\
 				main.c						\
 
 UTILS	=									\
+				abs_value.c 				\
 				debug.c						\
 				dup.c						\
 				free.c						\
 				ft_bzero.c					\
 				ft_strcmp.c					\
-				ft_strlen.c					
+				ft_strlen.c					\
+				time.c						
 
 FILES	+=	$(addprefix srcs/utils/,$(UTILS))
 

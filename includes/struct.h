@@ -2,8 +2,10 @@
 # define STRUCT_H
 
 #include "t_lst.h"
+#include <sys/time.h>
 
 # define SIZE_MAP (5 * 64)
+# define FPS 60
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
@@ -67,8 +69,7 @@ struct s_utils_mini
 	int				size;
 	char			*pixel_addr;
 	unsigned int	color;
-	t_data			*data;
-	t_img			*mmap;
+	t_img			mmap;
 	double			cos_val;
 	double			sin_val;
 	double			xdest;
@@ -126,12 +127,15 @@ struct s_map
 
 struct s_data
 {
-	int		ac;
-	char	**av;
-	t_map	map;
-	t_mlx	mlx;
+	t_utils_mini	u;
+	long long int	time_fps;
+	long long int	time_move;
+	int				ac;
+	char			**av;
+	t_map			map;
+	t_mlx			mlx;
 	// t_display	f_display;
-	int		keycode[100];
+	int				keycode[100];
 	// t_img	*wh;
 	// t_img	*bl;
 };
