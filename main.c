@@ -329,8 +329,11 @@ void	ray_launch(t_data *data)
 
 		double	dist_wall = sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
 	+	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))  );
+		// printf("cos angle >>>%lf\n",cos(fabs(i) * (M_PI / 180)));
 		// printf("Angle=%lf   Distance_total=%lf\n",i,dist_wall);
-		double	size_wall = data->mlx.height / 2 * tan(30 * (M_PI / 180)) / (double)(dist_wall/64.0);
+		dist_wall *= cos(i * (M_PI / 180.0));
+		// dist_wall *= .5;
+		double	size_wall = data->mlx.height / 2 * tan(50 * (M_PI / 180)) / (double)(dist_wall/64.0);
 		// printf("dproj=%lf    Hauteur=%lf   mlx_height=%d\n",data->mlx.height / 2 * tan(30 * (M_PI / 180)), size_wall, data->mlx.height);
 		int	pix_x = data->mlx.width / 2 - ((data->mlx.width / 2)/90 * (i + 45));
 		int	pix_y = data->mlx.height / 2;
@@ -417,7 +420,7 @@ int	game_loop(t_data *data)
 		// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 		data->time_fps = cur;
 		ray_launch(data);
-		aff_mini_map(data);
+		// aff_mini_map(data);
 		// ray_launch(data);
 	}
 	// printf("OUT\n");
