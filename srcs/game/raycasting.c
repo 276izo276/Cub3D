@@ -66,7 +66,7 @@ static void	handle_ray(t_data *data, t_ray *ray)
 	}
 }
 
-void	ray_launch(t_data *data, t_ray *ray)
+void	ray_launchs(t_data *data, t_ray *ray)
 {
 	double	i;
 

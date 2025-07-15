@@ -415,7 +415,7 @@ int	game_loop(t_data *data)
 		data->time_fps = cur;
 		ray_launch(data);
 		aff_mini_map(data);
-		ray_launch(data);
+		// ray_launch(data);
 	}
 	// printf("OUT\n");
 	return (0);
