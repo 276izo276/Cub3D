@@ -3,6 +3,8 @@
 #include "utils.h"
 #include "mlx.h"
 
+#include <stdio.h>
+
 void	open_window(t_data *data, t_mlx *mlx)
 {
 	mlx_get_screen_size(mlx->mlx, &mlx->width, &mlx->height);
@@ -12,4 +14,6 @@ void	open_window(t_data *data, t_mlx *mlx)
 		//error msg
 		f_exit(data, 1);
 	}
+	// printf("Size Windows >>> width>%d   height>%d\n",data->mlx.width/2,data->mlx.height);
+	// exit(1);
 }

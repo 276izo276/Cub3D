@@ -30,26 +30,26 @@ void	put_pixel(t_data *data, int x, int y, int color)
 		*(unsigned int *)dst = color;
 	}
 }
-void	get_pixel_col(t_data *data, t_display *f_display, double wall_height)
-{
-	// int	text_x;
-	// int	y;
-	int	start;
-	int	end;
+// void	get_pixel_col(t_data *data, t_display *f_display, double wall_height)
+// {
+// 	int	text_x;
+// 	int	y;
+// 	int	start;
+// 	int	end;
 
-	end = (data->mlx.height / 2) + (wall_height / 2);
-	start = (data->mlx.height / 2) - (wall_height / 2);
-	// y = 0;
-	// text_x = (int)(wall_height * f_display->texture[NORTH].width);
-	// while (y < data->mlx.height - MARGIN)
-	// {
-	// 	if (y < start)
-	// 		put_pixel(data, text_x, y, 0xFF0000);
-	// 	else if (y >= start && y <= end)
-	// 	{
+// 	end = (data->mlx.height / 2) + (wall_height / 2);
+// 	start = (data->mlx.height / 2) - (wall_height / 2);
+// 	y = 0;
+// 	text_x = (int)(wall_height * f_display->texture[NORTH].width);
+// 	while (y < data->mlx.height - MARGIN)
+// 	{
+// 		if (y < start)
+// 			put_pixel(data, text_x, y, 0xFF0000);
+// 		else if (y >= start && y <= end)
+// 		{
 
-	// 	}
-	// 	++y;
-	// }
-	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, f_display->img, 0, 0);
-}
+// 		}
+// 		++y;
+// 	}
+// 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, f_display->img, 0, 0);
+// }

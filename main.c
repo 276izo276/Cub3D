@@ -51,6 +51,19 @@ void	init_data(t_data *data, int ac, char **av)
 		f_exit(data, 1);
 	}
 	init_utils_mini(data);
+	// ft_bzero(&data->screen.img, sizeof(data->screen.img));
+	data->screen.img = mlx_new_image(data->mlx.mlx, data->mlx.width / 2, data->mlx.height);
+	data->screen.data_addr = mlx_get_data_addr(data->screen.img,&data->screen.bits_per_pixel,&data->screen.size_line,&data->screen.endian);
+	for (int y = 0; y < data->screen.height; y++) {
+		for (int x = 0; x < data->screen.width; x++)
+		{
+			char *pixel_addr = data->screen.data_addr + ((y) * data->screen.size_line
+						+ (x)
+						* (data->screen.bits_per_pixel / 8));
+			*(unsigned int *)pixel_addr = 0x000000;
+		}
+	}
+	mlx_put_image_to_window(data->mlx.mlx,data->mlx.win,data->screen.img,0,0);
 	data->ac = ac;
 	data->av = av;
 }
@@ -142,6 +155,7 @@ bool	is_move_player(t_data *data, int i)
 
 void	ray_launch(t_data *data)
 {
+	// t_img	img_proj;
 	double	i = -45;
 	while (i <= 45)
 	{
@@ -312,14 +326,63 @@ void	ray_launch(t_data *data)
 	// 	sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
 	// +	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))  ));
 
-		printf("Angle=%lf   Distance_total=%lf\n",
-		i,
-		sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
-	+	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))  ));
-		printf("dproj=%lf    Hauteur=%lf   mlx_height=%d\n",data->mlx.height / 2 * tan(30 * (M_PI / 180)), data->mlx.height / 2 * tan(30 * (M_PI / 180)) / (double)(sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
-	+	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))  )/64.0), data->mlx.height);
-		i += 1;
+		double	dist_wall = sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
+	+	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))  );
+		// printf("Angle=%lf   Distance_total=%lf\n",i,dist_wall);
+		double	size_wall = data->mlx.height / 2 * tan(30 * (M_PI / 180)) / (double)(dist_wall/64.0);
+		// printf("dproj=%lf    Hauteur=%lf   mlx_height=%d\n",data->mlx.height / 2 * tan(30 * (M_PI / 180)), size_wall, data->mlx.height);
+		int	pix_x = data->mlx.width / 2 - ((data->mlx.width / 2));
+		int	pix_y = data->mlx.height / 2;
+		// img_proj.img = mlx_new_image(data->mlx.mlx, data->mlx.width, data->mlx.height);
+		// img_proj.data_addr = mlx_get_data_addr(img_proj.img,&img_proj.bits_per_pixel,&img_proj.size_line,&img_proj.endian);
+		// double	pix_img_y = 1024;
+		// double	pix_img_x = 1024;
+		// write(1,"HERE\n",5);
+		while (pix_y > data->mlx.height / 2 - size_wall/2 && pix_y >= 0 )
+		{
+			char *pixel_addr = data->screen.data_addr + (pix_y
+						* data->screen.size_line + pix_x
+						* (data->screen.bits_per_pixel / 8));
+			// printf("----  %d     %d  ----\n",pix_y,pix_x);
+			*(unsigned int *)pixel_addr = 0x000000FF;
+			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,pix_x,pix_y,0x0000FF);
+			// printf("put pixel >>> %d  %d\n",pix_x,pix_y);
+			pix_y--;
+		}
+		while (pix_y >= 0)
+		{
+			char *pixel_addr = data->screen.data_addr + ((pix_y)
+						* data->screen.size_line + (pix_x)
+						* (data->screen.bits_per_pixel / 8));
+			*(unsigned int *)pixel_addr = 0x00000000;
+			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,pix_x,pix_y,0x000000);
+			pix_y--;
+		}
+		pix_y = data->mlx.height / 2;
+		while (pix_y < data->mlx.height / 2 + size_wall/2 && pix_y < data->mlx.height )
+		{
+			char *pixel_addr = data->screen.data_addr + ((pix_y)
+						* data->screen.size_line + (pix_x)
+						* (data->screen.bits_per_pixel / 8));
+			*(unsigned int *)pixel_addr = 0x000000FF;
+			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,pix_x,pix_y,0x0000FF);
+			// printf("put pixel >>> %d  %d\n",pix_x,pix_y);
+			pix_y++;
+		}
+		while (pix_y < data->mlx.height)
+		{
+			char *pixel_addr = data->screen.data_addr + ((pix_y)
+						* data->screen.size_line + (pix_x)
+						* (data->screen.bits_per_pixel / 8));
+			*(unsigned int *)pixel_addr = 0x00000000;
+			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,pix_x,pix_y,0x000000);
+			pix_y++;
+		}
+		i += .5;
 	}
+	
+	// mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->u.mmap.img, data->mlx.width / 2 - 250, data->mlx.height - 250);
+	// mlx_destroy_image(data->mlx.mlx,img_proj.img);
 }
 
 int	game_loop(t_data *data)
@@ -350,8 +413,8 @@ int	game_loop(t_data *data)
 	{
 		// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 		data->time_fps = cur;
-		aff_mini_map(data);
 		ray_launch(data);
+		aff_mini_map(data);
 	}
 	// printf("OUT\n");
 	return (0);
