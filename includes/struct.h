@@ -10,7 +10,7 @@
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
 typedef struct s_img		t_img;
-typedef struct s_texture		t_texture;
+typedef struct s_ray		t_ray;
 typedef struct s_color		t_color;
 typedef	struct s_mlx		t_mlx;
 typedef struct s_coo		t_coo;
@@ -19,6 +19,19 @@ typedef struct s_coo_mini		t_coo_mini;
 typedef	struct s_mini		t_mini;
 typedef struct s_utils_mini	t_utils_mini;
 
+struct	s_ray
+{
+	double	deg;
+	double	coo_y;
+	double	coo_x;
+	int		case_y;
+	int		case_x;
+	double	rad;
+	double	delta_x;
+	double	delta_y;
+	double	rx;
+	double	ry;
+};
 struct s_coo
 {
 	int	x;
@@ -111,7 +124,6 @@ struct s_map
 
 struct s_display
 {
-	t_texture	*texture;
 	void	*img;
 	char	*data_addr;
 	int		endian;
@@ -134,6 +146,7 @@ struct s_data
 	t_map			map;
 	t_mlx			mlx;
 	t_display	f_display;
+	t_ray		ray;
 	int				keycode[100];
 	// t_img	*wh;
 	// t_img	*bl;
