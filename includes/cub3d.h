@@ -23,6 +23,10 @@ void	init_utils_mini(t_data *data);
 void	get_pixel_color(t_data *data, int type);
 void	aff_mini_map(t_data *data);
 
+//display_game
+void	get_pixel_col(t_data *data, t_display *f_display, double wall_height);
+void init_display(t_data *data, t_display *f_display);
+
 
 typedef enum e_key_down
 {

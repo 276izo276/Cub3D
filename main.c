@@ -296,7 +296,11 @@ void	ray_launch(t_data *data)
 				}
 			}
 		}
-		// display_game(data, &data->f_display, case_y, case_x);
+	// 	data->f_display.hit_x = case_x;
+	// 	data->f_display.hit_y = case_y;
+	// 	double wall_height = (128  * 60) / sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
+	// +	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)));
+	// 	get_pixel_col(data, &data->f_display, wall_height);
 		// printf("Angle=%lf   Distance_x=%d    %d   %lf   %lf    Distance_y=%d    %d   %lf   %lf\n",
 		// 	i,case_x,data->map.player_coo->x,coo_x,data->map.mini.player_coo.x,
 		// 	case_y,data->map.player_coo->y,coo_y,data->map.mini.player_coo.y
@@ -368,6 +372,7 @@ int	main(int ac, char **av)
 	data.map.mini.player_coo.x = 32;
 	data.map.mini.speed = 1.5;
 	init_img_mini(&data, &data.map.mini);
+	init_display(&data, &data.f_display);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
 	mlx_mouse_hide(data.mlx.mlx, data.mlx.win);
 	mlx_mouse_move(data.mlx.mlx, data.mlx.win, data.mlx.width / 4,
