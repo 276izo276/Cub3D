@@ -139,7 +139,7 @@ struct s_display
 struct s_data
 {
 	t_utils_mini	u;
-	t_img			screen;
+	t_img			*screen;
 	long long int	time_fps;
 	long long int	time_move;
 	int				ac;
