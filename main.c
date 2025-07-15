@@ -415,6 +415,7 @@ int	game_loop(t_data *data)
 		data->time_fps = cur;
 		ray_launch(data);
 		aff_mini_map(data);
+		ray_launch(data);
 	}
 	// printf("OUT\n");
 	return (0);
@@ -431,11 +432,12 @@ int	main(int ac, char **av)
 	init_data(&data, ac, av);
 	parsing(&data);
 	open_window(&data, &data.mlx);
+	ft_bzero(&data.ray, sizeof(t_ray));
 	data.map.mini.player_coo.y = 32;
 	data.map.mini.player_coo.x = 32;
 	data.map.mini.speed = 1.5;
 	init_img_mini(&data, &data.map.mini);
-	init_display(&data, &data.f_display);
+	// init_display(&data, &data.f_display);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
 	mlx_mouse_hide(data.mlx.mlx, data.mlx.win);
 	mlx_mouse_move(data.mlx.mlx, data.mlx.win, data.mlx.width / 4,

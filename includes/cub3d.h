@@ -27,6 +27,13 @@ void	aff_mini_map(t_data *data);
 void	get_pixel_col(t_data *data, t_display *f_display, double wall_height);
 void init_display(t_data *data, t_display *f_display);
 
+//raycasting
+void	ray_launch(t_data *data, t_ray *ray);
+int	handle_ray_y_down(t_data *data, t_ray *ray);
+int	handle_ray_y_top(t_data *data, t_ray *ray);
+int handle_ray_x_right(t_data *data, t_ray *ray);
+int	handle_ray_x_left(t_data *data, t_ray *ray);
+
 
 typedef enum e_key_down
 {
