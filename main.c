@@ -158,16 +158,18 @@ void	ray_launch(t_data *data)
 {
 	// t_img	img_proj;
 	double	i = -45;
+	double	pix_x = data->mlx.width - 1;
+	double	dist = 0;
 	while (i <= 45)
 	{
-		double deg = data->map.mini.deg + i + 270;
+		double	deg = data->map.mini.deg + i + 270;
 		double	coo_y = data->map.mini.player_coo.y;
 		double	coo_x = data->map.mini.player_coo.x;
 		int		case_y = data->map.player_coo->y;
 		int		case_x = data->map.player_coo->x;
 		// printf("\n\n\nSTART\n");
 		// printf("Case   y=%d  x=%d\n",case_y,case_x);
-		// deg = fmod(deg,360);
+		deg = fmod(deg,360);
 		// printf("deg >>> %lf\n",deg);
 		double	rad = deg * (M_PI / 180);
 		// printf("rad >>> %lf\n",rad);
@@ -327,61 +329,85 @@ void	ray_launch(t_data *data)
 	// 	sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
 	// +	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))  ));
 
+		double d_proj = (data->mlx.height / 2) / tan(45 * 0.0174533);
 		double	dist_wall = sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
 	+	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))  );
 		// printf("cos angle >>>%lf\n",cos(fabs(i) * (M_PI / 180)));
 		// printf("Angle=%lf   Distance_total=%lf\n",i,dist_wall);
-		dist_wall *= cos(i * (M_PI / 180.0));
+		dist_wall *= cos(i * (M_PI / 180));
 		// dist_wall *= .5;
-		double	size_wall = data->mlx.height / 2 * tan(50 * (M_PI / 180)) / (double)(dist_wall/64.0);
+		double	size_wall = d_proj / (double)(dist_wall/64.0);
+		(void)dist;
 		// printf("dproj=%lf    Hauteur=%lf   mlx_height=%d\n",data->mlx.height / 2 * tan(30 * (M_PI / 180)), size_wall, data->mlx.height);
-		int	pix_x = data->mlx.width / 2 - ((data->mlx.width / 2)/90 * (i + 45));
-		int	pix_y = data->mlx.height / 2;
+		// double	pix_x = (data->mlx.width / 2) - ((i + 90/2)/90) * (data->mlx.width / 2);
+		// if (dist > 0.0)
+		// {
+		// 	double a = dist;
+		// 	double b = dist_wall;
+		// 	pix_x -= (sqrt(a*a + b*b - (2*a*b*cos(1))) * 0.15);
+		// 	printf("---- pix_x > %lf ----\n",pix_x);
+		// 	if (pix_x < 0)
+		// 		pix_x = 0;
+
+		// 	double x1 = d_proj * tan(i - 1);
+		// 	double x2 = d_proj * tan(i);
+		// 	printf("%lf   %lf\n",x1,x2);
+		// }
+		// else
+		// {
+		// 	dist = dist_wall;
+		// 	printf("dist >>> %lf\n",dist);
+		// }
+		pix_x = data->mlx.width / 4 - ((d_proj * tan(i * (M_PI / 180))) / (2 * d_proj * tan((90/2) * (M_PI / 180)))) * data->mlx.width / 2;
+		double	pix_y = data->mlx.height / 2;
+		// printf("Base  %lf ----  %lf     %lf  ----   %lf\n",i,pix_y,pix_x);
+		// usleep(1000);
+		// exit(1);
 		// img_proj.img = mlx_new_image(data->mlx.mlx, data->mlx.width, data->mlx.height);
 		// img_proj.data_addr = mlx_get_data_addr(img_proj.img,&img_proj.bits_per_pixel,&img_proj.size_line,&img_proj.endian);
 		// double	pix_img_y = 1024;
 		// double	pix_img_x = 1024;
 		// write(1,"HERE\n",5);
-		while (pix_y > data->mlx.height / 2 - size_wall/2 && pix_y > 0 )
+		while (pix_y > data->mlx.height / 2 - size_wall/2 && (int)pix_y > 0 )
 		{
-			char *pixel_addr = data->screen->data_addr + (pix_y
-						* data->screen->size_line + pix_x
+			char *pixel_addr = data->screen->data_addr + ((int)pix_y
+						* data->screen->size_line + (int)pix_x
 						* (data->screen->bits_per_pixel / 8));
-			// printf("----  %d     %d  ----\n",pix_y,pix_x);
+			// printf("----  %d     %d  ----\n",(int)pix_y,(int)pix_x);
 			*(unsigned int *)pixel_addr = 0x000000FF;
-			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,pix_x,pix_y,0x0000FF);
-			// printf("put pixel >>> %d  %d\n",pix_x,pix_y);
+			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,(int)pix_x,(int)pix_y,0x0000FF);
+			// printf("put pixel >>> %d  %d\n",(int)pix_x,(int)pix_y);
 			pix_y--;
 		}
-		while (pix_y > 0)
+		while ((int)pix_y > 0)
 		{
-			char *pixel_addr = data->screen->data_addr + ((pix_y)
-						* data->screen->size_line + (pix_x)
+			char *pixel_addr = data->screen->data_addr + (((int)pix_y)
+						* data->screen->size_line + ((int)pix_x)
 						* (data->screen->bits_per_pixel / 8));
-			// printf("put pixel >>> %d  %d\n",pix_x,pix_y);
+			// printf("put pixel >>> %d  %d\n",(int)pix_x,(int)pix_y);
 			*(unsigned int *)pixel_addr = 0x00000000;
-			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,pix_x,pix_y,0x000000);
+			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,(int)pix_x,(int)pix_y,0x000000);
 			pix_y--;
 		}
 		pix_y = data->mlx.height / 2;
-		while (pix_y < data->mlx.height / 2 + size_wall/2 && pix_y < data->mlx.height )
+		while ((int)pix_y < data->mlx.height / 2 + size_wall/2 && (int)pix_y < data->mlx.height )
 		{
-			char *pixel_addr = data->screen->data_addr + ((pix_y)
-						* data->screen->size_line + (pix_x)
+			char *pixel_addr = data->screen->data_addr + (((int)pix_y)
+						* data->screen->size_line + ((int)pix_x)
 						* (data->screen->bits_per_pixel / 8));
-			// printf("put pixel >>> %d  %d\n",pix_x,pix_y);
+			// printf("put pixel >>> %d  %d\n",(int)pix_x,(int)pix_y);
 			*(unsigned int *)pixel_addr = 0x000000FF;
-			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,pix_x,pix_y,0x0000FF);
+			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,(int)pix_x,(int)pix_y,0x0000FF);
 			pix_y++;
 		}
-		while (pix_y < data->mlx.height)
+		while ((int)pix_y < data->mlx.height)
 		{
-			char *pixel_addr = data->screen->data_addr + ((pix_y)
-						* data->screen->size_line + (pix_x)
+			char *pixel_addr = data->screen->data_addr + (((int)pix_y)
+						* data->screen->size_line + ((int)pix_x)
 						* (data->screen->bits_per_pixel / 8));
-			// printf("put pixel >>> %d  %d\n",pix_x,pix_y);
+			// printf("put pixel >>> %d  %d\n",(int)pix_x,(int)pix_y);
 			*(unsigned int *)pixel_addr = 0x00000000;
-			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,pix_x,pix_y,0x000000);
+			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,(int)pix_x,(int)pix_y,0x000000);
 			pix_y++;
 		}
 		i += .1;
@@ -419,9 +445,9 @@ int	game_loop(t_data *data)
 	{
 		// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 		data->time_fps = cur;
-		ray_launch(data);
-		// aff_mini_map(data);
 		// ray_launch(data);
+		aff_mini_map(data);
+		ray_launch(data);
 	}
 	// printf("OUT\n");
 	return (0);
