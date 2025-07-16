@@ -19,9 +19,10 @@ void    display_game(t_data *data, t_ray *ray, double i)
 		// printf("Angle=%lf   Distance_total=%lf\n",i,dist_wall);
 		ray->dist_wall *= cos(i * (M_PI / 180.0));
 		// dist_wall *= .5;
-		ray->size_wall = data->mlx.height / 2 * tan(50 * (M_PI / 180)) / (double)(ray->dist_wall/64.0);
+		double d_proj = data->mlx.height / 2 * tan(50 * (M_PI / 180));
+		ray->size_wall = d_proj / (double)(ray->dist_wall/64.0);
 		// printf("dproj=%lf    Hauteur=%lf   mlx_height=%d\n",data->mlx.height / 2 * tan(30 * (M_PI / 180)), size_wall, data->mlx.height);
-		ray->pix_x = data->mlx.width / 2 - ((data->mlx.width / 2)/90 * (i + 45));
+		ray->pix_x = data->mlx.width / 4 - ((d_proj * tan(i * (M_PI / 180))) / (2 * d_proj * tan((90/2) * (M_PI / 180)))) * data->mlx.width / 2;
 		ray->pix_y = data->mlx.height / 2;
 		// img_proj.img = mlx_new_image(data->mlx.mlx, data->mlx.width, data->mlx.height);
 		// img_proj.data_addr = mlx_get_data_addr(img_proj.img,&img_proj.bits_per_pixel,&img_proj.size_line,&img_proj.endian);
