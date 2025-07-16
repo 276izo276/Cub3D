@@ -19,6 +19,7 @@ typedef struct s_coo_mini		t_coo_mini;
 typedef	struct s_mini		t_mini;
 typedef struct s_utils_mini	t_utils_mini;
 
+
 struct	s_ray
 {
 	double	deg;
@@ -31,6 +32,11 @@ struct	s_ray
 	double	delta_y;
 	double	rx;
 	double	ry;
+	double	dist_wall;
+	double	size_wall;
+	int		pix_y;
+	int		pix_x;
+	char	*pixel_addr;
 };
 struct s_coo
 {

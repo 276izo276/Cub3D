@@ -57,14 +57,14 @@ MLX_UTILS	=								\
 				mini_rotate.c				\
 				aff_mini_map.c				\
 				utils_aff_mini_map.c		\
-				display_game.c
 
 FILES	+=	$(addprefix srcs/mlx_utils/,$(MLX_UTILS))
 
 GAME		=								\
 				raycasting.c				\
 				raycasting_utils.c			\
-
+				display.c 					\
+			
 FILES	+=	$(addprefix srcs/game/,$(GAME))
 
 FILES_BONUS =

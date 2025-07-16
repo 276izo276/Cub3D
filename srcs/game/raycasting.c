@@ -66,7 +66,7 @@ static void	handle_ray(t_data *data, t_ray *ray)
 	}
 }
 
-void	ray_launchs(t_data *data, t_ray *ray)
+void	ray_launch(t_data *data, t_ray *ray)
 {
 	double	i;
 
@@ -103,6 +103,7 @@ void	ray_launchs(t_data *data, t_ray *ray)
 		sqrt(((ray->case_y - data->map.player_coo->y) * 64.0 + (ray->coo_y - data->map.mini.player_coo.y))  *  ((ray->case_y - data->map.player_coo->y) * 64.0 + (ray->coo_y - data->map.mini.player_coo.y))
 	+	((ray->case_x - data->map.player_coo->x) * 64.0 + (ray->coo_x - data->map.mini.player_coo.x)) * ((ray->case_x - data->map.player_coo->x) * 64.0 + (ray->coo_x - data->map.mini.player_coo.x))  ));
 		printf("dproj=%lf    Hauteur=%lf   mlx_height=%d\n",data->mlx.height / 2 * tan(20 * (M_PI / 180)), data->mlx.height / 2 * tan(30 * (M_PI / 180)) / (double)(2.0/64.0), data->mlx.height);
-		i += .5;
+		display_game(data, ray, i);
+		i += .1;
 	}
 }
