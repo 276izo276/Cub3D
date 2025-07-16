@@ -22,6 +22,7 @@ typedef struct s_utils_mini	t_utils_mini;
 
 struct	s_ray
 {
+	double	d_proj;
 	double	deg;
 	double	coo_y;
 	double	coo_x;

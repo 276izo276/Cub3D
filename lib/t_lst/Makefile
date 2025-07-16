@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MD
+CFLAGS = -Wall -Wextra -Werror -MD 
 SHELL = /bin/bash
 SRCS = \
 t_lst_1.c \
