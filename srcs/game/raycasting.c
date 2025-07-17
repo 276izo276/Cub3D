@@ -144,13 +144,13 @@ inline void    display_game(t_data *data, t_ray ray, double i)
 	ray.pix_y = data->mlx.height * 0.5;
 	const double	max_height = data->mlx.height * 0.5;
 	const double	max_size_wall = ray.size_wall * 0.5;
-	const int		calc_bits = (int)(data->screen->bits_per_pixel * 0.125);
+	const int		calc_bits = (int)(data->screen->bits_per_pixel / 8);
 	while (ray.pix_y > max_height - max_size_wall && ray.pix_y > 0 )
 	{
 		ray.pixel_addr = data->screen->data_addr + (ray.pix_y
 					* data->screen->size_line + ray.pix_x
 					* (calc_bits));
-		*(unsigned int *)ray.pixel_addr = 0x000000FF;
+		*(unsigned int *)ray.pixel_addr = 0x00F00FF;
 		ray.pix_y--;
 	}
 	while (ray.pix_y > 0)
@@ -158,7 +158,7 @@ inline void    display_game(t_data *data, t_ray ray, double i)
 		ray.pixel_addr = data->screen->data_addr + ((ray.pix_y)
 					* data->screen->size_line + (ray.pix_x)
 					* (calc_bits));
-		*(unsigned int *)ray.pixel_addr = 0x00000000;
+		*(unsigned int *)ray.pixel_addr = 0x0FF000FF;
 		ray.pix_y--;
 	}
 	ray.pix_y = data->mlx.height * 0.5;
@@ -167,7 +167,7 @@ inline void    display_game(t_data *data, t_ray ray, double i)
 		ray.pixel_addr = data->screen->data_addr + ((ray.pix_y)
 					* data->screen->size_line + (ray.pix_x)
 					* (calc_bits));
-		*(unsigned int *)ray.pixel_addr = 0x000000FF;
+		*(unsigned int *)ray.pixel_addr = 0x00F00FF;
 		ray.pix_y++;
 	}
 	while (ray.pix_y < data->mlx.height)
@@ -175,7 +175,7 @@ inline void    display_game(t_data *data, t_ray ray, double i)
 		ray.pixel_addr = data->screen->data_addr + ((ray.pix_y)
 					* data->screen->size_line + (ray.pix_x)
 					* (calc_bits));
-		*(unsigned int *)ray.pixel_addr = 0x00000000;
+		*(unsigned int *)ray.pixel_addr = 708080;
 		ray.pix_y++;
 	}
 }

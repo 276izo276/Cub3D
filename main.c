@@ -440,7 +440,7 @@ int	main(int ac, char **av)
 	parsing(&data);
 	open_window(&data, &data.mlx);
 	ft_bzero(&data.ray, sizeof(t_ray));
-	
+
 	data.ray.d_proj = data.mlx.height / 2 * tan(45 * (M_PI / 180));
 	data.map.mini.player_coo.y = 32;
 	data.map.mini.player_coo.x = 32;

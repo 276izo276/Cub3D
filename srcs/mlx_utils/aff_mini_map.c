@@ -17,12 +17,13 @@ void	aff_pix_in_img(t_utils_mini *u, t_mini *mini, t_data *data)
 		u->i.x = 0;
 		while (u->s.y + u->i.y >= 0 && u->s.y + u->i.y < u->size && u->i.x < 64)
 		{
-			if (u->s.x + u->i.x >= 0 && u->s.x + u->i.x < u->size)
+			if (u->s.x + u->i.x >= 0 && u->s.x + u->i.x < u->size
+				&& data->map.mini.need_print[data->u.s.y + data->u.i.y][data->u.s.x + data->u.i.x] != 0)
 			{
 				u->pixel_addr = u->mmap.data_addr + ((u->s.y + u->i.y)
 						* u->mmap.size_line + (u->s.x + u->i.x)
 						* (u->mmap.bits_per_pixel / 8));
-				*(unsigned int *)u->pixel_addr = 0x00000000;
+				*(unsigned int *)u->pixel_addr = 408080;
 			}
 			u->i.x++;
 		}
@@ -128,4 +129,3 @@ void	aff_mini_map(t_data *data)
 			data->map.mini.rad);
 	print_mini_map(data);
 }
-
