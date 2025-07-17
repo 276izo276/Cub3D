@@ -140,14 +140,15 @@ inline void    display_game(t_data *data, t_ray ray, double i)
 	+ ((ray.case_x - data->map.player_coo->x) * 64.0 + (ray.coo_x - data->map.mini.player_coo.x)) * ((ray.case_x - data->map.player_coo->x) * 64.0 + (ray.coo_x - data->map.mini.player_coo.x)));
 	ray.dist_wall *= cos(i * (M_PI / 180.0));
 	ray.size_wall = ray.d_proj / (double)(ray.dist_wall/64.0);
-	ray.pix_x = data->mlx.width * 0.25 - ((ray.d_proj * tan(i * (M_PI / 180))) / (2 * ray.d_proj * tan((90 * 0.5) * (M_PI / 180)))) * data->mlx.width * 0.5;
+	ray.pix_x = 1 + data->mlx.width * 0.25 - ((ray.d_proj * tan(i * (M_PI / 180))) / (2 * ray.d_proj * tan((90 * 0.5) * (M_PI / 180)))) * data->mlx.width * 0.5;
 	ray.pix_y = data->mlx.height * 0.5;
 	const double	max_height = data->mlx.height * 0.5;
 	const double	max_size_wall = ray.size_wall * 0.5;
-	const int		calc_bits = (int)(data->screen->bits_per_pixel / 8);
+	const int		calc_bits = (int)(data->screen->bits_per_pixel * 0.125);
+	char			*data_addr = data->screen->data_addr;
 	while (ray.pix_y > max_height - max_size_wall && ray.pix_y > 0 )
 	{
-		ray.pixel_addr = data->screen->data_addr + (ray.pix_y
+		ray.pixel_addr = data_addr + (ray.pix_y
 					* data->screen->size_line + ray.pix_x
 					* (calc_bits));
 		*(unsigned int *)ray.pixel_addr = 0x00F00FF;
@@ -155,7 +156,7 @@ inline void    display_game(t_data *data, t_ray ray, double i)
 	}
 	while (ray.pix_y > 0)
 	{
-		ray.pixel_addr = data->screen->data_addr + ((ray.pix_y)
+		ray.pixel_addr = data_addr + ((ray.pix_y)
 					* data->screen->size_line + (ray.pix_x)
 					* (calc_bits));
 		*(unsigned int *)ray.pixel_addr = 0x0FF000FF;
@@ -164,7 +165,7 @@ inline void    display_game(t_data *data, t_ray ray, double i)
 	ray.pix_y = data->mlx.height * 0.5;
 	while (ray.pix_y < max_height + max_size_wall && ray.pix_y < data->mlx.height )
 	{
-		ray.pixel_addr = data->screen->data_addr + ((ray.pix_y)
+		ray.pixel_addr = data_addr + ((ray.pix_y)
 					* data->screen->size_line + (ray.pix_x)
 					* (calc_bits));
 		*(unsigned int *)ray.pixel_addr = 0x00F00FF;
@@ -172,7 +173,7 @@ inline void    display_game(t_data *data, t_ray ray, double i)
 	}
 	while (ray.pix_y < data->mlx.height)
 	{
-		ray.pixel_addr = data->screen->data_addr + ((ray.pix_y)
+		ray.pixel_addr = data_addr + ((ray.pix_y)
 					* data->screen->size_line + (ray.pix_x)
 					* (calc_bits));
 		*(unsigned int *)ray.pixel_addr = 708080;
@@ -186,6 +187,7 @@ void	ray_launch(t_data *data, t_ray ray)
 	double	step;
 
 	step = 90.0 / data->mlx.width;
+	// printf("step %lf\n",step);
 	i = -45;
 	while (i <= 45)
 	{
