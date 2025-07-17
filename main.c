@@ -420,9 +420,9 @@ int	game_loop(t_data *data)
 	{
 		printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 		data->time_fps = cur;
-		// ray_launch(data, data->ray);
-		ray_launch_old(data);
-		// aff_mini_map(data);
+		ray_launch(data, data->ray);
+		// ray_launch_old(data);
+		aff_mini_map(data);
 	}
 	// printf("OUT\n");
 	return (0);
@@ -440,6 +440,7 @@ int	main(int ac, char **av)
 	parsing(&data);
 	open_window(&data, &data.mlx);
 	ft_bzero(&data.ray, sizeof(t_ray));
+	
 	data.ray.d_proj = data.mlx.height / 2 * tan(45 * (M_PI / 180));
 	data.map.mini.player_coo.y = 32;
 	data.map.mini.player_coo.x = 32;
