@@ -157,9 +157,10 @@ bool	is_move_player(t_data *data, int i)
 void	ray_launch_old(t_data *data)
 {
 	// t_img	img_proj;
-	double	i = -45;
-	while (i <= 45)
+	double	j = -45;
+	while (j <= 45)
 	{
+		int i = cos((i / 180));
 		double deg = data->map.mini.deg + i + 270;
 		double	coo_y = data->map.mini.player_coo.y;
 		double	coo_x = data->map.mini.player_coo.x;
@@ -327,7 +328,7 @@ void	ray_launch_old(t_data *data)
 	// 	sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
 	// +	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))  ));
 
-		double d_proj = data->mlx.height / 2 * tan(45 * (M_PI / 180));;
+		// double d_proj = data->mlx.height / 2 * tan(45 * (M_PI / 180));
 		double	dist_wall = sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
 	+	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))  );
 		// printf("cos angle >>>%lf\n",cos(fabs(i) * (M_PI / 180)));
@@ -336,7 +337,8 @@ void	ray_launch_old(t_data *data)
 		// dist_wall *= .5;
 		double	size_wall = data->mlx.height / 2 * tan(50 * (M_PI / 180)) / (double)(dist_wall/64.0);
 		// printf("dproj=%lf    Hauteur=%lf   mlx_height=%d\n",data->mlx.height / 2 * tan(30 * (M_PI / 180)), size_wall, data->mlx.height);
-		int pix_x = data->mlx.width / 4 - ((d_proj * tan(i * (M_PI / 180))) / (2 * d_proj * tan((90/2) * (M_PI / 180)))) * data->mlx.width / 2;
+		// int pix_x = data->mlx.width / 4 - ((d_proj * tan(i * (M_PI / 180))) / (2 * d_proj * tan((90/2) * (M_PI / 180)))) * data->mlx.width / 2;
+		int pix_x = data->mlx.width - data->mlx.width / 2 / 90 * (i + 45);
 		int	pix_y = data->mlx.height / 2;
 		// img_proj.img = mlx_new_image(data->mlx.mlx, data->mlx.width, data->mlx.height);
 		// img_proj.data_addr = mlx_get_data_addr(img_proj.img,&img_proj.bits_per_pixel,&img_proj.size_line,&img_proj.endian);
@@ -385,10 +387,10 @@ void	ray_launch_old(t_data *data)
 			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,pix_x,pix_y,0x000000);
 			pix_y++;
 		}
-		i += .06;
+		i += 2;
 	}
 	
-	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
+	// mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
 	// mlx_destroy_image(data->mlx.mlx,img_proj.img);
 }
 
@@ -421,8 +423,8 @@ int	game_loop(t_data *data)
 		printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 		data->time_fps = cur;
 		ray_launch(data, data->ray);
-		// ray_launch_old(data);
 		aff_mini_map(data);
+		// ray_launch_old(data);
 	}
 	// printf("OUT\n");
 	return (0);

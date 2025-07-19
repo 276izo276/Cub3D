@@ -9,8 +9,8 @@ void	get_pixel_color(t_data *data, int type)
 {
 	if (data->map.mini.need_print[data->u.s.y + data->u.i.y][data->u.s.x + data->u.i.x] == 0)
 	{
-		// data->u.color = 0x0FF000FF;
-		data->u.color = *(unsigned int *)(data->screen->data_addr + (((data->mlx.height - MARGIN - data->u.size) + (data->u.s.y + data->u.i.y)) * data->screen->size_line - (data->mlx.width - (data->u.s.x + data->u.i.x)) * (data->screen->bits_per_pixel / 8)));
+		data->u.color = 0x0FF000FF;
+		// data->u.color = *(unsigned int *)(data->screen->data_addr + (((data->mlx.height - MARGIN - data->u.size) + (data->u.s.y + data->u.i.y)) * data->screen->size_line - (data->mlx.width - (data->u.s.x + data->u.i.x)) * (data->screen->bits_per_pixel / 8)));
 	}
 	else
 	{

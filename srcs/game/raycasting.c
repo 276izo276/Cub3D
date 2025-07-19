@@ -139,8 +139,8 @@ inline void    display_game(t_data *data, t_ray ray, double i, double x)
 	(void)x;
 	ray.dist_wall = sqrt(((ray.case_y - data->map.player_coo->y) * 64.0 + (ray.coo_y - data->map.mini.player_coo.y))  *  ((ray.case_y - data->map.player_coo->y) * 64.0 + (ray.coo_y - data->map.mini.player_coo.y))
 	+ ((ray.case_x - data->map.player_coo->x) * 64.0 + (ray.coo_x - data->map.mini.player_coo.x)) * ((ray.case_x - data->map.player_coo->x) * 64.0 + (ray.coo_x - data->map.mini.player_coo.x)));
-	ray.dist_wall *= cos(i / (data->mlx.width / 2) - 0.5);
-	printf(" ray rad %lf \n",ray.rad);
+	ray.dist_wall *= cos(((i - data->mlx.width / 4) / data->mlx.width * 100) * (M_PI / 180));
+	printf(" ray rad %lf \n",ray.deg);
 	ray.size_wall = ray.d_proj / (double)(ray.dist_wall/64.0);
 	ray.pix_x = i;
 	// ray.pix_x = 1 + data->mlx.width * 0.25 - ((ray.d_proj * tan(i * (M_PI / 180))) / (2 * ray.d_proj * tan((90 * 0.5) * (M_PI / 180)))) * data->mlx.width * 0.5;
@@ -187,10 +187,10 @@ inline void    display_game(t_data *data, t_ray ray, double i, double x)
 void	ray_launch(t_data *data, t_ray ray)
 {
 	double	i;
-	double	step;
+	// double	step;
 	static int a = 0;
 
-	step = 90.0 / data->mlx.width;
+	// step = 90.0 / data->mlx.width;
 	// printf("step %lf\n",step);
 	i = 0;
 	int	screen_width = data->mlx.width / 2;
@@ -201,7 +201,8 @@ void	ray_launch(t_data *data, t_ray ray)
 		x *= -2;
 		x += 1;
 		
-		ray.rad = -atan(1 / x);
+		ray.rad = -atan(2 / x);
+		ray.deg = ray.rad;
 		if (ray.rad >= 0)
 			ray.rad += M_PI;
 		ray.rad += data->map.mini.deg * (M_PI / 180);
