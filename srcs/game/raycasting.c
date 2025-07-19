@@ -134,13 +134,16 @@ static void	handle_ray(t_data *data, t_ray *ray)
 // 	// mlx_destroy_image(data->mlx.mlx,img_proj.img);
 // }
 
-inline void    display_game(t_data *data, t_ray ray, double i)
+inline void    display_game(t_data *data, t_ray ray, double i, double x)
 {
+	(void)x;
 	ray.dist_wall = sqrt(((ray.case_y - data->map.player_coo->y) * 64.0 + (ray.coo_y - data->map.mini.player_coo.y))  *  ((ray.case_y - data->map.player_coo->y) * 64.0 + (ray.coo_y - data->map.mini.player_coo.y))
 	+ ((ray.case_x - data->map.player_coo->x) * 64.0 + (ray.coo_x - data->map.mini.player_coo.x)) * ((ray.case_x - data->map.player_coo->x) * 64.0 + (ray.coo_x - data->map.mini.player_coo.x)));
-	ray.dist_wall *= cos(i * (M_PI / 180.0));
+	ray.dist_wall *= cos(i / (data->mlx.width / 2) - 0.5);
+	printf(" ray rad %lf \n",ray.rad);
 	ray.size_wall = ray.d_proj / (double)(ray.dist_wall/64.0);
-	ray.pix_x = 1 + data->mlx.width * 0.25 - ((ray.d_proj * tan(i * (M_PI / 180))) / (2 * ray.d_proj * tan((90 * 0.5) * (M_PI / 180)))) * data->mlx.width * 0.5;
+	ray.pix_x = i;
+	// ray.pix_x = 1 + data->mlx.width * 0.25 - ((ray.d_proj * tan(i * (M_PI / 180))) / (2 * ray.d_proj * tan((90 * 0.5) * (M_PI / 180)))) * data->mlx.width * 0.5;
 	ray.pix_y = data->mlx.height * 0.5;
 	const double	max_height = data->mlx.height * 0.5;
 	const double	max_size_wall = ray.size_wall * 0.5;
@@ -185,18 +188,41 @@ void	ray_launch(t_data *data, t_ray ray)
 {
 	double	i;
 	double	step;
+	static int a = 0;
 
 	step = 90.0 / data->mlx.width;
 	// printf("step %lf\n",step);
-	i = -45;
-	while (i <= 45)
+	i = 0;
+	int	screen_width = data->mlx.width / 2;
+	while (i <= screen_width)
 	{
-		ray.deg = data->map.mini.deg + i + 270;
+		// ray.deg = data->map.mini.deg + i + 270;
+		double x = i / screen_width;
+		x *= -2;
+		x += 1;
+		
+		ray.rad = -atan(1 / x);
+		if (ray.rad >= 0)
+			ray.rad += M_PI;
+		ray.rad += data->map.mini.deg * (M_PI / 180);
+		if (a == 0)
+			printf("x >>> %lf\n",x);
+		// printf("%lf:%lf\n", x, ray.rad / (M_PI / 180));
+
+		// printf("%lf\n", ray.rad * 180);
+		// j'ai i : 0 -> 1080
+		// je veux x : 1 -> -1
+		// i = i / 1080
+		// i = i * 2 : 0 -> 1
+		// i = i * 2 : 0 -> 2
+		// i = i - 1 : -1 -> 1
+		// i = i - 1 : -1 -> 1
+		// i = -i    : 1 -> -1 : x 
 		ray.coo_y = data->map.mini.player_coo.y;
 		ray.coo_x = data->map.mini.player_coo.x;
 		ray.case_y = data->map.player_coo->y;
 		ray.case_x = data->map.player_coo->x;
-		ray.rad = ray.deg * (M_PI / 180);
+		// ray.rad = ray.deg * (M_PI / 180);
 		ray.delta_x = -cos(ray.rad);
 		ray.delta_y = sin(ray.rad);
 		// printf("START\n");
@@ -223,8 +249,9 @@ void	ray_launch(t_data *data, t_ray ray)
 	// 	sqrt(((ray->case_y - data->map.player_coo->y) * 64.0 + (ray->coo_y - data->map.mini.player_coo.y))  *  ((ray->case_y - data->map.player_coo->y) * 64.0 + (ray->coo_y - data->map.mini.player_coo.y))
 	// +	((ray->case_x - data->map.player_coo->x) * 64.0 + (ray->coo_x - data->map.mini.player_coo.x)) * ((ray->case_x - data->map.player_coo->x) * 64.0 + (ray->coo_x - data->map.mini.player_coo.x))  ));
 	// 	printf("dproj=%lf    Hauteur=%lf   mlx_height=%d\n",data->mlx.height / 2 * tan(20 * (M_PI / 180)), data->mlx.height / 2 * tan(30 * (M_PI / 180)) / (double)(2.0/64.0), data->mlx.height);
-	i += step;
-		display_game(data, ray, i);
+		i += 1;
+		display_game(data, ray, i, x);
 	}
+	a = 1;
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
 }
