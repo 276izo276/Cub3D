@@ -17,13 +17,19 @@ void	aff_pix_in_img(t_utils_mini *u, t_mini *mini, t_data *data)
 		u->i.x = 0;
 		while (u->s.y + u->i.y >= 0 && u->s.y + u->i.y < u->size && u->i.x < 64)
 		{
-			if (u->s.x + u->i.x >= 0 && u->s.x + u->i.x < u->size
-				&& data->map.mini.need_print[data->u.s.y + data->u.i.y][data->u.s.x + data->u.i.x] != 0)
+			if (u->s.x + u->i.x >= 0 && u->s.x + u->i.x < u->size)
 			{
 				u->pixel_addr = u->mmap.data_addr + ((u->s.y + u->i.y)
-						* u->mmap.size_line + (u->s.x + u->i.x)
-						* (u->mmap.bits_per_pixel / 8));
-				*(unsigned int *)u->pixel_addr = 408080;
+					* u->mmap.size_line + (u->s.x + u->i.x)
+					* (u->mmap.bits_per_pixel / 8));
+				if (data->map.mini.need_print[data->u.s.y + data->u.i.y][data->u.s.x + data->u.i.x] != 0)
+					*(unsigned int *)u->pixel_addr = 408080;
+				else
+				{
+					*(unsigned int *)u->pixel_addr = *(unsigned int *)(data->screen->data_addr +
+						(((data->mlx.height - MARGIN - data->u.size) + (u->s.y + u->i.y)) * data->screen->size_line 
+						- (data->mlx.width - (u->s.x + u->i.x)) * (data->screen->bits_per_pixel / 8)));
+				}
 			}
 			u->i.x++;
 		}

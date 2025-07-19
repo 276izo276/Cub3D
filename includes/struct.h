@@ -38,10 +38,7 @@ struct	s_ray
 	int		pix_y;
 	int		pix_x;
 	char	*pixel_addr;
-	int		test_cos[360];
-	int		test_sin[360];
-	int		test_tan[360];
-
+	
 };
 struct s_coo
 {
