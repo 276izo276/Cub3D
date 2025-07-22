@@ -5,7 +5,7 @@
 #include <sys/time.h>
 
 # define SIZE_MAP (5 * 64)
-# define FPS 60
+# define FPS 120
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;

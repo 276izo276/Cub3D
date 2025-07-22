@@ -186,7 +186,8 @@ inline void    display_game(t_data *data, t_ray ray, double i, double x)
 	ray.dist_wall *= cos(atan(x));
 	// printf(" ray rad %lf \n",ray.deg);
 	ray.size_wall = ray.d_proj / (double)(ray.dist_wall/64.0);
-	ray.pix_x = round(i);
+	ray.pix_x = round(i) - 2;
+	// printf("pix>%d\n",ray.pix_x);
 	// ray.pix_x = 1 + data->mlx.width * 0.25 - ((ray.d_proj * tan(i * (M_PI / 180))) / (2 * ray.d_proj * tan((90 * 0.5) * (M_PI / 180)))) * data->mlx.width * 0.5;
 	ray.pix_y = data->mlx.height * 0.5;
 	const double	max_height = data->mlx.height * 0.5; // sa degagera
