@@ -14,11 +14,24 @@ typedef struct s_ray		t_ray;
 typedef struct s_color		t_color;
 typedef	struct s_mlx		t_mlx;
 typedef struct s_coo		t_coo;
-typedef struct s_display		t_display;
 typedef struct s_coo_mini		t_coo_mini;
 typedef	struct s_mini		t_mini;
 typedef struct s_utils_mini	t_utils_mini;
 
+
+typedef	enum e_dir
+{
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+} t_dir;
+
+struct s_coo
+{
+	int	x;
+	int	y;
+};
 
 struct	s_ray
 {
@@ -38,12 +51,19 @@ struct	s_ray
 	int		pix_y;
 	int		pix_x;
 	char	*pixel_addr;
-	
-};
-struct s_coo
-{
-	int	x;
-	int	y;
+	int		dir;
+	char	*img_addr;
+	double	max_height;
+	double	max_size_wall;
+	double	htop_wall;
+	double	hbot_wall;
+	char	*data_addr;
+	int		calc_bits;
+	double	gap_x;
+	double	gap_y;
+	double	save_x;
+	t_coo	texture_coo;
+	t_img	*img;
 };
 
 struct s_coo_mini
@@ -130,20 +150,6 @@ struct s_map
 	t_color	*ceiling;
 };
 
-struct s_display
-{
-	void	*img;
-	char	*data_addr;
-	int		endian;
-	int		size_line;
-	int		bits_per_pixel;
-	int		width;
-	int		height;
-	double	hit_x;
-	double	hit_y;
-	int		size;
-};
-
 struct s_data
 {
 	t_utils_mini	u;
@@ -154,7 +160,6 @@ struct s_data
 	char			**av;
 	t_map			map;
 	t_mlx			mlx;
-	t_display	f_display;
 	t_ray		ray;
 	int				keycode[100];
 	// t_img	*wh;

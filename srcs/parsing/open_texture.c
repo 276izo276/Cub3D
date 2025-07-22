@@ -15,6 +15,7 @@ static void	open_img(t_img *img, t_data *data)
 _BOLD"' is not a valid path\n"_END, img->path);
 		f_exit(data, 1);
 	}
+	img->data_addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->size_line, &img->endian);
 }
 
 void	open_textures(t_data *data)

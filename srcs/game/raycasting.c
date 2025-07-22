@@ -14,6 +14,10 @@
 static int	handle_ray_x(t_data *data, t_ray *ray)
 {
 	if (ray->delta_x < 0)
+		ray->dir = EAST;
+	else
+		ray->dir = WEST;
+	if (ray->delta_x < 0)
 	{
 		if (handle_ray_x_left(data, ray) == 1)
 			return (1);
@@ -28,6 +32,10 @@ static int	handle_ray_x(t_data *data, t_ray *ray)
 
 static int	handle_ray_y(t_data *data, t_ray *ray)
 {
+	if (ray->delta_y < 0)
+		ray->dir = SOUTH;
+	else
+		ray->dir = NORTH;
 	if (ray->delta_y < 0)
 	{
 		if (handle_ray_y_top(data, ray) == 1)
@@ -178,66 +186,14 @@ static void	handle_ray(t_data *data, t_ray *ray)
 // 	// mlx_destroy_image(data->mlx.mlx,img_proj.img);
 // }
 
-inline void    display_game(t_data *data, t_ray ray, double i, double x)
-{
-	(void)x;
-	ray.dist_wall = sqrt(((ray.case_y - data->map.player_coo->y) * 64.0 + (ray.coo_y - data->map.mini.player_coo.y))  *  ((ray.case_y - data->map.player_coo->y) * 64.0 + (ray.coo_y - data->map.mini.player_coo.y))
-	+ ((ray.case_x - data->map.player_coo->x) * 64.0 + (ray.coo_x - data->map.mini.player_coo.x)) * ((ray.case_x - data->map.player_coo->x) * 64.0 + (ray.coo_x - data->map.mini.player_coo.x)));
-	ray.dist_wall *= cos(atan(x));
-	// printf(" ray rad %lf \n",ray.deg);
-	ray.size_wall = ray.d_proj / (double)(ray.dist_wall/64.0);
-	ray.pix_x = round(i) - 2;
-	// printf("pix>%d\n",ray.pix_x);
-	// ray.pix_x = 1 + data->mlx.width * 0.25 - ((ray.d_proj * tan(i * (M_PI / 180))) / (2 * ray.d_proj * tan((90 * 0.5) * (M_PI / 180)))) * data->mlx.width * 0.5;
-	ray.pix_y = data->mlx.height * 0.5;
-	const double	max_height = data->mlx.height * 0.5; // sa degagera
-	const double	max_size_wall = ray.size_wall * 0.5; // sa degagera
-	const int		calc_bits = (int)(data->screen->bits_per_pixel * 0.125);
-	char			*data_addr = data->screen->data_addr;
-	const double	htop_wall = round(max_height - max_size_wall);
-	const double	hbot_wall = round(max_height + max_size_wall);
-	while (ray.pix_y > htop_wall && ray.pix_y > 0 )
-	{
-		ray.pixel_addr = data_addr + (ray.pix_y
-					* data->screen->size_line + ray.pix_x
-					* (calc_bits));
-		*(unsigned int *)ray.pixel_addr = 0x00F00FF;
-		ray.pix_y--;
-	}
-	while (ray.pix_y > 0)
-	{
-		ray.pixel_addr = data_addr + ((ray.pix_y)
-					* data->screen->size_line + (ray.pix_x)
-					* (calc_bits));
-		*(unsigned int *)ray.pixel_addr = 0x0FF000FF;
-		ray.pix_y--;
-	}
-	ray.pix_y = data->mlx.height * 0.5;
-	while (ray.pix_y < hbot_wall && ray.pix_y < data->mlx.height )
-	{
-		ray.pixel_addr = data_addr + ((ray.pix_y)
-					* data->screen->size_line + (ray.pix_x)
-					* (calc_bits));
-		*(unsigned int *)ray.pixel_addr = 0x00F00FF;
-		ray.pix_y++;
-	}
-	while (ray.pix_y < data->mlx.height)
-	{
-		ray.pixel_addr = data_addr + ((ray.pix_y)
-					* data->screen->size_line + (ray.pix_x)
-					* (calc_bits));
-		*(unsigned int *)ray.pixel_addr = 708080;
-		ray.pix_y++;
-	}
-}
+
 
 void	ray_launch(t_data *data, t_ray ray)
 {
 	double	i;
-	// double	step;
 	static int a = 0;
 
-	// step = 90.0 / data->mlx.width;
+	ray.save_x = 0;
 	// printf("step %lf\n",step);
 	i = 0;
 	int	screen_width = data->mlx.width / 2;
@@ -247,7 +203,6 @@ void	ray_launch(t_data *data, t_ray ray)
 		double x = i / screen_width;
 		x *= -2;
 		x += 1;
-		
 		ray.rad = -atan(1 / x);
 		ray.deg = ray.rad;
 		if (ray.rad >= 0)
@@ -255,7 +210,6 @@ void	ray_launch(t_data *data, t_ray ray)
 		ray.rad += data->map.mini.deg * (M_PI / 180);
 		if (a == 0)
 			printf("x >>> %lf\n",x);
-
 		ray.coo_y = data->map.mini.player_coo.y;
 		ray.coo_x = data->map.mini.player_coo.x;
 		ray.case_y = data->map.player_coo->y;
@@ -265,7 +219,6 @@ void	ray_launch(t_data *data, t_ray ray)
 		ray.delta_y = sin(ray.rad);
 		// printf("START\n");
 		handle_ray(data, &ray);
-
 		i += 1;
 		display_game(data, ray, i, x);
 	}
