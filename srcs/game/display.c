@@ -26,11 +26,11 @@ static void	check_dir(t_data *data, t_ray *ray, int i)
 	else if (ray->dir == WEST)
 		ray->img = data->map.west;
 	if (ray->dir == NORTH || ray->dir == SOUTH)
-		hit = data->map.player_coo->x + ray->dist_wall * ray->case_x;
+		hit = data->map.mini.player_coo.x + ray->dist_wall * ray->case_x;
 	else if (ray->dir == WEST || ray->dir == EAST)
-		hit = data->map.player_coo->y + ray->dist_wall * ray->case_y;
+		hit = data->map.mini.player_coo.y + ray->dist_wall * ray->case_y;
 	hit -= floor(hit);
-	ray->texture_coo.x = (int)hit * ray->img->width;
+	ray->texture_coo.x = (int)(hit * ray->img->width);
 	if (ray->texture_coo.x < 0)
 		ray->texture_coo.x = 0;
 	if (ray->texture_coo.x >= ray->img->width)
