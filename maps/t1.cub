@@ -1,7 +1,7 @@
-NO ./texture/north.xpm
-SO ./texture/south.xpm
-WE ./texture/west.xpm
-EA                    ./texture/east.xpm
+NO ./texture/wall4k.xpm
+SO ./texture/wall4k.xpm
+WE ./texture/wall4k.xpm
+EA                    ./texture/wall4k.xpm
 
                   
 F      20,0,     0
