@@ -13,6 +13,9 @@
 
 static void	check_dir(t_data *data, t_ray *ray, int i)
 {
+	double	hit;
+
+	hit = 0;
 	(void)i;
 	if (ray->dir == NORTH)
 		ray->img = data->map.north;
@@ -22,31 +25,31 @@ static void	check_dir(t_data *data, t_ray *ray, int i)
 		ray->img = data->map.east;
 	else if (ray->dir == WEST)
 		ray->img = data->map.west;
-	ray->gap_y = ray->img->height / ray->size_wall;
-	ray->gap_x = ray->img->width / ray->size_wall;
-	ray->texture_coo.y = data->mlx.height / 2;
-	// ray->texture_coo.y = (ray->htop_wall - (data->mlx.height / 2) + (ray->size_wall / 2)) * ray->gap_y; // -->probleme sur la coordonne y == 0 ou - 1
-	if (ray->save_x == 0 && (ray->dir == NORTH || ray->dir == SOUTH))
-		ray->texture_coo.x = fmod(ray->case_x, ray->size_wall);
-	else if (ray->save_x == 0 && (ray->dir == EAST || ray->dir == WEST))
-		ray->texture_coo.x = fmod(ray->case_y, ray->size_wall);
-		// ray->texture_coo.x = (ray->img->width - 1) - (ray->img->width / (data->mlx.width / 2)) * i;
-	printf("coo_y >>>> %d coo_x >>> %d\n", ray->texture_coo.y, ray->texture_coo.x);
+	if (ray->dir == NORTH || ray->dir == SOUTH)
+		hit = data->map.player_coo->x + ray->dist_wall * ray->case_x;
+	else if (ray->dir == WEST || ray->dir == EAST)
+		hit = data->map.player_coo->y + ray->dist_wall * ray->case_y;
+	hit -= floor(hit);
+	ray->texture_coo.x = (int)hit * ray->img->width;
+	if (ray->texture_coo.x < 0)
+		ray->texture_coo.x = 0;
+	if (ray->texture_coo.x >= ray->img->width)
+		ray->texture_coo.x = ray->img->width - 1;
 }
 
 static void	display_game_loop(t_data *data, t_ray ray, double i)
 {
-	while (ray.pix_y > ray.htop_wall && ray.pix_y > 0 && ray.texture_coo.y > 0) //mur haut
+	(void)i;
+	int	texture_x = ray.texture_coo.x;
+	while (ray.pix_y > ray.htop_wall && ray.pix_y > 0) //mur haut
 	{
+		int	texture_y = (ray.pix_y - ray.htop_wall) * ray.img->height / (ray.hbot_wall - ray.htop_wall);
 		ray.pixel_addr = ray.data_addr + (ray.pix_y
 					* data->screen->size_line + ray.pix_x
 					* (ray.calc_bits));
-		// *(unsigned int *)ray.pixel_addr = 0x00F00FF;
-		// printf("coo_y >>>> %d coo_x >>> %d\n", ray.texture_coo.y, ray.texture_coo.x);
-		*(unsigned int *)ray.pixel_addr = *(unsigned int *)(data->map.north);
-		// printf("coo_y >>>> %d coo_x >>> %d\n", ray.texture_coo.y, ray.texture_coo.x);
-		*(unsigned int *)ray.pixel_addr += ((ray.texture_coo.y) * ray.img->size_line + ray.texture_coo.x * ray.img->bits_per_pixel / 8);
-		ray.texture_coo.y -= ray.gap_y;
+		char *texture_pixel = ray.img->data_addr + (texture_y * ray.img->size_line + texture_x * (ray.img->bits_per_pixel / 8));
+		unsigned int color = *(unsigned int *)texture_pixel;
+		*(unsigned int *)ray.pixel_addr = color;
 		ray.pix_y--;
 	}
 	while (ray.pix_y > 0) // ciel
@@ -60,12 +63,14 @@ static void	display_game_loop(t_data *data, t_ray ray, double i)
 	ray.pix_y = data->mlx.height * 0.5;
 	while (ray.pix_y < ray.hbot_wall && ray.pix_y < data->mlx.height) //mur bas
 	{
-		ray.pixel_addr = ray.data_addr + ((ray.pix_y)
-					* data->screen->size_line + (ray.pix_x)
+		int	texture_y = (ray.pix_y - ray.htop_wall) * ray.img->height / (ray.hbot_wall - ray.htop_wall);
+		// *(unsigned int *)ray.pixel_addr = 0x00F00FF;
+			ray.pixel_addr = ray.data_addr + (ray.pix_y
+					* data->screen->size_line + ray.pix_x
 					* (ray.calc_bits));
-		*(unsigned int *)ray.pixel_addr = 0x00F00FF;
-		// *(unsigned int *)ray.pixel_addr = *(unsigned int *)(data->map.north->data_addr + ((ray.texture_coo.y) * ray.texture_coo.x));
-		ray.texture_coo.y += ray.gap_y;
+		char *texture_pixel = ray.img->data_addr + (texture_y * ray.img->size_line + texture_x * (ray.img->bits_per_pixel / 8));
+		unsigned int color = *(unsigned int *)texture_pixel;
+		*(unsigned int *)ray.pixel_addr = color;
 		ray.pix_y++;
 	}
 	while (ray.pix_y < data->mlx.height) // sol
@@ -76,11 +81,6 @@ static void	display_game_loop(t_data *data, t_ray ray, double i)
 		*(unsigned int *)ray.pixel_addr = 708080;
 		ray.pix_y++;
 	}
-	if (ray.texture_coo.x - ray.gap_x  < 0)
-		ray.texture_coo.x = (ray.img->width - 1) - (ray.img->width / (data->mlx.width / 2)) * i;
-	else
-		ray.texture_coo.x -= ray.gap_x;
-	ray.save_x = ray.texture_coo.x;
 }
 
 void    display_game(t_data *data, t_ray ray, int i, double x)
