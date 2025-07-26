@@ -61,6 +61,7 @@ static void	handle_ray(t_data *data, int i)
 			data->ray[i].ry = (64 - data->ray[i].coo_y) / data->ray[i].delta_y;
 		else
 			data->ray[i].ry = -data->ray[i].coo_y / data->ray[i].delta_y;
+		// printf("ry>>%lf   rx>>%lf\n",data->ray[i].ry,data->ray[i].rx);
 		if (data->ray[i].rx < data->ray[i].ry)
 		{
 			// printf("ray_x\n");
@@ -200,7 +201,7 @@ void	ray_launch(t_data *data)
 	while (i < screen_width)
 	{
 		// ray.deg = data->map.mini.deg + i + 270;
-		double x = i / screen_width;
+		double x = (double)i / (double)screen_width;
 		x *= -2;
 		x += 1;
 		data->ray[i].rad = -atan(1 / x);
@@ -208,6 +209,7 @@ void	ray_launch(t_data *data)
 		if (data->ray[i].rad >= 0)
 			data->ray[i].rad += M_PI;
 		data->ray[i].rad += data->map.mini.deg * (M_PI / 180);
+		// printf("rad>>%lf\n",data->ray[i].rad);
 		if (a == 0)
 			printf("x >>> %lf\n",x);
 		data->ray[i].coo_y = data->map.mini.player_coo.y;
@@ -217,14 +219,16 @@ void	ray_launch(t_data *data)
 		// data->ray[i].rad = data->ray[i].deg * (M_PI / 180);
 		data->ray[i].delta_x = -cos(data->ray[i].rad);
 		data->ray[i].delta_y = sin(data->ray[i].rad);
+		// printf("deltay>>%lf     deltax>>%lf  ",);
 		// printf("START\n");
 		handle_ray(data, i);
-		data->ray[i].dist_wall = sqrt(((data->ray[i].case_y - data->map.player_coo->y) * 64.0 + (data->ray[i].final_y - data->map.mini.player_coo.y))  *  ((data->ray[i].case_y - data->map.player_coo->y) * 64.0 + (data->ray[i].final_y - data->map.mini.player_coo.y))
-		+ ((data->ray[i].case_x - data->map.player_coo->x) * 64.0 + (data->ray[i].final_x - data->map.mini.player_coo.x)) * ((data->ray[i].case_x - data->map.player_coo->x) * 64.0 + (data->ray[i].final_x - data->map.mini.player_coo.x)));
+		data->ray[i].dist_wall = sqrt(((data->ray[i].case_y - data->map.player_coo->y) * 64.0 + (data->ray[i].coo_y - data->map.mini.player_coo.y))  *  ((data->ray[i].case_y - data->map.player_coo->y) * 64.0 + (data->ray[i].coo_y - data->map.mini.player_coo.y))
+		+ ((data->ray[i].case_x - data->map.player_coo->x) * 64.0 + (data->ray[i].coo_x - data->map.mini.player_coo.x)) * ((data->ray[i].case_x - data->map.player_coo->x) * 64.0 + (data->ray[i].coo_x - data->map.mini.player_coo.x)));
 		data->ray[i].dist_wall *= cos(atan(x));
-		// printf(" ray rad %lf \n",data->ray[i].deg);
+		// printf(" dist wall %lf \n",data->ray[i].dist_wall);
 		data->ray[i].size_wall = data->ray[i].d_proj / (double)(data->ray[i].dist_wall/64.0);
-		data->ray[i].pix_x = i;
+		// printf("size wall >>%lf\n",data->ray[i].size_wall);
+		data->ray[i].pix_x = (double)i;
 		// printf("pix>%d\n",data->ray[i].pix_x);
 		// data->ray[i].pix_x = 1 + data->mlx.width * 0.25 - ((data->ray[i].d_proj * tan(i * (M_PI / 180))) / (2 * data->ray[i].d_proj * tan((90 * 0.5) * (M_PI / 180)))) * data->mlx.width * 0.5;
 		data->ray[i].pix_y = data->mlx.height * 0.5; // sa degagera

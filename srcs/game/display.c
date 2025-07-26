@@ -25,15 +25,16 @@ static void	check_dir(t_data *data, int i)
 		data->ray[i].img = data->map.east;
 	else if (data->ray[i].dir == WEST)
 		data->ray[i].img = data->map.west;
+	// printf("image>>%d\n",data->ray[i].dir);
 	if (data->ray[i].dir == NORTH || data->ray[i].dir == SOUTH)
 	{
-		posx_display = data->ray[i].final_x / 64;
+		posx_display = data->ray[i].coo_x / 64;
 		if (data->ray[i].dir == NORTH)
 			posx_display = 1 - posx_display;
 	}
 	else if (data->ray[i].dir == WEST || data->ray[i].dir == EAST)
 	{
-		posx_display = data->ray[i].final_y / 64;
+		posx_display = data->ray[i].coo_y / 64;
 		if (data->ray[i].dir == EAST)
 			posx_display = 1 - posx_display;
 	}
@@ -44,6 +45,7 @@ static void	check_dir(t_data *data, int i)
 		data->ray[i].texture_coo.x -= 0;
 	if (data->ray[i].texture_coo.x >= data->ray[i].img->width)
 		data->ray[i].texture_coo.x = data->ray[i].img->width - 1;
+	
 }
 
 static void	display_game_loop(t_data *data, int i)
