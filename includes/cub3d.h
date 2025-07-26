@@ -24,14 +24,14 @@ void	get_pixel_color(t_data *data, int type);
 void	aff_mini_map(t_data *data);
 
 //raycasting
-void	ray_launch(t_data *data, t_ray ray);
-int	handle_ray_y_down(t_data *data, t_ray *ray);
-int	handle_ray_y_top(t_data *data, t_ray *ray);
-int handle_ray_x_right(t_data *data, t_ray *ray);
-int	handle_ray_x_left(t_data *data, t_ray *ray);
+void	ray_launch(t_data *data);
+int	handle_ray_y_down(t_data *data, int i);
+int	handle_ray_y_top(t_data *data, int i);
+int handle_ray_x_right(t_data *data, int i);
+int	handle_ray_x_left(t_data *data, int i);
 
 //display game
-void    display_game(t_data *data, t_ray ray, int i, double x);
+void    display_game(t_data *data);
 
 typedef enum e_key_down
 {
