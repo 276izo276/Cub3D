@@ -145,6 +145,7 @@ struct s_map
 	t_img	*south;
 	t_img	*west;
 	t_img	*east;
+	t_img	*text_floor;
 	t_mini	mini;
 	t_color	*floor;
 	t_color	*ceiling;
@@ -160,7 +161,7 @@ struct s_data
 	char			**av;
 	t_map			map;
 	t_mlx			mlx;
-	t_ray		ray;
+	t_ray		*ray;
 	int				keycode[100];
 	// t_img	*wh;
 	// t_img	*bl;

@@ -52,8 +52,24 @@ void	init_data(t_data *data, int ac, char **av)
 	}
 	// mlx_get_screen_size(data->mlx.mlx, &data->mlx.width, &data->mlx.height);
 	data->mlx.height = 1000;
-	data->mlx.width = 1000;
+	data->mlx.width = 2000;
 	init_utils_mini(data);
+	data->ray = malloc(sizeof(t_ray) * data->mlx.width);
+	if (data->ray == NULL)
+		f_exit(data, 1);
+	ft_bzero(data->ray, sizeof(t_ray));
+	int i;
+	i = 0;
+	while (i < data->mlx.width)
+	{
+
+		data->ray[i].d_proj = data->mlx.height / 2 * tan((45 * (M_PI / 180)));
+		if (data->mlx.height < data->mlx.width)
+			data->ray[i].d_proj *= (data->mlx.width / data->mlx.height);
+		else
+			data->ray[i].d_proj /= (data->mlx.height / data->mlx.width) * 0.75;
+		++i;
+	}
 	data->screen = malloc(sizeof(t_img));
 	data->screen->img = mlx_new_image(data->mlx.mlx, data->mlx.width, data->mlx.height);
 	data->screen->data_addr = mlx_get_data_addr(data->screen->img,&data->screen->bits_per_pixel,&data->screen->size_line,&data->screen->endian);
@@ -424,7 +440,7 @@ int	game_loop(t_data *data)
 	{
 		printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 		data->time_fps = cur;
-		ray_launch(data, data->ray);
+		ray_launch(data);
 		aff_mini_map(data);
 		// ray_launch_old(data);
 	}
@@ -441,14 +457,14 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	init_data(&data, ac, av);
+	data.map.text_floor = malloc(sizeof(t_img));
+	if (!data.map.text_floor)
+		f_exit(&data, 1);
+	ft_bzero(data.map.text_floor, sizeof(t_img));
+	data.map.text_floor->mlx = data.mlx.mlx;
+	data.map.text_floor->path = "./texture/wall4k.xpm";
 	parsing(&data);
 	open_window(&data, &data.mlx);
-	ft_bzero(&data.ray, sizeof(t_ray));
-	data.ray.d_proj = data.mlx.height / 2 * tan((45 * (M_PI / 180)));
-	if (data.mlx.height < data.mlx.width)
-		data.ray.d_proj *= (data.mlx.width / data.mlx.height);
-	else
-		data.ray.d_proj /= (data.mlx.height / data.mlx.width) * 0.75;
 	data.map.mini.player_coo.y = 32;
 	data.map.mini.player_coo.x = 32;
 	data.map.mini.speed = 5;
