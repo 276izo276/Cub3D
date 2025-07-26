@@ -196,7 +196,7 @@ void	ray_launch(t_data *data, t_ray ray)
 	ray.save_x = 0;
 	// printf("step %lf\n",step);
 	i = 0;
-	int	screen_width = data->mlx.width / 2;
+	int	screen_width = data->mlx.width;
 	while (i <= screen_width)
 	{
 		// ray.deg = data->map.mini.deg + i + 270;

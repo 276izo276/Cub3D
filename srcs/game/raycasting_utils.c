@@ -148,3 +148,5 @@ int	handle_ray_x_right(t_data *data, t_ray *ray)
 	return (0);
 }
 
+
+

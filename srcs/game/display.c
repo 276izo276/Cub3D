@@ -50,47 +50,56 @@ static void	check_dir(t_data *data, t_ray *ray, int i, double x)
 static void	display_game_loop(t_data *data, t_ray ray, double i)
 {
 	(void)i;
-	int	texture_x = ray.texture_coo.x;
-	while (ray.pix_y > ray.htop_wall && ray.pix_y > 0) //mur haut
-	{
-		int	texture_y = (ray.pix_y - ray.htop_wall) * ray.img->height / (ray.hbot_wall - ray.htop_wall);
-		ray.pixel_addr = ray.data_addr + (ray.pix_y
-					* data->screen->size_line + ray.pix_x
-					* (ray.calc_bits));
-		char *texture_pixel = ray.img->data_addr + (texture_y * ray.img->size_line + texture_x * (ray.img->bits_per_pixel / 8));
-		unsigned int color = *(unsigned int *)texture_pixel;
-		*(unsigned int *)ray.pixel_addr = color;
-		// (void)color;
-		// *(unsigned int *)ray.pixel_addr = 0xFF0000;
-		ray.pix_y--;
-	}
-	while (ray.pix_y > 0) // ciel
-	{
-		ray.pixel_addr = ray.data_addr + ((ray.pix_y)
-					* data->screen->size_line + (ray.pix_x)
-					* (ray.calc_bits));
-		*(unsigned int *)ray.pixel_addr = 0xFF002000;
-		ray.pix_y--;
-	}
-	ray.pix_y = data->mlx.height * 0.5;
+	int	texture_x = ray.texture_coo.x * (ray.img->bits_per_pixel >> 3);
+	char *test1 = ray.data_addr + ray.pix_x * ray.calc_bits;
+	char	*pixel_addr;
+	// while (ray.pix_y > ray.htop_wall && ray.pix_y > 0) //mur haut
+	// {
+	// 	int	texture_y = (ray.pix_y - ray.htop_wall) * ray.img->height / (ray.hbot_wall - ray.htop_wall);
+	// 	ray.pixel_addr = ray.data_addr + (ray.pix_y
+	// 				* data->screen->size_line + ray.pix_x
+	// 				* (ray.calc_bits));
+	// 	char *texture_pixel = ray.img->data_addr + (texture_y * ray.img->size_line + texture_x * (ray.img->bits_per_pixel / 8));
+	// 	unsigned int color = *(unsigned int *)texture_pixel;
+	// 	*(unsigned int *)ray.pixel_addr = color;
+	// 	// (void)color;
+	// 	// *(unsigned int *)ray.pixel_addr = 0xFF0000;
+	// 	ray.pix_y--;
+	// }
+	ray.pix_y = ray.htop_wall;
+	if (ray.pix_y < 0)
+		ray.pix_y = 0;
+	int	test = (ray.hbot_wall - ray.htop_wall);
 	while (ray.pix_y < ray.hbot_wall && ray.pix_y < data->mlx.height) //mur bas
 	{
-		int	texture_y = (ray.pix_y - ray.htop_wall) * ray.img->height / (ray.hbot_wall - ray.htop_wall);
-		// *(unsigned int *)ray.pixel_addr = 0x00F00FF;
-			ray.pixel_addr = ray.data_addr + (ray.pix_y
-					* data->screen->size_line + ray.pix_x
-					* (ray.calc_bits));
-		char *texture_pixel = ray.img->data_addr + (texture_y * ray.img->size_line + texture_x * (ray.img->bits_per_pixel / 8));
+		int	texture_y = (ray.pix_y - ray.htop_wall) * ray.img->height / test;
+		// *(unsigned int *)pixel_addr = 0x00F00FF;
+			pixel_addr = test1 + (ray.pix_y * data->screen->size_line);
+		char *texture_pixel = ray.img->data_addr + (texture_y * ray.img->size_line + texture_x);
 		unsigned int color = *(unsigned int *)texture_pixel;
-		*(unsigned int *)ray.pixel_addr = color;
+		*(unsigned int *)pixel_addr = color;
 		ray.pix_y++;
+		// if (ray.dist_wall < 40)
+		// 	ray.pix_y += 1;
 	}
+	ray.pix_y = ray.htop_wall;
+	if (ray.pix_y < 0)
+		ray.pix_y = 0;
+	while (ray.pix_y > 0) // ciel
+	{
+		pixel_addr = test1 + ((ray.pix_y)
+					* data->screen->size_line);
+		*(unsigned int *)pixel_addr = 0xFF002000;
+		ray.pix_y--;
+	}
+	ray.pix_y = ray.hbot_wall;
+	if (ray.pix_y < 0)
+		ray.pix_y = 0;
 	while (ray.pix_y < data->mlx.height) // sol
 	{
-		ray.pixel_addr = ray.data_addr + ((ray.pix_y)
-					* data->screen->size_line + (ray.pix_x)
-					* (ray.calc_bits));
-		*(unsigned int *)ray.pixel_addr = 0xFF4F4F4F;
+		pixel_addr = test1 + ((ray.pix_y)
+					* data->screen->size_line);
+		*(unsigned int *)pixel_addr = 0xFF4F4F4F;
 		ray.pix_y++;
 	}
 }
@@ -108,7 +117,7 @@ void    display_game(t_data *data, t_ray ray, int i, double x)
 	ray.pix_y = data->mlx.height * 0.5; // sa degagera
 	ray.max_height = data->mlx.height * 0.5; // sa degagera
 	ray.max_size_wall = ray.size_wall * 0.5; // sa degagera
-	ray.calc_bits = (int)(data->screen->bits_per_pixel / 8);
+	ray.calc_bits = (int)(data->screen->bits_per_pixel >> 3);
 	ray.data_addr = data->screen->data_addr;
 	ray.htop_wall = round(ray.max_height - ray.max_size_wall);
 	ray.hbot_wall = round(ray.max_height + ray.max_size_wall);

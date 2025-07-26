@@ -50,14 +50,16 @@ void	init_data(t_data *data, int ac, char **av)
 		// error msg
 		f_exit(data, 1);
 	}
-	mlx_get_screen_size(data->mlx.mlx, &data->mlx.width, &data->mlx.height);
+	// mlx_get_screen_size(data->mlx.mlx, &data->mlx.width, &data->mlx.height);
+	data->mlx.height = 1000;
+	data->mlx.width = 1000;
 	init_utils_mini(data);
 	data->screen = malloc(sizeof(t_img));
-	data->screen->img = mlx_new_image(data->mlx.mlx, data->mlx.width / 2, data->mlx.height);
+	data->screen->img = mlx_new_image(data->mlx.mlx, data->mlx.width, data->mlx.height);
 	data->screen->data_addr = mlx_get_data_addr(data->screen->img,&data->screen->bits_per_pixel,&data->screen->size_line,&data->screen->endian);
 	// ft_bzero(&data->screen->data_addr, sizeof(data->screen->data_addr));
 	// for (int y = 0; y < data->screen->height; y++) {
-	// 	for (int x = 0; x < data->screen->width / 2; x++)
+	// 	for (int x = 0; x < data->screen->width; x++)
 	// 	{
 	// 		char *pixel_addr = data->screen->data_addr + ((y) * data->screen->size_line
 	// 					+ (x) * (data->screen->bits_per_pixel / 8));
@@ -81,7 +83,7 @@ int	key_press(int keycode, t_data *data)
 	if (keycode == KEY_ALT)
 		mlx_mouse_show(data->mlx.mlx, data->mlx.win);
 	else if (keycode == KEY_SHIFT)
-		data->map.mini.speed = 3;
+		data->map.mini.speed = 8;
 	return (0);
 }
 
@@ -98,11 +100,11 @@ int	key_release(int keycode, t_data *data)
 		if (keycode == KEY_ALT)
 		{
 			mlx_mouse_hide(data->mlx.mlx, data->mlx.win);
-			mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width / 4,
-				data->mlx.height / 2);
+			mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width,
+				data->mlx.height);
 		}
 		else if (keycode == KEY_SHIFT)
-			data->map.mini.speed = 1.5;
+			data->map.mini.speed = 5;
 		i++;
 	}
 	return (0);
@@ -129,7 +131,7 @@ int	mouse_move(int x, int y, t_data *data)
 	if ((x != data->mlx.width / 4 || y != data->mlx.height / 2)
 		&& !is_key_pressed(data, KEY_ALT))
 	{
-		data->map.mini.deg += (double)-(x - data->mlx.width / 4) / 10;
+		data->map.mini.deg += (double)-(x - data->mlx.width / 4) / 50;
 		data->map.mini.deg = fmod(data->map.mini.deg, 360.0);
 		if (data->map.mini.deg < 0)
 			data->map.mini.deg += 360;
@@ -337,8 +339,8 @@ bool	is_move_player(t_data *data, int i)
 // 		// dist_wall *= .5;
 // 		double	size_wall = data->mlx.height / 2 * tan(50 * (M_PI / 180)) / (double)(dist_wall/64.0);
 // 		// printf("dproj=%lf    Hauteur=%lf   mlx_height=%d\n",data->mlx.height / 2 * tan(30 * (M_PI / 180)), size_wall, data->mlx.height);
-// 		// int pix_x = data->mlx.width / 4 - ((d_proj * tan(i * (M_PI / 180))) / (2 * d_proj * tan((90/2) * (M_PI / 180)))) * data->mlx.width / 2;
-// 		int pix_x = data->mlx.width - data->mlx.width / 2 / 90 * (i + 45);
+// 		// int pix_x = data->mlx.width / 4 - ((d_proj * tan(i * (M_PI / 180))) / (2 * d_proj * tan((90/2) * (M_PI / 180)))) * data->mlx.width;
+// 		int pix_x = data->mlx.width - data->mlx.width / 90 * (i + 45);
 // 		int	pix_y = data->mlx.height / 2;
 // 		// img_proj.img = mlx_new_image(data->mlx.mlx, data->mlx.width, data->mlx.height);
 // 		// img_proj.data_addr = mlx_get_data_addr(img_proj.img,&img_proj.bits_per_pixel,&img_proj.size_line,&img_proj.endian);
@@ -442,11 +444,14 @@ int	main(int ac, char **av)
 	parsing(&data);
 	open_window(&data, &data.mlx);
 	ft_bzero(&data.ray, sizeof(t_ray));
-
-	data.ray.d_proj = data.mlx.height / 2 * tan(45 * (M_PI / 180));
+	data.ray.d_proj = data.mlx.height / 2 * tan((45 * (M_PI / 180)));
+	if (data.mlx.height < data.mlx.width)
+		data.ray.d_proj *= (data.mlx.width / data.mlx.height);
+	else
+		data.ray.d_proj /= (data.mlx.height / data.mlx.width) * 0.75;
 	data.map.mini.player_coo.y = 32;
 	data.map.mini.player_coo.x = 32;
-	data.map.mini.speed = 1.5;
+	data.map.mini.speed = 5;
 	init_img_mini(&data, &data.map.mini);
 	// init_display(&data, &data.f_display);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);

@@ -7,7 +7,7 @@
 
 void	open_window(t_data *data, t_mlx *mlx)
 {
-	mlx->win = mlx_new_window(mlx->mlx, mlx->width/2, mlx->height - MARGIN, "./CUB3D");
+	mlx->win = mlx_new_window(mlx->mlx, mlx->width, mlx->height - MARGIN, "./CUB3D");
 	if (!mlx->win)
 	{
 		//error msg
