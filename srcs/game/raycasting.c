@@ -11,71 +11,71 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static int	handle_ray_x(t_data *data, t_ray *ray)
+static int	handle_ray_x(t_data *data, int i)
 {
-	if (ray->delta_x < 0)
-		ray->dir = EAST;
+	if (data->ray[i].delta_x < 0)
+		data->ray[i].dir = EAST;
 	else
-		ray->dir = WEST;
-	if (ray->delta_x < 0)
+		data->ray[i].dir = WEST;
+	if (data->ray[i].delta_x < 0)
 	{
-		if (handle_ray_x_left(data, ray) == 1)
+		if (handle_ray_x_left(data, i) == 1)
 			return (1);
 	}
 	else
 	{
-		if (handle_ray_x_right(data, ray) == 1)
+		if (handle_ray_x_right(data, i) == 1)
 			return (1);
 	}
 	return (0);
 }
 
-static int	handle_ray_y(t_data *data, t_ray *ray)
+static int	handle_ray_y(t_data *data, int i)
 {
-	if (ray->delta_y < 0)
-		ray->dir = SOUTH;
+	if (data->ray[i].delta_y < 0)
+		data->ray[i].dir = SOUTH;
 	else
-		ray->dir = NORTH;
-	if (ray->delta_y < 0)
+		data->ray[i].dir = NORTH;
+	if (data->ray[i].delta_y < 0)
 	{
-		if (handle_ray_y_top(data, ray) == 1)
+		if (handle_ray_y_top(data, i) == 1)
 			return (1);
 	}
 	else
 	{
-		if (handle_ray_y_down(data, ray) == 1)
+		if (handle_ray_y_down(data, i) == 1)
 			return (1);
 	}
 	return (0);
 }
 
-static void	handle_ray(t_data *data, t_ray *ray)
+static void	handle_ray(t_data *data, int i)
 {
 	while (1)
 	{
-		if (ray->delta_x > 0)
-			ray->rx = (64 - ray->coo_x) / ray->delta_x;
+		if (data->ray[i].delta_x > 0)
+			data->ray[i].rx = (64 - data->ray[i].coo_x) / data->ray[i].delta_x;
 		else
-			ray->rx = -ray->coo_x / ray->delta_x;
-		if (ray->delta_y > 0)
-			ray->ry = (64 - ray->coo_y) / ray->delta_y;
+			data->ray[i].rx = -data->ray[i].coo_x / data->ray[i].delta_x;
+		if (data->ray[i].delta_y > 0)
+			data->ray[i].ry = (64 - data->ray[i].coo_y) / data->ray[i].delta_y;
 		else
-			ray->ry = -ray->coo_y / ray->delta_y;
-		if (ray->rx < ray->ry)
+			data->ray[i].ry = -data->ray[i].coo_y / data->ray[i].delta_y;
+		if (data->ray[i].rx < data->ray[i].ry)
 		{
 			// printf("ray_x\n");
-			if (handle_ray_x(data, ray) == 1)
+			if (handle_ray_x(data, i) == 1)
 				break ;
 		}
 		else
 		{
 			// printf("ray_y\n");
-			if (handle_ray_y(data, ray) == 1)
+			if (handle_ray_y(data, i) == 1)
 				break ;
 		}
 	}
 }
-// static void	handle_ray(t_data *data, t_ray *ray)
+// static void	handle_ray(t_data *data, int i)
 // {
 // 	while (1)
 // 	{
@@ -188,40 +188,55 @@ static void	handle_ray(t_data *data, t_ray *ray)
 
 
 
-void	ray_launch(t_data *data, t_ray ray)
+void	ray_launch(t_data *data)
 {
-	double	i;
+	int	i;
 	static int a = 0;
 
-	ray.save_x = 0;
+	// ray.save_x = 0;
 	// printf("step %lf\n",step);
 	i = 0;
 	int	screen_width = data->mlx.width;
-	while (i <= screen_width)
+	while (i < screen_width)
 	{
 		// ray.deg = data->map.mini.deg + i + 270;
 		double x = i / screen_width;
 		x *= -2;
 		x += 1;
-		ray.rad = -atan(1 / x);
-		ray.deg = ray.rad;
-		if (ray.rad >= 0)
-			ray.rad += M_PI;
-		ray.rad += data->map.mini.deg * (M_PI / 180);
+		data->ray[i].rad = -atan(1 / x);
+		data->ray[i].deg = data->ray[i].rad;
+		if (data->ray[i].rad >= 0)
+			data->ray[i].rad += M_PI;
+		data->ray[i].rad += data->map.mini.deg * (M_PI / 180);
 		if (a == 0)
 			printf("x >>> %lf\n",x);
-		ray.coo_y = data->map.mini.player_coo.y;
-		ray.coo_x = data->map.mini.player_coo.x;
-		ray.case_y = data->map.player_coo->y;
-		ray.case_x = data->map.player_coo->x;
-		// ray.rad = ray.deg * (M_PI / 180);
-		ray.delta_x = -cos(ray.rad);
-		ray.delta_y = sin(ray.rad);
+		data->ray[i].coo_y = data->map.mini.player_coo.y;
+		data->ray[i].coo_x = data->map.mini.player_coo.x;
+		data->ray[i].case_y = data->map.player_coo->y;
+		data->ray[i].case_x = data->map.player_coo->x;
+		// data->ray[i].rad = data->ray[i].deg * (M_PI / 180);
+		data->ray[i].delta_x = -cos(data->ray[i].rad);
+		data->ray[i].delta_y = sin(data->ray[i].rad);
 		// printf("START\n");
-		handle_ray(data, &ray);
+		handle_ray(data, i);
+		data->ray[i].dist_wall = sqrt(((data->ray[i].case_y - data->map.player_coo->y) * 64.0 + (data->ray[i].final_y - data->map.mini.player_coo.y))  *  ((data->ray[i].case_y - data->map.player_coo->y) * 64.0 + (data->ray[i].final_y - data->map.mini.player_coo.y))
+		+ ((data->ray[i].case_x - data->map.player_coo->x) * 64.0 + (data->ray[i].final_x - data->map.mini.player_coo.x)) * ((data->ray[i].case_x - data->map.player_coo->x) * 64.0 + (data->ray[i].final_x - data->map.mini.player_coo.x)));
+		data->ray[i].dist_wall *= cos(atan(x));
+		// printf(" ray rad %lf \n",data->ray[i].deg);
+		data->ray[i].size_wall = data->ray[i].d_proj / (double)(data->ray[i].dist_wall/64.0);
+		data->ray[i].pix_x = i;
+		// printf("pix>%d\n",data->ray[i].pix_x);
+		// data->ray[i].pix_x = 1 + data->mlx.width * 0.25 - ((data->ray[i].d_proj * tan(i * (M_PI / 180))) / (2 * data->ray[i].d_proj * tan((90 * 0.5) * (M_PI / 180)))) * data->mlx.width * 0.5;
+		data->ray[i].pix_y = data->mlx.height * 0.5; // sa degagera
+		data->ray[i].max_height = data->mlx.height * 0.5; // sa degagera
+		data->ray[i].max_size_wall = data->ray[i].size_wall * 0.5; // sa degagera
+		data->ray[i].calc_bits = (int)(data->screen->bits_per_pixel >> 3);
+		data->ray[i].data_addr = data->screen->data_addr;
+		data->ray[i].htop_wall = round(data->ray[i].max_height - data->ray[i].max_size_wall);
+		data->ray[i].hbot_wall = round(data->ray[i].max_height + data->ray[i].max_size_wall);
 		i += 1;
-		display_game(data, ray, i, x);
 	}
 	a = 1;
+	display_game(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
 }

@@ -62,8 +62,8 @@ struct	s_ray
 	double	hbot_wall;
 	char	*data_addr;
 	int		calc_bits;
-	double	gap_x;
-	double	gap_y;
+	double	final_x;
+	double	final_y;
 	double	save_x;
 	t_coo	texture_coo;
 	t_img	*img;
@@ -164,7 +164,7 @@ struct s_data
 	char			**av;
 	t_map			map;
 	t_mlx			mlx;
-	t_ray		ray;
+	t_ray		*ray;
 	int				keycode[100];
 	// t_img	*wh;
 	// t_img	*bl;
