@@ -31,7 +31,7 @@ int handle_ray_x_right(t_data *data, int i);
 int	handle_ray_x_left(t_data *data, int i);
 
 //display game
-void    display_game(t_data *data, int i, double x);
+void    display_game(t_data *data);
 
 typedef enum e_key_down
 {

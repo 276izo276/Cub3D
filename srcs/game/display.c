@@ -189,24 +189,29 @@ static void	display_game_loop(t_data *data, int i)
 	}
 }
 
-void    display_game(t_data *data, int i, double x)
+void    display_game(t_data *data)
 {
-	data->ray[i].dist_wall = sqrt(((data->ray[i].case_y - data->map.player_coo->y) * 64.0 + (data->ray[i].coo_y - data->map.mini.player_coo.y))  *  ((data->ray[i].case_y - data->map.player_coo->y) * 64.0 + (data->ray[i].coo_y - data->map.mini.player_coo.y))
-	+ ((data->ray[i].case_x - data->map.player_coo->x) * 64.0 + (data->ray[i].coo_x - data->map.mini.player_coo.x)) * ((data->ray[i].case_x - data->map.player_coo->x) * 64.0 + (data->ray[i].coo_x - data->map.mini.player_coo.x)));
-	data->ray[i].dist_wall *= cos(atan(x));
-	// printf(" ray rad %lf \n",data->ray[i].deg);
-	data->ray[i].size_wall = data->ray[i].d_proj / (double)(data->ray[i].dist_wall/64.0);
-	data->ray[i].pix_x = i;
-	// printf("pix>%d\n",data->ray[i].pix_x);
-	// data->ray[i].pix_x = 1 + data->mlx.width * 0.25 - ((data->ray[i].d_proj * tan(i * (M_PI / 180))) / (2 * data->ray[i].d_proj * tan((90 * 0.5) * (M_PI / 180)))) * data->mlx.width * 0.5;
-	data->ray[i].pix_y = data->mlx.height * 0.5; // sa degagera
-	data->ray[i].max_height = data->mlx.height * 0.5; // sa degagera
-	data->ray[i].max_size_wall = data->ray[i].size_wall * 0.5; // sa degagera
-	data->ray[i].calc_bits = (int)(data->screen->bits_per_pixel >> 3);
-	data->ray[i].data_addr = data->screen->data_addr;
-	data->ray[i].htop_wall = round(data->ray[i].max_height - data->ray[i].max_size_wall);
-	data->ray[i].hbot_wall = round(data->ray[i].max_height + data->ray[i].max_size_wall);
-	check_dir(data, i);
-	display_game_loop(data, i);
+	// data->ray[i].dist_wall = sqrt(((data->ray[i].case_y - data->map.player_coo->y) * 64.0 + (data->ray[i].coo_y - data->map.mini.player_coo.y))  *  ((data->ray[i].case_y - data->map.player_coo->y) * 64.0 + (data->ray[i].coo_y - data->map.mini.player_coo.y))
+	// + ((data->ray[i].case_x - data->map.player_coo->x) * 64.0 + (data->ray[i].coo_x - data->map.mini.player_coo.x)) * ((data->ray[i].case_x - data->map.player_coo->x) * 64.0 + (data->ray[i].coo_x - data->map.mini.player_coo.x)));
+	// data->ray[i].dist_wall *= cos(atan(x));
+	// // printf(" ray rad %lf \n",data->ray[i].deg);
+	// data->ray[i].size_wall = data->ray[i].d_proj / (double)(data->ray[i].dist_wall/64.0);
+	// data->ray[i].pix_x = i;
+	// // printf("pix>%d\n",data->ray[i].pix_x);
+	// // data->ray[i].pix_x = 1 + data->mlx.width * 0.25 - ((data->ray[i].d_proj * tan(i * (M_PI / 180))) / (2 * data->ray[i].d_proj * tan((90 * 0.5) * (M_PI / 180)))) * data->mlx.width * 0.5;
+	// data->ray[i].pix_y = data->mlx.height * 0.5; // sa degagera
+	// data->ray[i].max_height = data->mlx.height * 0.5; // sa degagera
+	// data->ray[i].max_size_wall = data->ray[i].size_wall * 0.5; // sa degagera
+	// data->ray[i].calc_bits = (int)(data->screen->bits_per_pixel >> 3);
+	// data->ray[i].data_addr = data->screen->data_addr;
+	// data->ray[i].htop_wall = round(data->ray[i].max_height - data->ray[i].max_size_wall);
+	// data->ray[i].hbot_wall = round(data->ray[i].max_height + data->ray[i].max_size_wall);
+	int i = 0;
+	while (i < data->mlx.width)
+	{
+		check_dir(data, i);
+		display_game_loop(data, i);
+		++i;
+	}
 
 }

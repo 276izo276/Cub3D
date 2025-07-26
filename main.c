@@ -57,17 +57,18 @@ void	init_data(t_data *data, int ac, char **av)
 	data->ray = malloc(sizeof(t_ray) * data->mlx.width);
 	if (data->ray == NULL)
 		f_exit(data, 1);
-	ft_bzero(data->ray, sizeof(t_ray));
+	ft_bzero(data->ray, sizeof(t_ray) * data->mlx.width);
 	int i;
 	i = 0;
+	double fov;
+	fov = data->mlx.height / 2 * tan((45 * (M_PI / 180)));
+	if (data->mlx.height < data->mlx.width)
+		fov *= (data->mlx.width / data->mlx.height);
+	else
+		fov /= (data->mlx.height / data->mlx.width) * 0.75;
 	while (i < data->mlx.width)
 	{
-
-		data->ray[i].d_proj = data->mlx.height / 2 * tan((45 * (M_PI / 180)));
-		if (data->mlx.height < data->mlx.width)
-			data->ray[i].d_proj *= (data->mlx.width / data->mlx.height);
-		else
-			data->ray[i].d_proj /= (data->mlx.height / data->mlx.width) * 0.75;
+		data->ray[i].d_proj = fov;
 		++i;
 	}
 	data->screen = malloc(sizeof(t_img));
