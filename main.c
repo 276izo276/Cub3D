@@ -202,9 +202,8 @@ int	game_loop(t_data *data)
 	{
 		// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 		data->time_fps = cur;
-		aff_mini_map(data);
 		ray_launch(data);
-		usleep(1000);
+		aff_mini_map(data);
 		// ray_launch_old(data);
 	}
 	// printf("OUT\n");
