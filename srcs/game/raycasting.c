@@ -192,7 +192,7 @@ static void	handle_ray(t_data *data, int i)
 void	ray_launch(t_data *data)
 {
 	int	i;
-	static int a = 0;
+	// static int a = 0;
 
 	// ray.save_x = 0;
 	// printf("step %lf\n",step);
@@ -210,8 +210,8 @@ void	ray_launch(t_data *data)
 			data->ray[i].rad += M_PI;
 		data->ray[i].rad += data->map.mini.deg * (M_PI / 180);
 		// printf("rad>>%lf\n",data->ray[i].rad);
-		if (a == 0)
-			printf("x >>> %lf\n",x);
+		// if (a == 0)
+			// printf("x >>> %lf\n",x);
 		data->ray[i].coo_y = data->map.mini.player_coo.y;
 		data->ray[i].coo_x = data->map.mini.player_coo.x;
 		data->ray[i].case_y = data->map.player_coo->y;
@@ -240,7 +240,7 @@ void	ray_launch(t_data *data)
 		data->ray[i].hbot_wall = round(data->ray[i].max_height + data->ray[i].max_size_wall);
 		i += 1;
 	}
-	a = 1;
+	// a = 1;
 	display_game(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
 }

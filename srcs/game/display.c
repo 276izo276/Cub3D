@@ -96,21 +96,56 @@ static void	display_game_loop(t_data *data, int i)
 	data->ray[i].pix_y = data->ray[i].hbot_wall;
 	if (data->ray[i].pix_y < 0)
 		data->ray[i].pix_y = 0;
-	while (data->ray[i].pix_y < data->mlx.height) // sol
+	// while (data->ray[i].pix_y < data->mlx.height) // sol
+	// {
+	// 	pixel_addr = test1 + ((data->ray[i].pix_y)
+	// 				* data->screen->size_line);
+	// 	*(unsigned int *)pixel_addr = 0xFF4F4F4F;
+	// 	data->ray[i].pix_y++;
+	// }
+}
+
+static void	display_floor(t_data *data)
+{
+	double	dir_x = cos(data->map.mini.rad);
+	double	dir_y = sin(data->map.mini.rad);
+	double	planex = -sin(data->map.mini.rad);
+	double	planey = cos(data->map.mini.rad);
+	char	*pixel_addr;
+	int	y;
+
+	y = data->screen.height / 2 + 1;
+	while (y < data->screen.height)
 	{
-		pixel_addr = test1 + ((data->ray[i].pix_y)
-					* data->screen->size_line);
-		*(unsigned int *)pixel_addr = 0xFF4F4F4F;
-		data->ray[i].pix_y++;
+		double	raydir_leftx = dir_x - planex;
+		double	raydir_lefty = dir_y - planey;
+		double	raydir_rightx = dir_x + planex;
+		double	raydir_righty = dir_y + planey;
+
+		int		dist_center = y - data->screen.height / 2;
+		double	eye_heigh = 0.5 * data->screen.height;
+		double	world_dist = eye_heigh / dist_center;
+
+		double	stepx = world_dist * (raydir_rightx - raydir_leftx) / data->screen.width;
+		double	stepy = world_dist * (raydir_righty - raydir_lefty) / data->screen.width;
+		double	floorx = data->map.mini.player_coo.x + world_dist * raydir_leftx;
+		double	floory = data->map.mini.player_coo.y + world_dist * raydir_lefty;
+		int x = 0;
+		while (x < data->screen_width)
+		{
+			pixel_addr = data->map.
+		}
+		++y;
 	}
 }
 
-void    display_game(t_data *data)
+void    display_game(t_data *data, double x)
 {
 
 	int	i;
 
 	i = 0;
+	display_floor(data, x);
 	while (i < data->mlx.width)
 	{
 		display_game_loop(data, i);
