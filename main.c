@@ -468,7 +468,6 @@ int	main(int ac, char **av)
 	data.map.text_floor->path = "./texture/wall4k.xpm";
 	parsing(&data);
 	open_window(&data, &data.mlx);
-
 	data.map.mini.player_coo.y = 32;
 	data.map.mini.player_coo.x = 32;
 	data.map.mini.speed = 5;

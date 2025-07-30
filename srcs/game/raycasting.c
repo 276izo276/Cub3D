@@ -244,3 +244,4 @@ void	ray_launch(t_data *data)
 	display_game(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
 }
+
