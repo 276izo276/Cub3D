@@ -113,7 +113,6 @@ static void	display_floor(t_data *data)
 	double	planey = cos(data->map.mini.rad);
 	char	*pixel_addr;
 	int	y;
-
 	y = data->screen->height / 2 + 1;
 	while (y < data->screen->height)
 	{
@@ -122,22 +121,32 @@ static void	display_floor(t_data *data)
 		double	raydir_rightx = dir_x + planex;
 		double	raydir_righty = dir_y + planey;
 
-		int		dist_center = y - data->screen->height / 2;
-		double	eye_heigh = 0.5 * data->screen->height;
+		int		dist_center = y - data->screen->width / 2;
+		if (dist_center == 0)
+			dist_center = 1;
+		double	eye_heigh = 0.5 * data->screen->height / 2;
 		double	world_dist = eye_heigh / dist_center;
 
-		double	stepx = world_dist * (raydir_rightx - raydir_leftx) / data->screen->width;
-		double	stepy = world_dist * (raydir_righty - raydir_lefty) / data->screen->width;
+		double	stepx = (raydir_rightx - raydir_leftx) / data->screen->width;
+		double	stepy = (raydir_righty - raydir_lefty) / data->screen->width;
 		double	floorx = data->map.mini.player_coo.x + world_dist * raydir_leftx;
 		double	floory = data->map.mini.player_coo.y + world_dist * raydir_lefty;
 		int x = 0;
-		while (x < data->screen->width)
+		while (x < data->mlx.width)
 		{
 			int pos_mapx = (int)(floorx / 64);
 			int	pos_mapy = (int)(floory / 64);
 			double	pos_cellx = floorx - pos_mapx * 64;
+			if (pos_cellx < 0)
+				pos_cellx = 0;
+			else if (pos_cellx >= 64)
+				pos_cellx = 63.999;
 			double	pos_celly = floory - pos_mapy * 64;
-			int	text_x = (int)((pos_cellx / 64) * data->map.text_floor->width);
+			if (pos_celly < 0)
+				pos_celly = 0;
+			else if (pos_celly >= 64)
+				pos_celly = 63.999;
+			int	text_x = (int)(((pos_cellx) / 64) * data->map.text_floor->width);
 			int	text_y = (int)((pos_celly / 64) * data->map.text_floor->height);
 			char *texture_pixel = data->map.text_floor->data_addr + (text_y * data->map.text_floor->size_line + text_x * (data->map.text_floor->bits_per_pixel / 8));
 			unsigned int color = *(unsigned int *)texture_pixel;
