@@ -74,6 +74,8 @@ void	init_data(t_data *data, int ac, char **av)
 	data->screen = malloc(sizeof(t_img));
 	data->screen->img = mlx_new_image(data->mlx.mlx, data->mlx.width, data->mlx.height);
 	data->screen->data_addr = mlx_get_data_addr(data->screen->img,&data->screen->bits_per_pixel,&data->screen->size_line,&data->screen->endian);
+	data->screen->width = data->mlx.width;
+	data->screen->height = data->mlx.height;
 	// ft_bzero(&data->screen->data_addr, sizeof(data->screen->data_addr));
 	// for (int y = 0; y < data->screen->height; y++) {
 	// 	for (int x = 0; x < data->screen->width; x++)
@@ -219,6 +221,12 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	init_data(&data, ac, av);
+	data.map.text_floor = malloc(sizeof(t_img));
+	if (!data.map.text_floor)
+		f_exit(&data, 1);
+	ft_bzero(data.map.text_floor, sizeof(t_img));
+	data.map.text_floor->mlx = data.mlx.mlx;
+	data.map.text_floor->path = "./texture/wall4k.xpm";
 	parsing(&data);
 	open_window(&data, &data.mlx);
 
