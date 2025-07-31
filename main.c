@@ -466,6 +466,12 @@ int	main(int ac, char **av)
 	ft_bzero(data.map.text_floor, sizeof(t_img));
 	data.map.text_floor->mlx = data.mlx.mlx;
 	data.map.text_floor->path = "./texture/wall4k.xpm";
+	data.map.text_sky = malloc(sizeof(t_img));
+	if (!data.map.text_sky)
+		f_exit(&data, 1);
+	ft_bzero(data.map.text_sky, sizeof(t_img));
+	data.map.text_sky->mlx = data.mlx.mlx;
+	data.map.text_sky->path = "./texture/sky.xpm";
 	parsing(&data);
 	open_window(&data, &data.mlx);
 	data.map.mini.player_coo.y = 32;

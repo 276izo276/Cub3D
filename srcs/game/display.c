@@ -83,19 +83,19 @@ static void	display_game_loop(t_data *data, int i)
 		// if (data->ray[i].dist_wall < 40)
 		// 	data->ray[i].pix_y += 1;
 	}
-	data->ray[i].pix_y = data->ray[i].htop_wall;
-	if (data->ray[i].pix_y < 0)
-		data->ray[i].pix_y = 0;
-	while (data->ray[i].pix_y > 0) // ciel
-	{
-		pixel_addr = test1 + ((data->ray[i].pix_y)
-					* data->screen->size_line);
-		*(unsigned int *)pixel_addr = 0xFF002000;
-		data->ray[i].pix_y--;
-	}
-	data->ray[i].pix_y = data->ray[i].hbot_wall;
-	if (data->ray[i].pix_y < 0)
-		data->ray[i].pix_y = 0;
+	// data->ray[i].pix_y = data->ray[i].htop_wall;
+	// if (data->ray[i].pix_y < 0)
+	// 	data->ray[i].pix_y = 0;
+	// while (data->ray[i].pix_y > 0) // ciel
+	// {
+	// 	pixel_addr = test1 + ((data->ray[i].pix_y)
+	// 				* data->screen->size_line);
+	// 	*(unsigned int *)pixel_addr = 0xFF002000;
+	// 	data->ray[i].pix_y--;
+	// }
+	// data->ray[i].pix_y = data->ray[i].hbot_wall;
+	// if (data->ray[i].pix_y < 0)
+	// 	data->ray[i].pix_y = 0;
 	// while (data->ray[i].pix_y < data->mlx.height) // sol
 	// {
 	// 	pixel_addr = test1 + ((data->ray[i].pix_y)
@@ -111,11 +111,13 @@ static void display_floor(t_data *data)
 	int y;
 	double cos_angle = cos(data->map.mini.rad);
 	double sin_angle = sin(data->map.mini.rad);
-	y = data->screen->height / 2 + 1;
+	int		screen_bbp_frac = data->screen->bits_per_pixel >> 3;
+	int		text_bpp_frac = data->map.text_floor->bits_per_pixel >> 3;
+	y = (data->screen->height >> 2) + 1;
 	// printf("x >> %f y >> %f\n", data->map.mini.player_coo.x, data->map.mini.player_coo.y);
 	while (y < data->screen->height)
 	{
-		double dist_center = y - data->screen->height / 2;
+		double dist_center = y - data->screen->height * 0.5;
 		if (dist_center == 0)
 			dist_center = 0.0001;
 		double screen_y = (double)dist_center / data->screen->height;
@@ -147,9 +149,9 @@ static void display_floor(t_data *data)
             if (text_y >= data->map.text_floor->height)
                 text_y = data->map.text_floor->height - 1;
                 
-            char *texture_pixel = data->map.text_floor->data_addr + (text_y * data->map.text_floor->size_line + text_x * (data->map.text_floor->bits_per_pixel / 8));
+            char *texture_pixel = data->map.text_floor->data_addr + (text_y * data->map.text_floor->size_line + text_x * text_bpp_frac);
             unsigned int color = *(unsigned int *)texture_pixel;
-            pixel_addr = data->screen->data_addr + (y * data->screen->size_line + x * (data->screen->bits_per_pixel / 8));
+            pixel_addr = data->screen->data_addr + (y * data->screen->size_line + x * screen_bbp_frac);
             *(unsigned int *)pixel_addr = color;
             ++x;
         }
@@ -157,6 +159,57 @@ static void display_floor(t_data *data)
     }
 }
 
+static void display_sky(t_data *data)
+{
+	char *pixel_addr;
+	int y;
+	double cos_angle = cos(data->map.mini.rad);
+	double sin_angle = sin(data->map.mini.rad);
+	int		screen_bbp_frac = data->screen->bits_per_pixel >> 3;
+	int		text_bpp_frac = data->map.text_floor->bits_per_pixel >> 3;
+	y = 0;
+	while (y < data->screen->height / 2)
+	{
+		double dist_center = y - data->screen->height * 0.5;
+		if (dist_center == 0)
+			dist_center = 0.0001;
+		double screen_y = (double)dist_center / data->screen->height;
+		double sky_distance = 32.0 / screen_y;
+		int x = 0;
+		while (x < data->mlx.width)
+		{
+			double screen_x = (double)2 * x / data->screen->width - 1;
+
+			double world_x = data->map.mini.player_coo.x - sky_distance * (-sin_angle) - screen_x * sky_distance * cos_angle;
+            double world_y = data->map.mini.player_coo.y + sky_distance * cos_angle + screen_x * sky_distance * sin_angle;
+			double pos_cellx = fmod(world_x, 64);
+			if (pos_cellx < 0)
+				pos_cellx += 64.0;
+			double pos_celly = fmod(world_y, 64);
+			if (pos_celly < 0)
+				pos_celly += 64.0;
+            
+			int text_x = (int)(((pos_cellx) / 64.0) * data->map.text_sky->width);
+            int text_y = (int)(((pos_celly) / 64.0) * data->map.text_sky->height);
+            
+            if (text_x < 0)
+                text_x = 0;
+            if (text_x >= data->map.text_sky->width)
+                text_x = data->map.text_sky->width - 1;
+            if (text_y < 0)
+                text_y = 0;
+            if (text_y >= data->map.text_sky->height)
+                text_y = data->map.text_sky->height - 1;
+                
+            char *texture_pixel = data->map.text_sky->data_addr + (text_y * data->map.text_sky->size_line + text_x * text_bpp_frac);
+            unsigned int color = *(unsigned int *)texture_pixel;
+            pixel_addr = data->screen->data_addr + (y * data->screen->size_line + x * screen_bbp_frac);
+            *(unsigned int *)pixel_addr = color;
+            ++x;
+        }
+        ++y;
+    }
+}
 void    display_game(t_data *data)
 {
 
@@ -164,6 +217,7 @@ void    display_game(t_data *data)
 
 	i = 0;
 	display_floor(data);
+	display_sky(data);
 	while (i < data->mlx.width)
 	{
 		display_game_loop(data, i);
