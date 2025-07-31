@@ -105,65 +105,56 @@ static void	display_game_loop(t_data *data, int i)
 	// }
 }
 
-static void	display_floor(t_data *data)
+static void display_floor(t_data *data)
 {
-	double	dir_x = -sin(data->map.mini.rad);
-	double	dir_y = cos(data->map.mini.rad);
-	double	planex = -cos(data->map.mini.rad);
-	double	planey = -sin(data->map.mini.rad);
-	char	*pixel_addr;
-	int	y;
+	char *pixel_addr;
+	int y;
+	double cos_angle = cos(data->map.mini.rad);
+	double sin_angle = sin(data->map.mini.rad);
 	y = data->screen->height / 2 + 1;
+	// printf("x >> %f y >> %f\n", data->map.mini.player_coo.x, data->map.mini.player_coo.y);
 	while (y < data->screen->height)
 	{
-		double	raydir_leftx = dir_x - planex;
-		double	raydir_lefty = dir_y - planey;
-		double	raydir_rightx = dir_x + planex;
-		double	raydir_righty = dir_y + planey;
-
-		double		dist_center = y - data->screen->height / 2;
+		double dist_center = y - data->screen->height / 2;
 		if (dist_center == 0)
 			dist_center = 0.0001;
-
-		double	eye_heigh = 0.5 * 64;
-		double	world_dist = eye_heigh * data->screen->height / (2.0 * dist_center);
-
-		double	stepx = world_dist * (raydir_rightx - raydir_leftx) / data->screen->width;
-		double	stepy = world_dist * (raydir_righty - raydir_lefty) / data->screen->width;
-
-		double	floorx = data->map.mini.player_coo.x + world_dist * raydir_leftx;
-		double	floory = data->map.mini.player_coo.y + world_dist * raydir_lefty;
-	
+		double screen_y = (double)dist_center / data->screen->height;
+		double floor_distance = 32.0 / screen_y;
 		int x = 0;
 		while (x < data->mlx.width)
 		{
-			double	pos_cellx = fmod(floorx, 64);
+			double screen_x = (double)2 * x / data->screen->width - 1;
+
+			double world_x = data->map.mini.player_coo.x + floor_distance * (-sin_angle) + screen_x * floor_distance * cos_angle;
+		// printf("x >> %f y >> %f\n", data->map.mini.player_coo.x, data->map.mini.player_coo.y);
+            double world_y = data->map.mini.player_coo.y - floor_distance * cos_angle - screen_x * floor_distance * sin_angle;
+			double pos_cellx = fmod(world_x, 64);
 			if (pos_cellx < 0)
 				pos_cellx += 64.0;
-
-			double	pos_celly = fmod(floory, 64);
+			double pos_celly = fmod(world_y, 64);
 			if (pos_celly < 0)
 				pos_celly += 64.0;
-			int	text_x = (int)(((pos_cellx) / 64.0) * data->map.text_floor->width);
-			int	text_y = (int)((pos_celly / 64.0) * data->map.text_floor->height);
-			if (text_x < 0)
-				text_x = 0;
-			if (text_x >= data->map.text_floor->width)
-				text_x = data->map.text_floor->width - 1;
-			if (text_y < 0)
-				text_y = 0;
-			if (text_y >= data->map.text_floor->height)
-				text_y = data->map.text_floor->height - 1;
-			char *texture_pixel = data->map.text_floor->data_addr + (text_y * data->map.text_floor->size_line + text_x * (data->map.text_floor->bits_per_pixel / 8));
-			unsigned int color = *(unsigned int *)texture_pixel;
-			pixel_addr = data->screen->data_addr + (y * data->screen->size_line + x * (data->screen->bits_per_pixel / 8));
-			*(unsigned int *)pixel_addr = color;
-			++x;
-			floorx += stepx;
-			floory += stepy;
-		}
-		++y;
-	}	
+            
+			int text_x = (int)(((pos_cellx) / 64.0) * data->map.text_floor->width);
+            int text_y = (int)(((pos_celly) / 64.0) * data->map.text_floor->height);
+            
+            if (text_x < 0)
+                text_x = 0;
+            if (text_x >= data->map.text_floor->width)
+                text_x = data->map.text_floor->width - 1;
+            if (text_y < 0)
+                text_y = 0;
+            if (text_y >= data->map.text_floor->height)
+                text_y = data->map.text_floor->height - 1;
+                
+            char *texture_pixel = data->map.text_floor->data_addr + (text_y * data->map.text_floor->size_line + text_x * (data->map.text_floor->bits_per_pixel / 8));
+            unsigned int color = *(unsigned int *)texture_pixel;
+            pixel_addr = data->screen->data_addr + (y * data->screen->size_line + x * (data->screen->bits_per_pixel / 8));
+            *(unsigned int *)pixel_addr = color;
+            ++x;
+        }
+        ++y;
+    }
 }
 
 void    display_game(t_data *data)
