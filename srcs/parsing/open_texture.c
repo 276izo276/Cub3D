@@ -24,6 +24,8 @@ void	open_textures(t_data *data)
 	open_img(data->map.south, data);
 	open_img(data->map.west, data);
 	open_img(data->map.east, data);
+	open_img(data->map.text_floor, data);
+	open_img(data->map.text_sky, data);
 	if (!data->map.ceiling || !data->map.floor)
 	{
 		ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"Texture >>> "\
