@@ -5,7 +5,10 @@
 #include <sys/time.h>
 
 # define SIZE_MAP (5 * 64)
-# define FPS 120
+# define FPS 120.0
+# define V_FOV 90.0
+# define H_FOV 90.0
+# define FPM 60.0
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
@@ -156,6 +159,7 @@ struct s_data
 	t_img			*screen;
 	long long int	time_fps;
 	long long int	time_move;
+	int				frame_move;
 	int				ac;
 	char			**av;
 	t_map			map;

@@ -83,7 +83,7 @@ int	key_press(int keycode, t_data *data)
 	if (keycode == KEY_ALT)
 		mlx_mouse_show(data->mlx.mlx, data->mlx.win);
 	else if (keycode == KEY_SHIFT)
-		data->map.mini.speed = 8;
+		data->map.mini.speed = 3;
 	return (0);
 }
 
@@ -104,7 +104,7 @@ int	key_release(int keycode, t_data *data)
 				data->mlx.height);
 		}
 		else if (keycode == KEY_SHIFT)
-			data->map.mini.speed = 5;
+			data->map.mini.speed = 1.5;
 		i++;
 	}
 	return (0);
@@ -128,15 +128,15 @@ int	is_key_pressed(t_data *data, int keycode)
 int	mouse_move(int x, int y, t_data *data)
 {
 	(void)data;
-	if ((x != data->mlx.width / 4 || y != data->mlx.height / 2)
+	if ((x != data->mlx.width / 2 || y != data->mlx.height / 2)
 		&& !is_key_pressed(data, KEY_ALT))
 	{
-		data->map.mini.deg += (double)-(x - data->mlx.width / 4) / 50;
+		data->map.mini.deg += (double)-(x - data->mlx.width / 2) / 40;
 		data->map.mini.deg = fmod(data->map.mini.deg, 360.0);
 		if (data->map.mini.deg < 0)
 			data->map.mini.deg += 360;
 		data->map.mini.rad = data->map.mini.deg * (M_PI / 180.0);
-		mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width / 4,
+		mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width / 2,
 			data->mlx.height / 2);
 	}
 	return (0);
@@ -156,254 +156,15 @@ bool	is_move_player(t_data *data, int i)
 	return (false);
 }
 
-// void	ray_launch_old(t_data *data)
-// {
-// 	// t_img	img_proj;
-// 	double	j = -45;
-// 	while (j <= 45)
-// 	{
-// 		int i = cos((i / 180));
-// 		double deg = data->map.mini.deg + i + 270;
-// 		double	coo_y = data->map.mini.player_coo.y;
-// 		double	coo_x = data->map.mini.player_coo.x;
-// 		int		case_y = data->map.player_coo->y;
-// 		int		case_x = data->map.player_coo->x;
-// 		// printf("\n\n\nSTART\n");
-// 		// printf("Case   y=%d  x=%d\n",case_y,case_x);
-// 		// deg = fmod(deg,360);
-// 		// printf("deg >>> %lf\n",deg);
-// 		double	rad = deg * (M_PI / 180);
-// 		// printf("rad >>> %lf\n",rad);
-// 		double	delta_x = -cos(rad);
-// 		// if (fabs(delta_x) <= 0.0000000001)
-// 		// 	delta_x = 0.0000000001;
-// 		double	delta_y = sin(rad);
-// 		// if (fabs(delta_y) <= 0.0000000001)
-// 		// 	delta_y = 0.0000000001;
-// 		while (1)
-// 		{
-
-// 			double rx, ry;
-
-//             if (delta_x > 0)
-//                 rx = (64 - coo_x) / delta_x;
-//             else
-//                 rx = -coo_x / delta_x;
-//             if (delta_y > 0)
-//                 ry = (64 - coo_y) / delta_y;
-//             else
-//                 ry = -coo_y / delta_y;
-// 			// rx = fabs(rx);
-// 			// ry = fabs(ry);
-// 			// printf("t ____ >>>%lf\n",rx);
-// 			// printf("t |||| >>>%lf\n",ry);
-// 			// if (rx < 0 || ry < 0)
-// 			// 	printf("INFIFNFINFIFNFNIFNFINFIF\n");
-// 			if (rx < ry)
-// 			{
-// 				// printf("MOVE XXXX\n");
-// 				// printf("coo y >>>%lf\n",coo_y + rx * delta_y);
-// 				// printf("coo x >>>%lf\n",coo_x + rx * delta_x);
-// 				if (delta_x < 0)
-// 				{
-// 					if (data->map.tabmap[case_y][case_x - 1] != '1')
-// 					{
-// 						case_x--;
-// 						coo_x = 63;
-// 						coo_y = coo_y + rx * delta_y;
-// 					}
-// 					else
-// 					{
-// 						coo_x = 0;
-// 						coo_y = coo_y + rx * delta_y;
-// 						// printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
-// 						for (int i = -2;i < 2;i++)
-// 						{
-// 							for (int j = -2; j< 2; j++)
-// 							{
-// 								int	x = i + (5 * 64 / 2) + (case_x - data->map.player_coo->x) * 64 + (coo_x - data->map.mini.player_coo.x);
-// 								int	y = j + data->mlx.height - MARGIN - (5 * 64 / 2) + (case_y - data->map.player_coo->y) * 64 + (coo_y  - data->map.mini.player_coo.y);
-// 								mlx_pixel_put(data->mlx.mlx,data->mlx.win,x,y,0xFF0000);
-// 							}
-// 						}
-// 						break;
-// 					}
-// 				}
-// 				else
-// 				{
-// 					if (data->map.tabmap[case_y][case_x + 1] != '1')
-// 					{
-// 						case_x++;
-// 						coo_x = 0;
-// 						coo_y = coo_y + rx * delta_y;
-// 					}
-// 					else
-// 					{
-// 						coo_x = 63;
-// 						coo_y = coo_y + rx * delta_y;
-// 						// printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
-// 						for (int i = -2;i < 2;i++)
-// 						{
-// 							for (int j = -2; j< 2; j++)
-// 							{
-// 								int	x = i + (5 * 64 / 2) + (case_x - data->map.player_coo->x) * 64 + (coo_x - data->map.mini.player_coo.x);
-// 								int	y = j + data->mlx.height - MARGIN - (5 * 64 / 2) + (case_y - data->map.player_coo->y) * 64 + (coo_y  - data->map.mini.player_coo.y);
-// 								mlx_pixel_put(data->mlx.mlx,data->mlx.win,x,y,0xFF0000);
-// 							}
-// 						}
-// 						break;
-// 					}
-// 				}
-// 			}
-// 			else
-// 			{
-// 				// printf("MOVE YYYY\n");
-// 				// printf("coo y >>>%lf\n",coo_y + ry * delta_y);
-// 				// printf("coo x >>>%lf\n",coo_x + ry * delta_x);
-// 				if (delta_y < 0)
-// 				{
-// 					// printf("NEGA DELTA Y %lf",delta_y);
-// 					if (data->map.tabmap[case_y - 1][case_x] != '1')
-// 					{
-// 						case_y--;
-// 						coo_y = 63;
-// 						coo_x = coo_x + ry * delta_x;
-// 					}
-// 					else
-// 					{
-// 						coo_y = 0;
-// 						coo_x = coo_x + ry * delta_x;
-// 						// printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
-// 						for (int i = -2;i < 2;i++)
-// 						{
-// 							for (int j = -2; j< 2; j++)
-// 							{
-// 								int	x = i + (5 * 64 / 2) + (case_x - data->map.player_coo->x) * 64 + (coo_x - data->map.mini.player_coo.x);
-// 								int	y = j + data->mlx.height - MARGIN - (5 * 64 / 2) + (case_y - data->map.player_coo->y) * 64 + (coo_y  - data->map.mini.player_coo.y);
-// 								mlx_pixel_put(data->mlx.mlx,data->mlx.win,x,y,0xFF0000);
-// 							}
-// 						}
-// 						break;
-// 					}
-// 				}
-// 				else
-// 				{
-// 					// printf("POSI DELTA Y %lf",delta_y);
-// 					if (data->map.tabmap[case_y + 1][case_x] != '1')
-// 					{
-// 						case_y++;
-// 						coo_y = 0;
-// 						coo_x = coo_x + ry * delta_x;
-// 					}
-// 					else
-// 					{
-// 						coo_y = 63;
-// 						coo_x = coo_x + ry * delta_x;
-// 						// printf("AFF COL\nCase   y=%d  x=%d\n",case_y,case_x);
-// 						for (int i = -2;i < 2;i++)
-// 						{
-// 							for (int j = -2; j< 2; j++)
-// 							{
-// 								int	x = i + (5 * 64 / 2) + (case_x - data->map.player_coo->x) * 64 + (coo_x - data->map.mini.player_coo.x);
-// 								int	y = j + data->mlx.height - MARGIN - (5 * 64 / 2) + (case_y - data->map.player_coo->y) * 64 + (coo_y  - data->map.mini.player_coo.y);
-// 								mlx_pixel_put(data->mlx.mlx,data->mlx.win,x,y,0xFF0000);
-// 							}
-// 						}
-// 						break;
-// 					}
-// 				}
-// 			}
-// 		}
-// 	// 	data->f_display.hit_x = case_x;
-// 	// 	data->f_display.hit_y = case_y;
-// 	// 	double wall_height = (128  * 60) / sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
-// 	// +	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)));
-// 	// 	get_pixel_col(data, &data->f_display, wall_height);
-// 		// printf("Angle=%lf   Distance_x=%d    %d   %lf   %lf    Distance_y=%d    %d   %lf   %lf\n",
-// 		// 	i,case_x,data->map.player_coo->x,coo_x,data->map.mini.player_coo.x,
-// 		// 	case_y,data->map.player_coo->y,coo_y,data->map.mini.player_coo.y
-// 		// );
-// 	// 	printf("Angle=%lf   Distance_x=%lf    Distance_y=%lf     Distance_total=%lf\n",
-// 	// 	i,
-// 	// 	sqrt(((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))),
-// 	// 	sqrt( ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y)) ),
-// 	// 	sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
-// 	// +	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))  ));
-
-// 		// double d_proj = data->mlx.height / 2 * tan(45 * (M_PI / 180));
-// 		double	dist_wall = sqrt(((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))  *  ((case_y - data->map.player_coo->y) * 64.0 + (coo_y - data->map.mini.player_coo.y))
-// 	+	((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x)) * ((case_x - data->map.player_coo->x) * 64.0 + (coo_x - data->map.mini.player_coo.x))  );
-// 		// printf("cos angle >>>%lf\n",cos(fabs(i) * (M_PI / 180)));
-// 		// printf("Angle=%lf   Distance_total=%lf\n",i,dist_wall);
-// 		dist_wall *= cos(i * (M_PI / 180.0));
-// 		// dist_wall *= .5;
-// 		double	size_wall = data->mlx.height / 2 * tan(50 * (M_PI / 180)) / (double)(dist_wall/64.0);
-// 		// printf("dproj=%lf    Hauteur=%lf   mlx_height=%d\n",data->mlx.height / 2 * tan(30 * (M_PI / 180)), size_wall, data->mlx.height);
-// 		// int pix_x = data->mlx.width / 4 - ((d_proj * tan(i * (M_PI / 180))) / (2 * d_proj * tan((90/2) * (M_PI / 180)))) * data->mlx.width;
-// 		int pix_x = data->mlx.width - data->mlx.width / 90 * (i + 45);
-// 		int	pix_y = data->mlx.height / 2;
-// 		// img_proj.img = mlx_new_image(data->mlx.mlx, data->mlx.width, data->mlx.height);
-// 		// img_proj.data_addr = mlx_get_data_addr(img_proj.img,&img_proj.bits_per_pixel,&img_proj.size_line,&img_proj.endian);
-// 		// double	pix_img_y = 1024;
-// 		// double	pix_img_x = 1024;
-// 		// write(1,"HERE\n",5);
-// 		while (pix_y > data->mlx.height / 2 - size_wall/2 && pix_y > 0 )
-// 		{
-// 			char *pixel_addr = data->screen->data_addr + (pix_y
-// 						* data->screen->size_line + pix_x
-// 						* (data->screen->bits_per_pixel / 8));
-// 			// printf("----  %d     %d  ----\n",pix_y,pix_x);
-// 			*(unsigned int *)pixel_addr = 0x000000FF;
-// 			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,pix_x,pix_y,0x0000FF);
-// 			// printf("put pixel >>> %d  %d\n",pix_x,pix_y);
-// 			pix_y--;
-// 		}
-// 		while (pix_y > 0)
-// 		{
-// 			char *pixel_addr = data->screen->data_addr + ((pix_y)
-// 						* data->screen->size_line + (pix_x)
-// 						* (data->screen->bits_per_pixel / 8));
-// 			// printf("put pixel >>> %d  %d\n",pix_x,pix_y);
-// 			*(unsigned int *)pixel_addr = 0x00000000;
-// 			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,pix_x,pix_y,0x000000);
-// 			pix_y--;
-// 		}
-// 		pix_y = data->mlx.height / 2;
-// 		while (pix_y < data->mlx.height / 2 + size_wall/2 && pix_y < data->mlx.height )
-// 		{
-// 			char *pixel_addr = data->screen->data_addr + ((pix_y)
-// 						* data->screen->size_line + (pix_x)
-// 						* (data->screen->bits_per_pixel / 8));
-// 			// printf("put pixel >>> %d  %d\n",pix_x,pix_y);
-// 			*(unsigned int *)pixel_addr = 0x000000FF;
-// 			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,pix_x,pix_y,0x0000FF);
-// 			pix_y++;
-// 		}
-// 		while (pix_y < data->mlx.height)
-// 		{
-// 			char *pixel_addr = data->screen->data_addr + ((pix_y)
-// 						* data->screen->size_line + (pix_x)
-// 						* (data->screen->bits_per_pixel / 8));
-// 			// printf("put pixel >>> %d  %d\n",pix_x,pix_y);
-// 			*(unsigned int *)pixel_addr = 0x00000000;
-// 			// mlx_pixel_put(data->mlx.mlx,data->mlx.win,pix_x,pix_y,0x000000);
-// 			pix_y++;
-// 		}
-// 		i += 2;
-// 	}
-	
-// 	// mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
-// 	// mlx_destroy_image(data->mlx.mlx,img_proj.img);
-// }
-
 int	game_loop(t_data *data)
 {
 	int	i;
 	long long int cur = get_mtime();
 
-	if (data->time_move + 1000 / 90  < cur)
+	if (data->time_move + 1000 / FPM  < cur)
 	{
-		// printf("fps >>>%lld     \n",1000 / (cur - data->time_move));
+		// printf("fpm >>>%lld     \n",1000 / (cur - data->time_move));
+		data->frame_move = 1000 / (cur - data->time_move);
 		data->time_move = cur;
 		// printf("IN\n");
 		i = 0;
@@ -412,7 +173,7 @@ int	game_loop(t_data *data)
 			if (data->keycode[i] == KEY_ESCAPE)
 				f_exit(data, 0);
 			else if (is_move_player(data, i))
-				handle_move(&data->map, &data->map.mini, data->keycode[i]);
+				handle_move(&data->map, &data->map.mini, data->keycode[i], data);
 			else if (data->keycode[i] == KEY_E)
 				rotate_right(data);
 			else if (data->keycode[i] == KEY_Q)
@@ -422,7 +183,7 @@ int	game_loop(t_data *data)
 	}
 	if (data->time_fps + 1000 / FPS  < cur)
 	{
-		printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
+		// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 		data->time_fps = cur;
 		ray_launch(data, data->ray);
 		aff_mini_map(data);
@@ -451,7 +212,7 @@ int	main(int ac, char **av)
 		data.ray.d_proj /= (data.mlx.height / data.mlx.width) * 0.75;
 	data.map.mini.player_coo.y = 32;
 	data.map.mini.player_coo.x = 32;
-	data.map.mini.speed = 5;
+	data.map.mini.speed = 1.5;
 	init_img_mini(&data, &data.map.mini);
 	// init_display(&data, &data.f_display);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
