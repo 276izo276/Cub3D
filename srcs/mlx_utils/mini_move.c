@@ -24,7 +24,7 @@ static void	move_x(t_map *map, t_mini *mini, int angle, t_data *data)
 		mini->player_coo.x = dx - 64;
 	}
 	else if ((map->tabmap[map->player_coo->y][map->player_coo->x + 1] == '1'
-			&& dx == 62) || (map->tabmap[map->player_coo->y][map->player_coo->x
+		&& dx == 62) || (map->tabmap[map->player_coo->y][map->player_coo->x
 			- 1] == '1' && dx == 1))
 		return ;
 	else
@@ -52,7 +52,7 @@ static void	move_y(t_map *map, t_mini *mini, int angle, t_data *data)
 		mini->player_coo.y = dy - 64;
 	}
 	else if ((map->tabmap[map->player_coo->y + 1][map->player_coo->x] == '1'
-			&& dy == 62) || (map->tabmap[map->player_coo->y
+		&& dy == 62) || (map->tabmap[map->player_coo->y
 			- 1][map->player_coo->x] == '1' && dy == 1))
 		return ;
 	else

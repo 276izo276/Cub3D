@@ -1,21 +1,23 @@
 #include "color.h"
-#include "struct.h"
 #include "ft_printf.h"
 #include "mlx.h"
+#include "struct.h"
 #include "utils.h"
 
 static void	open_img(t_img *img, t_data *data)
 {
-	img->img = mlx_xpm_file_to_image(data->mlx.mlx, img->path,
-			&img->width, &img->height);
+	img->img = mlx_xpm_file_to_image(data->mlx.mlx, img->path, &img->width,
+			&img->height);
 	if (!img->img)
 	{
-		ft_printf_fd(2, _RED _BOLD"Error\n"_END);
-		ft_printf_fd(2, _BOLD _PURPLE"Image >>> '"_RED _ITALIC"%s"_END _PURPLE \
-_BOLD"' is not a valid path\n"_END, img->path);
+		ft_printf_fd(2, _RED _BOLD "Error\n"_END);
+		ft_printf_fd(2, _BOLD _PURPLE "Image >>> '"
+			_RED _ITALIC "%s"_END _PURPLE _BOLD "' is not a valid path\n"_END,
+			img->path);
 		f_exit(data, 1);
 	}
-	img->data_addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->size_line, &img->endian);
+	img->data_addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->size_line, &img->endian);
 }
 
 void	open_textures(t_data *data)
@@ -28,8 +30,8 @@ void	open_textures(t_data *data)
 	open_img(data->map.text_sky, data);
 	if (!data->map.ceiling || !data->map.floor)
 	{
-		ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"Texture >>> "\
-			"color not found !!\n"_END);
+		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
+			"Texture >>> " "color not found !!\n"_END);
 		f_exit(data, 1);
 	}
 }

@@ -41,7 +41,8 @@ PARSING	=									\
 				fill_texture_utils.c		\
 				check_map_is_closed.c		\
 				open_texture.c				\
-				verif_map.c					
+				verif_map.c					\
+				init.c						\
 
 FILES	+=	$(addprefix srcs/parsing/,$(PARSING))
 
@@ -63,7 +64,12 @@ FILES	+=	$(addprefix srcs/mlx_utils/,$(MLX_UTILS))
 GAME		=								\
 				raycasting.c				\
 				raycasting_utils.c			\
-				display.c 					\
+				display/display.c 			\
+				input_move.c				\
+				game_loop.c					\
+				display/display_floor.c		\
+				display/display_sky.c		\
+
 			
 FILES	+=	$(addprefix srcs/game/,$(GAME))
 

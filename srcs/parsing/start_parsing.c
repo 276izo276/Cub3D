@@ -1,10 +1,10 @@
-#include "struct.h"
-#include "parsing.h"
-#include "utils.h"
-#include "ft_printf.h"
-#include "mlx.h"
 #include "color.h"
 #include "debug.h"
+#include "ft_printf.h"
+#include "mlx.h"
+#include "parsing.h"
+#include "struct.h"
+#include "utils.h"
 
 static int	fill_texture_color_data(t_lst *line, t_data *data)
 {
@@ -71,8 +71,7 @@ void	create_tabmap(t_data *data)
 	i = 0;
 	while (map)
 	{
-		data->map.tabmap[i] = ft_strndup(map->dt,
-				ft_strlen(map->dt));
+		data->map.tabmap[i] = ft_strndup(map->dt, ft_strlen(map->dt));
 		if (!data->map.tabmap[i])
 			f_exit(data, 1);
 		i++;
@@ -91,9 +90,10 @@ void	parsing(t_data *data)
 	if (DEBUG_VALUE)
 	{
 		print_map(data);
-		ft_printf_fd(2, "Player start : \n\tdirection = %c\n\ty = %d\n\tx = "\
-			"%d\n", data->map.tabmap[data->map.player_coo->y]
-		[data->map.player_coo->x], data->map.player_coo->y,
+		ft_printf_fd(2, "Player start : \n\tdirection = %c\n\ty = %d\n\tx = "
+			"%d\n",
+			data->map.tabmap[data->map.player_coo->y][data->map.player_coo->x],
+			data->map.player_coo->y,
 			data->map.player_coo->x);
 	}
 }

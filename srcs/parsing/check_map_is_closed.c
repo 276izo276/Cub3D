@@ -1,7 +1,7 @@
-#include "struct.h"
-#include "utils.h"
 #include "color.h"
 #include "ft_printf.h"
+#include "struct.h"
+#include "utils.h"
 
 static int	is_case_in_lst(int y, int x, t_lst *lst)
 {
@@ -17,8 +17,8 @@ static int	is_case_in_lst(int y, int x, t_lst *lst)
 
 static void	error_map_not_closed(t_lst *closed, t_lst *open, t_data *data)
 {
-	ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"Map >>> "\
-		"map is not closed\n"_END);
+	ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
+		"Map >>> ""map is not closed\n"_END);
 	f_all_lst(closed);
 	f_all_lst(open);
 	f_exit(data, 1);
@@ -33,8 +33,8 @@ static void	error_occured(t_data *data, t_lst *open, t_lst *closed)
 	}
 }
 
-static t_lst	*add_case_near(t_lst *open, t_lst *closed,
-	t_lst *node, t_data *data)
+static t_lst	*add_case_near(t_lst *open, t_lst *closed, t_lst *node,
+		t_data *data)
 {
 	const int	coo[4][2] = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
 	int			i;

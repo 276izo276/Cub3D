@@ -33,6 +33,24 @@ int	handle_ray_x_left(t_data *data, int i);
 //display game
 void    display_game(t_data *data);
 
+//input_move.c
+bool	is_move_player(t_data *data, int i);
+int		mouse_move(int x, int y, t_data *data);
+int		key_release(int keycode, t_data *data);
+int		key_press(int keycode, t_data *data);
+int		is_key_pressed(t_data *data, int keycode);
+
+
+//game_loop.c
+int		game_loop(t_data *data);
+int		close_win(t_data *data);
+
+//display_floor.c
+void	display_floor(t_data *data, t_display display);
+
+//display_sky.c
+void	display_sky(t_data *data, t_display display);
+
 typedef enum e_key_down
 {
 	ON_KEYDOWN = 2,

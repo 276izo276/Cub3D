@@ -20,6 +20,7 @@ typedef struct s_coo		t_coo;
 typedef struct s_coo_mini		t_coo_mini;
 typedef	struct s_mini		t_mini;
 typedef struct s_utils_mini	t_utils_mini;
+typedef struct s_display	t_display;
 
 
 typedef	enum e_dir
@@ -153,6 +154,27 @@ struct s_map
 	t_color	*ceiling;
 };
 
+struct s_display
+{
+	char			*pixel_addr;
+	double			cos_angle;
+	double			sin_angle;
+	int				screen_bbp_frac;
+	int				text_bpp_frac;
+	double			dist_center;
+	double			screen_y;
+	double			dist_texture;
+	double			screen_x;
+	double			world_x;
+	double			world_y;
+	double			pos_cellx;
+	double			pos_celly;
+	int				text_x;
+	int				text_y;
+	char			*texture_pixel;
+	unsigned int	color;
+};
+
 struct s_data
 {
 	t_utils_mini	u;
@@ -164,7 +186,8 @@ struct s_data
 	char			**av;
 	t_map			map;
 	t_mlx			mlx;
-	t_ray		*ray;
+	t_ray			*ray;
+	t_display		display;
 	int				keycode[100];
 	// t_img	*wh;
 	// t_img	*bl;

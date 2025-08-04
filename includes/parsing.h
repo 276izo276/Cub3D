@@ -5,6 +5,9 @@
 
 typedef void	(*t_txt_set)(char *, t_data *data);
 
+//init.c
+void	init_data(t_data *data, int ac, char **av);
+
 // check_map_is_closed
 void	check_map_is_closed(t_data *data);
 
