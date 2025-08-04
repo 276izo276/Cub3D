@@ -121,7 +121,7 @@ static void display_floor(t_data *data)
 		if (dist_center == 0)
 			dist_center = 0.0001;
 		double screen_y = (double)dist_center / data->screen->height;
-		double floor_distance = 32.0 / screen_y;
+		double floor_distance = 16.0 / screen_y;
 		int x = 0;
 		while (x < data->mlx.width)
 		{
@@ -174,7 +174,7 @@ static void display_sky(t_data *data)
 		if (dist_center == 0)
 			dist_center = 0.0001;
 		double screen_y = (double)dist_center / data->screen->height;
-		double sky_distance = 32.0 / screen_y;
+		double sky_distance = 16.0 / screen_y;
 		int x = 0;
 		while (x < data->mlx.width)
 		{
