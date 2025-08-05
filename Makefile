@@ -73,7 +73,60 @@ GAME		=								\
 			
 FILES	+=	$(addprefix srcs/game/,$(GAME))
 
-FILES_BONUS =
+FILES_BONUS =								\
+				main_bonus.c				\
+
+UTILS_BONUS =								\
+				abs_value.c 				\
+				debug.c						\
+				dup.c						\
+				free.c						\
+				ft_bzero.c					\
+				ft_strcmp.c					\
+				ft_strlen.c					\
+				time.c						
+
+FILES_BONUS	+=	$(addprefix srcs_bonus/utils/,$(UTILS_BONUS))
+
+PARSING_BONUS	=							\
+				read_content.c				\
+				start_parsing.c				\
+				fill_color.c				\
+				fill_texture.c				\
+				fill_texture_utils.c		\
+				check_map_is_closed.c		\
+				open_texture.c				\
+				verif_map.c					\
+				init.c						\
+
+FILES_BONUS	+=	$(addprefix srcs_bonus/parsing/,$(PARSING_BONUS))
+
+STRUCT_BONUS	=							\
+				init_t_coo.c				
+
+FILES_BONUS	+=	$(addprefix srcs_bonus/struct/,$(STRUCT_BONUS))
+
+MLX_UTILS_BONUS	=							\
+				handle_window.c				\
+				mini_map.c					\
+				mini_move.c					\
+				mini_rotate.c				\
+				aff_mini_map.c				\
+				utils_aff_mini_map.c		\
+
+FILES_BONUS	+=	$(addprefix srcs_bonus/mlx_utils/,$(MLX_UTILS_BONUS))
+
+GAME_BONUS		=							\
+				raycasting.c				\
+				raycasting_utils.c			\
+				display/display.c 			\
+				input_move.c				\
+				game_loop.c					\
+				display/display_floor.c		\
+				display/display_sky.c		\
+
+			
+FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 
 OBJS =			$(addprefix .obj/, $(FILES:.c=.o))
 
@@ -98,6 +151,7 @@ includes/player.h
 
 # set the path to the .h main project bonus
 HEADER_BONUS = \
+
 
 # set the main project header dir
 HEADER_DIR = \
