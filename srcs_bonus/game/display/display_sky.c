@@ -1,4 +1,4 @@
-#include "struct.h"
+#include "struct_bonus.h"
 #include <math.h>
 
 static void	get_world_size(t_data *data, t_display *display, int y)
@@ -54,27 +54,38 @@ static void	put_text_pix_img(t_data *data, t_display *display, int x, int y)
 	*(unsigned int *)display->pixel_addr = display->color;
 }
 
-void	display_sky(t_data *data, t_display display)
+void	*display_sky(void *ptr)
 {
 	int	x;
 	int	y;
+	t_data *data;
+	t_display display;
 
-	display.cos_angle = cos(data->map.mini.rad);
-	display.sin_angle = sin(data->map.mini.rad);
-	display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
-	display.text_bpp_frac = data->map.text_floor->bits_per_pixel >> 3;
-	y = 0;
-	while (y < data->screen->height / 2)
+	data = (t_data *)ptr;
+	display = data->display;
+	while (1)
 	{
-		get_world_size(data, &display, y);
-		x = 0;
-		while (x < data->mlx.width)
+		sem_wait(data->sem_start);
+		sem_post(data->sem_start);
+		display.cos_angle = cos(data->map.mini.rad);
+		display.sin_angle = sin(data->map.mini.rad);
+		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
+		display.text_bpp_frac = data->map.text_sky->bits_per_pixel >> 3;
+		y = 0;
+		while (y < data->screen->height / 2)
 		{
-			get_coo_world(data, &display, x);
-			get_coo_text(data, &display);
-			put_text_pix_img(data, &display, x, y);
-			++x;
+			get_world_size(data, &display, y);
+			x = 0;
+			while (x < data->mlx.width)
+			{
+				get_coo_world(data, &display, x);
+				get_coo_text(data, &display);
+				put_text_pix_img(data, &display, x, y);
+				++x;
+			}
+			++y;
 		}
-		++y;
+		sem_post(data->sem_background);
 	}
+	return (NULL);
 }

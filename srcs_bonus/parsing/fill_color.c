@@ -1,7 +1,7 @@
-#include "struct.h"
-#include "utils.h"
+#include "struct_bonus.h"
+#include "utils_bonus.h"
 #include "ft_printf.h"
-#include "color.h"
+#include "color_bonus.h"
 
 static int	check_color(t_color *color)
 {

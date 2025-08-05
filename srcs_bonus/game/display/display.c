@@ -1,5 +1,5 @@
-#include "struct.h"
-#include "cub3d.h"
+#include "struct_bonus.h"
+#include "cub3d_bonus.h"
 #include <math.h>
 
 static void	get_right_text(t_data *data, int i)
@@ -65,7 +65,7 @@ static void	display_game_loop(t_data *data, int i)
 	check_dir(data, i);
 	text_x = data->ray[i].texture_coo.x
 		* (data->ray[i].img->bits_per_pixel >> 3);
-	data->ray[i].img_addr = data->ray[i].data_addr + data->ray[i].pix_x
+	data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
 		* data->ray[i].calc_bits;
 	data->ray[i].pix_y = data->ray[i].htop_wall;
 	if (data->ray[i].pix_y < 0)
@@ -84,8 +84,10 @@ void	display_game(t_data *data)
 	int	i;
 
 	i = 0;
-	display_floor(data, data->display);
-	display_sky(data, data->display);
+	// display_floor(data, data->display);
+	// display_sky(data, data->display);
+	sem_wait(data->sem_background);
+	sem_wait(data->sem_background);
 	while (i < data->mlx.width)
 	{
 		display_game_loop(data, i);

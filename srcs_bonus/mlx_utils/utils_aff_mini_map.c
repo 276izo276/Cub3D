@@ -1,6 +1,6 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 #include "mlx.h"
-#include "utils.h"
+#include "utils_bonus.h"
 
 void	get_pixel_color(t_data *data, int type)
 {

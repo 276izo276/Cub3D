@@ -1,9 +1,9 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 #include "mlx.h"
-#include "texture.h"
-#include "utils.h"
+#include "texture_bonus.h"
+#include "utils_bonus.h"
 #include <math.h>
-#include "time.h"
+#include "time_bonus.h"
 
 static void	init_background(t_data *data)
 {

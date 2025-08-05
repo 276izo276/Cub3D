@@ -1,7 +1,7 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 #include "mlx.h"
-#include "player.h"
-#include "struct.h"
+#include "player_bonus.h"
+#include "struct_bonus.h"
 #include <math.h>
 
 bool	is_move_player(t_data *data, int i)

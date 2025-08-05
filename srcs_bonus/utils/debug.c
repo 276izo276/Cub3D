@@ -1,4 +1,4 @@
-#include "struct.h"
+#include "struct_bonus.h"
 #include "ft_printf.h"
 
 void	print_map(t_data *data)

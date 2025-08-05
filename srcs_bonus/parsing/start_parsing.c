@@ -1,10 +1,10 @@
-#include "color.h"
-#include "debug.h"
+#include "color_bonus.h"
+#include "debug_bonus.h"
 #include "ft_printf.h"
 #include "mlx.h"
-#include "parsing.h"
-#include "struct.h"
-#include "utils.h"
+#include "parsing_bonus.h"
+#include "struct_bonus.h"
+#include "utils_bonus.h"
 
 static int	fill_texture_color_data(t_lst *line, t_data *data)
 {

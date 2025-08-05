@@ -1,5 +1,5 @@
-#include "utils.h"
-#include "texture.h"
+#include "utils_bonus.h"
+#include "texture_bonus.h"
 #include "mlx.h"
 
 static void	set_path_texture_mini_map(t_mini *mini)

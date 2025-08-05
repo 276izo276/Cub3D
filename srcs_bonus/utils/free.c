@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "struct.h"
+#include "struct_bonus.h"
 #include "mlx.h"
 
 void	f_elem(void *elem)

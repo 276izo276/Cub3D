@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 #include <math.h>
 
 static int	handle_ray_x(t_data *data, int i)

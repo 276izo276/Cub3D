@@ -1,21 +1,7 @@
 #include "cub3d.h"
-#include "ft_printf.h"
 #include "mlx.h"
 #include "parsing.h"
-#include "player.h"
-#include "struct.h"
-#include "texture.h"
 #include "utils.h"
-#include <math.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-#include "time.h"
-
-
-#include "get_next_line.h"
-#include <fcntl.h>
-#include <unistd.h>
 
 int	main(int ac, char **av)
 {

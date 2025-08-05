@@ -1,8 +1,8 @@
-#include "color.h"
+#include "color_bonus.h"
 #include "ft_printf.h"
 #include "mlx.h"
-#include "struct.h"
-#include "utils.h"
+#include "struct_bonus.h"
+#include "utils_bonus.h"
 
 static void	open_img(t_img *img, t_data *data)
 {

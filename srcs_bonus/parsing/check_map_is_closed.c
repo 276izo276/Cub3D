@@ -1,7 +1,7 @@
-#include "color.h"
+#include "color_bonus.h"
 #include "ft_printf.h"
-#include "struct.h"
-#include "utils.h"
+#include "struct_bonus.h"
+#include "utils_bonus.h"
 
 static int	is_case_in_lst(int y, int x, t_lst *lst)
 {

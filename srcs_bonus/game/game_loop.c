@@ -1,8 +1,8 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 #include "mlx.h"
-#include "player.h"
-#include "time.h"
-#include "utils.h"
+#include "player_bonus.h"
+#include "time_bonus.h"
+#include "utils_bonus.h"
 
 static void	handle_input_move(t_data *data, long long int cur)
 {
@@ -31,6 +31,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 	}
 }
 
+#include <stdio.h>
 int	game_loop(t_data *data)
 {
 	long long int	cur;
@@ -42,9 +43,11 @@ int	game_loop(t_data *data)
 		// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 		data->time_fps = cur;
 		ray_launch(data);
+		sem_wait(data->sem_start);
 		display_game(data);
 		mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
 		aff_mini_map(data);
+		sem_post(data->sem_start);
 		// ray_launch_old(data);
 	}
 	// printf("OUT\n");

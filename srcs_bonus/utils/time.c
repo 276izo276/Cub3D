@@ -1,4 +1,4 @@
-#include "time.h"
+#include "time_bonus.h"
 #include <stdlib.h>
 
 long long	get_mtime(void)

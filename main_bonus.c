@@ -1,21 +1,54 @@
-#include "cub3d.h"
-#include "ft_printf.h"
+#include "cub3d_bonus.h"
 #include "mlx.h"
-#include "parsing.h"
-#include "player.h"
-#include "struct.h"
-#include "texture.h"
-#include "utils.h"
-#include <math.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-#include "time.h"
-
-
-#include "get_next_line.h"
+#include "parsing_bonus.h"
+#include "utils_bonus.h"
 #include <fcntl.h>
-#include <unistd.h>
+
+static void	init_semaphores(t_data *data)
+{
+	sem_unlink(SEM_BACKGROUND);
+	sem_unlink(SEM_START);
+	data->sem_background = sem_open(SEM_BACKGROUND, O_CREAT, 0644, 2);
+	if (data->sem_background == SEM_FAILED)
+		f_exit(data, 1); // error msg
+	data->sem_start = sem_open(SEM_START, O_CREAT, 0644, 1);
+	if (data->sem_start == SEM_FAILED)
+		f_exit(data, 1); // error msg
+}
+
+// static void	init_mutex(t_data *data)
+// {
+// 	if (pthread_mutex_init(&data->nb_ray, NULL) != 0) // error msg
+// 		f_exit(data, 1);
+// }
+
+static void	create_thread(t_data *data)
+{
+	// if (pthread_create(&data->ray->thread_wall, NULL, ray_launch, data) != 0)
+	// {
+	// 	// error msg
+	// 	f_exit(data, 1);
+	// }
+	// pthread_detach(data->ray->thread_wall);
+	// if (pthread_create(&data->ray->thread_floor, NULL, display_floor, data) != 0)
+	// {
+	// 	// error msg
+	// 	f_exit(data, 1);
+	// }
+	// pthread_detach(data->ray->thread_floor);
+	if (pthread_create(&data->thread_sky, NULL, display_sky, data) != 0)
+	{
+		// error msg
+		f_exit(data, 1);
+	}
+	pthread_detach(data->thread_sky);
+	if (pthread_create(&data->thread_floor, NULL, display_floor, data) != 0)
+	{
+		// error msg
+		f_exit(data, 1);
+	}
+	pthread_detach(data->thread_floor);
+}
 
 int	main(int ac, char **av)
 {
@@ -23,6 +56,9 @@ int	main(int ac, char **av)
 
 	init_data(&data, ac, av);
 	parsing(&data);
+	// init_mutex(&data);
+	init_semaphores(&data);
+	create_thread(&data);
 	open_window(&data, &data.mlx);
 	data.map.mini.player_coo.y = 32;
 	data.map.mini.player_coo.x = 32;
@@ -41,5 +77,7 @@ int	main(int ac, char **av)
 	mlx_loop(data.mlx.mlx);
 	// ray_launch(&data, data.ray);
 	f_exit(&data, 0);
+	sem_close(data.sem_background);
+	sem_unlink(SEM_BACKGROUND);
 	return (1);
 }

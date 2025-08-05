@@ -1,5 +1,5 @@
-#include "cub3d.h"
-#include "utils.h"
+#include "cub3d_bonus.h"
+#include "utils_bonus.h"
 #include "mlx.h"
 
 void	open_window(t_data *data, t_mlx *mlx)

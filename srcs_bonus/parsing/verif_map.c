@@ -1,8 +1,8 @@
-#include "color.h"
+#include "color_bonus.h"
 #include "ft_printf.h"
-#include "parsing.h"
-#include "struct.h"
-#include "utils.h"
+#include "parsing_bonus.h"
+#include "struct_bonus.h"
+#include "utils_bonus.h"
 
 static void	is_valid_char_map(char c, int y, int x, t_data *data)
 {

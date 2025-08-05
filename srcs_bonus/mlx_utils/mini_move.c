@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 #include <math.h>
 
 static void	move_x(t_map *map, t_mini *mini, int angle, t_data *data)

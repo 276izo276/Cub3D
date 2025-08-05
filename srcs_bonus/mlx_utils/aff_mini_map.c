@@ -1,7 +1,7 @@
-#include "cub3d.h"
-#include "struct.h"
-#include "texture.h"
-#include "utils.h"
+#include "cub3d_bonus.h"
+#include "struct_bonus.h"
+#include "texture_bonus.h"
+#include "utils_bonus.h"
 #include <math.h>
 
 void	aff_pix_in_img(t_utils_mini *u, t_mini *mini, t_data *data)

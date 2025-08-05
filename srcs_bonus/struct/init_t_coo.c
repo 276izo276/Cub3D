@@ -1,5 +1,5 @@
-#include "struct.h"
-#include "utils.h"
+#include "struct_bonus.h"
+#include "utils_bonus.h"
 #include <stdlib.h>
 
 t_coo	*init_t_coo(int y, int x)

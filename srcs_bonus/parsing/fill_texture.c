@@ -1,8 +1,8 @@
-#include "struct.h"
-#include "utils.h"
-#include "parsing.h"
+#include "struct_bonus.h"
+#include "utils_bonus.h"
+#include "parsing_bonus.h"
 #include "ft_printf.h"
-#include "color.h"
+#include "color_bonus.h"
 
 void	set_north(char *line, t_data *data)
 {

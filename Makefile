@@ -144,13 +144,27 @@ lib/
 MY_HEADER = \
 includes/cub3d.h	\
 includes/debug.h	\
-includes/image.h	\
-includes/mlx.h		\
 includes/parsing.h	\
-includes/player.h
+includes/player.h	\
+includes/color.h	\
+includes/libmlx.h	\
+includes/struct.h	\
+includes/texture.h	\
+includes/time.h		\
+includes/utils.h	\
 
 # set the path to the .h main project bonus
 HEADER_BONUS = \
+includes/header_bonus/cub3d_bonus.h	\
+includes/header_bonus/debug_bonus.h	\
+includes/header_bonus/parsing_bonus.h	\
+includes/header_bonus/player_bonus.h	\
+includes/header_bonus/color_bonus.h	\
+includes/header_bonus/libmlx_bonus.h	\
+includes/header_bonus/struct_bonus.h	\
+includes/header_bonus/texture_bonus.h	\
+includes/header_bonus/time_bonus.h	\
+includes/header_bonus/utils_bonus.h	\
 
 
 # set the main project header dir
@@ -169,11 +183,20 @@ minilibx-linux/libmlx_Linux.a
 # set the -I before the path
 # the path to the header lib dir
 ALL_I_DIR_HEADER	=				\
--I includes							\
+-I includes/header_mandatory		\
 -I lib/printf_fd_buffer/header		\
 -I lib/t_lst/header					\
 -I lib/gnl/header					\
 -I minilibx-linux					
+
+ALL_I_DIR_HEADER_BONUS	=			\
+-I includes/header_bonus			\
+-I lib/printf_fd_buffer/header		\
+-I lib/t_lst/header					\
+-I lib/gnl/header					\
+-I minilibx-linux					
+
+CURRENT_HEADERS = $(ALL_I_DIR_HEADER)
 
 # exec name for bonus
 BONUS_NAME = cub3D_bonus
@@ -242,6 +265,7 @@ endif
 all: change_name_full clear_console reset_debug $(STATIC_LIB) $(EXTERN_LIB) start_build_aff ${MY_NAME}
 
 
+${MY_NAME}: CURRENT_HEADERS = $(ALL_I_DIR_HEADER)
 ${MY_NAME}:  $(STATIC_LIB) $(EXTERN_LIB) $(OBJS)
 	@echo -e "    ${_BOLD}${_GREEN}💿  ◀◀◀ ${_LIME}Creating Executable 📑🗂️   ${_YELLOW}$(MY_NAME)${_END}"
 	@$(CC) $(OBJS) $(STATIC_LIB) $(EXTERN_LIB) -o $(MY_NAME) $(EXECFLAGS)
@@ -250,7 +274,7 @@ ${MY_NAME}:  $(STATIC_LIB) $(EXTERN_LIB) $(OBJS)
 .PHONY:bonus
 bonus: change_name_full clear_console $(STATIC_LIB) $(EXTERN_LIB) start_build_aff_bonus $(BONUS_NAME)
 
-
+$(BONUS_NAME): CURRENT_HEADERS = $(ALL_I_DIR_HEADER_BONUS)
 $(BONUS_NAME): $(STATIC_LIB) $(EXTERN_LIB) $(OBJS_BONUS)
 	@echo -e "    ${_BOLD}${_GREEN}💿  ◀◀◀ ${_LIME}Creating Executable 📑🗂️   ${_YELLOW}$(BONUS_NAME)${_END}"
 	@$(CC) $(OBJS_BONUS) $(STATIC_LIB) $(EXTERN_LIB) -o $(BONUS_NAME) $(EXECFLAGS)
@@ -263,7 +287,7 @@ $(BONUS_NAME): $(STATIC_LIB) $(EXTERN_LIB) $(OBJS_BONUS)
 	else \
 		echo -e "	${_LIME}${_BOLD}${MY_NAME}	${_END}${_GREEN}Compiling : ${_END}$(CC) ${_BLUE} $(CFLAGS) ${_PURPLE} $(call GET_FILE,$(call DELETE_EXT,$<))${_END}";\
 	fi;
-	@$(CC) $(ALL_I_DIR_HEADER) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CURRENT_HEADERS) $(CFLAGS) -c $< -o $@
 
 
 

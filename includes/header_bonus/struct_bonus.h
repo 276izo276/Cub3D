@@ -3,6 +3,8 @@
 
 #include "t_lst.h"
 #include <sys/time.h>
+# include <pthread.h>
+# include <semaphore.h>
 
 # define SIZE_MAP (5 * 64)
 # define FPS 120.0
@@ -189,6 +191,12 @@ struct s_data
 	t_ray			*ray;
 	t_display		display;
 	int				keycode[100];
+	pthread_mutex_t	nb_ray;
+	pthread_t		thread_wall;
+	pthread_t		thread_floor;
+	pthread_t		thread_sky;
+	sem_t			*sem_background;
+	sem_t			*sem_start;
 	// t_img	*wh;
 	// t_img	*bl;
 };

@@ -1,9 +1,9 @@
-#include "color.h"
+#include "color_bonus.h"
 #include "ft_printf.h"
 #include "get_next_line.h"
-#include "struct.h"
+#include "struct_bonus.h"
 #include "unistd.h"
-#include "utils.h"
+#include "utils_bonus.h"
 #include <fcntl.h>
 
 void	verif_file_name(t_data *data)
