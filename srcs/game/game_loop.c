@@ -5,31 +5,30 @@
 #include "player.h"
 #include "struct.h"
 #include "texture.h"
+#include "time.h"
 #include "utils.h"
 #include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "time.h"
-
-int	game_loop(t_data *data)
+static void	handle_input_move(t_data *data, long long int cur)
 {
-	int	i;
-	long long int cur = get_mtime();
+	int i;
 
-	if (data->time_move + 1000 / FPM  < cur)
+	i = 0;
+	if (data->time_move + 1000 / FPM < cur)
 	{
 		// printf("fpm >>>%lld     \n",1000 / (cur - data->time_move));
 		data->frame_move = 1000 / (cur - data->time_move);
 		data->time_move = cur;
 		// printf("IN\n");
-		i = 0;
 		while (i < 100)
 		{
 			if (data->keycode[i] == KEY_ESCAPE)
 				f_exit(data, 0);
 			else if (is_move_player(data, i))
-				handle_move(&data->map, &data->map.mini, data->keycode[i], data);
+				handle_move(&data->map, &data->map.mini, data->keycode[i],
+					data);
 			else if (data->keycode[i] == KEY_E)
 				rotate_right(data);
 			else if (data->keycode[i] == KEY_Q)
@@ -37,11 +36,21 @@ int	game_loop(t_data *data)
 			i++;
 		}
 	}
-	if (data->time_fps + 1000 / FPS  < cur)
+}
+
+int	game_loop(t_data *data)
+{
+	long long int	cur;
+
+	cur = get_mtime();
+	handle_input_move(data, cur);
+	if (data->time_fps + 1000 / FPS < cur)
 	{
 		// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 		data->time_fps = cur;
 		ray_launch(data);
+		display_game(data);
+		mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
 		aff_mini_map(data);
 		// ray_launch_old(data);
 	}

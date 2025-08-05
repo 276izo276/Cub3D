@@ -68,6 +68,8 @@ static void	init_ray(t_data *data)
 	while (i < data->mlx.width)
 	{
 		data->ray[i].d_proj = fov;
+		data->ray[i].pix_y = data->mlx.height >> 1;
+		data->ray[i].max_height = data->mlx.height >> 1;
 		++i;
 	}
 }

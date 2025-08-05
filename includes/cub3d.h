@@ -25,10 +25,11 @@ void	aff_mini_map(t_data *data);
 
 //raycasting
 void	ray_launch(t_data *data);
-int	handle_ray_y_down(t_data *data, int i);
-int	handle_ray_y_top(t_data *data, int i);
-int handle_ray_x_right(t_data *data, int i);
-int	handle_ray_x_left(t_data *data, int i);
+int		handle_ray_y_down(t_data *data, int i);
+int		handle_ray_y_top(t_data *data, int i);
+int 	handle_ray_x_right(t_data *data, int i);
+int		handle_ray_x_left(t_data *data, int i);
+void	calc_sqrt(t_data *data, int i);
 
 //display game
 void    display_game(t_data *data);

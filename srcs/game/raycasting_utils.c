@@ -147,3 +147,16 @@ int	handle_ray_x_right(t_data *data, int i)
 	}
 	return (0);
 }
+
+void	calc_sqrt(t_data *data, int i)
+{
+	data->ray[i].dist_wall = sqrt(((data->ray[i].case_y
+		- data->map.player_coo->y) * 64.0 + (data->ray[i].coo_y
+		- data->map.mini.player_coo.y)) * ((data->ray[i].case_y
+		- data->map.player_coo->y) * 64.0 + (data->ray[i].coo_y
+		- data->map.mini.player_coo.y)) + ((data->ray[i].case_x
+		- data->map.player_coo->x) * 64.0 + (data->ray[i].coo_x
+		- data->map.mini.player_coo.x)) * ((data->ray[i].case_x
+		- data->map.player_coo->x) * 64.0 + (data->ray[i].coo_x
+		- data->map.mini.player_coo.x)));
+}

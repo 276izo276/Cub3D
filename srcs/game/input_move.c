@@ -9,7 +9,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
-
 #include "time.h"
 
 bool	is_move_player(t_data *data, int i)

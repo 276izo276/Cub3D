@@ -11,11 +11,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void	check_dir(t_data *data, int i)
+static void	get_right_text(t_data *data, int i)
 {
-	double	posx_display;
-
-	posx_display = 0;
 	if (data->ray[i].dir == NORTH)
 		data->ray[i].img = data->map.north;
 	else if (data->ray[i].dir == SOUTH)
@@ -24,6 +21,14 @@ static void	check_dir(t_data *data, int i)
 		data->ray[i].img = data->map.east;
 	else if (data->ray[i].dir == WEST)
 		data->ray[i].img = data->map.west;
+}
+
+static void	check_dir(t_data *data, int i)
+{
+	double	posx_display;
+
+	posx_display = 0;
+	get_right_text(data, i);
 	if (data->ray[i].dir == NORTH || data->ray[i].dir == SOUTH)
 	{
 		posx_display = data->ray[i].coo_x / 64;
@@ -44,35 +49,41 @@ static void	check_dir(t_data *data, int i)
 		data->ray[i].texture_coo.x = data->ray[i].img->width - 1;
 }
 
-static void	display_game_loop(t_data *data, int i)
+static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x)
 {
-	int				texture_x;
-	char			*test1;
+	char			*text_pix;
+	int				text_y;
 	char			*pixel_addr;
-	int				test;
-	int				texture_y;
-	char			*texture_pixel;
 	unsigned int	color;
 
+	text_y = (data->ray[i].pix_y - data->ray[i].htop_wall)
+		* data->ray[i].img->height / dist_heigh;
+	pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
+			* data->screen->size_line);
+	text_pix = data->ray[i].img->data_addr + (text_y
+			* data->ray[i].img->size_line + text_x);
+	color = *(unsigned int *)text_pix;
+	*(unsigned int *)pixel_addr = color;
+}
+
+static void	display_game_loop(t_data *data, int i)
+{
+	int	text_x;
+	int	dist_heigh;
+
 	check_dir(data, i);
-	texture_x = data->ray[i].texture_coo.x
+	text_x = data->ray[i].texture_coo.x
 		* (data->ray[i].img->bits_per_pixel >> 3);
-	test1 = data->ray[i].data_addr + data->ray[i].pix_x
+	data->ray[i].img_addr = data->ray[i].data_addr + data->ray[i].pix_x
 		* data->ray[i].calc_bits;
 	data->ray[i].pix_y = data->ray[i].htop_wall;
 	if (data->ray[i].pix_y < 0)
 		data->ray[i].pix_y = 0;
-	test = (data->ray[i].hbot_wall - data->ray[i].htop_wall);
+	dist_heigh = data->ray[i].hbot_wall - data->ray[i].htop_wall;
 	while (data->ray[i].pix_y < data->ray[i].hbot_wall
 		&& data->ray[i].pix_y < data->mlx.height)
 	{
-		texture_y = (data->ray[i].pix_y - data->ray[i].htop_wall)
-			* data->ray[i].img->height / test;
-		pixel_addr = test1 + (data->ray[i].pix_y * data->screen->size_line);
-		texture_pixel = data->ray[i].img->data_addr + (texture_y
-				* data->ray[i].img->size_line + texture_x);
-		color = *(unsigned int *)texture_pixel;
-		*(unsigned int *)pixel_addr = color;
+		put_text_pix_img(data, i, dist_heigh, text_x);
 		data->ray[i].pix_y++;
 	}
 }
