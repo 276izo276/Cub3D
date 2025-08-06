@@ -1,6 +1,13 @@
 #include "cub3d_bonus.h"
 #include <math.h>
 
+static bool is_wall(t_map *map, int y, int x)
+{
+	if (map->tabmap[y][x] == '1' || map->tabmap[y][x] == 'D')
+		return (true);
+	return (false);
+}
+
 static void	move_x(t_map *map, t_mini *mini, int angle, t_data *data)
 {
 	double	dx;
@@ -9,19 +16,19 @@ static void	move_x(t_map *map, t_mini *mini, int angle, t_data *data)
 		* mini->speed * (double)(FPM / data->frame_move);
 	if (dx < 0)
 	{
-		if (map->tabmap[map->player_coo->y][map->player_coo->x - 1] == '1')
+		if (is_wall(map, map->player_coo->y, map->player_coo->x - 1))
 			return ;
 		--map->player_coo->x;
 		mini->player_coo.x = 64 + dx;
 	}
 	else if (dx >= 64)
 	{
-		if (map->tabmap[map->player_coo->y][map->player_coo->x + 1] == '1')
+		if (is_wall(map, map->player_coo->y, map->player_coo->x + 1))
 			return ;
 		++map->player_coo->x;
 		mini->player_coo.x = dx - 64;
 	}
-	else if ((map->tabmap[map->player_coo->y][map->player_coo->x + 1] == '1'
+	else if ((is_wall(map, map->player_coo->y, map->player_coo->x + 1)
 		&& dx == 62) || (map->tabmap[map->player_coo->y][map->player_coo->x
 			- 1] == '1' && dx == 1))
 		return ;
@@ -37,21 +44,21 @@ static void	move_y(t_map *map, t_mini *mini, int angle, t_data *data)
 		* mini->speed * (double)(FPM / data->frame_move);
 	if (dy < 0)
 	{
-		if (map->tabmap[map->player_coo->y - 1][map->player_coo->x] == '1')
+		if (is_wall(map, map->player_coo->y - 1, map->player_coo->x))
 			return ;
 		--map->player_coo->y;
 		mini->player_coo.y = 64 + dy;
 	}
 	else if (dy >= 64)
 	{
-		if (map->tabmap[map->player_coo->y + 1][map->player_coo->x] == '1')
+		if (is_wall(map, map->player_coo->y + 1, map->player_coo->x))
 			return ;
 		++map->player_coo->y;
 		mini->player_coo.y = dy - 64;
 	}
-	else if ((map->tabmap[map->player_coo->y + 1][map->player_coo->x] == '1'
-		&& dy == 62) || (map->tabmap[map->player_coo->y
-			- 1][map->player_coo->x] == '1' && dy == 1))
+	else if ((is_wall(map, map->player_coo->y + 1, map->player_coo->x)
+		&& dy == 62) || (is_wall(map, map->player_coo->y
+			- 1, map->player_coo->x) && dy == 1))
 		return ;
 	else
 		mini->player_coo.y = dy;

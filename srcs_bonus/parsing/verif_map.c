@@ -6,13 +6,13 @@
 
 static void	is_valid_char_map(char c, int y, int x, t_data *data)
 {
-	const char	tab[] = {'0', '1', ' ', 'N', 'S', 'W', 'E', 0};
+	const char	tab[] = {'0', '1', 'D', ' ', 'N', 'S', 'W', 'E', 0};
 	int			i;
 
 	i = -1;
 	while (tab[++i])
 	{
-		if (tab[i] == c && i >= 3)
+		if (tab[i] == c && i >= 4)
 		{
 			if (data->map.player_coo)
 			{
@@ -25,7 +25,7 @@ static void	is_valid_char_map(char c, int y, int x, t_data *data)
 				f_exit(data, 1);
 			return ;
 		}
-		else if (tab[i] == c && i <= 2)
+		else if (tab[i] == c && i <= 3)
 			return ;
 	}
 	ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE "Map >>> '"

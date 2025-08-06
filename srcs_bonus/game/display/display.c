@@ -5,13 +5,33 @@
 static void	get_right_text(t_data *data, int i)
 {
 	if (data->ray[i].dir == NORTH)
-		data->ray[i].img = data->map.north;
+	{
+		if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] == 'D')
+			data->ray[i].img = data->map.door;
+		else
+			data->ray[i].img = data->map.north;
+	}
 	else if (data->ray[i].dir == SOUTH)
-		data->ray[i].img = data->map.south;
+	{
+		if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] == 'D')
+			data->ray[i].img = data->map.door;
+		else
+			data->ray[i].img = data->map.south;
+	}
 	else if (data->ray[i].dir == EAST)
-		data->ray[i].img = data->map.east;
+	{
+		if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] == 'D')
+			data->ray[i].img = data->map.door;
+		else
+			data->ray[i].img = data->map.east;
+	}
 	else if (data->ray[i].dir == WEST)
-		data->ray[i].img = data->map.west;
+	{
+		if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == 'D')
+			data->ray[i].img = data->map.door;
+		else
+			data->ray[i].img = data->map.west;
+	}
 }
 
 static void	check_dir(t_data *data, int i)

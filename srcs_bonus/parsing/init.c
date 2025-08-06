@@ -5,7 +5,7 @@
 #include <math.h>
 #include "time_bonus.h"
 
-static void	init_background(t_data *data)
+static void	init_texture(t_data *data)
 {
 	data->map.text_floor = malloc(sizeof(t_img));
 	if (!data->map.text_floor)
@@ -19,6 +19,12 @@ static void	init_background(t_data *data)
 	ft_bzero(data->map.text_sky, sizeof(t_img));
 	data->map.text_sky->mlx = data->mlx.mlx;
 	data->map.text_sky->path = "./texture/sky.xpm";
+	data->map.door = malloc(sizeof(t_img));
+	if (!data->map.door)
+		f_exit(data, 1);
+	ft_bzero(data->map.door, sizeof(t_img));
+	data->map.door->mlx = data->mlx.mlx;
+	data->map.door->path = "./texture/door.xpm";
 }
 
 static void	fill_need_print(t_data *data)
@@ -94,5 +100,5 @@ void	init_data(t_data *data, int ac, char **av)
 	data->screen->height = data->mlx.height;
 	data->ac = ac;
 	data->av = av;
-	init_background(data);
+	init_texture(data);
 }
