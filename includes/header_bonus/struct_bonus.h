@@ -197,6 +197,7 @@ struct s_data
 	pthread_t		thread_sky;
 	sem_t			*sem_background;
 	sem_t			*sem_start;
+	pthread_barrier_t		barrier;
 	// t_img	*wh;
 	// t_img	*bl;
 };

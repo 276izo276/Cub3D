@@ -43,11 +43,12 @@ int	game_loop(t_data *data)
 		// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 		data->time_fps = cur;
 		ray_launch(data);
-		sem_wait(data->sem_start);
+		sem_post(data->sem_background);
+		sem_post(data->sem_background);
 		display_game(data);
 		mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
 		aff_mini_map(data);
-		sem_post(data->sem_start);
+		pthread_barrier_wait(&data->barrier);
 		// ray_launch_old(data);
 	}
 	// printf("OUT\n");

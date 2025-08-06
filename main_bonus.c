@@ -7,13 +7,13 @@
 static void	init_semaphores(t_data *data)
 {
 	sem_unlink(SEM_BACKGROUND);
-	sem_unlink(SEM_START);
-	data->sem_background = sem_open(SEM_BACKGROUND, O_CREAT, 0644, 2);
+	// sem_unlink(SEM_START);
+	data->sem_background = sem_open(SEM_BACKGROUND, O_CREAT, 0644, 0);
 	if (data->sem_background == SEM_FAILED)
 		f_exit(data, 1); // error msg
-	data->sem_start = sem_open(SEM_START, O_CREAT, 0644, 1);
-	if (data->sem_start == SEM_FAILED)
-		f_exit(data, 1); // error msg
+	// data->sem_start = sem_open(SEM_START, O_CREAT, 0644, 0);
+	// if (data->sem_start == SEM_FAILED)
+	// 	f_exit(data, 1); // error msg
 }
 
 // static void	init_mutex(t_data *data)
@@ -24,18 +24,11 @@ static void	init_semaphores(t_data *data)
 
 static void	create_thread(t_data *data)
 {
-	// if (pthread_create(&data->ray->thread_wall, NULL, ray_launch, data) != 0)
-	// {
-	// 	// error msg
-	// 	f_exit(data, 1);
-	// }
-	// pthread_detach(data->ray->thread_wall);
-	// if (pthread_create(&data->ray->thread_floor, NULL, display_floor, data) != 0)
-	// {
-	// 	// error msg
-	// 	f_exit(data, 1);
-	// }
-	// pthread_detach(data->ray->thread_floor);
+	if (pthread_barrier_init(&data->barrier, NULL, 3) != 0)
+	{
+        // error msg
+		f_exit(data, 1);
+    }
 	if (pthread_create(&data->thread_sky, NULL, display_sky, data) != 0)
 	{
 		// error msg
@@ -79,5 +72,6 @@ int	main(int ac, char **av)
 	f_exit(&data, 0);
 	sem_close(data.sem_background);
 	sem_unlink(SEM_BACKGROUND);
+	pthread_barrier_destroy(&data.barrier);
 	return (1);
 }

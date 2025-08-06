@@ -65,8 +65,8 @@ void	*display_sky(void *ptr)
 	display = data->display;
 	while (1)
 	{
-		sem_wait(data->sem_start);
-		sem_post(data->sem_start);
+		// sem_post(data->sem_start);
+		sem_wait(data->sem_background);
 		display.cos_angle = cos(data->map.mini.rad);
 		display.sin_angle = sin(data->map.mini.rad);
 		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
@@ -85,7 +85,8 @@ void	*display_sky(void *ptr)
 			}
 			++y;
 		}
-		sem_post(data->sem_background);
+		pthread_barrier_wait(&data->barrier);
+		pthread_barrier_wait(&data->barrier);
 	}
 	return (NULL);
 }

@@ -84,10 +84,7 @@ void	display_game(t_data *data)
 	int	i;
 
 	i = 0;
-	// display_floor(data, data->display);
-	// display_sky(data, data->display);
-	sem_wait(data->sem_background);
-	sem_wait(data->sem_background);
+	pthread_barrier_wait(&data->barrier);
 	while (i < data->mlx.width)
 	{
 		display_game_loop(data, i);
