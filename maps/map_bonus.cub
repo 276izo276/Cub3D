@@ -1,7 +1,7 @@
-NO ./texture/wall_blue.xpm
-SO ./texture/wall_red.xpm
-WE ./texture/wall_green.xpm
-EA                    ./texture/wall_flash.xpm
+NO ./texture/wall_y.xpm
+SO ./texture/wall_y.xpm
+WE ./texture/wall_x.xpm
+EA                    ./texture/wall_x.xpm
 
                   
 F      20,0,     0

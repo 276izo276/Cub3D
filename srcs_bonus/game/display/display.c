@@ -111,3 +111,5 @@ void	display_game(t_data *data)
 		++i;
 	}
 }
+
+

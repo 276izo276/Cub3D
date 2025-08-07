@@ -2,6 +2,7 @@
 #include "mlx.h"
 #include "player_bonus.h"
 #include "struct_bonus.h"
+#include "utils_bonus.h"
 #include <math.h>
 
 bool	is_move_player(t_data *data, int i)
@@ -67,10 +68,54 @@ int	key_release(int keycode, t_data *data)
 	return (0);
 }
 
+static void	handle_menu_keys(int keycode, t_data *data)
+{
+	if (keycode == 65362)
+	{
+		if (data->selected >= 2)
+			data->selected -= 2;
+		else
+			data->selected += 2;
+	}
+	else if (keycode == 65364)
+	{
+		if (data->selected < 2)
+			data->selected += 2;
+		else
+			data->selected -= 2;
+	}
+	else if (keycode == 65361)
+	{
+		if (data->selected % 2 == 1)
+			data->selected -= 1;
+		else
+			data->selected += 1;
+	}
+	else if (keycode == 65363)
+	{
+		if (data->selected % 2 == 0)
+			data->selected += 1;
+		else
+			data->selected -= 1;
+	}
+	else if (keycode == 65293)
+	{
+		data->color = data->menu[data->selected].color;
+		data->status = GAME;
+	}
+	else if (keycode == KEY_ESCAPE)
+		f_exit(data, 1);
+}
+
 int	key_press(int keycode, t_data *data)
 {
 	int	i;
 
+	if (data->status == MENU)
+	{
+		handle_menu_keys(keycode, data);
+		return (0);
+	}
 	// printf("Key pressed: %d\n", keycode);
 	i = 0;
 	while (data->keycode[i] != 0 && i < 100)

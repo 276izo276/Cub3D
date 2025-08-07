@@ -11,6 +11,8 @@
 # define V_FOV 90.0
 # define H_FOV 90.0
 # define FPM 60.0
+# define GAME 1
+# define MENU 0
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
@@ -23,6 +25,7 @@ typedef struct s_coo_mini		t_coo_mini;
 typedef	struct s_mini		t_mini;
 typedef struct s_utils_mini	t_utils_mini;
 typedef struct s_display	t_display;
+typedef struct s_menu		t_menu;
 
 
 typedef	enum e_dir
@@ -178,6 +181,12 @@ struct s_display
 	unsigned int	color;
 };
 
+struct s_menu
+{
+	int	color;
+	char	*name;
+	t_img	*img_coa;
+};
 struct s_data
 {
 	t_utils_mini	u;
@@ -187,6 +196,8 @@ struct s_data
 	int				frame_move;
 	int				ac;
 	char			**av;
+	int				status;
+	int				nb_coalition;
 	t_map			map;
 	t_mlx			mlx;
 	t_ray			*ray;
@@ -199,6 +210,10 @@ struct s_data
 	sem_t			*sem_background;
 	sem_t			*sem_start;
 	pthread_barrier_t		barrier;
+	t_menu			*menu;
+	int				color;
+	int				selected;
+	t_img			*select;
 	// t_img	*wh;
 	// t_img	*bl;
 };

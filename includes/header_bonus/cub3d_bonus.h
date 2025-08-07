@@ -91,3 +91,25 @@ typedef enum e_key
 }	t_key;
 
 #endif
+
+
+// static void draw_border(t_data *data, int x, int y, int width, int height, int color, int thickness)
+// {
+//     int i, j;
+    
+//     // Bordure supérieure et inférieure
+//     for (i = 0; i < width; i++) {
+//         for (j = 0; j < thickness; j++) {
+//             pixel_put(data, x + i, y + j, color);                    // Haut
+//             pixel_put(data, x + i, y + height - 1 - j, color);       // Bas
+//         }
+//     }
+    
+//     // Bordure gauche et droite
+//     for (i = 0; i < height; i++) {
+//         for (j = 0; j < thickness; j++) {
+//             pixel_put(data, x + j, y + i, color);                    // Gauche
+//             pixel_put(data, x + width - 1 - j, y + i, color);        // Droite
+//         }
+//     }
+// }
