@@ -43,7 +43,6 @@ int		key_release(int keycode, t_data *data);
 int		key_press(int keycode, t_data *data);
 int		is_key_pressed(t_data *data, int keycode);
 
-
 //game_loop.c
 int		game_loop(t_data *data);
 int		close_win(t_data *data);
@@ -53,6 +52,11 @@ void	*display_floor(void *ptr);
 
 //display_sky.c
 void	*display_sky(void *ptr);
+
+//menu
+void 	display_menu(t_data *data);
+void	draw_select_border(t_data *data, int start_x, int start_y);
+void	pixel_put(t_data *data, int x, int y, unsigned int color);
 
 typedef enum e_key_down
 {
@@ -91,25 +95,3 @@ typedef enum e_key
 }	t_key;
 
 #endif
-
-
-// static void draw_border(t_data *data, int x, int y, int width, int height, int color, int thickness)
-// {
-//     int i, j;
-    
-//     // Bordure supérieure et inférieure
-//     for (i = 0; i < width; i++) {
-//         for (j = 0; j < thickness; j++) {
-//             pixel_put(data, x + i, y + j, color);                    // Haut
-//             pixel_put(data, x + i, y + height - 1 - j, color);       // Bas
-//         }
-//     }
-    
-//     // Bordure gauche et droite
-//     for (i = 0; i < height; i++) {
-//         for (j = 0; j < thickness; j++) {
-//             pixel_put(data, x + j, y + i, color);                    // Gauche
-//             pixel_put(data, x + width - 1 - j, y + i, color);        // Droite
-//         }
-//     }
-// }

@@ -124,6 +124,8 @@ GAME_BONUS		=							\
 				game_loop.c					\
 				display/display_floor.c		\
 				display/display_sky.c		\
+				menu/display_menu.c			\
+				menu/draw_border.c			\
 
 			
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
