@@ -530,6 +530,9 @@ push_all:
 .PHONY:force
 force:
 
+start:
+	valgrind --show-leak-kinds=all --leak-check=full --suppressions=.supp ./cub3D maps/t1.cub 
+
 #
 #
 #
