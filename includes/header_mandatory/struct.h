@@ -10,6 +10,7 @@
 # define V_FOV 90.0
 # define H_FOV 90.0
 # define FPM 60.0
+# define SPEED 5
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
@@ -138,6 +139,8 @@ struct s_mini
 	double		deg;
 	double		rad;
 	double		speed;
+	double		dy;
+	double		dx;
 };
 
 struct s_map
