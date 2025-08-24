@@ -1,0 +1,41 @@
+{
+	Leak XrmGetStringDatabase
+	Memcheck:Leak
+	...
+	fun:XrmGetStringDatabase
+}
+
+{
+	Leak XrmGetStringDatabase
+	Memcheck:Leak
+	...
+	fun:mlx_mouse_hide
+}
+
+{
+	Leak XrmGetStringDatabase
+	Memcheck:Leak
+	...
+	fun:XGetDefault
+}
+
+{
+	Leak XrmGetStringDatabase
+	Memcheck:Leak
+	...
+	fun:_dl_catch_error
+}
+
+{
+	Leak XrmGetStringDatabase
+	Memcheck:Leak
+	...
+	fun:_dl_open
+}
+
+{
+	Leak XrmGetStringDatabase
+	Memcheck:Leak
+	...
+	fun:_XrmInitParseInfo
+}

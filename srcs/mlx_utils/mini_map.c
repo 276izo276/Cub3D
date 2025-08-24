@@ -28,6 +28,7 @@ void	init_img_mini(t_data *data, t_mini *mini)
 			while (i >= 0)
 			{
 				mlx_destroy_image(data->mlx.mlx, mini->img[i].img);
+				mini->img[i].img = NULL;
 				--i;
 			}
 			f_exit(data, 1);

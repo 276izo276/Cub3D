@@ -19,17 +19,21 @@ void	f_img(t_img *img)
 
 void	f_imgs(t_data *data)
 {
-	// int	i;
+	int	i;
 
 	f_img(data->map.north);
 	f_img(data->map.south);
 	f_img(data->map.west);
 	f_img(data->map.east);
+	mlx_destroy_image(data->mlx.mlx, data->map.text_sky->img);
+	mlx_destroy_image(data->mlx.mlx, data->map.text_floor->img);
+	free(data->map.text_sky);
+	free(data->map.text_floor);
 	free(data->map.floor);
 	free(data->map.ceiling);
-	// i = -1;
-	// while (++i < 5)
-	// 	mlx_destroy_image(data->mlx.mlx, data->map.mini.img[i].img);
+	i = -1;
+	while (++i <= 5 && data->map.mini.img[i].img)
+		mlx_destroy_image(data->mlx.mlx, data->map.mini.img[i].img);
 }
 
 void	f_tab_char(char **tab)
@@ -57,13 +61,8 @@ void	f_exit(t_data *data, int code)
 	f_all_lst(data->map.lines);
 	f_tab_char(data->map.tabmap);
 	free(data->map.player_coo);
-	// printf(">>>%p   %p<<<\n",data->mlx.mlx, data->mlx.win);
-	// exit(1);
-	
 	mlx_destroy_image(data->mlx.mlx, data->u.mmap.img);
 	mlx_destroy_image(data->mlx.mlx, data->screen->img);
-	free(data->map.text_floor);
-	free(data->map.text_sky);
 	free(data->screen);
 	if (data->mlx.win)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
