@@ -89,9 +89,7 @@ void	calc_dx(t_data *data, t_mini *mini)
 {
 	int	i;
 	int	angle;
-	int	speed;
-
-	speed = 1;
+	
 	angle = 0;
 	i = -1;
 	while (++i < 100)
