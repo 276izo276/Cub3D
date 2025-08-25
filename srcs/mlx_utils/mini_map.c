@@ -20,9 +20,9 @@ void	init_img_mini(t_data *data, t_mini *mini)
 	i = 0;
 	while (i < 6)
 	{
-		mini->img[i].img = NULL;//mlx_xpm_file_to_image(data->mlx.mlx,
-				// mini->img[i].path, &mini->img[i].width,
-				// &mini->img[i].height);
+		mini->img[i].img = mlx_xpm_file_to_image(data->mlx.mlx,
+				mini->img[i].path, &mini->img[i].width,
+				&mini->img[i].height);
 		if (!mini->img[i].img)
 		{
 			while (--i >= 0)
