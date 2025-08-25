@@ -7,8 +7,10 @@
 static void	handle_input_move(t_data *data, long long int cur)
 {
 	int i;
+	int	move;
 
 	i = 0;
+	move = 0;
 	if (data->time_move + 1000 / FPM < cur)
 	{
 		// printf("fpm >>>%lld     \n",1000 / (cur - data->time_move));
@@ -20,14 +22,15 @@ static void	handle_input_move(t_data *data, long long int cur)
 			if (data->keycode[i] == KEY_ESCAPE)
 				f_exit(data, 0);
 			else if (is_move_player(data, i))
-				handle_move(&data->map, &data->map.mini, data->keycode[i],
-					data);
+				move = 1;
 			else if (data->keycode[i] == KEY_E)
 				rotate_right(data);
 			else if (data->keycode[i] == KEY_Q)
 				rotate_left(data);
 			i++;
 		}
+		if (move)
+			handle_move(&data->map, &data->map.mini, data);
 	}
 }
 

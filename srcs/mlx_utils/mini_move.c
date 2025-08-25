@@ -51,42 +51,65 @@ static void	move_y(t_map *map, t_mini *mini)
 		mini->player_coo.y = mini->dy;
 }
 
-// #include <stdio.h>
+#include <stdio.h>
 
-void	calc_dy_dx(t_mini *mini, int angle, t_data *data)
+void	v_norm(t_mini *mini)
 {
 	double v_normalize;
 
-	mini->dy = cos(mini->rad + angle * (M_PI / 180.0))
-		* mini->speed * (double)(FPM / data->frame_move);
-	mini->dx = sin(mini->rad + angle * (M_PI / 180.0))
-		* mini->speed * (double)(FPM / data->frame_move);
 	v_normalize = sqrt(mini->dx * mini->dx + mini->dy * mini->dy);
 	mini->dy = mini->dy / v_normalize;
 	mini->dx = mini->dx / v_normalize;
-	// printf("norm >>%lf    dy>>%lf     dx>>%lf\n",v_normalize,mini->dy / v_normalize,mini->dx / v_normalize);
-	// printf("vector >>> %lf\n",sqrt(mini->dx * mini->dx + mini->dy * mini->dy));
 }
 
-void	handle_move(t_map *map, t_mini *mini, int keycode, t_data *data)
+void	calc_dy(t_data *data, t_mini *mini)
 {
+	int	i;
 	int	angle;
+	int	speed;
 
-	angle = 0;
-	if (keycode == KEY_W)
-		angle = 0;
-	else if (keycode == KEY_S)
+	speed = 1;
+	angle = 90;
+	i = -1;
+	while (++i < 100)
 	{
-		mini->speed -= 0.2;
-		angle = 180;
+		if (data->keycode[i] == KEY_W)
+			angle = 0;
+		else if (data->keycode[i] == KEY_S)
+		{
+			speed -= 0.2;
+			angle = 180;
+		}
 	}
-	else if (keycode == KEY_D)
-		angle = 270;
-	else if (keycode == KEY_A)
-		angle = 90;
-	calc_dy_dx(mini, angle, data);
+	mini->dy = cos(mini->rad + angle * (M_PI / 180.0))
+		* mini->speed * (double)(FPM / data->frame_move);
+}
+
+void	calc_dx(t_data *data, t_mini *mini)
+{
+	int	i;
+	int	angle;
+	int	speed;
+
+	speed = 1;
+	angle = 0;
+	i = -1;
+	while (++i < 100)
+	{
+		if (data->keycode[i] == KEY_D)
+			angle = 270;
+		else if (data->keycode[i] == KEY_A)
+			angle = 90;
+	}
+	mini->dx = sin(mini->rad + angle * (M_PI / 180.0))
+		* mini->speed * (double)(FPM / data->frame_move);
+}
+
+void	handle_move(t_map *map, t_mini *mini, t_data *data)
+{
+	calc_dx(data, mini);
+	calc_dy(data, mini);
+	v_norm(mini);
 	move_x(map, mini);
 	move_y(map, mini);
-	if (keycode == KEY_S)
-		mini->speed += 0.2;
 }
