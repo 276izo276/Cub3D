@@ -25,6 +25,11 @@ static void	init_texture(t_data *data)
 	ft_bzero(data->map.door, sizeof(t_img));
 	data->map.door->mlx = data->mlx.mlx;
 	data->map.door->path = "./texture/door.xpm";
+	data->player_hand = malloc(sizeof(t_img));
+	if (!data->player_hand)
+		f_exit(data, 1);
+	ft_bzero(data->player_hand, sizeof(t_img));
+	data->player_hand->mlx = data->mlx.mlx;
 }
 
 static void	fill_need_print(t_data *data)
@@ -122,6 +127,13 @@ static void	init_menu(t_data *data)
 	ft_bzero(data->select, sizeof(t_img));
 	data->select->mlx = data->mlx.mlx;
 	data->select->path = "texture/menu/select.xpm";
+
+	data->select_hand = malloc(sizeof(t_img));
+	if (!data->select_hand)
+		f_exit(data, 1);
+	ft_bzero(data->select_hand, sizeof(t_img));
+	data->select_hand->mlx = data->mlx.mlx;
+	data->select_hand->path = "texture/menu/select_hand.xpm";
 }
 void	init_data(t_data *data, int ac, char **av)
 {
@@ -136,8 +148,8 @@ void	init_data(t_data *data, int ac, char **av)
 		f_exit(data, 1);
 	}
 	// mlx_get_screen_size(data->mlx.mlx, &data->mlx.width, &data->mlx.height);
-	data->mlx.height = 1000;
-	data->mlx.width = 1000;
+	data->mlx.height = 1080;
+	data->mlx.width = 1920;
 	data->nb_coalition = 4;
 	data->status = MENU;
 	init_utils_mini(data);

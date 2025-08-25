@@ -2,6 +2,7 @@
 # define STRUCT_H
 
 #include "t_lst.h"
+# include <stdbool.h>
 #include <sys/time.h>
 # include <pthread.h>
 # include <semaphore.h>
@@ -183,10 +184,12 @@ struct s_display
 
 struct s_menu
 {
-	int	color;
+	int		color;
 	char	*name;
+	bool	is_right_handed;
 	t_img	*img_coa;
 };
+
 struct s_data
 {
 	t_utils_mini	u;
@@ -214,6 +217,9 @@ struct s_data
 	int				color;
 	int				selected;
 	t_img			*select;
+	t_img			*select_hand;
+	t_img			*player_hand;
+	bool				is_right_handed;
 	// t_img	*wh;
 	// t_img	*bl;
 };

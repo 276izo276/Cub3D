@@ -3,6 +3,7 @@
 #include "player_bonus.h"
 #include "time_bonus.h"
 #include "utils_bonus.h"
+#include "color_bonus.h"
 
 static void	handle_input_move(t_data *data, long long int cur)
 {
@@ -30,14 +31,35 @@ static void	handle_input_move(t_data *data, long long int cur)
 	}
 }
 
+static void select_right_hand(t_data *data)
+{
+	if (data->color == FIRE_COLOR && data->is_right_handed == true)
+		data->player_hand->path = "./texture/player_hand/red_right_hand.xpm";
+	else if (data->color == FIRE_COLOR)
+		data->player_hand->path = "./texture/player_hand/red_left_hand.xpm";
+	else if (data->color == EARTH_COLOR && data->is_right_handed == true)
+		data->player_hand->path = "./texture/player_hand/green_right_hand.xpm";
+	else if (data->color == EARTH_COLOR)
+		data->player_hand->path = "./texture/player_hand/green_left_hand.xpm";
+	else if (data->color == WATER_COLOR && data->is_right_handed == true)
+		data->player_hand->path = "./texture/player_hand/blue_right_hand.xpm";
+	else if (data->color == WATER_COLOR)
+		data->player_hand->path = "./texture/player_hand/blue_left_hand.xpm";
+	else if (data->color == AIR_COLOR && data->is_right_handed == true)
+		data->player_hand->path = "./texture/player_hand/white_right_hand.xpm";
+	else if (data->color == AIR_COLOR)
+		data->player_hand->path = "./texture/player_hand/white_left_hand.xpm";
+}
 
-#include <stdio.h>
 int	game_loop(t_data *data)
 {
 	long long int	cur;
 
 	if (data->status == MENU)
+	{
 		display_menu(data);
+		select_right_hand(data);
+	}
 	else
 	{
 		cur = get_mtime();

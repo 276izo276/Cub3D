@@ -34,6 +34,7 @@ void	open_textures(t_data *data)
 	open_img(data->menu[2].img_coa, data);
 	open_img(data->menu[3].img_coa, data);
 	open_img(data->select, data);
+	open_img(data->select_hand, data);
 	if (!data->map.ceiling || !data->map.floor)
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE

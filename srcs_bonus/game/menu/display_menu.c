@@ -47,7 +47,7 @@ static void	draw_texture_menu(t_data *data, t_img *texture, int final_x,
 	}
 }
 
-void	display_menu(t_data *data)
+static void select_your_coa(t_data *data)
 {
 	int	color;
 	int	start_x;
@@ -69,4 +69,65 @@ void	display_menu(t_data *data)
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,
 		0);
 	draw_select_border(data, start_x, start_y);
+}
+
+static void draw_y_border(t_data *data, int x, int y)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < 100)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			pixel_put(data, x + j, y + i, data->color);
+			pixel_put(data, x + 230 - j, y
+				+ i, data->color);
+			++j;
+		}
+		++i;
+	}
+}
+static void draw_x_border(t_data *data, int x, int y)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < 230)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			pixel_put(data, x + i, y + j, data->color);
+			pixel_put(data, x + i, y
+				+ 100 - j,
+				data->color);
+			++j;
+		}
+		++i;
+	}
+}
+
+static void select_your_hand(t_data *data)
+{
+
+	int	y = data->mlx.height - 290;
+	int x = 550;
+	if (data->selected == 1)
+		x += 650;
+	draw_texture_menu(data, data->select_hand, 0, 0);
+	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0, 0);
+	draw_y_border(data, x, y);
+	draw_x_border(data, x, y);
+}
+
+void	display_menu(t_data *data)
+{
+	if (data->color == 0)
+		select_your_coa(data);
+	else if (data->is_right_handed == 0)
+		select_your_hand(data);
 }

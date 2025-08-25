@@ -2,7 +2,7 @@
 #include "mlx.h"
 #include "utils_bonus.h"
 
-static void	draw_top_border(t_data *data, int x, int y)
+static void	draw_y_border(t_data *data, int x, int y)
 {
 	int	i;
 	int	j;
@@ -22,7 +22,7 @@ static void	draw_top_border(t_data *data, int x, int y)
 	}
 }
 
-static void	draw_down_border(t_data *data, int x, int y)
+static void	draw_x_border(t_data *data, int x, int y)
 {
 	int	i;
 	int	j;
@@ -54,6 +54,6 @@ void	draw_select_border(t_data *data, int start_x, int start_y)
 		start_x += data->menu[data->selected].img_coa->width + 150;
 		start_y += data->menu[0].img_coa->height + 100;
 	}
-	draw_top_border(data, start_x, start_y);
-	draw_down_border(data, start_x, start_y);
+	draw_y_border(data, start_x, start_y);
+	draw_x_border(data, start_x, start_y);
 }

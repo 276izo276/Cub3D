@@ -68,7 +68,7 @@ int	key_release(int keycode, t_data *data)
 	return (0);
 }
 
-static void	handle_menu_keys(int keycode, t_data *data)
+static void	key_select_coa(int keycode, t_data *data)
 {
 	if (keycode == 65362)
 	{
@@ -101,10 +101,43 @@ static void	handle_menu_keys(int keycode, t_data *data)
 	else if (keycode == 65293)
 	{
 		data->color = data->menu[data->selected].color;
+		data->selected = 0;
+	}
+	else if (keycode == KEY_ESCAPE)
+		f_exit(data, 1);
+}
+
+static void key_select_hand(int keycode, t_data *data)
+{
+	if (keycode == 65361)
+	{
+		if (data->selected == 1)
+			data->selected -= 1;
+		else
+			data->selected += 1;
+	}
+	else if (keycode == 65363)
+	{
+		if (data->selected == 0)
+			data->selected += 1;
+		else
+			data->selected -= 1;
+	}
+	else if (keycode == 65293)
+	{
+		data->is_right_handed = data->menu->is_right_handed;
 		data->status = GAME;
 	}
 	else if (keycode == KEY_ESCAPE)
 		f_exit(data, 1);
+}
+
+static void	handle_menu_keys(int keycode, t_data *data)
+{
+	if (data->color == 0)
+		key_select_coa(keycode, data);
+	else if (data->is_right_handed == 0)
+		key_select_hand(keycode, data);
 }
 
 int	key_press(int keycode, t_data *data)
@@ -116,7 +149,6 @@ int	key_press(int keycode, t_data *data)
 		handle_menu_keys(keycode, data);
 		return (0);
 	}
-	// printf("Key pressed: %d\n", keycode);
 	i = 0;
 	while (data->keycode[i] != 0 && i < 100)
 		i++;
