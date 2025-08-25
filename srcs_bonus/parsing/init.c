@@ -60,10 +60,10 @@ static void	init_ray(t_data *data)
 	if (data->ray == NULL)
 		f_exit(data, 1);
 	ft_bzero(data->ray, sizeof(t_ray) * data->mlx.width);
-	if (data->mlx.height < data->mlx.width)
-		fov *= (data->mlx.width / data->mlx.height);
-	else
-		fov /= (data->mlx.height / data->mlx.width) * 0.75;
+	// if (data->mlx.height < data->mlx.width)
+		// fov *= (data->mlx.width / data->mlx.height);
+	// else
+	// 	fov /= (data->mlx.height / data->mlx.width) * 0.75;
 	while (i < data->mlx.width)
 	{
 		data->ray[i].d_proj = fov;
@@ -136,8 +136,8 @@ void	init_data(t_data *data, int ac, char **av)
 		f_exit(data, 1);
 	}
 	// mlx_get_screen_size(data->mlx.mlx, &data->mlx.width, &data->mlx.height);
-	data->mlx.height = 1080;
-	data->mlx.width = 1920;
+	data->mlx.height = 1000;
+	data->mlx.width = 1000;
 	data->nb_coalition = 4;
 	data->status = MENU;
 	init_utils_mini(data);
