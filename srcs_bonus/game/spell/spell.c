@@ -5,45 +5,51 @@
 #include "math.h"
 
 
-#include <stdio.h>
-
-void	spell_lumos(t_data *data)
+int	get_right_white(t_data *data, int color, double distance)
 {
+	int r;
+	int g;
+	int b;
+
+	r = 0;
+	g = 0;
+	b = 0;
+	b = (color & 255);
+	b = (int)(b + (255 - b) * ((1 - distance / 250 )) * data->spell.count_frame);
+	if (b > 255)
+		b = 255;
+	g = (color >> 8 & 255);
+	g = (int)(g + ( 255 - g) * ((1 - distance / 250 )) * data->spell.count_frame);
+	if (g > 255)
+		g = 255;
+	r = (color >> 16 & 255);
+	r = (int)(r + ( 255 - r) * ((1 - distance / 250 )) * data->spell.count_frame);
+	if (r > 255)
+		r = 255;
+	color = (r << 16) + (g << 8) + b;
+	return (color);
+}
+
+void	lumos_loop(t_data *data, int start_x, int start_y)
+{
+	unsigned int	color;
 	int				x;
 	int				y;
-	unsigned int	color;
-	int				start_x;
-	int				start_y;
-	double			R = 0;
-	double			G = 0;
-	double			B = 0;
+	double			distance;
 
-	start_x = data->spell.x_wand + (data->player_wand->width / 2) - 2;
-	start_y = data->spell.y_wand + 5;
-	y = -100;
+	y = -250;
 	color = 0;
-	while (y < 100)
+	while (y < 250)
 	{
-		x = -100;
-		while (x < 100)
+		x = -250;
+		while (x < 250)
 		{
-			if (sqrt(y * y + x * x) < 100)
+			distance = sqrt(y * y + x *x);
+			if (distance < 250)
 			{
 				color = get_texture_pixel(data->screen, x + start_x, y
 					+ start_y);
-				// printf(" 1 er color >> %x\n", color);
-				B = (color & 255) * (double)((100 - (sqrt(y * y + x * x))) / 10 + 1.5);
-				if (B > 255)
-					B = 255;
-				G = (color >> 8 & 255) * (double)((100 - (sqrt(y * y + x * x))) / 10 + 1.5);
-				if (G > 255)
-					G = 255;
-				R = (color >> 16 & 255) * (double)((100 - (sqrt(y * y + x * x))) / 10 + 1.5);
-				if (R > 255)
-					R = 255;
-				// printf("R >> %d G >> %d B >>> %d\n", R, G, B);
-				color = ((int)R << 16) + ((int)G << 8) + (int)B;
-				// printf("color >> %x\n", color);
+				color = get_right_white(data, color, distance);
 				pixel_put(data, x + start_x, y + start_y, color);
 			}
 			++x;
@@ -52,26 +58,14 @@ void	spell_lumos(t_data *data)
 	}
 }
 
-// void	spell_lumos(t_data *data)
-// {
-// 	int				x;
-// 	int				y;
-// 	unsigned int	color;
+void	spell_lumos(t_data *data)
+{
+	int				start_x;
+	int				start_y;
 
-// 	y = 0;
-// 	color = 0;
-// 	while (y < data->spell.lumos->height)
-// 	{
-// 		x = 0;
-// 		while (x < data->spell.lumos->width)
-// 		{
-// 			color = get_texture_pixel(data->spell.lumos, x, y);
-// 			if (color != WHITE)
-// 			{
-// 				pixel_put(data, x + data->spell.x_wand + (data->player_wand->width / 2) - (data->spell.lumos->width / 2) - 1, y + data->spell.y_wand - (data->spell.lumos->height / 2), color);
-// 			}
-// 			++x;
-// 		}
-// 		++y;
-// 	}
-// }
+	start_x = data->spell.x_wand + (data->player_wand->width / 2) - 2;
+	start_y = data->spell.y_wand + 5;
+	lumos_loop(data, start_x, start_y);
+	if (data->spell.active == false)
+		--data->spell.count_frame;
+}

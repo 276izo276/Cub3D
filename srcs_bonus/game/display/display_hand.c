@@ -78,6 +78,6 @@ void	display_hand(t_data *data)
 		}
 		++y;
 	}
-	if (data->spell.active == true)
+	if (data->spell.active == true || data->spell.count_frame > 0)
 		spell_lumos(data);
 }
