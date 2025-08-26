@@ -22,6 +22,7 @@ void	print_mini_map(t_data *data);
 void	init_utils_mini(t_data *data);
 void	get_pixel_color(t_data *data, int type);
 void	aff_mini_map(t_data *data);
+void	set_player_in_mini_map(t_utils_mini *u, t_img *img, double rad);
 
 //raycasting
 void	ray_launch(t_data *data);

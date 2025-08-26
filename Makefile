@@ -58,6 +58,8 @@ MLX_UTILS	=								\
 				mini_rotate.c				\
 				aff_mini_map.c				\
 				utils_aff_mini_map.c		\
+				aff_player_mini_map.c		\
+				
 
 FILES	+=	$(addprefix srcs/mlx_utils/,$(MLX_UTILS))
 

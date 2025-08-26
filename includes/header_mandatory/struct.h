@@ -11,6 +11,7 @@
 # define H_FOV 90.0
 # define FPM 60.0
 # define SPEED 5
+# define KEYCODE_NB 100
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;

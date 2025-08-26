@@ -17,7 +17,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 		data->frame_move = 1000 / (cur - data->time_move);
 		data->time_move = cur;
 		// printf("IN\n");
-		while (i < 100)
+		while (i < KEYCODE_NB)
 		{
 			if (data->keycode[i] == KEY_ESCAPE)
 				f_exit(data, 0);

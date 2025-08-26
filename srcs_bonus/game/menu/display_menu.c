@@ -77,7 +77,7 @@ static void draw_y_border(t_data *data, int x, int y)
 	int	j;
 
 	i = 0;
-	while (i < 100)
+	while (i < KEYCODE_NB)
 	{
 		j = 0;
 		while (j < 4)

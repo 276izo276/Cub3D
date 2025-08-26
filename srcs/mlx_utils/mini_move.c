@@ -19,7 +19,8 @@ static void	move_x(t_map *map, t_mini *mini)
 		mini->player_coo.x = mini->dx - 64;
 	}
 	else if ((map->tabmap[map->player_coo->y][map->player_coo->x + 1] == '1'
-		&& mini->dx == 62) || (map->tabmap[map->player_coo->y][map->player_coo->x
+		&& mini->dx == 62)
+			|| (map->tabmap[map->player_coo->y][map->player_coo->x
 			- 1] == '1' && mini->dx == 1))
 		return ;
 	else
@@ -51,63 +52,78 @@ static void	move_y(t_map *map, t_mini *mini)
 		mini->player_coo.y = mini->dy;
 }
 
-#include <stdio.h>
-
-void	v_norm(t_mini *mini)
+void	v_norm(t_mini *mini, t_data *data)
 {
-	double v_normalize;
+	double	v_normalize;
+	int		i;
 
 	v_normalize = sqrt(mini->dx * mini->dx + mini->dy * mini->dy);
 	mini->dy = mini->dy / v_normalize;
 	mini->dx = mini->dx / v_normalize;
-}
-
-void	calc_dy(t_data *data, t_mini *mini)
-{
-	int	i;
-	int	angle;
-	int	speed;
-
-	speed = 1;
-	angle = 90;
 	i = -1;
-	while (++i < 100)
+	while (++i < KEYCODE_NB)
 	{
-		if (data->keycode[i] == KEY_W)
-			angle = 0;
-		else if (data->keycode[i] == KEY_S)
+		if (data->keycode[i] == KEY_S)
 		{
-			speed -= 0.2;
-			angle = 180;
+			mini->dy *= .6;
+			mini->dx *= .6;
+		}
+		else if (data->keycode[i] == KEY_A || data->keycode[i] == KEY_D)
+		{
+			mini->dy *= .9;
+			mini->dx *= .9;
+		}
+		if (data->keycode[i] == KEY_SHIFT)
+		{
+			mini->dy *= 1.6;
+			mini->dx *= 1.6;
 		}
 	}
-	mini->dy = cos(mini->rad + angle * (M_PI / 180.0))
-		* mini->speed * (double)(FPM / data->frame_move);
 }
 
-void	calc_dx(t_data *data, t_mini *mini)
+static void	calc_dx_dy(t_data *data, int keycode, t_mini *mini)
 {
 	int	i;
 	int	angle;
-	
-	angle = 0;
+
 	i = -1;
-	while (++i < 100)
-	{
-		if (data->keycode[i] == KEY_D)
-			angle = 270;
-		else if (data->keycode[i] == KEY_A)
-			angle = 90;
-	}
-	mini->dx = sin(mini->rad + angle * (M_PI / 180.0))
-		* mini->speed * (double)(FPM / data->frame_move);
+	angle = 0;
+	if (keycode == KEY_W)
+		angle = 0;
+	else if (keycode == KEY_S)
+		angle = 180;
+	else if (keycode == KEY_D)
+		angle = 270;
+	else if (keycode == KEY_A)
+		angle = 90;
+	mini->dx += sin(mini->rad + angle * (M_PI / 180.0))
+		* (double)(FPM / data->frame_move);
+	mini->dy += cos(mini->rad + angle * (M_PI / 180.0))
+		* (double)(FPM / data->frame_move);
 }
 
 void	handle_move(t_map *map, t_mini *mini, t_data *data)
 {
-	calc_dx(data, mini);
-	calc_dy(data, mini);
-	v_norm(mini);
+	int	i;
+
+	mini->dy = 0;
+	mini->dx = 0;
+	i = 0;
+	while (i < KEYCODE_NB)
+	{
+		if (is_move_player(data, i))
+		{
+			calc_dx_dy(data, data->keycode[i], mini);
+		}
+		i++;
+	}
+	if (round(mini->dy) == 0.0 && round(mini->dx) == 0.0)
+	{
+		mini->dy = 0;
+		mini->dx = 0;
+	}
+	else
+		v_norm(mini, data);
 	move_x(map, mini);
 	move_y(map, mini);
 }

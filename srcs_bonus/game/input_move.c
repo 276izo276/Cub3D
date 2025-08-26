@@ -36,7 +36,7 @@ int	is_key_pressed(t_data *data, int keycode)
 	int	i;
 
 	i = 0;
-	while (i < 100)
+	while (i < KEYCODE_NB)
 	{
 		if (data->keycode[i] == keycode)
 			return (1);
@@ -51,7 +51,7 @@ int	key_release(int keycode, t_data *data)
 
 	// printf("Key released: %d\n", keycode);
 	i = 0;
-	while (i < 100)
+	while (i < KEYCODE_NB)
 	{
 		if (data->keycode[i] == keycode)
 			data->keycode[i] = 0;
@@ -156,7 +156,7 @@ int	key_press(int keycode, t_data *data)
 		return (0);
 	}
 	i = 0;
-	while (data->keycode[i] != 0 && i < 100)
+	while (data->keycode[i] != 0 && i < KEYCODE_NB)
 		i++;
 	data->keycode[i] = keycode;
 	if (keycode == KEY_ALT)
