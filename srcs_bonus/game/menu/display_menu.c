@@ -42,18 +42,18 @@ static void select_your_coa(t_data *data)
 	int	start_x;
 	int	start_y;
 
-	start_x = (data->mlx.width - (2 * data->menu[0].img_coa->width + 200)) / 2;
-	start_y = (data->mlx.height - (2 * data->menu[0].img_coa->height - 100))
+	start_x = (data->mlx.width - (2 * data->coa[0].img_coa->width + 200)) / 2;
+	start_y = (data->mlx.height - (2 * data->coa[0].img_coa->height - 100))
 		/ 2;
 	draw_texture_menu(data, data->select, 0, 0);
-	draw_texture_menu(data, data->menu[0].img_coa, start_x, start_y);
-	draw_texture_menu(data, data->menu[1].img_coa, start_x
-		+ data->menu[0].img_coa->width + 150, start_y);
-	draw_texture_menu(data, data->menu[2].img_coa, start_x, start_y
-		+ data->menu[0].img_coa->height + 100);
-	draw_texture_menu(data, data->menu[3].img_coa, start_x
-		+ data->menu[0].img_coa->width + 150, start_y
-		+ data->menu[0].img_coa->height + 100);
+	draw_texture_menu(data, data->coa[0].img_coa, start_x, start_y);
+	draw_texture_menu(data, data->coa[1].img_coa, start_x
+		+ data->coa[0].img_coa->width + 150, start_y);
+	draw_texture_menu(data, data->coa[2].img_coa, start_x, start_y
+		+ data->coa[0].img_coa->height + 100);
+	draw_texture_menu(data, data->coa[3].img_coa, start_x
+		+ data->coa[0].img_coa->width + 150, start_y
+		+ data->coa[0].img_coa->height + 100);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,
 		0);
 	draw_select_border(data, start_x, start_y);

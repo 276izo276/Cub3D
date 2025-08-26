@@ -59,7 +59,7 @@ void	set_floor(char *line, t_data *data)
 {
 	if (!line[1])
 		return ;
-	data->map.floor = malloc(sizeof(t_color));
+	data->map.floor = NULL;//malloc(sizeof(t_color));
 	if (!data->map.floor)
 		return ;
 	ft_bzero(data->map.floor, sizeof(t_color));

@@ -28,7 +28,7 @@ typedef struct s_coo_mini		t_coo_mini;
 typedef	struct s_mini		t_mini;
 typedef struct s_utils_mini	t_utils_mini;
 typedef struct s_display	t_display;
-typedef struct s_menu		t_menu;
+typedef struct s_coa		t_coa;
 typedef struct s_spell		t_spell;
 
 
@@ -196,7 +196,7 @@ struct s_spell
 	int		count_frame;
 };
 
-struct s_menu
+struct s_coa
 {
 	int		color;
 	char	*name;
@@ -227,7 +227,7 @@ struct s_data
 	sem_t			*sem_background;
 	sem_t			*sem_start;
 	pthread_barrier_t		barrier;
-	t_menu			*menu;
+	t_coa			*coa;
 	int				color;
 	int				selected;
 	t_img			*select;

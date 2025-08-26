@@ -39,10 +39,10 @@ void	open_textures(t_data *data)
 	// open_img(data->map.text_floor, data);
 	// open_img(data->map.text_sky, data);
 	open_img(data->map.door, data);
-	open_img(data->menu[0].img_coa, data);
-	open_img(data->menu[1].img_coa, data);
-	open_img(data->menu[2].img_coa, data);
-	open_img(data->menu[3].img_coa, data);
+	open_img(data->coa[0].img_coa, data);
+	open_img(data->coa[1].img_coa, data);
+	open_img(data->coa[2].img_coa, data);
+	open_img(data->coa[3].img_coa, data);
 	open_img(data->select, data);
 	open_img(data->select_hand, data);
 	open_img(data->player_wand, data);

@@ -91,7 +91,7 @@ void	aff_mini_map(t_data *data)
 			}
 		}
 	}
-	set_player_in_mini_map(&data->u, &data->map.mini.img[MINI_CURS],
+	set_player_in_mini_map(data, &data->u, &data->map.mini.img[MINI_CURS],
 		data->map.mini.rad);
 	print_mini_map(data);
 }

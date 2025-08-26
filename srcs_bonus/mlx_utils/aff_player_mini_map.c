@@ -14,21 +14,21 @@ static void	calc_value_player_mini_map_aff(t_utils_mini *u, t_img *img,
 				+ (u->x) * (img->bits_per_pixel / 8)));
 }
 
-static void	set_pix_player(t_utils_mini *u, int start_y, int start_x)
+static void	set_pix_player(t_data *data, t_utils_mini *u, int start_y, int start_x)
 {
 	u->pixel_addr = u->mmap.data_addr + (((int)ceil(u->yfloat)
 				+ start_y) * u->mmap.size_line
 			+ ((int)ceil(u->xfloat) + start_x)
 			* (u->mmap.bits_per_pixel / 8));
-	*(unsigned int *)u->pixel_addr = u->color;
+	*(unsigned int *)u->pixel_addr = data->color;
 	u->pixel_addr = u->mmap.data_addr + (((int)floor(u->yfloat)
 				+ start_y) * u->mmap.size_line
 			+ ((int)floor(u->xfloat) + start_x)
 			* (u->mmap.bits_per_pixel / 8));
-	*(unsigned int *)u->pixel_addr = u->color;
+	*(unsigned int *)u->pixel_addr = data->color;
 }
 
-void	set_player_in_mini_map(t_utils_mini *u, t_img *img, double rad)
+void	set_player_in_mini_map(t_data *data, t_utils_mini *u, t_img *img, double rad)
 {
 	int	start_y;
 	int	start_x;
@@ -44,7 +44,7 @@ void	set_player_in_mini_map(t_utils_mini *u, t_img *img, double rad)
 			calc_value_player_mini_map_aff(u, img, rad);
 			if (u->color != 0x00000000)
 			{
-				set_pix_player(u, start_y, start_x);
+				set_pix_player(data, u, start_y, start_x);
 			}
 		}
 	}

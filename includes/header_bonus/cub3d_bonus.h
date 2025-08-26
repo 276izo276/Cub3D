@@ -24,7 +24,7 @@ void	print_mini_map(t_data *data);
 void	init_utils_mini(t_data *data);
 void	get_pixel_color(t_data *data, int type);
 void	aff_mini_map(t_data *data);
-void	set_player_in_mini_map(t_utils_mini *u, t_img *img, double rad);
+void	set_player_in_mini_map(t_data *data, t_utils_mini *u, t_img *img, double rad);
 
 //raycasting
 void	ray_launch(t_data *data);
@@ -60,7 +60,7 @@ void	*display_sky(void *ptr);
 //display_hand.c
 void	display_hand(t_data *data);
 
-//menu
+//coa
 void 	display_menu(t_data *data);
 void	draw_select_border(t_data *data, int start_x, int start_y);
 void	pixel_put(t_data *data, int x, int y, unsigned int color);

@@ -90,47 +90,47 @@ static void	init_ray(t_data *data)
 	}
 }
 
-static void	init_menu(t_data *data)
+static void	init_coa(t_data *data)
 {
-	data->menu = malloc(sizeof(t_menu) * data->nb_coalition);
-	if (data->menu == NULL)
+	data->coa = malloc(sizeof(t_coa) * data->nb_coalition);
+	if (data->coa == NULL)
 		f_exit(data, 1); //error msg
 
-	data->menu[0].img_coa = malloc(sizeof(t_img));
-	if (!data->menu[0].img_coa)
+	data->coa[0].img_coa = malloc(sizeof(t_img));
+	if (!data->coa[0].img_coa)
 		f_exit(data, 1);
-	ft_bzero(data->menu[0].img_coa, sizeof(t_img));
-	data->menu[0].img_coa->mlx = data->mlx.mlx;
-	data->menu[0].name = "Fire";
-	data->menu[0].color = 0xFF0000;
-	data->menu[0].img_coa->path = "texture/menu/fire.xpm";
+	ft_bzero(data->coa[0].img_coa, sizeof(t_img));
+	data->coa[0].img_coa->mlx = data->mlx.mlx;
+	data->coa[0].name = "Fire";
+	data->coa[0].color = 0xFF0000;
+	data->coa[0].img_coa->path = "texture/menu/fire.xpm";
 
-	data->menu[1].img_coa = malloc(sizeof(t_img));
-	if (!data->menu[1].img_coa)
+	data->coa[1].img_coa = malloc(sizeof(t_img));
+	if (!data->coa[1].img_coa)
 		f_exit(data, 1);
-	ft_bzero(data->menu[1].img_coa, sizeof(t_img));
-	data->menu[1].img_coa->mlx = data->mlx.mlx;
-	data->menu[1].name = "Water";
-	data->menu[1].color = 0x0000FF;
-	data->menu[1].img_coa->path = "texture/menu/water.xpm";
+	ft_bzero(data->coa[1].img_coa, sizeof(t_img));
+	data->coa[1].img_coa->mlx = data->mlx.mlx;
+	data->coa[1].name = "Water";
+	data->coa[1].color = 0x0000FF;
+	data->coa[1].img_coa->path = "texture/menu/water.xpm";
 
-	data->menu[2].img_coa = malloc(sizeof(t_img));
-	if (!data->menu[2].img_coa)
+	data->coa[2].img_coa = malloc(sizeof(t_img));
+	if (!data->coa[2].img_coa)
 		f_exit(data, 1);
-	ft_bzero(data->menu[2].img_coa, sizeof(t_img));
-	data->menu[2].img_coa->mlx = data->mlx.mlx;
-	data->menu[2].name = "Earth";
-	data->menu[2].color = 0x00FF00;
-	data->menu[2].img_coa->path = "texture/menu/earth.xpm";
+	ft_bzero(data->coa[2].img_coa, sizeof(t_img));
+	data->coa[2].img_coa->mlx = data->mlx.mlx;
+	data->coa[2].name = "Earth";
+	data->coa[2].color = 0x00FF00;
+	data->coa[2].img_coa->path = "texture/menu/earth.xpm";
 
-	data->menu[3].img_coa = malloc(sizeof(t_img));
-	if (!data->menu[3].img_coa)
+	data->coa[3].img_coa = malloc(sizeof(t_img));
+	if (!data->coa[3].img_coa)
 		f_exit(data, 1);
-	ft_bzero(data->menu[3].img_coa, sizeof(t_img));
-	data->menu[3].img_coa->mlx = data->mlx.mlx;
-	data->menu[3].name = "Air";
-	data->menu[3].color = 0xFFFFFF;
-	data->menu[3].img_coa->path = "texture/menu/air.xpm";
+	ft_bzero(data->coa[3].img_coa, sizeof(t_img));
+	data->coa[3].img_coa->mlx = data->mlx.mlx;
+	data->coa[3].name = "Air";
+	data->coa[3].color = 0xFFFFFF;
+	data->coa[3].img_coa->path = "texture/menu/air.xpm";
 	data->selected = 0;
 
 	data->select = malloc(sizeof(t_img));
@@ -180,6 +180,6 @@ void	init_data(t_data *data, int ac, char **av)
 	data->spell.y_wand = 0;
 	data->spell.count_frame = 0;
 	data->spell.active = false;
-	init_menu(data);
+	init_coa(data);
 	init_texture(data);
 }

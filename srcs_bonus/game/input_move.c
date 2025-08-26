@@ -102,7 +102,7 @@ static void	key_select_coa(int keycode, t_data *data)
 	}
 	else if (keycode == 65293)
 	{
-		data->color = data->menu[data->selected].color;
+		data->color = data->coa[data->selected].color;
 		data->selected = 0;
 	}
 	else if (keycode == KEY_ESCAPE)
