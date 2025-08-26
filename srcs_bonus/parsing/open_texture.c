@@ -3,6 +3,7 @@
 #include "mlx.h"
 #include "struct_bonus.h"
 #include "utils_bonus.h"
+#include "cub3d_bonus.h"
 
 static void	open_img(t_img *img, t_data *data)
 {
@@ -57,21 +58,28 @@ void	open_textures(t_data *data)
 
 void select_right_hand(t_data *data)
 {
-	if (data->color == FIRE_COLOR && data->is_right_handed == true)
-		data->player_hand->path = "./texture/player_hand/red_right_hand.xpm";
-	else if (data->color == FIRE_COLOR)
-		data->player_hand->path = "./texture/player_hand/red_left_hand.xpm";
-	else if (data->color == EARTH_COLOR && data->is_right_handed == true)
-		data->player_hand->path = "./texture/player_hand/green_right_hand.xpm";
-	else if (data->color == EARTH_COLOR)
-		data->player_hand->path = "./texture/player_hand/green_left_hand.xpm";
-	else if (data->color == WATER_COLOR && data->is_right_handed == true)
-		data->player_hand->path = "./texture/player_hand/blue_right_hand.xpm";
-	else if (data->color == WATER_COLOR)
-		data->player_hand->path = "./texture/player_hand/blue_left_hand.xpm";
-	else if (data->color == AIR_COLOR && data->is_right_handed == true)
-		data->player_hand->path = "./texture/player_hand/white_right_hand.xpm";
-	else if (data->color == AIR_COLOR)
-		data->player_hand->path = "./texture/player_hand/white_left_hand.xpm";
+	unsigned int	color;
+	int				x;
+	int				y;
+	char			*pixel_addr;
+	y = 0;
+	color = 0;
+	if (data->is_right_handed == true)
+		data->player_hand->path = "./texture/player_hand/right_hand.xpm";
+	else
+		data->player_hand->path = "./texture/player_hand/left_hand.xpm";
 	open_img(data->player_hand, data);
+	while (y < data->player_hand->height)
+	{
+		x = 0;
+		while (x < data->player_hand->width)
+		{
+			pixel_addr = data->player_hand->data_addr + (y * data->player_hand->size_line + x
+				* (data->player_hand->bits_per_pixel / 8));
+			if (*(unsigned int *)pixel_addr == YELLOW)
+				*(unsigned int *)pixel_addr = data->color;
+			++x;
+		}
+		++y;
+	}
 }

@@ -6,30 +6,30 @@ static void	get_right_text(t_data *data, int i)
 {
 	if (data->ray[i].dir == NORTH)
 	{
-		if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] == 'D')
-			data->ray[i].img = data->map.door;
-		else
+		// if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] == 'D')
+		// 	data->ray[i].img = data->map.door;
+		// else
 			data->ray[i].img = data->map.north;
 	}
 	else if (data->ray[i].dir == SOUTH)
 	{
-		if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] == 'D')
-			data->ray[i].img = data->map.door;
-		else
+		// if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] == 'D')
+		// 	data->ray[i].img = data->map.door;
+		// else
 			data->ray[i].img = data->map.south;
 	}
 	else if (data->ray[i].dir == EAST)
 	{
-		if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] == 'D')
-			data->ray[i].img = data->map.door;
-		else
+		// if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] == 'D')
+		// 	data->ray[i].img = data->map.door;
+		// else
 			data->ray[i].img = data->map.east;
 	}
 	else if (data->ray[i].dir == WEST)
 	{
-		if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == 'D')
-			data->ray[i].img = data->map.door;
-		else
+		// if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == 'D')
+		// 	data->ray[i].img = data->map.door;
+		// else
 			data->ray[i].img = data->map.west;
 	}
 }
@@ -111,5 +111,3 @@ void	display_game(t_data *data)
 		++i;
 	}
 }
-
-
