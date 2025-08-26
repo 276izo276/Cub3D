@@ -14,6 +14,7 @@
 # define FPM 60.0
 # define GAME 1
 # define MENU 0
+# define SPEED 5
 # define KEYCODE_NB 100
 
 typedef struct s_data		t_data;
@@ -140,6 +141,8 @@ struct s_mini
 	double		deg;
 	double		rad;
 	double		speed;
+	double		dy;
+	double		dx;
 };
 
 struct s_map

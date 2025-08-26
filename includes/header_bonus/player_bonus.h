@@ -4,7 +4,7 @@
 # include "struct_bonus.h"
 
 //move mini_map
-void	handle_move(t_map *map, t_mini *mini, int keycode, t_data *data);
+void	handle_move(t_map *map, t_mini *mini, t_data *data);
 void	rotate_right(t_data *data);
 void	rotate_left(t_data *data);
 

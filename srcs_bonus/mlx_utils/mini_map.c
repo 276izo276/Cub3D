@@ -25,10 +25,10 @@ void	init_img_mini(t_data *data, t_mini *mini)
 				&mini->img[i].height);
 		if (!mini->img[i].img)
 		{
-			while (i >= 0)
+			while (--i >= 0)
 			{
 				mlx_destroy_image(data->mlx.mlx, mini->img[i].img);
-				--i;
+				mini->img[i].img = NULL;
 			}
 			f_exit(data, 1);
 		}
