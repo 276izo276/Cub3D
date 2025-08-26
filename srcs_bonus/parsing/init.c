@@ -179,6 +179,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->spell.x_wand = 0;
 	data->spell.y_wand = 0;
 	data->spell.count_frame = 0;
+	data->spell.range = 250;
 	data->spell.active = false;
 	init_menu(data);
 	init_texture(data);
