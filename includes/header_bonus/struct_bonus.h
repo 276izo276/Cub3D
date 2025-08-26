@@ -186,7 +186,6 @@ struct s_menu
 {
 	int		color;
 	char	*name;
-	bool	is_right_handed;
 	t_img	*img_coa;
 };
 
@@ -219,6 +218,7 @@ struct s_data
 	t_img			*select;
 	t_img			*select_hand;
 	t_img			*player_hand;
+	t_img			*player_wand;
 	bool				is_right_handed;
 	// t_img	*wh;
 	// t_img	*bl;

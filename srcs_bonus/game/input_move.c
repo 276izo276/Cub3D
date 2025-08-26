@@ -3,6 +3,7 @@
 #include "player_bonus.h"
 #include "struct_bonus.h"
 #include "utils_bonus.h"
+#include <color_bonus.h>
 #include <math.h>
 
 bool	is_move_player(t_data *data, int i)
@@ -125,7 +126,12 @@ static void key_select_hand(int keycode, t_data *data)
 	}
 	else if (keycode == 65293)
 	{
-		data->is_right_handed = data->menu->is_right_handed;
+		if (data->selected == 1)
+			data->is_right_handed = true;
+		else
+			data->is_right_handed = false;
+		select_right_hand(data);
+
 		data->status = GAME;
 	}
 	else if (keycode == KEY_ESCAPE)

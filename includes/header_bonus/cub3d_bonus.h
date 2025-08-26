@@ -53,10 +53,14 @@ void	*display_floor(void *ptr);
 //display_sky.c
 void	*display_sky(void *ptr);
 
+//display_hand.c
+void	display_hand(t_data *data);
+
 //menu
 void 	display_menu(t_data *data);
 void	draw_select_border(t_data *data, int start_x, int start_y);
 void	pixel_put(t_data *data, int x, int y, unsigned int color);
+void	select_right_hand(t_data *data);
 
 typedef enum e_key_down
 {

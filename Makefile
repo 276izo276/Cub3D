@@ -120,6 +120,7 @@ GAME_BONUS		=							\
 				raycasting.c				\
 				raycasting_utils.c			\
 				display/display.c 			\
+				display/display_hand.c		\
 				input_move.c				\
 				game_loop.c					\
 				display/display_floor.c		\
@@ -127,7 +128,6 @@ GAME_BONUS		=							\
 				menu/display_menu.c			\
 				menu/draw_border.c			\
 
-			
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 
 OBJS =			$(addprefix .obj/, $(FILES:.c=.o))

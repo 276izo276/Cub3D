@@ -30,6 +30,12 @@ static void	init_texture(t_data *data)
 		f_exit(data, 1);
 	ft_bzero(data->player_hand, sizeof(t_img));
 	data->player_hand->mlx = data->mlx.mlx;
+	data->player_wand = malloc(sizeof(t_img));
+	if (!data->player_wand)
+		f_exit(data, 1);
+	ft_bzero(data->player_wand, sizeof(t_img));
+	data->player_wand->mlx = data->mlx.mlx;
+	data->player_wand->path = "./texture/player_hand/wand_sureau.xpm";
 }
 
 static void	fill_need_print(t_data *data)
