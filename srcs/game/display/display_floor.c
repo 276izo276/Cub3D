@@ -5,8 +5,8 @@ static void	put_text_pix_img(t_data *data, t_display *display, int x, int y)
 {
 	display->pixel_addr = data->screen->data_addr + (y * data->screen->size_line
 			+ x * display->screen_bbp_frac);
-	*(unsigned int *)display->pixel_addr = (data->map.floor->r << 6 )
-		+ (data->map.floor->g << 3) + data->map.floor->b;
+	*(unsigned int *)display->pixel_addr = (data->map.floor->r << 16 )
+		+ (data->map.floor->g << 8) + data->map.floor->b;
 }
 
 void	display_floor(t_data *data, t_display display)

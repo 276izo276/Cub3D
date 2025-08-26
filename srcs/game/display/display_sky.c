@@ -5,8 +5,8 @@ static void	put_text_pix_img(t_data *data, t_display *display, int x, int y)
 {
 	display->pixel_addr = data->screen->data_addr + (y * data->screen->size_line
 			+ x * display->screen_bbp_frac);
-	*(unsigned int *)display->pixel_addr = (data->map.ceiling->r << 6 )
-		+ (data->map.ceiling->g << 3) + data->map.ceiling->b;
+	*(unsigned int *)display->pixel_addr = (data->map.ceiling->r << 16 )
+		+ (data->map.ceiling->g << 8) + data->map.ceiling->b;
 }
 
 void	display_sky(t_data *data, t_display display)
