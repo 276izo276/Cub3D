@@ -30,7 +30,8 @@ typedef struct s_utils_mini	t_utils_mini;
 typedef struct s_display	t_display;
 typedef struct s_coa		t_coa;
 typedef struct s_spell		t_spell;
-
+typedef struct s_hit_door	t_hit_door;
+typedef struct s_door		t_door;
 
 typedef	enum e_dir
 {
@@ -45,6 +46,24 @@ struct s_coo
 	int	x;
 	int	y;
 };
+
+struct t_door
+{
+	t_coo	coo;
+	double	pos;
+	bool	status;
+};
+
+struct s_hit_door
+{
+	t_door *door;
+	double	coo_y;
+	double	coo_x;
+	int		case_y;
+	int		case_x;
+};
+
+
 
 struct	s_ray
 {
@@ -75,6 +94,7 @@ struct	s_ray
 	double	save_x;
 	t_coo	texture_coo;
 	t_img	*img;
+	t_hit_door	**doors;
 };
 
 struct s_coo_mini
@@ -235,6 +255,7 @@ struct s_data
 	t_img			*player_hand;
 	t_img			*player_wand;
 	bool				is_right_handed;
+	int	nb_door;
 	// t_img	*wh;
 	// t_img	*bl;
 };

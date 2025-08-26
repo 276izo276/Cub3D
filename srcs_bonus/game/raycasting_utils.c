@@ -6,6 +6,20 @@ int	handle_ray_y_top(t_data *data, int i)
 	// int	x;
 	// int	y;
 
+	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == 'D')	
+	{
+		int	j = 0;
+		while (j < data->nb_door)
+		{
+			if (data->ray[i].doors[j] == NULL)
+				break;
+			j++;
+		}
+
+		data->ray[i].doors[j]->case_y = data->ray[i].case_y - 1;
+		data->ray[i].doors[j]->coo_y = 32;
+		data->ray[i].doors[j]->coo_x = data->ray[i].coo_x + data->ray[i].ry / 2 * data->ray[i].delta_x;
+	}
 	if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != '1'
 	)//&& data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != 'D')
 	{
@@ -42,6 +56,20 @@ int	handle_ray_y_down(t_data *data, int i)
 	// int	x;
 	// int	y;
 
+	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == 'D')	
+	{
+		int	j = 0;
+		while (j < data->nb_door)
+		{
+			if (data->ray[i].doors[j] == NULL)
+				break;
+			j++;
+		}
+
+		data->ray[i].doors[j]->case_y = data->ray[i].case_y + 1;
+		data->ray[i].doors[j]->coo_y = 32;
+		data->ray[i].doors[j]->coo_x = data->ray[i].coo_x + data->ray[i].ry / 2 * data->ray[i].delta_x;
+	}
 	if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != '1'
 	)//&& data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != 'D')
 	{
@@ -76,7 +104,20 @@ int	handle_ray_x_left(t_data *data, int i)
 {
 	// int	x;
 	// int	y;
-
+	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == 'D')	
+	{
+		int	j = 0;
+		while (j < data->nb_door)
+		{
+			if (data->ray[i].doors[j] == NULL)
+				break;
+			j++;
+		}
+		
+		data->ray[i].doors[j]->case_x = data->ray[i].case_x - 1;
+		data->ray[i].doors[j]->coo_x = 32;
+		data->ray[i].doors[j]->coo_y = data->ray[i].coo_y + data->ray[i].rx / 2 * data->ray[i].delta_y;
+	}
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != '1'
 	)//&& data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != 'D')
 	{
@@ -111,9 +152,20 @@ int	handle_ray_x_right(t_data *data, int i)
 {
 	// int	x;
 	// int	y;
-
-	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] != '1'
-	)//&& data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] != 'D')
+	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == 'D')
+	{
+		int	j = 0;
+		while (j < data->nb_door)
+		{
+			if (data->ray[i].doors[j] == NULL)
+				break;
+			j++;
+		}
+		data->ray[i].doors[j]->case_x = data->ray[i].case_x + 1;
+		data->ray[i].doors[j]->coo_x = 32;
+		data->ray[i].doors[j]->coo_y = data->ray[i].coo_y + data->ray[i].rx / 2 * data->ray[i].delta_y;
+	}
+	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] != '1')
 	{
 		data->ray[i].case_x++;
 		data->ray[i].coo_x = 0;
