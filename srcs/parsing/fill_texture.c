@@ -13,7 +13,7 @@ void	set_north(char *line, t_data *data)
 	if (data->map.north)
 	{
 		ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"\
-Texture >>> Duplicate entry for north\n");
+Texture >>> Duplicate entry for north\n"_END);
 		f_exit(data, 1);
 	}
 	data->map.north = malloc(sizeof(t_img));
@@ -38,7 +38,7 @@ void	set_south(char *line, t_data *data)
 	if (data->map.south)
 	{
 		ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"\
-Texture >>> Duplicate entry for south\n");
+Texture >>> Duplicate entry for south\n"_END);
 		f_exit(data, 1);
 	}
 	data->map.south = malloc(sizeof(t_img));
@@ -63,7 +63,7 @@ void	set_west(char *line, t_data *data)
 	if (data->map.west)
 	{
 		ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"\
-Texture >>> Duplicate entry for west\n");
+Texture >>> Duplicate entry for west\n"_END);
 		f_exit(data, 1);
 	}
 	data->map.west = malloc(sizeof(t_img));
@@ -88,7 +88,7 @@ void	set_east(char *line, t_data *data)
 	if (data->map.east)
 	{
 		ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"\
-Texture >>> Duplicate entry for east\n");
+Texture >>> Duplicate entry for east\n"_END);
 		f_exit(data, 1);
 	}
 	data->map.east = malloc(sizeof(t_img));

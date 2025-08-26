@@ -57,8 +57,10 @@ void	f_exit(t_data *data, int code)
 	f_all_lst(data->map.lines);
 	f_tab_char(data->map.tabmap);
 	free(data->map.player_coo);
-	mlx_destroy_image(data->mlx.mlx, data->u.mmap.img);
-	mlx_destroy_image(data->mlx.mlx, data->screen->img);
+	if (data->u.mmap.img)
+		mlx_destroy_image(data->mlx.mlx, data->u.mmap.img);
+	if (data->screen)
+		mlx_destroy_image(data->mlx.mlx, data->screen->img);
 	free(data->screen);
 	if (data->mlx.win)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
