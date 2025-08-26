@@ -36,6 +36,7 @@ static void	init_texture(t_data *data)
 	ft_bzero(data->player_wand, sizeof(t_img));
 	data->player_wand->mlx = data->mlx.mlx;
 	data->player_wand->path = "./texture/player_hand/wand_sureau.xpm";
+	// data->player_wand->path = "./texture/door1.xpm";
 }
 
 static void	fill_need_print(t_data *data)
