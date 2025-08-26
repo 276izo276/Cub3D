@@ -7,7 +7,7 @@ int	handle_ray_y_top(t_data *data, int i)
 	// int	y;
 
 	if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != '1'
-		&& data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != 'D')
+	)//&& data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != 'D')
 	{
 		data->ray[i].case_y--;
 		data->ray[i].coo_y = 63.999;
@@ -43,7 +43,7 @@ int	handle_ray_y_down(t_data *data, int i)
 	// int	y;
 
 	if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != '1'
-		&& data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != 'D')
+	)//&& data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != 'D')
 	{
 		data->ray[i].case_y++;
 		data->ray[i].coo_y = 0;
@@ -78,7 +78,7 @@ int	handle_ray_x_left(t_data *data, int i)
 	// int	y;
 
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != '1'
-		&& data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != 'D')
+	)//&& data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != 'D')
 	{
 		data->ray[i].case_x--;
 		data->ray[i].coo_x = 63.999;
@@ -113,7 +113,7 @@ int	handle_ray_x_right(t_data *data, int i)
 	// int	y;
 
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] != '1'
-		&& data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] != 'D')
+	)//&& data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] != 'D')
 	{
 		data->ray[i].case_x++;
 		data->ray[i].coo_x = 0;

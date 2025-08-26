@@ -58,20 +58,20 @@ void	open_textures(t_data *data)
 void select_right_hand(t_data *data)
 {
 	if (data->color == FIRE_COLOR && data->is_right_handed == true)
-		data->player_hand->path = "./texture/player_hand/red_right_hand.xpm";
+		data->player_hand->path = "./texture/player_hand/right_hand.xpm";
 	else if (data->color == FIRE_COLOR)
-		data->player_hand->path = "./texture/player_hand/red_left_hand.xpm";
+		data->player_hand->path = "./texture/player_hand/left_hand.xpm";
 	else if (data->color == EARTH_COLOR && data->is_right_handed == true)
-		data->player_hand->path = "./texture/player_hand/green_right_hand.xpm";
+		data->player_hand->path = "./texture/player_hand/right_hand.xpm";
 	else if (data->color == EARTH_COLOR)
-		data->player_hand->path = "./texture/player_hand/green_left_hand.xpm";
+		data->player_hand->path = "./texture/player_hand/left_hand.xpm";
 	else if (data->color == WATER_COLOR && data->is_right_handed == true)
-		data->player_hand->path = "./texture/player_hand/blue_right_hand.xpm";
+		data->player_hand->path = "./texture/player_hand/right_hand.xpm";
 	else if (data->color == WATER_COLOR)
-		data->player_hand->path = "./texture/player_hand/blue_left_hand.xpm";
+		data->player_hand->path = "./texture/player_hand/left_hand.xpm";
 	else if (data->color == AIR_COLOR && data->is_right_handed == true)
-		data->player_hand->path = "./texture/player_hand/white_right_hand.xpm";
+		data->player_hand->path = "./texture/player_hand/right_hand.xpm";
 	else if (data->color == AIR_COLOR)
-		data->player_hand->path = "./texture/player_hand/white_left_hand.xpm";
+		data->player_hand->path = "./texture/player_hand/left_hand.xpm";
 	open_img(data->player_hand, data);
 }
