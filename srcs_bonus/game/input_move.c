@@ -132,7 +132,6 @@ static void key_select_hand(int keycode, t_data *data)
 		else
 			data->is_right_handed = false;
 		select_right_hand(data);
-
 		data->status = GAME;
 	}
 	else if (keycode == KEY_ESCAPE)
@@ -146,8 +145,6 @@ static void	handle_menu_keys(int keycode, t_data *data)
 	else if (data->is_right_handed == 0)
 		key_select_hand(keycode, data);
 }
-
-#include <stdio.h>
 
 int	key_press(int keycode, t_data *data)
 {

@@ -33,10 +33,10 @@
 # define _BLIME		"\033[48;2;0;255;0m"
 # define _BORANGE	"\033[48;2;255;165;0m"
 
-# define FIRE_COLOR 16711680
-# define AIR_COLOR  16777215
-# define EARTH_COLOR 65280
-# define WATER_COLOR 255
+# define FIRE_COLOR 0xFF0000
+# define AIR_COLOR  0xFFFFFE
+# define EARTH_COLOR 0x00FF00
+# define WATER_COLOR 0x0000FF
 # define WHITE 		0xFFFFFF
 # define YELLOW		0xFFFF00
 

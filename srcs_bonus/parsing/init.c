@@ -4,6 +4,7 @@
 #include "utils_bonus.h"
 #include <math.h>
 #include "time_bonus.h"
+#include <color_bonus.h>
 
 static void	init_texture(t_data *data)
 {
@@ -102,7 +103,7 @@ static void	init_coa(t_data *data)
 	ft_bzero(data->coa[0].img_coa, sizeof(t_img));
 	data->coa[0].img_coa->mlx = data->mlx.mlx;
 	data->coa[0].name = "Fire";
-	data->coa[0].color = 0xFF0000;
+	data->coa[0].color = FIRE_COLOR;
 	data->coa[0].img_coa->path = "texture/menu/fire.xpm";
 
 	data->coa[1].img_coa = malloc(sizeof(t_img));
@@ -111,7 +112,7 @@ static void	init_coa(t_data *data)
 	ft_bzero(data->coa[1].img_coa, sizeof(t_img));
 	data->coa[1].img_coa->mlx = data->mlx.mlx;
 	data->coa[1].name = "Water";
-	data->coa[1].color = 0x0000FF;
+	data->coa[1].color = WATER_COLOR;
 	data->coa[1].img_coa->path = "texture/menu/water.xpm";
 
 	data->coa[2].img_coa = malloc(sizeof(t_img));
@@ -120,7 +121,7 @@ static void	init_coa(t_data *data)
 	ft_bzero(data->coa[2].img_coa, sizeof(t_img));
 	data->coa[2].img_coa->mlx = data->mlx.mlx;
 	data->coa[2].name = "Earth";
-	data->coa[2].color = 0x00FF00;
+	data->coa[2].color = EARTH_COLOR;
 	data->coa[2].img_coa->path = "texture/menu/earth.xpm";
 
 	data->coa[3].img_coa = malloc(sizeof(t_img));
@@ -129,7 +130,7 @@ static void	init_coa(t_data *data)
 	ft_bzero(data->coa[3].img_coa, sizeof(t_img));
 	data->coa[3].img_coa->mlx = data->mlx.mlx;
 	data->coa[3].name = "Air";
-	data->coa[3].color = 0xFFFFFF;
+	data->coa[3].color = AIR_COLOR;
 	data->coa[3].img_coa->path = "texture/menu/air.xpm";
 	data->selected = 0;
 
