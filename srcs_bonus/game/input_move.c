@@ -147,6 +147,8 @@ static void	handle_menu_keys(int keycode, t_data *data)
 		key_select_hand(keycode, data);
 }
 
+#include <stdio.h>
+
 int	key_press(int keycode, t_data *data)
 {
 	int	i;
@@ -159,7 +161,15 @@ int	key_press(int keycode, t_data *data)
 	i = 0;
 	while (data->keycode[i] != 0 && i < KEYCODE_NB)
 		i++;
-	data->keycode[i] = keycode;
+	if (keycode == KEY_1)
+	{
+		if (!data->spell.active)
+			data->spell.active = true;
+		else
+			data->spell.active = false;
+	}
+	else
+		data->keycode[i] = keycode;
 	if (keycode == KEY_ALT)
 		mlx_mouse_show(data->mlx.mlx, data->mlx.win);
 	else if (keycode == KEY_SHIFT)
