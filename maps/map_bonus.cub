@@ -2,10 +2,9 @@ NO ./texture/wall_y.xpm
 SO ./texture/wall_y.xpm
 WE ./texture/wall_x.xpm
 EA                    ./texture/wall_x.xpm
-
-                  
-F      20,0,     0
-C 225,30,0
+FL ./texture/floor.xpm
+CE ./texture/ceiling.xpm
+              
 
 11111111111111111111111111111111111111111111111111111
 1       100000000011000000000000000000000000000000001

@@ -156,8 +156,6 @@ struct s_map
 	t_img	*south;
 	t_img	*west;
 	t_img	*east;
-	t_img	*text_floor;
-	t_img	*text_sky;
 	t_mini	mini;
 	t_color	*floor;
 	t_color	*ceiling;

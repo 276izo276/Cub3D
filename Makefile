@@ -92,8 +92,8 @@ FILES_BONUS	+=	$(addprefix srcs_bonus/utils/,$(UTILS_BONUS))
 PARSING_BONUS	=							\
 				read_content.c				\
 				start_parsing.c				\
-				fill_color.c				\
 				fill_texture.c				\
+				fill_texture_wall.c			\
 				fill_texture_utils.c		\
 				check_map_is_closed.c		\
 				open_texture.c				\

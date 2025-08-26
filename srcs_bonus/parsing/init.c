@@ -7,18 +7,18 @@
 
 static void	init_texture(t_data *data)
 {
-	data->map.text_floor = malloc(sizeof(t_img));
-	if (!data->map.text_floor)
-		f_exit(data, 1);
-	ft_bzero(data->map.text_floor, sizeof(t_img));
-	data->map.text_floor->mlx = data->mlx.mlx;
-	data->map.text_floor->path = "./texture/wall4k.xpm";
-	data->map.text_sky = malloc(sizeof(t_img));
-	if (!data->map.text_sky)
-		f_exit(data, 1);
-	ft_bzero(data->map.text_sky, sizeof(t_img));
-	data->map.text_sky->mlx = data->mlx.mlx;
-	data->map.text_sky->path = "./texture/sky.xpm";
+	// data->map.text_floor = malloc(sizeof(t_img));
+	// if (!data->map.text_floor)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->map.text_floor, sizeof(t_img));
+	// data->map.text_floor->mlx = data->mlx.mlx;
+	// data->map.text_floor->path = "./texture/wall4k.xpm";
+	// data->map.text_sky = malloc(sizeof(t_img));
+	// if (!data->map.text_sky)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->map.text_sky, sizeof(t_img));
+	// data->map.text_sky->mlx = data->mlx.mlx;
+	// data->map.text_sky->path = "./texture/sky.xpm";
 	data->map.door = malloc(sizeof(t_img));
 	if (!data->map.door)
 		f_exit(data, 1);

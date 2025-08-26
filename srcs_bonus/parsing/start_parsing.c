@@ -8,7 +8,7 @@
 
 static int	fill_texture_color_data(t_lst *line, t_data *data)
 {
-	const char		*identifiers[] = {"NO", "SO", "WE", "EA", "F", "C", NULL};
+	const char		*identifiers[] = {"NO", "SO", "WE", "EA", "FL", "CE", NULL};
 	const t_txt_set	func_set_texture[] = {set_north, set_south, set_west,
 		set_east, set_floor, set_ceiling};
 	int				i;

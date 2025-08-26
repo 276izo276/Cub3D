@@ -49,11 +49,9 @@ static void	draw_texture_menu(t_data *data, t_img *texture, int final_x,
 
 static void select_your_coa(t_data *data)
 {
-	int	color;
 	int	start_x;
 	int	start_y;
 
-	color = 0;
 	start_x = (data->mlx.width - (2 * data->menu[0].img_coa->width + 200)) / 2;
 	start_y = (data->mlx.height - (2 * data->menu[0].img_coa->height - 100))
 		/ 2;

@@ -30,23 +30,23 @@ static void	get_coo_world(t_data *data, t_display *display, int x)
 static void	get_coo_text(t_data *data, t_display *display)
 {
 	display->text_x = (int)(((display->pos_cellx) / 64.0)
-			* data->map.text_sky->width);
+			* data->map.ceiling->width);
 	display->text_y = (int)(((display->pos_celly) / 64.0)
-			* data->map.text_sky->height);
+			* data->map.ceiling->height);
 	if (display->text_x < 0)
 		display->text_x = 0;
-	if (display->text_x >= data->map.text_sky->width)
-		display->text_x = data->map.text_sky->width - 1;
+	if (display->text_x >= data->map.ceiling->width)
+		display->text_x = data->map.ceiling->width - 1;
 	if (display->text_y < 0)
 		display->text_y = 0;
-	if (display->text_y >= data->map.text_sky->height)
-		display->text_y = data->map.text_sky->height - 1;
+	if (display->text_y >= data->map.ceiling->height)
+		display->text_y = data->map.ceiling->height - 1;
 }
 
 static void	put_text_pix_img(t_data *data, t_display *display, int x, int y)
 {
-	display->texture_pixel = data->map.text_sky->data_addr + (display->text_y
-			* data->map.text_sky->size_line + display->text_x
+	display->texture_pixel = data->map.ceiling->data_addr + (display->text_y
+			* data->map.ceiling->size_line + display->text_x
 			* display->text_bpp_frac);
 	display->color = *(unsigned int *)display->texture_pixel;
 	display->pixel_addr = data->screen->data_addr + (y * data->screen->size_line
@@ -70,7 +70,7 @@ void	*display_sky(void *ptr)
 		display.cos_angle = cos(data->map.mini.rad);
 		display.sin_angle = sin(data->map.mini.rad);
 		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
-		display.text_bpp_frac = data->map.text_sky->bits_per_pixel >> 3;
+		display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
 		y = 0;
 		while (y < data->screen->height / 2)
 		{

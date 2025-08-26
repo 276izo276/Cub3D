@@ -5,22 +5,6 @@
 #include <math.h>
 #include "time.h"
 
-static void	init_background(t_data *data)
-{
-	data->map.text_floor = malloc(sizeof(t_img));
-	if (!data->map.text_floor)
-		f_exit(data, 1);
-	ft_bzero(data->map.text_floor, sizeof(t_img));
-	data->map.text_floor->mlx = data->mlx.mlx;
-	data->map.text_floor->path = "./texture/wall4k.xpm";
-	data->map.text_sky = malloc(sizeof(t_img));
-	if (!data->map.text_sky)
-		f_exit(data, 1);
-	ft_bzero(data->map.text_sky, sizeof(t_img));
-	data->map.text_sky->mlx = data->mlx.mlx;
-	data->map.text_sky->path = "./texture/sky.xpm";
-}
-
 static void	fill_need_print(t_data *data)
 {
 	int	y;
@@ -94,5 +78,5 @@ void	init_data(t_data *data, int ac, char **av)
 	data->screen->height = data->mlx.height;
 	data->ac = ac;
 	data->av = av;
-	init_background(data);
+	// init_background(data);
 }

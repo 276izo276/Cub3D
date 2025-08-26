@@ -83,10 +83,8 @@ void	v_norm(t_mini *mini, t_data *data)
 
 static void	calc_dx_dy(t_data *data, int keycode, t_mini *mini)
 {
-	int	i;
 	int	angle;
 
-	i = -1;
 	angle = 0;
 	if (keycode == KEY_W)
 		angle = 0;
