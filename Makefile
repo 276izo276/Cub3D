@@ -129,6 +129,7 @@ GAME_BONUS		=							\
 				display/display_sky.c		\
 				menu/display_menu.c			\
 				menu/draw_border.c			\
+				spell/spell.c				\
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 

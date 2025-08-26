@@ -9,7 +9,8 @@
 bool	is_move_player(t_data *data, int i)
 {
 	if (data->keycode[i] == KEY_W || data->keycode[i] == KEY_D
-		|| data->keycode[i] == KEY_A || data->keycode[i] == KEY_S)
+		|| data->keycode[i] == KEY_A || data->keycode[i] == KEY_S
+		|| data->keycode[i] == KEY_1)
 		return (true);
 	return (false);
 }

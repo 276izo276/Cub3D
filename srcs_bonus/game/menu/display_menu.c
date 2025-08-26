@@ -2,16 +2,6 @@
 #include "mlx.h"
 #include "utils_bonus.h"
 
-static int	get_texture_pixel(t_img *texture, int x, int y)
-{
-	char	*pixel;
-
-	if (x < 0 || x >= texture->width || y < 0 || y >= texture->height)
-		return (0);
-	pixel = texture->data_addr + (y * texture->size_line + x
-			* (texture->bits_per_pixel / 8));
-	return (*(unsigned int *)pixel);
-}
 
 void	pixel_put(t_data *data, int x, int y, unsigned int color)
 {

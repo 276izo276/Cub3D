@@ -54,7 +54,6 @@ static void	put_text_pix_img(t_data *data, t_display *display, int x, int y)
 	*(unsigned int *)display->pixel_addr = display->color;
 }
 
-#include <unistd.h>
 void	*display_floor(void *ptr)
 {
 	int	x;

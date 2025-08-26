@@ -29,6 +29,7 @@ typedef	struct s_mini		t_mini;
 typedef struct s_utils_mini	t_utils_mini;
 typedef struct s_display	t_display;
 typedef struct s_menu		t_menu;
+typedef struct s_spell		t_spell;
 
 
 typedef	enum e_dir
@@ -186,6 +187,15 @@ struct s_display
 	unsigned int	color;
 };
 
+struct s_spell
+{
+	t_img	*lumos;
+	int		x_wand;
+	int		y_wand;
+	bool	active;
+	int		count_frame;
+};
+
 struct s_menu
 {
 	int		color;
@@ -208,6 +218,7 @@ struct s_data
 	t_mlx			mlx;
 	t_ray			*ray;
 	t_display		display;
+	t_spell			spell;
 	int				keycode[100];
 	pthread_mutex_t	nb_ray;
 	pthread_t		thread_wall;

@@ -37,6 +37,9 @@ void	calc_sqrt(t_data *data, int i);
 //display game
 void    display_game(t_data *data);
 
+//TODO display_hand (a move dans un utils ?)
+int		get_texture_pixel(t_img *texture, int x, int y);
+
 //input_move.c
 bool	is_move_player(t_data *data, int i);
 int		mouse_move(int x, int y, t_data *data);
@@ -62,6 +65,9 @@ void 	display_menu(t_data *data);
 void	draw_select_border(t_data *data, int start_x, int start_y);
 void	pixel_put(t_data *data, int x, int y, unsigned int color);
 void	select_right_hand(t_data *data);
+
+//spell.c
+void	spell_lumos(t_data *data);
 
 typedef enum e_key_down
 {

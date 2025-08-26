@@ -1,7 +1,8 @@
 #include "struct_bonus.h"
 #include "cub3d_bonus.h"
+#include "color_bonus.h"
 
-static int	get_texture_pixel(t_img *texture, int x, int y)
+int	get_texture_pixel(t_img *texture, int x, int y)
 {
 	char	*pixel;
 
@@ -30,7 +31,7 @@ static void display_wand(t_data *data, int pos_x, int pos_y)
 		while (x < data->player_wand->width)
 		{
 			color = get_texture_pixel(data->player_wand, x, y);
-			if (color != 0xFFFFFF)
+			if (color != WHITE)
 			{
 				pixel_put(data, x + pos_x, pos_y + y, color);
 			}
@@ -38,6 +39,8 @@ static void display_wand(t_data *data, int pos_x, int pos_y)
 		}
 		++y;
 	}
+	data->spell.x_wand = pos_x;
+	data->spell.y_wand = pos_y;
 }
 
 void	display_hand(t_data *data)
@@ -47,6 +50,7 @@ void	display_hand(t_data *data)
 	unsigned int	color;
 	int				pos_x;
 	int				pos_y;
+
 	if (data->is_right_handed == true)
 	{
 		pos_x = (data->mlx.width / 2) + data->player_hand->width / 4 - 100;
@@ -74,4 +78,6 @@ void	display_hand(t_data *data)
 		}
 		++y;
 	}
+	if (data->spell.active == true)
+		spell_lumos(data);
 }

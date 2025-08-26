@@ -37,5 +37,6 @@
 # define AIR_COLOR  16777215
 # define EARTH_COLOR 65280
 # define WATER_COLOR 255
+# define WHITE 		0xFFFFFF
 
 #endif

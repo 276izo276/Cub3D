@@ -36,7 +36,12 @@ static void	init_texture(t_data *data)
 	ft_bzero(data->player_wand, sizeof(t_img));
 	data->player_wand->mlx = data->mlx.mlx;
 	data->player_wand->path = "./texture/player_hand/wand_sureau.xpm";
-	// data->player_wand->path = "./texture/door1.xpm";
+	data->spell.lumos = malloc(sizeof(t_img));
+	if (!data->spell.lumos)
+		f_exit(data, 1);
+	ft_bzero(data->spell.lumos, sizeof(t_img));
+	data->spell.lumos->mlx = data->mlx.mlx;
+	data->spell.lumos->path = "./texture/player_hand/lumos.xpm";
 }
 
 static void	fill_need_print(t_data *data)
@@ -171,6 +176,10 @@ void	init_data(t_data *data, int ac, char **av)
 	data->screen->height = data->mlx.height;
 	data->ac = ac;
 	data->av = av;
+	data->spell.x_wand = 0;
+	data->spell.y_wand = 0;
+	data->spell.count_frame = 0;
+	data->spell.active = false;
 	init_menu(data);
 	init_texture(data);
 }

@@ -46,6 +46,7 @@ void	open_textures(t_data *data)
 	open_img(data->select, data);
 	open_img(data->select_hand, data);
 	open_img(data->player_wand, data);
+	open_img(data->spell.lumos, data);
 	if (!data->map.ceiling || !data->map.floor)
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
