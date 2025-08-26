@@ -14,6 +14,7 @@
 # define FPM 60.0
 # define GAME 1
 # define MENU 0
+# define KEYCODE_NB 100
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
