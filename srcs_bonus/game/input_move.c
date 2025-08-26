@@ -164,7 +164,10 @@ int	key_press(int keycode, t_data *data)
 	if (keycode == KEY_1)
 	{
 		if (!data->spell.active)
+		{
 			data->spell.active = true;
+			data->spell.count_frame = 50;
+		}
 		else
 			data->spell.active = false;
 	}
