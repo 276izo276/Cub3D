@@ -232,6 +232,7 @@ struct s_coa
 	int		color;
 	char	*name;
 	t_img	*img_coa;
+	t_img 	*border;
 };
 
 struct s_data
@@ -265,6 +266,8 @@ struct s_data
 	t_img			*select_hand;
 	t_img			*player_hand;
 	t_img			*player_wand;
+	t_img			*left_select;
+	t_img			*right_select;
 	bool				is_right_handed;
 	int	nb_door;
 	t_door	**doors;

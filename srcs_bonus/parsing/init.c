@@ -105,37 +105,58 @@ static void	init_coa(t_data *data)
 	if (!data->coa[0].img_coa)
 		f_exit(data, 1);
 	ft_bzero(data->coa[0].img_coa, sizeof(t_img));
+	data->coa[0].border = malloc(sizeof(t_img));
+	if (!data->coa[0].border)
+		f_exit(data, 1);
+	ft_bzero(data->coa[0].border, sizeof(t_img));
 	data->coa[0].img_coa->mlx = data->mlx.mlx;
 	data->coa[0].name = "Fire";
 	data->coa[0].color = FIRE_COLOR;
 	data->coa[0].img_coa->path = "texture/menu/fire.xpm";
+	data->coa[0].border->path = "texture/menu/border_fire.xpm";
 
 	data->coa[1].img_coa = malloc(sizeof(t_img));
 	if (!data->coa[1].img_coa)
 		f_exit(data, 1);
 	ft_bzero(data->coa[1].img_coa, sizeof(t_img));
+	data->coa[1].border = malloc(sizeof(t_img));
+	if (!data->coa[1].border)
+		f_exit(data, 1);
+	ft_bzero(data->coa[1].border, sizeof(t_img));
 	data->coa[1].img_coa->mlx = data->mlx.mlx;
 	data->coa[1].name = "Water";
 	data->coa[1].color = WATER_COLOR;
 	data->coa[1].img_coa->path = "texture/menu/water.xpm";
+	data->coa[1].border->path = "texture/menu/border_water.xpm";
 
 	data->coa[2].img_coa = malloc(sizeof(t_img));
 	if (!data->coa[2].img_coa)
 		f_exit(data, 1);
 	ft_bzero(data->coa[2].img_coa, sizeof(t_img));
+	data->coa[2].border = malloc(sizeof(t_img));
+	if (!data->coa[2].border)
+		f_exit(data, 1);
+	ft_bzero(data->coa[2].border, sizeof(t_img));
 	data->coa[2].img_coa->mlx = data->mlx.mlx;
 	data->coa[2].name = "Earth";
 	data->coa[2].color = EARTH_COLOR;
 	data->coa[2].img_coa->path = "texture/menu/earth.xpm";
+	data->coa[2].border->path = "texture/menu/border_earth.xpm";
 
 	data->coa[3].img_coa = malloc(sizeof(t_img));
 	if (!data->coa[3].img_coa)
 		f_exit(data, 1);
 	ft_bzero(data->coa[3].img_coa, sizeof(t_img));
+	data->coa[3].border = malloc(sizeof(t_img));
+	if (!data->coa[3].border)
+		f_exit(data, 1);
+	ft_bzero(data->coa[3].border, sizeof(t_img));
 	data->coa[3].img_coa->mlx = data->mlx.mlx;
 	data->coa[3].name = "Air";
 	data->coa[3].color = AIR_COLOR;
 	data->coa[3].img_coa->path = "texture/menu/air.xpm";
+	data->coa[3].border->path = "texture/menu/border_air.xpm";
+
 	data->selected = 0;
 
 	data->select = malloc(sizeof(t_img));
@@ -144,6 +165,21 @@ static void	init_coa(t_data *data)
 	ft_bzero(data->select, sizeof(t_img));
 	data->select->mlx = data->mlx.mlx;
 	data->select->path = "texture/menu/select.xpm";
+
+	data->left_select = malloc(sizeof(t_img));
+	if (!data->left_select)
+		f_exit(data, 1);
+	ft_bzero(data->left_select, sizeof(t_img));
+	data->left_select->mlx = data->mlx.mlx;
+	data->left_select->path = "texture/menu/left_select.xpm";
+
+	data->right_select = malloc(sizeof(t_img));
+	if (!data->right_select)
+		f_exit(data, 1);
+	ft_bzero(data->right_select, sizeof(t_img));
+	data->right_select->mlx = data->mlx.mlx;
+	data->right_select->path = "texture/menu/right_select.xpm";
+
 
 	data->select_hand = malloc(sizeof(t_img));
 	if (!data->select_hand)

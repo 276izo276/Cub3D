@@ -72,33 +72,19 @@ int	key_release(int keycode, t_data *data)
 
 static void	key_select_coa(int keycode, t_data *data)
 {
-	if (keycode == 65362)
+	if (keycode == 65361)
 	{
-		if (data->selected >= 2)
-			data->selected -= 2;
+		if (data->selected == 0)
+			data->selected = 3;
 		else
-			data->selected += 2;
-	}
-	else if (keycode == 65364)
-	{
-		if (data->selected < 2)
-			data->selected += 2;
-		else
-			data->selected -= 2;
-	}
-	else if (keycode == 65361)
-	{
-		if (data->selected % 2 == 1)
 			data->selected -= 1;
-		else
-			data->selected += 1;
 	}
 	else if (keycode == 65363)
 	{
-		if (data->selected % 2 == 0)
-			data->selected += 1;
+		if (data->selected == 3)
+			data->selected = 0;
 		else
-			data->selected -= 1;
+			data->selected += 1;
 	}
 	else if (keycode == 65293)
 	{
