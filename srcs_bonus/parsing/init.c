@@ -201,7 +201,7 @@ void	init_data(t_data *data, int ac, char **av)
 		f_exit(data, 1);
 	}
 	// mlx_get_screen_size(data->mlx.mlx, &data->mlx.width, &data->mlx.height);
-	data->mlx.height = 1080;
+	data->mlx.height = 1110;
 	data->mlx.width = 1920;
 	data->nb_coalition = 4;
 	data->status = MENU;

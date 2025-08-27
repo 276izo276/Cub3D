@@ -105,7 +105,7 @@ static void select_your_hand(t_data *data)
 	int	start_x;
 	int start_y;
 
-	start_y = data->mlx.height - 413;
+	start_y = data->mlx.height - 440;
 	color = 0;
 	y = 0;
 
@@ -134,7 +134,7 @@ static void select_your_hand(t_data *data)
 		}
 		++y;
 	}
-	y = data->mlx.height - 315;
+	y = data->mlx.height - 345;
 	x = 530;
 	if (data->selected == 1)
 		x += 625;
