@@ -93,6 +93,7 @@ static void	init_ray(t_data *data)
 			ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
 			j++;
 		}
+		++i;
 	}
 	i = 0;
 	ft_bzero(data->ray, sizeof(t_ray) * data->mlx.width);
