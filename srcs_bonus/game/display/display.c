@@ -100,6 +100,8 @@ static void	display_game_loop(t_data *data, int i)
 	}
 }
 
+#include <stdio.h>
+
 void	display_game(t_data *data)
 {
 	int	i;

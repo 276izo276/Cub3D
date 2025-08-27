@@ -53,14 +53,14 @@ void	display_door(t_data *data, int i)
 	int	j;
 
 	j = 0;
-	// printf("HERE >>%d  %p\n",i,data->ray[i].doors);
+	// printf("HERE CHECK IN >>i>>%d      value use>>%d\n",i,data->ray[i].doors[j]->use);
 	while (j < data->nb_door && data->ray[i].doors[j]->use != false)
 	{
-		if (!data->ray[i].doors[j]->print)
-		{
-			j++;
-			continue;
-		}
+		// if (!data->ray[i].doors[j]->print)
+		// {
+		// 	j++;
+		// 	continue;
+		// }
 		check_dir(data, i, j);
 		text_x = data->ray[i].doors[j]->texture_coo.x
 			* (data->map.door->bits_per_pixel >> 3);
@@ -77,6 +77,7 @@ void	display_door(t_data *data, int i)
 			data->ray[i].pix_y++;
 		}
 		data->ray[i].doors[j]->use = false;
+		// printf("RESET USE I>>>%d j>>%d\n",i,j);
 		ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
 		j++;
 	}
