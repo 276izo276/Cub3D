@@ -9,13 +9,13 @@ static void	check_dir(t_data *data, int i, int j)
 	posx_display = 0;
 	if (data->ray[i].doors[j]->dir == NORTH || data->ray[i].doors[j]->dir == SOUTH)
 	{
-		posx_display = data->ray[i].coo_x / 64;
+		posx_display = data->ray[i].doors[j]->coo_x / 64;
 		if (data->ray[i].doors[j]->dir == NORTH)
 			posx_display = 1 - posx_display;
 	}
 	else if (data->ray[i].doors[j]->dir == WEST || data->ray[i].doors[j]->dir == EAST)
 	{
-		posx_display = data->ray[i].coo_y / 64;
+		posx_display = data->ray[i].doors[j]->coo_y / 64;
 		if (data->ray[i].doors[j]->dir == EAST)
 			posx_display = 1 - posx_display;
 	}

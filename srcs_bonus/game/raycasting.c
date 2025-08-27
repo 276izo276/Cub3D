@@ -106,11 +106,11 @@ static void	calc_door_value(t_data *data, int i, double x)
 	while (j < data->nb_door && data->ray[i].doors[j]->use != false)
 	{
 		calc_sqrt_door(data, i, j);
-		printf("dist >>>%lf    i>>%d    j>>%d\n",data->ray[i].doors[j]->dist_door,i,j);
+		// printf("dist >>>%lf    i>>%d    j>>%d\n",data->ray[i].doors[j]->dist_door,i,j);
 		data->ray[i].doors[j]->dist_door *= cos(atan(x));
 		data->ray[i].doors[j]->size_door = data->ray[i].d_proj
 			/ (double)(data->ray[i].doors[j]->dist_door / 64.0);
-		printf("size door>>>%lf\n",data->ray[i].doors[j]->size_door);
+		// printf("size door>>>%lf\n",data->ray[i].doors[j]->size_door);
 		data->ray[i].doors[j]->max_size_door = data->ray[i].doors[j]->size_door * 0.5;
 		// printf("max size door>>>%lf\n",data->ray[i].doors[j]->max_size_door);
 		data->ray[i].doors[j]->htop_door = round(data->ray[i].max_height

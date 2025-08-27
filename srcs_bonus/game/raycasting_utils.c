@@ -43,8 +43,13 @@ int	handle_ray_y_top(t_data *data, int i)
 			data->ray[i].doors[j]->ry = -data->ray[i].doors[j]->coo_y / data->ray[i].delta_y;
 		if (data->ray[i].doors[j]->rx < data->ray[i].doors[j]->ry)
 		{
-			if (data->ray[i].doors[j]->coo_y + data->ray[i].doors[j]->rx * data->ray[i].delta_y < 32)
+			printf("HIT LEFT RIGHT >>>%lf\n",data->ray[i].doors[j]->rx * data->ray[i].delta_y);
+			if (64 - data->ray[i].doors[j]->rx * data->ray[i].delta_y < 32)
 				data->ray[i].doors[j]->print = true;
+			else
+			{
+				printf("NOT HIT DOOR\n");
+			}
 		}
 		else
 			data->ray[i].doors[j]->print = true;
