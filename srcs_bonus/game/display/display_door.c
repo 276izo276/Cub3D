@@ -27,14 +27,14 @@ static void	check_dir(t_data *data, int i, int j)
 		data->ray[i].doors[j]->texture_coo.x = data->map.door->width - 1;
 }
 
-static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x)
+static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x, int j)
 {
 	char			*text_pix;
 	int				text_y;
 	char			*pixel_addr;
 	unsigned int	color;
 
-	text_y = (data->ray[i].pix_y - data->ray[i].htop_wall)
+	text_y = (data->ray[i].pix_y - data->ray[i].doors[j]->htop_door)
 		* data->map.door->height / dist_heigh;
 	pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
 			* data->screen->size_line);
@@ -56,24 +56,25 @@ void	display_door(t_data *data, int i)
 	// printf("HERE CHECK IN >>i>>%d      value use>>%d\n",i,data->ray[i].doors[j]->use);
 	while (j < data->nb_door && data->ray[i].doors[j]->use != false)
 	{
-		// if (!data->ray[i].doors[j]->print)
-		// {
-		// 	j++;
-		// 	continue;
-		// }
+		if (data->ray[i].doors[j]->print == false)
+		{
+			ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
+			j++;
+			continue;
+		}
 		check_dir(data, i, j);
 		text_x = data->ray[i].doors[j]->texture_coo.x
 			* (data->map.door->bits_per_pixel >> 3);
 		data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
 			* data->ray[i].calc_bits;
-		data->ray[i].pix_y = data->ray[i].htop_wall;
+		data->ray[i].pix_y = data->ray[i].doors[j]->htop_door;
 		if (data->ray[i].pix_y < 0)
 			data->ray[i].pix_y = 0;
-		dist_heigh = data->ray[i].hbot_wall - data->ray[i].htop_wall;
-		while (data->ray[i].pix_y < data->ray[i].hbot_wall
+		dist_heigh = data->ray[i].doors[j]->hbot_door - data->ray[i].doors[j]->htop_door;
+		while (data->ray[i].pix_y < data->ray[i].doors[j]->hbot_door
 			&& data->ray[i].pix_y < data->mlx.height)
 		{
-			put_text_pix_img(data, i, dist_heigh, text_x);
+			put_text_pix_img(data, i, dist_heigh, text_x, j);
 			data->ray[i].pix_y++;
 		}
 		data->ray[i].doors[j]->use = false;

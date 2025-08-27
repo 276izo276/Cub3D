@@ -70,6 +70,8 @@ struct s_hit_door
 	double	hbot_door;
 	int		dir;
 	t_coo	texture_coo;
+	double	ry;
+	double	rx;
 };
 
 
