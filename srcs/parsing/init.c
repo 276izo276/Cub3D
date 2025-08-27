@@ -54,6 +54,7 @@ static void	init_ray(t_data *data)
 void	init_data(t_data *data, int ac, char **av)
 {
 	ft_bzero(data, sizeof(t_data));
+
 	data->time_fps = get_mtime();
 	data->time_move = get_mtime();
 	fill_need_print(data);

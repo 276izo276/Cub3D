@@ -25,7 +25,7 @@ static void	init_texture(t_data *data)
 		f_exit(data, 1);
 	ft_bzero(data->map.door, sizeof(t_img));
 	data->map.door->mlx = data->mlx.mlx;
-	data->map.door->path = "./texture/door.xpm";
+	data->map.door->path = "./texture/door2.xpm";
 	data->player_hand = malloc(sizeof(t_img));
 	if (!data->player_hand)
 		f_exit(data, 1);
@@ -67,36 +67,21 @@ static void	fill_need_print(t_data *data)
 	}
 }
 
+#include <stdio.h>
+
 static void	init_ray(t_data *data)
 {
 	double	fov;
 	int		i;
-	int		j;
 
-	i = 0;
 	fov = data->mlx.height / 2 * tan((45 * (M_PI / 180)));
 	data->ray = malloc(sizeof(t_ray) * data->mlx.width);
 	if (data->ray == NULL)
 		f_exit(data, 1);
-	while (i < data->mlx.width)
-	{
-		data->ray[i].doors = malloc(sizeof(t_hit_door *) * data->nb_door);
-		if (!data->ray[i].doors)
-			f_exit(data, 1);
-		ft_bzero(data->ray[i].doors, sizeof(t_hit_door *) * data->nb_door);
-		j = 0;
-		while (j < data->nb_door)
-		{
-			data->ray[i].doors[j] = malloc(sizeof(t_hit_door));
-			if (!data->ray[i].doors[j])
-				f_exit(data, 1);
-			ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
-			j++;
-		}
-		++i;
-	}
-	i = 0;
 	ft_bzero(data->ray, sizeof(t_ray) * data->mlx.width);
+	printf("width>>>%d\n",data->mlx.width);
+	
+	i = 0;
 	// if (data->mlx.height < data->mlx.width)
 		// fov *= (data->mlx.width / data->mlx.height);
 	// else

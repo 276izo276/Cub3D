@@ -1,24 +1,37 @@
 #include "cub3d_bonus.h"
 #include <math.h>
 
+#include <stdio.h>
+
+
+
 int	handle_ray_y_top(t_data *data, int i)
 {
 	// int	x;
 	// int	y;
 
-	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == 'D')	
+	if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] == 'D')	
 	{
 		int	j = 0;
 		while (j < data->nb_door)
 		{
-			if (data->ray[i].doors[j] == NULL)
+			// printf("in\n");
+			if (data->ray[i].doors[j]->use == false)
 				break;
 			j++;
 		}
-
+		if (data->ray[i].delta_y < 0)
+			data->ray[i].doors[j]->dir = SOUTH;
+		else
+			data->ray[i].doors[j]->dir = NORTH;
+		data->ray[i].doors[j]->use = true;
 		data->ray[i].doors[j]->case_y = data->ray[i].case_y - 1;
 		data->ray[i].doors[j]->coo_y = 32;
 		data->ray[i].doors[j]->coo_x = data->ray[i].coo_x + data->ray[i].ry / 2 * data->ray[i].delta_x;
+		// if (data->ray[i].coo_x + data->ray[i].ry * data->ray[i].delta_x > 32)
+		// 	data->ray[i].doors[j]->print = true;
+		// set_valid_door();
+		// printf("top_y>>>%lf\n",data->ray[i].doors[j]->coo_x);
 	}
 	if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != '1'
 	)//&& data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != 'D')
@@ -56,19 +69,26 @@ int	handle_ray_y_down(t_data *data, int i)
 	// int	x;
 	// int	y;
 
-	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == 'D')	
+	if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] == 'D')	
 	{
 		int	j = 0;
 		while (j < data->nb_door)
 		{
-			if (data->ray[i].doors[j] == NULL)
+			if (data->ray[i].doors[j] == false)
 				break;
 			j++;
 		}
 
+		if (data->ray[i].delta_y < 0)
+			data->ray[i].doors[j]->dir = SOUTH;
+		else
+			data->ray[i].doors[j]->dir = NORTH;
+		data->ray[i].doors[j]->use = true;
 		data->ray[i].doors[j]->case_y = data->ray[i].case_y + 1;
 		data->ray[i].doors[j]->coo_y = 32;
 		data->ray[i].doors[j]->coo_x = data->ray[i].coo_x + data->ray[i].ry / 2 * data->ray[i].delta_x;
+		
+		// printf("top_y>>>%lf\n",data->ray[i].doors[j]->coo_x);
 	}
 	if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != '1'
 	)//&& data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != 'D')
@@ -104,19 +124,24 @@ int	handle_ray_x_left(t_data *data, int i)
 {
 	// int	x;
 	// int	y;
-	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == 'D')	
+	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] == 'D')	
 	{
 		int	j = 0;
 		while (j < data->nb_door)
 		{
-			if (data->ray[i].doors[j] == NULL)
+			if (data->ray[i].doors[j]->use == false)
 				break;
 			j++;
 		}
-		
+		if (data->ray[i].delta_x < 0)
+			data->ray[i].doors[j]->dir = EAST;
+		else
+			data->ray[i].doors[j]->dir = WEST;
+		data->ray[i].doors[j]->use = true;
 		data->ray[i].doors[j]->case_x = data->ray[i].case_x - 1;
 		data->ray[i].doors[j]->coo_x = 32;
 		data->ray[i].doors[j]->coo_y = data->ray[i].coo_y + data->ray[i].rx / 2 * data->ray[i].delta_y;
+		// printf("top_y>>>%lf\n",data->ray[i].doors[j]->coo_y);
 	}
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != '1'
 	)//&& data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != 'D')
@@ -157,13 +182,19 @@ int	handle_ray_x_right(t_data *data, int i)
 		int	j = 0;
 		while (j < data->nb_door)
 		{
-			if (data->ray[i].doors[j] == NULL)
+			if (data->ray[i].doors[j]->use == false)
 				break;
 			j++;
 		}
+		if (data->ray[i].delta_x < 0)
+			data->ray[i].doors[j]->dir = EAST;
+		else
+			data->ray[i].doors[j]->dir = WEST;
+		data->ray[i].doors[j]->use = true;
 		data->ray[i].doors[j]->case_x = data->ray[i].case_x + 1;
 		data->ray[i].doors[j]->coo_x = 32;
 		data->ray[i].doors[j]->coo_y = data->ray[i].coo_y + data->ray[i].rx / 2 * data->ray[i].delta_y;
+		// printf("top_y>>>%lf\n",data->ray[i].doors[j]->coo_y);
 	}
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] != '1')
 	{

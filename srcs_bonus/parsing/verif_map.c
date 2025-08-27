@@ -33,6 +33,52 @@ static void	is_valid_char_map(char c, int y, int x, t_data *data)
 	f_exit(data, 1);
 }
 
+static void	init_door(t_door *door, int y, int x)
+{
+	door->coo.y = y;
+	door->coo.x = x;
+	door->status = false;
+	door->pos = 0;
+}
+
+static void	add_door(t_data *data, int y, int x)
+{
+	t_door *door;
+	t_door **doors;
+	int	i;
+
+	door = malloc(sizeof(t_door));
+	if (!door)
+		f_exit(data, 1);
+	init_door(door, y, x);
+	i = 0;
+	while (data->doors && data->doors[i])
+		i++;
+	doors = malloc(sizeof(t_door *) * (i + 2));
+	printf("Malloc>>%d\n",i + 2);
+	if (!doors)
+	{
+		free(door);
+		f_exit(data, 1);
+	}
+	doors[i + 1] = NULL;
+	i = 0;
+	while (data->doors && data->doors[i])
+		doors[i] = data->doors[i];
+	printf(">>>%d",i);
+	doors[i] = door;
+	free(data->doors);
+	data->doors = doors;
+}
+
+static void	is_door(char c, int y, int x, t_data *data)
+{
+	if (c != 'D')
+		return ;
+	data->nb_door++;
+	add_door(data, y, x);
+}
+
 static void	check_map_valid_char(t_data *data)
 {
 	int	y;
@@ -45,6 +91,7 @@ static void	check_map_valid_char(t_data *data)
 		while (data->map.tabmap[y][x])
 		{
 			is_valid_char_map(data->map.tabmap[y][x], y, x, data);
+			is_door(data->map.tabmap[y][x], y, x, data);
 			x++;
 		}
 		if (x == 0)

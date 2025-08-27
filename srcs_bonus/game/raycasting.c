@@ -79,6 +79,45 @@ static void	save_data_ray(t_data *data, int i, double x)
 	data->ray[i].delta_y = sin(data->ray[i].rad);
 }
 
+static void	calc_sqrt_door(t_data *data, int i, int j)
+{
+	data->ray[i].doors[j]->dist_door = sqrt(((data->ray[i].doors[j]->case_y
+		- data->map.player_coo->y) * 64.0 + (data->ray[i].doors[j]->coo_y
+		- data->map.mini.player_coo.y)) * ((data->ray[i].doors[j]->case_y
+		- data->map.player_coo->y) * 64.0 + (data->ray[i].doors[j]->coo_y
+		- data->map.mini.player_coo.y)) + ((data->ray[i].doors[j]->case_x
+		- data->map.player_coo->x) * 64.0 + (data->ray[i].doors[j]->coo_x
+		- data->map.mini.player_coo.x)) * ((data->ray[i].doors[j]->case_x
+		- data->map.player_coo->x) * 64.0 + (data->ray[i].doors[j]->coo_x
+		- data->map.mini.player_coo.x)));
+}
+
+#include <stdio.h>
+
+static void	calc_door_value(t_data *data, int i, double x)
+{
+	int	j;
+
+	j = 0;
+	// printf("HERE >>%d  %p\n",i,data->ray[i].doors,data->ray[i].doors[j]);
+	// printf("TAB>>>%p  %d",j);
+	while (j < data->nb_door && data->ray[i].doors[j]->use != false)
+	{
+
+		calc_sqrt_door(data, i, j);
+		data->ray[i].doors[j]->dist_door *= cos(atan(x));
+		data->ray[i].doors[j]->size_door = data->ray[i].d_proj
+			/ (double)(data->ray[i].doors[j]->dist_door / 64.0);
+		data->ray[i].doors[j]->max_size_door = data->ray[i].doors[j]->size_door * 0.5;
+		data->ray[i].doors[j]->htop_door = round(data->ray[i].max_height
+				- data->ray[i].doors[j]->max_size_door);
+		data->ray[i].doors[j]->hbot_door = round(data->ray[i].max_height
+				+ data->ray[i].doors[j]->max_size_door);
+		j++;
+		// printf("TAB>>>%p  %d",data->ray[i].doors[j],j);
+	}
+}
+
 void	ray_launch(t_data *data)
 {
 	int		i;
@@ -91,6 +130,7 @@ void	ray_launch(t_data *data)
 		x = x * (-2) + 1;
 		save_data_ray(data, i, x);
 		handle_ray(data, i);
+		calc_door_value(data, i, x);
 		calc_sqrt(data, i);
 		data->ray[i].dist_wall *= cos(atan(x));
 		data->ray[i].size_wall = data->ray[i].d_proj

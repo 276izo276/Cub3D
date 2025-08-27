@@ -54,9 +54,6 @@ int	game_loop(t_data *data)
 			sem_post(data->sem_background);
 			sem_post(data->sem_background);
 			display_game(data);
-			mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
-			aff_mini_map(data);
-			display_hand(data);
 			pthread_barrier_wait(&data->barrier);
 		}
 	}

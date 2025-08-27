@@ -43,12 +43,43 @@ static void	create_thread(t_data *data)
 	pthread_detach(data->thread_floor);
 }
 
+#include <stdio.h>
+
+void	init_struct_door(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < data->mlx.width)
+	{
+		printf("i>>>%d\n",i);
+		data->ray[i].doors = malloc(sizeof(t_hit_door *) * (data->nb_door + 1));
+		if (!data->ray[i].doors)
+			f_exit(data, 1);
+		ft_bzero(data->ray[i].doors, sizeof(t_hit_door *) * (data->nb_door + 1));
+		j = 0;
+		printf("datanb door>>%d\n",data->nb_door);
+		while (j < data->nb_door)
+		{
+			printf("i>>>%d    j>>>%d\n",i,j);
+			data->ray[i].doors[j] = malloc(sizeof(t_hit_door));
+			if (!data->ray[i].doors[j])
+				f_exit(data, 1);
+			ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
+			j++;
+		}
+		++i;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
 
 	init_data(&data, ac, av);
 	parsing(&data);
+	init_struct_door(&data);
 	// init_mutex(&data);
 	init_semaphores(&data);
 	create_thread(&data);

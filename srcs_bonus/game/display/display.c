@@ -1,6 +1,7 @@
 #include "struct_bonus.h"
 #include "cub3d_bonus.h"
 #include <math.h>
+#include "mlx.h"
 
 static void	get_right_text(t_data *data, int i)
 {
@@ -108,6 +109,10 @@ void	display_game(t_data *data)
 	while (i < data->mlx.width)
 	{
 		display_game_loop(data, i);
+		display_door(data, i);
 		++i;
 	}
+	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
+	aff_mini_map(data);
+	display_hand(data);
 }

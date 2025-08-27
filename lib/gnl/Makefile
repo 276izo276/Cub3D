@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD 
+CFLAGS = -Wall -Wextra -Werror -MD -g3
 SHELL = /bin/bash
 SRCS = \
 get_next_line.c \

@@ -47,7 +47,7 @@ struct s_coo
 	int	y;
 };
 
-struct t_door
+struct s_door
 {
 	t_coo	coo;
 	double	pos;
@@ -61,6 +61,15 @@ struct s_hit_door
 	double	coo_x;
 	int		case_y;
 	int		case_x;
+	bool	use;
+	bool	print;
+	double	dist_door;
+	double	size_door;
+	double	max_size_door;
+	double	htop_door;
+	double	hbot_door;
+	int		dir;
+	t_coo	texture_coo;
 };
 
 
@@ -256,6 +265,7 @@ struct s_data
 	t_img			*player_wand;
 	bool				is_right_handed;
 	int	nb_door;
+	t_door	**doors;
 	// t_img	*wh;
 	// t_img	*bl;
 };
