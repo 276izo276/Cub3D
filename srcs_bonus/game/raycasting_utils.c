@@ -31,24 +31,9 @@ int	handle_ray_y_top(t_data *data, int i)
 		data->ray[i].doors[j]->use = true;
 		data->ray[i].doors[j]->case_x = data->ray[i].case_x;
 		data->ray[i].doors[j]->case_y = data->ray[i].case_y - 1;
-		data->ray[i].doors[j]->coo_y = 63.999;
+		data->ray[i].doors[j]->coo_y = 64;
 		data->ray[i].doors[j]->coo_x = data->ray[i].coo_x + data->ray[i].ry * data->ray[i].delta_x;
-		printf("rx>%lf ry>%lf  delta x>>>%lf    delta y>>>%lf    coo y>>>%lf    coo x>>>%lf    ",data->ray[i].rx,data->ray[i].ry,data->ray[i].delta_x,data->ray[i].delta_y,data->ray[i].doors[j]->coo_y,data->ray[i].doors[j]->coo_x);
-		// if (data->ray[i].delta_x > 0)
-		// 	data->ray[i].doors[j]->rx = (64 - data->ray[i].doors[j]->coo_x) / data->ray[i].delta_x;
-		// else
-		// 	data->ray[i].doors[j]->rx = -data->ray[i].doors[j]->coo_x / data->ray[i].delta_x;
-		// if (data->ray[i].delta_y > 0)
-		// 	data->ray[i].doors[j]->ry = (64 - data->ray[i].doors[j]->coo_y) / data->ray[i].delta_y;
-		// else
-		// 	data->ray[i].doors[j]->ry = -data->ray[i].doors[j]->coo_y / data->ray[i].delta_y;
-		// if (data->ray[i].doors[j]->rx < data->ray[i].doors[j]->ry)
-		// {
-		// 	if (64 - data->ray[i].doors[j]->rx * data->ray[i].delta_y < 32)
-		// 		data->ray[i].doors[j]->print = true;
-		// }
-		// else
-		// 	data->ray[i].doors[j]->print = true;
+
 		if (data->ray[i].delta_x > 0)
 			data->ray[i].doors[j]->rx = (64 - data->ray[i].doors[j]->coo_x) / data->ray[i].delta_x;
 		else
@@ -57,27 +42,19 @@ int	handle_ray_y_top(t_data *data, int i)
 		// 	data->ray[i].doors[j]->ry = (32 - data->ray[i].doors[j]->coo_y) / data->ray[i].delta_y;
 		// else
 		data->ray[i].doors[j]->ry = (-data->ray[i].doors[j]->coo_y + 32) / data->ray[i].delta_y;
-		printf("rx>>>%lf       ry>>>%lf  \n",data->ray[i].doors[j]->rx,data->ray[i].doors[j]->ry);
 		if (data->ray[i].doors[j]->rx < data->ray[i].doors[j]->ry)
 		{
-			// if (64 - data->ray[i].doors[j]->rx * data->ray[i].delta_y < 32)
 			data->ray[i].doors[j]->print = false;
 		}
 		else
 		{
 			data->ray[i].doors[j]->print = true;
 			data->ray[i].doors[j]->coo_x += data->ray[i].doors[j]->ry * data->ray[i].delta_x;
-			printf("coo_x modif>>>%lf\n",data->ray[i].doors[j]->coo_x);
 		}
 		data->ray[i].doors[j]->coo_y = 32;
-		// printf("j>>>>>%d\n",j);
-		// if (data->ray[i].coo_x + data->ray[i].ry * data->ray[i].delta_x > 32)
-			// data->ray[i].doors[j]->print = true;
-		// set_valid_door();
-		// printf("top_y>>>%lf\n",data->ray[i].doors[j]->coo_x);
 	}
 	if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != '1'
-	)//&& data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != 'D')
+	)
 	{
 		data->ray[i].case_y--;
 		data->ray[i].coo_y = 63.999;
@@ -133,25 +110,27 @@ int	handle_ray_y_down(t_data *data, int i)
 		data->ray[i].doors[j]->use = true;
 		data->ray[i].doors[j]->case_x = data->ray[i].case_x;
 		data->ray[i].doors[j]->case_y = data->ray[i].case_y + 1;
-		data->ray[i].doors[j]->coo_y = 32;
+		data->ray[i].doors[j]->coo_y = 0;
 		data->ray[i].doors[j]->coo_x = data->ray[i].coo_x + data->ray[i].ry * data->ray[i].delta_x;
-		// data->ray[i].doors[j]->print = false;
+		
 		if (data->ray[i].delta_x > 0)
 			data->ray[i].doors[j]->rx = (64 - data->ray[i].doors[j]->coo_x) / data->ray[i].delta_x;
 		else
 			data->ray[i].doors[j]->rx = -data->ray[i].doors[j]->coo_x / data->ray[i].delta_x;
-		if (data->ray[i].delta_y > 0)
-			data->ray[i].doors[j]->ry = (64 - data->ray[i].doors[j]->coo_y) / data->ray[i].delta_y;
-		else
-			data->ray[i].doors[j]->ry = -data->ray[i].doors[j]->coo_y / data->ray[i].delta_y;
+		// if (data->ray[i].delta_y > 0)
+		// 	data->ray[i].doors[j]->ry = (32 - data->ray[i].doors[j]->coo_y) / data->ray[i].delta_y;
+		// else
+		data->ray[i].doors[j]->ry = (-data->ray[i].doors[j]->coo_y + 32) / data->ray[i].delta_y;
 		if (data->ray[i].doors[j]->rx < data->ray[i].doors[j]->ry)
 		{
-			if (data->ray[i].doors[j]->coo_y + data->ray[i].doors[j]->rx * data->ray[i].delta_y > 32)
-				data->ray[i].doors[j]->print = true;
+			data->ray[i].doors[j]->print = false;
 		}
 		else
+		{
 			data->ray[i].doors[j]->print = true;
-		// printf("top_y>>>%lf\n",data->ray[i].doors[j]->coo_x);
+			data->ray[i].doors[j]->coo_x += data->ray[i].doors[j]->ry * data->ray[i].delta_x;
+		}
+		data->ray[i].doors[j]->coo_y = 32;
 	}
 	if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != '1'
 	)//&& data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != 'D')
@@ -203,25 +182,27 @@ int	handle_ray_x_left(t_data *data, int i)
 		data->ray[i].doors[j]->use = true;
 		data->ray[i].doors[j]->case_y = data->ray[i].case_y;
 		data->ray[i].doors[j]->case_x = data->ray[i].case_x - 1;
-		data->ray[i].doors[j]->coo_x = 32;
+		data->ray[i].doors[j]->coo_x = 64;
 		data->ray[i].doors[j]->coo_y = data->ray[i].coo_y + data->ray[i].rx * data->ray[i].delta_y;
 
-		if (data->ray[i].delta_x > 0)
-			data->ray[i].doors[j]->rx = (64 - data->ray[i].doors[j]->coo_x) / data->ray[i].delta_x;
-		else
-			data->ray[i].doors[j]->rx = -data->ray[i].doors[j]->coo_x / data->ray[i].delta_x;
+		// if (data->ray[i].delta_x > 0)
+		// 	data->ray[i].doors[j]->rx = (32 - data->ray[i].doors[j]->coo_x) / data->ray[i].delta_x;
+		// else
+		data->ray[i].doors[j]->rx = (-data->ray[i].doors[j]->coo_x + 32) / data->ray[i].delta_x;
 		if (data->ray[i].delta_y > 0)
 			data->ray[i].doors[j]->ry = (64 - data->ray[i].doors[j]->coo_y) / data->ray[i].delta_y;
 		else
-			data->ray[i].doors[j]->ry = -data->ray[i].doors[j]->coo_y / data->ray[i].delta_y;
+			data->ray[i].doors[j]->ry = (-data->ray[i].doors[j]->coo_y) / data->ray[i].delta_y;
 		if (data->ray[i].doors[j]->rx < data->ray[i].doors[j]->ry)
 		{
-			if (data->ray[i].doors[j]->coo_x + data->ray[i].doors[j]->ry * data->ray[i].delta_x > 32)
-				data->ray[i].doors[j]->print = true;
+			data->ray[i].doors[j]->print = true;
+			data->ray[i].doors[j]->coo_y += data->ray[i].doors[j]->rx * data->ray[i].delta_y;
 		}
 		else
-			data->ray[i].doors[j]->print = true;
-		// printf("top_y>>>%lf\n",data->ray[i].doors[j]->coo_y);
+		{
+			data->ray[i].doors[j]->print = false;
+		}
+		data->ray[i].doors[j]->coo_x = 32;
 	}
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != '1'
 	)//&& data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != 'D')
@@ -273,24 +254,27 @@ int	handle_ray_x_right(t_data *data, int i)
 		data->ray[i].doors[j]->use = true;
 		data->ray[i].doors[j]->case_y = data->ray[i].case_y;
 		data->ray[i].doors[j]->case_x = data->ray[i].case_x + 1;
-		data->ray[i].doors[j]->coo_x = 32;
+		data->ray[i].doors[j]->coo_x = 0;
 		data->ray[i].doors[j]->coo_y = data->ray[i].coo_y + data->ray[i].rx * data->ray[i].delta_y;
 
-		if (data->ray[i].delta_x > 0)
-			data->ray[i].doors[j]->rx = (64 - data->ray[i].doors[j]->coo_x) / data->ray[i].delta_x;
-		else
-			data->ray[i].doors[j]->rx = -data->ray[i].doors[j]->coo_x / data->ray[i].delta_x;
+		// if (data->ray[i].delta_x > 0)
+		data->ray[i].doors[j]->rx = (32 - data->ray[i].doors[j]->coo_x) / data->ray[i].delta_x;
+		// else
+		// data->ray[i].doors[j]->rx = (-data->ray[i].doors[j]->coo_x + 32) / data->ray[i].delta_x;
 		if (data->ray[i].delta_y > 0)
 			data->ray[i].doors[j]->ry = (64 - data->ray[i].doors[j]->coo_y) / data->ray[i].delta_y;
 		else
-			data->ray[i].doors[j]->ry = -data->ray[i].doors[j]->coo_y / data->ray[i].delta_y;
+			data->ray[i].doors[j]->ry = (-data->ray[i].doors[j]->coo_y) / data->ray[i].delta_y;
 		if (data->ray[i].doors[j]->rx < data->ray[i].doors[j]->ry)
 		{
-			if (data->ray[i].doors[j]->coo_x + data->ray[i].doors[j]->ry * data->ray[i].delta_x < 32)
-				data->ray[i].doors[j]->print = true;
+			data->ray[i].doors[j]->print = true;
+			data->ray[i].doors[j]->coo_y += data->ray[i].doors[j]->rx * data->ray[i].delta_y;
 		}
 		else
-			data->ray[i].doors[j]->print = true;
+		{
+			data->ray[i].doors[j]->print = false;
+		}
+		data->ray[i].doors[j]->coo_x = 32;
 			
 		// printf("top_y>>>%lf\n",data->ray[i].doors[j]->coo_y);
 	}

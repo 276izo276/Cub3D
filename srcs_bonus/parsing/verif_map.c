@@ -64,7 +64,10 @@ static void	add_door(t_data *data, int y, int x)
 	doors[i + 1] = NULL;
 	i = 0;
 	while (data->doors && data->doors[i])
+	{
 		doors[i] = data->doors[i];
+		i++;
+	}
 	printf(">>>%d",i);
 	doors[i] = door;
 	free(data->doors);
