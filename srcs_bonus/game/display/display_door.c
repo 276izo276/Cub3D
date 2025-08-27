@@ -41,7 +41,8 @@ static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x, in
 	text_pix = data->map.door->data_addr + (text_y
 			* data->map.door->size_line + text_x);
 	color = *(unsigned int *)text_pix;
-	*(unsigned int *)pixel_addr = color;
+	if (color != 0xFFFFFF)
+		*(unsigned int *)pixel_addr = color;
 }
 
 #include <stdio.h>
