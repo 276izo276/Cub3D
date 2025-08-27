@@ -1,7 +1,7 @@
 #include "cub3d_bonus.h"
 #include "mlx.h"
 #include "utils_bonus.h"
-
+#include <color_bonus.h>
 
 void	pixel_put(t_data *data, int x, int y, unsigned int color)
 {
@@ -42,18 +42,15 @@ static void select_your_coa(t_data *data)
 	int	start_x;
 	int	start_y;
 
-	start_x = (data->mlx.width - (2 * data->coa[0].img_coa->width + 200)) / 2;
-	start_y = (data->mlx.height - (2 * data->coa[0].img_coa->height - 100))
-		/ 2;
+	start_x = 250; //(data->mlx.width - (2 * data->coa[0].img_coa->width)) / 2;
+	start_y = data->mlx.height / 2;
 	draw_texture_menu(data, data->select, 0, 0);
 	draw_texture_menu(data, data->coa[0].img_coa, start_x, start_y);
 	draw_texture_menu(data, data->coa[1].img_coa, start_x
-		+ data->coa[0].img_coa->width + 150, start_y);
-	draw_texture_menu(data, data->coa[2].img_coa, start_x, start_y
-		+ data->coa[0].img_coa->height + 100);
+		+ data->coa[0].img_coa->width + 200, start_y);
+	draw_texture_menu(data, data->coa[2].img_coa, start_x + 2 * data->coa[0].img_coa->width + 400, start_y);
 	draw_texture_menu(data, data->coa[3].img_coa, start_x
-		+ data->coa[0].img_coa->width + 150, start_y
-		+ data->coa[0].img_coa->height + 100);
+		+ 3 * data->coa[0].img_coa->width + 600, start_y);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,
 		0);
 	draw_select_border(data, start_x, start_y);
@@ -102,12 +99,45 @@ static void draw_x_border(t_data *data, int x, int y)
 static void select_your_hand(t_data *data)
 {
 
-	int	y = data->mlx.height - 290;
-	int x = 550;
-	if (data->selected == 1)
-		x += 650;
+	int	x;
+	int	y;
+	unsigned int color;
+	int	start_x;
+	int start_y;
+
+	start_y = data->mlx.height - 440;
+	color = 0;
+	y = 0;
+
 	draw_texture_menu(data, data->select_hand, 0, 0);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0, 0);
+	while (y < data->left_select->height)
+	{
+		x = 0;
+		while (x < data->left_select->width)
+		{
+			if (data->selected == 1)
+			{
+				color = get_texture_pixel(data->right_select, x, y);
+				start_x = data->mlx.width - data->right_select->width - 290;
+			}
+			else
+			{
+				color = get_texture_pixel(data->left_select, x, y);
+				start_x = 290;
+			}
+			if (color != WHITE )
+			{
+				pixel_put(data, x + start_x, y + start_y, color);
+			}
+			++x;
+		}
+		++y;
+	}
+	y = data->mlx.height - 345;
+	x = 530;
+	if (data->selected == 1)
+		x += 625;
 	draw_y_border(data, x, y);
 	draw_x_border(data, x, y);
 }

@@ -44,6 +44,12 @@ void	open_textures(t_data *data)
 	open_img(data->coa[1].img_coa, data);
 	open_img(data->coa[2].img_coa, data);
 	open_img(data->coa[3].img_coa, data);
+	open_img(data->coa[0].border, data);
+	open_img(data->coa[1].border, data);
+	open_img(data->coa[2].border, data);
+	open_img(data->coa[3].border, data);
+	open_img(data->left_select, data);
+	open_img(data->right_select, data);
 	open_img(data->select, data);
 	open_img(data->select_hand, data);
 	open_img(data->player_wand, data);
