@@ -132,6 +132,7 @@ static void	handle_menu_keys(int keycode, t_data *data)
 		key_select_hand(keycode, data);
 }
 
+#include <stdio.h>
 int	key_press(int keycode, t_data *data)
 {
 	int	i;
@@ -156,7 +157,7 @@ int	key_press(int keycode, t_data *data)
 	}
 	else if (keycode == KEY_CTRL)
 	{
-		if (data->display.player_height != 16)
+		if (data->display.player_height != 16) // a changer on a plus besoins un bool suffit
 			data->display.player_height = 16;
 		else
 			data->display.player_height = 18;

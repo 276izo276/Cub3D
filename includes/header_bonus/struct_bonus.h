@@ -53,7 +53,7 @@ struct s_door
 	t_coo	first_p;
 	t_coo	second_p;
 	double	pos;
-	bool	status;
+	bool	is_open;
 	bool	is_verti;
 };
 

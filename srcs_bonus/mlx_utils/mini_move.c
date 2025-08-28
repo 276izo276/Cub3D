@@ -1,9 +1,14 @@
 #include "cub3d_bonus.h"
 #include <math.h>
 
-static void	move_x(t_map *map, t_mini *mini)
+static void	move_x(t_data *data, t_map *map, t_mini *mini)
 {
 	mini->dx = mini->player_coo.x - mini->dx * SPEED;
+	if ((map->tabmap[map->player_coo->y][map->player_coo->x + 1] == '1'
+		&& mini->dx >= 56)
+			|| (map->tabmap[map->player_coo->y][map->player_coo->x
+			- 1] == '1' && mini->dx <= 8))
+		return ;
 	if (mini->dx < 0)
 	{
 		if (map->tabmap[map->player_coo->y][map->player_coo->x - 1] == '1')
@@ -18,18 +23,27 @@ static void	move_x(t_map *map, t_mini *mini)
 		++map->player_coo->x;
 		mini->player_coo.x = mini->dx - 64;
 	}
-	else if ((map->tabmap[map->player_coo->y][map->player_coo->x + 1] == '1'
-		&& mini->dx == 62)
-			|| (map->tabmap[map->player_coo->y][map->player_coo->x
-			- 1] == '1' && mini->dx == 1))
-		return ;
 	else
+	{
+		if (data->map.tabmap[map->player_coo->y][map->player_coo->x] == 'D'
+			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == true
+			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_open == false)
+			{
+				if ((mini->dx <= 42 && mini->dx >= 22))
+					return ;
+			}
 		mini->player_coo.x = mini->dx;
+	}
 }
 
-static void	move_y(t_map *map, t_mini *mini)
+static void	move_y(t_data *data, t_map *map, t_mini *mini)
 {
 	mini->dy = mini->player_coo.y - mini->dy * SPEED;
+	if ((map->tabmap[map->player_coo->y + 1][map->player_coo->x + 1] == '1'
+	&& mini->dx >= 56)
+		|| (map->tabmap[map->player_coo->y - 1][map->player_coo->x
+		- 1] == '1' && mini->dx <= 8))
+		return ;
 	if (mini->dy < 0)
 	{
 		if (map->tabmap[map->player_coo->y - 1][map->player_coo->x] == '1')
@@ -44,12 +58,17 @@ static void	move_y(t_map *map, t_mini *mini)
 		++map->player_coo->y;
 		mini->player_coo.y = mini->dy - 64;
 	}
-	else if ((map->tabmap[map->player_coo->y + 1][map->player_coo->x] == '1'
-		&& mini->dy == 62) || (map->tabmap[map->player_coo->y
-			- 1][map->player_coo->x] == '1' && mini->dy == 1))
-		return ;
 	else
+	{
+		if (data->map.tabmap[map->player_coo->y][map->player_coo->x] == 'D'
+			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == false
+			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_open == false)
+			{
+				if ((mini->dy <= 42 && mini->dy >= 22))
+					return ;
+			}
 		mini->player_coo.y = mini->dy;
+	}
 }
 
 void	v_norm(t_mini *mini, t_data *data)
@@ -122,6 +141,6 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	}
 	else
 		v_norm(mini, data);
-	move_x(map, mini);
-	move_y(map, mini);
+	move_x(data, map, mini);
+	move_y(data, map, mini);
 }

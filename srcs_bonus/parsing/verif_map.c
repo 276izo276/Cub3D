@@ -37,7 +37,7 @@ static void	init_door(t_door *door, int y, int x)
 {
 	door->coo.y = y;
 	door->coo.x = x;
-	door->status = false;
+	door->is_open = false;
 	door->pos = 0;
 }
 
@@ -141,4 +141,5 @@ void	verif_map(t_data *data)
 		f_exit(data, 1);
 	}
 	check_map_is_closed(data);
+
 }

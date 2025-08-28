@@ -19,9 +19,9 @@ static void	move_x(t_map *map, t_mini *mini)
 		mini->player_coo.x = mini->dx - 64;
 	}
 	else if ((map->tabmap[map->player_coo->y][map->player_coo->x + 1] == '1'
-		&& mini->dx == 62)
+		&& mini->dx >= 62)
 			|| (map->tabmap[map->player_coo->y][map->player_coo->x
-			- 1] == '1' && mini->dx == 1))
+			- 1] == '1' && mini->dx <= 2))
 		return ;
 	else
 		mini->player_coo.x = mini->dx;
@@ -45,8 +45,8 @@ static void	move_y(t_map *map, t_mini *mini)
 		mini->player_coo.y = mini->dy - 64;
 	}
 	else if ((map->tabmap[map->player_coo->y + 1][map->player_coo->x] == '1'
-		&& mini->dy == 62) || (map->tabmap[map->player_coo->y
-			- 1][map->player_coo->x] == '1' && mini->dy == 1))
+		&& mini->dy >= 62) || (map->tabmap[map->player_coo->y
+			- 1][map->player_coo->x] == '1' && mini->dy <= 2))
 		return ;
 	else
 		mini->player_coo.y = mini->dy;
