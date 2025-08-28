@@ -61,6 +61,8 @@ void	display_hand(t_data *data)
 		pos_x = (data->mlx.width / 2) - data->player_hand->width / 4 - 150;
 		pos_y = (data->mlx.height - data->player_hand->height - 100);
 	}
+	if (data->display.player_height == 18)
+		pos_y += 80;
 	display_wand(data, pos_x, pos_y);
 	color = 0;
 	y = 0;

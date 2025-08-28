@@ -29,10 +29,21 @@ static void	get_coo_world(t_data *data, t_display *display, int x)
 
 static void	get_coo_text(t_data *data, t_display *display)
 {
-	display->text_x = (int)(((display->pos_cellx) / 64.0)
-			* data->map.floor->width);
-	display->text_y = (int)(((display->pos_celly) / 64.0)
-			* data->map.floor->height);
+	double	zoom_factor;
+	double	zoomed_x;
+	double	zoomed_y;
+
+	zoom_factor = 2.0 - (data->display.player_height / 16.0);
+	zoomed_x = display->pos_cellx * zoom_factor;
+	zoomed_y = display->pos_celly * zoom_factor;
+	zoomed_x = fmod(zoomed_x, 64.0);
+	if (zoomed_x < 0)
+		zoomed_x += 64.0;
+	zoomed_y = fmod(zoomed_y, 64.0);
+	if (zoomed_y < 0)
+		zoomed_y += 64.0;
+	display->text_x = (int)((zoomed_x / 64.0) * data->map.floor->width);
+	display->text_y = (int)((zoomed_y / 64.0) * data->map.floor->height);
 	if (display->text_x < 0)
 		display->text_x = 0;
 	if (display->text_x >= data->map.floor->width)
@@ -56,10 +67,10 @@ static void	put_text_pix_img(t_data *data, t_display *display, int x, int y)
 
 void	*display_floor(void *ptr)
 {
-	int	x;
-	int	y;
-	t_data *data;
-	t_display display;
+	int			x;
+	int			y;
+	t_data		*data;
+	t_display	display;
 
 	data = (t_data *)ptr;
 	display = data->display;

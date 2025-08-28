@@ -25,7 +25,7 @@ static void	init_texture(t_data *data)
 		f_exit(data, 1);
 	ft_bzero(data->map.door, sizeof(t_img));
 	data->map.door->mlx = data->mlx.mlx;
-	data->map.door->path = "./texture/door3.xpm";
+	data->map.door->path = "./texture/door2.xpm";
 	data->player_hand = malloc(sizeof(t_img));
 	if (!data->player_hand)
 		f_exit(data, 1);
@@ -205,6 +205,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->mlx.width = 1920;
 	data->nb_coalition = 4;
 	data->status = MENU;
+	data->display.player_height = 16;
 	init_utils_mini(data);
 	init_ray(data);
 	data->screen = malloc(sizeof(t_img));

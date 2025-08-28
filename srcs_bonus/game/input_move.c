@@ -154,6 +154,13 @@ int	key_press(int keycode, t_data *data)
 		else
 			data->spell.active = false;
 	}
+	else if (keycode == KEY_CTRL)
+	{
+		if (data->display.player_height != 16)
+			data->display.player_height = 16;
+		else
+			data->display.player_height = 18;
+	}
 	else
 		data->keycode[i] = keycode;
 	if (keycode == KEY_ALT)

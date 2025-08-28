@@ -216,6 +216,7 @@ struct s_display
 	int				text_y;
 	char			*texture_pixel;
 	unsigned int	color;
+	int				player_height;
 };
 
 struct s_spell

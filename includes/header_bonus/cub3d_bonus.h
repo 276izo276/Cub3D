@@ -101,6 +101,7 @@ typedef enum e_key
 	KEY_Q = 113 , 
 	KEY_E = 101 , 
 	KEY_C = 99 ,
+	KEY_CTRL = 65507,
 	KEY_SPACE = 32, 
 	KEY_SHIFT = 65505,
 	KEY_ESCAPE = 65307,
