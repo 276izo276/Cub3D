@@ -44,7 +44,6 @@
 // 	}
 // }
 
-#include <stdio.h>
 void	draw_select_border(t_data *data, int start_x, int start_y)
 {
 	if (data->selected == 1)
@@ -62,7 +61,6 @@ void	draw_select_border(t_data *data, int start_x, int start_y)
 	int x;
 	int y = 0;
 	unsigned int color = 0;
-	printf("selected: %d\n", data->selected);
 	while (y < data->coa[data->selected].border->height)
 	{
 		x = 0;

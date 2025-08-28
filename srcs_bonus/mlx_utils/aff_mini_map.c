@@ -58,6 +58,8 @@ void	aff_color_in_img(t_utils_mini *u, t_mini *mini, t_data *data)
 						* (u->mmap.bits_per_pixel / 8));
 				if (data->map.tabmap[u->new_y][u->new_x] == '1')
 					get_pixel_color(data, MINI_WALL);
+				else if (data->map.tabmap[u->new_y][u->new_x] == 'D')
+					get_pixel_color(data, MINI_DOOR);
 				else
 					get_pixel_color(data, MINI_FLOOR);
 				*(unsigned int *)u->pixel_addr = u->color;
