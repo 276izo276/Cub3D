@@ -182,6 +182,7 @@ struct s_map
 	int		fd;
 	int		tabmap_height;
 	char	**tabmap;
+	t_door	***door_map;
 	t_coo	*player_coo;
 	t_lst	*lines;
 	t_lst	*map;

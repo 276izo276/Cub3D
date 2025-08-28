@@ -51,6 +51,7 @@ static void	add_door(t_data *data, int y, int x)
 	if (!door)
 		f_exit(data, 1);
 	init_door(door, y, x);
+	data->map.door_map[y][x] = door;
 	i = 0;
 	while (data->doors && data->doors[i])
 		i++;

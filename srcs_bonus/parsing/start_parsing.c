@@ -56,6 +56,31 @@ void	get_texture(t_data *data)
 	}
 }
 
+static	void create_door_map(t_data *data, int size)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	data->map.door_map = malloc(sizeof(t_door **) * (size + 1));
+	if (!data->map.door_map)
+		f_exit(data, 1);
+	ft_bzero(data->map.door_map, sizeof(t_door **) * (size + 1));
+	while (y < size)
+	{
+		x = 0;
+		while (x < size)
+		{
+			data->map.door_map[y][x] = malloc(sizeof(t_door *) * (size + 1));
+			if (!data->map.door_map)
+				f_exit(data, 1);
+			ft_bzero(data->map.door_map[y], sizeof(t_door *) * (size + 1));
+			++x;
+		}
+		++y;
+	}
+}
+
 void	create_tabmap(t_data *data)
 {
 	int		size;
@@ -78,6 +103,8 @@ void	create_tabmap(t_data *data)
 		map = map->next;
 	}
 	data->map.tabmap_height = i;
+	create_door_map(data, size);
+
 }
 
 void	parsing(t_data *data)
