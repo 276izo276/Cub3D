@@ -64,12 +64,11 @@ void	open_textures(t_data *data)
 
 void select_right_hand(t_data *data)
 {
-	unsigned int	color;
 	int				x;
 	int				y;
 	char			*pixel_addr;
+	
 	y = 0;
-	color = 0;
 	if (data->is_right_handed == true)
 		data->player_hand->path = "./texture/player_hand/right_hand.xpm";
 	else
