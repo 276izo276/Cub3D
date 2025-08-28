@@ -75,6 +75,10 @@ struct s_hit_door
 	t_coo	texture_coo;
 	double	ry;
 	double	rx;
+	double	end_y;
+	double	end_x;
+	double	start_y;
+	double	start_x;
 };
 
 
