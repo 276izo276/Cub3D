@@ -1,6 +1,7 @@
 #include "cub3d_bonus.h"
 #include <math.h>
 #include "utils_bonus.h"
+#include "color_bonus.h"
 
 static void	check_dir(t_data *data, int i, int j)
 {
@@ -41,7 +42,7 @@ static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x, in
 	text_pix = data->map.door->data_addr + (text_y
 			* data->map.door->size_line + text_x);
 	color = *(unsigned int *)text_pix;
-	if (color != 0xFFFFFF)
+	if (color != WHITE && color != YELLOW)
 		*(unsigned int *)pixel_addr = color;
 }
 
