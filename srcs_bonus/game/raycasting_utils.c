@@ -34,6 +34,8 @@ int	handle_ray_y_top(t_data *data, int i)
 		data->ray[i].doors[j]->coo_y = 64;
 		data->ray[i].doors[j]->coo_x = data->ray[i].coo_x + data->ray[i].ry * data->ray[i].delta_x;
 
+		
+		
 		if (data->ray[i].delta_x > 0)
 			data->ray[i].doors[j]->rx = (64 - data->ray[i].doors[j]->coo_x) / data->ray[i].delta_x;
 		else
@@ -166,7 +168,7 @@ int	handle_ray_x_left(t_data *data, int i)
 {
 	// int	x;
 	// int	y;
-	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] == 'D')	
+	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] == 'D')
 	{
 		int	j = 0;
 		while (j < data->nb_door)
