@@ -39,6 +39,8 @@ static void	init_door(t_door *door, int y, int x)
 	door->coo.x = x;
 	door->is_open = false;
 	door->pos = 0;
+	printf("y >> %d x >> %d\n", y, x);
+
 }
 
 static void	add_door(t_data *data, int y, int x)

@@ -27,7 +27,7 @@ static void	move_x(t_data *data, t_map *map, t_mini *mini)
 	{
 		if (data->map.tabmap[map->player_coo->y][map->player_coo->x] == 'D'
 			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == true
-			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_open == false)
+			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50)
 			{
 				if ((mini->dx <= 42 && mini->dx >= 22))
 					return ;
@@ -62,7 +62,7 @@ static void	move_y(t_data *data, t_map *map, t_mini *mini)
 	{
 		if (data->map.tabmap[map->player_coo->y][map->player_coo->x] == 'D'
 			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == false
-			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_open == false)
+			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50)
 			{
 				if ((mini->dy <= 42 && mini->dy >= 22))
 					return ;

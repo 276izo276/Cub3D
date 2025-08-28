@@ -34,9 +34,16 @@ static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x, in
 	int				text_y;
 	char			*pixel_addr;
 	unsigned int	color;
+	double			door_status;
 
-	text_y = (data->ray[i].pix_y - data->ray[i].doors[j]->htop_door)
+	if (data->map.door_map[data->ray[i].doors[j]->case_y][data->ray[i].doors[j]->case_x]->pos > 100)
+		door_status = 100;
+	else
+		door_status = data->map.door_map[data->ray[i].doors[j]->case_y][data->ray[i].doors[j]->case_x]->pos;
+	text_y = (data->ray[i].pix_y - data->ray[i].doors[j]->htop_door + door_status / 100 * data->ray[i].doors[j]->size_door)
 		* data->map.door->height / dist_heigh;
+	if (text_y > data->map.door->height - 5)
+		return ;
 	pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
 			* data->screen->size_line);
 	text_pix = data->map.door->data_addr + (text_y
@@ -46,8 +53,6 @@ static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x, in
 		*(unsigned int *)pixel_addr = color;
 }
 
-#include <stdio.h>
-
 void	display_door(t_data *data, int i)
 {
 	int	text_x;
@@ -55,6 +60,7 @@ void	display_door(t_data *data, int i)
 	int	j;
 
 	j = 0;
+
 	// printf("HERE CHECK IN >>i>>%d      value use>>%d\n",i,data->ray[i].doors[j]->use);
 	while (j < data->nb_door && data->ray[i].doors[j]->use != false)
 	{
