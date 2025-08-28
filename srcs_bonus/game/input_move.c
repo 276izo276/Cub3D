@@ -150,7 +150,7 @@ int	key_press(int keycode, t_data *data)
 		if (!data->spell.active)
 		{
 			data->spell.active = true;
-			data->spell.count_frame = 50;
+			data->spell.count_frame = 100;
 		}
 		else
 			data->spell.active = false;

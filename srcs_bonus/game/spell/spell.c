@@ -15,15 +15,15 @@ int	get_right_white(t_data *data, int color, double distance)
 	g = 0;
 	b = 0;
 	b = (color & 255);
-	b = (int)(b + (255 - b) * ((1 - distance / 350 )) * data->spell.count_frame / 50);
+	b = (int)(b + (255 - b) * ((1 - distance / 350 )) * data->spell.count_frame / 100);
 	if (b > 255)
 		b = 255;
 	g = (color >> 8 & 255);
-	g = (int)(g + ( 255 - g) * ((1 - distance / 350 )) * data->spell.count_frame / 50);
+	g = (int)(g + ( 255 - g) * ((1 - distance / 350 )) * data->spell.count_frame / 100);
 	if (g > 255)
 		g = 255;
 	r = (color >> 16 & 255);
-	r = (int)(r + ( 255 - r) * ((1 - distance / 350 )) * data->spell.count_frame / 50);
+	r = (int)(r + ( 255 - r) * ((1 - distance / 350 )) * data->spell.count_frame / 100);
 	if (r > 255)
 		r = 255;
 	color = (r << 16) + (g << 8) + b;
@@ -68,5 +68,5 @@ void	spell_lumos(t_data *data)
 	start_y = data->spell.y_wand + 5;
 	lumos_loop(data, start_x, start_y);
 	if (data->spell.active == false)
-		--data->spell.count_frame;
+		data->spell.count_frame -= 2;
 }

@@ -71,6 +71,9 @@ void	select_right_hand(t_data *data);
 //spell.c
 void	spell_lumos(t_data *data);
 
+//handle_door.c
+void	handle_door(t_data *data);
+
 typedef enum e_key_down
 {
 	ON_KEYDOWN = 2,
