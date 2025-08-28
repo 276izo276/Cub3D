@@ -25,7 +25,7 @@ static void display_wand(t_data *data, int pos_x, int pos_y)
 		pos_x -= 40;
 	else
 		pos_x -= 60;
-	while (y < data->player_wand->height)
+	while (y < data->player_wand->height && pos_y + y < data->mlx.height)
 	{
 		x = 0;
 		while (x < data->player_wand->width)
@@ -66,7 +66,7 @@ void	display_hand(t_data *data)
 	display_wand(data, pos_x, pos_y);
 	color = 0;
 	y = 0;
-	while (y < data->player_hand->height)
+	while (y < data->player_hand->height && pos_y + y < data->mlx.height)
 	{
 		x = 0;
 		while (x < data->player_hand->width)

@@ -79,8 +79,31 @@ static void	is_door(char c, int y, int x, t_data *data)
 {
 	if (c != 'D')
 		return ;
+	if (!((data->map.tabmap[y][x - 1] == '1' && data->map.tabmap[y][x + 1] == '1')
+		|| (data->map.tabmap[y + 1][x] == '1' && data->map.tabmap[y - 1][x] == '1')))
+	{
+		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
+			"Map >>> " "door found alone\n"_END);
+		f_exit(data, 1);
+	}
 	data->nb_door++;
 	add_door(data, y, x);
+	if (data->map.tabmap[y][x + 1] == '1' && data->map.tabmap[y][x - 1] == '1')
+	{
+		data->map.door_map[y][x]->is_verti = false;
+		data->map.door_map[y][x]->first_p.x = 0;
+		data->map.door_map[y][x]->first_p.y = 32;
+		data->map.door_map[y][x]->second_p.x = 64;
+		data->map.door_map[y][x]->second_p.y = 32;
+	}
+	else
+	{
+		data->map.door_map[y][x]->is_verti = true;
+		data->map.door_map[y][x]->first_p.x = 32;
+		data->map.door_map[y][x]->first_p.y = 0;
+		data->map.door_map[y][x]->second_p.x = 32;
+		data->map.door_map[y][x]->second_p.y = 64;
+	}
 }
 
 static void	check_map_valid_char(t_data *data)

@@ -50,8 +50,11 @@ struct s_coo
 struct s_door
 {
 	t_coo	coo;
+	t_coo	first_p;
+	t_coo	second_p;
 	double	pos;
 	bool	status;
+	bool	is_verti;
 };
 
 struct s_hit_door
