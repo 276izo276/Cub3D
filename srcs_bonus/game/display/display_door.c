@@ -92,7 +92,7 @@ static void	put_text_pix_img_fixed(t_data *data, int i, int dist_heigh, int text
 	// 	door_status = data->map.door_map[data->ray[i].doors[j]->case_y][data->ray[i].doors[j]->case_x]->pos;
 	text_y = (data->ray[i].pix_y - data->ray[i].doors[j]->htop_door + door_status / 100 * data->ray[i].doors[j]->size_door)
 		* data->map.fixed_door->height / dist_heigh;
-	if (text_y > data->map.door->height)
+	if (text_y > data->map.fixed_door->height)
 		return ;
 	pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
 			* data->screen->size_line);
@@ -132,7 +132,8 @@ void	display_door(t_data *data, int i)
 		while (data->ray[i].pix_y < data->ray[i].doors[j]->hbot_door
 			&& data->ray[i].pix_y < data->mlx.height)
 		{
-			put_text_pix_img(data, i, dist_heigh, text_x, j);
+			if (data->ray[i].pix_y > data->ray[i].doors[j]->htop_door + 50)
+				put_text_pix_img(data, i, dist_heigh, text_x, j);
 			data->ray[i].pix_y++;
 		}
 		check_dir_fixed(data, i, j);
