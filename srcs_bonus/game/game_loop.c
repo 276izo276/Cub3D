@@ -54,7 +54,9 @@ int	game_loop(t_data *data)
 			sem_post(data->sem_background);
 			sem_post(data->sem_background);
 			display_game(data);
+			// pthread_mutex_lock(&data->m_data_ray);
 			handle_door(data);
+			// pthread_mutex_unlock(&data->m_data_ray);
 			pthread_barrier_wait(&data->barrier);
 		}
 	}

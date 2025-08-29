@@ -9,7 +9,6 @@ int	handle_ray_y_top(t_data *data, int i)
 {
 	// int	x;
 	// int	y;
-
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')	
 	{
 		// printf("\n\nFOUND CASE DOOR\n");

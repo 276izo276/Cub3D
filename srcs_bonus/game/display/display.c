@@ -111,10 +111,12 @@ void	display_game(t_data *data)
 	while (i < data->mlx.width)
 	{
 		display_game_loop(data, i);
-		display_door(data, i);
+		// display_door(data, i);
 		++i;
 	}
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
+	sem_post(data->sem_door);
+	sem_wait(data->sem_map);
 	aff_mini_map(data);
 	display_hand(data);
 }
