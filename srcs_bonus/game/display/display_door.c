@@ -23,7 +23,7 @@ static void	check_dir(t_data *data, int i, int j)
 	posx_display -= floor(posx_display);
 	data->ray[i].doors[j]->texture_coo.x = (int)(posx_display * data->map.door->width);
 	if (data->ray[i].doors[j]->texture_coo.x < 0)
-		data->ray[i].doors[j]->texture_coo.x -= 0;
+		data->ray[i].doors[j]->texture_coo.x = 0;
 	if (data->ray[i].doors[j]->texture_coo.x >= data->map.door->width)
 		data->ray[i].doors[j]->texture_coo.x = data->map.door->width - 1;
 }
