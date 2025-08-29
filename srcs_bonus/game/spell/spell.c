@@ -5,15 +5,12 @@
 #include "math.h"
 
 
-int	get_right_white(t_data *data, int color, double distance)
+static int	get_right_white(t_data *data, int color, double distance)
 {
 	int r;
 	int g;
 	int b;
 
-	r = 0;
-	g = 0;
-	b = 0;
 	b = (color & 255);
 	b = (int)(b + (255 - b) * ((1 - distance / 350 )) * data->spell.count_frame / 100);
 	if (b > 255)
