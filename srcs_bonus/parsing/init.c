@@ -26,6 +26,14 @@ static void	init_texture(t_data *data)
 	ft_bzero(data->map.door, sizeof(t_img));
 	data->map.door->mlx = data->mlx.mlx;
 	data->map.door->path = "./texture/door_close.xpm";
+
+	data->map.fixed_door = malloc(sizeof(t_img));
+	if (!data->map.fixed_door)
+		f_exit(data, 1);
+	ft_bzero(data->map.fixed_door, sizeof(t_img));
+	data->map.fixed_door->mlx = data->mlx.mlx;
+	data->map.fixed_door->path = "./texture/door_open.xpm";
+
 	data->player_hand = malloc(sizeof(t_img));
 	if (!data->player_hand)
 		f_exit(data, 1);

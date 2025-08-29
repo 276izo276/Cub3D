@@ -200,6 +200,7 @@ struct s_map
 	// t_img	*text_floor;
 	// t_img	*text_sky;
 	t_img	*door;
+	t_img	*fixed_door;
 	t_mini	mini;
 	t_img	*floor;
 	t_img	*ceiling;
