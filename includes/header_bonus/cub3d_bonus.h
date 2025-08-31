@@ -29,6 +29,8 @@ void	get_pixel_color(t_data *data, int type);
 void	aff_mini_map(t_data *data);
 void	set_player_in_mini_map(t_data *data, t_utils_mini *u, t_img *img, double rad);
 
+void	calc_door(t_data *data, int i);
+
 void	*display_door(void *ptr);
 
 //raycasting

@@ -32,6 +32,7 @@ typedef struct s_coa		t_coa;
 typedef struct s_spell		t_spell;
 typedef struct s_hit_door	t_hit_door;
 typedef struct s_door		t_door;
+typedef struct s_hitray		t_hitray;
 
 typedef	enum e_dir
 {
@@ -197,8 +198,6 @@ struct s_map
 	t_img	*south;
 	t_img	*west;
 	t_img	*east;
-	// t_img	*text_floor;
-	// t_img	*text_sky;
 	t_img	*door;
 	t_img	*fixed_door;
 	t_mini	mini;
@@ -245,43 +244,65 @@ struct s_coa
 	t_img 	*border;
 };
 
+struct	s_hitray
+{
+	int		i;
+	int		j;
+	double	delta;
+	double	delta_t;
+	double	delta_u;
+	double	t;
+	double	u;
+	double	ax;
+	double	ay;
+	double	bx;
+	double	by;
+	double	cx;
+	double	cy;
+	double	dx;
+	double	dy;
+	double	hx;
+	double	hy;
+	bool	hit;
+};
+
 struct s_data
 {
-	t_utils_mini	u;
-	t_img			*screen;
-	long long int	time_fps;
-	long long int	time_move;
-	int				frame_move;
-	int				ac;
-	char			**av;
-	int				status;
-	int				nb_coalition;
-	t_map			map;
-	t_mlx			mlx;
-	t_ray			*ray;
-	t_display		display;
-	t_spell			spell;
-	int				keycode[100];
-	pthread_mutex_t	m_data_ray;
-	pthread_t		thread_wall;
-	pthread_t		thread_floor;
-	pthread_t		thread_door;
-	pthread_t		thread_sky;
-	sem_t			*sem_background;
-	sem_t			*sem_door;
-	sem_t			*sem_map;
+	t_utils_mini		u;
+	t_img				*screen;
+	long long int		time_fps;
+	long long int		time_move;
+	int					frame_move;
+	int					ac;
+	char				**av;
+	int					status;
+	int					nb_coalition;
+	t_map				map;
+	t_mlx				mlx;
+	t_ray				*ray;
+	t_display			display;
+	t_spell				spell;
+	int					keycode[100];
+	pthread_mutex_t		m_data_ray;
+	pthread_t			thread_wall;
+	pthread_t			thread_floor;
+	pthread_t			thread_door;
+	pthread_t			thread_sky;
+	sem_t				*sem_background;
+	sem_t				*sem_door;
+	sem_t				*sem_map;
 	pthread_barrier_t		barrier;
-	t_coa			*coa;
-	int				color;
-	int				selected;
-	t_img			*select;
-	t_img			*select_hand;
-	t_img			*player_hand;
-	t_img			*player_wand;
-	t_img			*left_select;
+	t_coa				*coa;
+	int					color;
+	int					selected;
+	t_img				*select;
+	t_img				*select_hand;
+	t_img				*player_hand;
+	t_img				*player_wand;
+	t_img				*left_select;
 	bool				is_right_handed;
-	int	nb_door;
-	t_door	**doors;
+	int					nb_door;
+	t_door				**doors;
 	// t_img	*wh;
 	// t_img	*bl;
 };

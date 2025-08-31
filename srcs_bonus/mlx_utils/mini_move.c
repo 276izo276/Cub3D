@@ -1,14 +1,10 @@
 #include "cub3d_bonus.h"
+#include "utils_bonus.h"
 #include <math.h>
 
 static void	move_x(t_data *data, t_map *map, t_mini *mini)
 {
 	mini->dx = mini->player_coo.x - mini->dx * SPEED;
-	if ((map->tabmap[map->player_coo->y][map->player_coo->x + 1] == '1'
-		&& mini->dx >= 56)
-			|| (map->tabmap[map->player_coo->y][map->player_coo->x
-			- 1] == '1' && mini->dx <= 8))
-		return ;
 	if (mini->dx < 0)
 	{
 		if (map->tabmap[map->player_coo->y][map->player_coo->x - 1] == '1')
@@ -29,7 +25,8 @@ static void	move_x(t_data *data, t_map *map, t_mini *mini)
 			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == true
 			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50)
 			{
-				if ((mini->dx <= 42 && mini->dx >= 22))
+				if ((mini->dx >= 22 && mini->dx <= 42 && abs_value(32 - mini->player_coo.y) > abs_value(32 - mini->dx))
+				|| (mini->dx > 32 && mini->player_coo.y < 32) || (mini->dx < 32 && mini->player_coo.y > 32))
 					return ;
 			}
 		mini->player_coo.x = mini->dx;
@@ -39,11 +36,6 @@ static void	move_x(t_data *data, t_map *map, t_mini *mini)
 static void	move_y(t_data *data, t_map *map, t_mini *mini)
 {
 	mini->dy = mini->player_coo.y - mini->dy * SPEED;
-	if ((map->tabmap[map->player_coo->y + 1][map->player_coo->x + 1] == '1'
-	&& mini->dx >= 56)
-		|| (map->tabmap[map->player_coo->y - 1][map->player_coo->x
-		- 1] == '1' && mini->dx <= 8))
-		return ;
 	if (mini->dy < 0)
 	{
 		if (map->tabmap[map->player_coo->y - 1][map->player_coo->x] == '1')
@@ -64,7 +56,8 @@ static void	move_y(t_data *data, t_map *map, t_mini *mini)
 			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == false
 			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50)
 			{
-				if ((mini->dy <= 42 && mini->dy >= 22))
+				if ((mini->dy >= 22 && mini->dy <= 42 && abs_value(32 - mini->player_coo.y) > abs_value(32 - mini->dy))
+				|| (mini->dy > 32 && mini->player_coo.y < 32) || (mini->dy < 32 && mini->player_coo.y > 32))
 					return ;
 			}
 		mini->player_coo.y = mini->dy;

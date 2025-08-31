@@ -119,6 +119,7 @@ MLX_UTILS_BONUS	=							\
 FILES_BONUS	+=	$(addprefix srcs_bonus/mlx_utils/,$(MLX_UTILS_BONUS))
 
 GAME_BONUS		=							\
+				raycasting_door.c			\
 				raycasting.c				\
 				raycasting_utils.c			\
 				display/display.c 			\
