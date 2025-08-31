@@ -9,7 +9,6 @@ int	handle_ray_y_top(t_data *data, int i)
 {
 	// int	x;
 	// int	y;
-
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')	
 	{
 		int	j = 0;
@@ -190,7 +189,7 @@ int	handle_ray_y_down(t_data *data, int i)
 	
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')	
 	{
-		// printf("\n\nFOUND CASE DOOR\n");
+
 		int	j = 0;
 		while (j < data->nb_door)
 		{
@@ -218,9 +217,9 @@ int	handle_ray_y_down(t_data *data, int i)
 			data->ray[i].doors[j]->ry = (64 - data->ray[i].doors[j]->start_y) / data->ray[i].delta_y;
 		else
 			data->ray[i].doors[j]->ry = -data->ray[i].doors[j]->start_y / data->ray[i].delta_y;
-		printf("delta_y>>>%lf   delta_x>>>%lf\n",data->ray[i].delta_y,data->ray[i].delta_x);
-		printf("start coo_y>>>%lf     coo_x>>>%lf\n",data->ray[i].doors[j]->coo_y,data->ray[i].doors[j]->coo_x);
-		printf("rx>>>>%lf     ry>>>>%lf\n",data->ray[i].doors[j]->rx,data->ray[i].doors[j]->ry);
+		// printf("delta_y>>>%lf   delta_x>>>%lf\n",data->ray[i].delta_y,data->ray[i].delta_x);
+		// printf("start coo_y>>>%lf     coo_x>>>%lf\n",data->ray[i].doors[j]->coo_y,data->ray[i].doors[j]->coo_x);
+		// printf("rx>>>>%lf     ry>>>>%lf\n",data->ray[i].doors[j]->rx,data->ray[i].doors[j]->ry);
 		if (data->map.door_map[data->ray[i].doors[j]->case_y][data->ray[i].doors[j]->case_x]->is_verti)
 		{
 			if (data->ray[i].delta_x < 0)

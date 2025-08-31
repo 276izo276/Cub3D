@@ -14,13 +14,19 @@ static void	init_semaphores(t_data *data)
 	// data->sem_start = sem_open(SEM_START, O_CREAT, 0644, 0);
 	// if (data->sem_start == SEM_FAILED)
 	// 	f_exit(data, 1); // error msg
+	data->sem_door = sem_open(SEM_DOOR, O_CREAT, 0644, 0);
+	if (data->sem_door == SEM_FAILED)
+		f_exit(data, 1);
+	data->sem_map = sem_open(SEM_MAP, O_CREAT, 0644, 0);
+	if (data->sem_map == SEM_FAILED)
+		f_exit(data, 1);
 }
 
-// static void	init_mutex(t_data *data)
-// {
-// 	if (pthread_mutex_init(&data->nb_ray, NULL) != 0) // error msg
-// 		f_exit(data, 1);
-// }
+static void	init_mutex(t_data *data)
+{
+	if (pthread_mutex_init(&data->m_data_ray, NULL) != 0) // error msg
+		f_exit(data, 1);
+}
 
 static void	create_thread(t_data *data)
 {
@@ -41,6 +47,12 @@ static void	create_thread(t_data *data)
 		f_exit(data, 1);
 	}
 	pthread_detach(data->thread_floor);
+	if (pthread_create(&data->thread_door, NULL, display_door, data) != 0)
+	{
+		// error msg
+		f_exit(data, 1);
+	}
+	pthread_detach(data->thread_door);
 }
 
 #include <stdio.h>
@@ -80,7 +92,7 @@ int	main(int ac, char **av)
 	init_data(&data, ac, av);
 	parsing(&data);
 	init_struct_door(&data);
-	// init_mutex(&data);
+	init_mutex(&data);
 	init_semaphores(&data);
 	create_thread(&data);
 	open_window(&data, &data.mlx);

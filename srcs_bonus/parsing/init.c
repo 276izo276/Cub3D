@@ -181,14 +181,6 @@ static void	init_coa(t_data *data)
 	data->left_select->mlx = data->mlx.mlx;
 	data->left_select->path = "texture/menu/left_select.xpm";
 
-	data->right_select = malloc(sizeof(t_img));
-	if (!data->right_select)
-		f_exit(data, 1);
-	ft_bzero(data->right_select, sizeof(t_img));
-	data->right_select->mlx = data->mlx.mlx;
-	data->right_select->path = "texture/menu/right_select.xpm";
-
-
 	data->select_hand = malloc(sizeof(t_img));
 	if (!data->select_hand)
 		f_exit(data, 1);

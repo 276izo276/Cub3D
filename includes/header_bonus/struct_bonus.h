@@ -262,12 +262,14 @@ struct s_data
 	t_display		display;
 	t_spell			spell;
 	int				keycode[100];
-	pthread_mutex_t	nb_ray;
+	pthread_mutex_t	m_data_ray;
 	pthread_t		thread_wall;
 	pthread_t		thread_floor;
+	pthread_t		thread_door;
 	pthread_t		thread_sky;
 	sem_t			*sem_background;
-	sem_t			*sem_start;
+	sem_t			*sem_door;
+	sem_t			*sem_map;
 	pthread_barrier_t		barrier;
 	t_coa			*coa;
 	int				color;
@@ -277,7 +279,6 @@ struct s_data
 	t_img			*player_hand;
 	t_img			*player_wand;
 	t_img			*left_select;
-	t_img			*right_select;
 	bool				is_right_handed;
 	int	nb_door;
 	t_door	**doors;

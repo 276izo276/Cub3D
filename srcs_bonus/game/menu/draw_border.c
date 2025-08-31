@@ -67,7 +67,7 @@ void	draw_select_border(t_data *data, int start_x, int start_y)
 		while (x < data->coa[data->selected].border->width)
 		{
 			color = get_texture_pixel(data->coa[data->selected].border, x, y);
-			if (color != WHITE )
+			if (color != WHITE)
 			{
 				pixel_put(data, x + start_x -45, y + start_y - 45, color);
 			}
