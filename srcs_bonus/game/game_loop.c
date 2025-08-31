@@ -53,8 +53,17 @@ int	game_loop(t_data *data)
 			ray_launch(data);
 			sem_post(data->sem_background);
 			sem_post(data->sem_background);
-			display_game(data);
+			pthread_barrier_wait(&data->barrier_background);
+			// display_game(data);
 			// pthread_mutex_lock(&data->m_data_ray);
+			sem_post(data->sem_display);
+			sem_post(data->sem_display);
+			sem_post(data->sem_display);
+			sem_post(data->sem_display);
+			pthread_barrier_wait(&data->barrier_display);
+			mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
+			aff_mini_map(data);
+			display_hand(data);
 			handle_door(data);
 			// pthread_mutex_unlock(&data->m_data_ray);
 			// pthread_barrier_wait(&data->barrier);

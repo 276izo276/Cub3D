@@ -134,10 +134,8 @@ void	ray_launch(t_data *data)
 		x = (double)i / (double)data->mlx.width;
 		x = x * (-2) + 1;
 		save_data_ray(data, i, x);
-		pthread_mutex_lock(&data->m_data_ray);
 		handle_ray(data, i);
 		calc_door_value(data, i, x);
-		pthread_mutex_unlock(&data->m_data_ray);
 		calc_sqrt(data, i);
 		data->ray[i].dist_wall *= cos(atan(x));
 		data->ray[i].size_wall = data->ray[i].d_proj

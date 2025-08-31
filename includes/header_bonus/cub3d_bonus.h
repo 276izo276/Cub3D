@@ -6,7 +6,7 @@
 # define MARGIN 100
 # define SEM_BACKGROUND "/sem_background"
 # define SEM_DOOR "/sem_door"
-# define SEM_MAP "/sem_map"
+# define SEM_DISPLAY "/sem_display"
 
 // # define SEM_START "/sem_start"
 
@@ -32,6 +32,11 @@ void	set_player_in_mini_map(t_data *data, t_utils_mini *u, t_img *img, double ra
 void	calc_door(t_data *data, int i);
 
 void	display_door(t_data *data, int i);
+void	*display_fst_part(void *ptr);
+void	*display_snd_part(void *ptr);
+void	*display_third_part(void *ptr);
+void	*display_last_part(void *ptr);
+
 
 //raycasting
 void	ray_launch(t_data *data);

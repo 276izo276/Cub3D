@@ -86,7 +86,7 @@ void	*display_floor(void *ptr)
 			}
 			++y;
 		}
-		pthread_barrier_wait(&data->barrier);
+		pthread_barrier_wait(&data->barrier_background);
 		// pthread_barrier_wait(&data->barrier);
 	}
 }

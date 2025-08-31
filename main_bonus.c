@@ -14,23 +14,23 @@ static void	init_semaphores(t_data *data)
 	// data->sem_start = sem_open(SEM_START, O_CREAT, 0644, 0);
 	// if (data->sem_start == SEM_FAILED)
 	// 	f_exit(data, 1); // error msg
-	// data->sem_door = sem_open(SEM_DOOR, O_CREAT, 0644, 0);
-	// if (data->sem_door == SEM_FAILED)
-	// 	f_exit(data, 1);
+	data->sem_display = sem_open(SEM_DISPLAY, O_CREAT, 0644, 0);
+	if (data->sem_display == SEM_FAILED)
+		f_exit(data, 1);
 	// data->sem_map = sem_open(SEM_MAP, O_CREAT, 0644, 0);
 	// if (data->sem_map == SEM_FAILED)
 	// 	f_exit(data, 1);
 }
 
-static void	init_mutex(t_data *data)
-{
-	if (pthread_mutex_init(&data->m_data_ray, NULL) != 0) // error msg
-		f_exit(data, 1);
-}
+// static void	init_mutex(t_data *data)
+// {
+// 	if (pthread_mutex_init(&data->m_data_ray, NULL) != 0) // error msg
+// 		f_exit(data, 1);
+// }
 
 static void	create_thread(t_data *data)
 {
-	if (pthread_barrier_init(&data->barrier, NULL, 3) != 0)
+	if (pthread_barrier_init(&data->barrier_background, NULL, 3) != 0)
 	{
         // error msg
 		f_exit(data, 1);
@@ -47,6 +47,36 @@ static void	create_thread(t_data *data)
 		f_exit(data, 1);
 	}
 	pthread_detach(data->thread_floor);
+
+	if (pthread_barrier_init(&data->barrier_display, NULL, 5) != 0)
+	{
+        // error msg
+		f_exit(data, 1);
+    }
+	if (pthread_create(&data->thread_fst_part, NULL, display_fst_part, data) != 0)
+	{
+		// error msg
+		f_exit(data, 1);
+	}
+	pthread_detach(data->thread_fst_part);
+		if (pthread_create(&data->thread_snd_part, NULL, display_snd_part, data) != 0)
+	{
+		// error msg
+		f_exit(data, 1);
+	}
+	pthread_detach(data->thread_snd_part);
+	if (pthread_create(&data->thread_third_part, NULL, display_third_part, data) != 0)
+	{
+		// error msg
+		f_exit(data, 1);
+	}
+	pthread_detach(data->thread_third_part);
+	if (pthread_create(&data->thread_last_part, NULL, display_last_part, data) != 0)
+	{
+		// error msg
+		f_exit(data, 1);
+	}
+	pthread_detach(data->thread_last_part);
 }
 
 #include <stdio.h>
@@ -86,7 +116,7 @@ int	main(int ac, char **av)
 	init_data(&data, ac, av);
 	parsing(&data);
 	init_struct_door(&data);
-	init_mutex(&data);
+	// init_mutex(&data);
 	init_semaphores(&data);
 	create_thread(&data);
 	open_window(&data, &data.mlx);
@@ -107,8 +137,12 @@ int	main(int ac, char **av)
 	mlx_loop(data.mlx.mlx);
 	// ray_launch(&data, data.ray);
 	f_exit(&data, 0);
-	sem_close(data.sem_background);
+	sem_close(data.sem_background); // FAUT CLOSE les sem dans f_exit et destroy les barier aussi
+	sem_close(data.sem_display);
+	sem_unlink(SEM_DISPLAY);
 	sem_unlink(SEM_BACKGROUND);
-	pthread_barrier_destroy(&data.barrier);
+	pthread_barrier_destroy(&data.barrier_background);
+	pthread_barrier_destroy(&data.barrier_display);
+
 	return (1);
 }

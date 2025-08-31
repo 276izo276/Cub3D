@@ -101,19 +101,99 @@ static void	display_game_loop(t_data *data, int i)
 }
 
 
-void	display_game(t_data *data)
+void	*display_fst_part(void *ptr)
 {
 	int	i;
+	t_data *data;
 
-	i = 0;
-	pthread_barrier_wait(&data->barrier);
-	while (i < data->mlx.width)
+	data = (t_data *)ptr;
+	while (1)
 	{
-		display_game_loop(data, i);
-		display_door(data, i);
-		++i;
+		i = 0;
+		sem_wait(data->sem_display);
+		while (i < data->mlx.width / 4)
+		{
+			display_game_loop(data, i);
+			display_door(data, i);
+			++i;
+		}
+		pthread_barrier_wait(&data->barrier_display);	
 	}
-	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
+	return (NULL);
+	aff_mini_map(data);
+	display_hand(data);
+}
+
+
+void	*display_snd_part(void *ptr)
+{
+	int	i;
+	t_data *data;
+	int	max_pix;
+
+	data = (t_data *)ptr;
+	max_pix = 2 * (data->mlx.width / 4);
+	while (1)
+	{
+		i = data->mlx.width / 4;
+		sem_wait(data->sem_display);
+		while (i < max_pix)
+		{
+			display_game_loop(data, i);
+			display_door(data, i);
+			++i;
+		}
+		pthread_barrier_wait(&data->barrier_display);	
+	}
+	return (NULL);
+	// aff_mini_map(data);
+	// display_hand(data);
+}
+
+void	*display_third_part(void *ptr)
+{
+	int	i;
+	int	max_pix;
+	t_data *data;
+
+	data = (t_data *)ptr;
+	max_pix = 3 * (data->mlx.width / 4);
+	while (1)
+	{
+		i = 2 * (data->mlx.width / 4);
+		sem_wait(data->sem_display);
+		while (i < max_pix)
+		{
+			display_game_loop(data, i);
+			display_door(data, i);
+			++i;
+		}
+		pthread_barrier_wait(&data->barrier_display);	
+	}
+	return (NULL);
+	aff_mini_map(data);
+	display_hand(data);
+}
+
+void	*display_last_part(void *ptr)
+{
+	int	i;
+	t_data *data;
+
+	data = (t_data *)ptr;
+	while (1)
+	{
+		i = 3 * (data->mlx.width / 4);
+		sem_wait(data->sem_display);
+		while (i < data->mlx.width)
+		{
+			display_game_loop(data, i);
+			display_door(data, i);
+			++i;
+		}
+		pthread_barrier_wait(&data->barrier_display);	
+	}
+	return (NULL);
 	aff_mini_map(data);
 	display_hand(data);
 }
