@@ -87,7 +87,7 @@ void	*display_floor(void *ptr)
 			++y;
 		}
 		pthread_barrier_wait(&data->barrier);
-		pthread_barrier_wait(&data->barrier);
+		// pthread_barrier_wait(&data->barrier);
 	}
 }
 // #include "struct_bonus.h"
