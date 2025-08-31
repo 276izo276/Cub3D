@@ -86,7 +86,7 @@ void	*display_sky(void *ptr)
 			++y;
 		}
 		pthread_barrier_wait(&data->barrier);
-		pthread_barrier_wait(&data->barrier);
+		// pthread_barrier_wait(&data->barrier);
 	}
 	return (NULL);
 }

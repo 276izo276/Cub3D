@@ -57,7 +57,7 @@ int	game_loop(t_data *data)
 			// pthread_mutex_lock(&data->m_data_ray);
 			handle_door(data);
 			// pthread_mutex_unlock(&data->m_data_ray);
-			pthread_barrier_wait(&data->barrier);
+			// pthread_barrier_wait(&data->barrier);
 		}
 	}
 	return (0);

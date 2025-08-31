@@ -103,71 +103,54 @@ static void	put_text_pix_img_fixed(t_data *data, int i, int dist_heigh, int text
 		*(unsigned int *)pixel_addr = color;
 }
 
-void	*display_door(void *ptr)
+void	display_door(t_data *data, int i)
 {
 	int	text_x;
 	int	dist_heigh;
 	int	j;
-	int i;
-	t_data	*data;
 
-
-	data = (t_data *)ptr;
 	// printf("HERE CHECK IN >>i>>%d      value use>>%d\n",i,data->ray[i].doors[j]->use);
-	while (1)
-	{
-		i = 0;
-		sem_wait(data->sem_door);
-		pthread_mutex_lock(&data->m_data_ray);
-		while (i < data->mlx.width)
-		{
 			j = 0;
-			while (j < data->nb_door && data->ray[i].doors[j]->use != false)
-			{
-				if (data->ray[i].doors[j]->print == false)
-				{
-					ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
-					j++;
-					continue;
-				}
-				check_dir(data, i, j);
-				text_x = data->ray[i].doors[j]->texture_coo.x
-					* (data->map.door->bits_per_pixel >> 3);
-				data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
-					* data->ray[i].calc_bits;
-				data->ray[i].pix_y = data->ray[i].doors[j]->htop_door;
-				if (data->ray[i].pix_y < 0)
-					data->ray[i].pix_y = 0;
-				dist_heigh = data->ray[i].doors[j]->hbot_door - data->ray[i].doors[j]->htop_door;
-				while (data->ray[i].pix_y < data->ray[i].doors[j]->hbot_door
-					&& data->ray[i].pix_y < data->mlx.height)
-				{
-					if (data->ray[i].pix_y > data->ray[i].doors[j]->htop_door + 50)
-						put_text_pix_img(data, i, dist_heigh, text_x, j);
-					data->ray[i].pix_y++;
-				}
-				check_dir_fixed(data, i, j);
-				text_x = data->ray[i].doors[j]->texture_coo.x
-					* (data->map.fixed_door->bits_per_pixel >> 3);
-				data->ray[i].pix_y = data->ray[i].doors[j]->htop_door;
-				if (data->ray[i].pix_y < 0)
-					data->ray[i].pix_y = 0;
-				dist_heigh = data->ray[i].doors[j]->hbot_door - data->ray[i].doors[j]->htop_door;
-				while (data->ray[i].pix_y < data->ray[i].doors[j]->hbot_door
-					&& data->ray[i].pix_y < data->mlx.height)
-				{
-					put_text_pix_img_fixed(data, i, dist_heigh, text_x, j);
-					data->ray[i].pix_y++;
-				}
-				data->ray[i].doors[j]->use = false;
-				// printf("RESET USE I>>>%d j>>%d\n",i,j);
-				ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
-				j++;
-			}
-			++i;
+	while (j < data->nb_door && data->ray[i].doors[j]->use != false)
+	{
+		if (data->ray[i].doors[j]->print == false)
+		{
+			ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
+			j++;
+			continue;
 		}
-		sem_post(data->sem_map);
-		pthread_mutex_unlock(&data->m_data_ray);
+		check_dir(data, i, j);
+		text_x = data->ray[i].doors[j]->texture_coo.x
+			* (data->map.door->bits_per_pixel >> 3);
+		data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
+			* data->ray[i].calc_bits;
+		data->ray[i].pix_y = data->ray[i].doors[j]->htop_door;
+		if (data->ray[i].pix_y < 0)
+			data->ray[i].pix_y = 0;
+		dist_heigh = data->ray[i].doors[j]->hbot_door - data->ray[i].doors[j]->htop_door;
+		while (data->ray[i].pix_y < data->ray[i].doors[j]->hbot_door
+			&& data->ray[i].pix_y < data->mlx.height)
+		{
+			if (data->ray[i].pix_y > data->ray[i].doors[j]->htop_door + 50)
+				put_text_pix_img(data, i, dist_heigh, text_x, j);
+			data->ray[i].pix_y++;
+		}
+		check_dir_fixed(data, i, j);
+		text_x = data->ray[i].doors[j]->texture_coo.x
+			* (data->map.fixed_door->bits_per_pixel >> 3);
+		data->ray[i].pix_y = data->ray[i].doors[j]->htop_door;
+		if (data->ray[i].pix_y < 0)
+			data->ray[i].pix_y = 0;
+		dist_heigh = data->ray[i].doors[j]->hbot_door - data->ray[i].doors[j]->htop_door;
+		while (data->ray[i].pix_y < data->ray[i].doors[j]->hbot_door
+			&& data->ray[i].pix_y < data->mlx.height)
+		{
+			put_text_pix_img_fixed(data, i, dist_heigh, text_x, j);
+			data->ray[i].pix_y++;
+		}
+		data->ray[i].doors[j]->use = false;
+		// printf("RESET USE I>>>%d j>>%d\n",i,j);
+		ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
+		j++;
 	}
-	return (NULL);
 }

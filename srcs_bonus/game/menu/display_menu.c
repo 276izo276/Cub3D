@@ -146,7 +146,7 @@ int	get_right_color(int color, double distance)
 	b = (color & 255);
 	g = (color >> 8 & 255);
 	r = (color >> 16 & 255);
-	a = (int)(255 * (1 - distance / 15.0));
+	a = (int)(255 * (1 - distance / 40.0));
 	if (a > 255)
         a = 255;
 	if (a < 0)
@@ -162,15 +162,15 @@ static void	draw_gradient(t_data *data, int start_x, int start_y)
 	int				y;
 	double			distance;
 
-	y = -20;
+	y = -40;
 	color = data->color;
-	while (y < 20)
+	while (y < 40)
 	{
-		x = -20;
-		while (x < 20)
+		x = -40;
+		while (x < 40)
 		{
 			distance = sqrt(y * y + x * x);
-			if (distance < 20)
+			if (distance < 40)
 			{
 				color = get_right_color(data->color, distance);
 				alpha_pixel_put(data, x + start_x, y + start_y, color);
