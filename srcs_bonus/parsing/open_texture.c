@@ -74,6 +74,16 @@ void select_right_hand(t_data *data)
 	else
 		data->player_hand->path = "./texture/player_hand/left_hand.xpm";
 	open_img(data->player_hand, data);
+	if (data->is_right_handed == true) // hand_pos
+	{
+		data->display.pos_x_hand = (data->mlx.width / 2) + data->player_hand->width / 4 - 100;
+		data->display.pos_y_hand = (data->mlx.height - data->player_hand->height - 100);
+	}
+	else
+	{
+		data->display.pos_x_hand = (data->mlx.width / 2) - data->player_hand->width / 4 - 150;
+		data->display.pos_y_hand = (data->mlx.height - data->player_hand->height - 100);
+	}
 	while (y < data->player_hand->height)
 	{
 		x = 0;

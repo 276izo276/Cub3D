@@ -225,6 +225,10 @@ struct s_display
 	char			*texture_pixel;
 	unsigned int	color;
 	int				player_height;
+	int				pos_x_hand;
+	int				pos_y_hand;
+	int				move_hand;
+	bool			is_up_move_hand;
 };
 
 struct s_spell
@@ -309,6 +313,7 @@ struct s_data
 	bool				is_right_handed;
 	int					nb_door;
 	t_door				**doors;
+	bool				player_moved;
 	// t_img	*wh;
 	// t_img	*bl;
 };

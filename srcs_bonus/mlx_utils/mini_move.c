@@ -124,6 +124,7 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 		if (is_move_player(data, i))
 		{
 			calc_dx_dy(data, data->keycode[i], mini);
+			data->player_moved = true;
 		}
 		i++;
 	}

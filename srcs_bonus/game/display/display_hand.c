@@ -51,19 +51,39 @@ void	display_hand(t_data *data)
 	int				pos_x;
 	int				pos_y;
 
-	if (data->is_right_handed == true)
+	// if (data->is_right_handed == true)
+	// {
+	// 	pos_x = (data->mlx.width / 2) + data->player_hand->width / 4 - 100;
+	// 	pos_y = (data->mlx.height - data->player_hand->height - 100);
+	// }
+	// else
+	// {
+	// 	pos_x = (data->mlx.width / 2) - data->player_hand->width / 4 - 150;
+	// 	pos_y = (data->mlx.height - data->player_hand->height - 100);
+	// }
+	pos_x = data->display.pos_x_hand;
+	pos_y = data->display.pos_y_hand;
+	if (data->player_moved == true && data->display.move_hand < 50 && data->display.is_up_move_hand == false)
 	{
-		pos_x = (data->mlx.width / 2) + data->player_hand->width / 4 - 100;
-		pos_y = (data->mlx.height - data->player_hand->height - 100);
+		if (data->map.mini.speed == 3)
+			data->display.move_hand += 3;
+		else
+			data->display.move_hand += 1;
 	}
-	else
+	else if (data->player_moved == true)
 	{
-		pos_x = (data->mlx.width / 2) - data->player_hand->width / 4 - 150;
-		pos_y = (data->mlx.height - data->player_hand->height - 100);
+		if (data->map.mini.speed == 3)
+			data->display.move_hand -= 3;
+		else
+			data->display.move_hand -= 1;
+		if (data->display.move_hand > 0)
+			data->display.is_up_move_hand = true;
+		else
+			data->display.is_up_move_hand = false;
 	}
 	if (data->display.player_height == 18)
 		pos_y += 80;
-	display_wand(data, pos_x, pos_y);
+	display_wand(data, pos_x, pos_y + data->display.move_hand);
 	color = 0;
 	y = 0;
 	while (y < data->player_hand->height && pos_y + y < data->mlx.height)
@@ -74,7 +94,7 @@ void	display_hand(t_data *data)
 			color = get_texture_pixel(data->player_hand, x, y);
 			if (color != 0xFFFFFF)
 			{
-				pixel_put(data, x + pos_x, pos_y + y, color);
+				pixel_put(data, x + pos_x, pos_y + y + data->display.move_hand, color);
 			}
 			++x;
 		}
