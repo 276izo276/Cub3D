@@ -98,6 +98,8 @@ static void	display_game_loop(t_data *data, int i)
 		put_text_pix_img(data, i, dist_heigh, text_x);
 		data->ray[i].pix_y++;
 	}
+	if (data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x]->is_active)
+		display_msg(data, i);
 }
 
 
@@ -114,8 +116,8 @@ void	*display_fst_part(void *ptr)
 		while (i < data->mlx.width / 4)
 		{
 			display_game_loop(data, i);
-			// display_msg(data, i);
 			display_door(data, i);
+			// display_msg(data, i);
 			++i;
 		}
 		pthread_barrier_wait(&data->barrier_display);	
@@ -167,8 +169,8 @@ void	*display_third_part(void *ptr)
 		while (i < max_pix)
 		{
 			display_game_loop(data, i);
-			// display_msg(data, i);
 			display_door(data, i);
+			// display_msg(data, i);
 			++i;
 		}
 		pthread_barrier_wait(&data->barrier_display);	
