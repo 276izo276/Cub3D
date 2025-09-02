@@ -1,37 +1,41 @@
-#include "struct_bonus.h"
 #include "cub3d_bonus.h"
-#include <math.h>
 #include "mlx.h"
+#include "struct_bonus.h"
+#include <math.h>
 
 static void	get_right_text(t_data *data, int i)
 {
 	if (data->ray[i].dir == NORTH)
 	{
-		// if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] == 'D')
+		// if (data->map.tabmap[data->ray[i].case_y
+			// + 1][data->ray[i].case_x] == 'D')
 		// 	data->ray[i].img = data->map.door;
 		// else
-			data->ray[i].img = data->map.north;
+		data->ray[i].img = data->map.north;
 	}
 	else if (data->ray[i].dir == SOUTH)
 	{
-		// if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] == 'D')
+		// if (data->map.tabmap[data->ray[i].case_y
+			// - 1][data->ray[i].case_x] == 'D')
 		// 	data->ray[i].img = data->map.door;
 		// else
-			data->ray[i].img = data->map.south;
+		data->ray[i].img = data->map.south;
 	}
 	else if (data->ray[i].dir == EAST)
 	{
-		// if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] == 'D')
+		// if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x
+			// - 1] == 'D')
 		// 	data->ray[i].img = data->map.door;
 		// else
-			data->ray[i].img = data->map.east;
+		data->ray[i].img = data->map.east;
 	}
 	else if (data->ray[i].dir == WEST)
 	{
-		// if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == 'D')
+		// if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x
+			// + 1] == 'D')
 		// 	data->ray[i].img = data->map.door;
 		// else
-			data->ray[i].img = data->map.west;
+		data->ray[i].img = data->map.west;
 	}
 }
 
@@ -98,15 +102,27 @@ static void	display_game_loop(t_data *data, int i)
 		put_text_pix_img(data, i, dist_heigh, text_x);
 		data->ray[i].pix_y++;
 	}
-	if (data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x]->is_active)
-		display_msg(data, i);
+	if (data->ray[i].dir == NORTH && data->map.tabmap[data->ray[i].case_y
+		- 1][data->ray[i].case_x] == '1'
+		&& data->map.wall_map[data->ray[i].case_y
+		- 1][data->ray[i].case_x]->is_active)
+		display_msg(data, i, data->ray[i].case_y - 1, data->ray[i].case_x);
+	else if (data->ray[i].dir == SOUTH && data->map.tabmap[data->ray[i].case_y
+		+ 1][data->ray[i].case_x] == '1'
+		&& data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->is_active)
+		display_msg(data, i, data->ray[i].case_y + 1, data->ray[i].case_x);
+	else if (data->ray[i].dir == EAST && data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == '1'
+		&& data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->is_active)
+		display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x + 1);
+	else if (data->ray[i].dir == WEST && data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] == '1'
+		&& data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->is_active)
+		display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x - 1);
 }
-
 
 void	*display_fst_part(void *ptr)
 {
-	int	i;
-	t_data *data;
+	int		i;
+	t_data	*data;
 
 	data = (t_data *)ptr;
 	while (1)
@@ -120,19 +136,18 @@ void	*display_fst_part(void *ptr)
 			// display_msg(data, i);
 			++i;
 		}
-		pthread_barrier_wait(&data->barrier_display);	
+		pthread_barrier_wait(&data->barrier_display);
 	}
 	return (NULL);
 	// aff_mini_map(data);
 	// display_hand(data);
 }
 
-
 void	*display_snd_part(void *ptr)
 {
-	int	i;
-	t_data *data;
-	int	max_pix;
+	int		i;
+	t_data	*data;
+	int		max_pix;
 
 	data = (t_data *)ptr;
 	max_pix = 2 * (data->mlx.width / 4);
@@ -147,7 +162,7 @@ void	*display_snd_part(void *ptr)
 			// display_msg(data, i);
 			++i;
 		}
-		pthread_barrier_wait(&data->barrier_display);	
+		pthread_barrier_wait(&data->barrier_display);
 	}
 	return (NULL);
 	// aff_mini_map(data);
@@ -156,9 +171,9 @@ void	*display_snd_part(void *ptr)
 
 void	*display_third_part(void *ptr)
 {
-	int	i;
-	int	max_pix;
-	t_data *data;
+	int		i;
+	int		max_pix;
+	t_data	*data;
 
 	data = (t_data *)ptr;
 	max_pix = 3 * (data->mlx.width / 4);
@@ -173,7 +188,7 @@ void	*display_third_part(void *ptr)
 			// display_msg(data, i);
 			++i;
 		}
-		pthread_barrier_wait(&data->barrier_display);	
+		pthread_barrier_wait(&data->barrier_display);
 	}
 	return (NULL);
 	// aff_mini_map(data);
@@ -182,8 +197,8 @@ void	*display_third_part(void *ptr)
 
 void	*display_last_part(void *ptr)
 {
-	int	i;
-	t_data *data;
+	int		i;
+	t_data	*data;
 
 	data = (t_data *)ptr;
 	while (1)
@@ -197,7 +212,7 @@ void	*display_last_part(void *ptr)
 			// display_msg(data, i);
 			++i;
 		}
-		pthread_barrier_wait(&data->barrier_display);	
+		pthread_barrier_wait(&data->barrier_display);
 	}
 	return (NULL);
 	// aff_mini_map(data);
