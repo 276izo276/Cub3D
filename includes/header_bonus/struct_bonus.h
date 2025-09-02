@@ -247,6 +247,7 @@ struct s_display
 	int				move_hand;
 	bool			is_up_move_hand;
 	unsigned long long	elapsed_time;
+	bool			is_msg_active;
 	unsigned long long time_remove;
 };
 

@@ -287,4 +287,6 @@ void	init_data(t_data *data, int ac, char **av)
 	data->nb_msg = 7;
 	data->display.time_remove = 10000;
 	data->display.elapsed_time = 0;
+	data->current_msg = 0;
+	data->display.is_msg_active = true;
 }
