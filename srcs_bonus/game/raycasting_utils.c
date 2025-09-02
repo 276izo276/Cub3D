@@ -32,8 +32,8 @@ int	handle_ray_y_top(t_data *data, int i)
 			// printf("IN \n");
 			if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')
 				return (1);
-		int random = 0;
-			// int random = 0;
+		int random = rand() % (150 * data->mlx.width);
+			// int random = rand() % (150 * data->mlx.width);
 			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
 				printf("rand >> %d\n", random);
@@ -85,8 +85,8 @@ int	handle_ray_y_down(t_data *data, int i)
 		{
 			if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')
 				return (1);
-		int random = 0;
-			// int random = 0;
+		int random = rand() % (150 * data->mlx.width);
+			// int random = rand() % (150 * data->mlx.width);
 
 			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
@@ -138,8 +138,8 @@ int	handle_ray_x_left(t_data *data, int i)
 		{
 			if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')
 				return (1);
-		int random = 0;
-			// int random = 0;
+		int random = rand() % (150 * data->mlx.width);
+			// int random = rand() % (150 * data->mlx.width);
 
 			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
@@ -190,8 +190,8 @@ int	handle_ray_x_right(t_data *data, int i)
 		{
 				if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')
 				return (1);
-		int random = 0;
-			// int random = 0;
+		int random = rand() % (150 * data->mlx.width);
+			// int random = rand() % (150 * data->mlx.width);
 
 			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
