@@ -71,12 +71,12 @@ void	handle_wall_msg(t_data *data, long long int cur)
 		data->display.elapsed_time = 0;
 		data->display.is_msg_active = true;
 	}
-	else if (data->current_msg == 8 && data->display.elapsed_time == 0)
+	else if (data->current_msg == 7 && data->display.elapsed_time == 0)
 	{
 		data->display.elapsed_time = cur;
 		data->display.is_msg_active = false;
 	}
-	else if (data->current_msg == 8 && cur - data->display.elapsed_time > data->display.time_remove)
+	else if (data->current_msg >= 7 && cur - data->display.elapsed_time > data->display.time_remove)
 	{
 		remove_wall_msg(data);
 		data->current_msg = 0;
