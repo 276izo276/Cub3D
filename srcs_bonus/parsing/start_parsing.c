@@ -59,6 +59,7 @@ void	get_texture(t_data *data)
 static	void create_door_map(t_data *data, int size)
 {
 	int	y;
+	int	size_line;
 
 	y = 0;
 	data->map.door_map = malloc(sizeof(t_door **) * (size + 1));
@@ -67,32 +68,35 @@ static	void create_door_map(t_data *data, int size)
 	ft_bzero(data->map.door_map, sizeof(t_door **) * (size + 1));
 	while (y < size)
 	{
-		data->map.door_map[y] = malloc(sizeof(t_door *) * (size + 1));
+		size_line = ft_strlen(data->map.tabmap[y]);
+		data->map.door_map[y] = malloc(sizeof(t_door *) * (size_line + 1));
 		if (!data->map.door_map[y])
 			f_exit(data, 1);
-		ft_bzero(data->map.door_map[y], sizeof(t_door *) * (size + 1));
+		ft_bzero(data->map.door_map[y], sizeof(t_door *) * (size_line + 1));
 		++y;
 	}
 }
 
-static	void create_wall_msg_map(t_data *data, int size)
+static	void create_wall_map(t_data *data, int size)
 {
 	int	y;
+	int	size_line;
 
 	y = 0;
-	data->display.wall_msg = malloc(sizeof(t_door **) * (size + 1));
-	if (!data->display.wall_msg)
+	data->map.wall_map = malloc(sizeof(t_wall_msg **) * (size + 1));
+	if (!data->map.wall_map)
 		f_exit(data, 1);
-	ft_bzero(data->display.wall_msg, sizeof(t_door **) * (size + 1));
+	ft_bzero(data->map.wall_map, sizeof(t_wall_msg **) * (size + 1));
 	while (y < size)
 	{
-		data->display.wall_msg[y] = malloc(sizeof(t_door *) * (size + 1));
-		if (!data->display.wall_msg[y])
+		size_line = ft_strlen(data->map.tabmap[y]);
+		data->map.wall_map[y] = malloc(sizeof(t_wall_msg *) * (size_line + 1));
+		if (!data->map.wall_map[y])
 			f_exit(data, 1);
-		ft_bzero(data->display.wall_msg[y], sizeof(t_door *) * (size + 1));
+		ft_bzero(data->map.wall_map[y], sizeof(t_wall_msg *) * (size_line + 1));
 		++y;
 	}
-	data->display.random_value = 10505;
+	data->random_value = 100000;
 }
 
 void	create_tabmap(t_data *data)
@@ -118,7 +122,7 @@ void	create_tabmap(t_data *data)
 	}
 	data->map.tabmap_height = i;
 	create_door_map(data, size);
-	create_wall_msg_map(data, size);
+	create_wall_map(data, size);
 
 }
 

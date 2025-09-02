@@ -191,33 +191,33 @@ static void	init_coa(t_data *data)
 
 void	init_img_msg(t_data *data)
 {
-	data->display.msg_img = malloc(sizeof(t_img **) * (data->nb_msg));
-	if (!data->display.msg_img)
+	data->map.msg_img = malloc(sizeof(t_img **) * (data->nb_msg));
+	if (!data->map.msg_img)
 		f_exit(data, 1);
-	data->display.msg_img[0] = malloc(sizeof(t_img));
-	if (!data->display.msg_img[0])
+	data->map.msg_img[0] = malloc(sizeof(t_img));
+	if (!data->map.msg_img[0])
 		f_exit(data, 1);
-	ft_bzero(data->display.msg_img[0], sizeof(t_img));
-	data->display.msg_img[0]->mlx = data->mlx.mlx;
-	data->display.msg_img[0]->path = "texture/mini_map/cursor.xpm";
-	data->display.msg_img[1] = malloc(sizeof(t_img));
-	if (!data->display.msg_img[1])
+	ft_bzero(data->map.msg_img[0], sizeof(t_img));
+	data->map.msg_img[0]->mlx = data->mlx.mlx;
+	data->map.msg_img[0]->path = "texture/mini_map/cursor.xpm";
+	data->map.msg_img[1] = malloc(sizeof(t_img));
+	if (!data->map.msg_img[1])
 		f_exit(data, 1);
-	ft_bzero(data->display.msg_img[1], sizeof(t_img));
-	data->display.msg_img[1]->mlx = data->mlx.mlx;
-	data->display.msg_img[1]->path = "texture/mini_map/floor.xpm";
-	data->display.msg_img[2] = malloc(sizeof(t_img));
-	if (!data->display.msg_img[2])
+	ft_bzero(data->map.msg_img[1], sizeof(t_img));
+	data->map.msg_img[1]->mlx = data->mlx.mlx;
+	data->map.msg_img[1]->path = "texture/mini_map/floor.xpm";
+	data->map.msg_img[2] = malloc(sizeof(t_img));
+	if (!data->map.msg_img[2])
 		f_exit(data, 1);
-	ft_bzero(data->display.msg_img[2], sizeof(t_img));
-	data->display.msg_img[2]->mlx = data->mlx.mlx;
-	data->display.msg_img[2]->path = "texture/mini_map/door.xpm";
-	data->display.msg_img[3] = malloc(sizeof(t_img));
-	if (!data->display.msg_img[3])
+	ft_bzero(data->map.msg_img[2], sizeof(t_img));
+	data->map.msg_img[2]->mlx = data->mlx.mlx;
+	data->map.msg_img[2]->path = "texture/mini_map/door.xpm";
+	data->map.msg_img[3] = malloc(sizeof(t_img));
+	if (!data->map.msg_img[3])
 		f_exit(data, 1);
-	ft_bzero(data->display.msg_img[3], sizeof(t_img));
-	data->display.msg_img[3]->mlx = data->mlx.mlx;
-	data->display.msg_img[3]->path = "texture/mini_map/mob.xpm";
+	ft_bzero(data->map.msg_img[3], sizeof(t_img));
+	data->map.msg_img[3]->mlx = data->mlx.mlx;
+	data->map.msg_img[3]->path = "texture/mini_map/mob.xpm";
 }
 
 void	init_data(t_data *data, int ac, char **av)

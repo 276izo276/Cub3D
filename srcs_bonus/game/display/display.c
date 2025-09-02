@@ -141,8 +141,8 @@ void	*display_snd_part(void *ptr)
 		while (i < max_pix)
 		{
 			display_game_loop(data, i);
-			// display_msg(data, i);
 			display_door(data, i);
+			// display_msg(data, i);
 			++i;
 		}
 		pthread_barrier_wait(&data->barrier_display);	
@@ -191,8 +191,8 @@ void	*display_last_part(void *ptr)
 		while (i < data->mlx.width)
 		{
 			display_game_loop(data, i);
-			// display_msg(data, i);
 			display_door(data, i);
+			// display_msg(data, i);
 			++i;
 		}
 		pthread_barrier_wait(&data->barrier_display);	

@@ -62,9 +62,10 @@ struct s_door
 struct s_wall_msg
 {
 	t_coo	coo;
-	double	is_active;
-	int		msg_nb;
 	t_coo	texture_coo;
+	bool	is_active;
+	int		pix_y;
+	int		msg_nb;
 	char	*img_addr;
 };
 
@@ -200,6 +201,8 @@ struct s_map
 	int		tabmap_height;
 	char	**tabmap;
 	t_door	***door_map;
+	t_wall_msg		***wall_map;
+	t_img			**msg_img;
 	t_coo	*player_coo;
 	t_lst	*lines;
 	t_lst	*map;
@@ -216,9 +219,6 @@ struct s_map
 
 struct s_display
 {
-	t_wall_msg		**wall_msg;
-	t_img			**msg_img;
-	int				random_value;
 	char			*pixel_addr;
 	double			cos_angle;
 	double			sin_angle;
@@ -328,6 +328,7 @@ struct s_data
 	bool				player_moved;
 	int					current_msg;
 	int					nb_msg;
+	int				random_value;
 	// t_img	*wh;
 	// t_img	*bl;
 };
