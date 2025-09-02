@@ -33,6 +33,7 @@ typedef struct s_spell		t_spell;
 typedef struct s_hit_door	t_hit_door;
 typedef struct s_door		t_door;
 typedef struct s_hitray		t_hitray;
+typedef struct s_wall_msg	t_wall_msg;
 
 typedef	enum e_dir
 {
@@ -58,6 +59,16 @@ struct s_door
 	bool	is_verti;
 };
 
+struct s_wall_msg
+{
+	t_coo	coo;
+	t_coo	texture_coo;
+	bool	is_active;
+	int		pix_y;
+	int		msg_nb;
+	char	*img_addr;
+};
+
 struct s_hit_door
 {
 	t_door *door;
@@ -81,7 +92,6 @@ struct s_hit_door
 	double	start_y;
 	double	start_x;
 };
-
 
 
 struct	s_ray
@@ -195,6 +205,8 @@ struct s_map
 	int		tabmap_height;
 	char	**tabmap;
 	t_door	***door_map;
+	t_wall_msg		***wall_map;
+	t_img			**msg_img;
 	t_coo	*player_coo;
 	t_lst	*lines;
 	t_lst	*map;
@@ -318,6 +330,9 @@ struct s_data
 	int					nb_door;
 	t_door				**doors;
 	bool				player_moved;
+	int					current_msg;
+	int					nb_msg;
+	int				random_value;
 	// t_img	*wh;
 	// t_img	*bl;
 };

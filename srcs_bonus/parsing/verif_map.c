@@ -39,8 +39,6 @@ static void	init_door(t_door *door, int y, int x)
 	door->coo.x = x;
 	door->is_open = false;
 	door->pos = 0;
-	printf("y >> %d x >> %d\n", y, x);
-
 }
 
 static void	add_door(t_data *data, int y, int x)
@@ -58,7 +56,6 @@ static void	add_door(t_data *data, int y, int x)
 	while (data->doors && data->doors[i])
 		i++;
 	doors = malloc(sizeof(t_door *) * (i + 2));
-	printf("Malloc>>%d\n",i + 2);
 	if (!doors)
 	{
 		free(door);
@@ -71,7 +68,6 @@ static void	add_door(t_data *data, int y, int x)
 		doors[i] = data->doors[i];
 		i++;
 	}
-	printf(">>>%d",i);
 	doors[i] = door;
 	free(data->doors);
 	data->doors = doors;
@@ -108,6 +104,24 @@ static void	is_door(char c, int y, int x, t_data *data)
 	}
 }
 
+static void	save_wall(char c, int y, int x, t_data *data)
+{
+	t_wall_msg *wall_msg;
+
+	if (c != '1')
+		return ;
+	wall_msg = malloc(sizeof(t_wall_msg));
+	if (!wall_msg)
+		f_exit(data, 1);
+	wall_msg->msg_nb = 0;
+	wall_msg->img_addr = NULL;
+	wall_msg->pix_y = 0;
+	wall_msg->coo.x = x;
+	wall_msg->coo.y = y;
+	wall_msg->is_active = false;
+	data->map.wall_map[y][x] = wall_msg;
+}
+
 static void	check_map_valid_char(t_data *data)
 {
 	int	y;
@@ -120,6 +134,7 @@ static void	check_map_valid_char(t_data *data)
 		while (data->map.tabmap[y][x])
 		{
 			is_valid_char_map(data->map.tabmap[y][x], y, x, data);
+			save_wall(data->map.tabmap[y][x], y, x, data);
 			is_door(data->map.tabmap[y][x], y, x, data);
 			x++;
 		}

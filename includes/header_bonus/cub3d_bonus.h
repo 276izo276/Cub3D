@@ -37,6 +37,8 @@ void	*display_snd_part(void *ptr);
 void	*display_third_part(void *ptr);
 void	*display_last_part(void *ptr);
 
+void	display_msg(t_data *data, int i, int y, int x);
+
 
 //raycasting
 void	ray_launch(t_data *data);
