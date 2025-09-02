@@ -246,7 +246,6 @@ void	movex(t_map *map, t_mini *mini, t_data *data)
 					return ;
 				else if (mini->ny < 16 || mini->ny > 48)
 					return ;
-				return ;
 			}
 		}
 	printf("xold=%lf    x=%lf\n",mini->player_coo.x, mini->nx);
