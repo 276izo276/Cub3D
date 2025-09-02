@@ -183,6 +183,10 @@ struct s_mini
 	double		speed;
 	double		dy;
 	double		dx;
+	double		ny;
+	double		nx;
+	int			cy;
+	int			cx;
 };
 
 struct s_map
