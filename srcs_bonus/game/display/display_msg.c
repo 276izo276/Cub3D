@@ -18,7 +18,7 @@ static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x, in
 	text_pix = data->map.msg_img[data->map.wall_map[y][x]->msg_nb]->data_addr + (text_y
 			* data->map.msg_img[data->map.wall_map[y][x]->msg_nb]->size_line + text_x);
 	color = *(unsigned int *)text_pix;
-	color = 0xFFFF00;
+	// color = 0xFFFF00;
 	*(unsigned int *)pixel_addr = color;
 }
 
@@ -42,7 +42,7 @@ static void	check_dir(t_data *data, int i, int y, int x)
 	posx_display -= floor(posx_display);
 	data->map.wall_map[y][x]->texture_coo.x = (int)(posx_display * data->map.msg_img[data->map.wall_map[y][x]->msg_nb]->width);
 	if (data->map.wall_map[y][x]->texture_coo.x < 0)
-		data->map.wall_map[y][x]->texture_coo.x -= 0;
+		data->map.wall_map[y][x]->texture_coo.x = 0;
 	if (data->map.wall_map[y][x]->texture_coo.x >= data->map.msg_img[data->map.wall_map[y][x]->msg_nb]->width)
 		data->map.wall_map[y][x]->texture_coo.x = data->map.msg_img[data->map.wall_map[y][x]->msg_nb]->width - 1;
 }

@@ -60,7 +60,7 @@ static void	check_dir(t_data *data, int i)
 	posx_display -= floor(posx_display);
 	data->ray[i].texture_coo.x = (int)(posx_display * data->ray[i].img->width);
 	if (data->ray[i].texture_coo.x < 0)
-		data->ray[i].texture_coo.x -= 0;
+		data->ray[i].texture_coo.x = 0;
 	if (data->ray[i].texture_coo.x >= data->ray[i].img->width)
 		data->ray[i].texture_coo.x = data->ray[i].img->width - 1;
 }
@@ -102,17 +102,6 @@ static void	display_game_loop(t_data *data, int i)
 		put_text_pix_img(data, i, dist_heigh, text_x);
 		data->ray[i].pix_y++;
 	}
-	if (data->ray[i].dir == SOUTH && data->map.wall_map[data->ray[i].case_y
-		- 1][data->ray[i].case_x]->is_active && data->map.wall_map[data->ray[i].case_y
-		- 1][data->ray[i].case_x]->dir == data->ray[i].dir)
-		display_msg(data, i, data->ray[i].case_y - 1, data->ray[i].case_x);
-	else if (data->ray[i].dir == NORTH && data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->is_active && data->map.wall_map[data->ray[i].case_y
-		+ 1][data->ray[i].case_x]->dir == data->ray[i].dir)
-		display_msg(data, i, data->ray[i].case_y + 1, data->ray[i].case_x);
-	else if (data->ray[i].dir == WEST && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->is_active && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->dir == data->ray[i].dir)
-		display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x + 1);
-	else if (data->ray[i].dir == EAST && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->is_active && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->dir == data->ray[i].dir)
-		display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x - 1);
 }
 
 void	*display_fst_part(void *ptr)
