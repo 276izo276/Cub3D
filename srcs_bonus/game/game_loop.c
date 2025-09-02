@@ -37,6 +37,50 @@ static void	handle_input_move(t_data *data, long long int cur)
 	}
 }
 
+void	remove_wall_msg(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (data->map.tabmap[y])
+	{
+		x = 0;
+		while (data->map.tabmap[y][x])
+		{
+			if (data->map.tabmap[y][x] == '1')
+			{
+				if (data->map.wall_map[y][x]->is_active == true)
+					data->map.wall_map[y][x]->is_active = false;
+			}
+			++x;
+		}
+		++y;
+	}
+}
+void	handle_wall_msg(t_data *data, long long int cur)
+{
+	if (data->current_msg == 4 && data->display.elapsed_time == 0)
+	{
+		data->display.elapsed_time = cur;
+	}
+	else if (data->current_msg == 4 && cur - data->display.elapsed_time > data->display.time_remove)
+	{
+		remove_wall_msg(data);
+		data->display.elapsed_time = 0;
+	}
+	else if (data->current_msg == 7 && data->display.elapsed_time == 0)
+	{
+		data->display.elapsed_time = cur;
+	}
+	else if (data->current_msg == 7 && cur - data->display.elapsed_time > data->display.time_remove)
+	{
+		remove_wall_msg(data);
+		data->current_msg = 0;
+		data->display.elapsed_time = 0;
+	}
+}
+
 int	game_loop(t_data *data)
 {
 	long long int	cur;
@@ -47,6 +91,7 @@ int	game_loop(t_data *data)
 	{
 		cur = get_mtime();
 		handle_input_move(data, cur);
+		handle_wall_msg(data, cur);
 		if (data->time_fps + 1000 / FPS < cur)
 		{
 			// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));3

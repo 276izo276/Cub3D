@@ -246,6 +246,8 @@ struct s_display
 	int				pos_y_hand;
 	int				move_hand;
 	bool			is_up_move_hand;
+	unsigned long long	elapsed_time;
+	unsigned long long time_remove;
 };
 
 struct s_spell

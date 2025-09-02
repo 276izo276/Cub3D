@@ -65,7 +65,7 @@ void	open_textures(t_data *data)
 void	open_img_msg(t_data *data)
 {
 	int i = 0;
-	while (i < 4)
+	while (i < 7)
 	{
 		open_img(data->map.msg_img[i], data);
 		++i;

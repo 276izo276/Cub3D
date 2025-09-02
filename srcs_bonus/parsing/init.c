@@ -225,6 +225,25 @@ void	init_img_msg(t_data *data)
 		data->map.msg_img[3]->path = "texture/earth_msg.xpm";
 	else if (data->color == AIR_COLOR)
 		data->map.msg_img[3]->path = "texture/air_msg.xpm";
+	data->map.msg_img[4] = malloc(sizeof(t_img));
+	if (!data->map.msg_img[4])
+		f_exit(data, 1);
+	ft_bzero(data->map.msg_img[4], sizeof(t_img));
+	data->map.msg_img[4]->mlx = data->mlx.mlx;
+	data->map.msg_img[4]->path = "texture/fourth_msg.xpm";
+	data->map.msg_img[5] = malloc(sizeof(t_img));
+	if (!data->map.msg_img[5])
+		f_exit(data, 1);
+	ft_bzero(data->map.msg_img[5], sizeof(t_img));
+	data->map.msg_img[5]->mlx = data->mlx.mlx;
+	data->map.msg_img[5]->path = "texture/five_msg.xpm";
+
+	data->map.msg_img[6] = malloc(sizeof(t_img));
+	if (!data->map.msg_img[6])
+		f_exit(data, 1);
+	ft_bzero(data->map.msg_img[6], sizeof(t_img));
+	data->map.msg_img[6]->mlx = data->mlx.mlx;
+	data->map.msg_img[6]->path = "texture/six_msg.xpm";
 	open_img_msg(data);
 }
 
@@ -265,5 +284,7 @@ void	init_data(t_data *data, int ac, char **av)
 	init_coa(data);
 	init_texture(data);
 
-	data->nb_msg = 4;
+	data->nb_msg = 7;
+	data->display.time_remove = 10000;
+	data->display.elapsed_time = 0;
 }
