@@ -30,6 +30,7 @@ static int	check_y_value(t_mini *mini, int y, int x)
 	return (0);
 }
 
+
 int	hit_box_wall(t_map *map, t_mini *mini)
 {
 	int	x;
@@ -52,7 +53,57 @@ int	hit_box_wall(t_map *map, t_mini *mini)
 		}
 		y++;
 	}
-	return (5);
+	return (0);
+}
+
+int	hit_box_x_wall(t_map *map, t_mini *mini)
+{
+	int	x;
+	int	y;
+	
+	y= -1;
+	while (y <= 1)
+	{
+		x = -1;
+		while (x <= 1)
+		{
+			if (map->tabmap[map->player_coo->y + y][map->player_coo->x + x] == '1')
+			{
+				// if (check_x_value(mini, y, x) && check_y_value(mini, y, x))
+				// 	return (0);
+				if (check_x_value(mini, y, x))
+					return (1);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+int	hit_box_y_wall(t_map *map, t_mini *mini)
+{
+	int	x;
+	int	y;
+	
+	y= -1;
+	while (y <= 1)
+	{
+		x = -1;
+		while (x <= 1)
+		{
+			if (map->tabmap[map->player_coo->y + y][map->player_coo->x + x] == '1')
+			{
+				// if (check_x_value(mini, y, x) && check_y_value(mini, y, x))
+				// 	return (0);
+				if (check_y_value(mini, y, x))
+					return (1);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
 }
 
 static void	move_x(t_data *data, t_map *map, t_mini *mini)
@@ -170,10 +221,9 @@ static void	calc_dx_dy(t_data *data, int keycode, t_mini *mini)
 
 void	recalc_x(t_mini *mini, t_map *map)
 {
-	mini->dx = mini->player_coo.x - mini->dx * SPEED;
-	mini->nx = mini->dx;
+	mini->nx = mini->player_coo.x - mini->dx * SPEED;
 	mini->cx = 0;
-	if (mini->dx < 0)
+	if (mini->nx < 0)
 	{
 		if (map->tabmap[map->player_coo->y][map->player_coo->x - 1] == '1')
 		{
@@ -181,7 +231,7 @@ void	recalc_x(t_mini *mini, t_map *map)
 			mini->nx = 64 + mini->dx;
 		}
 	}
-	else if (mini->dx >= 64)
+	else if (mini->nx >= 64)
 	{
 		if (map->tabmap[map->player_coo->y][map->player_coo->x + 1] == '1')
 		{
@@ -193,10 +243,9 @@ void	recalc_x(t_mini *mini, t_map *map)
 
 void	recalc_y(t_mini *mini, t_map *map)
 {
-	mini->dy = mini->player_coo.y - mini->dy * SPEED;
-	mini->ny = mini->dy;
+	mini->ny = mini->player_coo.y - mini->dy * SPEED;
 	mini->cy = 0;
-	if (mini->dy < 0)
+	if (mini->ny < 0)
 	{
 		if (map->tabmap[map->player_coo->y - 1][map->player_coo->x] == '1')
 		{
@@ -204,7 +253,7 @@ void	recalc_y(t_mini *mini, t_map *map)
 			mini->ny = 64 + mini->dy;
 		}
 	}
-	else if (mini->dy >= 64)
+	else if (mini->ny >= 64)
 	{
 		if (map->tabmap[map->player_coo->y + 1][map->player_coo->x] == '1')
 		{
@@ -216,7 +265,22 @@ void	recalc_y(t_mini *mini, t_map *map)
 
 void	movex(t_map *map, t_mini *mini)
 {
-	if (hit_box_wall(map, mini))
+	if (hit_box_x_wall(map, mini))
+		return;
+	mini->player_coo.x = mini->nx;
+	map->player_coo->x = mini->cx;
+	printf("casex>>%d    coox>>>%lf\n",map->player_coo->x,mini->player_coo.x);
+}
+
+
+void	movey(t_map *map, t_mini *mini)
+{
+
+	if (hit_box_y_wall(map, mini))
+		return;
+	mini->player_coo.y = mini->ny;
+	map->player_coo->y += mini->cy;
+	printf("casey>>%d    cooy>>>%lf\n",map->player_coo->y,mini->player_coo.y);
 }
 
 void	handle_move(t_map *map, t_mini *mini, t_data *data)
@@ -242,10 +306,11 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	}
 	else
 		v_norm(mini, data);
+	printf("HAAAA>>>%lf   %lf\n",mini->dy, mini->dx);
 	recalc_x(mini, map);
 	recalc_y(mini, map);
-	movex();
-	movey();
+	movex(map, mini);
+	movey(map, mini);
 	// move_x(data, map, mini);
 	// move_y(data, map, mini);
 }

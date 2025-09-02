@@ -94,7 +94,8 @@ static void	put_text_pix_img_fixed(t_data *data, int i, int dist_heigh, int text
 		* data->map.fixed_door->height / dist_heigh;
 	if (text_y > data->map.fixed_door->height)
 		return ;
-	pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
+	pixel_addr = data->ray[i].
+	 + (data->ray[i].pix_y
 			* data->screen->size_line);
 	text_pix = data->map.fixed_door->data_addr + (text_y
 			* data->map.fixed_door->size_line + text_x);
