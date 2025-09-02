@@ -102,20 +102,16 @@ static void	display_game_loop(t_data *data, int i)
 		put_text_pix_img(data, i, dist_heigh, text_x);
 		data->ray[i].pix_y++;
 	}
-	if (data->ray[i].dir == NORTH && data->map.tabmap[data->ray[i].case_y
-		- 1][data->ray[i].case_x] == '1'
-		&& data->map.wall_map[data->ray[i].case_y
-		- 1][data->ray[i].case_x]->is_active)
+	if (data->ray[i].dir == SOUTH && data->map.wall_map[data->ray[i].case_y
+		- 1][data->ray[i].case_x]->is_active && data->map.wall_map[data->ray[i].case_y
+		- 1][data->ray[i].case_x]->dir == data->ray[i].dir)
 		display_msg(data, i, data->ray[i].case_y - 1, data->ray[i].case_x);
-	else if (data->ray[i].dir == SOUTH && data->map.tabmap[data->ray[i].case_y
-		+ 1][data->ray[i].case_x] == '1'
-		&& data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->is_active)
+	else if (data->ray[i].dir == NORTH && data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->is_active && data->map.wall_map[data->ray[i].case_y
+		+ 1][data->ray[i].case_x]->dir == data->ray[i].dir)
 		display_msg(data, i, data->ray[i].case_y + 1, data->ray[i].case_x);
-	else if (data->ray[i].dir == EAST && data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == '1'
-		&& data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->is_active)
+	else if (data->ray[i].dir == WEST && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->is_active && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->dir == data->ray[i].dir)
 		display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x + 1);
-	else if (data->ray[i].dir == WEST && data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] == '1'
-		&& data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->is_active)
+	else if (data->ray[i].dir == EAST && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->is_active && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->dir == data->ray[i].dir)
 		display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x - 1);
 }
 

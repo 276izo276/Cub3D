@@ -11,13 +11,14 @@ static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x, in
 	char			*pixel_addr;
 	unsigned int	color;
 
-	text_y = (data->ray[i].pix_y - data->ray[i].htop_wall)
+	text_y = (data->map.wall_map[y][x]->pix_y - data->ray[i].htop_wall)
 		* data->map.msg_img[data->map.wall_map[y][x]->msg_nb]->height / dist_heigh;
-	pixel_addr = data->map.wall_map[y][x]->img_addr + (data->ray[i].pix_y
+	pixel_addr = data->map.wall_map[y][x]->img_addr + (data->map.wall_map[y][x]->pix_y
 			* data->screen->size_line);
 	text_pix = data->map.msg_img[data->map.wall_map[y][x]->msg_nb]->data_addr + (text_y
 			* data->map.msg_img[data->map.wall_map[y][x]->msg_nb]->size_line + text_x);
 	color = *(unsigned int *)text_pix;
+	color = 0xFFFF00;
 	*(unsigned int *)pixel_addr = color;
 }
 
@@ -46,6 +47,7 @@ static void	check_dir(t_data *data, int i, int y, int x)
 		data->map.wall_map[y][x]->texture_coo.x = data->map.msg_img[data->map.wall_map[y][x]->msg_nb]->width - 1;
 }
 
+#include <stdio.h>
 void	display_msg(t_data *data, int i, int y, int x)
 {
 	int	text_x;
@@ -55,7 +57,7 @@ void	display_msg(t_data *data, int i, int y, int x)
 	text_x = data->map.wall_map[y][x]->texture_coo.x
 		* (data->map.msg_img[data->map.wall_map[y][x]->msg_nb]->bits_per_pixel >> 3);
 	data->map.wall_map[y][x]->img_addr = data->screen->data_addr + data->ray[i].pix_x
-		* data->ray[i].calc_bits;
+		* (data->map.msg_img[data->map.wall_map[y][x]->msg_nb]->bits_per_pixel >> 3);
 	data->map.wall_map[y][x]->pix_y = data->ray[i].htop_wall;
 	if (data->map.wall_map[y][x]->pix_y < 0)
 		data->map.wall_map[y][x]->pix_y = 0;

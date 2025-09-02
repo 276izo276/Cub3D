@@ -38,6 +38,7 @@ int	handle_ray_y_top(t_data *data, int i)
 				data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->coo.x = data->ray[i].case_x;
 				data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->coo.y = data->ray[i].case_y - 1;
 				data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->msg_nb = data->current_msg;
+				data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->dir = data->ray[i].dir;
 				++data->current_msg;
 			}
 		}
@@ -87,6 +88,7 @@ int	handle_ray_y_down(t_data *data, int i)
 				data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->coo.x = data->ray[i].case_x;
 				data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->coo.y = data->ray[i].case_y + 1;
 				data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->msg_nb = data->current_msg;
+				data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->dir = data->ray[i].dir;
 				++data->current_msg;
 			}
 		}
@@ -136,6 +138,7 @@ int	handle_ray_x_left(t_data *data, int i)
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->coo.x = data->ray[i].case_x - 1;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->coo.y = data->ray[i].case_y;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->msg_nb = data->current_msg;
+				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->dir = data->ray[i].dir;
 				++data->current_msg;
 			}
 		}
@@ -184,6 +187,7 @@ int	handle_ray_x_right(t_data *data, int i)
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->coo.x = data->ray[i].case_x + 1;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->coo.y = data->ray[i].case_y;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->msg_nb = data->current_msg;
+				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->dir = data->ray[i].dir;
 				++data->current_msg;
 			}
 		}
