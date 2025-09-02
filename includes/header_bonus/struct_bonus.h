@@ -67,6 +67,7 @@ struct s_wall_msg
 	int		pix_y;
 	int		msg_nb;
 	char	*img_addr;
+	int		dir;
 };
 
 struct s_hit_door
