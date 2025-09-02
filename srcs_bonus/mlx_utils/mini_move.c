@@ -2,6 +2,8 @@
 #include "utils_bonus.h"
 #include <math.h>
 
+#include <stdio.h>
+
 static int	check_x_value(t_mini *mini, int y, int x,t_map *map)
 {
 	if ((y == -1 && x == -1 && mini->player_coo.y < 8 && mini->player_coo.x + mini->dx < 8)
@@ -240,7 +242,11 @@ void	movex(t_map *map, t_mini *mini, t_data *data)
 			if ((mini->cx == 0 && mini->nx >= 22 && mini->nx <= 42 && abs_value(32 - mini->player_coo.x) > abs_value(32 - mini->nx))
 			|| (mini->cx == 0 && mini->nx > 32 && mini->player_coo.x < 32) || (mini->cx == 0 && mini->nx < 32 && mini->player_coo.x > 32))
 			{
-				printf("HIT DOOOR   xold=%lf    x=%lf\n",mini->player_coo.x, mini->nx);
+				// printf("HIT DOOOR   xold=%lf    x=%lf\n",mini->player_coo.x, mini->nx);
+				if (data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50)
+					return ;
+				else if (mini->ny < 16 || mini->ny > 48)
+					return ;
 				return ;
 			}
 		}
@@ -259,14 +265,16 @@ void	movey(t_map *map, t_mini *mini, t_data *data)
 		return;
 	}
 	if (data->map.tabmap[map->player_coo->y][map->player_coo->x] == 'D'
-		&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == false
-		&& data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50)
+		&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == false)
 		{
 			if ((mini->cy == 0 && mini->ny >= 22 && mini->ny <= 42 && abs_value(32 - mini->player_coo.y) > abs_value(32 - mini->ny))
 			|| (mini->cy == 0 && mini->ny > 32 && mini->player_coo.y < 32) || (mini->cy == 0 && mini->ny < 32 && mini->player_coo.y > 32))
 			{
-				printf("HIT DOOOR   yold=%lf    y=%lf\n",mini->player_coo.y, mini->ny);
-				return ;
+				// printf("HIT DOOOR   yold=%lf    y=%lf\n",mini->player_coo.y, mini->ny);
+				if (data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50)
+					return ;
+				else if (mini->nx < 16 || mini->nx > 48)
+					return ;
 			}
 		}
 	printf(" yold=%lf    y=%lf\n",mini->player_coo.y, mini->ny);
