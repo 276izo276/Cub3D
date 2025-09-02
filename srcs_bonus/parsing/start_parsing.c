@@ -75,6 +75,26 @@ static	void create_door_map(t_data *data, int size)
 	}
 }
 
+static	void create_wall_msg_map(t_data *data, int size)
+{
+	int	y;
+
+	y = 0;
+	data->display.wall_msg = malloc(sizeof(t_door **) * (size + 1));
+	if (!data->display.wall_msg)
+		f_exit(data, 1);
+	ft_bzero(data->display.wall_msg, sizeof(t_door **) * (size + 1));
+	while (y < size)
+	{
+		data->display.wall_msg[y] = malloc(sizeof(t_door *) * (size + 1));
+		if (!data->display.wall_msg[y])
+			f_exit(data, 1);
+		ft_bzero(data->display.wall_msg[y], sizeof(t_door *) * (size + 1));
+		++y;
+	}
+	data->display.random_value = 10505;
+}
+
 void	create_tabmap(t_data *data)
 {
 	int		size;
@@ -98,6 +118,7 @@ void	create_tabmap(t_data *data)
 	}
 	data->map.tabmap_height = i;
 	create_door_map(data, size);
+	create_wall_msg_map(data, size);
 
 }
 

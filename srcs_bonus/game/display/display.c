@@ -114,14 +114,15 @@ void	*display_fst_part(void *ptr)
 		while (i < data->mlx.width / 4)
 		{
 			display_game_loop(data, i);
+			// display_msg(data, i);
 			display_door(data, i);
 			++i;
 		}
 		pthread_barrier_wait(&data->barrier_display);	
 	}
 	return (NULL);
-	aff_mini_map(data);
-	display_hand(data);
+	// aff_mini_map(data);
+	// display_hand(data);
 }
 
 
@@ -140,6 +141,7 @@ void	*display_snd_part(void *ptr)
 		while (i < max_pix)
 		{
 			display_game_loop(data, i);
+			// display_msg(data, i);
 			display_door(data, i);
 			++i;
 		}
@@ -165,14 +167,15 @@ void	*display_third_part(void *ptr)
 		while (i < max_pix)
 		{
 			display_game_loop(data, i);
+			// display_msg(data, i);
 			display_door(data, i);
 			++i;
 		}
 		pthread_barrier_wait(&data->barrier_display);	
 	}
 	return (NULL);
-	aff_mini_map(data);
-	display_hand(data);
+	// aff_mini_map(data);
+	// display_hand(data);
 }
 
 void	*display_last_part(void *ptr)
@@ -188,12 +191,13 @@ void	*display_last_part(void *ptr)
 		while (i < data->mlx.width)
 		{
 			display_game_loop(data, i);
+			// display_msg(data, i);
 			display_door(data, i);
 			++i;
 		}
 		pthread_barrier_wait(&data->barrier_display);	
 	}
 	return (NULL);
-	aff_mini_map(data);
-	display_hand(data);
+	// aff_mini_map(data);
+	// display_hand(data);
 }

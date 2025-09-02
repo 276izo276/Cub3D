@@ -39,8 +39,6 @@ static void	init_door(t_door *door, int y, int x)
 	door->coo.x = x;
 	door->is_open = false;
 	door->pos = 0;
-	printf("y >> %d x >> %d\n", y, x);
-
 }
 
 static void	add_door(t_data *data, int y, int x)
@@ -58,7 +56,6 @@ static void	add_door(t_data *data, int y, int x)
 	while (data->doors && data->doors[i])
 		i++;
 	doors = malloc(sizeof(t_door *) * (i + 2));
-	printf("Malloc>>%d\n",i + 2);
 	if (!doors)
 	{
 		free(door);
@@ -71,7 +68,6 @@ static void	add_door(t_data *data, int y, int x)
 		doors[i] = data->doors[i];
 		i++;
 	}
-	printf(">>>%d",i);
 	doors[i] = door;
 	free(data->doors);
 	data->doors = doors;
