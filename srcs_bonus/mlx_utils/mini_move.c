@@ -233,24 +233,23 @@ void	movex(t_map *map, t_mini *mini, t_data *data)
 	if (hit_box_x_wall(map, mini))
 	{
 		printf("STOP HIT X\n");
-		return;
+		mini->nx = mini->player_coo.x;
 	}
 	if (data->map.tabmap[map->player_coo->y][map->player_coo->x] == 'D'
 		&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == true)
 		{
-			if ((mini->cx == 0 && mini->nx >= 22 && mini->nx <= 42 && abs_value(32 - mini->player_coo.x) > abs_value(32 - mini->nx))
+			if ((mini->cx == 0 && mini->nx >= 22 && mini->nx <= 42)
 			|| (mini->cx == 0 && mini->nx > 32 && mini->player_coo.x < 32) || (mini->cx == 0 && mini->nx < 32 && mini->player_coo.x > 32))
 			{
-				// printf("HIT DOOOR   xold=%lf    x=%lf\n",mini->player_coo.x, mini->nx);
-				if (data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50)
-					return ;
+				printf("HIT DOOOR   xold=%lf    x=%lf\n",mini->player_coo.x, mini->nx);
+				if (data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50 && abs_value(32 - mini->player_coo.x) > abs_value(32 - mini->nx))
+					mini->nx = mini->player_coo.x;
 				else if (mini->ny < 16 || mini->ny > 48)
-					return ;
+					mini->ny = mini->player_coo.y;
+				printf("NOT EXIT\n");
 			}
 		}
 	printf("xold=%lf    x=%lf\n",mini->player_coo.x, mini->nx);
-	mini->player_coo.x = mini->nx;
-	map->player_coo->x += mini->cx;
 }
 
 
@@ -260,24 +259,23 @@ void	movey(t_map *map, t_mini *mini, t_data *data)
 	if (hit_box_y_wall(map, mini))
 	{
 		printf("STOP HIT Y\n");
-		return;
+		mini->ny = mini->player_coo.y;
 	}
 	if (data->map.tabmap[map->player_coo->y][map->player_coo->x] == 'D'
 		&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == false)
 		{
-			if ((mini->cy == 0 && mini->ny >= 22 && mini->ny <= 42 && abs_value(32 - mini->player_coo.y) > abs_value(32 - mini->ny))
+			if ((mini->cy == 0 && mini->ny >= 22 && mini->ny <= 42)
 			|| (mini->cy == 0 && mini->ny > 32 && mini->player_coo.y < 32) || (mini->cy == 0 && mini->ny < 32 && mini->player_coo.y > 32))
 			{
-				// printf("HIT DOOOR   yold=%lf    y=%lf\n",mini->player_coo.y, mini->ny);
-				if (data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50)
-					return ;
+				printf("HIT DOOOR   yold=%lf    y=%lf\n",mini->player_coo.y, mini->ny);
+				if (data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50 && abs_value(32 - mini->player_coo.y) > abs_value(32 - mini->ny))
+					mini->ny = mini->player_coo.y;
 				else if (mini->nx < 16 || mini->nx > 48)
-					return ;
+					mini->nx = mini->player_coo.x;
+				printf("NOT EXIT\n");
 			}
 		}
 	printf(" yold=%lf    y=%lf\n",mini->player_coo.y, mini->ny);
-	mini->player_coo.y = mini->ny;
-	map->player_coo->y += mini->cy;
 }
 
 void	handle_move(t_map *map, t_mini *mini, t_data *data)
@@ -309,6 +307,16 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	recalc_y(mini, map);
 	movex(map, mini, data);
 	movey(map, mini, data);
+	if (mini->ny != mini->player_coo.y)
+	{
+		mini->player_coo.y = mini->ny;
+		map->player_coo->y += mini->cy;
+	}
+	if (mini->nx != mini->player_coo.x)
+	{
+		mini->player_coo.x = mini->nx;
+		map->player_coo->x += mini->cx;
+	}
 	// move_x(data, map, mini);
 	// move_y(data, map, mini);
 }
