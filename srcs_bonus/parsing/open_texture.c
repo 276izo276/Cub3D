@@ -54,17 +54,21 @@ void	open_textures(t_data *data)
 	open_img(data->select_hand, data);
 	open_img(data->player_wand, data);
 	open_img(data->spell.lumos, data);
-	int i = 0;
-	while (i < 4)
-	{
-		open_img(data->map.msg_img[i], data);
-		++i;
-	}
 	if (!data->map.ceiling || !data->map.floor)
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
 			"Texture >>> " "color not found !!\n"_END);
 		f_exit(data, 1);
+	}
+}
+
+void	open_img_msg(t_data *data)
+{
+	int i = 0;
+	while (i < 4)
+	{
+		open_img(data->map.msg_img[i], data);
+		++i;
 	}
 }
 

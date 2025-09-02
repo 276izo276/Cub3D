@@ -39,6 +39,9 @@ void	*display_last_part(void *ptr);
 
 void	display_msg(t_data *data, int i, int y, int x);
 
+// init 
+void	init_img_msg(t_data *data);
+void	open_img_msg(t_data *data);
 
 //raycasting
 void	ray_launch(t_data *data);

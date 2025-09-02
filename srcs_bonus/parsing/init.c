@@ -199,25 +199,33 @@ void	init_img_msg(t_data *data)
 		f_exit(data, 1);
 	ft_bzero(data->map.msg_img[0], sizeof(t_img));
 	data->map.msg_img[0]->mlx = data->mlx.mlx;
-	data->map.msg_img[0]->path = "texture/mini_map/cursor.xpm";
+	data->map.msg_img[0]->path = "texture/first_msg.xpm";
 	data->map.msg_img[1] = malloc(sizeof(t_img));
 	if (!data->map.msg_img[1])
 		f_exit(data, 1);
 	ft_bzero(data->map.msg_img[1], sizeof(t_img));
 	data->map.msg_img[1]->mlx = data->mlx.mlx;
-	data->map.msg_img[1]->path = "texture/mini_map/floor.xpm";
+	data->map.msg_img[1]->path = "texture/snd_msg.xpm";
 	data->map.msg_img[2] = malloc(sizeof(t_img));
 	if (!data->map.msg_img[2])
 		f_exit(data, 1);
 	ft_bzero(data->map.msg_img[2], sizeof(t_img));
 	data->map.msg_img[2]->mlx = data->mlx.mlx;
-	data->map.msg_img[2]->path = "texture/mini_map/door.xpm";
+	data->map.msg_img[2]->path = "texture/third_msg.xpm";
 	data->map.msg_img[3] = malloc(sizeof(t_img));
 	if (!data->map.msg_img[3])
 		f_exit(data, 1);
 	ft_bzero(data->map.msg_img[3], sizeof(t_img));
 	data->map.msg_img[3]->mlx = data->mlx.mlx;
-	data->map.msg_img[3]->path = "texture/mini_map/mob.xpm";
+	if (data->color == FIRE_COLOR)
+		data->map.msg_img[3]->path = "texture/fire_msg.xpm";
+	else if (data->color == WATER_COLOR)
+		data->map.msg_img[3]->path = "texture/water_msg.xpm";
+	else if (data->color == EARTH_COLOR)
+		data->map.msg_img[3]->path = "texture/earth_msg.xpm";
+	else if (data->color == AIR_COLOR)
+		data->map.msg_img[3]->path = "texture/air_msg.xpm";
+	open_img_msg(data);
 }
 
 void	init_data(t_data *data, int ac, char **av)
@@ -258,5 +266,4 @@ void	init_data(t_data *data, int ac, char **av)
 	init_texture(data);
 
 	data->nb_msg = 4;
-	init_img_msg(data);
 }

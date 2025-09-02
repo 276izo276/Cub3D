@@ -27,11 +27,14 @@ int	handle_ray_y_top(t_data *data, int i)
 		data->ray[i].coo_x += data->ray[i].ry * data->ray[i].delta_x;
 		data->ray[i].coo_x = round(data->ray[i].coo_x * 64) / 64.0;
 		// printf("map >>>> %c\n", data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x]);
-		if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] == '1' && data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->is_active == false)
+		if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] == '1' && data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->is_active == false && data->player_moved)
 		{
 			// printf("IN \n");
-			int random = rand() % 10;
-			if (random <= data->random_value && data->current_msg < data->nb_msg)
+			if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')
+				return (1);
+			int random = rand() % (250 * data->mlx.width);
+			// int random = 0;
+			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
 				printf("rand >> %d\n", random);
 				data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->is_active = true;
@@ -78,11 +81,14 @@ int	handle_ray_y_down(t_data *data, int i)
 		data->ray[i].coo_y = 64;
 		data->ray[i].coo_x += data->ray[i].ry * data->ray[i].delta_x;
 		data->ray[i].coo_x = round(data->ray[i].coo_x * 64) / 64.0;
-		if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] == '1' && data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->is_active == false)
+		if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] == '1' && data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->is_active == false && data->player_moved)
 		{
-			int random = rand() % 10;
+			if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')
+				return (1);
+			int random = rand() % (250 * data->mlx.width);
+			// int random = 0;
 
-			if (random <= data->random_value && data->current_msg < data->nb_msg)
+			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
 				data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->is_active = true;
 				data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->coo.x = data->ray[i].case_x;
@@ -128,11 +134,14 @@ int	handle_ray_x_left(t_data *data, int i)
 		data->ray[i].coo_x = 0;
 		data->ray[i].coo_y += data->ray[i].rx * data->ray[i].delta_y;
 		data->ray[i].coo_y = round(data->ray[i].coo_y * 64) / 64.0;
-		if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] == '1' && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->is_active == false)
+		if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] == '1' && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->is_active == false && data->player_moved == true)
 		{
-			int random = rand() % 10;
+			if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')
+				return (1);
+			int random = rand() % (250 * data->mlx.width);
+			// int random = 0;
 
-			if (random <= data->random_value && data->current_msg < data->nb_msg)
+			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->is_active = true;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->coo.x = data->ray[i].case_x - 1;
@@ -177,11 +186,14 @@ int	handle_ray_x_right(t_data *data, int i)
 		data->ray[i].coo_x = 64;
 		data->ray[i].coo_y += data->ray[i].rx * data->ray[i].delta_y;
 		data->ray[i].coo_y = round(data->ray[i].coo_y * 64) / 64.0;
-		if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == '1' && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->is_active == false)
+		if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == '1' && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->is_active == false && data->player_moved)
 		{
-			int random = rand() % 100;
+				if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')
+				return (1);
+			int random = rand() % (250 * data->mlx.width);
+			// int random = 0;
 
-			if (random <= data->random_value && data->current_msg < data->nb_msg)
+			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->is_active = true;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->coo.x = data->ray[i].case_x + 1;

@@ -3,6 +3,7 @@
 #include "parsing_bonus.h"
 #include "utils_bonus.h"
 #include <fcntl.h>
+#include "time_bonus.h"
 
 static void	init_semaphores(t_data *data)
 {
@@ -113,6 +114,7 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 
+	srand(get_mtime());
 	init_data(&data, ac, av);
 	parsing(&data);
 	init_struct_door(&data);

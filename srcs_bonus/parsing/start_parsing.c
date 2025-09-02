@@ -96,7 +96,7 @@ static	void create_wall_map(t_data *data, int size)
 		ft_bzero(data->map.wall_map[y], sizeof(t_wall_msg *) * (size_line + 1));
 		++y;
 	}
-	data->random_value = 100000;
+	data->random_value = 0;
 }
 
 void	create_tabmap(t_data *data)

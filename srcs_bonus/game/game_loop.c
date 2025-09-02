@@ -37,28 +37,6 @@ static void	handle_input_move(t_data *data, long long int cur)
 	}
 }
 
-void	test(t_data *data)
-{
-	int i;
-
-	i = 0;
-	while (i < data->mlx.width)
-	{
-		if (data->ray[i].dir == SOUTH && data->map.wall_map[data->ray[i].case_y
-		- 1][data->ray[i].case_x]->is_active && data->map.wall_map[data->ray[i].case_y
-		- 1][data->ray[i].case_x]->dir == data->ray[i].dir)
-			display_msg(data, i, data->ray[i].case_y - 1, data->ray[i].case_x);
-		else if (data->ray[i].dir == NORTH && data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->is_active && data->map.wall_map[data->ray[i].case_y
-			+ 1][data->ray[i].case_x]->dir == data->ray[i].dir)
-			display_msg(data, i, data->ray[i].case_y + 1, data->ray[i].case_x);
-		else if (data->ray[i].dir == WEST && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->is_active && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->dir == data->ray[i].dir)
-			display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x + 1);
-		else if (data->ray[i].dir == EAST && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->is_active && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->dir == data->ray[i].dir)
-			display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x - 1);
-		++i;
-	}
-}
-
 int	game_loop(t_data *data)
 {
 	long long int	cur;
@@ -71,7 +49,7 @@ int	game_loop(t_data *data)
 		handle_input_move(data, cur);
 		if (data->time_fps + 1000 / FPS < cur)
 		{
-			// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
+			// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));3
 			data->time_fps = cur;
 			ray_launch(data);
 			sem_post(data->sem_background);
@@ -84,7 +62,6 @@ int	game_loop(t_data *data)
 			sem_post(data->sem_display);
 			sem_post(data->sem_display);
 			pthread_barrier_wait(&data->barrier_display);
-			test(data);
 			mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
 			aff_mini_map(data);
 			display_hand(data);
