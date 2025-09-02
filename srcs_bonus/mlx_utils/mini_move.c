@@ -236,8 +236,7 @@ void	movex(t_map *map, t_mini *mini, t_data *data)
 		return;
 	}
 	if (data->map.tabmap[map->player_coo->y][map->player_coo->x] == 'D'
-		&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == true
-		&& data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50)
+		&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == true)
 		{
 			if ((mini->cx == 0 && mini->nx >= 22 && mini->nx <= 42 && abs_value(32 - mini->player_coo.x) > abs_value(32 - mini->nx))
 			|| (mini->cx == 0 && mini->nx > 32 && mini->player_coo.x < 32) || (mini->cx == 0 && mini->nx < 32 && mini->player_coo.x > 32))
