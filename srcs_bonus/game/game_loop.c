@@ -58,18 +58,20 @@ void	remove_wall_msg(t_data *data)
 		++y;
 	}
 }
+#include <stdio.h>
 void	handle_wall_msg(t_data *data, long long int cur)
 {
-	if (data->current_msg == 4 && data->display.elapsed_time == 0)
+	if (data->current_msg == 4 && data->display.elapsed_time == 0 && data->display.is_first_msg == true)
 	{
 		data->display.elapsed_time = cur;
 		data->display.is_msg_active = false;
 	}
-	else if (data->current_msg == 4 && cur - data->display.elapsed_time > data->display.time_remove)
+	else if (data->current_msg == 4 && cur - data->display.elapsed_time > data->display.time_remove && data->display.is_first_msg == true)
 	{
 		remove_wall_msg(data);
 		data->display.elapsed_time = 0;
 		data->display.is_msg_active = true;
+		data->display.is_first_msg = false;
 	}
 	else if (data->current_msg == 7 && data->display.elapsed_time == 0)
 	{
@@ -82,6 +84,7 @@ void	handle_wall_msg(t_data *data, long long int cur)
 		data->current_msg = 0;
 		data->display.elapsed_time = 0;
 		data->display.is_msg_active = true;
+		data->display.is_first_msg = true;
 	}
 }
 

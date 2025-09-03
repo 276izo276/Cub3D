@@ -289,4 +289,5 @@ void	init_data(t_data *data, int ac, char **av)
 	data->display.elapsed_time = 0;
 	data->current_msg = 0;
 	data->display.is_msg_active = true;
+	data->display.is_first_msg = true;
 }
