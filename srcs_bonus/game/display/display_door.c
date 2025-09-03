@@ -40,6 +40,7 @@ static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x, in
 		door_status = 50;
 	else
 		door_status = data->map.door_map[data->ray[i].doors[j]->case_y][data->ray[i].doors[j]->case_x]->pos;
+	// door_status = 0;
 	text_y = (data->ray[i].pix_y - data->ray[i].doors[j]->htop_door + door_status / 100 * data->ray[i].doors[j]->size_door)
 		* data->map.door->height / dist_heigh;
 	if (text_y > data->map.door->height - 5)
@@ -51,6 +52,7 @@ static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x, in
 	color = *(unsigned int *)text_pix;
 	if (color != WHITE && color != YELLOW)
 		*(unsigned int *)pixel_addr = color;
+
 }
 
 static void	check_dir_fixed(t_data *data, int i, int j)
@@ -112,18 +114,22 @@ void	display_door(t_data *data, int i)
 	// printf("HERE CHECK IN >>i>>%d      value use>>%d\n",i,data->ray[i].doors[j]->use);
 			j = 0;
 	while (j < data->nb_door && data->ray[i].doors[j]->use != false)
+		j++;
+	--j;
+	while (j >= 0)
 	{
 		if (data->ray[i].doors[j]->print == false)
 		{
 			ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
-			j++;
+			j--;
+			// j++;
 			continue;
 		}
 		check_dir(data, i, j);
-		text_x = data->ray[i].doors[j]->texture_coo.x
-			* (data->map.door->bits_per_pixel >> 3);
 		data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
 			* data->ray[i].calc_bits;
+		text_x = data->ray[i].doors[j]->texture_coo.x
+			* (data->map.door->bits_per_pixel >> 3);
 		data->ray[i].pix_y = data->ray[i].doors[j]->htop_door;
 		if (data->ray[i].pix_y < 0)
 			data->ray[i].pix_y = 0;
@@ -131,7 +137,7 @@ void	display_door(t_data *data, int i)
 		while (data->ray[i].pix_y < data->ray[i].doors[j]->hbot_door
 			&& data->ray[i].pix_y < data->mlx.height)
 		{
-			if (data->ray[i].pix_y > data->ray[i].doors[j]->htop_door + 50)
+			if (data->ray[i].pix_y > data->ray[i].doors[j]->htop_door + dist_heigh * .15)
 				put_text_pix_img(data, i, dist_heigh, text_x, j);
 			data->ray[i].pix_y++;
 		}
@@ -151,6 +157,7 @@ void	display_door(t_data *data, int i)
 		// data->ray[i].doors[j]->use = false;
 		// printf("RESET USE I>>>%d j>>%d\n",i,j);
 		ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
-		j++;
+		j--;
+		// j++;
 	}
 }
