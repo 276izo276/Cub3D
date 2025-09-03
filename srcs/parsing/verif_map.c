@@ -3,6 +3,7 @@
 #include "parsing.h"
 #include "struct.h"
 #include "utils.h"
+#include "cub3d.h"
 
 static void	is_valid_char_map(char c, int y, int x, t_data *data)
 {
@@ -68,7 +69,7 @@ static void	set_deg_start(t_data *data)
 		data->map.mini.deg = 270;
 	else if (c == 'W')
 		data->map.mini.deg = 90;
-
+	data->map.mini.rad = data->map.mini.deg * (M_PI / 180.0);
 }
 
 void	verif_map(t_data *data)

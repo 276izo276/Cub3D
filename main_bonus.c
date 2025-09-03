@@ -129,7 +129,7 @@ int	main(int ac, char **av)
 	// init_display(&data, &data.f_display);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
 	mlx_mouse_hide(data.mlx.mlx, data.mlx.win);
-	mlx_mouse_move(data.mlx.mlx, data.mlx.win, data.mlx.width / 4,
+	mlx_mouse_move(data.mlx.mlx, data.mlx.win, data.mlx.width / 2,
 		data.mlx.height / 2);
 	mlx_hook(data.mlx.win, ON_KEYDOWN, 1L << 0, key_press, &data);
 	mlx_hook(data.mlx.win, ON_KEYUP, 1L << 1, key_release, &data);
