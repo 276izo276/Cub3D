@@ -36,13 +36,15 @@ int	handle_ray_y_top(t_data *data, int i)
 			// int random = rand() % (150 * data->mlx.width);
 			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
-				printf("rand >> %d\n", random);
+				// printf("rand >> %d\n", random);
+				pthread_mutex_lock(&data->m_data_ray);
 				data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->is_active = true;
 				data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->coo.x = data->ray[i].case_x;
 				data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->coo.y = data->ray[i].case_y - 1;
 				data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->msg_nb = data->current_msg;
 				data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->dir = data->ray[i].dir;
 				++data->current_msg;
+				pthread_mutex_unlock(&data->m_data_ray);
 			}
 		}
 		// for (int k = -2; k < 2; k++)
@@ -90,12 +92,14 @@ int	handle_ray_y_down(t_data *data, int i)
 
 			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
+				pthread_mutex_lock(&data->m_data_ray);
 				data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->is_active = true;
 				data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->coo.x = data->ray[i].case_x;
 				data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->coo.y = data->ray[i].case_y + 1;
 				data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->msg_nb = data->current_msg;
 				data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->dir = data->ray[i].dir;
 				++data->current_msg;
+				pthread_mutex_unlock(&data->m_data_ray);
 			}
 		}
 		// for (int k = -2; k < 2; k++)
@@ -143,12 +147,14 @@ int	handle_ray_x_left(t_data *data, int i)
 
 			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
+				pthread_mutex_lock(&data->m_data_ray);
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->is_active = true;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->coo.x = data->ray[i].case_x - 1;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->coo.y = data->ray[i].case_y;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->msg_nb = data->current_msg;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->dir = data->ray[i].dir;
 				++data->current_msg;
+				pthread_mutex_unlock(&data->m_data_ray);
 			}
 		}
 		// for (int k = -2; k < 2; k++)
@@ -195,12 +201,14 @@ int	handle_ray_x_right(t_data *data, int i)
 
 			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
+				pthread_mutex_lock(&data->m_data_ray);
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->is_active = true;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->coo.x = data->ray[i].case_x + 1;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->coo.y = data->ray[i].case_y;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->msg_nb = data->current_msg;
 				data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->dir = data->ray[i].dir;
 				++data->current_msg;
+				pthread_mutex_unlock(&data->m_data_ray);
 			}
 		}
 		// for (int k = -2; k < 2; k++)

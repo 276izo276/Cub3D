@@ -101,22 +101,24 @@ int	game_loop(t_data *data)
 		handle_wall_msg(data, cur);
 		if (data->time_fps + 1000 / FPS < cur)
 		{
-			// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));3
+			printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 			data->time_fps = cur;
-			ray_launch(data);
-			sem_post(data->sem_background);
-			sem_post(data->sem_background);
+			pthread_barrier_wait(&data->barrier_background);
+			// sem_post(data->sem_background);
+			// sem_post(data->sem_background);
+			// ray_launch(data);
 			pthread_barrier_wait(&data->barrier_background);
 			// display_game(data);
 			// pthread_mutex_lock(&data->m_data_ray);
-			sem_post(data->sem_display);
-			sem_post(data->sem_display);
-			sem_post(data->sem_display);
-			sem_post(data->sem_display);
+			// sem_post(data->sem_display);
+			// sem_post(data->sem_display);
+			// sem_post(data->sem_display);
+			// sem_post(data->sem_display);
+			pthread_barrier_wait(&data->barrier_display);
 			pthread_barrier_wait(&data->barrier_display);
 			mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
-			aff_mini_map(data);
 			display_hand(data);
+			aff_mini_map(data);
 			handle_door(data);
 			// pthread_mutex_unlock(&data->m_data_ray);
 			// pthread_barrier_wait(&data->barrier);

@@ -124,7 +124,8 @@ void	*display_fst_part(void *ptr)
 	while (1)
 	{
 		i = 0;
-		sem_wait(data->sem_display);
+		// sem_wait(data->sem_display);
+		pthread_barrier_wait(&data->barrier_display);
 		while (i < data->mlx.width / 4)
 		{
 			display_game_loop(data, i);
@@ -150,7 +151,8 @@ void	*display_snd_part(void *ptr)
 	while (1)
 	{
 		i = data->mlx.width / 4;
-		sem_wait(data->sem_display);
+		// sem_wait(data->sem_display);
+		pthread_barrier_wait(&data->barrier_display);
 		while (i < max_pix)
 		{
 			display_game_loop(data, i);
@@ -176,7 +178,8 @@ void	*display_third_part(void *ptr)
 	while (1)
 	{
 		i = 2 * (data->mlx.width / 4);
-		sem_wait(data->sem_display);
+		// sem_wait(data->sem_display);
+		pthread_barrier_wait(&data->barrier_display);
 		while (i < max_pix)
 		{
 			display_game_loop(data, i);
@@ -200,7 +203,8 @@ void	*display_last_part(void *ptr)
 	while (1)
 	{
 		i = 3 * (data->mlx.width / 4);
-		sem_wait(data->sem_display);
+		// sem_wait(data->sem_display);
+		pthread_barrier_wait(&data->barrier_display);
 		while (i < data->mlx.width)
 		{
 			display_game_loop(data, i);
