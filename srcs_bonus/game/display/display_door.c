@@ -148,7 +148,7 @@ void	display_door(t_data *data, int i)
 			put_text_pix_img_fixed(data, i, dist_heigh, text_x, j);
 			data->ray[i].pix_y++;
 		}
-		data->ray[i].doors[j]->use = false;
+		// data->ray[i].doors[j]->use = false;
 		// printf("RESET USE I>>>%d j>>%d\n",i,j);
 		ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
 		j++;
