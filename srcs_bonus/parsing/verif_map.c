@@ -148,6 +148,20 @@ static void	check_map_valid_char(t_data *data)
 	}
 }
 
+static void	set_deg_start(t_data *data)
+{
+	char c;
+
+	c = data->map.tabmap[data->map.player_coo->y][data->map.player_coo->x];
+	if (c == 'S')
+		data->map.mini.deg = 180;
+	else if (c == 'E')
+		data->map.mini.deg = 270;
+	else if (c == 'W')
+		data->map.mini.deg = 90;
+
+}
+
 void	verif_map(t_data *data)
 {
 	check_map_valid_char(data);
@@ -157,6 +171,7 @@ void	verif_map(t_data *data)
 			"Map >>> " "no player start found\n"_END);
 		f_exit(data, 1);
 	}
+	set_deg_start(data);
 	check_map_is_closed(data);
 
 }
