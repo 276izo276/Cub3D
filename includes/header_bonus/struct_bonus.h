@@ -14,6 +14,7 @@
 # define FPM 60.0
 # define GAME 1
 # define MENU 0
+# define PAUSE 2
 # define SPEED 5
 # define KEYCODE_NB 100
 
@@ -34,6 +35,8 @@ typedef struct s_hit_door	t_hit_door;
 typedef struct s_door		t_door;
 typedef struct s_hitray		t_hitray;
 typedef struct s_wall_msg	t_wall_msg;
+typedef struct s_pause_menu	t_pause_menu;
+
 
 typedef	enum e_dir
 {
@@ -48,6 +51,7 @@ struct s_coo
 	int	x;
 	int	y;
 };
+
 
 struct s_door
 {
@@ -94,6 +98,15 @@ struct s_hit_door
 	double	start_x;
 };
 
+struct s_pause_menu
+{
+	// int		pix_y;
+	// char	*img_addr;
+	// char	*data_addr;
+	t_img	*sensitivity;
+	t_img	*background;
+
+};
 
 struct	s_ray
 {
@@ -291,6 +304,7 @@ struct	s_hitray
 	bool	hit;
 };
 
+
 struct s_data
 {
 	t_utils_mini	u;
@@ -343,6 +357,7 @@ struct s_data
 	int					current_msg;
 	int					nb_msg;
 	int				random_value;
+	t_pause_menu	pause_menu;
 	// t_img	*wh;
 	// t_img	*bl;
 };

@@ -163,6 +163,16 @@ int	key_press(int keycode, t_data *data)
 		else
 			data->display.player_height = 18;
 	}
+	else if (keycode == KEY_TAB)
+	{
+		if (data->status == GAME)
+			data->status = PAUSE;
+		else
+			data->status = GAME;
+	}
+	else if (keycode == KEY_ESCAPE && data->status == PAUSE)
+		f_exit(data, 1);
+	// else if (keycode == )
 	else
 		data->keycode[i] = keycode;
 	if (keycode == KEY_ALT)

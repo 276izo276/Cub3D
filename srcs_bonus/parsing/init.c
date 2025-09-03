@@ -53,6 +53,23 @@ static void	init_texture(t_data *data)
 	data->spell.lumos->path = "./texture/player_hand/lumos.xpm";
 }
 
+void	init_pause_menu(t_data *data)
+{
+	data->pause_menu.background = malloc(sizeof(t_img));
+	if (!data->pause_menu.background)
+		f_exit(data, 1);
+	ft_bzero(data->pause_menu.background, sizeof(t_img));
+	data->pause_menu.background->mlx = data->mlx.mlx;
+	data->pause_menu.background->path = "./texture/menu/pause_background.xpm";
+
+	data->pause_menu.sensitivity = malloc(sizeof(t_img));
+	if (!data->pause_menu.sensitivity)
+		f_exit(data, 1);
+	ft_bzero(data->pause_menu.sensitivity, sizeof(t_img));
+	data->pause_menu.sensitivity->mlx = data->mlx.mlx;
+	data->pause_menu.sensitivity->path = "./texture/menu/pause_sensitivity.xpm";
+}
+
 static void	fill_need_print(t_data *data)
 {
 	int	y;
@@ -283,7 +300,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->spell.active = false;
 	init_coa(data);
 	init_texture(data);
-
+	init_pause_menu(data);
 	data->nb_msg = 7;
 	data->display.time_remove = 10000;
 	data->display.elapsed_time = 0;

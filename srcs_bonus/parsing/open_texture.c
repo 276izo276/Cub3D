@@ -51,9 +51,16 @@ void	open_textures(t_data *data)
 	open_img(data->coa[3].border, data);
 	open_img(data->left_select, data);
 	open_img(data->select, data);
+
+
 	open_img(data->select_hand, data);
 	open_img(data->player_wand, data);
 	open_img(data->spell.lumos, data);
+
+
+	open_img(data->pause_menu.background, data);
+	open_img(data->pause_menu.sensitivity, data);
+
 	if (!data->map.ceiling || !data->map.floor)
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE

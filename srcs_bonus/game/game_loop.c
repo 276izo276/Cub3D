@@ -94,6 +94,10 @@ int	game_loop(t_data *data)
 
 	if (data->status == MENU)
 		display_menu(data);
+	else if (data->status == PAUSE)
+	{
+		handle_pause_menu(data);
+	}
 	else
 	{
 		cur = get_mtime();
@@ -101,7 +105,7 @@ int	game_loop(t_data *data)
 		handle_wall_msg(data, cur);
 		if (data->time_fps + 1000 / FPS < cur)
 		{
-			printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
+			// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 			data->time_fps = cur;
 			pthread_barrier_wait(&data->barrier_background);
 			// sem_post(data->sem_background);

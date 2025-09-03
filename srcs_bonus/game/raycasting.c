@@ -148,7 +148,7 @@ void	*ray_launch_first(void *ptr)
 		while (i < data->mlx.width / 4)
 		{
 			x = (double)i / (double)data->mlx.width;
-			x = x * (-2) + 1;
+			x = (x * (-2) + 1);
 			save_data_ray(data, i, x);
 			handle_ray(data, i);
 			calc_door_value(data, i, x);
@@ -185,7 +185,7 @@ void	*ray_launch_snd(void *ptr)
 		while (i < 2 * data->mlx.width / 4)
 		{
 			x = (double)i / (double)data->mlx.width;
-			x = x * (-2) + 1;
+			x = (x * (-2) + 1);
 			save_data_ray(data, i, x);
 			handle_ray(data, i);
 			calc_door_value(data, i, x);
@@ -222,7 +222,7 @@ void	*ray_launch_third(void *ptr)
 		while (i < 3 * data->mlx.width / 4)
 		{
 			x = (double)i / (double)data->mlx.width;
-			x = x * (-2) + 1;
+			x = (x * (-2) + 1);
 			save_data_ray(data, i, x);
 			handle_ray(data, i);
 			calc_door_value(data, i, x);
@@ -260,7 +260,7 @@ void	*ray_launch_last(void *ptr)
 		while (i < data->mlx.width)
 		{
 			x = (double)i / (double)data->mlx.width;
-			x = x * (-2) + 1;
+			x = (x * (-2) + 1);
 			save_data_ray(data, i, x);
 			handle_ray(data, i);
 			calc_door_value(data, i, x);
