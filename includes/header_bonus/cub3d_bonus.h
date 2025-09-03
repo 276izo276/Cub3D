@@ -37,6 +37,11 @@ void	*display_snd_part(void *ptr);
 void	*display_third_part(void *ptr);
 void	*display_last_part(void *ptr);
 
+void	*ray_launch_first(void *ptr);
+void	*ray_launch_snd(void *ptr);
+void	*ray_launch_third(void *ptr);
+void	*ray_launch_last(void *ptr);
+
 void	display_msg(t_data *data, int i, int y, int x);
 
 // init 

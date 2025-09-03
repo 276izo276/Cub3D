@@ -67,7 +67,8 @@ void	*display_floor(void *ptr)
 	display = data->display;
 	while (1)
 	{
-		sem_wait(data->sem_background);
+		// sem_wait(data->sem_background);
+		pthread_barrier_wait(&data->barrier_background);
 		display.cos_angle = cos(data->map.mini.rad);
 		display.sin_angle = sin(data->map.mini.rad);
 		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;

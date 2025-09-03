@@ -134,31 +134,151 @@ static void	calc_door_value(t_data *data, int i, double x)
 	}
 }
 
-void	ray_launch(t_data *data)
+void	*ray_launch_first(void *ptr)
 {
 	int		i;
 	double	x;
+	t_data *data;
 
-	i = 0;
-	while (i < data->mlx.width)
+	data = (t_data *)ptr;
+	while (1)
 	{
-		x = (double)i / (double)data->mlx.width;
-		x = x * (-2) + 1;
-		save_data_ray(data, i, x);
-		handle_ray(data, i);
-		calc_door_value(data, i, x);
-		calc_sqrt(data, i);
-		data->ray[i].dist_wall *= cos(atan(x));
-		data->ray[i].size_wall = data->ray[i].d_proj
-			/ (double)(data->ray[i].dist_wall / 64.0);
-		data->ray[i].pix_x = (double)i;
-		data->ray[i].max_size_wall = data->ray[i].size_wall * 0.5;
-		data->ray[i].calc_bits = (int)(data->screen->bits_per_pixel >> 3);
-		data->ray[i].data_addr = data->screen->data_addr;
-		data->ray[i].htop_wall = round(data->ray[i].max_height
-				- data->ray[i].max_size_wall);
-		data->ray[i].hbot_wall = round(data->ray[i].max_height
-				+ data->ray[i].max_size_wall);
-		i += 1;
+		i = 0;
+		pthread_barrier_wait(&data->barrier_background);
+		while (i < data->mlx.width / 4)
+		{
+			x = (double)i / (double)data->mlx.width;
+			x = x * (-2) + 1;
+			save_data_ray(data, i, x);
+			handle_ray(data, i);
+			calc_door_value(data, i, x);
+			calc_sqrt(data, i);
+			data->ray[i].dist_wall *= cos(atan(x));
+			data->ray[i].size_wall = data->ray[i].d_proj
+				/ (double)(data->ray[i].dist_wall / 64.0);
+			data->ray[i].pix_x = (double)i;
+			data->ray[i].max_size_wall = data->ray[i].size_wall * 0.5;
+			data->ray[i].calc_bits = (int)(data->screen->bits_per_pixel >> 3);
+			data->ray[i].data_addr = data->screen->data_addr;
+			data->ray[i].htop_wall = round(data->ray[i].max_height
+					- data->ray[i].max_size_wall);
+			data->ray[i].hbot_wall = round(data->ray[i].max_height
+					+ data->ray[i].max_size_wall);
+			i += 1;
+		}
+		pthread_barrier_wait(&data->barrier_background);
 	}
+	return (NULL);
+}
+
+void	*ray_launch_snd(void *ptr)
+{
+	int		i;
+	double	x;
+	t_data *data;
+
+	data = (t_data *)ptr;
+	while (1)
+	{
+		i = data->mlx.width / 4;
+		pthread_barrier_wait(&data->barrier_background);
+		while (i < 2 * data->mlx.width / 4)
+		{
+			x = (double)i / (double)data->mlx.width;
+			x = x * (-2) + 1;
+			save_data_ray(data, i, x);
+			handle_ray(data, i);
+			calc_door_value(data, i, x);
+			calc_sqrt(data, i);
+			data->ray[i].dist_wall *= cos(atan(x));
+			data->ray[i].size_wall = data->ray[i].d_proj
+				/ (double)(data->ray[i].dist_wall / 64.0);
+			data->ray[i].pix_x = (double)i;
+			data->ray[i].max_size_wall = data->ray[i].size_wall * 0.5;
+			data->ray[i].calc_bits = (int)(data->screen->bits_per_pixel >> 3);
+			data->ray[i].data_addr = data->screen->data_addr;
+			data->ray[i].htop_wall = round(data->ray[i].max_height
+					- data->ray[i].max_size_wall);
+			data->ray[i].hbot_wall = round(data->ray[i].max_height
+					+ data->ray[i].max_size_wall);
+			i += 1;
+		}
+		pthread_barrier_wait(&data->barrier_background);
+	}
+	return (NULL);
+}
+
+void	*ray_launch_third(void *ptr)
+{
+	int		i;
+	double	x;
+	t_data *data;
+
+	data = (t_data *)ptr;
+	while (1)
+	{
+		i = 2 * data->mlx.width / 4;
+		pthread_barrier_wait(&data->barrier_background);
+		while (i < 3 * data->mlx.width / 4)
+		{
+			x = (double)i / (double)data->mlx.width;
+			x = x * (-2) + 1;
+			save_data_ray(data, i, x);
+			handle_ray(data, i);
+			calc_door_value(data, i, x);
+			calc_sqrt(data, i);
+			data->ray[i].dist_wall *= cos(atan(x));
+			data->ray[i].size_wall = data->ray[i].d_proj
+				/ (double)(data->ray[i].dist_wall / 64.0);
+			data->ray[i].pix_x = (double)i;
+			data->ray[i].max_size_wall = data->ray[i].size_wall * 0.5;
+			data->ray[i].calc_bits = (int)(data->screen->bits_per_pixel >> 3);
+			data->ray[i].data_addr = data->screen->data_addr;
+			data->ray[i].htop_wall = round(data->ray[i].max_height
+					- data->ray[i].max_size_wall);
+			data->ray[i].hbot_wall = round(data->ray[i].max_height
+					+ data->ray[i].max_size_wall);
+			i += 1;
+		}
+		pthread_barrier_wait(&data->barrier_background);
+	}
+	return (NULL);
+}
+
+
+void	*ray_launch_last(void *ptr)
+{
+	int		i;
+	double	x;
+	t_data *data;
+
+	data = (t_data *)ptr;
+	while (1)
+	{
+		i = 3 * data->mlx.width / 4;
+		pthread_barrier_wait(&data->barrier_background);
+		while (i < data->mlx.width)
+		{
+			x = (double)i / (double)data->mlx.width;
+			x = x * (-2) + 1;
+			save_data_ray(data, i, x);
+			handle_ray(data, i);
+			calc_door_value(data, i, x);
+			calc_sqrt(data, i);
+			data->ray[i].dist_wall *= cos(atan(x));
+			data->ray[i].size_wall = data->ray[i].d_proj
+				/ (double)(data->ray[i].dist_wall / 64.0);
+			data->ray[i].pix_x = (double)i;
+			data->ray[i].max_size_wall = data->ray[i].size_wall * 0.5;
+			data->ray[i].calc_bits = (int)(data->screen->bits_per_pixel >> 3);
+			data->ray[i].data_addr = data->screen->data_addr;
+			data->ray[i].htop_wall = round(data->ray[i].max_height
+					- data->ray[i].max_size_wall);
+			data->ray[i].hbot_wall = round(data->ray[i].max_height
+					+ data->ray[i].max_size_wall);
+			i += 1;
+		}
+		pthread_barrier_wait(&data->barrier_background);
+	}
+	return (NULL);
 }

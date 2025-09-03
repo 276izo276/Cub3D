@@ -308,19 +308,24 @@ struct s_data
 	t_display		display;
 	t_spell			spell;
 	int				keycode[100];
-	// pthread_mutex_t	m_data_ray;
+	pthread_mutex_t	m_data_ray;
 	pthread_t		thread_wall;
 	pthread_t		thread_floor;
+	pthread_t		thread_ray_first;
+	pthread_t		thread_ray_snd;
+	pthread_t		thread_ray_third;
+	pthread_t		thread_ray_last;
+
 	pthread_t		thread_fst_part;
 	pthread_t		thread_snd_part;
 	pthread_t		thread_third_part;
 	pthread_t		thread_last_part;
 	// pthread_t		thread_door;
 	pthread_t		thread_sky;
-	sem_t			*sem_background;
+	// sem_t			*sem_background;
 	// sem_t			*sem_door;
 	// sem_t			*sem_map;
-	sem_t			*sem_display;
+	// sem_t			*sem_display;
 	pthread_barrier_t		barrier_background;
 	pthread_barrier_t		barrier_display;
 	t_coa			*coa;
