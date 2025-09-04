@@ -70,6 +70,38 @@ void	aff_color_in_img(t_utils_mini *u, t_mini *mini, t_data *data)
 	}
 }
 
+static void	aff_enemy(t_data *data, t_utils_mini *u, t_mini *mini)
+{
+	t_lst	*lst;
+	t_enemy	*enemy;
+
+	lst = get_first_elem_lst(data->enemy);
+	while (lst)
+	{
+		enemy = lst->dt;
+		u->s.y = 1 * 64 + 32 + (u->y * 64 + 64 - mini->player_coo.y);
+		u->s.x = 1 * 64 + 32 + (u->x * 64 + 64 - mini->player_coo.x);
+		for(int i = -2; i < 2; i++)
+		{
+			for (int j = -2; j < 2; j++)
+			{
+				if (enemy->center.case_x == u->new_x && enemy->center.case_y == u->new_y
+					&& (u->s.y + i + enemy->center.coo_y >= 0
+					&& u->s.y + i + enemy->center.coo_y < u->size
+					&& u->s.x + j + enemy->center.coo_x >= 0
+					&& u->s.x + j + enemy->center.coo_x < u->size))
+				{
+					u->pixel_addr = u->mmap.data_addr + ((u->s.y + i + (int)enemy->center.coo_y)
+						* u->mmap.size_line + (u->s.x + j + (int)enemy->center.coo_x)
+						* (u->mmap.bits_per_pixel / 8));
+					*(unsigned int *)u->pixel_addr = 0xff0000;
+				}
+			}
+		}
+		lst = lst->next;
+	}
+}
+
 void	aff_mini_map(t_data *data)
 {
 	data->u.y = -4;
@@ -84,12 +116,11 @@ void	aff_mini_map(t_data *data)
 				|| data->u.new_x >= ft_strlen(data->map.tabmap[data->u.new_y])
 				|| data->u.new_x < 0
 				|| data->map.tabmap[data->u.new_y][data->u.new_x] == ' ')
-			{
 				aff_pix_in_img(&data->u, &data->map.mini, data);
-			}
 			else
 			{
 				aff_color_in_img(&data->u, &data->map.mini, data);
+				aff_enemy(data, &data->u, &data->map.mini);
 			}
 		}
 	}

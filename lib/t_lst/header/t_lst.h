@@ -6,7 +6,7 @@
 /*   By: ale-guel <ale-guel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:56:33 by ale-guel          #+#    #+#             */
-/*   Updated: 2025/06/30 09:38:19 by ale-guel         ###   ########.fr       */
+/*   Updated: 2025/09/04 03:43:17 by ale-guel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ void	set_value_t_lst(t_lst *new, void *elem, void (*f)(void *));
 t_lst	*add_before_lst(void *elem, t_lst *lst, void (*f)(void *));
 t_lst	*add_after_lst(void *elem, t_lst *lst, void (*f)(void *));
 int		ft_strlen_lst(t_lst *lst);
+void	move_before_lst(t_lst *elem, t_lst *lst);
 
 #endif

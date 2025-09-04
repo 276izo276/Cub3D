@@ -1,9 +1,9 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
-#include "t_lst.h"
+# include "t_lst.h"
 # include <stdbool.h>
-#include <sys/time.h>
+# include <sys/time.h>
 # include <pthread.h>
 # include <semaphore.h>
 
@@ -16,6 +16,7 @@
 # define MENU 0
 # define SPEED 5
 # define KEYCODE_NB 100
+# define NB_TYPE_ENEMY 4
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
@@ -34,6 +35,10 @@ typedef struct s_hit_door	t_hit_door;
 typedef struct s_door		t_door;
 typedef struct s_hitray		t_hitray;
 typedef struct s_wall_msg	t_wall_msg;
+typedef struct s_enemy		t_enemy;
+typedef	struct s_fcoo		t_fcoo;
+typedef struct s_case		t_case;
+
 
 typedef	enum e_dir
 {
@@ -42,6 +47,14 @@ typedef	enum e_dir
 	EAST,
 	WEST
 } t_dir;
+
+typedef	enum e_enemy_info
+{
+	DEMENTOR = '.',
+	SPIDER = ',',
+	WOLF = ';',
+	TROLL = ':'
+} t_enemy_info;
 
 struct s_coo
 {
@@ -291,6 +304,41 @@ struct	s_hitray
 	bool	hit;
 };
 
+struct s_fcoo
+{
+	double	coo_x;
+	double	coo_y;
+	int		case_y;
+	int		case_x;
+};
+
+struct s_case
+{
+	t_case	*parent;
+	t_case	*child;
+	int		case_x;
+	int		case_y;
+	int		r_cost;
+	int		h_cost;
+	int		t_cost;
+};
+
+struct	s_enemy
+{
+	t_enemy_info	type;
+	t_fcoo			center;
+	t_fcoo			left;
+	t_fcoo			right;
+	double			deg;
+	double			rad;
+	int				radius;
+	int				life;
+	int				speed;
+	t_fcoo			goal;
+	t_lst			*way;
+};
+
+
 struct s_data
 {
 	t_utils_mini	u;
@@ -345,6 +393,7 @@ struct s_data
 	int				random_value;
 	// t_img	*wh;
 	// t_img	*bl;
+	t_lst	*enemy;
 };
 
 

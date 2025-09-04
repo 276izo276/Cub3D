@@ -137,6 +137,13 @@ GAME_BONUS		=							\
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 
+ENEMY			=							\
+				init.c						\
+				free.c						\
+				move.c						\
+
+FILES_BONUS	+=	$(addprefix srcs_bonus/game/enemy/,$(ENEMY))
+
 OBJS =			$(addprefix .obj/, $(FILES:.c=.o))
 
 OBJS_BONUS =	$(addprefix .obj/, $(FILES_BONUS:.c=.o))

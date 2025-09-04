@@ -4,16 +4,17 @@
 #include "struct_bonus.h"
 #include "utils_bonus.h"
 #include "cub3d_bonus.h"
+#include "enemy_bonus.h"
 
 static void	is_valid_char_map(char c, int y, int x, t_data *data)
 {
-	const char	tab[] = {'0', '1', 'D', ' ', 'N', 'S', 'W', 'E', 0};
+	const char	tab[] = {'0', '1', 'D', ' ', '.', 'N', 'S', 'W', 'E', 0};
 	int			i;
 
 	i = -1;
 	while (tab[++i])
 	{
-		if (tab[i] == c && i >= 4)
+		if (tab[i] == c && i >= 5)
 		{
 			if (data->map.player_coo)
 			{
@@ -26,7 +27,7 @@ static void	is_valid_char_map(char c, int y, int x, t_data *data)
 				f_exit(data, 1);
 			return ;
 		}
-		else if (tab[i] == c && i <= 3)
+		else if (tab[i] == c && i <= 4)
 			return ;
 	}
 	ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE "Map >>> '"
@@ -123,6 +124,25 @@ static void	save_wall(char c, int y, int x, t_data *data)
 	data->map.wall_map[y][x] = wall_msg;
 }
 
+static void	is_enemy(char c, int y, int x, t_data *data)
+{
+	int			i;
+	const char	tab[] = {'.', 0};
+
+	i = 0;
+	while (tab[i])
+	{
+		if (tab[i] == c)
+		{
+			data->enemy = add_end_lst(init_enemy(c, y, x, data), data->enemy, f_enemy);
+			if (!data->enemy)
+				f_exit(data, 1);
+			data->map.tabmap[y][x] = '0';
+		}
+		i++;
+	}
+}
+
 static void	check_map_valid_char(t_data *data)
 {
 	int	y;
@@ -137,6 +157,7 @@ static void	check_map_valid_char(t_data *data)
 			is_valid_char_map(data->map.tabmap[y][x], y, x, data);
 			save_wall(data->map.tabmap[y][x], y, x, data);
 			is_door(data->map.tabmap[y][x], y, x, data);
+			is_enemy(data->map.tabmap[y][x], y, x, data);
 			x++;
 		}
 		if (x == 0)

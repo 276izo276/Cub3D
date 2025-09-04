@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-static int	check_x_value(t_mini *mini, int y, int x,t_map *map)
+static int	check_x_value(t_mini *mini, int y, int x)
 {
 	if ((y == -1 && x == -1 && mini->player_coo.y < 8 && mini->player_coo.x + mini->dx < 8)
 	|| (y == 0 && x == -1 && mini->player_coo.x + mini->dx < 8)
@@ -18,7 +18,7 @@ static int	check_x_value(t_mini *mini, int y, int x,t_map *map)
 	return (0);
 }
 
-static int	check_y_value(t_mini *mini, int y, int x,t_map *map)
+static int	check_y_value(t_mini *mini, int y, int x)
 {
 	if ((y == -1 && x == -1 && mini->player_coo.y + mini->dy < 8 && mini->player_coo.x < 8)
 	|| (y == 0 && x == -1 && mini->player_coo.x < 8)
@@ -44,7 +44,7 @@ int	hit_box_x_wall(t_map *map, t_mini *mini)
 		while (x <= 1)
 		{
 			if (map->tabmap[map->player_coo->y + y][map->player_coo->x + x] == '1')
-				if (check_x_value(mini, y, x, map))
+				if (check_x_value(mini, y, x))
 					return (1);
 			x++;
 		}
@@ -65,75 +65,13 @@ int	hit_box_y_wall(t_map *map, t_mini *mini)
 		while (x <= 1)
 		{
 			if (map->tabmap[map->player_coo->y + y][map->player_coo->x + x] == '1')
-				if (check_y_value(mini, y, x, map))
+				if (check_y_value(mini, y, x))
 					return (1);
 			x++;
 		}
 		y++;
 	}
 	return (0);
-}
-
-static void	move_x(t_data *data, t_map *map, t_mini *mini)
-{
-	mini->dx = mini->player_coo.x + mini->dx;
-	if (mini->dx < 0)
-	{
-		if (map->tabmap[map->player_coo->y][map->player_coo->x - 1] == '1')
-			return ;
-		--map->player_coo->x;
-		mini->player_coo.x = 64 + mini->dx;
-	}
-	else if (mini->dx >= 64)
-	{
-		if (map->tabmap[map->player_coo->y][map->player_coo->x + 1] == '1')
-			return ;
-		++map->player_coo->x;
-		mini->player_coo.x = mini->dx - 64;
-	}
-	else
-	{
-		if (data->map.tabmap[map->player_coo->y][map->player_coo->x] == 'D'
-			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == true
-			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50)
-			{
-				if ((mini->dx >= 22 && mini->dx <= 42 && abs_value(32 - mini->player_coo.y) > abs_value(32 - mini->dx))
-				|| (mini->dx > 32 && mini->player_coo.y < 32) || (mini->dx < 32 && mini->player_coo.y > 32))
-					return ;
-			}
-		mini->player_coo.x = mini->dx;
-	}
-}
-
-static void	move_y(t_data *data, t_map *map, t_mini *mini)
-{
-	mini->dy = mini->player_coo.y + mini->dy;
-	if (mini->dy < 0)
-	{
-		if (map->tabmap[map->player_coo->y - 1][map->player_coo->x] == '1')
-			return ;
-		--map->player_coo->y;
-		mini->player_coo.y = 64 + mini->dy;
-	}
-	else if (mini->dy >= 64)
-	{
-		if (map->tabmap[map->player_coo->y + 1][map->player_coo->x] == '1')
-			return ;
-		++map->player_coo->y;
-		mini->player_coo.y = mini->dy - 64;
-	}
-	else
-	{
-		if (data->map.tabmap[map->player_coo->y][map->player_coo->x] == 'D'
-			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == false
-			&& data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50)
-			{
-				if ((mini->dy >= 22 && mini->dy <= 42 && abs_value(32 - mini->player_coo.y) > abs_value(32 - mini->dy))
-				|| (mini->dy > 32 && mini->player_coo.y < 32) || (mini->dy < 32 && mini->player_coo.y > 32))
-					return ;
-			}
-		mini->player_coo.y = mini->dy;
-	}
 }
 
 void	v_norm(t_mini *mini, t_data *data)

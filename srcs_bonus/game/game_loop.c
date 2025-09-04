@@ -4,6 +4,7 @@
 #include "time_bonus.h"
 #include "utils_bonus.h"
 #include "color_bonus.h"
+#include "enemy_bonus.h"
 
 static void	handle_input_move(t_data *data, long long int cur)
 {
@@ -123,6 +124,7 @@ int	game_loop(t_data *data)
 			// pthread_mutex_unlock(&data->m_data_ray);
 			// pthread_barrier_wait(&data->barrier);
 		}
+		move_enemy(data);
 	}
 	return (0);
 }
