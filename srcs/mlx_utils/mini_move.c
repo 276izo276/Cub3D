@@ -94,10 +94,8 @@ static void	calc_dx_dy(t_data *data, int keycode, t_mini *mini)
 		angle = 270;
 	else if (keycode == KEY_A)
 		angle = 90;
-	mini->dx += sin(mini->rad + angle * (M_PI / 180.0))
-		* (double)(FPM / data->frame_move);
-	mini->dy += cos(mini->rad + angle * (M_PI / 180.0))
-		* (double)(FPM / data->frame_move);
+	mini->dx += sin(mini->rad + angle * (M_PI / 180.0));
+	mini->dy += cos(mini->rad + angle * (M_PI / 180.0));
 }
 
 void	handle_move(t_map *map, t_mini *mini, t_data *data)

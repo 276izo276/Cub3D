@@ -106,6 +106,7 @@ void	v_norm(t_mini *mini, t_data *data)
 static void	calc_dx_dy(t_data *data, int keycode, t_mini *mini)
 {
 	int	angle;
+	(void)data;
 
 	angle = 0;
 	if (keycode == KEY_W || keycode == KEY_UP)
@@ -116,10 +117,8 @@ static void	calc_dx_dy(t_data *data, int keycode, t_mini *mini)
 		angle = 90;
 	else if (keycode == KEY_A || keycode == KEY_LEFT)
 		angle = 270;
-	mini->dx += sin(mini->rad + angle * (M_PI / 180.0))
-		* (double)(FPM / data->frame_move);
-	mini->dy += cos(mini->rad + angle * (M_PI / 180.0))
-		* (double)(FPM / data->frame_move);
+	mini->dx += sin(mini->rad + angle * (M_PI / 180.0));
+	mini->dy += cos(mini->rad + angle * (M_PI / 180.0));
 }
 
 void	recalc_x(t_mini *mini, t_map *map)
