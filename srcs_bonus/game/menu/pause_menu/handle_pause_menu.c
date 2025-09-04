@@ -46,7 +46,7 @@ static void	display_background(t_data *data)
 // 	}
 // }
 
-static int	darken_the_color(t_data *data, int color)
+static int	darken_the_color(int color)
 {
 	int r;
 	int g;
@@ -87,7 +87,7 @@ static void	display_resume(t_data *data, int start_x, int start_y)
 			{
 				color = data->color;
 				if (data->pause_menu.selected != 0)
-					color = darken_the_color(data, color);
+					color = darken_the_color(color);
 				pixel_put(data, x + start_x, y + start_y, color);
 			}
 			++x;
@@ -115,7 +115,7 @@ static void	display_exit(t_data *data, int start_x, int start_y)
 			{
 				color = data->color;
 				if (data->pause_menu.selected != 1)
-					color = darken_the_color(data, color);
+					color = darken_the_color(color);
 				pixel_put(data, x + start_x, y + start_y, color);
 			}
 			++x;
@@ -131,8 +131,6 @@ static void	display_sensitivity(t_data *data, int start_x, int start_y)
 	int				x;
 	int				max_x;
 
-	int i = 0;
-
 	max_x = 1148 - (data->sensitivity * 1.28125);
 	if (data->sensitivity == 20)
 		max_x = 1138;
@@ -146,7 +144,7 @@ static void	display_sensitivity(t_data *data, int start_x, int start_y)
 			if (color != WHITE && color != YELLOW)
 			{
 				if (data->pause_menu.selected != 2)
-					color = darken_the_color(data, color);
+					color = darken_the_color(color);
 				pixel_put(data, x + start_x, y + start_y, color);
 			}
 			if (x + start_x > 728 && x + start_x < max_x && y + start_y > 625 && start_y + y < 670  && color == YELLOW && data->pause_menu.selected == 2)
@@ -205,8 +203,8 @@ static void	handle_pause_menu_keys(t_data *data)
 			data->sensitivity -= 10;
 	else if (data->pause_menu.selected == 0 && is_key_pressed(data, KEY_ENTER))
 		data->status = GAME;
-	else if (is_key_pressed(data, KEY_ESCAPE) && data->status == PAUSE
-		|| data->pause_menu.selected == 1 && is_key_pressed(data, KEY_ENTER))
+	else if ((is_key_pressed(data, KEY_ESCAPE) && data->status == PAUSE)
+		|| (data->pause_menu.selected == 1 && is_key_pressed(data, KEY_ENTER)))
 		f_exit(data, 1);
 }
 
