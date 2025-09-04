@@ -68,6 +68,27 @@ void	init_pause_menu(t_data *data)
 	ft_bzero(data->pause_menu.sensitivity, sizeof(t_img));
 	data->pause_menu.sensitivity->mlx = data->mlx.mlx;
 	data->pause_menu.sensitivity->path = "./texture/menu/pause_sensitivity.xpm";
+
+	data->pause_menu.resume = malloc(sizeof(t_img));
+	if (!data->pause_menu.resume)
+		f_exit(data, 1);
+	ft_bzero(data->pause_menu.resume, sizeof(t_img));
+	data->pause_menu.resume->mlx = data->mlx.mlx;
+	data->pause_menu.resume->path = "./texture/menu/resume_button.xpm";
+
+	data->pause_menu.exit = malloc(sizeof(t_img));
+	if (!data->pause_menu.exit)
+		f_exit(data, 1);
+	ft_bzero(data->pause_menu.exit, sizeof(t_img));
+	data->pause_menu.exit->mlx = data->mlx.mlx;
+	data->pause_menu.exit->path = "./texture/menu/exit_button.xpm";
+
+	data->pause_menu.selector = malloc(sizeof(t_img));
+	if (!data->pause_menu.selector)
+		f_exit(data, 1);
+	ft_bzero(data->pause_menu.selector, sizeof(t_img));
+	data->pause_menu.selector->mlx = data->mlx.mlx;
+	data->pause_menu.selector->path = "./texture/menu/pause_selector.xpm";
 }
 
 static void	fill_need_print(t_data *data)
@@ -307,4 +328,6 @@ void	init_data(t_data *data, int ac, char **av)
 	data->current_msg = 0;
 	data->display.is_msg_active = true;
 	data->display.is_first_msg = true;
+
+	data->pause_menu.selected = 0;
 }

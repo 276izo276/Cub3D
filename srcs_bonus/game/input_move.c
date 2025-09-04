@@ -10,7 +10,9 @@ bool	is_move_player(t_data *data, int i)
 {
 	if (data->keycode[i] == KEY_W || data->keycode[i] == KEY_D
 		|| data->keycode[i] == KEY_A || data->keycode[i] == KEY_S
-		|| data->keycode[i] == KEY_1)
+		|| data->keycode[i] == KEY_1 || data->keycode[i] == KEY_UP
+		|| data->keycode[i] == KEY_DOWN || data->keycode[i] == KEY_LEFT
+		|| data->keycode[i] == KEY_RIGHT)
 		return (true);
 	return (false);
 }
@@ -143,6 +145,8 @@ int	key_press(int keycode, t_data *data)
 		handle_menu_keys(keycode, data);
 		return (0);
 	}
+	else if (data->status == PAUSE)
+		handle_pause_menu_keys(keycode, data);
 	i = 0;
 	while (data->keycode[i] != 0 && i < KEYCODE_NB)
 		i++;
@@ -170,9 +174,6 @@ int	key_press(int keycode, t_data *data)
 		else
 			data->status = GAME;
 	}
-	else if (keycode == KEY_ESCAPE && data->status == PAUSE)
-		f_exit(data, 1);
-	// else if (keycode == )
 	else
 		data->keycode[i] = keycode;
 	if (keycode == KEY_ALT)

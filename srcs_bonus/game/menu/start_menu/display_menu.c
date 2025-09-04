@@ -155,7 +155,7 @@ int	get_right_color(int color, double distance)
 	return (color);
 }
 
-static void	draw_gradient(t_data *data, int start_x, int start_y)
+void	draw_gradient(t_data *data, int start_x, int start_y)
 {
 	unsigned int	color;
 	int				x;

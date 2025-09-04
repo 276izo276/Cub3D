@@ -105,6 +105,10 @@ struct s_pause_menu
 	// char	*data_addr;
 	t_img	*sensitivity;
 	t_img	*background;
+	t_img	*exit;
+	t_img	*resume;
+	t_img	*selector;
+	int		selected;
 
 };
 
