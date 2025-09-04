@@ -14,6 +14,7 @@
 # define FPM 60.0
 # define GAME 1
 # define MENU 0
+# define PAUSE 2
 # define SPEED 5
 # define KEYCODE_NB 100
 # define NB_TYPE_ENEMY 4
@@ -35,6 +36,7 @@ typedef struct s_hit_door	t_hit_door;
 typedef struct s_door		t_door;
 typedef struct s_hitray		t_hitray;
 typedef struct s_wall_msg	t_wall_msg;
+typedef struct s_pause_menu	t_pause_menu;
 typedef struct s_enemy		t_enemy;
 typedef	struct s_fcoo		t_fcoo;
 typedef struct s_case		t_case;
@@ -61,6 +63,7 @@ struct s_coo
 	int	x;
 	int	y;
 };
+
 
 struct s_door
 {
@@ -107,6 +110,21 @@ struct s_hit_door
 	double	start_x;
 };
 
+struct s_pause_menu
+{
+	// int		pix_y;
+	// char	*img_addr;
+	// char	*data_addr;
+	t_img	*sensitivity;
+	t_img	*background;
+	t_img	*exit;
+	t_img	*resume;
+	t_img	*selector;
+	int		selected;
+	long long int elapsed;
+	long long int time;
+
+};
 
 struct	s_ray
 {
@@ -194,11 +212,15 @@ struct s_utils_mini
 	double			yfloat;
 };
 
-
+// struct s_foot
+// {
+// 	t_coo	
+// }
 struct s_mini
 {
 	int			need_print[SIZE_MAP][SIZE_MAP];
-	t_img		img[7];
+
+	t_img		img[8];
 	int			height;
 	int			width;
 	t_coo_mini	player_coo;
@@ -339,7 +361,6 @@ struct	s_enemy
 	t_case			*way;
 };
 
-
 struct s_data
 {
 	t_utils_mini	u;
@@ -392,6 +413,8 @@ struct s_data
 	int					current_msg;
 	int					nb_msg;
 	int				random_value;
+	t_pause_menu	pause_menu;
+	double			sensitivity;
 	// t_img	*wh;
 	// t_img	*bl;
 	t_lst	*enemy;

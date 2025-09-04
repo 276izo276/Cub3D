@@ -108,13 +108,13 @@ static void	calc_dx_dy(t_data *data, int keycode, t_mini *mini)
 	int	angle;
 
 	angle = 0;
-	if (keycode == KEY_W)
+	if (keycode == KEY_W || keycode == KEY_UP)
 		angle = 180;
-	else if (keycode == KEY_S)
+	else if (keycode == KEY_S || keycode == KEY_DOWN)
 		angle = 0;
-	else if (keycode == KEY_D)
+	else if (keycode == KEY_D || keycode == KEY_RIGHT)
 		angle = 90;
-	else if (keycode == KEY_A)
+	else if (keycode == KEY_A || keycode == KEY_LEFT)
 		angle = 270;
 	mini->dx += sin(mini->rad + angle * (M_PI / 180.0))
 		* (double)(FPM / data->frame_move);

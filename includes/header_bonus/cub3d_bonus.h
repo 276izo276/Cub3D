@@ -94,6 +94,12 @@ void	spell_lumos(t_data *data);
 //handle_door.c
 void	handle_door(t_data *data);
 
+
+//break_menu
+void	handle_pause_menu(t_data *data, long long int cur);
+void	draw_gradient(t_data *data, int start_x, int start_y);
+
+
 typedef enum e_key_down
 {
 	ON_KEYDOWN = 2,
@@ -124,11 +130,17 @@ typedef enum e_key
 	KEY_Q = 113 , 
 	KEY_E = 101 , 
 	KEY_C = 99 ,
+	KEY_UP = 65362,
+	KEY_DOWN = 65364,
+	KEY_LEFT = 65361,
+	KEY_RIGHT = 65363,
 	KEY_CTRL = 65507,
 	KEY_SPACE = 32, 
 	KEY_SHIFT = 65505,
+	KEY_TAB = 65289,
 	KEY_ESCAPE = 65307,
-	KEY_ALT = 65513
+	KEY_ALT = 65513,
+	KEY_ENTER = 65293
 }	t_key;
 
 #endif
