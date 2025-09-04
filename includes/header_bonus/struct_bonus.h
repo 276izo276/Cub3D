@@ -40,6 +40,7 @@ typedef struct s_pause_menu	t_pause_menu;
 typedef struct s_enemy		t_enemy;
 typedef	struct s_fcoo		t_fcoo;
 typedef struct s_case		t_case;
+typedef struct s_foot		t_foot;
 
 
 typedef	enum e_dir
@@ -64,6 +65,13 @@ struct s_coo
 	int	y;
 };
 
+struct s_fcoo
+{
+	double	coo_x;
+	double	coo_y;
+	int		case_y;
+	int		case_x;
+};
 
 struct s_door
 {
@@ -212,14 +220,16 @@ struct s_utils_mini
 	double			yfloat;
 };
 
-// struct s_foot
-// {
-// 	t_coo	
-// }
+struct s_foot
+{
+	t_fcoo	coo;
+	bool	is_left;
+	bool	is_save;
+};
 struct s_mini
 {
 	int			need_print[SIZE_MAP][SIZE_MAP];
-
+	t_foot		foot_tab[9];
 	t_img		img[8];
 	int			height;
 	int			width;
@@ -326,13 +336,7 @@ struct	s_hitray
 	bool	hit;
 };
 
-struct s_fcoo
-{
-	double	coo_x;
-	double	coo_y;
-	int		case_y;
-	int		case_x;
-};
+
 
 struct s_case
 {

@@ -139,6 +139,27 @@ void	init_struct_door(t_data *data)
 	}
 }
 
+void	init_foot_tab(t_data *data)
+{
+	int	i;
+
+	// foot_tab = malloc(sizeof(t_foot *) * 8);
+	// if (!foot_tab)
+	// 	f_exit(data, 1);
+	i = 1;
+	data->map.mini.foot_tab[0].coo.case_x = data->map.player_coo->x;
+	data->map.mini.foot_tab[0].coo.case_y = data->map.player_coo->y;
+	data->map.mini.foot_tab[0].coo.coo_y = data->map.mini.player_coo.y;
+	data->map.mini.foot_tab[0].coo.coo_x = data->map.mini.player_coo.x;
+	data->map.mini.foot_tab[0].is_left = true;
+	data->map.mini.foot_tab[0].is_save = true;
+	while (i < 8)
+	{
+		data->map.mini.foot_tab[i].is_left = false;
+		++i;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -155,6 +176,7 @@ int	main(int ac, char **av)
 	data.map.mini.player_coo.x = 32;
 	data.map.mini.speed = 1.5;
 	init_img_mini(&data, &data.map.mini);
+	init_foot_tab(&data);
 	// init_display(&data, &data.f_display);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
 	mlx_mouse_hide(data.mlx.mlx, data.mlx.win);
