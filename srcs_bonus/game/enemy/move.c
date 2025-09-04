@@ -74,13 +74,17 @@ static t_lst	*add_node(t_case *cur, const int dir[2], t_lst *lst, t_enemy *enemy
 {
 	t_case	*cel;
 	t_case	*cases;
-	const int	direc[2] = {enemy->center.case_y, enemy->center.case_y};
+	const int	direc[2] = {cur->case_y + dir[0], cur->case_x + dir[1]};
 
+	printf("ADD NODE y>>%d    x>>%d\n",cur->case_y + dir[0],cur->case_x + dir[1]);
 	cel = init_case(man_dist(cur->case_y + dir[0],
-		cur->case_x + dir[0], enemy->goal.case_y,enemy->goal.case_x),cur->r_cost + 1,
+		cur->case_x + dir[1], enemy->goal.case_y,enemy->goal.case_x),cur->r_cost + 1,
 		direc, cur);
 	if (!lst)
+	{
+		printf("ADD NODE TO EMPTY LST HERE \n");
 		return (add_end_lst(cel, lst, f_case));
+	}
 	lst = get_first_elem_lst(lst);
 	while (lst)
 	{
@@ -110,7 +114,9 @@ static	t_lst	*add_case_open(t_lst *open, t_lst **closed, t_enemy *enemy, t_data 
 	t_lst	*lst;
 
 	lst = get_first_elem_lst(open);
-	open = get_first_elem_lst(remove_elem_lst(lst));
+	open = remove_elem_lst(lst);
+	open = get_first_elem_lst(open);
+	printf("OPEN VALUE RM LST >>%p\n",open);
 	// lst = open;
 	// open = remove_elem_lst(lst);
 	*closed = move_to_end_lst(lst, *closed);
@@ -119,15 +125,25 @@ static	t_lst	*add_case_open(t_lst *open, t_lst **closed, t_enemy *enemy, t_data 
 	{
 		if (!is_a_wall(lst->dt, dir[i], data) && !is_in_lst(lst->dt, dir[i], *closed, enemy))
 		{
+			printf("ADD CASE  i>>%d   %c\n",i,data->map.tabmap[((t_case *)lst->dt)->case_y + dir[i][0]][((t_case *)lst->dt)->case_x + dir[i][1]] );
 			if (is_in_lst(lst->dt, dir[i], open, enemy))
+			{
 				open = update_node(lst->dt, dir[i], open);
+				printf("UPDATE NODE\n");
+			}
 			else
+			{
 				open = add_node(lst->dt, dir[i], open, enemy);
+				printf("FIRST CASE OPEN AFTER ADD next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
+				printf("NEW NODE\n");
+			}
 			if (!open)
 				exit_path_finder(data);
 		}
 		i++;
 	}
+	// printf("FIRST CASE OPEN next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
+	// printf("FIRST CASE CLOSED next case y>>%d   x>>%d\n",((t_case *)(*closed)->dt)->case_y,((t_case *)(*closed)->dt)->case_x);
 	return (get_first_elem_lst(open));
 }
 
@@ -159,26 +175,32 @@ static void	pathfinder(t_data *data, t_enemy *enemy)
 {
 	t_lst	*open;
 	t_lst	*closed;
-	const int	dir[2] = {enemy->center.case_y, enemy->center.case_y};
+	const int	dir[2] = {enemy->center.case_y, enemy->center.case_x};
 
 	open = add_end_lst(init_case(man_dist(enemy->center.case_y,
 		enemy->center.case_x,enemy->goal.case_y,enemy->goal.case_x),
 		0, dir, NULL), NULL, f_case);
+	printf("PASS HERE next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
 	closed = NULL;
+	// exit(1);
 	while (open)
 	{
 		open = add_case_open(open, &closed, enemy, data);
-		if (is_end_path(open, enemy))
+		// exit(1);
+		if (open && is_end_path(open, enemy))
 		{
 			set_final_path(get_first_elem_lst(open), enemy);
 			f_list_final_path(open, closed);
 			printf("FOUND PATH\n");
 			return ;
 		}
-		printf("PASS HERE\n");
+		open = get_first_elem_lst(open);
+		// printf("PASS HERE next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
 	}
 	printf("PATH NOOOOOOOOT FOUND\n");
 	f_all_lst(closed);
+	f_all_lst(open);
+	// f_exit(data, 1);
 }
 
 static void	print_path(t_enemy *enemy)
@@ -202,7 +224,7 @@ static void	gen_enemy_way(t_data *data, t_enemy *enemy)
 	int	len_tab;
 
 	len_tab = ft_tab_strlen(data->map.tabmap) - 1;
-	y = rand() % (len_tab);
+	y = rand() % len_tab;
 	len_line = ft_strlen(data->map.tabmap[y]);
 	x = rand() % len_line;
 	count = 0;
@@ -221,7 +243,7 @@ static void	gen_enemy_way(t_data *data, t_enemy *enemy)
 	}
 	enemy->goal.case_x = x;
 	enemy->goal.case_y = y;
-	printf("Foud Case y>%d   x>%d     value>>%c\n", y, x, data->map.tabmap[y][x]);
+	printf("Foud Case y>%d   x>%d     value>>%c     center   y>%d   x>%d\n", y, x, data->map.tabmap[y][x],enemy->center.case_y,enemy->center.case_x);
 	pathfinder(data, enemy);
 	print_path(enemy);
 }

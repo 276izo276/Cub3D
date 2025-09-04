@@ -1,6 +1,8 @@
 #include "struct_bonus.h"
 #include "utils_bonus.h"
 
+#include <stdio.h>
+
 t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 {
 	t_enemy	*enemy;
