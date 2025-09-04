@@ -45,9 +45,9 @@ void	aff_color_in_img(t_utils_mini *u, t_mini *mini, t_data *data)
 {
 	u->s.y = 1 * 64 + 32 + (u->y * 64 + 64 - mini->player_coo.y);
 	u->i.y = 0;
+	u->s.x = 1 * 64 + 32 + (u->x * 64 + 64 - mini->player_coo.x);
 	while (u->i.y < 64)
 	{
-		u->s.x = 1 * 64 + 32 + (u->x * 64 + 64 - mini->player_coo.x);
 		u->i.x = 0;
 		while (u->s.y + u->i.y >= 0 && u->s.y + u->i.y < u->size && u->i.x < 64)
 		{
@@ -81,9 +81,9 @@ static void	aff_enemy(t_data *data, t_utils_mini *u, t_mini *mini)
 		enemy = lst->dt;
 		u->s.y = 1 * 64 + 32 + (u->y * 64 + 64 - mini->player_coo.y);
 		u->s.x = 1 * 64 + 32 + (u->x * 64 + 64 - mini->player_coo.x);
-		for(int i = -2; i < 2; i++)
+		for(int i = -2; i < 2; i++)  //for
 		{
-			for (int j = -2; j < 2; j++)
+			for (int j = -2; j < 2; j++) // for
 			{
 				if (enemy->center.case_x == u->new_x && enemy->center.case_y == u->new_y
 					&& (u->s.y + i + enemy->center.coo_y >= 0
@@ -101,6 +101,32 @@ static void	aff_enemy(t_data *data, t_utils_mini *u, t_mini *mini)
 		lst = lst->next;
 	}
 }
+
+// #include <stdio.h>
+// void	check_foot(t_data *data, t_foot *foot_tab)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < 8 && foot_tab[i].is_save == true)
+// 	{
+// 		++i;
+// 	}
+// 	if ((foot_tab[i - 1].coo.case_x == data->map.player_coo->x && foot_tab[i - 1].coo.case_y == data->map.player_coo->y && foot_tab[i - 1].coo.coo_x == data->map.mini.player_coo.x && foot_tab[i - 1].coo.coo_y == data->map.mini.player_coo.y) || i == 0)
+// 	{
+// 		// printf("oui\n");
+// 		return ;
+// 	}
+// 	data->map.mini.foot_tab[i].coo.case_x = data->map.player_coo->x;
+// 	data->map.mini.foot_tab[i].coo.case_y = data->map.player_coo->y;
+// 	data->map.mini.foot_tab[i].coo.coo_y = data->map.mini.player_coo.y;
+// 	data->map.mini.foot_tab[i].coo.coo_x = data->map.mini.player_coo.x;
+// 	if (data->map.mini.foot_tab[i - 1].is_left == true)
+// 		data->map.mini.foot_tab[i].is_left = false;
+// 	else
+// 		data->map.mini.foot_tab[i].is_left = true;
+// 	data->map.mini.foot_tab[i].is_save = true;
+// }
 
 void	aff_mini_map(t_data *data)
 {
@@ -126,5 +152,6 @@ void	aff_mini_map(t_data *data)
 	}
 	set_player_in_mini_map(data, &data->u, &data->map.mini.img[MINI_LEFT],
 		data->map.mini.rad);
+	// aff_foot(data, &data->u, &data->map.mini);
 	print_mini_map(data);
 }

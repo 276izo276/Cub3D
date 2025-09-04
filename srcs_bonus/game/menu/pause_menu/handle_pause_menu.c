@@ -147,9 +147,11 @@ static void	display_sensitivity(t_data *data, int start_x, int start_y)
 					color = darken_the_color(color);
 				pixel_put(data, x + start_x, y + start_y, color);
 			}
-			if (x + start_x > 728 && x + start_x < max_x && y + start_y > 625 && start_y + y < 670  && color == YELLOW && data->pause_menu.selected == 2)
+			if (x + start_x > 728 && x + start_x < max_x && y + start_y > 625 && start_y + y < 670  && color == YELLOW)
 			{
 				color = data->color;
+				if (data->pause_menu.selected != 2)
+					color = darken_the_color(color);
 				pixel_put(data, x + start_x, y + start_y, color);
 			}
 			++x;
