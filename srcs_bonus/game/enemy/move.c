@@ -59,25 +59,68 @@ static t_lst	*update_node(t_case *cur, int dir[2], t_lst *lst, t_enemy *enemy)
 			}
 			return (lst);
 		}
-		lst = lst->next;
+		if (lst->next)
+			lst = lst->next;
+		else
+			break ;
 	}
 	return (lst);
+}
+
+static t_lst	*add_node(t_case *cur, int dir[2], t_lst *lst, t_enemy *enemy)
+{
+	t_case	*cel;
+	t_case	*cases;
+	const int	direc[2] = {enemy->center.case_y, enemy->center.case_y};
+
+	cel = init_case(man_dist(cur->case_y + dir[0],
+		cur->case_x + dir[0], enemy->goal.case_y,enemy->goal.case_x),cur->r_cost + 1,
+		direc, cur);
+	if (!lst)
+		return (add_end_lst(cel, lst, f_case));
+	lst = get_first_elem_lst(lst);
+	while (lst)
+	{
+		cases = lst->dt;
+		if (cases->t_cost > cel->t_cost)
+		{
+			lst = add_before_lst(cel, lst, f_case);
+			return (lst);
+		}
+		if (lst->next)
+			lst = lst->next;
+		else
+			break ;
+	}
+	return (lst);
+}
+
+static void	exit_path_finder(t_data *data)
+{
+	f_exit(data, 1);
 }
 
 static	t_lst	*add_case_open(t_lst *open, t_lst **closed, t_enemy *enemy, t_data *data)
 {
 	const	dir[4][2] = {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
 	int		i;
+	t_lst	*lst;
 
-	open = get_first_elem_lst(open);
+	lst = get_first_elem_lst(open);
+	open = get_first_elem_lst(remove_elem_lst(lst));
+	// lst = open;
+	// open = remove_elem_lst(lst);
+	closed = move_to_end_lst(lst, closed);
 	while (i < 4)
 	{
-		if (!is_a_wall(open->dt, dir[i], data) && !is_in_lst(open->dt, dir[i], *closed, enemy))
+		if (!is_a_wall(lst->dt, dir[i], data) && !is_in_lst(lst->dt, dir[i], *closed, enemy))
 		{
-			if (is_in_lst(open->dt, dir[i], open, enemy))
-				open = update_node(open->dt, dir[i], open, enemy);
+			if (is_in_lst(lst->dt, dir[i], open, enemy))
+				open = update_node(lst->dt, dir[i], open, enemy);
 			else
-				add_node();
+				open = add_node(lst->dt, dir[i], open, enemy);
+			if (!open)
+				exit_path_finder(data);
 		}
 	}
 	return (get_first_elem_lst(open));
@@ -87,10 +130,11 @@ static	void	pathfinder(t_data *data, t_enemy *enemy)
 {
 	t_lst	*open;
 	t_lst	*closed;
+	const	dir = {enemy->center.case_y, enemy->center.case_y};
 
 	open = add_end_lst(init_case(man_dist(enemy->center.case_y,
 		enemy->center.case_x,enemy->goal.case_y,enemy->goal.case_x),
-		enemy->center.case_y, enemy->center.case_y, NULL), NULL, f_case);
+		0, dir, NULL), NULL, f_case);
 	closed = NULL;
 	while (open)
 	{

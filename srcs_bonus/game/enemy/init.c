@@ -18,7 +18,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	return (enemy);
 }
 
-t_case	*init_case(int cost, int y, int x, t_case *parent)
+t_case	*init_case(int h_cost, int r_cost, int dir[2], t_case *parent)
 {
 	t_case	*cel;
 
@@ -27,9 +27,10 @@ t_case	*init_case(int cost, int y, int x, t_case *parent)
 		return (cel);
 	ft_bzero(cel, (sizeof(t_case)));
 	cel->parent = parent;
-	cel->case_x = x;
-	cel->case_y = y;
-	cel->h_cost = cost;
-	cel->t_cost = cost;
+	cel->case_x = dir[1];
+	cel->case_y = dir[0];
+	cel->h_cost = h_cost;
+	cel->r_cost = r_cost;
+	cel->t_cost = r_cost + h_cost;
 	return (cel);
 }
