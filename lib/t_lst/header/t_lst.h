@@ -6,7 +6,7 @@
 /*   By: ale-guel <ale-guel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:56:33 by ale-guel          #+#    #+#             */
-/*   Updated: 2025/09/04 03:43:17 by ale-guel         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:15:23 by ale-guel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ t_lst	*remove_elem_lst(t_lst *elem);
 /**                               T_LST_2.c                                 **/
 /*****************************************************************************/
 
-t_lst	*remove_f_char_lst(t_lst *elem);
-void	f_char_lst(t_lst *elem);
+t_lst	*remove_f_elem_lst(t_lst *elem);
+void	f_elem_lst(t_lst *elem);
 void	f_all_lst(t_lst *lst);
 t_lst	*move_to_end_lst(t_lst *elem, t_lst *lst);
 t_lst	*move_to_start_lst(t_lst *elem, t_lst *lst);

@@ -321,6 +321,7 @@ struct s_case
 	int		r_cost;
 	int		h_cost;
 	int		t_cost;
+	int		is_path;
 };
 
 struct	s_enemy
@@ -335,7 +336,7 @@ struct	s_enemy
 	int				life;
 	int				speed;
 	t_fcoo			goal;
-	t_lst			*way;
+	t_case			*way;
 };
 
 
