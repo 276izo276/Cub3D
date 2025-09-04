@@ -200,11 +200,15 @@ struct s_utils_mini
 	double			yfloat;
 };
 
-
+// struct s_foot
+// {
+// 	t_coo	
+// }
 struct s_mini
 {
 	int			need_print[SIZE_MAP][SIZE_MAP];
-	t_img		img[7];
+
+	t_img		img[8];
 	int			height;
 	int			width;
 	t_coo_mini	player_coo;

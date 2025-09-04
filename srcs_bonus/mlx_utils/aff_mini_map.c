@@ -31,7 +31,7 @@ void	aff_pix_in_img(t_utils_mini *u, t_mini *mini, t_data *data)
 						* (u->mmap.bits_per_pixel / 8));
 				if (data->map.mini.need_print[data->u.s.y
 						+ data->u.i.y][data->u.s.x + data->u.i.x] != 0)
-					*(unsigned int *)u->pixel_addr = 408080;
+					*(unsigned int *)u->pixel_addr = 0x6e583e;
 				else
 					set_pix_img(u, data);
 			}
@@ -93,7 +93,7 @@ void	aff_mini_map(t_data *data)
 			}
 		}
 	}
-	set_player_in_mini_map(data, &data->u, &data->map.mini.img[MINI_CURS],
+	set_player_in_mini_map(data, &data->u, &data->map.mini.img[MINI_LEFT],
 		data->map.mini.rad);
 	print_mini_map(data);
 }

@@ -7,7 +7,8 @@
 # define MINI_MOB 3
 # define MINI_DOOR 4
 # define MINI_CURS 5
-
+# define MINI_LEFT 6
+# define MINI_RIGHT 7
 
 # define NORTH 0
 # define SOUTH 1
