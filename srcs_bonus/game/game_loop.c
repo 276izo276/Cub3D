@@ -58,7 +58,6 @@ void	remove_wall_msg(t_data *data)
 		++y;
 	}
 }
-#include <stdio.h>
 void	handle_wall_msg(t_data *data, long long int cur)
 {
 	if (data->current_msg == 4 && data->display.elapsed_time == 0 && data->display.is_first_msg == true)
@@ -92,15 +91,15 @@ int	game_loop(t_data *data)
 {
 	long long int	cur;
 
+	cur = get_mtime();
 	if (data->status == MENU)
 		display_menu(data);
 	else if (data->status == PAUSE)
 	{
-		handle_pause_menu(data);
+		handle_pause_menu(data, cur);
 	}
 	else
 	{
-		cur = get_mtime();
 		handle_input_move(data, cur);
 		handle_wall_msg(data, cur);
 		if (data->time_fps + 1000 / FPS < cur)

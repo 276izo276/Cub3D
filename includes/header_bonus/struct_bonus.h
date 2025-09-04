@@ -109,6 +109,8 @@ struct s_pause_menu
 	t_img	*resume;
 	t_img	*selector;
 	int		selected;
+	long long int elapsed;
+	long long int time;
 
 };
 
@@ -362,6 +364,7 @@ struct s_data
 	int					nb_msg;
 	int				random_value;
 	t_pause_menu	pause_menu;
+	double			sensitivity;
 	// t_img	*wh;
 	// t_img	*bl;
 };

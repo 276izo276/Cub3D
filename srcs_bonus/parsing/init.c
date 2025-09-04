@@ -328,6 +328,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->current_msg = 0;
 	data->display.is_msg_active = true;
 	data->display.is_first_msg = true;
-
+	data->sensitivity = 60;
 	data->pause_menu.selected = 0;
+	data->pause_menu.elapsed = 0;
 }

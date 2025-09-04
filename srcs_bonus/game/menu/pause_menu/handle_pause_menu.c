@@ -1,6 +1,7 @@
 #include "color_bonus.h"
 #include "cub3d_bonus.h"
 #include "utils_bonus.h"
+#include <unistd.h>
 #include "mlx.h"
 
 static void	display_background(t_data *data)
@@ -128,7 +129,13 @@ static void	display_sensitivity(t_data *data, int start_x, int start_y)
 	unsigned int	color;
 	int				y;
 	int				x;
+	int				max_x;
 
+	int i = 0;
+
+	max_x = 1148 - (data->sensitivity * 1.28125);
+	if (data->sensitivity == 20)
+		max_x = 1138;
 	y = 0;
 	while (y < data->pause_menu.sensitivity->height)
 	{
@@ -136,12 +143,15 @@ static void	display_sensitivity(t_data *data, int start_x, int start_y)
 		while (x < data->pause_menu.sensitivity->width)
 		{
 			color = get_texture_pixel(data->pause_menu.sensitivity, x, y);
-			// if (color == 0xafaaa6 && data->pause_menu.selected == 1)
-			// 	color = data->color;
 			if (color != WHITE && color != YELLOW)
 			{
 				if (data->pause_menu.selected != 2)
 					color = darken_the_color(data, color);
+				pixel_put(data, x + start_x, y + start_y, color);
+			}
+			if (x + start_x > 728 && x + start_x < max_x && y + start_y > 625 && start_y + y < 670  && color == YELLOW && data->pause_menu.selected == 2)
+			{
+				color = data->color;
 				pixel_put(data, x + start_x, y + start_y, color);
 			}
 			++x;
@@ -172,27 +182,35 @@ static void	display_selector(t_data *data, int start_x, int start_y)
 	draw_gradient(data, start_x, start_y + 50);
 }
 
-void	handle_pause_menu_keys(int keycode, t_data *data)
+static void	handle_pause_menu_keys(t_data *data)
 {
-	if (keycode == KEY_W || keycode == 65362)
+
+	if (is_key_pressed(data, KEY_W) || is_key_pressed(data, KEY_UP))
 	{
 		if (data->pause_menu.selected == 0)
 			data->pause_menu.selected = 2;
 		else
 			--data->pause_menu.selected;
 	}
-	else if (keycode == KEY_S || keycode == 65364)
+	else if (is_key_pressed(data, KEY_S) || is_key_pressed(data, KEY_DOWN))
 	{
 		if (data->pause_menu.selected == 2)
 			data->pause_menu.selected = 0;
 		else
 			++data->pause_menu.selected;
 	}
-	else if (keycode == KEY_ESCAPE && data->status == PAUSE)
+	else if (data->pause_menu.selected == 2 && is_key_pressed(data, KEY_LEFT) && data->sensitivity < 320)
+		data->sensitivity += 10;
+	else if (data->pause_menu.selected == 2 && is_key_pressed(data, KEY_RIGHT) && data->sensitivity > 20)
+			data->sensitivity -= 10;
+	else if (data->pause_menu.selected == 0 && is_key_pressed(data, KEY_ENTER))
+		data->status = GAME;
+	else if (is_key_pressed(data, KEY_ESCAPE) && data->status == PAUSE
+		|| data->pause_menu.selected == 1 && is_key_pressed(data, KEY_ENTER))
 		f_exit(data, 1);
 }
 
-void	handle_pause_menu(t_data *data)
+void	handle_pause_menu(t_data *data, long long int cur)
 {
 	display_background(data);
 	// display_params(data);
@@ -207,4 +225,9 @@ void	handle_pause_menu(t_data *data)
 	else if (data->pause_menu.selected == 2)
 		display_selector(data, 1150, 590);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0, 0);
+	if (data->pause_menu.elapsed + 1000 / 10 < cur)
+	{
+		handle_pause_menu_keys(data);
+		data->pause_menu.elapsed = cur;
+	}
 }

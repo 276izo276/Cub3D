@@ -23,7 +23,7 @@ int	mouse_move(int x, int y, t_data *data)
 	if ((x != data->mlx.width / 2 || y != data->mlx.height / 2)
 		&& !is_key_pressed(data, KEY_ALT))
 	{
-		data->map.mini.deg += (double)-(x - data->mlx.width / 2) / 40;
+		data->map.mini.deg += (double)-(x - data->mlx.width / 2) / data->sensitivity;
 		data->map.mini.deg = fmod(data->map.mini.deg, 360.0);
 		if (data->map.mini.deg < 0)
 			data->map.mini.deg += 360;
@@ -74,21 +74,21 @@ int	key_release(int keycode, t_data *data)
 
 static void	key_select_coa(int keycode, t_data *data)
 {
-	if (keycode == 65361)
+	if (keycode == KEY_LEFT)
 	{
 		if (data->selected == 0)
 			data->selected = 3;
 		else
 			data->selected -= 1;
 	}
-	else if (keycode == 65363)
+	else if (keycode == KEY_RIGHT)
 	{
 		if (data->selected == 3)
 			data->selected = 0;
 		else
 			data->selected += 1;
 	}
-	else if (keycode == 65293)
+	else if (keycode == KEY_ENTER)
 	{
 		data->color = data->coa[data->selected].color;
 		data->selected = 0;
@@ -99,21 +99,21 @@ static void	key_select_coa(int keycode, t_data *data)
 
 static void key_select_hand(int keycode, t_data *data)
 {
-	if (keycode == 65361)
+	if (keycode == KEY_LEFT)
 	{
 		if (data->selected == 1)
 			data->selected -= 1;
 		else
 			data->selected += 1;
 	}
-	else if (keycode == 65363)
+	else if (keycode == KEY_RIGHT)
 	{
 		if (data->selected == 0)
 			data->selected += 1;
 		else
 			data->selected -= 1;
 	}
-	else if (keycode == 65293)
+	else if (keycode == KEY_ENTER)
 	{
 		if (data->selected == 1)
 			data->is_right_handed = true;
@@ -145,8 +145,6 @@ int	key_press(int keycode, t_data *data)
 		handle_menu_keys(keycode, data);
 		return (0);
 	}
-	else if (data->status == PAUSE)
-		handle_pause_menu_keys(keycode, data);
 	i = 0;
 	while (data->keycode[i] != 0 && i < KEYCODE_NB)
 		i++;
@@ -175,7 +173,10 @@ int	key_press(int keycode, t_data *data)
 			data->status = GAME;
 	}
 	else
+	{
+		// printf("oui\n");
 		data->keycode[i] = keycode;
+	}
 	if (keycode == KEY_ALT)
 		mlx_mouse_show(data->mlx.mlx, data->mlx.win);
 	else if (keycode == KEY_SHIFT)
