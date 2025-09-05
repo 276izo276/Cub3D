@@ -232,7 +232,7 @@ static void	print_path(t_enemy *enemy)
 	cel = enemy->way;
 	while (cel)
 	{
-		printf("case_y>>>%d      case_x>>>%d\n",cel->case_y,cel->case_x);
+		printf("case_y>>>%d      case_x>>>%d     coo_y>>>%d     coo_x>>>%d\n",cel->case_y,cel->case_x,cel->coo_y,cel->coo_x);
 		cel = cel->child;
 	}
 }
@@ -244,9 +244,44 @@ static void	calc_in_cell_path(t_data *data, t_enemy *enemy)
 	cel = enemy->way;
 	while (cel)
 	{
-		cel->
+		if (cel->child)
+		{
+			cel->coo_x = 32 + (cel->child->case_x - cel->case_x) * 32;
+			cel->coo_y = 32 + (cel->child->case_y - cel->case_y) * 32;
+			if (cel->child->child)
+			{
+				if (cel->coo_x % 64 != 0)
+				{
+					if (cel->parent)
+						if (cel->parent->coo_x % 64 == 0)
+							cel->coo_x = 64 - cel->parent->coo_x;
+						else
+							cel->coo_x = cel->parent->coo_x;
+					else
+						cel->coo_x = 32;
+					cel->coo_x = (cel->coo_x + 32 + (cel->child->child->case_x - cel->child->case_x) * 32) / 2;
+				}
+				if (cel->coo_y % 64 != 0)
+				{
+					if (cel->parent)
+						if (cel->parent->coo_y % 64 == 0)
+							cel->coo_y = 64 - cel->parent->coo_y;
+						else
+							cel->coo_y = cel->parent->coo_y;
+					else
+						cel->coo_y = 32;
+					cel->coo_y = (cel->coo_y + 32 + (cel->child->child->case_y - cel->child->case_y) * 32) / 2;
+				}
+			}
+		}
+		else
+		{
+			cel->coo_x = 32;
+			cel->coo_y = 32;
+		}
 		cel = cel->child;
 	}
+	(void)data;
 }
 
 static void	gen_enemy_way(t_data *data, t_enemy *enemy)

@@ -40,7 +40,7 @@ typedef struct s_pause_menu	t_pause_menu;
 typedef struct s_enemy		t_enemy;
 typedef	struct s_fcoo		t_fcoo;
 typedef struct s_case		t_case;
-0
+
 typedef	enum e_dir
 {
 	NORTH,
@@ -339,6 +339,8 @@ struct s_case
 	t_case	*child;
 	int		case_x;
 	int		case_y;
+	int		coo_x;
+	int		coo_y;
 	int		r_cost;
 	int		h_cost;
 	int		t_cost;
