@@ -1,8 +1,11 @@
 #include "struct_bonus.h"
 #include "color_bonus.h"
+#include "texture_bonus.h"
+#include "cub3d_bonus.h"
 #include <math.h>
+#include <stdlib.h>
 
-static void	calc_value_player_mini_map_aff(t_utils_mini *u, t_img *img,
+void	calc_value_player_mini_map_aff(t_utils_mini *u, t_img *img,
 	double rad)
 {
 	u->cos_val = cos(rad);
@@ -17,7 +20,8 @@ static void	calc_value_player_mini_map_aff(t_utils_mini *u, t_img *img,
 
 static void	set_pix_player(t_data *data, t_utils_mini *u, int start_y, int start_x)
 {
-	
+	if (start_x < 0 || start_x >= u->size || start_y < 0 || start_y > u->size)
+		return ;
 	if (u->color != YELLOW)
 	{
 		u->pixel_addr = u->mmap.data_addr + (((int)ceil(u->yfloat)
@@ -33,13 +37,17 @@ static void	set_pix_player(t_data *data, t_utils_mini *u, int start_y, int start
 	}
 }
 
-void	set_player_in_mini_map(t_data *data, t_utils_mini *u, t_img *img, double rad)
+void	set_player_in_mini_map(t_data *data, t_utils_mini *u, double rad)
 {
-	int	start_y;
-	int	start_x;
+	t_img	*img;
 
-	start_y = u->size / 2 - img->height / 2;
-	start_x = u->size / 2 - img->width / 2;
+	if (data->map.mini.last_foot != MINI_LEFT)
+		img = &data->map.mini.img[MINI_RIGHT];
+	else
+		img = &data->map.mini.img[MINI_LEFT];
+	u->start_y = u->size / 2 - img->height / 2;
+	u->start_x = u->size / 2 - img->width / 2;
+	set_trail_foot(data, u);
 	u->y = -1;
 	while (++u->y < img->height)
 	{
@@ -48,9 +56,8 @@ void	set_player_in_mini_map(t_data *data, t_utils_mini *u, t_img *img, double ra
 		{
 			calc_value_player_mini_map_aff(u, img, rad);
 			if (u->color != 0x00000000)
-			{
-				set_pix_player(data, u, start_y, start_x);
-			}
+				set_pix_player(data, u, u->start_y, u->start_x);
 		}
 	}
+	save_and_move_foot(data, rad);
 }

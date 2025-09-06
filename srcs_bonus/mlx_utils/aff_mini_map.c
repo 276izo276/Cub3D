@@ -102,32 +102,6 @@ static void	aff_enemy(t_data *data, t_utils_mini *u, t_mini *mini)
 	}
 }
 
-// #include <stdio.h>
-// void	check_foot(t_data *data, t_foot *foot_tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < 8 && foot_tab[i].is_save == true)
-// 	{
-// 		++i;
-// 	}
-// 	if ((foot_tab[i - 1].coo.case_x == data->map.player_coo->x && foot_tab[i - 1].coo.case_y == data->map.player_coo->y && foot_tab[i - 1].coo.coo_x == data->map.mini.player_coo.x && foot_tab[i - 1].coo.coo_y == data->map.mini.player_coo.y) || i == 0)
-// 	{
-// 		// printf("oui\n");
-// 		return ;
-// 	}
-// 	data->map.mini.foot_tab[i].coo.case_x = data->map.player_coo->x;
-// 	data->map.mini.foot_tab[i].coo.case_y = data->map.player_coo->y;
-// 	data->map.mini.foot_tab[i].coo.coo_y = data->map.mini.player_coo.y;
-// 	data->map.mini.foot_tab[i].coo.coo_x = data->map.mini.player_coo.x;
-// 	if (data->map.mini.foot_tab[i - 1].is_left == true)
-// 		data->map.mini.foot_tab[i].is_left = false;
-// 	else
-// 		data->map.mini.foot_tab[i].is_left = true;
-// 	data->map.mini.foot_tab[i].is_save = true;
-// }
-
 void	aff_mini_map(t_data *data)
 {
 	data->u.y = -4;
@@ -150,8 +124,6 @@ void	aff_mini_map(t_data *data)
 			}
 		}
 	}
-	set_player_in_mini_map(data, &data->u, &data->map.mini.img[MINI_LEFT],
-		data->map.mini.rad);
-	// aff_foot(data, &data->u, &data->map.mini);
+	set_player_in_mini_map(data, &data->u, data->map.mini.rad);
 	print_mini_map(data);
 }

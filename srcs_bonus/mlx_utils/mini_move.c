@@ -1,7 +1,7 @@
 #include "cub3d_bonus.h"
 #include "utils_bonus.h"
 #include <math.h>
-
+# include "texture_bonus.h"
 #include <stdio.h>
 
 static int	check_x_value(t_mini *mini, int y, int x)
@@ -227,6 +227,10 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 		if (is_move_player(data, i))
 		{
 			calc_dx_dy(data, data->keycode[i], mini);
+			if (mini->last_foot == MINI_LEFT)
+				mini->last_foot = MINI_RIGHT;
+			else
+				mini->last_foot = MINI_LEFT;
 			data->player_moved = true;
 		}
 		i++;

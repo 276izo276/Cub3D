@@ -1,6 +1,7 @@
 #include "cub3d_bonus.h"
 #include "mlx.h"
 #include "utils_bonus.h"
+#include "texture_bonus.h"
 
 void	get_pixel_color(t_data *data, int type)
 {
@@ -24,6 +25,7 @@ void	get_pixel_color(t_data *data, int type)
 
 void	init_utils_mini(t_data *data)
 {
+	data->map.mini.last_foot = MINI_RIGHT;
 	ft_bzero(&data->u, sizeof(t_utils_mini));
 	data->u.size = 5 * 64;
 	data->u.mmap.img = mlx_new_image(data->mlx.mlx, data->u.size, data->u.size);

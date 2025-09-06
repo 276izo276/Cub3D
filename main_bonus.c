@@ -153,11 +153,19 @@ void	init_foot_tab(t_data *data)
 	data->map.mini.foot_tab[0].coo.coo_x = data->map.mini.player_coo.x;
 	data->map.mini.foot_tab[0].is_left = true;
 	data->map.mini.foot_tab[0].is_save = true;
+	data->map.mini.foot_tab[0].rad = 0;
 	while (i < 8)
 	{
-		data->map.mini.foot_tab[i].is_left = false;
+		data->map.mini.foot_tab[i].is_save = false;
+		data->map.mini.foot_tab[i].coo.case_x = 0;
+		data->map.mini.foot_tab[i].coo.case_y = 0;
+		data->map.mini.foot_tab[i].coo.coo_y = 0;
+		data->map.mini.foot_tab[i].coo.coo_x = 0;
+		data->map.mini.foot_tab[i].rad = 0;
+		data->map.mini.foot_tab[i].is_left = true;
 		++i;
 	}
+	data->map.mini.time_foot = 0;
 }
 
 int	main(int ac, char **av)

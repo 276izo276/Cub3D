@@ -218,6 +218,8 @@ struct s_utils_mini
 	double			ydest;
 	double			xfloat;
 	double			yfloat;
+	int				start_y;
+	int				start_x;
 };
 
 struct s_foot
@@ -225,12 +227,15 @@ struct s_foot
 	t_fcoo	coo;
 	bool	is_left;
 	bool	is_save;
+	double	rad;
 };
 struct s_mini
 {
 	int			need_print[SIZE_MAP][SIZE_MAP];
 	t_foot		foot_tab[9];
 	t_img		img[8];
+	int			last_foot;
+	long long int	time_foot;
 	int			height;
 	int			width;
 	t_coo_mini	player_coo;
