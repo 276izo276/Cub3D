@@ -1,7 +1,8 @@
 #include "struct_bonus.h"
 #include "utils_bonus.h"
 #include "enemy_bonus.h"
-
+#include "cub3d_bonus.h"
+#include <math.h>
 
 #include <stdio.h>
 
@@ -322,6 +323,33 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 {
 	(void)data;
 	(void)enemy;
+	printf("Coo in case x>>%d    y>>%d\n",enemy->way->coo_x,enemy->way->coo_y);
+	double	rad;
+	double	deg;
+	deg = 0;
+	rad = 0;
+	int	diff_x = enemy->way->coo_x - enemy->center.coo_x;
+	int	diff_y = enemy->way->coo_y - enemy->center.coo_y;
+	printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
+	if (diff_x != 0 && diff_y != 0)
+	{
+		deg = ((double)diff_x / diff_y);
+		printf("deg angle >>>%lf\n",atan(deg) / (M_PI / 180));
+	}
+	else if (diff_x < 0)
+		deg = 90;
+		// rad = (90 * M_PI / 180);
+	else if (diff_x > 0)
+		deg = 270;
+		// rad = (270 * M_PI / 180);
+	else if (diff_y < 0)
+		deg = 180;
+		// rad = (180 * M_PI / 180);
+	else if (diff_y > 0)
+		deg = 0;
+		// rad = (0 * M_PI / 180);
+	rad = deg * (M_PI / 180);
+	printf("rad >>>%lf\n", rad);
 }
 
 void	move_enemy(t_data *data)

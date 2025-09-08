@@ -16,6 +16,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	enemy->center.case_y = y;
 	enemy->center.coo_x = 32;
 	enemy->center.coo_y = 32;
+	enemy->speed = 5;
 	(void)data;
 	return (enemy);
 }
