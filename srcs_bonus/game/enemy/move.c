@@ -414,9 +414,9 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	enemy->center.coo_y += dy;
 	// enemy->center.coo_x = round(enemy->center.coo_x);
 	// enemy->center.coo_y = round(enemy->center.coo_y);
-	printf("\ny>>>%lf      x>>>%lf\n",enemy->center.coo_y,enemy->center.coo_x);
-	printf("CURRENT   y>>>%d    x>>%d\n",enemy->center.case_x,enemy->center.case_y);
-	printf("GOAL   y>>>%d    x>>%d\n",enemy->goal.case_x,enemy->goal.case_y);
+	// printf("\ny>>>%lf      x>>>%lf\n",enemy->center.coo_y,enemy->center.coo_x);
+	// printf("CURRENT   y>>>%d    x>>%d\n",enemy->center.case_x,enemy->center.case_y);
+	// printf("GOAL   y>>>%d    x>>%d\n",enemy->goal.case_x,enemy->goal.case_y);
 	if (are_double_close(enemy->center.coo_x, enemy->goal.coo_x)
 		&& are_double_close(enemy->center.coo_y, enemy->goal.coo_y)
 		&& enemy->center.case_x == enemy->goal.case_x
