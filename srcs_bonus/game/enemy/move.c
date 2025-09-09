@@ -361,8 +361,9 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	(void)data;
 	(void)enemy;
 	// printf("Coo in case x>>%d    y>>%d\n",enemy->way->coo_x,enemy->way->coo_y);
-	if (enemy->rad == -1)
+	if (enemy->calc == true)
 	{
+		enemy->calc = false;
 		double	deg;
 		deg = 0;
 		enemy->rad = 0;
@@ -385,6 +386,8 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			deg = 270;
 		else if (diff_y == 0 && diff_x > 0)
 			deg = 90;
+		else if (diff_x == 0 && diff_y < 0)
+			deg = 180;
 		// printf("deg angle >>>%lf\n",deg);
 		enemy->rad = deg * (M_PI / 180);
 	}
@@ -422,7 +425,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		f_case(enemy->way);
 		enemy->way = NULL;
 		enemy->wait = 0;
-		enemy->rad = -1;
+		enemy->calc = true;
 		printf("END TRAJ IN CASE\n");
 		return ;
 	}
@@ -444,7 +447,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			f_case(enemy->way);
 			enemy->way = NULL;
 			enemy->wait = 0;
-			enemy->rad = -1;
+			enemy->calc = true;
 			printf("OUT OF CASE END TRAJ\n");
 			return ;
 		}
@@ -453,7 +456,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		enemy->center.case_x = enemy->way->case_x;
 		enemy->center.case_y = enemy->way->case_y;
 		f_case(tmp);
-		enemy->rad = -1;
+		enemy->calc = true;
 	}
 	// if (delta_x > 0)
 	// 	rx = (64 - enemy->center.coo_x) / delta_x;

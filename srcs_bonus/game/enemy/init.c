@@ -17,7 +17,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	enemy->center.coo_x = 32;
 	enemy->center.coo_y = 32;
 	enemy->speed = 3;
-	enemy->rad = -1;
+	enemy->calc = true;
 	(void)data;
 	return (enemy);
 }

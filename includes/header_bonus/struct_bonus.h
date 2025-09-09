@@ -361,6 +361,7 @@ struct	s_enemy
 	t_fcoo			goal;
 	t_case			*way;
 	int				wait;
+	bool			calc;
 };
 
 struct s_data
