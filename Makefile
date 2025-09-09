@@ -85,7 +85,8 @@ UTILS_BONUS =								\
 				ft_bzero.c					\
 				ft_strcmp.c					\
 				ft_strlen.c					\
-				time.c						
+				time.c						\
+				double.c					\
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/utils/,$(UTILS_BONUS))
 

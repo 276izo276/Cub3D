@@ -360,6 +360,7 @@ struct	s_enemy
 	int				speed;
 	t_fcoo			goal;
 	t_case			*way;
+	int				wait;
 };
 
 struct s_data

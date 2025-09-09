@@ -16,5 +16,6 @@ void	f_exit(t_data *data, int code);
 int		ft_tab_strlen(char **tab);
 void	print_map(t_data *data);
 int		abs_value(int value);
+int		are_double_close(double nb1, double nb2);
 
 #endif

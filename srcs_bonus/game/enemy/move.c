@@ -13,7 +13,7 @@ static int	man_dist(int startY, int startX, int endY, int endX)
 
 static int	is_a_wall(t_case *cur, const int dir[2], t_data *data)
 {
-	if (data->map.tabmap[cur->case_y + dir[0]][cur->case_x + dir[1]] == '1')
+	if (data->map.tabmap[cur->case_y + dir[0]][cur->case_x + dir[1]] == '1' || data->map.tabmap[cur->case_y + dir[0]][cur->case_x + dir[1]] == 'D')
 		return (1);
 	return (0);
 }
@@ -259,6 +259,11 @@ static void	print_path(t_enemy *enemy)
 	while (cel)
 	{
 		printf("case_y>>>%d      case_x>>>%d     coo_y>>>%d     coo_x>>>%d\n",cel->case_y,cel->case_x,cel->coo_y,cel->coo_x);
+		if (!cel->child)
+		{
+			enemy->goal.case_x = cel->case_x;
+			enemy->goal.case_y = cel->case_y;
+		}
 		cel = cel->child;
 	}
 }
@@ -318,6 +323,11 @@ static void	gen_enemy_way(t_data *data, t_enemy *enemy)
 	int	len_line;
 	int	len_tab;
 
+	if (enemy->wait < 100)
+	{
+		enemy->wait++;
+		return ;
+	}
 	len_tab = ft_tab_strlen(data->map.tabmap) - 1;
 	y = rand() % len_tab;
 	len_line = ft_strlen(data->map.tabmap[y]);
@@ -338,6 +348,8 @@ static void	gen_enemy_way(t_data *data, t_enemy *enemy)
 	}
 	enemy->goal.case_x = x;
 	enemy->goal.case_y = y;
+	enemy->goal.coo_x = 32;
+	enemy->goal.coo_y = 32;
 	printf("Foud Case GOAL >>>>>> y>%d   x>%d     value>>%c     center   y>%d   x>%d\n", y, x, data->map.tabmap[y][x],enemy->center.case_y,enemy->center.case_x);
 	pathfinder(data, enemy);
 	calc_in_cell_path(data, enemy);
@@ -348,37 +360,110 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 {
 	(void)data;
 	(void)enemy;
-	printf("Coo in case x>>%d    y>>%d\n",enemy->way->coo_x,enemy->way->coo_y);
-	double	rad;
-	double	deg;
-	deg = 0;
-	rad = 0;
-	int	diff_x = enemy->way->coo_x - enemy->center.coo_x;
-	int	diff_y = enemy->way->coo_y - enemy->center.coo_y;
-	printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
-	if (diff_x != 0 && diff_y != 0)
+	// printf("Coo in case x>>%d    y>>%d\n",enemy->way->coo_x,enemy->way->coo_y);
+	if (enemy->rad == -1)
 	{
-		deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
-		if (deg < 0)
-			deg = -deg;
+		double	deg;
+		deg = 0;
+		enemy->rad = 0;
+		int	diff_x = enemy->way->coo_x - enemy->center.coo_x;
+		int	diff_y = enemy->way->coo_y - enemy->center.coo_y;
+		// printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
+		if (diff_x != 0 && diff_y != 0)
+		{
+			deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
+			if (deg < 0)
+				deg = -deg;
+		}
+		if (diff_y < 0 && diff_x < 0)
+			deg = 180 + deg;
+		else if (diff_y < 0 && diff_x > 0)
+			deg = 180 - deg;
+		else if (diff_y > 0 && diff_x < 0)
+			deg = 360 - deg;
+		else if (diff_y == 0 && diff_x < 0)
+			deg = 270;
+		else if (diff_y == 0 && diff_x > 0)
+			deg = 90;
+		// printf("deg angle >>>%lf\n",deg);
+		enemy->rad = deg * (M_PI / 180);
 	}
-	if (diff_y < 0 && diff_x < 0)
-		deg = 180 - deg;
-		// rad = (90 * M_PI / 180);
-	else if (diff_y < 0)
-		deg += 180;
-		// rad = (270 * M_PI / 180);
-	else if (diff_y > 0 && diff_x > 0)
-		deg = 360 - deg;
-		// rad = (180 * M_PI / 180);
-	else if (diff_y == 0 && diff_x < 0)
-		deg = 90;
-	else if (diff_y == 0 && diff_x > 0)
-		deg = 270;
-		// rad = (0 * M_PI / 180);
-	printf("deg angle >>>%lf\n",deg);
-	rad = deg * (M_PI / 180);
-	printf("rad >>>%lf\n", rad);
+	double	dy;
+	double	dx;
+	double	v_normalize;
+	dx = sin(enemy->rad);
+	dy = cos(enemy->rad);
+	// printf("dx>>%lf     dy>>%lf\n",dx,dy);
+	if (round(dy) == 0.0 && round(dx) == 0.0)
+	{
+		dy = 0;
+		dx = 0;
+	}
+	else
+	{
+		v_normalize = sqrt(dx * dx + dy * dy);
+		dy = dy / v_normalize;
+		dx = dx / v_normalize;
+	}
+	dy *= enemy->speed;
+	dx *= enemy->speed;
+	enemy->center.coo_x += dx;
+	enemy->center.coo_y += dy;
+	// enemy->center.coo_x = round(enemy->center.coo_x);
+	// enemy->center.coo_y = round(enemy->center.coo_y);
+	printf("\ny>>>%lf      x>>>%lf\n",enemy->center.coo_y,enemy->center.coo_x);
+	printf("CURRENT   y>>>%d    x>>%d\n",enemy->center.case_x,enemy->center.case_y);
+	printf("GOAL   y>>>%d    x>>%d\n",enemy->goal.case_x,enemy->goal.case_y);
+	if (are_double_close(enemy->center.coo_x, enemy->goal.coo_x)
+		&& are_double_close(enemy->center.coo_y, enemy->goal.coo_y)
+		&& enemy->center.case_x == enemy->goal.case_x
+		&& enemy->center.case_y == enemy->goal.case_y)
+	{
+		f_case(enemy->way);
+		enemy->way = NULL;
+		enemy->wait = 0;
+		enemy->rad = -1;
+		printf("END TRAJ IN CASE\n");
+		return ;
+	}
+	if (enemy->center.coo_x < 0 || enemy->center.coo_x > 64
+		|| enemy->center.coo_y < 0 || enemy->center.coo_y > 64)
+	{
+		if (enemy->center.coo_x < 0)
+			enemy->center.coo_x = 64;
+		if (enemy->center.coo_x > 64)
+			enemy->center.coo_x = 0;
+		if (enemy->center.coo_y < 0)
+			enemy->center.coo_y = 64;
+		if (enemy->center.coo_y > 64)
+			enemy->center.coo_y = 0;
+		if (enemy->way->child)
+			enemy->way->child->parent = NULL;
+		else
+		{
+			f_case(enemy->way);
+			enemy->way = NULL;
+			enemy->wait = 0;
+			enemy->rad = -1;
+			printf("OUT OF CASE END TRAJ\n");
+			return ;
+		}
+		t_case	*tmp = enemy->way;
+		enemy->way = enemy->way->child;
+		enemy->center.case_x = enemy->way->case_x;
+		enemy->center.case_y = enemy->way->case_y;
+		f_case(tmp);
+		enemy->rad = -1;
+	}
+	// if (delta_x > 0)
+	// 	rx = (64 - enemy->center.coo_x) / delta_x;
+	// else
+	// 	rx = -enemy->center.coo_x / delta_x;
+	// if (delta_y > 0)
+	// 	ry = (64 - enemy->center.coo_y) / delta_y;
+	// else
+	// 	ry = -enemy->center.coo_y / delta_y;
+	// printf("enemy->rad >>>%lf\n", enemy->rad);
 }
 
 void	move_enemy(t_data *data)
