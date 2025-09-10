@@ -18,6 +18,7 @@
 # define SPEED 5
 # define KEYCODE_NB 100
 # define NB_TYPE_ENEMY 4
+# define MAX_CREATE_ENEMY 50
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
@@ -40,6 +41,7 @@ typedef struct s_pause_menu	t_pause_menu;
 typedef struct s_enemy		t_enemy;
 typedef	struct s_fcoo		t_fcoo;
 typedef struct s_case		t_case;
+typedef struct s_hit_enemy	t_hit_enemy;
 
 typedef	enum e_dir
 {
@@ -62,7 +64,6 @@ struct s_coo
 	int	x;
 	int	y;
 };
-
 
 struct s_door
 {
@@ -88,6 +89,30 @@ struct s_wall_msg
 struct s_hit_door
 {
 	t_door *door;
+	double	coo_y;
+	double	coo_x;
+	int		case_y;
+	int		case_x;
+	bool	use;
+	bool	print;
+	double	dist_door;
+	double	size_door;
+	double	max_size_door;
+	double	htop_door;
+	double	hbot_door;
+	int		dir;
+	t_coo	texture_coo;
+	double	ry;
+	double	rx;
+	double	end_y;
+	double	end_x;
+	double	start_y;
+	double	start_x;
+};
+
+struct s_hit_enemy
+{
+	t_enemy	*enemy;
 	double	coo_y;
 	double	coo_x;
 	int		case_y;
@@ -155,6 +180,7 @@ struct	s_ray
 	t_coo	texture_coo;
 	t_img	*img;
 	t_hit_door	**doors;
+	t_hit_enemy	**enemys;
 };
 
 struct s_coo_mini
@@ -211,10 +237,6 @@ struct s_utils_mini
 	double			yfloat;
 };
 
-// struct s_foot
-// {
-// 	t_coo	
-// }
 struct s_mini
 {
 	int			need_print[SIZE_MAP][SIZE_MAP];
@@ -421,9 +443,9 @@ struct s_data
 	// t_img	*wh;
 	// t_img	*bl;
 	t_lst	*enemy;
+	int		nb_enemy;
+	int		nb_create_enemy;
 };
-
-
 
 t_coo	*init_t_coo(int y, int x);
 

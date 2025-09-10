@@ -88,6 +88,8 @@ void	handle_wall_msg(t_data *data, long long int cur)
 	}
 }
 
+#include <stdio.h>
+
 int	game_loop(t_data *data)
 {
 	long long int	cur;

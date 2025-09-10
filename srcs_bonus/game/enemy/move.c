@@ -91,7 +91,7 @@ static t_lst	*add_node(t_case *cur, const int dir[2], t_lst *lst, t_enemy *enemy
 	// printf("OLD VALUE LST p>>>%p\n",lst);
 	cel = init_case(man_dist(direc[0], direc[1],
 		enemy->goal.case_y,enemy->goal.case_x), cur->r_cost + 1,
-		direc, cur);
+		(int *)direc, cur);
 	
 	if (cel->case_x == 27 && cel->case_y == 25)
 	{
@@ -210,7 +210,7 @@ static void	pathfinder(t_data *data, t_enemy *enemy)
 
 	open = add_end_lst(init_case(man_dist(enemy->center.case_y,
 		enemy->center.case_x,enemy->goal.case_y,enemy->goal.case_x),
-		0, dir, NULL), NULL, f_case);
+		0, (int *)dir, NULL), NULL, f_case);
 	// printf("PASS HERE next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
 	closed = NULL;
 	// exit(1);
@@ -356,6 +356,106 @@ static void	gen_enemy_way(t_data *data, t_enemy *enemy)
 	print_path(enemy);
 }
 
+void	calc_left_point(t_enemy *enemy)
+{
+	double	rad;
+	double	dy;
+	double	dx;
+	double	v_normalize;
+
+	rad = enemy->rad + (90 * (M_PI / 180));
+	dx = sin(rad);
+	dy = cos(rad);
+	// printf("dx>>%lf     dy>>%lf\n",dx,dy);
+	if (round(dy) == 0.0 && round(dx) == 0.0)
+	{
+		dy = 0;
+		dx = 0;
+	}
+	else
+	{
+		v_normalize = sqrt(dx * dx + dy * dy);
+		dy = dy / v_normalize;
+		dx = dx / v_normalize;
+	}
+	dy *= enemy->radius;
+	dx *= enemy->radius;
+	enemy->left.coo_x = enemy->center.coo_x + dx;
+	enemy->left.coo_y = enemy->center.coo_y + dy;
+	enemy->left.case_x = enemy->center.case_x;
+	enemy->left.case_y = enemy->center.case_y;
+	if (enemy->left.coo_x < 0)
+	{
+		enemy->left.case_x--;
+		enemy->left.coo_x += 64;
+	}
+	else if (enemy->left.coo_x > 64)
+	{
+		enemy->left.case_x++;
+		enemy->left.coo_x = fmod(enemy->left.coo_x, 64);
+	}
+	if (enemy->left.coo_y < 0)
+	{
+		enemy->left.case_y--;
+		enemy->left.coo_y += 64;
+	}
+	else if (enemy->left.coo_y > 64)
+	{
+		enemy->left.case_y++;
+		enemy->left.coo_y = fmod(enemy->left.coo_y, 64);
+	}
+}
+
+void	calc_right_point(t_enemy *enemy)
+{
+	double	rad;
+	double	dy;
+	double	dx;
+	double	v_normalize;
+
+	rad = enemy->rad - (90 * (M_PI / 180));
+	dx = sin(rad);
+	dy = cos(rad);
+	// printf("dx>>%lf     dy>>%lf\n",dx,dy);
+	if (round(dy) == 0.0 && round(dx) == 0.0)
+	{
+		dy = 0;
+		dx = 0;
+	}
+	else
+	{
+		v_normalize = sqrt(dx * dx + dy * dy);
+		dy = dy / v_normalize;
+		dx = dx / v_normalize;
+	}
+	dy *= enemy->radius;
+	dx *= enemy->radius;
+	enemy->right.coo_x = enemy->center.coo_x + dx;
+	enemy->right.coo_y = enemy->center.coo_y + dy;
+	enemy->right.case_x = enemy->center.case_x;
+	enemy->right.case_y = enemy->center.case_y;
+	if (enemy->right.coo_x < 0)
+	{
+		enemy->right.case_x--;
+		enemy->right.coo_x += 64;
+	}
+	else if (enemy->right.coo_x > 64)
+	{
+		enemy->right.case_x++;
+		enemy->right.coo_x = fmod(enemy->right.coo_x, 64);
+	}
+	if (enemy->right.coo_y < 0)
+	{
+		enemy->right.case_y--;
+		enemy->right.coo_y += 64;
+	}
+	else if (enemy->right.coo_y > 64)
+	{
+		enemy->right.case_y++;
+		enemy->right.coo_y = fmod(enemy->right.coo_y, 64);
+	}
+}
+
 static void	make_move_enemy(t_data *data, t_enemy *enemy)
 {
 	(void)data;
@@ -369,6 +469,14 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		enemy->rad = 0;
 		int	diff_x = enemy->way->coo_x - enemy->center.coo_x;
 		int	diff_y = enemy->way->coo_y - enemy->center.coo_y;
+		if (diff_x == 0 && diff_y == 0)
+		{
+			enemy->calc = true;
+			f_case(enemy->way);
+			enemy->way = NULL;
+			enemy->wait = 0;
+			return ;
+		}
 		// printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
 		if (diff_x != 0 && diff_y != 0)
 		{
@@ -412,6 +520,8 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	dx *= enemy->speed;
 	enemy->center.coo_x += dx;
 	enemy->center.coo_y += dy;
+	calc_left_point(enemy);
+	calc_right_point(enemy);
 	// enemy->center.coo_x = round(enemy->center.coo_x);
 	// enemy->center.coo_y = round(enemy->center.coo_y);
 	// printf("\ny>>>%lf      x>>>%lf\n",enemy->center.coo_y,enemy->center.coo_x);
