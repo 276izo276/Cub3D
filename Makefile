@@ -123,6 +123,7 @@ GAME_BONUS		=								\
 				raycasting_door.c				\
 				raycasting.c					\
 				raycasting_utils.c				\
+				raycasting_enemy.c				\
 				display/display.c 				\
 				display/display_hand.c			\
 				display/display_door.c			\

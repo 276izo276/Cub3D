@@ -345,6 +345,10 @@ struct	s_hitray
 	double	hx;
 	double	hy;
 	bool	hit;
+	double	rx;
+	double	ry;
+	double	delta_x;
+	double	delta_y;
 };
 
 struct s_fcoo

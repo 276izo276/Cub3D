@@ -15,6 +15,7 @@
 #endif
 
 
+void	calc_delta(t_hitray *ray);
 void	try_hit_enemy(t_data *data, int i);
 
 //open_window
