@@ -119,11 +119,11 @@ struct s_hit_enemy
 	int		case_x;
 	bool	use;
 	bool	print;
-	double	dist_door;
-	double	size_door;
-	double	max_size_door;
-	double	htop_door;
-	double	hbot_door;
+	double	dist_enemy;
+	double	size_enemy;
+	double	max_size_enemy;
+	double	htop_enemy;
+	double	hbot_enemy;
 	int		dir;
 	t_coo	texture_coo;
 	double	ry;
@@ -181,6 +181,7 @@ struct	s_ray
 	t_img	*img;
 	t_hit_door	**doors;
 	t_hit_enemy	**enemys;
+	double	max_dist_wall;
 };
 
 struct s_coo_mini

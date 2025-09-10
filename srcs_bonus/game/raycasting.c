@@ -134,6 +134,57 @@ static void	calc_door_value(t_data *data, int i, double x)
 	}
 }
 
+static void	calc_sqrt_enemy(t_data *data, int i, int j)
+{
+	// printf("CASE_Y>>>>%d\n",data->ray[i].doors[j]->case_y);
+	// printf("CASE_Y>>>>%d\n",data->ray[i].doors[j]->case_x);
+	// printf("CASE_Y>>>>%lf\n",data->ray[i].doors[j]->coo_y);
+	// printf("CASE_Y>>>>%lf\n",data->ray[i].doors[j]->coo_x);
+	data->ray[i].enemys[j]->dist_enemy = sqrt(((data->ray[i].enemys[j]->case_y
+		- data->map.player_coo->y) * 64.0 + (data->ray[i].enemys[j]->coo_y
+		- data->map.mini.player_coo.y)) * ((data->ray[i].enemys[j]->case_y
+		- data->map.player_coo->y) * 64.0 + (data->ray[i].enemys[j]->coo_y
+		- data->map.mini.player_coo.y)) + ((data->ray[i].enemys[j]->case_x
+		- data->map.player_coo->x) * 64.0 + (data->ray[i].enemys[j]->coo_x
+		- data->map.mini.player_coo.x)) * ((data->ray[i].enemys[j]->case_x
+		- data->map.player_coo->x) * 64.0 + (data->ray[i].enemys[j]->coo_x
+		- data->map.mini.player_coo.x)));
+}
+
+static void	calc_enemy_value(t_data *data, int i, double x)
+{
+	int	j;
+
+	j = 0;
+	// printf("HERE >>%d  %p\n",i,data->ray[i].doors,data->ray[i].doors[j]);
+	// printf("TAB>>>%p  %d",j);
+	while (j < data->nb_enemy && data->ray[i].enemys[j]->use != false)
+	{
+		if (data->ray[i].enemys[j]->print == false)
+		{
+			j++;
+			continue;
+		}
+		calc_sqrt_enemy(data, i, j);
+		// printf("dist >>>%lf    i>>%d    j>>%d\n",data->ray[i].enemys[j]->dist_door,i,j);
+		data->ray[i].enemys[j]->dist_enemy *= cos(atan(x));
+		data->ray[i].enemys[j]->size_enemy = data->ray[i].d_proj
+			/ (double)(data->ray[i].enemys[j]->dist_enemy / 64.0);
+		// printf("size enemy>>>%lf\n",data->ray[i].enemys[j]->size_enemy);
+		data->ray[i].enemys[j]->max_size_enemy = 0;
+		data->ray[i].enemys[j]->max_size_enemy = data->ray[i].enemys[j]->size_enemy * 0.5;
+		// printf("max size enemy>>>%lf\n",data->ray[i].enemys[j]->max_size_enemy);
+		// printf("MAX SIZE enemy>>>%lf\n",data->ray[i].enemys[j]->max_size_enemy);
+		data->ray[i].enemys[j]->htop_enemy = round(data->ray[i].max_height
+				- data->ray[i].enemys[j]->max_size_enemy);
+		data->ray[i].enemys[j]->hbot_enemy = round(data->ray[i].max_height
+				+ data->ray[i].enemys[j]->max_size_enemy);
+		// printf("max height>>>%lf\n",data->ray[i].max_height);
+		j++;
+		// printf("TAB>>>%p  %d",data->ray[i].enemys[j],j);
+	}
+}
+
 void	*ray_launch_first(void *ptr)
 {
 	int		i;
@@ -154,6 +205,7 @@ void	*ray_launch_first(void *ptr)
 			try_hit_enemy(data, i);
 			handle_ray(data, i);
 			calc_door_value(data, i, x);
+			calc_enemy_value(data, i, x);
 			calc_sqrt(data, i);
 			data->ray[i].dist_wall *= cos(atan(x));
 			data->ray[i].size_wall = data->ray[i].d_proj
@@ -192,6 +244,7 @@ void	*ray_launch_snd(void *ptr)
 			try_hit_enemy(data, i);
 			handle_ray(data, i);
 			calc_door_value(data, i, x);
+			calc_enemy_value(data, i, x);
 			calc_sqrt(data, i);
 			data->ray[i].dist_wall *= cos(atan(x));
 			data->ray[i].size_wall = data->ray[i].d_proj
@@ -230,6 +283,7 @@ void	*ray_launch_third(void *ptr)
 			try_hit_enemy(data, i);
 			handle_ray(data, i);
 			calc_door_value(data, i, x);
+			calc_enemy_value(data, i, x);
 			calc_sqrt(data, i);
 			data->ray[i].dist_wall *= cos(atan(x));
 			data->ray[i].size_wall = data->ray[i].d_proj
@@ -269,8 +323,10 @@ void	*ray_launch_last(void *ptr)
 			try_hit_enemy(data, i);
 			handle_ray(data, i);
 			calc_door_value(data, i, x);
+			calc_enemy_value(data, i, x);
 			calc_sqrt(data, i);
 			data->ray[i].dist_wall *= cos(atan(x));
+			data->ray[i].max_dist_wall = data->ray[i].dist_wall;
 			data->ray[i].size_wall = data->ray[i].d_proj
 				/ (double)(data->ray[i].dist_wall / 64.0);
 			data->ray[i].pix_x = (double)i;

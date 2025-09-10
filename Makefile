@@ -128,6 +128,7 @@ GAME_BONUS		=								\
 				display/display_hand.c			\
 				display/display_door.c			\
 				display/display_msg.c			\
+				display/display_item.c			\
 				environment/handle_door.c 		\
 				input_move.c					\
 				game_loop.c						\

@@ -1,6 +1,6 @@
 #include "struct_bonus.h"
 #include "cub3d_bonus.h"
-
+#include <math.h>
 
 #include <stdio.h>
 
@@ -63,7 +63,16 @@ void	try_hit_enemy(t_data *data, int i)
 			data->ray[i].enemys[ray.j]->use = true;
 			data->ray[i].enemys[ray.j]->coo_x = ray.hx;
 			data->ray[i].enemys[ray.j]->coo_y = ray.hy;
+			data->ray[i].enemys[ray.j]->case_y = (int)(data->ray[i].enemys[ray.j]->coo_y / 64);
+			data->ray[i].enemys[ray.j]->case_x = (int)(data->ray[i].enemys[ray.j]->coo_x / 64);
+			data->ray[i].enemys[ray.j]->coo_y = fmod(data->ray[i].enemys[ray.j]->coo_y, 64);
+			data->ray[i].enemys[ray.j]->coo_x = fmod(data->ray[i].enemys[ray.j]->coo_x, 64);
 			// printf("HIT ENEMY RAY\n");
+			// printf("HIT COO     case_y>%d   case_x>%d     coo_y>%lf    coo_x>%lf\n",
+			// data->ray[i].enemys[ray.j]->case_y,
+			// data->ray[i].enemys[ray.j]->case_x,
+			// data->ray[i].enemys[ray.j]->coo_y,
+			// data->ray[i].enemys[ray.j]->coo_x);
 		}
 		lst = lst->next;
 	}
