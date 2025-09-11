@@ -201,7 +201,7 @@ static void	pathfinder(t_data *data, t_enemy *enemy)
 
 	open = add_end_lst(init_case(man_dist(enemy->center.case_y,
 		enemy->center.case_x,enemy->goal.case_y,enemy->goal.case_x),
-		0, dir, NULL), NULL, f_case);
+		0, (int *)dir, NULL), NULL, f_case);
 	printf("PASS HERE next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
 	closed = NULL;
 	// exit(1);
