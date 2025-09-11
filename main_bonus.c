@@ -139,6 +139,31 @@ void	init_struct_door(t_data *data)
 	}
 }
 
+void	init_struct_enemy(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < data->mlx.width)
+	{
+		data->ray[i].enemys = malloc(sizeof(t_hit_enemy *) * (data->nb_enemy + MAX_CREATE_ENEMY));
+		if (!data->ray[i].enemys)
+			f_exit(data, 1);
+		ft_bzero(data->ray[i].enemys, sizeof(t_hit_enemy *) * (data->nb_enemy + MAX_CREATE_ENEMY));
+		j = 0;
+		while (j < data->nb_enemy + MAX_CREATE_ENEMY)
+		{
+			data->ray[i].enemys[j] = malloc(sizeof(t_hit_enemy));
+			if (!data->ray[i].enemys[j])
+				f_exit(data, 1);
+			ft_bzero(data->ray[i].enemys[j], sizeof(t_hit_enemy));
+			j++;
+		}
+		++i;
+	}
+}
+
 void	init_foot_tab(t_data *data)
 {
 	int	i;
@@ -176,6 +201,7 @@ int	main(int ac, char **av)
 	init_data(&data, ac, av);
 	parsing(&data);
 	init_struct_door(&data);
+	init_struct_enemy(&data);
 	init_mutex(&data);
 	// init_semaphores(&data);
 	create_thread(&data);

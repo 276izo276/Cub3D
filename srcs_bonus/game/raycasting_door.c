@@ -21,8 +21,8 @@ static void	set_value_calc_rxy(t_data *data, t_hitray *ray)
 			.doors[ray->j]->start_y / data->ray[ray->i].delta_y;
 	ray->cx = data->ray[ray->i].doors[ray->j]->start_x;
 	ray->cy = data->ray[ray->i].doors[ray->j]->start_y;
-	ray->dx = data->ray[ray->i].doors[ray->j]->end_x;
-	ray->dy = data->ray[ray->i].doors[ray->j]->end_y;
+	// ray->dx = data->ray[ray->i].doors[ray->j]->end_x;
+	// ray->dy = data->ray[ray->i].doors[ray->j]->end_y;
 }
 
 static void	set_dir_door(t_data *data, t_hitray *ray)
@@ -67,7 +67,7 @@ static void	calc_end_ray(t_data *data, t_hitray *ray)
 	}
 }
 
-static void	calc_delta(t_hitray *ray)
+void	calc_delta(t_hitray *ray)
 {
 	ray->delta = (ray->dx - ray->cx) * (ray->by - ray->ay)
 		- (ray->dy - ray->cy) * (ray->bx - ray->ax);

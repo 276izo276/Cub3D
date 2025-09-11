@@ -85,7 +85,8 @@ UTILS_BONUS =								\
 				ft_bzero.c					\
 				ft_strcmp.c					\
 				ft_strlen.c					\
-				time.c						
+				time.c						\
+				double.c					\
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/utils/,$(UTILS_BONUS))
 
@@ -123,10 +124,12 @@ GAME_BONUS		=								\
 				raycasting_door.c				\
 				raycasting.c					\
 				raycasting_utils.c				\
+				raycasting_enemy.c				\
 				display/display.c 				\
 				display/display_hand.c			\
 				display/display_door.c			\
 				display/display_msg.c			\
+				display/display_item.c			\
 				environment/handle_door.c 		\
 				input_move.c					\
 				game_loop.c						\

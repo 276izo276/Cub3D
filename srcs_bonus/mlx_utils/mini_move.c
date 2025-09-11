@@ -181,9 +181,10 @@ void	movex(t_map *map, t_mini *mini, t_data *data)
 				// printf("HIT DOOOR   xold=%lf    x=%lf\n",mini->player_coo.x, mini->nx);
 				if (data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50 && abs_value(32 - mini->player_coo.x) > abs_value(32 - mini->nx))
 					mini->nx = mini->player_coo.x;
-				else if (mini->ny < 16 || mini->ny > 48)
+				else if ((mini->player_coo.x < 22 || mini->player_coo.x > 42) && (mini->ny < 16 || mini->ny > 48))
+					mini->nx = mini->player_coo.x;
+				else if (mini->player_coo.x >= 22 && mini->player_coo.x <= 42 && (mini->ny < 16 || mini->ny > 48))
 					mini->ny = mini->player_coo.y;
-				// printf("NOT EXIT\n");
 			}
 		}
 	// printf("xold=%lf    x=%lf\n",mini->player_coo.x, mini->nx);
@@ -207,9 +208,10 @@ void	movey(t_map *map, t_mini *mini, t_data *data)
 				// printf("HIT DOOOR   yold=%lf    y=%lf\n",mini->player_coo.y, mini->ny);
 				if (data->map.door_map[map->player_coo->y][map->player_coo->x]->pos <= 50 && abs_value(32 - mini->player_coo.y) > abs_value(32 - mini->ny))
 					mini->ny = mini->player_coo.y;
-				else if (mini->nx < 16 || mini->nx > 48)
+				else if ((mini->player_coo.y < 22 || mini->player_coo.y > 42) && (mini->nx < 16 || mini->nx > 48))
+					mini->ny = mini->player_coo.y;
+				else if (mini->player_coo.y >= 22 && mini->player_coo.y <= 42 && (mini->nx < 16 || mini->nx > 48))
 					mini->nx = mini->player_coo.x;
-				// printf("NOT EXIT\n");
 			}
 		}
 	// printf(" yold=%lf    y=%lf\n",mini->player_coo.y, mini->ny);

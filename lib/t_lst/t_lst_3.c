@@ -6,7 +6,7 @@
 /*   By: ale-guel <ale-guel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 20:14:39 by ale-guel          #+#    #+#             */
-/*   Updated: 2025/09/04 03:42:15 by ale-guel         ###   ########.fr       */
+/*   Updated: 2025/09/08 21:36:44 by ale-guel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ void	move_before_lst(t_lst *elem, t_lst *lst)
 {
 	elem->next = lst;
 	elem->prev = lst->prev;
-	lst->prev = elem;
-	elem->prev->next = elem;
+	if (lst->prev)
+	{
+		lst->prev = elem;
+		elem->prev->next = elem;
+	}
 }

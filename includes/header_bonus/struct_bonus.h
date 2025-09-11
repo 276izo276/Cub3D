@@ -18,6 +18,7 @@
 # define SPEED 5
 # define KEYCODE_NB 100
 # define NB_TYPE_ENEMY 4
+# define MAX_CREATE_ENEMY 50
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
@@ -40,6 +41,7 @@ typedef struct s_pause_menu	t_pause_menu;
 typedef struct s_enemy		t_enemy;
 typedef	struct s_fcoo		t_fcoo;
 typedef struct s_case		t_case;
+typedef struct s_hit_enemy	t_hit_enemy;
 typedef struct s_foot		t_foot;
 
 
@@ -58,6 +60,15 @@ typedef	enum e_enemy_info
 	WOLF = ';',
 	TROLL = ':'
 } t_enemy_info;
+
+typedef enum e_imgs
+{
+	SELECT,
+	SELECT_HAND,
+	PLAYER_HAND,
+	PLAYER_WAND,
+	LEFT_SELECT
+}	t_imgs;
 
 struct s_coo
 {
@@ -118,6 +129,31 @@ struct s_hit_door
 	double	start_x;
 };
 
+struct s_hit_enemy
+{
+	t_enemy	*enemy;
+	double	coo_y;
+	double	coo_x;
+	int		case_y;
+	int		case_x;
+	bool	use;
+	bool	print;
+	double	dist_enemy;
+	double	size_enemy;
+	double	max_size_enemy;
+	double	htop_enemy;
+	double	hbot_enemy;
+	int		dir;
+	t_coo	texture_coo;
+	double	ry;
+	double	rx;
+	double	end_y;
+	double	end_x;
+	double	start_y;
+	double	start_x;
+	double	posx;
+};
+
 struct s_pause_menu
 {
 	// int		pix_y;
@@ -164,6 +200,8 @@ struct	s_ray
 	t_coo	texture_coo;
 	t_img	*img;
 	t_hit_door	**doors;
+	t_hit_enemy	**enemys;
+	double	max_dist_wall;
 };
 
 struct s_coo_mini
@@ -229,6 +267,7 @@ struct s_foot
 	bool	is_save;
 	double	rad;
 };
+
 struct s_mini
 {
 	int			need_print[SIZE_MAP][SIZE_MAP];
@@ -270,6 +309,7 @@ struct s_map
 	t_mini	mini;
 	t_img	*floor;
 	t_img	*ceiling;
+	t_img	*dementor;
 };
 
 struct s_display
@@ -339,9 +379,11 @@ struct	s_hitray
 	double	hx;
 	double	hy;
 	bool	hit;
+	double	rx;
+	double	ry;
+	double	delta_x;
+	double	delta_y;
 };
-
-
 
 struct s_case
 {
@@ -349,6 +391,8 @@ struct s_case
 	t_case	*child;
 	int		case_x;
 	int		case_y;
+	int		coo_x;
+	int		coo_y;
 	int		r_cost;
 	int		h_cost;
 	int		t_cost;
@@ -368,10 +412,13 @@ struct	s_enemy
 	int				speed;
 	t_fcoo			goal;
 	t_case			*way;
+	int				wait;
+	bool			calc;
 };
 
 struct s_data
 {
+	t_img			img[30];
 	t_utils_mini	u;
 	t_img			*screen;
 	long long int	time_fps;
@@ -427,9 +474,9 @@ struct s_data
 	// t_img	*wh;
 	// t_img	*bl;
 	t_lst	*enemy;
+	int		nb_enemy;
+	int		nb_create_enemy;
 };
-
-
 
 t_coo	*init_t_coo(int y, int x);
 

@@ -138,6 +138,7 @@ static void	is_enemy(char c, int y, int x, t_data *data)
 			if (!data->enemy)
 				f_exit(data, 1);
 			data->map.tabmap[y][x] = '0';
+			data->nb_enemy++;
 		}
 		i++;
 	}

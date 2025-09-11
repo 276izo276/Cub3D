@@ -14,6 +14,11 @@
 # define M_PI 3.14159265358979323846
 #endif
 
+
+void	display_item(t_data *data, int i);
+void	calc_delta(t_hitray *ray);
+void	try_hit_enemy(t_data *data, int i);
+
 //open_window
 void	open_window(t_data *data, t_mlx *mlx);
 

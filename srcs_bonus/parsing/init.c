@@ -6,6 +6,42 @@
 #include "time_bonus.h"
 #include <color_bonus.h>
 
+static void	set_path_texture(t_data *data)
+{
+	data->img[SELECT].path = "./texture/menu/select.xpm";
+	data->img[SELECT_HAND].path = "./texture/menu/select_hand.xpm";
+	data->img[PLAYER_HAND].path = "./texture/player_hand/wand_sureau.xpm";
+	data->img[PLAYER_WAND].path = "./texture/player_hand/wand_sureau.xpm";
+	data->img[LEFT_SELECT].path = "./texture/menu/left_select.xpm";
+}
+
+void	init_textures(t_data *data)
+{
+	int	i;
+
+	set_path_texture(data);
+	i = 0;
+	while (i < 5)
+	{
+		data->img[i].img = mlx_xpm_file_to_image(data->mlx.mlx,
+				data->img[i].path, &data->img[i].width,
+				&data->img[i].height);
+		if (!data->img[i].img)
+		{
+			while (--i >= 0)
+			{
+				mlx_destroy_image(data->mlx.mlx, data->img[i].img);
+				data->img[i].img = NULL;
+			}
+			f_exit(data, 1);
+		}
+		data->img[i].data_addr = mlx_get_data_addr(data->img[i].img,
+				&data->img[i].bits_per_pixel, &data->img[i].size_line,
+				&data->img[i].endian);
+		++i;
+	}
+}
+
 static void	init_texture(t_data *data)
 {
 	// data->map.text_floor = malloc(sizeof(t_img));
@@ -27,6 +63,14 @@ static void	init_texture(t_data *data)
 	data->map.door->mlx = data->mlx.mlx;
 	data->map.door->path = "./texture/door_close.xpm";
 
+
+	data->map.dementor = malloc(sizeof(t_img));
+	if (!data->map.dementor)
+		f_exit(data, 1);
+	ft_bzero(data->map.dementor, sizeof(t_img));
+	data->map.dementor->mlx = data->mlx.mlx;
+	data->map.dementor->path = "./texture/dementor.xpm";
+
 	data->map.fixed_door = malloc(sizeof(t_img));
 	if (!data->map.fixed_door)
 		f_exit(data, 1);
@@ -34,17 +78,17 @@ static void	init_texture(t_data *data)
 	data->map.fixed_door->mlx = data->mlx.mlx;
 	data->map.fixed_door->path = "./texture/door_open.xpm";
 
-	data->player_hand = malloc(sizeof(t_img));
-	if (!data->player_hand)
-		f_exit(data, 1);
-	ft_bzero(data->player_hand, sizeof(t_img));
-	data->player_hand->mlx = data->mlx.mlx;
-	data->player_wand = malloc(sizeof(t_img));
-	if (!data->player_wand)
-		f_exit(data, 1);
-	ft_bzero(data->player_wand, sizeof(t_img));
-	data->player_wand->mlx = data->mlx.mlx;
-	data->player_wand->path = "./texture/player_hand/wand_sureau.xpm";
+	// data->player_hand = malloc(sizeof(t_img));
+	// if (!data->player_hand)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->player_hand, sizeof(t_img));
+	// data->player_hand->mlx = data->mlx.mlx;
+	// data->player_wand = malloc(sizeof(t_img));
+	// if (!data->player_wand)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->player_wand, sizeof(t_img));
+	// data->player_wand->mlx = data->mlx.mlx;
+	// data->player_wand->path = "./texture/player_hand/wand_sureau.xpm";
 	data->spell.lumos = malloc(sizeof(t_img));
 	if (!data->spell.lumos)
 		f_exit(data, 1);
@@ -205,26 +249,26 @@ static void	init_coa(t_data *data)
 
 	data->selected = 0;
 
-	data->select = malloc(sizeof(t_img));
-	if (!data->select)
-		f_exit(data, 1);
-	ft_bzero(data->select, sizeof(t_img));
-	data->select->mlx = data->mlx.mlx;
-	data->select->path = "texture/menu/select.xpm";
+	// data->select = malloc(sizeof(t_img));
+	// if (!data->select)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->select, sizeof(t_img));
+	// data->select->mlx = data->mlx.mlx;
+	// data->select->path = "texture/menu/select.xpm";
 
-	data->left_select = malloc(sizeof(t_img));
-	if (!data->left_select)
-		f_exit(data, 1);
-	ft_bzero(data->left_select, sizeof(t_img));
-	data->left_select->mlx = data->mlx.mlx;
-	data->left_select->path = "texture/menu/left_select.xpm";
+	// data->left_select = malloc(sizeof(t_img));
+	// if (!data->left_select)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->left_select, sizeof(t_img));
+	// data->left_select->mlx = data->mlx.mlx;
+	// data->left_select->path = "texture/menu/left_select.xpm";
 
-	data->select_hand = malloc(sizeof(t_img));
-	if (!data->select_hand)
-		f_exit(data, 1);
-	ft_bzero(data->select_hand, sizeof(t_img));
-	data->select_hand->mlx = data->mlx.mlx;
-	data->select_hand->path = "texture/menu/select_hand.xpm";
+	// data->select_hand = malloc(sizeof(t_img));
+	// if (!data->select_hand)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->select_hand, sizeof(t_img));
+	// data->select_hand->mlx = data->mlx.mlx;
+	// data->select_hand->path = "texture/menu/select_hand.xpm";
 }
 
 void	init_img_msg(t_data *data)
@@ -319,8 +363,9 @@ void	init_data(t_data *data, int ac, char **av)
 	data->spell.y_wand = 0;
 	data->spell.count_frame = 0;
 	data->spell.active = false;
-	init_coa(data);
 	init_texture(data);
+	init_textures(data);
+	init_coa(data);
 	init_pause_menu(data);
 	data->nb_msg = 7;
 	data->display.time_remove = 10000;
