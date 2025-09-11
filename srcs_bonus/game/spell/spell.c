@@ -61,7 +61,7 @@ void	spell_lumos(t_data *data)
 	int				start_x;
 	int				start_y;
 
-	start_x = data->spell.x_wand + (data->player_wand->width / 2) - 2;
+	start_x = data->spell.x_wand + (data->img[PLAYER_WAND].width / 2) - 2;
 	start_y = data->spell.y_wand + 5;
 	lumos_loop(data, start_x, start_y);
 	if (data->spell.active == false)

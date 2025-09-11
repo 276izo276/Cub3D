@@ -154,7 +154,6 @@ void	display_item(t_data *data, int i)
 	dist_max_enemy = 1;
 	dist_max_door = 1;
 	j = 0;
-	// //write(1,"15\n",3);
 	while (j < data->nb_enemy)
 	{
 		if (data->ray[i].enemys[j]->dist_enemy < data->ray[i].dist_wall)
@@ -170,7 +169,6 @@ void	display_item(t_data *data, int i)
 	{
 		dist_max_enemy = 0;
 		dist_max_door = 0;
-		// //write(1,"03\n",3);
 		j = 0;
 		while (j < data->nb_door)
 		{
@@ -181,7 +179,6 @@ void	display_item(t_data *data, int i)
 			}
 			j++;
 		}
-		// //write(1,"02\n",3);
 		j = 0;
 		while (j < data->nb_enemy)
 		{
@@ -192,18 +189,14 @@ void	display_item(t_data *data, int i)
 			}
 			j++;
 		}
-		// //write(1,"04\n",3);
 		if (dist_max_door == 0 && dist_max_enemy == 0)
 			break ;
-		// //write(1,"07\n",3);
 		if (dist_max_door > dist_max_enemy)
 			type = 0;
 		else
 			type = 1;
-		// //write(1,"07\n",3);
 		if (type == 0)
 		{
-			// //write(1,"05\n",3);
 			j = -1;
 			while (++j < data->nb_door)
 				if (data->ray[i].doors[j]->dist_door == dist_max_door)
@@ -224,7 +217,6 @@ void	display_item(t_data *data, int i)
 					put_text_pix_img(data, i, dist_heigh, text_x, j);
 				data->ray[i].pix_y++;
 			}
-			// //write(1,"06\n",3);
 			check_dir_fixed(data, i, j);
 			text_x = data->ray[i].doors[j]->texture_coo.x
 				* (data->map.fixed_door->bits_per_pixel >> 3);
@@ -243,7 +235,6 @@ void	display_item(t_data *data, int i)
 		else if (type == 1)
 		{
 			// printf("TYPE 1\n");
-			// write(1,"01\n",3);
 			j = -1;
 			while (++j < data->nb_enemy)
 				if (data->ray[i].enemys[j]->dist_enemy == dist_max_enemy)
@@ -273,12 +264,10 @@ void	display_item(t_data *data, int i)
 		ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
 		j++;
 	}
-	// //write(1,"02\n",3);
 	j = 0;
 	while (j < data->nb_enemy)
 	{
 		ft_bzero(data->ray[i].enemys[j], sizeof(t_hit_door));
 		j++;
 	}
-	//write(1,"08\n",3);
 }

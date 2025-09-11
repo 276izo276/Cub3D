@@ -59,6 +59,15 @@ typedef	enum e_enemy_info
 	TROLL = ':'
 } t_enemy_info;
 
+typedef enum e_imgs
+{
+	SELECT,
+	SELECT_HAND,
+	PLAYER_HAND,
+	PLAYER_WAND,
+	LEFT_SELECT
+}	t_imgs;
+
 struct s_coo
 {
 	int	x;
@@ -395,6 +404,7 @@ struct	s_enemy
 
 struct s_data
 {
+	t_img			img[30];
 	t_utils_mini	u;
 	t_img			*screen;
 	long long int	time_fps;

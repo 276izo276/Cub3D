@@ -50,12 +50,12 @@ void	open_textures(t_data *data)
 	open_img(data->coa[1].border, data);
 	open_img(data->coa[2].border, data);
 	open_img(data->coa[3].border, data);
-	open_img(data->left_select, data);
-	open_img(data->select, data);
+	// open_img(data->left_select, data);
+	// open_img(data->select, data);
 
 
-	open_img(data->select_hand, data);
-	open_img(data->player_wand, data);
+	// open_img(data->select_hand, data);
+	// open_img(data->player_wand, data);
 	open_img(data->spell.lumos, data);
 	
 
@@ -92,27 +92,27 @@ void select_right_hand(t_data *data)
 	
 	y = 0;
 	if (data->is_right_handed == true)
-		data->player_hand->path = "./texture/player_hand/right_hand.xpm";
+		data->img[PLAYER_HAND].path = "./texture/player_hand/right_hand.xpm";
 	else
-		data->player_hand->path = "./texture/player_hand/left_hand.xpm";
-	open_img(data->player_hand, data);
+		data->img[PLAYER_HAND].path = "./texture/player_hand/left_hand.xpm";
+	open_img(&data->img[PLAYER_HAND], data);
 	if (data->is_right_handed == true) // hand_pos
 	{
-		data->display.pos_x_hand = (data->mlx.width / 2) + data->player_hand->width / 4 - 100;
-		data->display.pos_y_hand = (data->mlx.height - data->player_hand->height - 100);
+		data->display.pos_x_hand = (data->mlx.width / 2) + data->img[PLAYER_HAND].width / 4 - 100;
+		data->display.pos_y_hand = (data->mlx.height - data->img[PLAYER_HAND].height - 100);
 	}
 	else
 	{
-		data->display.pos_x_hand = (data->mlx.width / 2) - data->player_hand->width / 4 - 150;
-		data->display.pos_y_hand = (data->mlx.height - data->player_hand->height - 100);
+		data->display.pos_x_hand = (data->mlx.width / 2) - data->img[PLAYER_HAND].width / 4 - 150;
+		data->display.pos_y_hand = (data->mlx.height - data->img[PLAYER_HAND].height - 100);
 	}
-	while (y < data->player_hand->height)
+	while (y < data->img[PLAYER_HAND].height)
 	{
 		x = 0;
-		while (x < data->player_hand->width)
+		while (x < data->img[PLAYER_HAND].width)
 		{
-			pixel_addr = data->player_hand->data_addr + (y * data->player_hand->size_line + x
-				* (data->player_hand->bits_per_pixel / 8));
+			pixel_addr = data->img[PLAYER_HAND].data_addr + (y * data->img[PLAYER_HAND].size_line + x
+				* (data->img[PLAYER_HAND].bits_per_pixel / 8));
 			if (*(unsigned int *)pixel_addr == YELLOW)
 				*(unsigned int *)pixel_addr = data->color;
 			++x;

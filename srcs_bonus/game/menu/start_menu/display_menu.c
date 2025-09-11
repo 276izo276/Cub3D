@@ -84,7 +84,7 @@ static void select_your_coa(t_data *data)
 
 	start_x = 250; //(data->mlx.width - (2 * data->coa[0].img_coa->width)) / 2;
 	start_y = data->mlx.height / 2;
-	draw_texture_menu(data, data->select, 0, 0);
+	draw_texture_menu(data, &data->img[SELECT], 0, 0);
 	draw_texture_menu(data, data->coa[0].img_coa, start_x, start_y);
 	draw_texture_menu(data, data->coa[1].img_coa, start_x
 		+ data->coa[0].img_coa->width + 200, start_y);
@@ -194,21 +194,21 @@ static void select_your_hand(t_data *data)
 	color = 0;
 	y = 0;
 
-	draw_texture_menu(data, data->select_hand, 0, 0);
+	draw_texture_menu(data, &data->img[SELECT_HAND], 0, 0);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0, 0);
-	while (y < data->left_select->height && y <= data->mlx.height)
+	while (y < data->img[LEFT_SELECT].height && y <= data->mlx.height)
 	{
 		x = 0;
-		while (x < data->left_select->width && x <= data->mlx.width)
+		while (x < data->img[LEFT_SELECT].width && x <= data->mlx.width)
 		{
 			if (data->selected == 1)
 			{
-				color = get_texture_pixel(data->left_select, x, y);
+				color = get_texture_pixel(&data->img[LEFT_SELECT], x, y);
 				start_x = data->mlx.width / 2 - 124 ;
 			}
 			else
 			{
-				color = get_texture_pixel(data->left_select, x, y);
+				color = get_texture_pixel(&data->img[LEFT_SELECT], x, y);
 				start_x = 225;
 			}
 			if (color != WHITE)
@@ -224,7 +224,7 @@ static void select_your_hand(t_data *data)
 	}
 	else
 	{
-		start_x += data->left_select->width - 130;
+		start_x += data->img[LEFT_SELECT].width - 130;
 		start_y += 150;
 	}
 	draw_gradient(data, start_x, start_y);

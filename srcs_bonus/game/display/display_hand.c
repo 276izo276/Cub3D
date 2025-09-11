@@ -25,12 +25,12 @@ static void display_wand(t_data *data, int pos_x, int pos_y)
 		pos_x -= 40;
 	else
 		pos_x -= 60;
-	while (y < data->player_wand->height && pos_y + y < data->mlx.height)
+	while (y < data->img[PLAYER_WAND].height && pos_y + y < data->mlx.height)
 	{
 		x = 0;
-		while (x < data->player_wand->width)
+		while (x < data->img[PLAYER_WAND].width)
 		{
-			color = get_texture_pixel(data->player_wand, x, y);
+			color = get_texture_pixel(&data->img[PLAYER_WAND], x, y);
 			if (color != WHITE)
 			{
 				pixel_put(data, x + pos_x, pos_y + y, color);
@@ -51,16 +51,6 @@ void	display_hand(t_data *data)
 	int				pos_x;
 	int				pos_y;
 
-	// if (data->is_right_handed == true)
-	// {
-	// 	pos_x = (data->mlx.width / 2) + data->player_hand->width / 4 - 100;
-	// 	pos_y = (data->mlx.height - data->player_hand->height - 100);
-	// }
-	// else
-	// {
-	// 	pos_x = (data->mlx.width / 2) - data->player_hand->width / 4 - 150;
-	// 	pos_y = (data->mlx.height - data->player_hand->height - 100);
-	// }
 	pos_x = data->display.pos_x_hand;
 	pos_y = data->display.pos_y_hand;
 	if (data->player_moved == true && data->display.move_hand < 50 && data->display.is_up_move_hand == false)
@@ -86,12 +76,12 @@ void	display_hand(t_data *data)
 	display_wand(data, pos_x, pos_y + data->display.move_hand);
 	color = 0;
 	y = 0;
-	while (y < data->player_hand->height && pos_y + y < data->mlx.height)
+	while (y < data->img[PLAYER_HAND].height && pos_y + y < data->mlx.height)
 	{
 		x = 0;
-		while (x < data->player_hand->width)
+		while (x < data->img[PLAYER_HAND].width)
 		{
-			color = get_texture_pixel(data->player_hand, x, y);
+			color = get_texture_pixel(&data->img[PLAYER_HAND], x, y);
 			if (color != 0xFFFFFF)
 			{
 				pixel_put(data, x + pos_x, pos_y + y + data->display.move_hand, color);
