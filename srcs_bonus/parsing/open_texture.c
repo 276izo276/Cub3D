@@ -36,6 +36,7 @@ void	open_textures(t_data *data)
 
 	open_img(data->map.floor, data);
 	open_img(data->map.ceiling, data);
+	open_img(data->map.dementor, data);
 
 	// open_img(data->map.text_floor, data);
 	// open_img(data->map.text_sky, data);

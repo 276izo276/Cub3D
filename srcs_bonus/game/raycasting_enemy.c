@@ -1,5 +1,6 @@
 #include "struct_bonus.h"
 #include "cub3d_bonus.h"
+#include "utils_bonus.h"
 #include <math.h>
 
 #include <stdio.h>
@@ -10,12 +11,13 @@ void	try_hit_enemy(t_data *data, int i)
 	t_lst		*lst;
 	t_enemy		*enemy;
 
-	ray.i = i;
 	lst = get_first_elem_lst(data->enemy);
 	// ray.j = 0;
 	// while (++ray.j < data->nb_enemy + MAX_CREATE_ENEMY)
 	// 	if (data->ray[i].enemys[ray.j]->use == false)
 	// 		break ;
+	ft_bzero(&ray,sizeof(t_hitray));
+	ray.i = i;
 	while (lst)
 	{
 		enemy = lst->dt;
@@ -51,7 +53,7 @@ void	try_hit_enemy(t_data *data, int i)
 				ray.dy = ray.cy + enemy->radius * 50;
 			ray.dx = ray.cx + ray.ry * ray.delta_x;
 		}
-		if (ray.i < data->mlx.width / 4)
+		// if (ray.i < data->mlx.width / 4)
 			// printf("I>>%d   dely>>%lf     delx>>%lf        cy>>%lf   cx>>%lf        dy>>%lf   dx>>%lf\n",ray.i,ray.delta_y,ray.delta_x,ray.cy,ray.cx,ray.dy,ray.dx);
 		calc_delta(&ray);
 		if (ray.hit == true)
@@ -63,10 +65,12 @@ void	try_hit_enemy(t_data *data, int i)
 			data->ray[i].enemys[ray.j]->use = true;
 			data->ray[i].enemys[ray.j]->coo_x = ray.hx;
 			data->ray[i].enemys[ray.j]->coo_y = ray.hy;
+			// printf("hy>>%lf       hx>>%lf\n",ray.hy,ray.hx);
 			data->ray[i].enemys[ray.j]->case_y = (int)(data->ray[i].enemys[ray.j]->coo_y / 64);
 			data->ray[i].enemys[ray.j]->case_x = (int)(data->ray[i].enemys[ray.j]->coo_x / 64);
 			data->ray[i].enemys[ray.j]->coo_y = fmod(data->ray[i].enemys[ray.j]->coo_y, 64);
 			data->ray[i].enemys[ray.j]->coo_x = fmod(data->ray[i].enemys[ray.j]->coo_x, 64);
+			data->ray[i].enemys[ray.j]->posx = ray.t;
 			// printf("HIT ENEMY RAY\n");
 			// printf("HIT COO     case_y>%d   case_x>%d     coo_y>%lf    coo_x>%lf\n",
 			// data->ray[i].enemys[ray.j]->case_y,

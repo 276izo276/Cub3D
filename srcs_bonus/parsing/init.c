@@ -27,6 +27,14 @@ static void	init_texture(t_data *data)
 	data->map.door->mlx = data->mlx.mlx;
 	data->map.door->path = "./texture/door_close.xpm";
 
+
+	data->map.dementor = malloc(sizeof(t_img));
+	if (!data->map.dementor)
+		f_exit(data, 1);
+	ft_bzero(data->map.dementor, sizeof(t_img));
+	data->map.dementor->mlx = data->mlx.mlx;
+	data->map.dementor->path = "./texture/dementor.xpm";
+
 	data->map.fixed_door = malloc(sizeof(t_img));
 	if (!data->map.fixed_door)
 		f_exit(data, 1);

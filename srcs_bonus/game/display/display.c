@@ -115,6 +115,8 @@ static void	display_game_loop(t_data *data, int i)
 			display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x - 1);
 }
 
+#include <unistd.h>
+
 void	*display_fst_part(void *ptr)
 {
 	int		i;
@@ -129,10 +131,13 @@ void	*display_fst_part(void *ptr)
 		while (i < data->mlx.width / 4)
 		{
 			display_game_loop(data, i);
-			display_door(data, i);
+			display_item(data, i);
+			// //write(1,"18\n",3);
+			// display_door(data, i);
 			// display_msg(data, i);
 			++i;
 		}
+			// //write(1,"19\n",3);
 		pthread_barrier_wait(&data->barrier_display);
 	}
 	return (NULL);
@@ -156,10 +161,13 @@ void	*display_snd_part(void *ptr)
 		while (i < max_pix)
 		{
 			display_game_loop(data, i);
-			display_door(data, i);
+			display_item(data, i);
+			// //write(1,"15\n",3);
+			// display_door(data, i);
 			// display_msg(data, i);
 			++i;
 		}
+			// //write(1,"16\n",3);
 		pthread_barrier_wait(&data->barrier_display);
 	}
 	return (NULL);
@@ -183,10 +191,13 @@ void	*display_third_part(void *ptr)
 		while (i < max_pix)
 		{
 			display_game_loop(data, i);
-			display_door(data, i);
+			display_item(data, i);
+			// //write(1,"12\n",3);
+			// display_door(data, i);
 			// display_msg(data, i);
 			++i;
 		}
+			// //write(1,"13\n",3);
 		pthread_barrier_wait(&data->barrier_display);
 	}
 	return (NULL);
@@ -208,10 +219,13 @@ void	*display_last_part(void *ptr)
 		while (i < data->mlx.width)
 		{
 			display_game_loop(data, i);
-			display_door(data, i);
+			display_item(data, i);
+			// //write(1,"09\n",3);
+			// display_door(data, i);
 			// display_msg(data, i);
 			++i;
 		}
+		// //write(1,"11\n",3);
 		pthread_barrier_wait(&data->barrier_display);
 	}
 	return (NULL);

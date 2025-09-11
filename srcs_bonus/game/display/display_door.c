@@ -105,13 +105,15 @@ static void	put_text_pix_img_fixed(t_data *data, int i, int dist_heigh, int text
 		*(unsigned int *)pixel_addr = color;
 }
 
+#include <stdio.h>
+
 void	display_door(t_data *data, int i)
 {
 	int	text_x;
 	int	dist_heigh;
 	int	j;
 
-	// printf("HERE CHECK IN >>i>>%d      value use>>%d\n",i,data->ray[i].doors[j]->use);
+	printf("HERE CHECK IN \n");
 			j = 0;
 	while (j < data->nb_door && data->ray[i].doors[j]->use != false)
 		j++;

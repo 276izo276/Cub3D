@@ -132,6 +132,7 @@ struct s_hit_enemy
 	double	end_x;
 	double	start_y;
 	double	start_x;
+	double	posx;
 };
 
 struct s_pause_menu
@@ -277,6 +278,7 @@ struct s_map
 	t_mini	mini;
 	t_img	*floor;
 	t_img	*ceiling;
+	t_img	*dementor;
 };
 
 struct s_display
