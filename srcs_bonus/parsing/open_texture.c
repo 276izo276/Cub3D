@@ -36,20 +36,21 @@ void	open_textures(t_data *data)
 
 	open_img(data->map.floor, data);
 	open_img(data->map.ceiling, data);
-	open_img(data->map.dementor, data);
+	open_img(data->map.dementor_front, data);
+	open_img(data->map.dementor_back, data);
 
 	// open_img(data->map.text_floor, data);
 	// open_img(data->map.text_sky, data);
 	open_img(data->map.door, data);
 	open_img(data->map.fixed_door, data);
-	open_img(data->coa[0].img_coa, data);
-	open_img(data->coa[1].img_coa, data);
-	open_img(data->coa[2].img_coa, data);
-	open_img(data->coa[3].img_coa, data);
-	open_img(data->coa[0].border, data);
-	open_img(data->coa[1].border, data);
-	open_img(data->coa[2].border, data);
-	open_img(data->coa[3].border, data);
+	open_img(data->coa[FIRE].img_coa, data);
+	open_img(data->coa[WATER].img_coa, data);
+	open_img(data->coa[EARTH].img_coa, data);
+	open_img(data->coa[AIR].img_coa, data);
+	open_img(data->coa[FIRE].border, data);
+	open_img(data->coa[WATER].border, data);
+	open_img(data->coa[EARTH].border, data);
+	open_img(data->coa[AIR].border, data);
 	// open_img(data->left_select, data);
 	// open_img(data->select, data);
 

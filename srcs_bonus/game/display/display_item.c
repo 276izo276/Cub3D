@@ -36,11 +36,11 @@ static void	check_dir_enemy(t_data *data, int i, int j)
 	double	posx_display;
 
 	posx_display = data->ray[i].enemys[j]->posx;
-	data->ray[i].enemys[j]->texture_coo.x = (int)(posx_display * data->map.dementor->width);
+	data->ray[i].enemys[j]->texture_coo.x = (int)(posx_display * data->map.dementor_front->width);
 	if (data->ray[i].enemys[j]->texture_coo.x < 0)
 		data->ray[i].enemys[j]->texture_coo.x = 0;
-	if (data->ray[i].enemys[j]->texture_coo.x >= data->map.dementor->width)
-		data->ray[i].enemys[j]->texture_coo.x = data->map.dementor->width - 1;
+	if (data->ray[i].enemys[j]->texture_coo.x >= data->map.dementor_front->width)
+		data->ray[i].enemys[j]->texture_coo.x = data->map.dementor_front->width - 1;
 }
 
 static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x, int j)
@@ -129,16 +129,32 @@ static void	put_text_pix_img_dementor(t_data *data, int i, int dist_heigh, int t
 	double			enemy_status;
 
 	enemy_status = 0;
-	text_y = (data->ray[i].pix_y - data->ray[i].enemys[j]->htop_enemy + enemy_status / 100 * data->ray[i].enemys[j]->size_enemy)
-		* data->map.dementor->height / dist_heigh;
-	if (text_y > data->map.dementor->height)
-		return ;
-	pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
-			* data->screen->size_line);
-	text_pix = data->map.dementor->data_addr + (text_y
-			* data->map.dementor->size_line + text_x);
+	if (data->ray[i].enemys[j]->enemy->deg < fmod(data->map.mini.deg - 90 + 360, 360)
+		&& data->ray[i].enemys[j]->enemy->deg > fmod(data->map.mini.deg + 90, 360))
+	{
+		text_y = (data->ray[i].pix_y - data->ray[i].enemys[j]->htop_enemy + enemy_status / 100 * data->ray[i].enemys[j]->size_enemy)
+			* data->map.dementor_back->height / dist_heigh;
+		if (text_y > data->map.dementor_back->height)
+			return ;
+		pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
+				* data->screen->size_line);
+		text_pix = data->map.dementor_back->data_addr + (text_y
+				* data->map.dementor_back->size_line + text_x);
+	}
+	else
+	{
+		text_y = (data->ray[i].pix_y - data->ray[i].enemys[j]->htop_enemy + enemy_status / 100 * data->ray[i].enemys[j]->size_enemy)
+			* data->map.dementor_front->height / dist_heigh;
+		if (text_y > data->map.dementor_front->height)
+			return ;
+		pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
+				* data->screen->size_line);
+		text_pix = data->map.dementor_front->data_addr + (text_y
+				* data->map.dementor_front->size_line + text_x);
+	}
+	
 	color = *(unsigned int *)text_pix;
-	if (color != WHITE && color != YELLOW)
+	if (color != WHITE && color != YELLOW && color != RED)
 		*(unsigned int *)pixel_addr = color;
 }
 
@@ -156,8 +172,10 @@ void	display_item(t_data *data, int i)
 	j = 0;
 	while (j < data->nb_enemy)
 	{
-		if (data->ray[i].enemys[j]->dist_enemy < data->ray[i].dist_wall)
+		if (data->ray[i].enemys[j]->dist_enemy < data->ray[i].dist_wall
+			&& data->ray[i].enemys[j]->use == true)
 		{
+			// printf("enemy>>%lf    wall>>%lf\n",data->ray[i].enemys[j]->dist_enemy, data->ray[i].dist_wall);
 			data->ray[i].enemys[j]->print = true;
 			// printf("SET PRINT   >>%lf      >>%lf\n",data->ray[i].enemys[j]->dist_enemy, data->ray[i].dist_wall);
 		}
@@ -242,8 +260,17 @@ void	display_item(t_data *data, int i)
 			check_dir_enemy(data, i, j);
 			data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
 				* data->ray[i].calc_bits;
-			text_x = data->ray[i].enemys[j]->texture_coo.x
-				* (data->map.dementor->bits_per_pixel >> 3);
+			if (data->ray[i].enemys[j]->enemy->deg < fmod(data->map.mini.deg - 90 + 360, 360)
+				&& data->ray[i].enemys[j]->enemy->deg > fmod(data->map.mini.deg + 90, 360))
+			{
+				text_x = data->ray[i].enemys[j]->texture_coo.x
+					* (data->map.dementor_back->bits_per_pixel >> 3);
+			}
+			else
+			{
+				text_x = data->ray[i].enemys[j]->texture_coo.x
+					* (data->map.dementor_front->bits_per_pixel >> 3);
+			}
 			data->ray[i].pix_y = data->ray[i].enemys[j]->htop_enemy;
 			if (data->ray[i].pix_y < 0)
 				data->ray[i].pix_y = 0;
@@ -251,8 +278,7 @@ void	display_item(t_data *data, int i)
 			while (data->ray[i].pix_y < data->ray[i].enemys[j]->hbot_enemy
 				&& data->ray[i].pix_y < data->mlx.height)
 			{
-				if (data->ray[i].pix_y > data->ray[i].enemys[j]->htop_enemy + dist_heigh * .15)
-					put_text_pix_img_dementor(data, i, dist_heigh, text_x, j);
+				put_text_pix_img_dementor(data, i, dist_heigh, text_x, j);
 				data->ray[i].pix_y++;
 			}
 			ft_bzero(data->ray[i].enemys[j], sizeof(t_hit_enemy));

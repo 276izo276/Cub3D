@@ -131,7 +131,7 @@ static	t_lst	*add_case_open(t_lst *open, t_lst **closed, t_enemy *enemy, t_data 
 	// printf("NEXT ADR %p\n",lst->next);
 	open = remove_elem_lst(lst);
 	open = get_first_elem_lst(open);
-	printf("OPEN VALUE RM LST >>%p\n",open);
+	// printf("OPEN VALUE RM LST >>%p\n",open);
 	// lst = open;
 	// open = remove_elem_lst(lst);
 	*closed = move_to_end_lst(lst, *closed);
@@ -142,7 +142,7 @@ static	t_lst	*add_case_open(t_lst *open, t_lst **closed, t_enemy *enemy, t_data 
 		// printf("CLOSED\n");
 		if (!is_a_wall(lst->dt, dir[i], data) && !is_in_lst(lst->dt, dir[i], *closed, enemy))
 		{
-			printf("ADD CASE  i>>%d   %c\n",i,data->map.tabmap[((t_case *)lst->dt)->case_y + dir[i][0]][((t_case *)lst->dt)->case_x + dir[i][1]] );
+			// printf("ADD CASE  i>>%d   %c\n",i,data->map.tabmap[((t_case *)lst->dt)->case_y + dir[i][0]][((t_case *)lst->dt)->case_x + dir[i][1]] );
 			if (is_in_lst(lst->dt, dir[i], open, enemy))
 			{
 				open = update_node(lst->dt, dir[i], open);
@@ -202,7 +202,7 @@ static void	pathfinder(t_data *data, t_enemy *enemy)
 	open = add_end_lst(init_case(man_dist(enemy->center.case_y,
 		enemy->center.case_x,enemy->goal.case_y,enemy->goal.case_x),
 		0, (int *)dir, NULL), NULL, f_case);
-	printf("PASS HERE next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
+	// printf("PASS HERE next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
 	closed = NULL;
 	// exit(1);
 	while (open)
@@ -219,7 +219,7 @@ static void	pathfinder(t_data *data, t_enemy *enemy)
 		open = get_first_elem_lst(open);
 		// printf("PASS HERE next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
 	}
-	printf("PATH NOOOOOOOOT FOUND\n");
+	// printf("PATH NOOOOOOOOT FOUND\n");
 	f_all_lst(closed);
 	f_all_lst(open);
 	// f_exit(data, 1);
@@ -292,7 +292,7 @@ static void	gen_enemy_way(t_data *data, t_enemy *enemy)
 	int	len_line;
 	int	len_tab;
 
-	if (enemy->wait < 100)
+	if (enemy->wait < 10)
 	{
 		enemy->wait++;
 		return ;
@@ -317,6 +317,8 @@ static void	gen_enemy_way(t_data *data, t_enemy *enemy)
 	}
 	enemy->goal.case_x = x;
 	enemy->goal.case_y = y;
+	enemy->goal.coo_y = 32;
+	enemy->goal.coo_x = 32;
 	printf("Foud Case y>%d   x>%d     value>>%c     center   y>%d   x>%d\n", y, x, data->map.tabmap[y][x],enemy->center.case_y,enemy->center.case_x);
 	pathfinder(data, enemy);
 	calc_in_cell_path(data, enemy);
@@ -444,7 +446,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			enemy->wait = 0;
 			return ;
 		}
-		// printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
+		printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
 		if (diff_x != 0 && diff_y != 0)
 		{
 			deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
@@ -463,7 +465,8 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			deg = 90;
 		else if (diff_x == 0 && diff_y < 0)
 			deg = 180;
-		// printf("deg angle >>>%lf\n",deg);
+		printf("deg angle >>>%lf\n",deg);
+		enemy->deg = deg;
 		enemy->rad = deg * (M_PI / 180);
 	}
 	double	dy;

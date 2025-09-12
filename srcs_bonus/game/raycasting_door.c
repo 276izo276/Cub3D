@@ -67,6 +67,8 @@ static void	calc_end_ray(t_data *data, t_hitray *ray)
 	}
 }
 
+#include <stdio.h>
+
 void	calc_delta(t_hitray *ray)
 {
 	ray->delta = (ray->dx - ray->cx) * (ray->by - ray->ay)

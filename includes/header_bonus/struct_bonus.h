@@ -70,6 +70,14 @@ typedef enum e_imgs
 	LEFT_SELECT
 }	t_imgs;
 
+typedef enum e_coas
+{
+	FIRE,
+	WATER,
+	EARTH,
+	AIR
+}	t_coas;
+
 struct s_coo
 {
 	int	x;
@@ -309,7 +317,8 @@ struct s_map
 	t_mini	mini;
 	t_img	*floor;
 	t_img	*ceiling;
-	t_img	*dementor;
+	t_img	*dementor_front;
+	t_img	*dementor_back;
 };
 
 struct s_display
