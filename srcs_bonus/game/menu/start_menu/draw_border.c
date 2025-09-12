@@ -49,10 +49,10 @@ void	draw_select_border(t_data *data, int start_x, int start_y)
 	if (data->selected == 1)
 		start_x += data->coa[data->selected].img_coa->width + 200;
 	else if (data->selected == 2)
-		start_x += (2 * data->coa[0].img_coa->width + 400);
+		start_x += (2 * data->coa[FIRE].img_coa->width + 400);
 	else if (data->selected == 3)
 	{
-		start_x += 3 * data->coa[0].img_coa->width + 600;
+		start_x += 3 * data->coa[FIRE].img_coa->width + 600;
 	}
 	// mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->coa[data->selected].border, start_x,
 	// 	start_y);

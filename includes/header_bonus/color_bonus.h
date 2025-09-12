@@ -39,5 +39,6 @@
 # define WATER_COLOR 0x0047AB
 # define WHITE 		0xFFFFFF
 # define YELLOW		0xFFFF00
+# define RED		0xFF0000
 
 #endif

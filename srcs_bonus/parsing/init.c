@@ -64,12 +64,19 @@ static void	init_texture(t_data *data)
 	data->map.door->path = "./texture/door_close.xpm";
 
 
-	data->map.dementor = malloc(sizeof(t_img));
-	if (!data->map.dementor)
+	data->map.dementor_front = malloc(sizeof(t_img));
+	if (!data->map.dementor_front)
 		f_exit(data, 1);
-	ft_bzero(data->map.dementor, sizeof(t_img));
-	data->map.dementor->mlx = data->mlx.mlx;
-	data->map.dementor->path = "./texture/dementor.xpm";
+	ft_bzero(data->map.dementor_front, sizeof(t_img));
+	data->map.dementor_front->mlx = data->mlx.mlx;
+	data->map.dementor_front->path = "./texture/dementor_front.xpm";
+
+	data->map.dementor_back = malloc(sizeof(t_img));
+	if (!data->map.dementor_back)
+		f_exit(data, 1);
+	ft_bzero(data->map.dementor_back, sizeof(t_img));
+	data->map.dementor_back->mlx = data->mlx.mlx;
+	data->map.dementor_back->path = "./texture/dementor_back.xpm";
 
 	data->map.fixed_door = malloc(sizeof(t_img));
 	if (!data->map.fixed_door)
@@ -191,61 +198,61 @@ static void	init_coa(t_data *data)
 	if (data->coa == NULL)
 		f_exit(data, 1); //error msg
 
-	data->coa[0].img_coa = malloc(sizeof(t_img));
-	if (!data->coa[0].img_coa)
+	data->coa[FIRE].img_coa = malloc(sizeof(t_img));
+	if (!data->coa[FIRE].img_coa)
 		f_exit(data, 1);
-	ft_bzero(data->coa[0].img_coa, sizeof(t_img));
-	data->coa[0].border = malloc(sizeof(t_img));
-	if (!data->coa[0].border)
+	ft_bzero(data->coa[FIRE].img_coa, sizeof(t_img));
+	data->coa[FIRE].border = malloc(sizeof(t_img));
+	if (!data->coa[FIRE].border)
 		f_exit(data, 1);
-	ft_bzero(data->coa[0].border, sizeof(t_img));
-	data->coa[0].img_coa->mlx = data->mlx.mlx;
-	data->coa[0].name = "Fire";
-	data->coa[0].color = FIRE_COLOR;
-	data->coa[0].img_coa->path = "texture/menu/fire.xpm";
-	data->coa[0].border->path = "texture/menu/border_fire.xpm";
+	ft_bzero(data->coa[FIRE].border, sizeof(t_img));
+	data->coa[FIRE].img_coa->mlx = data->mlx.mlx;
+	data->coa[FIRE].name = "Fire";
+	data->coa[FIRE].color = FIRE_COLOR;
+	data->coa[FIRE].img_coa->path = "texture/menu/fire.xpm";
+	data->coa[FIRE].border->path = "texture/menu/border_fire.xpm";
 
-	data->coa[1].img_coa = malloc(sizeof(t_img));
-	if (!data->coa[1].img_coa)
+	data->coa[WATER].img_coa = malloc(sizeof(t_img));
+	if (!data->coa[WATER].img_coa)
 		f_exit(data, 1);
-	ft_bzero(data->coa[1].img_coa, sizeof(t_img));
-	data->coa[1].border = malloc(sizeof(t_img));
-	if (!data->coa[1].border)
+	ft_bzero(data->coa[WATER].img_coa, sizeof(t_img));
+	data->coa[WATER].border = malloc(sizeof(t_img));
+	if (!data->coa[WATER].border)
 		f_exit(data, 1);
-	ft_bzero(data->coa[1].border, sizeof(t_img));
-	data->coa[1].img_coa->mlx = data->mlx.mlx;
-	data->coa[1].name = "Water";
-	data->coa[1].color = WATER_COLOR;
-	data->coa[1].img_coa->path = "texture/menu/water.xpm";
-	data->coa[1].border->path = "texture/menu/border_water.xpm";
+	ft_bzero(data->coa[WATER].border, sizeof(t_img));
+	data->coa[WATER].img_coa->mlx = data->mlx.mlx;
+	data->coa[WATER].name = "Water";
+	data->coa[WATER].color = WATER_COLOR;
+	data->coa[WATER].img_coa->path = "texture/menu/water.xpm";
+	data->coa[WATER].border->path = "texture/menu/border_water.xpm";
 
-	data->coa[2].img_coa = malloc(sizeof(t_img));
-	if (!data->coa[2].img_coa)
+	data->coa[EARTH].img_coa = malloc(sizeof(t_img));
+	if (!data->coa[EARTH].img_coa)
 		f_exit(data, 1);
-	ft_bzero(data->coa[2].img_coa, sizeof(t_img));
-	data->coa[2].border = malloc(sizeof(t_img));
-	if (!data->coa[2].border)
+	ft_bzero(data->coa[EARTH].img_coa, sizeof(t_img));
+	data->coa[EARTH].border = malloc(sizeof(t_img));
+	if (!data->coa[EARTH].border)
 		f_exit(data, 1);
-	ft_bzero(data->coa[2].border, sizeof(t_img));
-	data->coa[2].img_coa->mlx = data->mlx.mlx;
-	data->coa[2].name = "Earth";
-	data->coa[2].color = EARTH_COLOR;
-	data->coa[2].img_coa->path = "texture/menu/earth.xpm";
-	data->coa[2].border->path = "texture/menu/border_earth.xpm";
+	ft_bzero(data->coa[EARTH].border, sizeof(t_img));
+	data->coa[EARTH].img_coa->mlx = data->mlx.mlx;
+	data->coa[EARTH].name = "Earth";
+	data->coa[EARTH].color = EARTH_COLOR;
+	data->coa[EARTH].img_coa->path = "texture/menu/earth.xpm";
+	data->coa[EARTH].border->path = "texture/menu/border_earth.xpm";
 
-	data->coa[3].img_coa = malloc(sizeof(t_img));
-	if (!data->coa[3].img_coa)
+	data->coa[AIR].img_coa = malloc(sizeof(t_img));
+	if (!data->coa[AIR].img_coa)
 		f_exit(data, 1);
-	ft_bzero(data->coa[3].img_coa, sizeof(t_img));
-	data->coa[3].border = malloc(sizeof(t_img));
-	if (!data->coa[3].border)
+	ft_bzero(data->coa[AIR].img_coa, sizeof(t_img));
+	data->coa[AIR].border = malloc(sizeof(t_img));
+	if (!data->coa[AIR].border)
 		f_exit(data, 1);
-	ft_bzero(data->coa[3].border, sizeof(t_img));
-	data->coa[3].img_coa->mlx = data->mlx.mlx;
-	data->coa[3].name = "Air";
-	data->coa[3].color = AIR_COLOR;
-	data->coa[3].img_coa->path = "texture/menu/air.xpm";
-	data->coa[3].border->path = "texture/menu/border_air.xpm";
+	ft_bzero(data->coa[AIR].border, sizeof(t_img));
+	data->coa[AIR].img_coa->mlx = data->mlx.mlx;
+	data->coa[AIR].name = "Air";
+	data->coa[AIR].color = AIR_COLOR;
+	data->coa[AIR].img_coa->path = "texture/menu/air.xpm";
+	data->coa[AIR].border->path = "texture/menu/border_air.xpm";
 
 	data->selected = 0;
 

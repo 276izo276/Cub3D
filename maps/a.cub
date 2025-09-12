@@ -1,0 +1,26 @@
+NO ./texture/wall_y.xpm
+SO ./texture/wall_y.xpm
+WE ./texture/wall_x.xpm
+EA                    ./texture/wall_x.xpm
+FL ./texture/floor.xpm
+CE ./texture/ceiling.xpm
+              
+111
+1S1
+101
+101
+101
+101
+101
+101
+101
+101
+101
+101
+101
+101
+101
+101
+101
+1.1
+111

@@ -30,19 +30,19 @@ void	try_hit_enemy(t_data *data, int i)
 		ray.cx = data->ray[ray.i].coo_x + data->ray[ray.i].case_x * 64;
 		ray.cy = data->ray[ray.i].coo_y + data->ray[ray.i].case_y * 64;
 		if (ray.delta_x > 0)
-			ray.rx = (ray.ax + enemy->radius * 50 - ray.ax ) / ray.delta_x;
+			ray.rx = (ray.ax + enemy->radius * 50 - ray.cx) / ray.delta_x;
 		else
-			ray.rx = -ray.ax / ray.delta_x;
+			ray.rx = -ray.cx / ray.delta_x;
 		if (ray.delta_y > 0)
-			ray.ry = (ray.ay + enemy->radius * 50 - ray.ay) / ray.delta_y;
+			ray.ry = (ray.ay + enemy->radius * 50 - ray.cy) / ray.delta_y;
 		else
-			ray.ry = -ray.ay / ray.delta_y;
+			ray.ry = -ray.cy / ray.delta_y;
 		if (ray.rx < ray.ry)
 		{
 			if (ray.delta_x < 0)
 				ray.dx = 0;
 			else
-				ray.dx = ray.cx + enemy->radius * 50;
+				ray.dx = ray.ax + enemy->radius * 50;
 			ray.dy = ray.cy + ray.rx * ray.delta_y;
 		}
 		else
@@ -50,7 +50,7 @@ void	try_hit_enemy(t_data *data, int i)
 			if (ray.delta_y < 0)
 				ray.dy = 0;
 			else
-				ray.dy = ray.cy + enemy->radius * 50;
+				ray.dy = ray.ay + enemy->radius * 50;
 			ray.dx = ray.cx + ray.ry * ray.delta_x;
 		}
 		// if (ray.i < data->mlx.width / 4)
@@ -63,6 +63,7 @@ void	try_hit_enemy(t_data *data, int i)
 				if (data->ray[i].enemys[ray.j]->use == false)
 					break ;
 			data->ray[i].enemys[ray.j]->use = true;
+			data->ray[i].enemys[ray.j]->enemy = enemy;
 			data->ray[i].enemys[ray.j]->coo_x = ray.hx;
 			data->ray[i].enemys[ray.j]->coo_y = ray.hy;
 			// printf("hy>>%lf       hx>>%lf\n",ray.hy,ray.hx);
