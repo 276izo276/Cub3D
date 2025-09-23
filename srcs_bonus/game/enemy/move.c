@@ -292,7 +292,7 @@ static void	gen_enemy_way(t_data *data, t_enemy *enemy)
 	int	len_line;
 	int	len_tab;
 
-	if (enemy->wait < 10)
+	if (enemy->wait < 300)
 	{
 		enemy->wait++;
 		return ;
@@ -446,7 +446,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			enemy->wait = 0;
 			return ;
 		}
-		printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
+		// printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
 		if (diff_x != 0 && diff_y != 0)
 		{
 			deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
@@ -465,7 +465,9 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			deg = 90;
 		else if (diff_x == 0 && diff_y < 0)
 			deg = 180;
-		printf("deg angle >>>%lf\n",deg);
+		// printf("deg angle >>>%lf\n",deg);
+
+		// printf("deg angle >>>%lf     player>>%lf\n",deg,data->map.mini.deg);
 		enemy->deg = deg;
 		enemy->rad = deg * (M_PI / 180);
 	}
@@ -506,7 +508,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		enemy->way = NULL;
 		enemy->wait = 0;
 		enemy->calc = true;
-		printf("END TRAJ IN CASE\n");
+		// printf("END TRAJ IN CASE\n");
 		return ;
 	}
 	if (enemy->center.coo_x < 0 || enemy->center.coo_x > 64
@@ -528,7 +530,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			enemy->way = NULL;
 			enemy->wait = 0;
 			enemy->calc = true;
-			printf("OUT OF CASE END TRAJ\n");
+			// printf("OUT OF CASE END TRAJ\n");
 			return ;
 		}
 		t_case	*tmp = enemy->way;
@@ -549,6 +551,51 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	// printf("enemy->rad >>>%lf\n", enemy->rad);
 }
 
+int	see_player(t_data *data, t_enemy *enemy)
+{
+	double	deg;
+	deg = 0;
+	enemy->rad = 0;
+	int	diff_x = data->map.player_coo->x * 64 + data->map.mini.player_coo.x
+	- enemy->center.case_x * 64 - enemy->center.coo_x;
+	int	diff_y = data->map.player_coo->y * 64 + data->map.mini.player_coo.y
+	- enemy->center.case_y * 64 - enemy->center.coo_y;
+	if (diff_x == 0 && diff_y == 0)
+	{
+		return (0);
+	}
+	// printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
+	if (diff_x != 0 && diff_y != 0)
+	{
+		deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
+		if (deg < 0)
+			deg = -deg;
+	}
+	if (diff_y < 0 && diff_x < 0)
+		deg = 180 + deg;
+	else if (diff_y < 0 && diff_x > 0)
+		deg = 180 - deg;
+	else if (diff_y > 0 && diff_x < 0)
+		deg = 360 - deg;
+	else if (diff_y == 0 && diff_x < 0)
+		deg = 270;
+	else if (diff_y == 0 && diff_x > 0)
+		deg = 90;
+	else if (diff_x == 0 && diff_y < 0)
+		deg = 180;
+	// printf("deg angle >>>%lf     player>>%lf\n",deg,data->map.mini.deg);
+	enemy->deg = deg;
+	enemy->rad = deg * (M_PI / 180);
+	if (enemy->deg < fmod(data->map.mini.deg - 90 + 360, 360)
+		&& enemy->deg > fmod(data->map.mini.deg + 90, 360))
+		return (0);
+	else
+	{
+		// t_ray	ray;
+	}
+	return (0);
+}
+
 void	move_enemy(t_data *data)
 {
 	t_lst	*lst;
@@ -560,6 +607,8 @@ void	move_enemy(t_data *data)
 		enemy = lst->dt;
 		if (!enemy->way)
 			gen_enemy_way(data, enemy);
+		// else if (see_player(data, enemy))
+		// 	gen_enemy_way_to_player();
 		else
 			make_move_enemy(data, enemy);
 		lst = lst->next;
