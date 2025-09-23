@@ -1,6 +1,7 @@
 #include "struct_bonus.h"
 #include "utils_bonus.h"
 #include "enemy_bonus.h"
+#include "cub3d_bonus.h"
 
 #include <stdio.h>
 
@@ -19,6 +20,8 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	enemy->center.coo_y = 32;
 	enemy->speed = 3;
 	enemy->radius = 6;
+	enemy->deg = 90;
+	enemy->rad = enemy->deg * (M_PI / 180);
 	enemy->calc = true;
 	calc_left_point(enemy);
 	calc_right_point(enemy);

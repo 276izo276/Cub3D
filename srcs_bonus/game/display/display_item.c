@@ -1,6 +1,7 @@
 #include "struct_bonus.h"
 #include "utils_bonus.h"
 #include "color_bonus.h"
+#include "cub3d_bonus.h"
 #include <math.h>
 
 
@@ -129,8 +130,8 @@ static void	put_text_pix_img_dementor(t_data *data, int i, int dist_heigh, int t
 	double			enemy_status;
 
 	enemy_status = 0;
-	if (data->ray[i].enemys[j]->enemy->deg < fmod(data->map.mini.deg - 90 + 360, 360)
-		&& data->ray[i].enemys[j]->enemy->deg > fmod(data->map.mini.deg + 90, 360))
+	if (data->ray[i].enemys[j]->enemy->deg + 360 >= data->ray[i].deg - 90 + 360
+		&& data->ray[i].enemys[j]->enemy->deg + 360 <= data->ray[i].deg + 90 + 360)
 	{
 		text_y = (data->ray[i].pix_y - data->ray[i].enemys[j]->htop_enemy + enemy_status / 100 * data->ray[i].enemys[j]->size_enemy)
 			* data->map.dementor_back->height / dist_heigh;
@@ -183,8 +184,12 @@ void	display_item(t_data *data, int i)
 			ft_bzero(data->ray[i].enemys[j], sizeof(t_hit_enemy));
 		j++;
 	}
+	if (i == data->mlx.width / 2)
+		printf("mid screen\n");
 	while (dist_max_enemy != 0 || dist_max_door != 0)
 	{
+		if (i == data->mlx.width / 2)
+			printf("AFF\n");
 		dist_max_enemy = 0;
 		dist_max_door = 0;
 		j = 0;
@@ -200,6 +205,8 @@ void	display_item(t_data *data, int i)
 		j = 0;
 		while (j < data->nb_enemy)
 		{
+			if (i == data->mlx.width / 2)
+				printf("dist enemy >> %lf\n",data->ray[i].enemys[j]->dist_enemy);
 			if (dist_max_enemy < data->ray[i].enemys[j]->dist_enemy
 				&& data->ray[i].enemys[j]->print == true)
 			{
@@ -213,8 +220,12 @@ void	display_item(t_data *data, int i)
 			type = 0;
 		else
 			type = 1;
+		if (i == data->mlx.width / 2)
+			printf("type >>%d\n",type);
 		if (type == 0)
 		{
+			if (i == data->mlx.width / 2)
+				printf("Type 0\n");
 			j = -1;
 			while (++j < data->nb_door)
 				if (data->ray[i].doors[j]->dist_door == dist_max_door)
@@ -252,7 +263,12 @@ void	display_item(t_data *data, int i)
 		}
 		else if (type == 1)
 		{
-			// printf("TYPE 1\n");
+
+			// data->ray[i].deg = fmod(data->ray[i].deg + data->ray[i].rad / (M_PI / 180) + 360, 360);
+			// printf("angle player >%lf           \n",data->ray[i].deg);
+
+			if (i == data->mlx.width / 2)
+				printf("TYPE 1\n");
 			j = -1;
 			while (++j < data->nb_enemy)
 				if (data->ray[i].enemys[j]->dist_enemy == dist_max_enemy)
@@ -260,8 +276,8 @@ void	display_item(t_data *data, int i)
 			check_dir_enemy(data, i, j);
 			data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
 				* data->ray[i].calc_bits;
-			if (data->ray[i].enemys[j]->enemy->deg < fmod(data->map.mini.deg - 90 + 360, 360)
-				&& data->ray[i].enemys[j]->enemy->deg > fmod(data->map.mini.deg + 90, 360))
+			if (data->ray[i].enemys[j]->enemy->deg + 360 >= data->ray[i].deg - 90 + 360
+				&& data->ray[i].enemys[j]->enemy->deg + 360 <= data->ray[i].deg + 90 + 360)
 			{
 				text_x = data->ray[i].enemys[j]->texture_coo.x
 					* (data->map.dementor_back->bits_per_pixel >> 3);
