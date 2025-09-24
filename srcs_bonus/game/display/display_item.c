@@ -184,12 +184,8 @@ void	display_item(t_data *data, int i)
 			ft_bzero(data->ray[i].enemys[j], sizeof(t_hit_enemy));
 		j++;
 	}
-	if (i == data->mlx.width / 2)
-		printf("mid screen\n");
 	while (dist_max_enemy != 0 || dist_max_door != 0)
 	{
-		if (i == data->mlx.width / 2)
-			printf("AFF\n");
 		dist_max_enemy = 0;
 		dist_max_door = 0;
 		j = 0;
@@ -205,8 +201,6 @@ void	display_item(t_data *data, int i)
 		j = 0;
 		while (j < data->nb_enemy)
 		{
-			if (i == data->mlx.width / 2)
-				printf("dist enemy >> %lf\n",data->ray[i].enemys[j]->dist_enemy);
 			if (dist_max_enemy < data->ray[i].enemys[j]->dist_enemy
 				&& data->ray[i].enemys[j]->print == true)
 			{
@@ -220,12 +214,8 @@ void	display_item(t_data *data, int i)
 			type = 0;
 		else
 			type = 1;
-		if (i == data->mlx.width / 2)
-			printf("type >>%d\n",type);
 		if (type == 0)
 		{
-			if (i == data->mlx.width / 2)
-				printf("Type 0\n");
 			j = -1;
 			while (++j < data->nb_door)
 				if (data->ray[i].doors[j]->dist_door == dist_max_door)
@@ -266,9 +256,6 @@ void	display_item(t_data *data, int i)
 
 			// data->ray[i].deg = fmod(data->ray[i].deg + data->ray[i].rad / (M_PI / 180) + 360, 360);
 			// printf("angle player >%lf           \n",data->ray[i].deg);
-
-			if (i == data->mlx.width / 2)
-				printf("TYPE 1\n");
 			j = -1;
 			while (++j < data->nb_enemy)
 				if (data->ray[i].enemys[j]->dist_enemy == dist_max_enemy)
