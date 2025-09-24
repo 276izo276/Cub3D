@@ -586,8 +586,10 @@ int	see_player(t_data *data, t_enemy *enemy)
 	// printf("deg angle >>>%lf     player>>%lf\n",deg,data->map.mini.deg);
 	enemy->deg = deg;
 	enemy->rad = deg * (M_PI / 180);
-	if (enemy->deg < fmod(data->map.mini.deg - 90 + 360, 360)
-		&& enemy->deg > fmod(data->map.mini.deg + 90, 360))
+	// if (data->ray[i].enemys[j]->enemy->deg + 360 >= data->ray[i].deg - 90 + 360
+	// 	&& data->ray[i].enemys[j]->enemy->deg + 360 <= data->ray[i].deg + 90 + 360)
+	if (enemy->deg + 360 < data->map.mini.deg - 90 + 360
+		&& enemy->deg + 360 > data->map.mini.deg + 90 + 360)
 		return (0);
 	else
 	{

@@ -68,7 +68,9 @@ static void	handle_ray(t_data *data, int i)
 
 static void	save_data_ray(t_data *data, int i, double x)
 {
-	data->ray[i].rad = -atan(1 / x);
+	data->ray[i].rad = 90 * (M_PI / 180);
+	if (x != 0.0)
+		data->ray[i].rad = -atan(1 / x);
 	data->ray[i].deg = data->ray[i].rad;
 	if (data->ray[i].rad >= 0)
 		data->ray[i].rad += M_PI;
@@ -169,7 +171,7 @@ static void	calc_enemy_value(t_data *data, int i, double x)
 	while (j < data->nb_enemy && data->ray[i].enemys[j]->use != false)
 	{
 		calc_sqrt_enemy(data, i, j);
-		// printf("dist >>>%lf    i>>%d    j>>%d\n",data->ray[i].enemys[j]->dist_enemy,i,j);
+		// if (cos(atan(x)) > 0.01)
 		data->ray[i].enemys[j]->dist_enemy *= cos(atan(x));
 		data->ray[i].enemys[j]->size_enemy = data->ray[i].d_proj
 			/ (double)(data->ray[i].enemys[j]->dist_enemy / 64.0);
@@ -286,7 +288,6 @@ void	*ray_launch_third(void *ptr)
 		{
 			x = (double)i / (double)data->mlx.width;
 			x = (x * (-2) + 1);
-			//write(1,"23\n",3);
 			save_data_ray(data, i, x);
 			try_hit_enemy(data, i);
 			handle_ray(data, i);
