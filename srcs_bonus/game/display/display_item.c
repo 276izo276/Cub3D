@@ -130,8 +130,8 @@ static void	put_text_pix_img_dementor(t_data *data, int i, int dist_heigh, int t
 	double			enemy_status;
 
 	enemy_status = 0;
-	if (fmod(data->ray[i].enemys[j]->enemy->deg,360) + 360 >= fmod(data->ray[i].deg - 90, 360) + 360
-		&& fmod(data->ray[i].enemys[j]->enemy->deg,360) + 360 <= fmod(data->ray[i].deg + 90, 360) + 360)
+	if (fmod(data->ray[i].enemys[j]->enemy->deg, 360) + 360 >= fmod(data->ray[i].deg, 360) - 90 + 360
+		&& fmod(data->ray[i].enemys[j]->enemy->deg, 360) + 360 <= fmod(data->ray[i].deg, 360) + 90 + 360)
 	{
 		text_y = (data->ray[i].pix_y - data->ray[i].enemys[j]->htop_enemy + enemy_status / 100 * data->ray[i].enemys[j]->size_enemy)
 			* data->map.dementor_back->height / dist_heigh;
@@ -263,9 +263,10 @@ void	display_item(t_data *data, int i)
 			check_dir_enemy(data, i, j);
 			data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
 				* data->ray[i].calc_bits;
-			printf("ray >>%lf      >= >>%lf      <= >>%lf\n",fmod(data->ray[i].enemys[j]->enemy->deg, 360) + 360,fmod(data->ray[i].deg - 90, 360) + 360,fmod(data->ray[i].deg + 90, 360) + 360);
-			if (fmod(data->ray[i].enemys[j]->enemy->deg, 360) + 360 >= fmod(data->ray[i].deg - 90, 360) + 360
-				&& fmod(data->ray[i].enemys[j]->enemy->deg, 360) + 360 <= fmod(data->ray[i].deg + 90, 360) + 360)
+			printf("deg >>%lf    %lf\n",data->ray[i].deg,data->ray[i].enemys[j]->enemy->deg);
+			// printf("ray >>%lf      >= >>%lf      <= >>%lf\n",fmod(data->ray[i].enemys[j]->enemy->deg, 360) + 360,fmod(data->ray[i].deg - 90, 360) + 360,fmod(data->ray[i].deg + 90, 360) + 360);
+			if (fmod(data->ray[i].enemys[j]->enemy->deg, 360) + 360 >= fmod(data->ray[i].deg, 360) - 90 + 360
+				&& fmod(data->ray[i].enemys[j]->enemy->deg, 360) + 360 <= fmod(data->ray[i].deg, 360) + 90 + 360)
 			{
 				printf("BACK\n");
 				text_x = data->ray[i].enemys[j]->texture_coo.x
