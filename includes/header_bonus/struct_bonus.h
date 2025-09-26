@@ -429,6 +429,7 @@ struct	s_enemy
 	t_case			*way;
 	int				wait;
 	bool			calc;
+	int				calc_path;
 };
 
 struct s_data
