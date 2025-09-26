@@ -219,7 +219,23 @@ static void	pathfinder(t_data *data, t_enemy *enemy)
 		open = get_first_elem_lst(open);
 		// printf("PASS HERE next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
 	}
-	printf("PATH NOOOOOOOOT FOUND\n");
+	int	nb_elem_lst = ft_strlen_lst(closed);
+	int	nb_take = rand() % nb_elem_lst;
+	// printf("TAKE NB >>>%d in    >>>%d   elem",nb_take,nb_elem_lst);
+	nb_elem_lst = 0;
+	closed = get_first_elem_lst(closed);
+	while (closed->next)
+	{
+		if (nb_elem_lst == nb_take)
+		{
+			set_final_path(closed, enemy);
+			f_list_final_path(open, closed);
+			// printf("CREATE NEW PATH AFTER NOT FOUND\n");
+			return;
+		}
+		nb_elem_lst++;
+		closed = closed->next;
+	}
 	f_all_lst(closed);
 	f_all_lst(open);
 	// f_exit(data, 1);
