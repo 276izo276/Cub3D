@@ -75,15 +75,17 @@ static void	save_data_ray(t_data *data, int i, double x)
 	if (data->ray[i].rad >= 0)
 		data->ray[i].rad += M_PI;
 	data->ray[i].rad += data->map.mini.deg * (M_PI / 180);
+	data->ray[i].deg = fmod(data->ray[i].rad / (M_PI / 180), 360);
 	data->ray[i].coo_y = data->map.mini.player_coo.y;
 	data->ray[i].coo_x = data->map.mini.player_coo.x;
 	data->ray[i].case_y = data->map.player_coo->y;
 	data->ray[i].case_x = data->map.player_coo->x;
 	data->ray[i].delta_x = -cos(data->ray[i].rad);
 	data->ray[i].delta_y = sin(data->ray[i].rad);
-	data->ray[i].deg = fmod(data->ray[i].rad / (M_PI / 180) + 360, 360);
+	data->ray[i].deg = data->ray[i].deg + (180 - data->ray[i].deg) * 2 + 270;
+	// data->ray[i].deg = fmod(data->ray[i].rad / (M_PI / 180) + 360, 360);
 	// data->ray[i].deg = (180 - data->ray[i].deg) * 2 + data->ray[i].deg;
-	data->ray[i].deg = fmod(data->ray[i].deg - 90 + 360, 360);
+	// data->ray[i].deg = fmod(data->ray[i].deg - 90 + 360, 360);
 }
 
 static void	calc_sqrt_door(t_data *data, int i, int j)

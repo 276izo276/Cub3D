@@ -191,6 +191,12 @@ static void	set_final_path(t_lst *lst, t_enemy *enemy)
 		cel = cel->parent;
 	}
 	enemy->way = cel;
+	while (cel->child)
+	{
+		cel = cel->child;
+	}
+	enemy->goal.case_x = cel->case_x;
+	enemy->goal.case_y = cel->case_y;
 }
 
 static void	pathfinder(t_data *data, t_enemy *enemy)
@@ -445,25 +451,19 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 {
 	(void)data;
 	(void)enemy;
-	// printf("Coo in case x>>%d    y>>%d\n",enemy->way->coo_x,enemy->way->coo_y);
+	// printf("\n\nCoo in case way x>>%d    y>>%d\n",enemy->way->coo_x,enemy->way->coo_y);
+	// printf("Coo in case center x>>%lf    y>>%lf\n",enemy->center.coo_x,enemy->center.coo_y);
 	if (enemy->calc == true)
 	{
+		// printf("recalc\n");
 		enemy->calc = false;
 		double	deg;
 		deg = 0;
 		enemy->rad = 0;
-		int	diff_x = enemy->way->coo_x - enemy->center.coo_x;
-		int	diff_y = enemy->way->coo_y - enemy->center.coo_y;
-		if (diff_x == 0 && diff_y == 0)
-		{
-			enemy->calc = true;
-			f_case(enemy->way);
-			enemy->way = NULL;
-			enemy->wait = 0;
-			return ;
-		}
+		double	diff_x = enemy->way->coo_x - enemy->center.coo_x;
+		double	diff_y = enemy->way->coo_y - enemy->center.coo_y;
 		// printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
-		if (diff_x != 0 && diff_y != 0)
+		if (diff_y != 0)
 		{
 			deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
 			if (deg < 0)
@@ -482,7 +482,6 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		else if (diff_x == 0 && diff_y < 0)
 			deg = 180;
 		// printf("deg angle >>>%lf\n",deg);
-
 		// printf("deg angle >>>%lf     player>>%lf\n",deg,data->map.mini.deg);
 		enemy->deg = deg;
 		enemy->rad = deg * (M_PI / 180);
@@ -508,6 +507,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	dx *= enemy->speed;
 	enemy->center.coo_x += dx;
 	enemy->center.coo_y += dy;
+	enemy->calc_path++;
 	calc_left_point(enemy);
 	calc_right_point(enemy);
 	// enemy->center.coo_x = round(enemy->center.coo_x);
@@ -515,6 +515,9 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	// printf("\ny>>>%lf      x>>>%lf\n",enemy->center.coo_y,enemy->center.coo_x);
 	// printf("CURRENT   y>>>%d    x>>%d\n",enemy->center.case_x,enemy->center.case_y);
 	// printf("GOAL   y>>>%d    x>>%d\n",enemy->goal.case_x,enemy->goal.case_y);
+	// printf("goal >>%lf   %lf\n",enemy->goal.coo_x,enemy->goal.coo_y);
+	// printf("goal case >>%d   %d\n",enemy->goal.case_x,enemy->goal.case_y);
+	// printf("enemy is in case  >>%d   %d\n",enemy->center.case_x,enemy->center.case_y);
 	if (are_double_close(enemy->center.coo_x, enemy->goal.coo_x)
 		&& are_double_close(enemy->center.coo_y, enemy->goal.coo_y)
 		&& enemy->center.case_x == enemy->goal.case_x
@@ -768,10 +771,10 @@ int	see_player(t_data *data, t_enemy *enemy)
 		- ray.start_coo_x)) * ((data->map.player_coo->x
 		- ray.start_case_x) * 64.0 + (data->map.mini.player_coo.x
 		- ray.start_coo_x)));
-		printf("dist player >%lf    dist_wall >%lf\n",dist_player, ray.dist_wall);
-		if (dist_player < ray.dist_wall)
+		// printf("dist player >%lf    dist_wall >%lf\n",dist_player, ray.dist_wall);
+		if (dist_player < ray.dist_wall && enemy->calc_path >= 20)
 		{
-			printf("SEE PLAYER GO ON IT\n");
+			// printf("SEE PLAYER GO ON IT     im in x>%d  y>%d\n",enemy->center.case_x,enemy->center.case_y);
 			while (enemy->way)
 			{
 				if (enemy->way->child)
@@ -787,6 +790,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 				}
 			}
 			// printf("pointer way >%p",enemy->way);
+			enemy->calc_path = 0;
 			enemy->goal.case_x = data->map.player_coo->x;
 			enemy->goal.case_y = data->map.player_coo->y;
 			enemy->goal.coo_y = data->map.mini.player_coo.y;
@@ -814,7 +818,7 @@ void	move_enemy(t_data *data)
 			gen_enemy_way(data, enemy);
 		else
 		{
-			see_player(data, enemy);
+			// see_player(data, enemy);
 			make_move_enemy(data, enemy);
 		}
 		lst = lst->next;
