@@ -219,7 +219,7 @@ static void	pathfinder(t_data *data, t_enemy *enemy)
 		open = get_first_elem_lst(open);
 		// printf("PASS HERE next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
 	}
-	// printf("PATH NOOOOOOOOT FOUND\n");
+	printf("PATH NOOOOOOOOT FOUND\n");
 	f_all_lst(closed);
 	f_all_lst(open);
 	// f_exit(data, 1);
@@ -292,7 +292,7 @@ static void	gen_enemy_way(t_data *data, t_enemy *enemy)
 	int	len_line;
 	int	len_tab;
 
-	if (enemy->wait < 300)
+	if (enemy->wait < 10)
 	{
 		enemy->wait++;
 		return ;
@@ -319,7 +319,7 @@ static void	gen_enemy_way(t_data *data, t_enemy *enemy)
 	enemy->goal.case_y = y;
 	enemy->goal.coo_y = 32;
 	enemy->goal.coo_x = 32;
-	printf("Foud Case y>%d   x>%d     value>>%c     center   y>%d   x>%d\n", y, x, data->map.tabmap[y][x],enemy->center.case_y,enemy->center.case_x);
+	printf("Found Case y>%d   x>%d     value>>%c     center   y>%d   x>%d\n", y, x, data->map.tabmap[y][x],enemy->center.case_y,enemy->center.case_x);
 	pathfinder(data, enemy);
 	calc_in_cell_path(data, enemy);
 	print_path(enemy);
@@ -551,11 +551,118 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	// printf("enemy->rad >>>%lf\n", enemy->rad);
 }
 
+static int	handle_ray_y_top_gen(t_data *data, t_ray *ray)
+{
+
+	if (data->map.tabmap[ray->case_y - 1][ray->case_x] != '1')
+	{
+		ray->case_y--;
+		ray->coo_y = 64;
+		ray->coo_x += ray->ry * ray->delta_x;
+		ray->coo_x = round(ray->coo_x * 64) / 64.0;
+	}
+	else
+	{
+		ray->coo_y = 0;
+		ray->coo_x += ray->ry * ray->delta_x;
+		ray->coo_x = round(ray->coo_x * 64) / 64.0;
+		return (1);
+	}
+	return (0);
+}
+
+static int	handle_ray_y_down_gen(t_data *data, t_ray *ray)
+{
+	if (data->map.tabmap[ray->case_y + 1][ray->case_x] != '1')
+	{
+		ray->case_y++;
+		ray->coo_y = 0;
+		ray->coo_x += ray->ry * ray->delta_x;
+		ray->coo_x = round(ray->coo_x * 64) / 64.0;
+	}
+	else
+	{
+		ray->coo_y = 64;
+		ray->coo_x += ray->ry * ray->delta_x;
+		ray->coo_x = round(ray->coo_x * 64) / 64.0;
+		return (1);
+	}
+	return (0);
+}
+
+static int	handle_ray_x_left_gen(t_data *data, t_ray *ray)
+{
+	if (data->map.tabmap[ray->case_y][ray->case_x - 1] != '1'
+	)
+	{
+		ray->case_x--;
+		ray->coo_x = 64;
+		ray->coo_y += ray->rx * ray->delta_y;
+		ray->coo_y = round(ray->coo_y * 64) / 64.0;
+	}
+	else
+	{
+		ray->coo_x = 0;
+		ray->coo_y += ray->rx * ray->delta_y;
+		ray->coo_y = round(ray->coo_y * 64) / 64.0;
+		return (1);
+	}
+	return (0);
+}
+
+static int	handle_ray_x_right_gen(t_data *data, t_ray *ray)
+{
+	if (data->map.tabmap[ray->case_y][ray->case_x + 1] != '1')
+	{
+		ray->case_x++;
+		ray->coo_x = 0;
+		ray->coo_y += ray->rx * ray->delta_y;
+		ray->coo_y = round(ray->coo_y * 64) / 64.0;
+	}
+	else
+	{
+		ray->coo_x = 64;
+		ray->coo_y += ray->rx * ray->delta_y;
+		ray->coo_y = round(ray->coo_y * 64) / 64.0;
+		return (1);
+	}
+	return (0);
+}
+
+static int	handle_ray_x_gen(t_data *data, t_ray *ray)
+{
+	if (ray->delta_x < 0)
+	{
+		if (handle_ray_x_left_gen(data, ray) == 1)
+			return (1);
+	}
+	else
+	{
+		if (handle_ray_x_right_gen(data, ray) == 1)
+			return (1);
+	}
+	return (0);
+}
+static int	handle_ray_y_gen(t_data *data, t_ray *ray)
+{
+	if (ray->delta_y < 0)
+	{
+		if (handle_ray_y_top_gen(data, ray) == 1)
+			return (1);
+	}
+	else
+	{
+		if (handle_ray_y_down_gen(data, ray) == 1)
+			return (1);
+	}
+	return (0);
+}
+
 int	see_player(t_data *data, t_enemy *enemy)
 {
 	double	deg;
+
 	deg = 0;
-	enemy->rad = 0;
 	int	diff_x = data->map.player_coo->x * 64 + data->map.mini.player_coo.x
 	- enemy->center.case_x * 64 - enemy->center.coo_x;
 	int	diff_y = data->map.player_coo->y * 64 + data->map.mini.player_coo.y
@@ -583,17 +690,97 @@ int	see_player(t_data *data, t_enemy *enemy)
 		deg = 90;
 	else if (diff_x == 0 && diff_y < 0)
 		deg = 180;
-	// printf("deg angle >>>%lf     player>>%lf\n",deg,data->map.mini.deg);
-	enemy->deg = deg;
-	enemy->rad = deg * (M_PI / 180);
-	// if (data->ray[i].enemys[j]->enemy->deg + 360 >= data->ray[i].deg - 90 + 360
-	// 	&& data->ray[i].enemys[j]->enemy->deg + 360 <= data->ray[i].deg + 90 + 360)
-	if (enemy->deg + 360 < data->map.mini.deg - 90 + 360
-		&& enemy->deg + 360 > data->map.mini.deg + 90 + 360)
-		return (0);
-	else
+	// printf("deg angle to player>>>%lf     base>>%lf\n",deg,enemy->deg);
+	// if (data->ray[i].enemys[j]->enemy.deg + 360 >= data->ray[i].deg - 90 + 360
+	// 	&& data->ray[i].enemys[j]->enemy.deg + 360 <= data->ray[i].deg + 90 + 360)
+	if (deg + 360 >= enemy->deg - 90 + 360
+		&& deg + 360 <= enemy->deg + 90 + 360)
 	{
-		// t_ray	ray;
+		// printf("ray lauch try see enemy   %lf     %lf\n",deg,enemy->deg);
+		t_ray	ray;
+		ray.deg = deg;
+		ray.start_case_x = enemy->center.case_x;
+		ray.start_case_y = enemy->center.case_y;
+		ray.start_coo_x = enemy->center.coo_x;
+		ray.start_coo_y = enemy->center.coo_y;
+		ray.coo_y = enemy->center.coo_y;
+		ray.coo_x = enemy->center.coo_x;
+		ray.case_y = enemy->center.case_y;
+		ray.case_x = enemy->center.case_x;
+		ray.deg += 270;
+		ray.deg = fmod(ray.deg,360);
+		ray.rad = ray.deg * (M_PI / 180);
+		ray.delta_x = cos(ray.rad);
+		ray.delta_y = -sin(ray.rad);
+		// printf("\nAngle >%lf       dx>>%lf        dy>>%lf\n",ray.deg,ray.delta_x,ray.delta_y);
+		while (1)
+		{
+			if (ray.delta_x > 0)
+				ray.rx = (64 - ray.coo_x) / ray.delta_x;
+			else
+				ray.rx = -ray.coo_x / ray.delta_x;
+			if (ray.delta_y > 0)
+				ray.ry = (64 - ray.coo_y) / ray.delta_y;
+			else
+				ray.ry = -ray.coo_y / ray.delta_y;
+			if (ray.rx < ray.ry)
+			{
+				if (handle_ray_x_gen(data, &ray) == 1)
+					break ;
+			}
+			else
+			{
+				if (handle_ray_y_gen(data, &ray) == 1)
+					break ;
+			}
+		}
+		ray.dist_wall = sqrt(((ray.case_y
+		- ray.start_case_y) * 64.0 + (ray.coo_y
+		- ray.start_coo_y)) * ((ray.case_y
+		- ray.start_case_y) * 64.0 + (ray.coo_y
+		- ray.start_coo_y)) + ((ray.case_x
+		- ray.start_case_x) * 64.0 + (ray.coo_x
+		- ray.start_coo_x)) * ((ray.case_x
+		- ray.start_case_x) * 64.0 + (ray.coo_x
+		- ray.start_coo_x)));
+		double	dist_player = sqrt(((data->map.player_coo->y
+		- ray.start_case_y) * 64.0 + (data->map.mini.player_coo.y
+		- ray.start_coo_y)) * ((data->map.player_coo->y
+		- ray.start_case_y) * 64.0 + (data->map.mini.player_coo.y
+		- ray.start_coo_y)) + ((data->map.player_coo->x
+		- ray.start_case_x) * 64.0 + (data->map.mini.player_coo.x
+		- ray.start_coo_x)) * ((data->map.player_coo->x
+		- ray.start_case_x) * 64.0 + (data->map.mini.player_coo.x
+		- ray.start_coo_x)));
+		printf("dist player >%lf    dist_wall >%lf\n",dist_player, ray.dist_wall);
+		if (dist_player < ray.dist_wall)
+		{
+			printf("SEE PLAYER GO ON IT\n");
+			while (enemy->way)
+			{
+				if (enemy->way->child)
+				{
+					enemy->way = enemy->way->child;
+					f_case(enemy->way->parent);
+					enemy->way->parent = NULL;
+				}
+				else
+				{
+					f_case(enemy->way);
+					enemy->way = NULL;
+				}
+			}
+			// printf("pointer way >%p",enemy->way);
+			enemy->goal.case_x = data->map.player_coo->x;
+			enemy->goal.case_y = data->map.player_coo->y;
+			enemy->goal.coo_y = data->map.mini.player_coo.y;
+			enemy->goal.coo_x = data->map.mini.player_coo.x;
+			pathfinder(data, enemy);
+			calc_in_cell_path(data, enemy);
+			print_path(enemy);
+			enemy->calc = true;
+			return (1);
+		}
 	}
 	return (0);
 }
@@ -609,10 +796,11 @@ void	move_enemy(t_data *data)
 		enemy = lst->dt;
 		if (!enemy->way)
 			gen_enemy_way(data, enemy);
-		// else if (see_player(data, enemy))
-		// 	gen_enemy_way_to_player();
 		else
+		{
+			see_player(data, enemy);
 			make_move_enemy(data, enemy);
+		}
 		lst = lst->next;
 	}
 }

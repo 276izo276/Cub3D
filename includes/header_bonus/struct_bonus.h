@@ -210,6 +210,10 @@ struct	s_ray
 	t_hit_door	**doors;
 	t_hit_enemy	**enemys;
 	double	max_dist_wall;
+	double	start_case_x;
+	double	start_case_y;
+	double	start_coo_x;
+	double	start_coo_y;
 };
 
 struct s_coo_mini
