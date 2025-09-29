@@ -1,6 +1,8 @@
 #include <math.h>
 #include "cub3d_bonus.h"
 
+#include <stdio.h>
+
 void	rotate_left(t_data *data)
 {
 	data->map.mini.deg += .25  / (data->sensitivity / 1000);
