@@ -53,23 +53,25 @@ static t_lst	*update_node(t_case *cur, const int dir[2], t_lst *lst)
 		{
 			if (cur->t_cost + 1 < cel->t_cost)
 			{
-				if (cel->case_x == 27 && cel->case_y == 25)
-				{
-					// printf("UPDATE CASE UNDER START\n\n");
-				}
 				cel->parent = cur;
 				cel->r_cost = cur->r_cost + 1;
 				cel->t_cost = cel->r_cost + cel->h_cost;
 				save = lst;
-				lst = get_last_elem_lst(lst);
-				while (lst->prev && ((t_case *)lst->prev->dt)->t_cost > cel->t_cost)
+				lst = remove_elem_lst(save);
+				lst = get_first_elem_lst(lst);
+				while (lst)
 				{
-					lst = lst->prev;
-				}
-				if (lst != save)
-				{
-					remove_elem_lst(save);
-					move_before_lst(save, lst);
+					if (((t_case *)lst->dt)->t_cost > cel->t_cost)
+					{
+						move_before_lst(save, lst);
+						return (lst);
+					}
+					if (!lst->next)
+					{
+						move_to_end_lst(save, lst);
+						return (lst);
+					}
+					lst = lst->next;
 				}
 			}
 			return (lst);
@@ -85,7 +87,6 @@ static t_lst	*update_node(t_case *cur, const int dir[2], t_lst *lst)
 static t_lst	*add_node(t_case *cur, const int dir[2], t_lst *lst, t_enemy *enemy)
 {
 	t_case	*cel;
-	t_case	*cases;
 	const int	direc[2] = {cur->case_y + dir[0], cur->case_x + dir[1]};
 
 	cel = init_case(man_dist(cur->case_y + dir[0],
@@ -95,21 +96,16 @@ static t_lst	*add_node(t_case *cur, const int dir[2], t_lst *lst, t_enemy *enemy
 	{
 		return (add_end_lst(cel, lst, f_case));
 	}
-	lst = get_last_elem_lst(lst);
+	lst = get_first_elem_lst(lst);
 	while (lst)
 	{
-		cases = lst->dt;
-		if (cases->t_cost < cel->t_cost || !lst->prev)
+		if (((t_case *)lst->dt)->t_cost > cel->t_cost)
 		{
-			if (!lst->prev)
-				return (add_before_lst(cel, lst, f_case));
-			lst = add_after_lst(cel, lst, f_case);
-			return (lst);
+			return(add_before_lst(cel, lst, f_case));
 		}
-		if (lst->prev)
-			lst = lst->prev;
-		else
-			break ;
+		if (!lst->next)
+			return(add_end_lst(cel, lst, f_case));
+		lst = lst->next;
 	}
 	return (lst);
 }
@@ -230,6 +226,13 @@ static void	pathfinder(t_data *data, t_enemy *enemy)
 			return ;
 		}
 		open = get_first_elem_lst(open);
+		t_lst	*tmp = open;
+		printf("start print open \n");
+		while (tmp)
+		{
+			printf("t_cost>%d   r_cost>%d    h_cost>%d\n",((t_case*)tmp->dt)->t_cost,((t_case*)tmp->dt)->r_cost,((t_case*)tmp->dt)->h_cost);
+			tmp = tmp->next;
+		}
 		// printf("PASS HERE next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
 	}
 	int	nb_elem_lst = ft_strlen_lst(closed);
@@ -746,8 +749,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 	// if (data->ray[i].enemys[j]->enemy.deg + 360 >= data->ray[i].deg - 90 + 360
 	// 	&& data->ray[i].enemys[j]->enemy.deg + 360 <= data->ray[i].deg + 90 + 360)
 	if (deg + 360 >= enemy->deg - 90 + 360
-		&& deg + 360 <= enemy->deg + 90 + 360
-		&& enemy->calc_path >= 10)
+		&& deg + 360 <= enemy->deg + 90 + 360)
 	{
 		printf("ray lauch try see enemy   %lf     %lf\n",deg,enemy->deg);
 		t_ray	ray;
@@ -760,12 +762,11 @@ int	see_player(t_data *data, t_enemy *enemy)
 		ray.coo_x = enemy->center.coo_x;
 		ray.case_y = enemy->center.case_y;
 		ray.case_x = enemy->center.case_x;
-		ray.deg += 270;
-		ray.deg = fmod(ray.deg,360);
+		ray.deg = fmod(ray.deg, 360);
 		ray.rad = ray.deg * (M_PI / 180);
 		ray.delta_x = cos(ray.rad);
 		ray.delta_y = sin(ray.rad);
-		// printf("\nAngle >%lf       dx>>%lf        dy>>%lf\n",ray.deg,ray.delta_x,ray.delta_y);
+		printf("\nAngle >%lf       dx>>%lf        dy>>%lf\n",ray.deg,ray.delta_x,ray.delta_y);
 		while (1)
 		{
 			if (ray.delta_x > 0)
@@ -805,7 +806,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 		- ray.start_coo_x)) * ((data->map.player_coo->x
 		- ray.start_case_x) * 64.0 + (data->map.mini.player_coo.x
 		- ray.start_coo_x)));
-		// printf("dist player >%lf    dist_wall >%lf\n",dist_player, ray.dist_wall);
+		printf("dist player >%lf    dist_wall >%lf\n",dist_player, ray.dist_wall);
 		if (dist_player < ray.dist_wall)
 		{
 			printf("SEE PLAYER GO ON IT     im in x>%d  y>%d\n",enemy->center.case_x,enemy->center.case_y);
