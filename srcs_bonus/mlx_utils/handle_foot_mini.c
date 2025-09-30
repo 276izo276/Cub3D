@@ -101,16 +101,20 @@ void	angle_offset(t_data *data, int *start_x, int *start_y, int i)
 	if ((angle_deg >= 315 || angle_deg <= 45) || (angle_deg > 135 && angle_deg < 225))
 	{
 		if (data->map.mini.foot_tab[i].is_left == true)
-			*start_x -= 9;
+			*start_x -= 5;
 		else
-			*start_x += 9;
+			*start_x += 5;
+		data->map.mini.foot_tab[i].foot_x = *start_x;
+		data->map.mini.foot_tab[i].foot_y = *start_y;
 	}
 	else if ((angle_deg >= 45 && angle_deg <= 135) || (angle_deg >= 225 && angle_deg <= 315))
 	{
 		if (data->map.mini.foot_tab[i].is_left == true)
-			*start_y += 9;
+			*start_y += 5;
 		else
-			*start_y -= 9;
+			*start_y -= 5;
+		data->map.mini.foot_tab[i].foot_x = *start_x;
+		data->map.mini.foot_tab[i].foot_y = *start_y;
 	}
 
 }
