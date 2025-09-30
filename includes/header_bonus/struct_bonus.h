@@ -427,6 +427,7 @@ struct	s_enemy
 	t_case			*way;
 	int				wait;
 	bool			calc;
+	int				calc_path;
 };
 
 struct s_data
@@ -489,6 +490,7 @@ struct s_data
 	t_lst	*enemy;
 	int		nb_enemy;
 	int		nb_create_enemy;
+	int		life;
 };
 
 t_coo	*init_t_coo(int y, int x);
