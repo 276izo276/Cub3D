@@ -13,7 +13,7 @@ static int	man_dist(int startY, int startX, int endY, int endX)
 
 static int	is_a_wall(t_case *cur, const int dir[2], t_data *data)
 {
-	if (data->map.tabmap[cur->case_y + dir[0]][cur->case_x + dir[1]] == '1' || data->map.tabmap[cur->case_y + dir[0]][cur->case_x + dir[1]] == 'D')
+	if (data->map.tabmap[cur->case_y + dir[0]][cur->case_x + dir[1]] == '1')
 		return (1);
 	return (0);
 }
@@ -98,9 +98,7 @@ static t_lst	*add_node(t_case *cur, const int dir[2], t_lst *lst, t_enemy *enemy
 		(int *)direc, cur);
 	if (!lst)
 	{
-		printf("Add in empty lst\n");
 		lst = add_end_lst(cel, lst, f_case);
-		printf("lst >>%p\n",lst);
 		return (lst);
 	}
 	lst = get_first_elem_lst(lst);
@@ -152,17 +150,17 @@ static	t_lst	*add_case_open(t_lst *open, t_lst **closed, t_enemy *enemy, t_data 
 			if (is_in_lst(lst->dt, dir[i], open, enemy))
 			{
 				open = update_node(lst->dt, dir[i], open);
-				printf("UPDATE NODE\n");
+				// printf("UPDATE NODE\n");
 			}
 			else
 			{
 				open = add_node(lst->dt, dir[i], open, enemy);
 				// printf("FIRST CASE OPEN AFTER ADD next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
-				printf("NEW NODE\n");
+				// printf("NEW NODE\n");
 			}
 			if (!open)
 			{
-				printf("EXIT HERE >>%p    i>%d   %s\n",open,i,strerror(errno));
+				// printf("EXIT HERE >>%p    i>%d   %s\n",open,i,strerror(errno));
 				exit_path_finder(data);
 			}
 		}
@@ -206,7 +204,7 @@ static void	set_final_path(t_lst *lst, t_enemy *enemy)
 	}
 	enemy->goal.case_x = cel->case_x;
 	enemy->goal.case_y = cel->case_y;
-	printf("GOTO  case_y>>%d      case_x>>%d\n",enemy->goal.case_y,enemy->goal.case_x);
+	// printf("GOTO  case_y>>%d      case_x>>%d\n",enemy->goal.case_y,enemy->goal.case_x);
 }
 
 static void	pathfinder(t_data *data, t_enemy *enemy)
@@ -554,18 +552,6 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	}
 	dy *= enemy->speed;
 	dx *= enemy->speed;
-	enemy->center.coo_x += dx;
-	enemy->center.coo_y += dy;
-	calc_left_point(enemy);
-	calc_right_point(enemy);
-	// enemy->center.coo_x = round(enemy->center.coo_x);
-	// enemy->center.coo_y = round(enemy->center.coo_y);
-	// printf("\ny>>>%lf      x>>>%lf\n",enemy->center.coo_y,enemy->center.coo_x);
-	// printf("CURRENT   y>>>%d    x>>%d\n",enemy->center.case_x,enemy->center.case_y);
-	// printf("GOAL   y>>>%d    x>>%d\n",enemy->goal.case_x,enemy->goal.case_y);
-	// printf("goal >>%lf   %lf\n",enemy->goal.coo_x,enemy->goal.coo_y);
-	// printf("goal case >>%d   %d\n",enemy->goal.case_x,enemy->goal.case_y);
-	// printf("enemy is in case  >>%d   %d\n",enemy->center.case_x,enemy->center.case_y);
 	if (are_double_close(enemy->center.coo_x, enemy->goal.coo_x)
 		&& are_double_close(enemy->center.coo_y, enemy->goal.coo_y)
 		&& enemy->center.case_x == enemy->goal.case_x
@@ -578,6 +564,21 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		// printf("END TRAJ IN CASE\n");
 		return ;
 	}
+	enemy->center.coo_x += dx;
+	enemy->center.coo_y += dy;
+	if (enemy->calc_path > 0)
+		enemy->calc_path--;
+	printf("calc_path >>%d\n",enemy->calc_path);
+	calc_left_point(enemy);
+	calc_right_point(enemy);
+	// enemy->center.coo_x = round(enemy->center.coo_x);
+	// enemy->center.coo_y = round(enemy->center.coo_y);
+	// printf("\ny>>>%lf      x>>>%lf\n",enemy->center.coo_y,enemy->center.coo_x);
+	// printf("CURRENT   y>>>%d    x>>%d\n",enemy->center.case_x,enemy->center.case_y);
+	// printf("GOAL   y>>>%d    x>>%d\n",enemy->goal.case_x,enemy->goal.case_y);
+	// printf("goal >>%lf   %lf\n",enemy->goal.coo_x,enemy->goal.coo_y);
+	// printf("goal case >>%d   %d\n",enemy->goal.case_x,enemy->goal.case_y);
+	// printf("enemy is in case  >>%d   %d\n",enemy->center.case_x,enemy->center.case_y);
 	if (enemy->center.coo_x < 0 || enemy->center.coo_x > 64
 		|| enemy->center.coo_y < 0 || enemy->center.coo_y > 64)
 	{
@@ -659,8 +660,7 @@ static int	handle_ray_y_down_gen(t_data *data, t_ray *ray)
 
 static int	handle_ray_x_left_gen(t_data *data, t_ray *ray)
 {
-	if (data->map.tabmap[ray->case_y][ray->case_x - 1] != '1'
-	)
+	if (data->map.tabmap[ray->case_y][ray->case_x - 1] != '1')
 	{
 		ray->case_x--;
 		ray->coo_x = 64;
@@ -760,8 +760,10 @@ int	see_player(t_data *data, t_enemy *enemy)
 	// printf("deg angle to player>>>%lf     base>>%lf\n",deg,enemy->deg);
 	// if (data->ray[i].enemys[j]->enemy.deg + 360 >= data->ray[i].deg - 90 + 360
 	// 	&& data->ray[i].enemys[j]->enemy.deg + 360 <= data->ray[i].deg + 90 + 360)
-	if (deg + 360 >= enemy->deg - 90 + 360
+	if ((deg + 360 >= enemy->deg - 90 + 360
 		&& deg + 360 <= enemy->deg + 90 + 360)
+	||
+		enemy->calc_path > 0)
 	{
 		// printf("ray lauch try see enemy   %lf     %lf\n",deg,enemy->deg);
 		t_ray	ray;
@@ -819,9 +821,11 @@ int	see_player(t_data *data, t_enemy *enemy)
 		- ray.start_case_x) * 64.0 + (data->map.mini.player_coo.x
 		- ray.start_coo_x)));
 		// printf("dist player >%lf    dist_wall >%lf\n",dist_player, ray.dist_wall);
-		if (dist_player < ray.dist_wall)
+		if (dist_player < ray.dist_wall || enemy->calc_path > 0)
 		{
 			// printf("SEE PLAYER GO ON IT     im in x>%d  y>%d\n",enemy->center.case_x,enemy->center.case_y);
+			if (dist_player < ray.dist_wall)
+				enemy->calc_path = 30;
 			while (enemy->way)
 			{
 				if (enemy->way->child)
@@ -864,7 +868,7 @@ void	move_enemy(t_data *data)
 			gen_enemy_way(data, enemy);
 		else
 		{
-			// see_player(data, enemy);
+			see_player(data, enemy);
 			make_move_enemy(data, enemy);
 		}
 		lst = lst->next;

@@ -124,6 +124,11 @@ static void	aff_enemy(t_data *data, t_utils_mini *u, t_mini *mini)
 	}
 }
 
+static void	aff_life(t_data *data)
+{
+	(void)data;
+}
+
 void	aff_mini_map(t_data *data)
 {
 	data->u.y = -4;
@@ -147,5 +152,6 @@ void	aff_mini_map(t_data *data)
 		}
 	}
 	set_player_in_mini_map(data, &data->u, data->map.mini.rad);
+	aff_life(data);
 	print_mini_map(data);
 }
