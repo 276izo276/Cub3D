@@ -78,6 +78,8 @@ void	save_and_move_foot(t_data *data, double rad)
 	data->map.mini.foot_tab[0].coo.coo_y = data->map.mini.player_coo.y;
 	data->map.mini.foot_tab[0].coo.coo_x = data->map.mini.player_coo.x;
 	data->map.mini.foot_tab[0].rad = rad;
+	data->map.mini.foot_tab[0].foot_x = -1;
+	data->map.mini.foot_tab[0].foot_y = -1;
 	if (data->map.mini.foot_tab[1].is_save == true && data->map.mini.foot_tab[1].is_left == false)
 		data->map.mini.foot_tab[0].is_left = true;
 	else
@@ -89,21 +91,28 @@ void	angle_offset(t_data *data, int *start_x, int *start_y, int i)
 {
 	int	angle_deg;
 	
+	if (data->map.mini.foot_tab[i].foot_x != -1)
+	{
+		*start_x = data->map.mini.foot_tab[i].foot_x;
+		*start_y = data->map.mini.foot_tab[i].foot_y;
+		return ;
+	}
 	angle_deg = data->map.mini.foot_tab[i].rad * 180 / M_PI;
 	if ((angle_deg >= 315 || angle_deg <= 45) || (angle_deg > 135 && angle_deg < 225))
 	{
 		if (data->map.mini.foot_tab[i].is_left == true)
-			*start_x -= 10;
+			*start_x -= 9;
 		else
-			*start_x += 10;
+			*start_x += 9;
 	}
 	else if ((angle_deg >= 45 && angle_deg <= 135) || (angle_deg >= 225 && angle_deg <= 315))
 	{
 		if (data->map.mini.foot_tab[i].is_left == true)
-			*start_y += 10;
+			*start_y += 9;
 		else
-			*start_y -= 10;
+			*start_y -= 9;
 	}
+
 }
 
 void	set_foot_in_mini_map(t_data *data, int i, t_utils_mini *u, t_img img, double distance)

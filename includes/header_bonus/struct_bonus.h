@@ -265,6 +265,8 @@ struct s_foot
 	t_fcoo	coo;
 	bool	is_left;
 	bool	is_save;
+	int		foot_x;
+	int		foot_y;
 	double	rad;
 };
 

@@ -179,6 +179,8 @@ void	init_foot_tab(t_data *data)
 	data->map.mini.foot_tab[0].is_left = true;
 	data->map.mini.foot_tab[0].is_save = true;
 	data->map.mini.foot_tab[0].rad = 0;
+	data->map.mini.foot_tab[0].foot_x = -1;
+	data->map.mini.foot_tab[0].foot_y = -1;
 	while (i < 8)
 	{
 		data->map.mini.foot_tab[i].is_save = false;
@@ -188,6 +190,8 @@ void	init_foot_tab(t_data *data)
 		data->map.mini.foot_tab[i].coo.coo_x = 0;
 		data->map.mini.foot_tab[i].rad = 0;
 		data->map.mini.foot_tab[i].is_left = true;
+		data->map.mini.foot_tab[i].foot_x = -1;
+		data->map.mini.foot_tab[i].foot_y = -1;
 		++i;
 	}
 	data->map.mini.time_foot = 0;

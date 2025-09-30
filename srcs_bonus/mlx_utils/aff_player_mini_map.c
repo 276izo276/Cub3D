@@ -47,7 +47,6 @@ void	set_player_in_mini_map(t_data *data, t_utils_mini *u, double rad)
 		img = &data->map.mini.img[MINI_LEFT];
 	u->start_y = u->size / 2 - img->height / 2;
 	u->start_x = u->size / 2 - img->width / 2;
-	set_trail_foot(data, u);
 	u->y = -1;
 	while (++u->y < img->height)
 	{
@@ -59,5 +58,6 @@ void	set_player_in_mini_map(t_data *data, t_utils_mini *u, double rad)
 				set_pix_player(data, u, u->start_y, u->start_x);
 		}
 	}
+	set_trail_foot(data, u);
 	save_and_move_foot(data, rad);
 }
