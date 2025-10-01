@@ -238,13 +238,13 @@ static void	pathfinder(t_data *data, t_enemy *enemy)
 			return ;
 		}
 		open = get_first_elem_lst(open);
-		t_lst	*tmp = open;
+		// t_lst	*tmp = open;
 		// printf("start print open \n");
-		while (tmp)
-		{
-			// printf("t_cost>%d   r_cost>%d    h_cost>%d\n",((t_case*)tmp->dt)->t_cost,((t_case*)tmp->dt)->r_cost,((t_case*)tmp->dt)->h_cost);
-			tmp = tmp->next;
-		}
+		// while (tmp)
+		// {
+		// 	printf("t_cost>%d   r_cost>%d    h_cost>%d\n",((t_case*)tmp->dt)->t_cost,((t_case*)tmp->dt)->r_cost,((t_case*)tmp->dt)->h_cost);
+		// 	tmp = tmp->next;
+		// }
 		// printf("PASS HERE next case y>>%d   x>>%d\n",((t_case *)open->dt)->case_y,((t_case *)open->dt)->case_x);
 	}
 	int	nb_elem_lst = ft_strlen_lst(closed);
@@ -388,7 +388,7 @@ static void	gen_enemy_way(t_data *data, t_enemy *enemy)
 	enemy->goal.case_y = y;
 	enemy->goal.coo_y = 32;
 	enemy->goal.coo_x = 32;
-	printf("Found Case y>%d   x>%d     value>>%c     center   y>%d   x>%d\n", y, x, data->map.tabmap[y][x],enemy->center.case_y,enemy->center.case_x);
+	// printf("Found Case y>%d   x>%d     value>>%c     center   y>%d   x>%d\n", y, x, data->map.tabmap[y][x],enemy->center.case_y,enemy->center.case_x);
 	pathfinder(data, enemy);
 	calc_in_cell_path(data, enemy);
 	print_path(enemy);
@@ -568,20 +568,22 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	enemy->center.coo_y += dy;
 	if (enemy->calc_path > 0)
 		enemy->calc_path--;
-	printf("calc_path >>%d\n",enemy->calc_path);
+	// printf("calc_path >>%d\n",enemy->calc_path);
 	calc_left_point(enemy);
 	calc_right_point(enemy);
 	// enemy->center.coo_x = round(enemy->center.coo_x);
 	// enemy->center.coo_y = round(enemy->center.coo_y);
-	// printf("\ny>>>%lf      x>>>%lf\n",enemy->center.coo_y,enemy->center.coo_x);
 	// printf("CURRENT   y>>>%d    x>>%d\n",enemy->center.case_x,enemy->center.case_y);
+	// printf("y>>>%lf      x>>>%lf\n",enemy->center.coo_y,enemy->center.coo_x);
+	// printf("way_y>%d   way_x>%d\n",enemy->way->coo_y,enemy->way->coo_x);
 	// printf("GOAL   y>>>%d    x>>%d\n",enemy->goal.case_x,enemy->goal.case_y);
 	// printf("goal >>%lf   %lf\n",enemy->goal.coo_x,enemy->goal.coo_y);
 	// printf("goal case >>%d   %d\n",enemy->goal.case_x,enemy->goal.case_y);
 	// printf("enemy is in case  >>%d   %d\n",enemy->center.case_x,enemy->center.case_y);
-	if (enemy->center.coo_x < 0 || enemy->center.coo_x > 64
-		|| enemy->center.coo_y < 0 || enemy->center.coo_y > 64)
+	if (enemy->center.coo_x < 0 || enemy->center.coo_x >= 64
+		|| enemy->center.coo_y < 0 || enemy->center.coo_y >= 64)
 	{
+		// printf("Change Case\n");
 		if (enemy->center.coo_x < 0)
 			enemy->center.coo_x = 64;
 		if (enemy->center.coo_x > 64)
@@ -757,9 +759,8 @@ int	see_player(t_data *data, t_enemy *enemy)
 		deg = 90;
 	else if (diff_x == 0 && diff_y < 0)
 		deg = 180;
-	// printf("deg angle to player>>>%lf     base>>%lf\n",deg,enemy->deg);
-	// if (data->ray[i].enemys[j]->enemy.deg + 360 >= data->ray[i].deg - 90 + 360
-	// 	&& data->ray[i].enemys[j]->enemy.deg + 360 <= data->ray[i].deg + 90 + 360)
+	// printf("\ndeg angle to player>>>%lf     base>>%lf\n",deg,enemy->deg);
+	// printf("\ndeg angle to player>>>%lf     %lf     %lf\n",enemy->deg - 90 + 360, deg + 360, enemy->deg + 90 + 360);
 	if ((deg + 360 >= enemy->deg - 90 + 360
 		&& deg + 360 <= enemy->deg + 90 + 360)
 	||
@@ -778,9 +779,9 @@ int	see_player(t_data *data, t_enemy *enemy)
 		ray.case_x = enemy->center.case_x;
 		ray.deg = fmod(ray.deg, 360);
 		ray.rad = ray.deg * (M_PI / 180);
-		ray.delta_x = cos(ray.rad);
-		ray.delta_y = sin(ray.rad);
-		// printf("\nAngle >%lf       dx>>%lf        dy>>%lf\n",ray.deg,ray.delta_x,ray.delta_y);
+		ray.delta_y = cos(ray.rad);
+		ray.delta_x = sin(ray.rad);
+		// printf("Angle >%lf       dx>>%lf        dy>>%lf\n",ray.deg,ray.delta_x,ray.delta_y);
 		while (1)
 		{
 			if (ray.delta_x > 0)
@@ -828,7 +829,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 				enemy->calc_path = 30;
 			if (dist_player < 32)
 			{
-				printf("Damage player\n");
+				// printf("Damage player\n");
 				data->damage += enemy->damage;
 				data->slowness += enemy->slowness;
 			}
