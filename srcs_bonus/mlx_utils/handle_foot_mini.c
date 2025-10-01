@@ -20,6 +20,7 @@ static void	set_pix_old_player(t_utils_mini *u, int start_y, int start_x, unsign
 		return ;
 	if (u->color != YELLOW)
 	{
+		// for ceil
 		u->pixel_addr = u->mmap.data_addr + (((int)ceil(u->yfloat)
 				+ start_y) * u->mmap.size_line
 			+ ((int)ceil(u->xfloat) + start_x)
@@ -28,7 +29,6 @@ static void	set_pix_old_player(t_utils_mini *u, int start_y, int start_x, unsign
 		r_old = (old_color >> 16) & 255;
 		g_old = (old_color >> 8) & 255;
 		b_old = old_color & 255;
-
 		a_new = (color >> 24) & 255;
 		r_new = (color >> 16) & 255;
 		g_new = (color >> 8) & 255;
@@ -37,10 +37,23 @@ static void	set_pix_old_player(t_utils_mini *u, int start_y, int start_x, unsign
 		g_new = (int)((1 - (a_new / 255.0)) * g_old + (a_new / 255.0) * g_new);
 		b_new = (int)((1 - (a_new / 255.0)) * b_old + (a_new / 255.0) * b_new);
 		*(unsigned int *)u->pixel_addr = (r_new << 16) + (g_new << 8) + b_new;
+
+		// for floor
 		u->pixel_addr = u->mmap.data_addr + (((int)floor(u->yfloat)
 		+ start_y) * u->mmap.size_line
 		+ ((int)floor(u->xfloat) + start_x)
 		* (u->mmap.bits_per_pixel / 8));
+		old_color = *(unsigned int *)u->pixel_addr;
+		r_old = (old_color >> 16) & 255;
+		g_old = (old_color >> 8) & 255;
+		b_old = old_color & 255;
+		a_new = (color >> 24) & 255;
+		r_new = (color >> 16) & 255;
+		g_new = (color >> 8) & 255;
+		b_new = color & 255;
+		r_new = (int)((1 - (a_new / 255.0)) * r_old + (a_new / 255.0) * r_new);
+		g_new = (int)((1 - (a_new / 255.0)) * g_old + (a_new / 255.0) * g_new);
+		b_new = (int)((1 - (a_new / 255.0)) * b_old + (a_new / 255.0) * b_new);
 		*(unsigned int *)u->pixel_addr = (r_new << 16) + (g_new << 8) + b_new;
 	}
 }
@@ -87,6 +100,34 @@ void	save_and_move_foot(t_data *data, double rad)
 	data->map.mini.foot_tab[0].is_save = true;
 }
 
+void	get_good_offset_y(t_data *data, int angle_deg, int *start_y, int i)
+{
+	if ((angle_deg >= 45 && angle_deg <= 135))
+	{
+		if (data->map.mini.foot_tab[i].is_left == false)
+			*start_y -= 12;
+	}
+	else if ((angle_deg >= 225 && angle_deg <= 315))
+	{
+		if (data->map.mini.foot_tab[i].is_left == false)
+			*start_y += 12;
+	}
+}
+
+void	get_good_offset_x(t_data *data, int angle_deg, int *start_x, int i)
+{
+	if ((angle_deg >= 315 || angle_deg <= 45))
+	{
+		if (data->map.mini.foot_tab[i].is_left == false)
+			*start_x += 12;
+	}
+	else if ((angle_deg > 135 && angle_deg < 225))
+	{
+		if (data->map.mini.foot_tab[i].is_left == false)
+			*start_x -= 12;
+	}
+}
+
 void	angle_offset(t_data *data, int *start_x, int *start_y, int i)
 {
 	int	angle_deg;
@@ -98,24 +139,10 @@ void	angle_offset(t_data *data, int *start_x, int *start_y, int i)
 		return ;
 	}
 	angle_deg = data->map.mini.foot_tab[i].rad * 180 / M_PI;
-	if ((angle_deg >= 315 || angle_deg <= 45) || (angle_deg > 135 && angle_deg < 225))
-	{
-		if (data->map.mini.foot_tab[i].is_left == true)
-			*start_x -= 5;
-		else
-			*start_x += 5;
-		data->map.mini.foot_tab[i].foot_x = *start_x;
-		data->map.mini.foot_tab[i].foot_y = *start_y;
-	}
-	else if ((angle_deg >= 45 && angle_deg <= 135) || (angle_deg >= 225 && angle_deg <= 315))
-	{
-		if (data->map.mini.foot_tab[i].is_left == true)
-			*start_y += 5;
-		else
-			*start_y -= 5;
-		data->map.mini.foot_tab[i].foot_x = *start_x;
-		data->map.mini.foot_tab[i].foot_y = *start_y;
-	}
+	get_good_offset_x(data, angle_deg, start_x, i);
+	get_good_offset_y(data, angle_deg, start_y, i);
+	data->map.mini.foot_tab[i].foot_x = *start_x;
+	data->map.mini.foot_tab[i].foot_y = *start_y;
 
 }
 
