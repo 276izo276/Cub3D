@@ -826,6 +826,12 @@ int	see_player(t_data *data, t_enemy *enemy)
 			// printf("SEE PLAYER GO ON IT     im in x>%d  y>%d\n",enemy->center.case_x,enemy->center.case_y);
 			if (dist_player < ray.dist_wall)
 				enemy->calc_path = 30;
+			if (dist_player < 32)
+			{
+				printf("Damage player\n");
+				data->damage += enemy->damage;
+				data->slowness += enemy->slowness;
+			}
 			while (enemy->way)
 			{
 				if (enemy->way->child)

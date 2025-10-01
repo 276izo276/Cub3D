@@ -21,6 +21,8 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	enemy->speed = 3;
 	enemy->radius = 6;
 	enemy->deg = 90;
+	enemy->damage = 5;
+	enemy->damage = 2;
 	enemy->rad = enemy->deg * (M_PI / 180);
 	enemy->calc = true;
 	calc_left_point(enemy);
