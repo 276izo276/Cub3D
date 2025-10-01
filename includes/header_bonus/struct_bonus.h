@@ -424,6 +424,8 @@ struct	s_enemy
 	double			rad;
 	int				radius;
 	int				life;
+	int				damage;
+	int				slowness;
 	int				speed;
 	t_fcoo			goal;
 	t_case			*way;
@@ -493,6 +495,8 @@ struct s_data
 	int		nb_enemy;
 	int		nb_create_enemy;
 	int		life;
+	int		damage;
+	int		slowness;
 };
 
 t_coo	*init_t_coo(int y, int x);
