@@ -40,7 +40,7 @@ void    draw_left_border(t_data *data, int size)
         x = 0;
         while (x <= size)
         {
-            distance = x * 3 ;
+            distance = x;
             // if (distance < 40)
             // {
                 color = get_texture_pixel(data->screen, x, y);
@@ -66,7 +66,7 @@ void    draw_right_border(t_data *data, int size)
         x = 0;
         while (x <= size)
         {
-            distance = x * 3 ;
+            distance = x;
             // if (distance < 40)
             // {
                 color = get_texture_pixel(data->screen, data->mlx.width - x, y);
@@ -92,7 +92,7 @@ void    draw_top_border(t_data *data, int size)
         x = 0;
         while (x <= data->mlx.width)
         {
-            distance = y * 3;
+            distance = y;
             // if (distance < 40)
             // {
                 color = get_texture_pixel(data->screen, x, y);
@@ -118,7 +118,7 @@ void    draw_down_border(t_data *data, int size)
         x = 0;
         while (x <= data->mlx.width)
         {
-            distance = y * 3;
+            distance = y;
             // if (distance < 40)
             // {
                 color = get_texture_pixel(data->screen, x, data->mlx.height - y - 100);
@@ -134,7 +134,7 @@ void    display_blood_border(t_data *data)
 {
     int size;
 
-    data->life = 1;
+    data->life = 80;
     if (data->life == 100)
         return ;
     size = 100 - data->life;
