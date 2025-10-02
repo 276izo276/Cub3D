@@ -93,7 +93,7 @@ void	handle_wall_msg(t_data *data, long long int cur)
 int	game_loop(t_data *data)
 {
 	long long int	cur;
-
+	
 	cur = get_mtime();
 	if (data->status == MENU)
 		display_menu(data);
@@ -123,6 +123,8 @@ int	game_loop(t_data *data)
 			pthread_barrier_wait(&data->barrier_display);
 			pthread_barrier_wait(&data->barrier_display);
 			mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
+			// if (data->life > 0)
+			// 	--data->life;
 			display_blood_border(data);
 			display_hand(data);
 			aff_mini_map(data);

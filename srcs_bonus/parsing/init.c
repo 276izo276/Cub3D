@@ -383,4 +383,6 @@ void	init_data(t_data *data, int ac, char **av)
 	data->sensitivity = 60;
 	data->pause_menu.selected = 0;
 	data->pause_menu.elapsed = 0;
+
+	data->life = 100;
 }

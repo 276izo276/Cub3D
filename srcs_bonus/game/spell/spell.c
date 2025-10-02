@@ -55,7 +55,6 @@ void	lumos_loop(t_data *data, int start_x, int start_y)
 	}
 }
 
-
 void	spell_lumos(t_data *data)
 {
 	int				start_x;
