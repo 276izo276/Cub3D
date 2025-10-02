@@ -130,6 +130,7 @@ GAME_BONUS		=								\
 				display/display_door.c			\
 				display/display_msg.c			\
 				display/display_item.c			\
+				display/display_blood_border.c  \
 				environment/handle_door.c 		\
 				input_move.c					\
 				game_loop.c						\

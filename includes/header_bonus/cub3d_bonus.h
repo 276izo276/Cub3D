@@ -45,6 +45,7 @@ void	*display_fst_part(void *ptr);
 void	*display_snd_part(void *ptr);
 void	*display_third_part(void *ptr);
 void	*display_last_part(void *ptr);
+void    display_blood_border(t_data *data);
 
 void	*ray_launch_first(void *ptr);
 void	*ray_launch_snd(void *ptr);

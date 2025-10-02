@@ -123,6 +123,7 @@ int	game_loop(t_data *data)
 			pthread_barrier_wait(&data->barrier_display);
 			pthread_barrier_wait(&data->barrier_display);
 			mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
+			display_blood_border(data);
 			display_hand(data);
 			aff_mini_map(data);
 			handle_door(data);

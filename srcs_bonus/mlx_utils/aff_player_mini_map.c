@@ -41,10 +41,10 @@ void	set_player_in_mini_map(t_data *data, t_utils_mini *u, double rad)
 {
 	t_img	*img;
 
-	if (data->map.mini.last_foot != MINI_LEFT)
-		img = &data->map.mini.img[MINI_CURS];
-	else
-		img = &data->map.mini.img[MINI_CURS];
+	// if (data->map.mini.last_foot != MINI_LEFT)
+		// img = &data->map.mini.img[MINI_CURS];
+	// else
+	img = &data->map.mini.img[MINI_CURS];
 	u->start_y = u->size / 2 - img->height / 2;
 	u->start_x = u->size / 2 - img->width / 2;
 	u->y = -1;
