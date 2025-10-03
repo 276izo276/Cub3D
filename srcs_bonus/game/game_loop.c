@@ -125,6 +125,8 @@ int	game_loop(t_data *data)
 			mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
 			// if (data->life > 0)
 			// 	--data->life;
+			// else if (data->life <= 0 && data->life >= -92)
+			// 	data->life -= 5;
 			display_blood_border(data);
 			display_hand(data);
 			aff_mini_map(data);

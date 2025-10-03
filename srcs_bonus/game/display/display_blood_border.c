@@ -28,8 +28,6 @@ int	get_right_red(int color, double distance, int size, int life)
 	return (color);
 }
 
-
-#include <stdio.h>
 void    draw_left_border(t_data *data, int size)
 {
     int x;
@@ -44,11 +42,11 @@ void    draw_left_border(t_data *data, int size)
         while (x <= size)
         {
             distance = x;
-            if (y < size)
-            {
-                distance = sqrt(x * x + y * y);
-                // printf("dist >> %f\n", distance);
-            }
+            // if (y < size)
+            // {
+            //     distance = sqrt(x * x + y * y);
+            //     // printf("dist >> %f\n", distance);
+            // }
             // else if (y > data->mlx.height - size - 100)
             //     distance = sqrt(x * x + (data->mlx.height - y - 100) * (data->mlx.height - y - 100));
             if (distance <= size)
@@ -77,8 +75,8 @@ void    draw_top_border(t_data *data, int size)
         while (x <= data->mlx.width)
         {
             distance = y;
-            if (x < size)
-                distance = sqrt(x * x + y * y);
+            // if (x < size)
+            //     distance = sqrt(x * x + y * y);
             // else if (x > data->mlx.width - size)
             //     distance = sqrt((data->mlx.width - size) * (data->mlx.width - size) + y * y);
             if (distance <= size)
@@ -141,13 +139,13 @@ void    display_blood_border(t_data *data)
 {
     int size;
 
-    data->life = 1;
-    printf("life >> %d\n", data->life);
+    // #include <stdio.h>
+    // printf("life >> %d\n", data->life);
     if (data->life >= 50)
         return ;
     size = pow(((50.0 - data->life) / 50.0), 1.5) * 150;
     draw_left_border(data, size);
-    // draw_right_border(data, size);
+    draw_right_border(data, size);
     draw_top_border(data, size);
-    // draw_down_border(data, size);
+    draw_down_border(data, size);
 }
