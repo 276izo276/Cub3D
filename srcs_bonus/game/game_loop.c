@@ -90,6 +90,65 @@ void	handle_wall_msg(t_data *data, long long int cur)
 
 #include <stdio.h>
 
+void	aff_xp(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = data->mlx.width - 350;
+	while (x <data->mlx.width - 50)
+	{
+		y = data->mlx.height - 35;
+		while (y < data->mlx.height - 20)
+		{
+			
+			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0x00FFFF;
+			y++;
+		}
+		x++;
+	}
+}
+
+
+void	aff_life(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = data->mlx.width - 350;
+	while (x <data->mlx.width - 50)
+	{
+		y = data->mlx.height - 55;
+		while (y < data->mlx.height - 40)
+		{
+			
+			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0x00FF00;
+			y++;
+		}
+		x++;
+	}
+}
+
+
+void	aff_shield(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = data->mlx.width - 350;
+	while (x <data->mlx.width - 50)
+	{
+		y = data->mlx.height - 75;
+		while (y < data->mlx.height - 60)
+		{
+			
+			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0x0000FF;
+			y++;
+		}
+		x++;
+	}
+}
+
 int	game_loop(t_data *data)
 {
 	long long int	cur;
@@ -122,6 +181,9 @@ int	game_loop(t_data *data)
 			// sem_post(data->sem_display);
 			pthread_barrier_wait(&data->barrier_display);
 			pthread_barrier_wait(&data->barrier_display);
+			aff_xp(data);
+			aff_life(data);
+			aff_shield(data);
 			mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
 			display_hand(data);
 			aff_mini_map(data);
