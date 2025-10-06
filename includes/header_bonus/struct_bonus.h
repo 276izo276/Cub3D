@@ -325,6 +325,7 @@ struct s_map
 	t_img	*ceiling;
 	t_img	*dementor_front;
 	t_img	*dementor_back;
+	t_img	*floo;
 };
 
 struct s_display

@@ -42,6 +42,8 @@ void	open_textures(t_data *data)
 	// open_img(data->map.text_floor, data);
 	// open_img(data->map.text_sky, data);
 	open_img(data->map.door, data);
+	open_img(data->map.floo, data);
+
 	open_img(data->map.fixed_door, data);
 	open_img(data->coa[FIRE].img_coa, data);
 	open_img(data->coa[WATER].img_coa, data);

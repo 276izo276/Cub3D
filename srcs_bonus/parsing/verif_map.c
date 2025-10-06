@@ -8,13 +8,13 @@
 
 static void	is_valid_char_map(char c, int y, int x, t_data *data)
 {
-	const char	tab[] = {'0', '1', 'D', ' ', '.', 'N', 'S', 'W', 'E', 0};
+	const char	tab[] = {'0', '1', 'D', 'F', ' ', '.', 'N', 'S', 'W', 'E', 0};
 	int			i;
 
 	i = -1;
 	while (tab[++i])
 	{
-		if (tab[i] == c && i >= 5)
+		if (tab[i] == c && i >= 6)
 		{
 			if (data->map.player_coo)
 			{
@@ -27,7 +27,7 @@ static void	is_valid_char_map(char c, int y, int x, t_data *data)
 				f_exit(data, 1);
 			return ;
 		}
-		else if (tab[i] == c && i <= 4)
+		else if (tab[i] == c && i <= 5)
 			return ;
 	}
 	ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE "Map >>> '"
@@ -75,6 +75,18 @@ static void	add_door(t_data *data, int y, int x)
 	data->doors = doors;
 }
 
+void	is_foo(char c, int y, int x, t_data *data)
+{
+	if (c != 'F')
+		return ;
+	if (!((data->map.tabmap[y][x - 1] == '1' && data->map.tabmap[y][x + 1] == '1')
+		|| (data->map.tabmap[y + 1][x] == '1' && data->map.tabmap[y - 1][x] == '1')))
+	{
+		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
+			"Map >>> " "foo found alone\n"_END);
+		f_exit(data, 1);
+	}
+}
 static void	is_door(char c, int y, int x, t_data *data)
 {
 	if (c != 'D')
@@ -158,6 +170,7 @@ static void	check_map_valid_char(t_data *data)
 			is_valid_char_map(data->map.tabmap[y][x], y, x, data);
 			save_wall(data->map.tabmap[y][x], y, x, data);
 			is_door(data->map.tabmap[y][x], y, x, data);
+			is_foo(data->map.tabmap[y][x], y, x, data);
 			is_enemy(data->map.tabmap[y][x], y, x, data);
 			x++;
 		}

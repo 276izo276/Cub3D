@@ -13,7 +13,8 @@ int	handle_ray_y_top(t_data *data, int i)
 	// int	x;
 	// int	y;
 	calc_door(data, i);
-	if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != '1')
+	if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != '1'
+		&& data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != 'F')
 	{
 		data->ray[i].case_y--;
 		data->ray[i].coo_y = 64;
@@ -30,9 +31,10 @@ int	handle_ray_y_top(t_data *data, int i)
 		if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] == '1' && data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->is_active == false && data->player_moved == true && data->display.is_msg_active == true)
 		{
 			// printf("IN \n");
-			if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')
+			if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D'
+				|| data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'F')
 				return (1);
-		int random = rand() % (150 * data->mlx.width);
+			int random = rand() % (150 * data->mlx.width);
 			// int random = rand() % (150 * data->mlx.width);
 			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
@@ -71,7 +73,7 @@ int	handle_ray_y_down(t_data *data, int i)
 
 	calc_door(data, i);
 	if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != '1'
-	)
+		&& data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != 'F')
 	{
 		data->ray[i].case_y++;
 		data->ray[i].coo_y = 0;
@@ -85,9 +87,10 @@ int	handle_ray_y_down(t_data *data, int i)
 		data->ray[i].coo_x = round(data->ray[i].coo_x * 64) / 64.0;
 		if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] == '1' && data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->is_active == false && data->player_moved == true && data->display.is_msg_active == true)
 		{
-			if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')
+			if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D'
+				|| data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'F')
 				return (1);
-		int random = rand() % (150 * data->mlx.width);
+			int random = rand() % (150 * data->mlx.width);
 			// int random = rand() % (150 * data->mlx.width);
 
 			if (random == data->random_value && data->current_msg < data->nb_msg)
@@ -126,7 +129,7 @@ int	handle_ray_x_left(t_data *data, int i)
 
 	calc_door(data, i);
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != '1'
-	)
+		&& data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != 'F')
 	{
 		data->ray[i].case_x--;
 		data->ray[i].coo_x = 64;
@@ -140,9 +143,10 @@ int	handle_ray_x_left(t_data *data, int i)
 		data->ray[i].coo_y = round(data->ray[i].coo_y * 64) / 64.0;
 		if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] == '1' && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->is_active == false && data->player_moved == true && data->display.is_msg_active == true)
 		{
-			if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')
+			if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D'
+				|| data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'F')
 				return (1);
-		int random = rand() % (150 * data->mlx.width);
+			int random = rand() % (150 * data->mlx.width);
 			// int random = rand() % (150 * data->mlx.width);
 
 			if (random == data->random_value && data->current_msg < data->nb_msg)
@@ -180,7 +184,8 @@ int	handle_ray_x_right(t_data *data, int i)
 	// int	y;
 
 	calc_door(data, i);
-	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] != '1')
+	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] != '1'
+		&& data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] != 'F')
 	{
 		data->ray[i].case_x++;
 		data->ray[i].coo_x = 0;
@@ -194,9 +199,10 @@ int	handle_ray_x_right(t_data *data, int i)
 		data->ray[i].coo_y = round(data->ray[i].coo_y * 64) / 64.0;
 		if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] == '1' && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->is_active == false && data->player_moved == true && data->display.is_msg_active == true)
 		{
-				if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')
-				return (1);
-		int random = rand() % (150 * data->mlx.width);
+				if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D'
+					|| data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'F')
+					return (1);
+			int random = rand() % (150 * data->mlx.width);
 			// int random = rand() % (150 * data->mlx.width);
 
 			if (random == data->random_value && data->current_msg < data->nb_msg)
