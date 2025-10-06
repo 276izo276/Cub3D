@@ -495,11 +495,11 @@ struct s_data
 	t_lst	*enemy;
 	int		nb_enemy;
 	int		nb_create_enemy;
-	int		life;
-	int		shield;
+	double		life;
+	double		shield;
 	double	xp;
-	int		damage;
-	int		slow;
+	double		damage;
+	double		slow;
 	int		poison;
 };
 

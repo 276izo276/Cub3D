@@ -37,6 +37,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 		if (move)
 			handle_move(&data->map, &data->map.mini, data);
 	}
+	data->slow = 0;
 }
 
 void	remove_wall_msg(t_data *data)
@@ -161,6 +162,27 @@ void	aff_shield(t_data *data)
 	}
 }
 
+void	take_damage(t_data *data)
+{
+	double	damage;
+
+	damage = data->damage;
+	data->shield -= damage;
+	if (data->shield < 0)
+	{
+		data->life += data->shield;
+		data->shield = 0;
+	}
+	data->damage = 0;
+	if (data->poison > 0)
+	{
+		data->poison--;
+		data->life--;
+	}
+	if (data->life <= 0)
+		f_exit(data, 1);
+}
+
 int	game_loop(t_data *data)
 {
 	long long int	cur;
@@ -174,6 +196,7 @@ int	game_loop(t_data *data)
 	}
 	else
 	{
+		take_damage(data);
 		handle_input_move(data, cur);
 		handle_wall_msg(data, cur);
 		if (data->time_fps + 1000 / FPS < cur)
