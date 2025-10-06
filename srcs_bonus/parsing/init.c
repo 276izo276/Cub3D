@@ -384,5 +384,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->pause_menu.selected = 0;
 	data->pause_menu.elapsed = 0;
 
-	data->life = 100;
+	data->life = 50;
+	data->shield = 18;
+	data->xp = 5.7848;
 }

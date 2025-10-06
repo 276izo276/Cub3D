@@ -831,7 +831,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 			{
 				// printf("Damage player\n");
 				data->damage += enemy->damage;
-				data->slowness += enemy->slowness;
+				data->slow += enemy->slow;
 			}
 			while (enemy->way)
 			{

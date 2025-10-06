@@ -425,7 +425,8 @@ struct	s_enemy
 	int				radius;
 	int				life;
 	int				damage;
-	int				slowness;
+	int				slow;
+	int				poison;
 	int				speed;
 	t_fcoo			goal;
 	t_case			*way;
@@ -495,8 +496,11 @@ struct s_data
 	int		nb_enemy;
 	int		nb_create_enemy;
 	int		life;
+	int		shield;
+	double	xp;
 	int		damage;
-	int		slowness;
+	int		slow;
+	int		poison;
 };
 
 t_coo	*init_t_coo(int y, int x);

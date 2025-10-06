@@ -5,6 +5,7 @@
 #include "utils_bonus.h"
 #include "color_bonus.h"
 #include "enemy_bonus.h"
+#include <math.h>
 
 static void	handle_input_move(t_data *data, long long int cur)
 {
@@ -90,6 +91,76 @@ void	handle_wall_msg(t_data *data, long long int cur)
 
 #include <stdio.h>
 
+void	aff_xp(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = data->mlx.width - 350;
+	while (x < data->mlx.width - 350 + fmod(data->xp * 300, 300))
+	{
+		y = data->mlx.height - 35;
+		while (y < data->mlx.height - 20)
+		{
+			
+			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0xFFFF00;
+			y++;
+		}
+		x++;
+	}
+}
+
+
+void	aff_life(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = data->mlx.width - 350;
+	while (x < data->mlx.width - 350 + ((double)data->life / 100 * 300))
+	{
+		y = data->mlx.height - 55;
+		while (y < data->mlx.height - 40)
+		{
+			
+			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0x00FF00;
+			y++;
+		}
+		x++;
+	}
+	while (x < data->mlx.width - 50)
+	{
+		y = data->mlx.height - 55;
+		while (y < data->mlx.height - 40)
+		{
+			
+			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0xFF0000;
+			y++;
+		}
+		x++;
+	}
+}
+
+
+void	aff_shield(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = data->mlx.width - 350;
+	while (x < data->mlx.width - 350 + ((double)data->shield / 100 * 300))
+	{
+		y = data->mlx.height - 75;
+		while (y < data->mlx.height - 60)
+		{
+			
+			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0x0000FF;
+			y++;
+		}
+		x++;
+	}
+}
+
 int	game_loop(t_data *data)
 {
 	long long int	cur;
@@ -128,6 +199,9 @@ int	game_loop(t_data *data)
 			// else if (data->life <= 0 && data->life >= -92)
 			// 	data->life -= 5;
 			display_blood_border(data);
+			aff_xp(data);
+			aff_life(data);
+			aff_shield(data);
 			display_hand(data);
 			aff_mini_map(data);
 			handle_door(data);
