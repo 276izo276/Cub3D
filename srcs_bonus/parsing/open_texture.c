@@ -5,12 +5,12 @@
 #include "utils_bonus.h"
 #include "cub3d_bonus.h"
 
-static void	open_img(t_img *img, t_data *data)
+void	open_img(t_img *img, t_data *data)
 {
 	if (!img)
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_END);
-		ft_printf_fd(2, _BOLD _PURPLE "Image >>> Missing an identifiers !!\n"_END);
+		ft_printf_fd(2, _BOLD _PURPLE "Image >>> Missing some informations!!\n"_END);
 		f_exit(data, 1);
 	}
 	img->img = mlx_xpm_file_to_image(data->mlx.mlx, img->path, &img->width,
@@ -57,7 +57,7 @@ void	open_textures(t_data *data)
 
 	// open_img(data->select_hand, data);
 	// open_img(data->player_wand, data);
-	open_img(data->spell.lumos, data);
+	// open_img(data->lumos.img, data);
 	
 
 

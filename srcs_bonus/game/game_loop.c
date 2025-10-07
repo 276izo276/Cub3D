@@ -24,8 +24,8 @@ static void	handle_input_move(t_data *data, long long int cur)
 		{
 			if (data->keycode[i] == KEY_ESCAPE)
 				f_exit(data, 0);
-			else if (data->keycode[i] == KEY_1)
-				data->spell.active = true;
+			else if (data->keycode[i] >= KEY_1 && data->keycode[i] <= KEY_2)
+				data->active_spell = data->spell_take[data->keycode[i] - KEY_1];
 			else if (is_move_player(data, i))
 				move = 1;
 			else if (data->keycode[i] == KEY_E)
@@ -37,7 +37,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 		if (move)
 			handle_move(&data->map, &data->map.mini, data);
 	}
-	data->slow = 0;
+	data->player.damage.slow_take = 0;
 }
 
 void	remove_wall_msg(t_data *data)
@@ -98,7 +98,7 @@ void	aff_xp(t_data *data)
 	int	y;
 
 	x = data->mlx.width - 350;
-	while (x < data->mlx.width - 350 + fmod(data->xp * 300, 300))
+	while (x < data->mlx.width - 350 + fmod(data->player.xp * 300, 300))
 	{
 		y = data->mlx.height - 35;
 		while (y < data->mlx.height - 20)
@@ -118,7 +118,7 @@ void	aff_life(t_data *data)
 	int	y;
 
 	x = data->mlx.width - 350;
-	while (x < data->mlx.width - 350 + ((double)data->life / 100 * 300))
+	while (x < data->mlx.width - 350 + ((double)data->player.life / 100 * 300))
 	{
 		y = data->mlx.height - 55;
 		while (y < data->mlx.height - 40)
@@ -149,7 +149,7 @@ void	aff_shield(t_data *data)
 	int	y;
 
 	x = data->mlx.width - 350;
-	while (x < data->mlx.width - 350 + ((double)data->shield / 100 * 300))
+	while (x < data->mlx.width - 350 + ((double)data->player.shield / 100 * 300))
 	{
 		y = data->mlx.height - 75;
 		while (y < data->mlx.height - 60)
@@ -166,20 +166,20 @@ void	take_damage(t_data *data)
 {
 	double	damage;
 
-	damage = data->damage;
-	data->shield -= damage;
-	if (data->shield < 0)
+	damage = data->player.damage.damage_take;
+	data->player.shield -= damage;
+	if (data->player.shield < 0)
 	{
-		data->life += data->shield;
-		data->shield = 0;
+		data->player.life += data->player.shield;
+		data->player.shield = 0;
 	}
-	data->damage = 0;
-	if (data->poison > 0)
+	data->player.damage.damage_take = 0;
+	if (data->player.damage.poison_take > 0)
 	{
-		data->poison--;
-		data->life--;
+		data->player.damage.poison_take--;
+		data->player.life--;
 	}
-	if (data->life <= 0)
+	if (data->player.life <= 0)
 		f_exit(data, 1);
 }
 
@@ -198,6 +198,8 @@ int	game_loop(t_data *data)
 	{
 		take_damage(data);
 		handle_input_move(data, cur);
+		if (data->active_spell != -1)
+			data->spell[data->active_spell].call(data, data->active_spell);
 		handle_wall_msg(data, cur);
 		if (data->time_fps + 1000 / FPS < cur)
 		{

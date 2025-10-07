@@ -39,8 +39,8 @@ static void display_wand(t_data *data, int pos_x, int pos_y)
 		}
 		++y;
 	}
-	data->spell.x_wand = pos_x;
-	data->spell.y_wand = pos_y;
+	data->lumos.x_wand = pos_x;
+	data->lumos.y_wand = pos_y;
 }
 
 void	display_hand(t_data *data)
@@ -90,6 +90,6 @@ void	display_hand(t_data *data)
 		}
 		++y;
 	}
-	if (data->spell.active == true || data->spell.count_frame > 0)
+	if (data->lumos.count_frame > 0)
 		spell_lumos(data);
 }

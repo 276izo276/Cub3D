@@ -33,8 +33,8 @@ void	handle_door(t_data *data)
 					|| y == data->map.player_coo->y - 1))
 					|| (y == data->map.player_coo->y && x == data->map.player_coo->x))
 				{
-					if (data->spell.count_frame != 0 && data->map.door_map[y][x]->pos < 120)
-						data->map.door_map[y][x]->pos += 0.03 * data->spell.count_frame;
+					if (data->lumos.count_frame != 0 && data->map.door_map[y][x]->pos < 120)
+						data->map.door_map[y][x]->pos += 0.03 * data->lumos.count_frame;
 					else if (data->map.door_map[y][x]->pos >= 3)
 						data->map.door_map[y][x]->pos -= 3;
 				}

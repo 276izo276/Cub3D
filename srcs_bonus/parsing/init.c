@@ -96,12 +96,12 @@ static void	init_texture(t_data *data)
 	// ft_bzero(data->player_wand, sizeof(t_img));
 	// data->player_wand->mlx = data->mlx.mlx;
 	// data->player_wand->path = "./texture/player_hand/wand_sureau.xpm";
-	data->spell.lumos = malloc(sizeof(t_img));
-	if (!data->spell.lumos)
-		f_exit(data, 1);
-	ft_bzero(data->spell.lumos, sizeof(t_img));
-	data->spell.lumos->mlx = data->mlx.mlx;
-	data->spell.lumos->path = "./texture/player_hand/lumos.xpm";
+	// data->lumos.img = malloc(sizeof(t_img));
+	// if (!data->lumos.img)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->lumos.img, sizeof(t_img));
+	// data->lumos.img->mlx = data->mlx.mlx;
+	// data->lumos.img->path = "./texture/player_hand/lumos.xpm";
 }
 
 void	init_pause_menu(t_data *data)
@@ -366,10 +366,10 @@ void	init_data(t_data *data, int ac, char **av)
 	data->screen->height = data->mlx.height;
 	data->ac = ac;
 	data->av = av;
-	data->spell.x_wand = 0;
-	data->spell.y_wand = 0;
-	data->spell.count_frame = 0;
-	data->spell.active = false;
+	data->lumos.x_wand = 0;
+	data->lumos.y_wand = 0;
+	data->lumos.count_frame = 0;
+	data->lumos.active = false;
 	init_texture(data);
 	init_textures(data);
 	init_coa(data);
@@ -384,7 +384,10 @@ void	init_data(t_data *data, int ac, char **av)
 	data->pause_menu.selected = 0;
 	data->pause_menu.elapsed = 0;
 
-	data->life = 50;
-	data->shield = 18;
-	data->xp = 5.7848;
+	data->player.life = 50;
+	data->player.shield = 10;
+	data->player.xp = 5.868486;
+	data->player.damage.damage_do = 1;
+	set_spell_take(data);
+	init_spell(data);
 }

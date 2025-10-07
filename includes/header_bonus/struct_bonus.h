@@ -17,7 +17,6 @@
 # define PAUSE 2
 # define SPEED 5
 # define KEYCODE_NB 100
-# define NB_TYPE_ENEMY 4
 # define MAX_CREATE_ENEMY 50
 
 typedef struct s_data		t_data;
@@ -32,7 +31,7 @@ typedef	struct s_mini		t_mini;
 typedef struct s_utils_mini	t_utils_mini;
 typedef struct s_display	t_display;
 typedef struct s_coa		t_coa;
-typedef struct s_spell		t_spell;
+typedef struct s_lumos		t_lumos;
 typedef struct s_hit_door	t_hit_door;
 typedef struct s_door		t_door;
 typedef struct s_hitray		t_hitray;
@@ -43,6 +42,10 @@ typedef	struct s_fcoo		t_fcoo;
 typedef struct s_case		t_case;
 typedef struct s_hit_enemy	t_hit_enemy;
 typedef struct s_foot		t_foot;
+typedef struct s_player		t_player;
+typedef struct s_damage		t_damage;
+typedef struct s_item		t_item;
+typedef struct s_spell		t_spell;
 
 
 typedef	enum e_dir
@@ -53,13 +56,14 @@ typedef	enum e_dir
 	WEST
 } t_dir;
 
-typedef	enum e_enemy_info
+typedef enum e_enemy_info
 {
 	DEMENTOR = '.',
 	SPIDER = ',',
 	WOLF = ';',
 	TROLL = ':'
-} t_enemy_info;
+}	t_enemy_info;
+# define NB_TYPE_ENEMY 4
 
 typedef enum e_imgs
 {
@@ -69,6 +73,43 @@ typedef enum e_imgs
 	PLAYER_WAND,
 	LEFT_SELECT
 }	t_imgs;
+
+typedef enum e_spells
+{
+	AGUAMENTI,
+	ALOHOMORA,
+	APARECIUM,
+	ARANIA_EXUMAI,
+	AVADA_KEDAVRA,
+	BOMBARDA,
+	CONFRINGO,
+	CONFUNDO,
+	ENDOLORIS,
+	EPISKEY,
+	EVANESCO,
+	EVERTE_STATUM,
+	EXPECTO_PATRONUM,
+	EXPELLIARMUS,
+	EXPULSO,
+	IMPEDIMENTA,
+	IMPERO,
+	IMMOBULUS,
+	INCENDIO,
+	LUMOS,
+	NOX,
+	OPPUGNO,
+	PETRIFICUS_TOTALUS,
+	PROTEGO,
+	REPARO,
+	REVELIO,
+	SECTUMSEMPRA,
+	SERPENSORTIA,
+	STUPEFIX,
+	VENTUS,
+	VIPERA_EVANESCA,
+	VULNERA_SANENTUR
+}	t_spells;
+# define NB_SPELL 32
 
 typedef enum e_coas
 {
@@ -111,6 +152,31 @@ struct s_wall_msg
 	int		msg_nb;
 	char	*img_addr;
 	int		dir;
+};
+
+
+struct s_damage
+{
+	double		damage_do;
+	double		slow_do;
+	double		poison_do;
+	double		fire_do;
+	double		damage_take;
+	double		slow_take;
+	double		poison_take;
+	double		fire_take;
+};
+
+struct s_item
+{
+	t_fcoo			center;
+	t_fcoo			left;
+	t_fcoo			right;
+	double			deg;
+	double			rad;
+	int				radius;
+	int				speed;
+	t_damage		damage;
 };
 
 struct s_hit_door
@@ -357,9 +423,9 @@ struct s_display
 	unsigned long long time_remove;
 };
 
-struct s_spell
+struct s_lumos
 {
-	t_img	*lumos;
+	// t_img	*img;
 	int		x_wand;
 	int		y_wand;
 	bool	active;
@@ -423,16 +489,36 @@ struct	s_enemy
 	double			deg;
 	double			rad;
 	int				radius;
-	int				life;
-	int				damage;
-	int				slow;
-	int				poison;
 	int				speed;
+	int				life;
+	t_damage		damage;
 	t_fcoo			goal;
 	t_case			*way;
 	int				wait;
 	bool			calc;
 	int				calc_path;
+};
+
+
+struct s_spell
+{
+	t_img			img;
+	t_damage		damage;
+	t_item			item;
+	t_spells		type;
+	double			base_cooldown;
+	double			base_timer;
+	long long int	launch_time;
+	long long int	end_time;
+	void			(*call)(t_data *data, t_spells info);
+};
+
+struct	s_player
+{
+	double		life;
+	double		shield;
+	double		xp;
+	t_damage	damage;
 };
 
 struct s_data
@@ -451,7 +537,7 @@ struct s_data
 	t_mlx			mlx;
 	t_ray			*ray;
 	t_display		display;
-	t_spell			spell;
+	t_lumos			lumos;
 	int				keycode[100];
 	pthread_mutex_t	m_data_ray;
 	pthread_t		thread_wall;
@@ -492,15 +578,14 @@ struct s_data
 	double			sensitivity;
 	// t_img	*wh;
 	// t_img	*bl;
-	t_lst	*enemy;
-	int		nb_enemy;
-	int		nb_create_enemy;
-	double		life;
-	double		shield;
-	double	xp;
-	double		damage;
-	double		slow;
-	int		poison;
+	t_lst		*enemy;
+	int			nb_enemy;
+	int			nb_create_enemy;
+	t_player	player;
+	t_spell		spell[NB_SPELL];
+	int		spell_take[4];
+	int			active_spell;
+	t_lst		*item;
 };
 
 t_coo	*init_t_coo(int y, int x);

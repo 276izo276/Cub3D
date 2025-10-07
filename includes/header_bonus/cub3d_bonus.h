@@ -13,6 +13,11 @@
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
 #endif
+void	f_item(void *elem);
+t_item	*init_spell_item(t_data *data, t_spells info);
+
+void	set_spell_take(t_data *data);
+void	init_spell(t_data *data);
 
 
 void	display_item(t_data *data, int i);
@@ -58,6 +63,9 @@ void	display_msg(t_data *data, int i, int y, int x);
 void	init_img_msg(t_data *data);
 void	open_img_msg(t_data *data);
 
+
+void	open_img(t_img *img, t_data *data);
+
 //raycasting
 void	ray_launch(t_data *data);
 int		handle_ray_y_down(t_data *data, int i);
@@ -101,6 +109,8 @@ int		get_right_color(int color, double distance);
 
 //spell.c
 void	spell_lumos(t_data *data);
+void	cast_lumos(t_data *data, t_spells info);
+void	cast_spell(t_data *data, t_spells info);
 
 //handle_door.c
 void	handle_door(t_data *data);

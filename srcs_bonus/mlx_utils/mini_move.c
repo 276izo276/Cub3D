@@ -246,10 +246,9 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 		v_norm(mini, data);
 	mini->dx *= SPEED;
 	mini->dy *= SPEED;
-	mini->dx *= (100 - data->slow) / 100;
-	mini->dy *= (100 - data->slow) / 100;
-	printf("slow>%lf    my>%lf    mx>%lf\n",data->slow,mini->dy,mini->dx);
-	data->slow = 0;
+	mini->dx *= (100 - data->player.damage.slow_take) / 100;
+	mini->dy *= (100 - data->player.damage.slow_take) / 100;
+	data->player.damage.slow_take = 0;
 	recalc_x(mini, map);
 	recalc_y(mini, map);
 	movex(map, mini, data);

@@ -759,7 +759,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 		deg = 90;
 	else if (diff_x == 0 && diff_y < 0)
 		deg = 180;
-	printf("\ndeg angle to player>>>%lf     base>>%lf\n",deg,enemy->deg);
+	// printf("\ndeg angle to player>>>%lf     base>>%lf\n",deg,enemy->deg);
 	// printf("\ndeg angle to player>>>%lf     %lf     %lf\n",enemy->deg - 90 + 360, deg + 360, enemy->deg + 90 + 360);
 	if ((deg + 360 >= enemy->deg - 90 + 360
 		&& deg + 360 <= enemy->deg + 90 + 360)
@@ -821,7 +821,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 		- ray.start_coo_x)) * ((data->map.player_coo->x
 		- ray.start_case_x) * 64.0 + (data->map.mini.player_coo.x
 		- ray.start_coo_x)));
-		printf("dist player >%lf    dist_wall >%lf\n",dist_player, ray.dist_wall);
+		// printf("dist player >%lf    dist_wall >%lf\n",dist_player, ray.dist_wall);
 		if (dist_player < ray.dist_wall || enemy->calc_path > 0)
 		{
 			// printf("SEE PLAYER GO ON IT     im in x>%d  y>%d\n",enemy->center.case_x,enemy->center.case_y);
@@ -829,10 +829,11 @@ int	see_player(t_data *data, t_enemy *enemy)
 				enemy->calc_path = 30;
 			if (dist_player < 32)
 			{
-				printf("Damage player\n");
-				data->damage += enemy->damage;
-				data->slow += enemy->slow;
-				data->poison += enemy->poison;
+				// printf("Damage player\n");
+				data->player.damage.damage_take += enemy->damage.damage_do;
+				data->player.damage.slow_take += enemy->damage.slow_do;
+				data->player.damage.poison_take += enemy->damage.poison_do;
+				data->player.damage.fire_take += enemy->damage.fire_do;
 			}
 			while (enemy->way)
 			{

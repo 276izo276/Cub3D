@@ -140,6 +140,9 @@ GAME_BONUS		=								\
 				menu/start_menu/draw_border.c	\
 				menu/pause_menu/handle_pause_menu.c \
 				spell/spell.c				\
+				spell/init.c				\
+				item/free.c					\
+				item/init.c						
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 
