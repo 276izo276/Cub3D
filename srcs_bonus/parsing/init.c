@@ -69,8 +69,14 @@ static void	init_texture(t_data *data)
 		f_exit(data, 1);
 	ft_bzero(data->map.floo, sizeof(t_img));
 	data->map.floo->mlx = data->mlx.mlx;
-	data->map.floo->path = "./texture/floo_open.xpm";
+	data->map.floo->path = "./texture/floo_close.xpm";
 
+	data->map.floo_open = malloc(sizeof(t_img));
+	if (!data->map.floo_open)
+		f_exit(data, 1);
+	ft_bzero(data->map.floo_open, sizeof(t_img));
+	data->map.floo_open->mlx = data->mlx.mlx;
+	data->map.floo_open->path = "./texture/floo_open.xpm";
 
 	data->map.dementor_front = malloc(sizeof(t_img));
 	if (!data->map.dementor_front)

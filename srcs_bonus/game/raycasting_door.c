@@ -91,18 +91,25 @@ void	calc_delta(t_hitray *ray)
 			ray->hit = false;
 	}
 }
+#include <stdio.h>
 
 void	calc_door(t_data *data, int i)
 {
 	t_hitray	ray;
 
 	ray.i = i;
-	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D')
+	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'D'
+		|| data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'F')
 	{
 		ray.j = -1;
 		while (++ray.j < data->nb_door)
 			if (data->ray[i].doors[ray.j]->use == false)
 				break ;
+		if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x] == 'F')
+		{
+			// printf("is floo j >> %d\n", ray.j);
+			data->ray[i].doors[ray.j]->is_floo = true;
+		}
 		set_value_calc_rxy(data, &ray);
 		ray.ax = data->map.door_map[data->ray[i].doors[ray.j]->case_y]
 		[data->ray[i].doors[ray.j]->case_x]->first_p.x;

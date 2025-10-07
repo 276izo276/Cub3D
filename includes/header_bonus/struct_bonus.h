@@ -100,6 +100,7 @@ struct s_door
 	double	pos;
 	bool	is_open;
 	bool	is_verti;
+	bool	is_floo_open;
 };
 
 struct s_wall_msg
@@ -135,6 +136,7 @@ struct s_hit_door
 	double	end_x;
 	double	start_y;
 	double	start_x;
+	bool	is_floo;
 };
 
 struct s_hit_enemy
@@ -326,6 +328,7 @@ struct s_map
 	t_img	*dementor_front;
 	t_img	*dementor_back;
 	t_img	*floo;
+	t_img	*floo_open;
 };
 
 struct s_display

@@ -71,7 +71,7 @@ static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x, in
 
 }
 
-static void	check_dir_fixed(t_data *data, int i, int j)
+static void	check_dir_fixed(t_data *data, int i, int j, t_img *img)
 {
 	double	posx_display;
 
@@ -89,11 +89,11 @@ static void	check_dir_fixed(t_data *data, int i, int j)
 			posx_display = 1 - posx_display;
 	}
 	posx_display -= floor(posx_display);
-	data->ray[i].doors[j]->texture_coo.x = (int)(posx_display * data->map.fixed_door->width);
+	data->ray[i].doors[j]->texture_coo.x = (int)(posx_display * img->width);
 	if (data->ray[i].doors[j]->texture_coo.x < 0)
 		data->ray[i].doors[j]->texture_coo.x = 0;
-	if (data->ray[i].doors[j]->texture_coo.x >= data->map.fixed_door->width)
-		data->ray[i].doors[j]->texture_coo.x = data->map.fixed_door->width - 1;
+	if (data->ray[i].doors[j]->texture_coo.x >= img->width)
+		data->ray[i].doors[j]->texture_coo.x = img->width - 1;
 }
 
 static void	put_text_pix_img_fixed(t_data *data, int i, int dist_heigh, int text_x, int j)
@@ -120,6 +120,47 @@ static void	put_text_pix_img_fixed(t_data *data, int i, int dist_heigh, int text
 	if (color != WHITE && color != YELLOW)
 		*(unsigned int *)pixel_addr = color;
 }
+
+static void	put_text_pix_img_floo(t_data *data, int i, int dist_heigh, int text_x, int j)
+{
+	char			*text_pix;
+	int				text_y;
+	char			*pixel_addr;
+	unsigned int	color;
+
+	text_y = (data->ray[i].pix_y - data->ray[i].doors[j]->htop_door)
+		* data->map.floo->height / dist_heigh;
+	if (text_y > data->map.floo->height)
+		return ;
+	pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
+			* data->screen->size_line);
+	text_pix = data->map.floo->data_addr + (text_y
+			* data->map.floo->size_line + text_x);
+	color = *(unsigned int *)text_pix;
+	if (color != WHITE && color != YELLOW)
+		*(unsigned int *)pixel_addr = color;
+}
+
+static void	put_text_pix_img_floo_open(t_data *data, int i, int dist_heigh, int text_x, int j)
+{
+	char			*text_pix;
+	int				text_y;
+	char			*pixel_addr;
+	unsigned int	color;
+
+	text_y = (data->ray[i].pix_y - data->ray[i].doors[j]->htop_door)
+		* data->map.floo_open->height / dist_heigh;
+	if (text_y > data->map.floo_open->height)
+		return ;
+	pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
+			* data->screen->size_line);
+	text_pix = data->map.floo_open->data_addr + (text_y
+			* data->map.floo_open->size_line + text_x);
+	color = *(unsigned int *)text_pix;
+	if (color != WHITE && color != YELLOW)
+		*(unsigned int *)pixel_addr = color;
+}
+
 
 static void	put_text_pix_img_dementor(t_data *data, int i, int dist_heigh, int text_x, int j)
 {
@@ -170,7 +211,8 @@ void	display_item(t_data *data, int i)
 	int	type;
 	int	text_x;
 	int	dist_heigh;
-	
+	t_img	*img;
+
 	dist_max_enemy = 1;
 	dist_max_door = 1;
 	j = 0;
@@ -223,33 +265,53 @@ void	display_item(t_data *data, int i)
 			while (++j < data->nb_door)
 				if (data->ray[i].doors[j]->dist_door == dist_max_door)
 					break ;
-			check_dir(data, i, j);
-			data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
-				* data->ray[i].calc_bits;
-			text_x = data->ray[i].doors[j]->texture_coo.x
-				* (data->map.door->bits_per_pixel >> 3);
-			data->ray[i].pix_y = data->ray[i].doors[j]->htop_door;
-			if (data->ray[i].pix_y < 0)
-				data->ray[i].pix_y = 0;
-			dist_heigh = data->ray[i].doors[j]->hbot_door - data->ray[i].doors[j]->htop_door;
-			while (data->ray[i].pix_y < data->ray[i].doors[j]->hbot_door
-				&& data->ray[i].pix_y < data->mlx.height)
+			if (data->ray[i].doors[j]->is_floo == true)
 			{
-				if (data->ray[i].pix_y > data->ray[i].doors[j]->htop_door + dist_heigh * .15)
-					put_text_pix_img(data, i, dist_heigh, text_x, j);
-				data->ray[i].pix_y++;
+				// printf(" y >>> %d x >>> %d \n ", data->ray[i].doors[j]->case_y, data->ray[i].doors[j]->case_x);
+				if (data->map.door_map[data->ray[i].doors[j]->case_y][data->ray[i].doors[j]->case_x]->is_floo_open == false)
+					img = data->map.floo;
+				else
+					img = data->map.floo_open;
 			}
-			check_dir_fixed(data, i, j);
+			else
+			{
+				img = data->map.fixed_door;
+				check_dir(data, i, j);
+				data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
+				* data->ray[i].calc_bits;
+				text_x = data->ray[i].doors[j]->texture_coo.x
+				* (data->map.door->bits_per_pixel >> 3);
+				data->ray[i].pix_y = data->ray[i].doors[j]->htop_door;
+				if (data->ray[i].pix_y < 0)
+				data->ray[i].pix_y = 0;
+				dist_heigh = data->ray[i].doors[j]->hbot_door - data->ray[i].doors[j]->htop_door;
+				while (data->ray[i].pix_y < data->ray[i].doors[j]->hbot_door
+					&& data->ray[i].pix_y < data->mlx.height)
+				{
+					if (data->ray[i].pix_y > data->ray[i].doors[j]->htop_door + dist_heigh * .15)
+						put_text_pix_img(data, i, dist_heigh, text_x, j);
+					data->ray[i].pix_y++;
+				}
+			}
+			check_dir_fixed(data, i, j, img);
 			text_x = data->ray[i].doors[j]->texture_coo.x
 				* (data->map.fixed_door->bits_per_pixel >> 3);
 			data->ray[i].pix_y = data->ray[i].doors[j]->htop_door;
 			if (data->ray[i].pix_y < 0)
-				data->ray[i].pix_y = 0;
+			data->ray[i].pix_y = 0;
 			dist_heigh = data->ray[i].doors[j]->hbot_door - data->ray[i].doors[j]->htop_door;
 			while (data->ray[i].pix_y < data->ray[i].doors[j]->hbot_door
-				&& data->ray[i].pix_y < data->mlx.height)
+			&& data->ray[i].pix_y < data->mlx.height)
 			{
-				put_text_pix_img_fixed(data, i, dist_heigh, text_x, j);
+				if (data->ray[i].doors[j]->is_floo == true)
+				{
+					if (data->map.door_map[data->ray[i].doors[j]->case_y][data->ray[i].doors[j]->case_x]->is_floo_open == false)
+						put_text_pix_img_floo(data, i, dist_heigh, text_x, j);
+					else
+						put_text_pix_img_floo_open(data, i, dist_heigh, text_x, j);
+				}
+				else
+					put_text_pix_img_fixed(data, i, dist_heigh, text_x, j);
 				data->ray[i].pix_y++;
 			}
 			ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));

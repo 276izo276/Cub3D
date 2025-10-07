@@ -7,34 +7,34 @@ static void	get_right_text(t_data *data, int i)
 {
 	if (data->ray[i].dir == NORTH)
 	{
-		if (data->map.tabmap[data->ray[i].case_y
-			+ 1][data->ray[i].case_x] == 'F')
-			data->ray[i].img = data->map.floo;
-		else
+		// if (data->map.tabmap[data->ray[i].case_y
+		// 	+ 1][data->ray[i].case_x] == 'F')
+		// 	data->ray[i].img = data->map.floo;
+		// else
 		data->ray[i].img = data->map.north;
 	}
 	else if (data->ray[i].dir == SOUTH)
 	{
-		if (data->map.tabmap[data->ray[i].case_y
-			- 1][data->ray[i].case_x] == 'F')
-			data->ray[i].img = data->map.floo;
-		else
+		// if (data->map.tabmap[data->ray[i].case_y
+		// 	- 1][data->ray[i].case_x] == 'F')
+		// 	data->ray[i].img = data->map.floo;
+		// else
 		data->ray[i].img = data->map.south;
 	}
 	else if (data->ray[i].dir == EAST)
 	{
-		if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x
-			- 1] == 'F')
-			data->ray[i].img = data->map.floo;
-		else
+		// if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x
+		// 	- 1] == 'F')
+		// 	data->ray[i].img = data->map.floo;
+		// else
 		data->ray[i].img = data->map.east;
 	}
 	else if (data->ray[i].dir == WEST)
 	{
-		if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x
-			+ 1] == 'F')
-			data->ray[i].img = data->map.floo;
-		else
+		// if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x
+		// 	+ 1] == 'F')
+		// 	data->ray[i].img = data->map.floo;
+		// else
 		data->ray[i].img = data->map.west;
 	}
 }
@@ -102,17 +102,16 @@ static void	display_game_loop(t_data *data, int i)
 		put_text_pix_img(data, i, dist_heigh, text_x);
 		data->ray[i].pix_y++;
 	}
-	if (data->ray[i].dir == SOUTH && data->map.tabmap[data->ray[i].case_y
-		- 1][data->ray[i].case_x] != 'F' && data->map.wall_map[data->ray[i].case_y
+	if (data->ray[i].dir == SOUTH  && data->map.wall_map[data->ray[i].case_y
 		- 1][data->ray[i].case_x]->is_active && data->map.wall_map[data->ray[i].case_y
 		- 1][data->ray[i].case_x]->dir == data->ray[i].dir)
 			display_msg(data, i, data->ray[i].case_y - 1, data->ray[i].case_x);
-	else if (data->ray[i].dir == NORTH && data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != 'F' && data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->is_active && data->map.wall_map[data->ray[i].case_y
+	else if (data->ray[i].dir == NORTH && data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->is_active && data->map.wall_map[data->ray[i].case_y
 			+ 1][data->ray[i].case_x]->dir == data->ray[i].dir)
 			display_msg(data, i, data->ray[i].case_y + 1, data->ray[i].case_x);
-	else if (data->ray[i].dir == WEST && data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] != 'F' && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->is_active && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->dir == data->ray[i].dir)
+	else if (data->ray[i].dir == WEST && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->is_active && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->dir == data->ray[i].dir)
 		display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x + 1);
-	else if (data->ray[i].dir == EAST && data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != 'F' && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->is_active && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->dir == data->ray[i].dir)
+	else if (data->ray[i].dir == EAST && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->is_active && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->dir == data->ray[i].dir)
 			display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x - 1);
 }
 
