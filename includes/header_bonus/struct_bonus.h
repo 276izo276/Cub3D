@@ -288,7 +288,7 @@ struct s_mini
 {
 	int			need_print[SIZE_MAP][SIZE_MAP];
 	t_foot		foot_tab[9];
-	t_img		img[8];
+	t_img		img[9];
 	int			last_foot;
 	long long int	time_foot;
 	int			height;
@@ -309,6 +309,7 @@ struct s_map
 {
 	int		fd;
 	int		tabmap_height;
+	int		nb_floo;
 	char	**tabmap;
 	t_door	***door_map;
 	t_wall_msg		***wall_map;

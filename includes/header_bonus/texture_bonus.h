@@ -9,6 +9,7 @@
 # define MINI_CURS 5
 # define MINI_LEFT 6
 # define MINI_RIGHT 7
+# define MINI_FLOO 8
 
 # define NORTH 0
 # define SOUTH 1

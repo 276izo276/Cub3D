@@ -214,6 +214,7 @@ void	movey(t_map *map, t_mini *mini, t_data *data)
 					mini->nx = mini->player_coo.x;
 			}
 		}
+	if (floo ?? )
 	// printf(" yold=%lf    y=%lf\n",mini->player_coo.y, mini->ny);
 }
 

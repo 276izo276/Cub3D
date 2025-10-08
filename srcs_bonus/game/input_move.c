@@ -12,7 +12,7 @@ bool	is_move_player(t_data *data, int i)
 		|| data->keycode[i] == KEY_A || data->keycode[i] == KEY_S
 		|| data->keycode[i] == KEY_1 || data->keycode[i] == KEY_UP
 		|| data->keycode[i] == KEY_DOWN || data->keycode[i] == KEY_LEFT
-		|| data->keycode[i] == KEY_RIGHT)
+		|| data->keycode[i] == KEY_RIGHT || data->keycode[i] == KEY_2)
 		return (true);
 	return (false);
 }
@@ -135,6 +135,19 @@ static void	handle_menu_keys(int keycode, t_data *data)
 		key_select_hand(keycode, data);
 }
 
+void	handle_floo_open(t_data *data)
+{
+	if (data->map.tabmap[data->map.player_coo->y][data->map.player_coo->x] == 'F')
+		data->map.door_map[data->map.player_coo->y][data->map.player_coo->x]->is_floo_open = true;
+	else if (data->map.tabmap[data->map.player_coo->y - 1][data->map.player_coo->x] == 'F')
+		data->map.door_map[data->map.player_coo->y - 1][data->map.player_coo->x]->is_floo_open = true;
+	else if (data->map.tabmap[data->map.player_coo->y + 1][data->map.player_coo->x] == 'F')
+		data->map.door_map[data->map.player_coo->y + 1][data->map.player_coo->x]->is_floo_open = true;
+	else if (data->map.tabmap[data->map.player_coo->y][data->map.player_coo->x + 1] == 'F')
+		data->map.door_map[data->map.player_coo->y][data->map.player_coo->x + 1]->is_floo_open = true;
+	else if (data->map.tabmap[data->map.player_coo->y][data->map.player_coo->x - 1] == 'F')
+		data->map.door_map[data->map.player_coo->y][data->map.player_coo->x - 1]->is_floo_open = true;
+}
 #include <stdio.h>
 int	key_press(int keycode, t_data *data)
 {
@@ -158,6 +171,8 @@ int	key_press(int keycode, t_data *data)
 		else
 			data->spell.active = false;
 	}
+	else if (keycode == KEY_2)
+		handle_floo_open(data);
 	else if (keycode == KEY_CTRL)
 	{
 		if (data->display.player_height != 16) // a changer on a plus besoins un bool suffit

@@ -99,6 +99,8 @@ static void	is_door(char c, int y, int x, t_data *data)
 		f_exit(data, 1);
 	}
 	data->nb_door++;
+	if (c == 'F')
+		data->map.nb_floo++;
 	add_door(data, y, x);
 	if (data->map.tabmap[y][x + 1] == '1' && data->map.tabmap[y][x - 1] == '1')
 	{
@@ -207,7 +209,12 @@ void	verif_map(t_data *data)
 			"Map >>> " "no player start found\n"_END);
 		f_exit(data, 1);
 	}
+	if (data->map.nb_floo == 1)
+	{
+		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
+			"Map >>> " "only one floo found\n"_END);
+		f_exit(data, 1);
+	}
 	set_deg_start(data);
 	check_map_is_closed(data);
-
 }

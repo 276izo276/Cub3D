@@ -19,15 +19,15 @@ void	handle_door(t_data *data)
 		x = 0;
 		while (data->map.tabmap[y][x])
 		{
-			if (data->map.tabmap[y][x] == 'F' && data->map.door_map[y][x]->is_floo_open == false
-			&& ((data->map.player_coo->x == x  || data->map.player_coo->x == x + 1 || data->map.player_coo->x == x - 1) && (data->map.player_coo->y == y || data->map.player_coo->y == y - 1 || data->map.player_coo->y == y + 1)))
-			{
-				// printf("player x >> %d y >>> %d floo x >> %d y >> %d\n", data->map.player_coo->x, data->map.player_coo->y, x, y);
-				// if (data->map.player_coo->x == x || data->map.player_coo->y == y)
-					data->map.door_map[y][x]->is_floo_open = true;
-			}
-			else if (data->map.tabmap[y][x] == 'F' && (!(((data->map.player_coo->x == x  || data->map.player_coo->x == x + 1 || data->map.player_coo->x == x - 1) && (data->map.player_coo->y == y || data->map.player_coo->y == y - 1 || data->map.player_coo->y == y + 1)))))
-				data->map.door_map[y][x]->is_floo_open = false;
+			// if (data->map.tabmap[y][x] == 'F' && data->map.door_map[y][x]->is_floo_open == false
+			// && ((data->map.player_coo->x == x  || data->map.player_coo->x == x + 1 || data->map.player_coo->x == x - 1) && (data->map.player_coo->y == y || data->map.player_coo->y == y - 1 || data->map.player_coo->y == y + 1)))
+			// {
+			// 	// printf("player x >> %d y >>> %d floo x >> %d y >> %d\n", data->map.player_coo->x, data->map.player_coo->y, x, y);
+			// 	// if (data->map.player_coo->x == x || data->map.player_coo->y == y)
+			// 		data->map.door_map[y][x]->is_floo_open = true;
+			// }
+			// else if (data->map.tabmap[y][x] == 'F' && (!(((data->map.player_coo->x == x  || data->map.player_coo->x == x + 1 || data->map.player_coo->x == x - 1) && (data->map.player_coo->y == y || data->map.player_coo->y == y - 1 || data->map.player_coo->y == y + 1)))))
+			// 	data->map.door_map[y][x]->is_floo_open = false;
 			if (data->map.tabmap[y][x] == 'D')
 			{
 				if (data->map.door_map[y][x]->pos >= 100 && data->map.door_map[y][x]->is_open == false)
