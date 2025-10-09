@@ -133,7 +133,7 @@ void	try_hit_item(t_data *data, int i, double x)
 			data->ray[i].items[ray.j]->side = FRONT;
 			ray.deg = fmod(data->ray[i].deg + 360 - 90, 360);
 			if ((ray.deg <= enemy->deg && ray.deg + 180 >= enemy->deg)
-				|| (ray.deg >= enemy->deg && ray.deg - 180 <= enemy->deg))
+				|| (ray.deg >= enemy->deg && !(ray.deg - 180 <= enemy->deg)))
 				data->ray[i].items[ray.j]->side = BACK;
 			// data->ray[i].items[ray.j]->texture = enemy->front_img;
 			// if (data->ray[i].items[ray.j]->side == BACK)
