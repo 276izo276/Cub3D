@@ -101,6 +101,8 @@ int	game_loop(t_data *data)
 	{
 		handle_pause_menu(data, cur);
 	}
+	else if (data->status == MAP)
+		display_floo_map(data);
 	else
 	{
 		handle_input_move(data, cur);

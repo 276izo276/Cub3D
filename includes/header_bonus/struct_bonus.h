@@ -12,9 +12,10 @@
 # define V_FOV 90.0
 # define H_FOV 90.0
 # define FPM 60.0
-# define GAME 1
 # define MENU 0
+# define GAME 1
 # define PAUSE 2
+# define MAP 3
 # define SPEED 5
 # define KEYCODE_NB 100
 # define NB_TYPE_ENEMY 4
@@ -502,6 +503,7 @@ struct s_data
 	int		life;
 	int		damage;
 	int		slowness;
+	int		frame_floo;
 };
 
 t_coo	*init_t_coo(int y, int x);

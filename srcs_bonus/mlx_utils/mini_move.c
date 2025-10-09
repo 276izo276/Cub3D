@@ -165,6 +165,20 @@ void	recalc_y(t_mini *mini, t_map *map)
 	}
 }
 
+void	hit_box_x_floo(t_mini *mini, t_data *data, t_map *map)
+{
+	if ((mini->cx == 0 && mini->nx >= 22 && mini->nx <= 42)
+		|| (mini->cx == 0 && mini->nx > 32 && mini->player_coo.x < 32) || (mini->cx == 0 && mini->nx < 32 && mini->player_coo.x > 32))
+		{
+			if (data->map.door_map[map->player_coo->y][map->player_coo->x]->is_floo_open == false && abs_value(32 - mini->player_coo.x) > abs_value(32 - mini->nx))
+				mini->nx = mini->player_coo.x;
+			else if ((mini->player_coo.x < 22 || mini->player_coo.x > 42) && (mini->ny < 16 || mini->ny > 48))
+				mini->nx = mini->player_coo.x;
+			else if (mini->player_coo.x >= 22 && mini->player_coo.x <= 42 && (mini->ny < 16 || mini->ny > 48))
+				mini->ny = mini->player_coo.y;
+		}
+}
+
 void	movex(t_map *map, t_mini *mini, t_data *data)
 {
 	if (hit_box_x_wall(map, mini))
@@ -187,9 +201,25 @@ void	movex(t_map *map, t_mini *mini, t_data *data)
 					mini->ny = mini->player_coo.y;
 			}
 		}
+	if (data->map.tabmap[map->player_coo->y][map->player_coo->x] == 'F'
+		&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == true)
+			hit_box_x_floo(mini, data, map);
 	// printf("xold=%lf    x=%lf\n",mini->player_coo.x, mini->nx);
 }
 
+void	hit_box_y_floo(t_mini *mini, t_data *data, t_map *map)
+{
+	if ((mini->cy == 0 && mini->ny >= 22 && mini->ny <= 42)
+		|| (mini->cy == 0 && mini->ny > 32 && mini->player_coo.y < 32) || (mini->cy == 0 && mini->ny < 32 && mini->player_coo.y > 32))
+		{
+			if (data->map.door_map[map->player_coo->y][map->player_coo->x]->is_floo_open == false && abs_value(32 - mini->player_coo.y) > abs_value(32 - mini->ny))
+				mini->ny = mini->player_coo.y;
+			else if ((mini->player_coo.y < 22 || mini->player_coo.y > 42) && (mini->nx < 16 || mini->nx > 48))
+				mini->ny = mini->player_coo.y;
+			else if (mini->player_coo.y >= 22 && mini->player_coo.y <= 42 && (mini->nx < 16 || mini->nx > 48))
+				mini->nx = mini->player_coo.x;
+		}
+}
 
 void	movey(t_map *map, t_mini *mini, t_data *data)
 {
@@ -214,8 +244,21 @@ void	movey(t_map *map, t_mini *mini, t_data *data)
 					mini->nx = mini->player_coo.x;
 			}
 		}
-	if (floo ?? )
+	if (data->map.tabmap[map->player_coo->y][map->player_coo->x] == 'F'
+		&& data->map.door_map[map->player_coo->y][map->player_coo->x]->is_verti == false)
+		hit_box_y_floo(mini, data, map);
 	// printf(" yold=%lf    y=%lf\n",mini->player_coo.y, mini->ny);
+}
+
+void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
+{
+	if (map->tabmap[map->player_coo->y][map->player_coo->x] == 'F' && (map->door_map[map->player_coo->y][map->player_coo->x]->is_floo_open == true))
+	{
+		if (map->door_map[map->player_coo->y][map->player_coo->x]->is_verti == true && ((mini->player_coo.x <= 32.0 && mini->nx > 32.0) || (mini->player_coo.x >= 32.0 && mini->nx < 32.0)))
+			data->status = MAP;
+		else if (map->door_map[map->player_coo->y][map->player_coo->x]->is_verti == false && ((mini->player_coo.y <= 32.0 && mini->ny > 32.0) || (mini->player_coo.y >= 32.0 && mini->ny < 32.0)))
+			data->status = MAP;
+	}
 }
 
 void	handle_move(t_map *map, t_mini *mini, t_data *data)
@@ -251,6 +294,7 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	recalc_y(mini, map);
 	movex(map, mini, data);
 	movey(map, mini, data);
+	handle_map_status(map, data, mini);
 	if (mini->ny != mini->player_coo.y)
 	{
 		mini->player_coo.y = mini->ny;
