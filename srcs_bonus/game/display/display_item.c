@@ -333,10 +333,10 @@ void	set_texture(t_data *data, int i, int j)
 
 void	define_posx_texture(t_data *data, int i, int j)
 {
-
 	double	posx_display;
 
 	posx_display = data->ray[i].items[j]->posx;
+	// printf("widdth >>>%d\n",data->ray[i].items[j]->texture->width);
 	if (data->ray[i].items[j]->side == REVERSED)
 		posx_display = 1 - posx_display;
 	data->ray[i].items[j]->texture_coo.x = (int)(posx_display * data->ray[i].items[j]->texture->width);

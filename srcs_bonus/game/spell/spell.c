@@ -104,6 +104,7 @@ void	cast_spell(t_data *data, t_spells info)
 		printf("CAST SPELL\n");
 		data->spell[info].launch_time = get_mtime();
 		data->item = add_end_lst(init_spell_item(data, info), data->item, f_item);
+		// printf("data_>item >%p\n",data->item);
 		data->spell[info].end_time = get_mtime();
 	}
 }
