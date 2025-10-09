@@ -125,6 +125,8 @@ GAME_BONUS		=								\
 				raycasting.c					\
 				raycasting_utils.c				\
 				raycasting_enemy.c				\
+				raycasting_item.c				\
+				intersection_segment.c			\
 				display/display.c 				\
 				display/display_hand.c			\
 				display/display_door.c			\

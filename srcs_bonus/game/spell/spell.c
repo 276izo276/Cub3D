@@ -59,19 +59,20 @@ void	lumos_loop(t_data *data, int start_x, int start_y)
 
 void	cast_lumos(t_data *data, t_spells info)
 {
-	data->active_spell = -1;
+	data->cast_spell = -1;
 	(void)info;
-	printf("cast lumos\n");
-	if (!data->lumos.active && get_mtime() > data->spell[LUMOS].end_time
+	if (data->active_spell == -1 && !data->lumos.active && get_mtime() > data->spell[LUMOS].end_time
 		+ data->spell[LUMOS].base_cooldown * 1000)
 	{
 		data->lumos.active = true;
+		data->active_spell = LUMOS;
 		data->lumos.count_frame = 100;
 		data->spell[LUMOS].launch_time = get_mtime();
 	}
-	else
+	else if (data->lumos.active == true)
 	{
 		data->lumos.active = false;
+		data->active_spell = -1;
 		data->spell[LUMOS].end_time = get_mtime();
 	}
 }
@@ -86,20 +87,23 @@ void	spell_lumos(t_data *data)
 	{
 		data->spell[LUMOS].end_time = get_mtime();
 		data->lumos.active = false;
+		data->active_spell = -1;
 	}
 	start_x = data->lumos.x_wand + (data->img[PLAYER_WAND].width / 2) - 2;
 	start_y = data->lumos.y_wand + 5;
 	lumos_loop(data, start_x, start_y);
 	if (data->lumos.active == false)
-		data->lumos.count_frame -= 2;
+		data->lumos.count_frame -= 5;
 }
 
 void	cast_spell(t_data *data, t_spells info)
 {
-	data->active_spell = -1;
-	if (get_mtime() > data->spell[info].launch_time + data->spell[info].base_cooldown * 1000)
+	data->cast_spell = -1;
+	if (data->active_spell == -1 && get_mtime() > data->spell[info].end_time + data->spell[info].base_cooldown * 1000)
 	{
+		printf("CAST SPELL\n");
 		data->spell[info].launch_time = get_mtime();
 		data->item = add_end_lst(init_spell_item(data, info), data->item, f_item);
+		data->spell[info].end_time = get_mtime();
 	}
 }

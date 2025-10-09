@@ -25,7 +25,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 			if (data->keycode[i] == KEY_ESCAPE)
 				f_exit(data, 0);
 			else if (data->keycode[i] >= KEY_1 && data->keycode[i] <= KEY_2)
-				data->active_spell = data->spell_take[data->keycode[i] - KEY_1];
+				data->cast_spell = data->spell_take[data->keycode[i] - KEY_1];
 			else if (is_move_player(data, i))
 				move = 1;
 			else if (data->keycode[i] == KEY_E)
@@ -198,8 +198,10 @@ int	game_loop(t_data *data)
 	{
 		take_damage(data);
 		handle_input_move(data, cur);
-		if (data->active_spell != -1)
-			data->spell[data->active_spell].call(data, data->active_spell);
+		if (data->cast_spell != -1)
+			data->spell[data->cast_spell].call(data, data->cast_spell);
+		move_enemy(data);
+		move_item(data);
 		handle_wall_msg(data, cur);
 		if (data->time_fps + 1000 / FPS < cur)
 		{
@@ -233,7 +235,6 @@ int	game_loop(t_data *data)
 			// pthread_mutex_unlock(&data->m_data_ray);
 			// pthread_barrier_wait(&data->barrier);
 		}
-		move_enemy(data);
 	}
 	return (0);
 }

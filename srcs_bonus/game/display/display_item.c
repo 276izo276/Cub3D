@@ -162,7 +162,7 @@ static void	put_text_pix_img_dementor(t_data *data, int i, int dist_heigh, int t
 		*(unsigned int *)pixel_addr = color;
 }
 
-void	display_item(t_data *data, int i)
+void	display_item_old(t_data *data, int i)
 {
 	double	dist_max_enemy;
 	double	dist_max_door;
@@ -303,10 +303,151 @@ void	display_item(t_data *data, int i)
 		ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
 		j++;
 	}
+}
+
+
+
+
+
+void	display_item(t_data *data, int i)
+{
+	double	dist_max_item;
+	double	dist_max_door;
+	int	j;
+	int	type;
+	int	text_x;
+	int	dist_heigh;
+	
+	dist_max_item = 1;
+	dist_max_door = 1;
 	j = 0;
-	while (j < data->nb_enemy)
+	while (j < MAX_CREATE_ENEMY + MAX_CREATE_ITEM)
 	{
-		ft_bzero(data->ray[i].enemys[j], sizeof(t_hit_door));
+		if (data->ray[i].items[j]->dist < data->ray[i].dist_wall
+			&& data->ray[i].items[j]->use == true)
+		{
+			// printf("item>>%lf    wall>>%lf\n",data->ray[i].items[j]->dist_item, data->ray[i].dist_wall);
+			data->ray[i].items[j]->print = true;
+			// printf("SET PRINT   >>%lf      >>%lf\n",data->ray[i].items[j]->dist_item, data->ray[i].dist_wall);
+		}
+		else
+			ft_bzero(data->ray[i].items[j], sizeof(t_hit_item));
+		j++;
+	}
+	while (dist_max_item != 0 || dist_max_door != 0)
+	{
+		dist_max_item = 0;
+		dist_max_door = 0;
+		j = 0;
+		while (j < data->nb_door)
+		{
+			if (dist_max_door < data->ray[i].doors[j]->dist_door
+				&& data->ray[i].doors[j]->print == true)
+			{
+				dist_max_door = data->ray[i].doors[j]->dist_door;
+			}
+			j++;
+		}
+		j = 0;
+		while (j <  MAX_CREATE_ENEMY + MAX_CREATE_ITEM)
+		{
+			if (dist_max_item < data->ray[i].items[j]->dist
+				&& data->ray[i].items[j]->print == true)
+			{
+				dist_max_item = data->ray[i].items[j]->dist;
+			}
+			j++;
+		}
+		if (dist_max_door == 0 && dist_max_item == 0)
+			break ;
+		if (dist_max_door > dist_max_item)
+			type = 0;
+		else
+			type = 1;
+		if (type == 0)
+		{
+			j = -1;
+			while (++j < data->nb_door)
+				if (data->ray[i].doors[j]->dist_door == dist_max_door)
+					break ;
+			check_dir(data, i, j);
+			data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
+				* data->ray[i].calc_bits;
+			text_x = data->ray[i].doors[j]->texture_coo.x
+				* (data->map.door->bits_per_pixel >> 3);
+			data->ray[i].pix_y = data->ray[i].doors[j]->htop_door;
+			if (data->ray[i].pix_y < 0)
+				data->ray[i].pix_y = 0;
+			dist_heigh = data->ray[i].doors[j]->hbot_door - data->ray[i].doors[j]->htop_door;
+			while (data->ray[i].pix_y < data->ray[i].doors[j]->hbot_door
+				&& data->ray[i].pix_y < data->mlx.height)
+			{
+				if (data->ray[i].pix_y > data->ray[i].doors[j]->htop_door + dist_heigh * .15)
+					put_text_pix_img(data, i, dist_heigh, text_x, j);
+				data->ray[i].pix_y++;
+			}
+			check_dir_fixed(data, i, j);
+			text_x = data->ray[i].doors[j]->texture_coo.x
+				* (data->map.fixed_door->bits_per_pixel >> 3);
+			data->ray[i].pix_y = data->ray[i].doors[j]->htop_door;
+			if (data->ray[i].pix_y < 0)
+				data->ray[i].pix_y = 0;
+			dist_heigh = data->ray[i].doors[j]->hbot_door - data->ray[i].doors[j]->htop_door;
+			while (data->ray[i].pix_y < data->ray[i].doors[j]->hbot_door
+				&& data->ray[i].pix_y < data->mlx.height)
+			{
+				put_text_pix_img_fixed(data, i, dist_heigh, text_x, j);
+				data->ray[i].pix_y++;
+			}
+			ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
+		}
+		else if (type == 1)
+		{
+
+			// data->ray[i].deg = fmod(data->ray[i].deg + data->ray[i].rad / (M_PI / 180) + 360, 360);
+			// printf("angle player >%lf           \n",data->ray[i].deg);
+			j = -1;
+			while (++j < MAX_CREATE_ENEMY + MAX_CREATE_ITEM)
+				if (data->ray[i].items[j]->dist == dist_max_item)
+					break ;
+			check_dir_item(data, i, j);
+			data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
+				* data->ray[i].calc_bits;
+			// printf("deg >>%lf    %lf\n",data->ray[i].deg,data->ray[i].items[j]->enemy->deg);
+			// printf("ray >>%lf      >= >>%lf      <= >>%lf\n",fmod(data->ray[i].items[j]->enemy->deg, 360) + 360,fmod(data->ray[i].deg - 90, 360) + 360,fmod(data->ray[i].deg + 90, 360) + 360);
+			if ((fmod(data->ray[i].items[j]->enemy->deg, 360) + 360 >= fmod(data->ray[i].deg, 360) - 90 + 360
+				&& fmod(data->ray[i].items[j]->enemy->deg, 360) + 360 <= fmod(data->ray[i].deg, 360) + 90 + 360)
+			||
+				(fmod(data->ray[i].items[j]->enemy->deg, 360) + 360 >= fmod(data->ray[i].deg, 360) - 90
+				&& fmod(data->ray[i].items[j]->enemy->deg, 360) + 360 <= fmod(data->ray[i].deg, 360) + 90))
+			{
+				// printf("BACK\n");
+				text_x = data->ray[i].items[j]->texture_coo.x
+					* (data->map.dementor_back->bits_per_pixel >> 3);
+			}
+			else
+			{
+				// printf("FRONT\n");
+				text_x = data->ray[i].items[j]->texture_coo.x
+					* (data->map.dementor_front->bits_per_pixel >> 3);
+			}
+			data->ray[i].pix_y = data->ray[i].items[j]->htop;
+			if (data->ray[i].pix_y < 0)
+				data->ray[i].pix_y = 0;
+			dist_heigh = data->ray[i].items[j]->hbot - data->ray[i].items[j]->htop;
+			while (data->ray[i].pix_y < data->ray[i].items[j]->hbot
+				&& data->ray[i].pix_y < data->mlx.height)
+			{
+				put_text_pix_img_dementor(data, i, dist_heigh, text_x, j);
+				data->ray[i].pix_y++;
+			}
+			ft_bzero(data->ray[i].items[j], sizeof(t_hit_enemy));
+		}
+	}
+	j = 0;
+	while (j < data->nb_door)
+	{
+		ft_bzero(data->ray[i].doors[j], sizeof(t_hit_door));
 		j++;
 	}
 }

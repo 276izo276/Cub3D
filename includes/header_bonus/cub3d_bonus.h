@@ -13,6 +13,13 @@
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
 #endif
+
+
+
+
+void	calc_end_point(t_hitray *ray);
+void	try_hit_item(t_data *data, int i);
+void	move_item(t_data *data);
 void	f_item(void *elem);
 t_item	*init_spell_item(t_data *data, t_spells info);
 
@@ -20,7 +27,7 @@ void	set_spell_take(t_data *data);
 void	init_spell(t_data *data);
 
 
-void	display_item(t_data *data, int i);
+void	display_item_old(t_data *data, int i);
 void	calc_delta(t_hitray *ray);
 void	try_hit_enemy(t_data *data, int i);
 

@@ -213,6 +213,7 @@ void	*ray_launch_first(void *ptr)
 			//write(1,"21\n",3);
 			save_data_ray(data, i, x);
 			try_hit_enemy(data, i);
+			try_hit_item(data, i);
 			handle_ray(data, i);
 			calc_door_value(data, i, x);
 			calc_enemy_value(data, i, x);
@@ -253,6 +254,7 @@ void	*ray_launch_snd(void *ptr)
 			//write(1,"22\n",3);
 			save_data_ray(data, i, x);
 			try_hit_enemy(data, i);
+			try_hit_item(data, i);
 			handle_ray(data, i);
 			calc_door_value(data, i, x);
 			calc_enemy_value(data, i, x);
@@ -292,6 +294,7 @@ void	*ray_launch_third(void *ptr)
 			x = (x * (-2) + 1);
 			save_data_ray(data, i, x);
 			try_hit_enemy(data, i);
+			try_hit_item(data, i);
 			handle_ray(data, i);
 			calc_door_value(data, i, x);
 			calc_enemy_value(data, i, x);
@@ -333,6 +336,7 @@ void	*ray_launch_last(void *ptr)
 			//write(1,"24\n",3);
 			save_data_ray(data, i, x);
 			try_hit_enemy(data, i);
+			try_hit_item(data, i);
 			handle_ray(data, i);
 			calc_door_value(data, i, x);
 			calc_enemy_value(data, i, x);

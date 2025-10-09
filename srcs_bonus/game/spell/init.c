@@ -3,7 +3,7 @@
 
 void	set_spell_take(t_data *data)
 {
-	data->active_spell = -1;
+	data->cast_spell = -1;
 	data->spell_take[0] = LUMOS;
 	data->spell_take[1] = INCENDIO;
 }
@@ -31,6 +31,8 @@ static void	init_incendio(t_data *data)
 
 void	init_spell(t_data *data)
 {
+	data->active_spell = -1;
+	data->cast_spell = -1;
 	init_lumos(data);
 	init_incendio(data);
 }

@@ -147,17 +147,42 @@ void	init_struct_enemy(t_data *data)
 	i = 0;
 	while (i < data->mlx.width)
 	{
-		data->ray[i].enemys = malloc(sizeof(t_hit_enemy *) * (data->nb_enemy + MAX_CREATE_ENEMY));
+		data->ray[i].enemys = malloc(sizeof(t_hit_enemy *) * (MAX_CREATE_ENEMY));
 		if (!data->ray[i].enemys)
 			f_exit(data, 1);
-		ft_bzero(data->ray[i].enemys, sizeof(t_hit_enemy *) * (data->nb_enemy + MAX_CREATE_ENEMY));
+		ft_bzero(data->ray[i].enemys, sizeof(t_hit_enemy *) * (MAX_CREATE_ENEMY));
 		j = 0;
-		while (j < data->nb_enemy + MAX_CREATE_ENEMY)
+		while (j < MAX_CREATE_ENEMY)
 		{
 			data->ray[i].enemys[j] = malloc(sizeof(t_hit_enemy));
 			if (!data->ray[i].enemys[j])
 				f_exit(data, 1);
 			ft_bzero(data->ray[i].enemys[j], sizeof(t_hit_enemy));
+			j++;
+		}
+		++i;
+	}
+}
+
+void	init_struct_item(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < data->mlx.width)
+	{
+		data->ray[i].items = malloc(sizeof(t_hit_item *) * (MAX_CREATE_ITEM + MAX_CREATE_ENEMY));
+		if (!data->ray[i].items)
+			f_exit(data, 1);
+		ft_bzero(data->ray[i].items, sizeof(t_hit_item *) * (MAX_CREATE_ITEM + MAX_CREATE_ENEMY));
+		j = 0;
+		while (j < MAX_CREATE_ITEM + MAX_CREATE_ENEMY)
+		{
+			data->ray[i].items[j] = malloc(sizeof(t_hit_item));
+			if (!data->ray[i].items[j])
+				f_exit(data, 1);
+			ft_bzero(data->ray[i].items[j], sizeof(t_hit_item));
 			j++;
 		}
 		++i;
@@ -206,6 +231,7 @@ int	main(int ac, char **av)
 	parsing(&data);
 	init_struct_door(&data);
 	init_struct_enemy(&data);
+	init_struct_item(&data);
 	init_mutex(&data);
 	// init_semaphores(&data);
 	create_thread(&data);

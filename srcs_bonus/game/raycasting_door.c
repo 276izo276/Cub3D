@@ -69,28 +69,28 @@ static void	calc_end_ray(t_data *data, t_hitray *ray)
 
 #include <stdio.h>
 
-void	calc_delta(t_hitray *ray)
-{
-	ray->delta = (ray->dx - ray->cx) * (ray->by - ray->ay)
-		- (ray->dy - ray->cy) * (ray->bx - ray->ax);
-	ray->delta_t = (ray->dx - ray->cx) * (ray->cy - ray->ay)
-		- (ray->dy - ray->cy) * (ray->cx - ray->ax);
-	ray->delta_u = (ray->bx - ray->ax) * (ray->cy - ray->ay)
-		- (ray->by - ray->ay) * (ray->cx - ray->ax);
-	if (ray->delta != 0)
-	{
-		ray->t = ray->delta_t / ray->delta;
-		ray->u = ray->delta_u / ray->delta;
-		if (ray->t >= 0 && ray->t <= 1 && ray->u >= 0 && ray->u <= 1)
-		{
-			ray->hit = true;
-			ray->hx = ray->cx + ray->u * (ray->dx - ray->cx);
-			ray->hy = ray->cy + ray->u * (ray->dy - ray->cy);
-		}
-		else
-			ray->hit = false;
-	}
-}
+// void	calc_delta(t_hitray *ray)
+// {
+// 	ray->delta = (ray->dx - ray->cx) * (ray->by - ray->ay)
+// 		- (ray->dy - ray->cy) * (ray->bx - ray->ax);
+// 	ray->delta_t = (ray->dx - ray->cx) * (ray->cy - ray->ay)
+// 		- (ray->dy - ray->cy) * (ray->cx - ray->ax);
+// 	ray->delta_u = (ray->bx - ray->ax) * (ray->cy - ray->ay)
+// 		- (ray->by - ray->ay) * (ray->cx - ray->ax);
+// 	if (ray->delta != 0)
+// 	{
+// 		ray->t = ray->delta_t / ray->delta;
+// 		ray->u = ray->delta_u / ray->delta;
+// 		if (ray->t >= 0 && ray->t <= 1 && ray->u >= 0 && ray->u <= 1)
+// 		{
+// 			ray->hit = true;
+// 			ray->hx = ray->cx + ray->u * (ray->dx - ray->cx);
+// 			ray->hy = ray->cy + ray->u * (ray->dy - ray->cy);
+// 		}
+// 		else
+// 			ray->hit = false;
+// 	}
+// }
 
 void	calc_door(t_data *data, int i)
 {

@@ -18,6 +18,12 @@
 # define SPEED 5
 # define KEYCODE_NB 100
 # define MAX_CREATE_ENEMY 50
+# define MAX_CREATE_ITEM 100
+# define ITEM 1
+# define ENEMY 2
+# define DOOR 3
+# define FRONT 1
+# define BACK 2
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
@@ -41,6 +47,7 @@ typedef struct s_enemy		t_enemy;
 typedef	struct s_fcoo		t_fcoo;
 typedef struct s_case		t_case;
 typedef struct s_hit_enemy	t_hit_enemy;
+typedef struct s_hit_item	t_hit_item;
 typedef struct s_foot		t_foot;
 typedef struct s_player		t_player;
 typedef struct s_damage		t_damage;
@@ -133,16 +140,6 @@ struct s_fcoo
 	int		case_x;
 };
 
-struct s_door
-{
-	t_coo	coo;
-	t_coo	first_p;
-	t_coo	second_p;
-	double	pos;
-	bool	is_open;
-	bool	is_verti;
-};
-
 struct s_wall_msg
 {
 	t_coo	coo;
@@ -153,7 +150,6 @@ struct s_wall_msg
 	char	*img_addr;
 	int		dir;
 };
-
 
 struct s_damage
 {
@@ -167,6 +163,25 @@ struct s_damage
 	double		fire_take;
 };
 
+struct	s_enemy
+{
+	t_enemy_info	type;
+	t_fcoo			center;
+	t_fcoo			left;
+	t_fcoo			right;
+	double			deg;
+	double			rad;
+	int				radius;
+	int				speed;
+	int				life;
+	t_damage		damage;
+	t_fcoo			goal;
+	t_case			*way;
+	int				wait;
+	bool			calc;
+	int				calc_path;
+};
+
 struct s_item
 {
 	t_fcoo			center;
@@ -177,6 +192,16 @@ struct s_item
 	int				radius;
 	int				speed;
 	t_damage		damage;
+};
+
+struct s_door
+{
+	t_coo	coo;
+	t_coo	first_p;
+	t_coo	second_p;
+	double	pos;
+	bool	is_open;
+	bool	is_verti;
 };
 
 struct s_hit_door
@@ -217,6 +242,35 @@ struct s_hit_enemy
 	double	max_size_enemy;
 	double	htop_enemy;
 	double	hbot_enemy;
+	int		dir;
+	t_coo	texture_coo;
+	double	ry;
+	double	rx;
+	double	end_y;
+	double	end_x;
+	double	start_y;
+	double	start_x;
+	double	posx;
+};
+
+struct s_hit_item
+{
+	t_item	*item;
+	t_enemy	*enemy;
+	t_door	*door;
+	int		type;
+	int		side;
+	double	coo_y;
+	double	coo_x;
+	int		case_y;
+	int		case_x;
+	bool	use;
+	bool	print;
+	double	dist;
+	double	size;
+	double	max_size;
+	double	htop;
+	double	hbot;
 	int		dir;
 	t_coo	texture_coo;
 	double	ry;
@@ -275,6 +329,7 @@ struct	s_ray
 	t_img	*img;
 	t_hit_door	**doors;
 	t_hit_enemy	**enemys;
+	t_hit_item	**items;
 	double	max_dist_wall;
 	double	start_case_x;
 	double	start_case_y;
@@ -444,6 +499,9 @@ struct	s_hitray
 {
 	int		i;
 	int		j;
+	int		radius;
+	int		deg;
+	bool	hit;
 	double	delta;
 	double	delta_t;
 	double	delta_u;
@@ -459,7 +517,6 @@ struct	s_hitray
 	double	dy;
 	double	hx;
 	double	hy;
-	bool	hit;
 	double	rx;
 	double	ry;
 	double	delta_x;
@@ -480,24 +537,6 @@ struct s_case
 	int		is_path;
 };
 
-struct	s_enemy
-{
-	t_enemy_info	type;
-	t_fcoo			center;
-	t_fcoo			left;
-	t_fcoo			right;
-	double			deg;
-	double			rad;
-	int				radius;
-	int				speed;
-	int				life;
-	t_damage		damage;
-	t_fcoo			goal;
-	t_case			*way;
-	int				wait;
-	bool			calc;
-	int				calc_path;
-};
 
 
 struct s_spell
@@ -546,17 +585,11 @@ struct s_data
 	pthread_t		thread_ray_snd;
 	pthread_t		thread_ray_third;
 	pthread_t		thread_ray_last;
-
 	pthread_t		thread_fst_part;
 	pthread_t		thread_snd_part;
 	pthread_t		thread_third_part;
 	pthread_t		thread_last_part;
-	// pthread_t		thread_door;
 	pthread_t		thread_sky;
-	// sem_t			*sem_background;
-	// sem_t			*sem_door;
-	// sem_t			*sem_map;
-	// sem_t			*sem_display;
 	pthread_barrier_t		barrier_background;
 	pthread_barrier_t		barrier_display;
 	t_coa			*coa;
@@ -578,14 +611,16 @@ struct s_data
 	double			sensitivity;
 	// t_img	*wh;
 	// t_img	*bl;
-	t_lst		*enemy;
 	int			nb_enemy;
 	int			nb_create_enemy;
 	t_player	player;
 	t_spell		spell[NB_SPELL];
-	int		spell_take[4];
+	int			spell_take[4];
+	int			cast_spell;
 	int			active_spell;
+	t_lst		*enemy;
 	t_lst		*item;
+	t_lst		*door;
 };
 
 t_coo	*init_t_coo(int y, int x);
