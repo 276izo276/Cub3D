@@ -131,7 +131,7 @@ void	*display_fst_part(void *ptr)
 		while (i < data->mlx.width / 4)
 		{
 			display_game_loop(data, i);
-			display_item_old(data, i);
+			display_item(data, i);
 			// //write(1,"18\n",3);
 			// display_door(data, i);
 			// display_msg(data, i);
@@ -161,7 +161,7 @@ void	*display_snd_part(void *ptr)
 		while (i < max_pix)
 		{
 			display_game_loop(data, i);
-			display_item_old(data, i);
+			display_item(data, i);
 			// //write(1,"15\n",3);
 			// display_door(data, i);
 			// display_msg(data, i);
@@ -191,7 +191,7 @@ void	*display_third_part(void *ptr)
 		while (i < max_pix)
 		{
 			display_game_loop(data, i);
-			display_item_old(data, i);
+			display_item(data, i);
 			// //write(1,"12\n",3);
 			// display_door(data, i);
 			// display_msg(data, i);
@@ -219,7 +219,7 @@ void	*display_last_part(void *ptr)
 		while (i < data->mlx.width)
 		{
 			display_game_loop(data, i);
-			display_item_old(data, i);
+			display_item(data, i);
 			// //write(1,"09\n",3);
 			// display_door(data, i);
 			// display_msg(data, i);

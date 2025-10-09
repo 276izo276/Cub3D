@@ -13,6 +13,11 @@ static void	set_path_texture(t_data *data)
 	data->img[PLAYER_HAND].path = "./texture/player_hand/wand_sureau.xpm";
 	data->img[PLAYER_WAND].path = "./texture/player_hand/wand_sureau.xpm";
 	data->img[LEFT_SELECT].path = "./texture/menu/left_select.xpm";
+	data->img[DEMENTOR_FRONT].path = "./texture/dementor_front.xpm";
+	data->img[DEMENTOR_BACK].path = "./texture/dementor_back.xpm";
+	data->img[DOOR_MOVE].path = "./texture/door_close.xpm";
+	data->img[DOOR_FIXED].path = "./texture/door_open.xpm";
+	data->img[INCENDIO_IMG].path = "./texture/spell/incendio.xpm";
 }
 
 void	init_textures(t_data *data)
@@ -21,7 +26,7 @@ void	init_textures(t_data *data)
 
 	set_path_texture(data);
 	i = 0;
-	while (i < 5)
+	while (i < NB_TEXTURES)
 	{
 		data->img[i].img = mlx_xpm_file_to_image(data->mlx.mlx,
 				data->img[i].path, &data->img[i].width,
@@ -42,8 +47,8 @@ void	init_textures(t_data *data)
 	}
 }
 
-static void	init_texture(t_data *data)
-{
+// static void	init_texture(t_data *data)
+// {
 	// data->map.text_floor = malloc(sizeof(t_img));
 	// if (!data->map.text_floor)
 	// 	f_exit(data, 1);
@@ -56,34 +61,34 @@ static void	init_texture(t_data *data)
 	// ft_bzero(data->map.text_sky, sizeof(t_img));
 	// data->map.text_sky->mlx = data->mlx.mlx;
 	// data->map.text_sky->path = "./texture/sky.xpm";
-	data->map.door = malloc(sizeof(t_img));
-	if (!data->map.door)
-		f_exit(data, 1);
-	ft_bzero(data->map.door, sizeof(t_img));
-	data->map.door->mlx = data->mlx.mlx;
-	data->map.door->path = "./texture/door_close.xpm";
+	// data->map.door = malloc(sizeof(t_img));
+	// if (!data->map.door)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->map.door, sizeof(t_img));
+	// data->map.door->mlx = data->mlx.mlx;
+	// data->map.door->path = "./texture/door_close.xpm";
 
 
-	data->map.dementor_front = malloc(sizeof(t_img));
-	if (!data->map.dementor_front)
-		f_exit(data, 1);
-	ft_bzero(data->map.dementor_front, sizeof(t_img));
-	data->map.dementor_front->mlx = data->mlx.mlx;
-	data->map.dementor_front->path = "./texture/dementor_front.xpm";
+	// data->map.dementor_front = malloc(sizeof(t_img));
+	// if (!data->map.dementor_front)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->map.dementor_front, sizeof(t_img));
+	// data->map.dementor_front->mlx = data->mlx.mlx;
+	// data->map.dementor_front->path = "./texture/dementor_front.xpm";
 
-	data->map.dementor_back = malloc(sizeof(t_img));
-	if (!data->map.dementor_back)
-		f_exit(data, 1);
-	ft_bzero(data->map.dementor_back, sizeof(t_img));
-	data->map.dementor_back->mlx = data->mlx.mlx;
-	data->map.dementor_back->path = "./texture/dementor_back.xpm";
+	// data->map.dementor_back = malloc(sizeof(t_img));
+	// if (!data->map.dementor_back)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->map.dementor_back, sizeof(t_img));
+	// data->map.dementor_back->mlx = data->mlx.mlx;
+	// data->map.dementor_back->path = "./texture/dementor_back.xpm";
 
-	data->map.fixed_door = malloc(sizeof(t_img));
-	if (!data->map.fixed_door)
-		f_exit(data, 1);
-	ft_bzero(data->map.fixed_door, sizeof(t_img));
-	data->map.fixed_door->mlx = data->mlx.mlx;
-	data->map.fixed_door->path = "./texture/door_open.xpm";
+	// data->map.fixed_door = malloc(sizeof(t_img));
+	// if (!data->map.fixed_door)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->map.fixed_door, sizeof(t_img));
+	// data->map.fixed_door->mlx = data->mlx.mlx;
+	// data->map.fixed_door->path = "./texture/door_open.xpm";
 
 	// data->player_hand = malloc(sizeof(t_img));
 	// if (!data->player_hand)
@@ -102,7 +107,7 @@ static void	init_texture(t_data *data)
 	// ft_bzero(data->lumos.img, sizeof(t_img));
 	// data->lumos.img->mlx = data->mlx.mlx;
 	// data->lumos.img->path = "./texture/player_hand/lumos.xpm";
-}
+// }
 
 void	init_pause_menu(t_data *data)
 {
@@ -370,7 +375,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->lumos.y_wand = 0;
 	data->lumos.count_frame = 0;
 	data->lumos.active = false;
-	init_texture(data);
+	// init_texture(data);
 	init_textures(data);
 	init_coa(data);
 	init_pause_menu(data);

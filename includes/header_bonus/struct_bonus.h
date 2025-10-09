@@ -22,8 +22,10 @@
 # define ITEM 1
 # define ENEMY 2
 # define DOOR 3
+# define BASIC 0
 # define FRONT 1
 # define BACK 2
+# define REVERSED 3
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
@@ -78,8 +80,14 @@ typedef enum e_imgs
 	SELECT_HAND,
 	PLAYER_HAND,
 	PLAYER_WAND,
-	LEFT_SELECT
+	LEFT_SELECT,
+	DEMENTOR_FRONT,
+	DEMENTOR_BACK,
+	DOOR_MOVE,
+	DOOR_FIXED,
+	INCENDIO_IMG
 }	t_imgs;
+# define NB_TEXTURES 10
 
 typedef enum e_spells
 {
@@ -165,6 +173,8 @@ struct s_damage
 
 struct	s_enemy
 {
+	t_img			*front_img;
+	t_img			*back_img;
 	t_enemy_info	type;
 	t_fcoo			center;
 	t_fcoo			left;
@@ -184,6 +194,8 @@ struct	s_enemy
 
 struct s_item
 {
+	t_img			*front_img;
+	t_img			*back_img;
 	t_fcoo			center;
 	t_fcoo			left;
 	t_fcoo			right;
@@ -255,31 +267,37 @@ struct s_hit_enemy
 
 struct s_hit_item
 {
-	t_item	*item;
-	t_enemy	*enemy;
-	t_door	*door;
-	int		type;
-	int		side;
-	double	coo_y;
-	double	coo_x;
-	int		case_y;
-	int		case_x;
-	bool	use;
-	bool	print;
-	double	dist;
-	double	size;
-	double	max_size;
-	double	htop;
-	double	hbot;
-	int		dir;
-	t_coo	texture_coo;
-	double	ry;
-	double	rx;
-	double	end_y;
-	double	end_x;
-	double	start_y;
-	double	start_x;
-	double	posx;
+	t_img		*texture;
+	t_item		*item;
+	t_enemy		*enemy;
+	t_door		*door;
+	int			type;
+	int			side;
+	int			dist_height;
+	double		door_status;
+	char		*pixel_addr;
+	char		*text_pix;
+	unsigned int	color;
+	double		coo_y;
+	double		coo_x;
+	int			case_y;
+	int			case_x;
+	bool		use;
+	bool		print;
+	double		dist;
+	double		size;
+	double		max_size;
+	double		htop;
+	double		hbot;
+	int			dir;
+	t_coo		texture_coo;
+	double		ry;
+	double		rx;
+	double		end_y;
+	double		end_x;
+	double		start_y;
+	double		start_x;
+	double		posx;
 };
 
 struct s_pause_menu
@@ -541,7 +559,6 @@ struct s_case
 
 struct s_spell
 {
-	t_img			img;
 	t_damage		damage;
 	t_item			item;
 	t_spells		type;
@@ -562,7 +579,7 @@ struct	s_player
 
 struct s_data
 {
-	t_img			img[30];
+	t_img			img[NB_TEXTURES];
 	t_utils_mini	u;
 	t_img			*screen;
 	long long int	time_fps;

@@ -9,6 +9,7 @@ void	move_item(t_data *data)
 	while (lst)
 	{
 		item = lst->dt;
+		(void)item;
 
 		lst = lst->next;
 	}

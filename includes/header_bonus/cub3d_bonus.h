@@ -17,8 +17,9 @@
 
 
 
+void	display_item(t_data *data, int i);
 void	calc_end_point(t_hitray *ray);
-void	try_hit_item(t_data *data, int i);
+void	try_hit_item(t_data *data, int i, double x);
 void	move_item(t_data *data);
 void	f_item(void *elem);
 t_item	*init_spell_item(t_data *data, t_spells info);

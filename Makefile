@@ -120,31 +120,32 @@ MLX_UTILS_BONUS	=							\
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/mlx_utils/,$(MLX_UTILS_BONUS))
 
-GAME_BONUS		=								\
-				raycasting_door.c				\
-				raycasting.c					\
-				raycasting_utils.c				\
-				raycasting_enemy.c				\
-				raycasting_item.c				\
-				intersection_segment.c			\
-				display/display.c 				\
-				display/display_hand.c			\
-				display/display_door.c			\
-				display/display_msg.c			\
-				display/display_item.c			\
-				display/display_blood_border.c  \
-				environment/handle_door.c 		\
-				input_move.c					\
-				game_loop.c						\
-				display/display_floor.c			\
-				display/display_sky.c			\
-				menu/start_menu/display_menu.c	\
-				menu/start_menu/draw_border.c	\
+GAME_BONUS		=									\
+				raycasting_door.c					\
+				raycasting.c						\
+				raycasting_utils.c					\
+				raycasting_enemy.c					\
+				raycasting_item.c					\
+				intersection_segment.c				\
+				display/display.c 					\
+				display/display_hand.c				\
+				display/display_door.c				\
+				display/display_msg.c				\
+				display/display_item.c				\
+				display/display_blood_border.c		\
+				environment/handle_door.c 			\
+				input_move.c						\
+				game_loop.c							\
+				display/display_floor.c				\
+				display/display_sky.c				\
+				menu/start_menu/display_menu.c		\
+				menu/start_menu/draw_border.c		\
 				menu/pause_menu/handle_pause_menu.c \
-				spell/spell.c				\
-				spell/init.c				\
-				item/free.c					\
-				item/init.c						
+				spell/spell.c						\
+				spell/init.c						\
+				item/free.c							\
+				item/init.c							\
+				item/move.c							
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 
