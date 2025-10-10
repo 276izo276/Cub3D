@@ -13,6 +13,13 @@ static void	set_path_texture(t_data *data)
 	data->img[PLAYER_HAND].path = "./texture/player_hand/wand_sureau.xpm";
 	data->img[PLAYER_WAND].path = "./texture/player_hand/wand_sureau.xpm";
 	data->img[LEFT_SELECT].path = "./texture/menu/left_select.xpm";
+	data->img[DEMENTOR_FRONT].path = "./texture/dementor_front.xpm";
+	data->img[DEMENTOR_BACK].path = "./texture/dementor_back.xpm";
+	data->img[DOOR_MOVE].path = "./texture/door_close.xpm";
+	data->img[DOOR_FIXED].path = "./texture/door_open.xpm";
+	data->img[INCENDIO_IMG].path = "./texture/spell/incendio.xpm";
+	data->img[FLOO_CLOSE].path = "./texture/spell/floo_close.xpm";
+	data->img[FLOO_OPEN].path = "./texture/spell/floo_open.xpm";
 }
 
 void	init_textures(t_data *data)
@@ -21,7 +28,7 @@ void	init_textures(t_data *data)
 
 	set_path_texture(data);
 	i = 0;
-	while (i < 5)
+	while (i < NB_TEXTURES)
 	{
 		data->img[i].img = mlx_xpm_file_to_image(data->mlx.mlx,
 				data->img[i].path, &data->img[i].width,
@@ -42,8 +49,8 @@ void	init_textures(t_data *data)
 	}
 }
 
-static void	init_texture(t_data *data)
-{
+// static void	init_texture(t_data *data)
+// {
 	// data->map.text_floor = malloc(sizeof(t_img));
 	// if (!data->map.text_floor)
 	// 	f_exit(data, 1);
@@ -56,48 +63,48 @@ static void	init_texture(t_data *data)
 	// ft_bzero(data->map.text_sky, sizeof(t_img));
 	// data->map.text_sky->mlx = data->mlx.mlx;
 	// data->map.text_sky->path = "./texture/sky.xpm";
-	data->map.door = malloc(sizeof(t_img));
-	if (!data->map.door)
-		f_exit(data, 1);
-	ft_bzero(data->map.door, sizeof(t_img));
-	data->map.door->mlx = data->mlx.mlx;
-	data->map.door->path = "./texture/door_close.xpm";
+	// data->map.door = malloc(sizeof(t_img));
+	// if (!data->map.door)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->map.door, sizeof(t_img));
+	// data->map.door->mlx = data->mlx.mlx;
+	// data->map.door->path = "./texture/door_close.xpm";
 
 
-	data->map.floo = malloc(sizeof(t_img));
-	if (!data->map.floo)
-		f_exit(data, 1);
-	ft_bzero(data->map.floo, sizeof(t_img));
-	data->map.floo->mlx = data->mlx.mlx;
-	data->map.floo->path = "./texture/floo_close.xpm";
+	// data->map.floo = malloc(sizeof(t_img));
+	// if (!data->map.floo)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->map.floo, sizeof(t_img));
+	// data->map.floo->mlx = data->mlx.mlx;
+	// data->map.floo->path = "./texture/floo_close.xpm";
 
-	data->map.floo_open = malloc(sizeof(t_img));
-	if (!data->map.floo_open)
-		f_exit(data, 1);
-	ft_bzero(data->map.floo_open, sizeof(t_img));
-	data->map.floo_open->mlx = data->mlx.mlx;
-	data->map.floo_open->path = "./texture/floo_open.xpm";
+	// data->map.floo_open = malloc(sizeof(t_img));
+	// if (!data->map.floo_open)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->map.floo_open, sizeof(t_img));
+	// data->map.floo_open->mlx = data->mlx.mlx;
+	// data->map.floo_open->path = "./texture/floo_open.xpm";
 
-	data->map.dementor_front = malloc(sizeof(t_img));
-	if (!data->map.dementor_front)
-		f_exit(data, 1);
-	ft_bzero(data->map.dementor_front, sizeof(t_img));
-	data->map.dementor_front->mlx = data->mlx.mlx;
-	data->map.dementor_front->path = "./texture/dementor_front.xpm";
+	// data->map.dementor_front = malloc(sizeof(t_img));
+	// if (!data->map.dementor_front)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->map.dementor_front, sizeof(t_img));
+	// data->map.dementor_front->mlx = data->mlx.mlx;
+	// data->map.dementor_front->path = "./texture/dementor_front.xpm";
 
-	data->map.dementor_back = malloc(sizeof(t_img));
-	if (!data->map.dementor_back)
-		f_exit(data, 1);
-	ft_bzero(data->map.dementor_back, sizeof(t_img));
-	data->map.dementor_back->mlx = data->mlx.mlx;
-	data->map.dementor_back->path = "./texture/dementor_back.xpm";
+	// data->map.dementor_back = malloc(sizeof(t_img));
+	// if (!data->map.dementor_back)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->map.dementor_back, sizeof(t_img));
+	// data->map.dementor_back->mlx = data->mlx.mlx;
+	// data->map.dementor_back->path = "./texture/dementor_back.xpm";
 
-	data->map.fixed_door = malloc(sizeof(t_img));
-	if (!data->map.fixed_door)
-		f_exit(data, 1);
-	ft_bzero(data->map.fixed_door, sizeof(t_img));
-	data->map.fixed_door->mlx = data->mlx.mlx;
-	data->map.fixed_door->path = "./texture/door_open.xpm";
+	// data->map.fixed_door = malloc(sizeof(t_img));
+	// if (!data->map.fixed_door)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->map.fixed_door, sizeof(t_img));
+	// data->map.fixed_door->mlx = data->mlx.mlx;
+	// data->map.fixed_door->path = "./texture/door_open.xpm";
 
 	// data->player_hand = malloc(sizeof(t_img));
 	// if (!data->player_hand)
@@ -110,13 +117,13 @@ static void	init_texture(t_data *data)
 	// ft_bzero(data->player_wand, sizeof(t_img));
 	// data->player_wand->mlx = data->mlx.mlx;
 	// data->player_wand->path = "./texture/player_hand/wand_sureau.xpm";
-	data->spell.lumos = malloc(sizeof(t_img));
-	if (!data->spell.lumos)
-		f_exit(data, 1);
-	ft_bzero(data->spell.lumos, sizeof(t_img));
-	data->spell.lumos->mlx = data->mlx.mlx;
-	data->spell.lumos->path = "./texture/player_hand/lumos.xpm";
-}
+	// data->lumos.img = malloc(sizeof(t_img));
+	// if (!data->lumos.img)
+	// 	f_exit(data, 1);
+	// ft_bzero(data->lumos.img, sizeof(t_img));
+	// data->lumos.img->mlx = data->mlx.mlx;
+	// data->lumos.img->path = "./texture/player_hand/lumos.xpm";
+// }
 
 void	init_pause_menu(t_data *data)
 {
@@ -380,11 +387,11 @@ void	init_data(t_data *data, int ac, char **av)
 	data->screen->height = data->mlx.height;
 	data->ac = ac;
 	data->av = av;
-	data->spell.x_wand = 0;
-	data->spell.y_wand = 0;
-	data->spell.count_frame = 0;
-	data->spell.active = false;
-	init_texture(data);
+	data->lumos.x_wand = 0;
+	data->lumos.y_wand = 0;
+	data->lumos.count_frame = 0;
+	data->lumos.active = false;
+	// init_texture(data);
 	init_textures(data);
 	init_coa(data);
 	init_pause_menu(data);
@@ -398,5 +405,10 @@ void	init_data(t_data *data, int ac, char **av)
 	data->pause_menu.selected = 0;
 	data->pause_menu.elapsed = 0;
 
-	data->life = 100;
+	data->player.life = 50;
+	data->player.shield = 10;
+	data->player.xp = 5.868486;
+	data->player.damage.damage_do = 1;
+	set_spell_take(data);
+	init_spell(data);
 }

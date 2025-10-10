@@ -18,8 +18,15 @@
 # define MAP 3
 # define SPEED 5
 # define KEYCODE_NB 100
-# define NB_TYPE_ENEMY 4
 # define MAX_CREATE_ENEMY 50
+# define MAX_CREATE_ITEM 100
+# define ITEM 1
+# define ENEMY 2
+# define DOOR 3
+# define BASIC 0
+# define FRONT 1
+# define BACK 2
+# define REVERSED 3
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
@@ -33,7 +40,7 @@ typedef	struct s_mini		t_mini;
 typedef struct s_utils_mini	t_utils_mini;
 typedef struct s_display	t_display;
 typedef struct s_coa		t_coa;
-typedef struct s_spell		t_spell;
+typedef struct s_lumos		t_lumos;
 typedef struct s_hit_door	t_hit_door;
 typedef struct s_door		t_door;
 typedef struct s_hitray		t_hitray;
@@ -43,7 +50,12 @@ typedef struct s_enemy		t_enemy;
 typedef	struct s_fcoo		t_fcoo;
 typedef struct s_case		t_case;
 typedef struct s_hit_enemy	t_hit_enemy;
+typedef struct s_hit_item	t_hit_item;
 typedef struct s_foot		t_foot;
+typedef struct s_player		t_player;
+typedef struct s_damage		t_damage;
+typedef struct s_item		t_item;
+typedef struct s_spell		t_spell;
 
 
 typedef	enum e_dir
@@ -54,13 +66,14 @@ typedef	enum e_dir
 	WEST
 } t_dir;
 
-typedef	enum e_enemy_info
+typedef enum e_enemy_info
 {
 	DEMENTOR = '.',
 	SPIDER = ',',
 	WOLF = ';',
 	TROLL = ':'
-} t_enemy_info;
+}	t_enemy_info;
+# define NB_TYPE_ENEMY 4
 
 typedef enum e_imgs
 {
@@ -68,8 +81,51 @@ typedef enum e_imgs
 	SELECT_HAND,
 	PLAYER_HAND,
 	PLAYER_WAND,
-	LEFT_SELECT
+	LEFT_SELECT,
+	DEMENTOR_FRONT,
+	DEMENTOR_BACK,
+	DOOR_MOVE,
+	DOOR_FIXED,
+	INCENDIO_IMG
 }	t_imgs;
+# define NB_TEXTURES 10
+
+typedef enum e_spells
+{
+	AGUAMENTI,
+	ALOHOMORA,
+	APARECIUM,
+	ARANIA_EXUMAI,
+	AVADA_KEDAVRA,
+	BOMBARDA,
+	CONFRINGO,
+	CONFUNDO,
+	ENDOLORIS,
+	EPISKEY,
+	EVANESCO,
+	EVERTE_STATUM,
+	EXPECTO_PATRONUM,
+	EXPELLIARMUS,
+	EXPULSO,
+	IMPEDIMENTA,
+	IMPERO,
+	IMMOBULUS,
+	INCENDIO,
+	LUMOS,
+	NOX,
+	OPPUGNO,
+	PETRIFICUS_TOTALUS,
+	PROTEGO,
+	REPARO,
+	REVELIO,
+	SECTUMSEMPRA,
+	SERPENSORTIA,
+	STUPEFIX,
+	VENTUS,
+	VIPERA_EVANESCA,
+	VULNERA_SANENTUR
+}	t_spells;
+# define NB_SPELL 32
 
 typedef enum e_coas
 {
@@ -93,17 +149,6 @@ struct s_fcoo
 	int		case_x;
 };
 
-struct s_door
-{
-	t_coo	coo;
-	t_coo	first_p;
-	t_coo	second_p;
-	double	pos;
-	bool	is_open;
-	bool	is_verti;
-	bool	is_floo_open;
-};
-
 struct s_wall_msg
 {
 	t_coo	coo;
@@ -113,6 +158,64 @@ struct s_wall_msg
 	int		msg_nb;
 	char	*img_addr;
 	int		dir;
+};
+
+struct s_damage
+{
+	double		damage_do;
+	double		slow_do;
+	double		poison_do;
+	double		fire_do;
+	double		damage_take;
+	double		slow_take;
+	double		poison_take;
+	double		fire_take;
+};
+
+struct	s_enemy
+{
+	t_img			*front_img;
+	t_img			*back_img;
+	t_enemy_info	type;
+	t_fcoo			center;
+	t_fcoo			left;
+	t_fcoo			right;
+	double			deg;
+	double			rad;
+	int				radius;
+	int				speed;
+	int				life;
+	t_damage		damage;
+	t_fcoo			goal;
+	t_case			*way;
+	int				wait;
+	bool			calc;
+	int				calc_path;
+};
+
+struct s_item
+{
+	t_img			*front_img;
+	t_img			*back_img;
+	t_fcoo			center;
+	t_fcoo			left;
+	t_fcoo			right;
+	double			deg;
+	double			rad;
+	int				radius;
+	int				speed;
+	t_damage		damage;
+};
+
+struct s_door
+{
+	t_coo	coo;
+	t_coo	first_p;
+	t_coo	second_p;
+	double	pos;
+	bool	is_open;
+	bool	is_verti;
+	bool	is_floo_open;
 };
 
 struct s_hit_door
@@ -165,6 +268,41 @@ struct s_hit_enemy
 	double	posx;
 };
 
+struct s_hit_item
+{
+	t_img		*texture;
+	t_item		*item;
+	t_enemy		*enemy;
+	t_door		*door;
+	int			type;
+	int			side;
+	int			dist_height;
+	double		door_status;
+	char		*pixel_addr;
+	char		*text_pix;
+	unsigned int	color;
+	double		coo_y;
+	double		coo_x;
+	int			case_y;
+	int			case_x;
+	bool		use;
+	bool		print;
+	double		dist;
+	double		size;
+	double		max_size;
+	double		htop;
+	double		hbot;
+	int			dir;
+	t_coo		texture_coo;
+	double		ry;
+	double		rx;
+	double		end_y;
+	double		end_x;
+	double		start_y;
+	double		start_x;
+	double		posx;
+};
+
 struct s_pause_menu
 {
 	// int		pix_y;
@@ -212,6 +350,7 @@ struct	s_ray
 	t_img	*img;
 	t_hit_door	**doors;
 	t_hit_enemy	**enemys;
+	t_hit_item	**items;
 	double	max_dist_wall;
 	double	start_case_x;
 	double	start_case_y;
@@ -363,9 +502,9 @@ struct s_display
 	unsigned long long time_remove;
 };
 
-struct s_spell
+struct s_lumos
 {
-	t_img	*lumos;
+	// t_img	*img;
 	int		x_wand;
 	int		y_wand;
 	bool	active;
@@ -384,6 +523,9 @@ struct	s_hitray
 {
 	int		i;
 	int		j;
+	int		radius;
+	int		deg;
+	bool	hit;
 	double	delta;
 	double	delta_t;
 	double	delta_u;
@@ -399,7 +541,6 @@ struct	s_hitray
 	double	dy;
 	double	hx;
 	double	hy;
-	bool	hit;
 	double	rx;
 	double	ry;
 	double	delta_x;
@@ -420,29 +561,31 @@ struct s_case
 	int		is_path;
 };
 
-struct	s_enemy
+
+
+struct s_spell
 {
-	t_enemy_info	type;
-	t_fcoo			center;
-	t_fcoo			left;
-	t_fcoo			right;
-	double			deg;
-	double			rad;
-	int				radius;
-	int				life;
-	int				damage;
-	int				slowness;
-	int				speed;
-	t_fcoo			goal;
-	t_case			*way;
-	int				wait;
-	bool			calc;
-	int				calc_path;
+	t_damage		damage;
+	t_item			item;
+	t_spells		type;
+	double			base_cooldown;
+	double			base_timer;
+	long long int	launch_time;
+	long long int	end_time;
+	void			(*call)(t_data *data, t_spells info);
+};
+
+struct	s_player
+{
+	double		life;
+	double		shield;
+	double		xp;
+	t_damage	damage;
 };
 
 struct s_data
 {
-	t_img			img[30];
+	t_img			img[NB_TEXTURES];
 	t_utils_mini	u;
 	t_img			*screen;
 	long long int	time_fps;
@@ -456,7 +599,7 @@ struct s_data
 	t_mlx			mlx;
 	t_ray			*ray;
 	t_display		display;
-	t_spell			spell;
+	t_lumos			lumos;
 	int				keycode[100];
 	pthread_mutex_t	m_data_ray;
 	pthread_t		thread_wall;
@@ -465,17 +608,11 @@ struct s_data
 	pthread_t		thread_ray_snd;
 	pthread_t		thread_ray_third;
 	pthread_t		thread_ray_last;
-
 	pthread_t		thread_fst_part;
 	pthread_t		thread_snd_part;
 	pthread_t		thread_third_part;
 	pthread_t		thread_last_part;
-	// pthread_t		thread_door;
 	pthread_t		thread_sky;
-	// sem_t			*sem_background;
-	// sem_t			*sem_door;
-	// sem_t			*sem_map;
-	// sem_t			*sem_display;
 	pthread_barrier_t		barrier_background;
 	pthread_barrier_t		barrier_display;
 	t_coa			*coa;
@@ -497,12 +634,16 @@ struct s_data
 	double			sensitivity;
 	// t_img	*wh;
 	// t_img	*bl;
-	t_lst	*enemy;
-	int		nb_enemy;
-	int		nb_create_enemy;
-	int		life;
-	int		damage;
-	int		slowness;
+	int			nb_enemy;
+	int			nb_create_enemy;
+	t_player	player;
+	t_spell		spell[NB_SPELL];
+	int			spell_take[4];
+	int			cast_spell;
+	int			active_spell;
+	t_lst		*enemy;
+	t_lst		*item;
+	t_lst		*door;
 	int		frame_floo;
 };
 

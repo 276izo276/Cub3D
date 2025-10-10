@@ -5,6 +5,7 @@
 #include "utils_bonus.h"
 #include "color_bonus.h"
 #include "enemy_bonus.h"
+#include <math.h>
 
 static void	handle_input_move(t_data *data, long long int cur)
 {
@@ -23,8 +24,8 @@ static void	handle_input_move(t_data *data, long long int cur)
 		{
 			if (data->keycode[i] == KEY_ESCAPE)
 				f_exit(data, 0);
-			else if (data->keycode[i] == KEY_1)
-				data->spell.active = true;
+			else if (data->keycode[i] >= KEY_1 && data->keycode[i] <= KEY_2)
+				data->cast_spell = data->spell_take[data->keycode[i] - KEY_1];
 			else if (is_move_player(data, i))
 				move = 1;
 			else if (data->keycode[i] == KEY_E)
@@ -36,6 +37,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 		if (move)
 			handle_move(&data->map, &data->map.mini, data);
 	}
+	data->player.damage.slow_take = 0;
 }
 
 void	remove_wall_msg(t_data *data)
@@ -90,6 +92,97 @@ void	handle_wall_msg(t_data *data, long long int cur)
 
 #include <stdio.h>
 
+void	aff_xp(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = data->mlx.width - 350;
+	while (x < data->mlx.width - 350 + fmod(data->player.xp * 300, 300))
+	{
+		y = data->mlx.height - 35;
+		while (y < data->mlx.height - 20)
+		{
+			
+			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0xFFFF00;
+			y++;
+		}
+		x++;
+	}
+}
+
+
+void	aff_life(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = data->mlx.width - 350;
+	while (x < data->mlx.width - 350 + ((double)data->player.life / 100 * 300))
+	{
+		y = data->mlx.height - 55;
+		while (y < data->mlx.height - 40)
+		{
+			
+			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0x00FF00;
+			y++;
+		}
+		x++;
+	}
+	while (x < data->mlx.width - 50)
+	{
+		y = data->mlx.height - 55;
+		while (y < data->mlx.height - 40)
+		{
+			
+			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0xFF0000;
+			y++;
+		}
+		x++;
+	}
+}
+
+
+void	aff_shield(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = data->mlx.width - 350;
+	while (x < data->mlx.width - 350 + ((double)data->player.shield / 100 * 300))
+	{
+		y = data->mlx.height - 75;
+		while (y < data->mlx.height - 60)
+		{
+			
+			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0x0000FF;
+			y++;
+		}
+		x++;
+	}
+}
+
+void	take_damage(t_data *data)
+{
+	double	damage;
+
+	damage = data->player.damage.damage_take;
+	data->player.shield -= damage;
+	if (data->player.shield < 0)
+	{
+		data->player.life += data->player.shield;
+		data->player.shield = 0;
+	}
+	data->player.damage.damage_take = 0;
+	if (data->player.damage.poison_take > 0)
+	{
+		data->player.damage.poison_take--;
+		data->player.life--;
+	}
+	if (data->player.life <= 0)
+		f_exit(data, 1);
+}
+
 int	game_loop(t_data *data)
 {
 	long long int	cur;
@@ -105,7 +198,12 @@ int	game_loop(t_data *data)
 		display_floo_map(data);
 	else
 	{
+		take_damage(data);
 		handle_input_move(data, cur);
+		if (data->cast_spell != -1)
+			data->spell[data->cast_spell].call(data, data->cast_spell);
+		move_enemy(data);
+		move_item(data);
 		handle_wall_msg(data, cur);
 		if (data->time_fps + 1000 / FPS < cur)
 		{
@@ -130,13 +228,15 @@ int	game_loop(t_data *data)
 			// else if (data->life <= 0 && data->life >= -92)
 			// 	data->life -= 5;
 			display_blood_border(data);
+			aff_xp(data);
+			aff_life(data);
+			aff_shield(data);
 			display_hand(data);
 			aff_mini_map(data);
 			handle_door(data);
 			// pthread_mutex_unlock(&data->m_data_ray);
 			// pthread_barrier_wait(&data->barrier);
 		}
-		move_enemy(data);
 	}
 	return (0);
 }

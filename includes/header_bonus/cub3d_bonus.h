@@ -15,7 +15,20 @@
 #endif
 
 
+
+
 void	display_item(t_data *data, int i);
+void	calc_end_point(t_hitray *ray);
+void	try_hit_item(t_data *data, int i, double x);
+void	move_item(t_data *data);
+void	f_item(void *elem);
+t_item	*init_spell_item(t_data *data, t_spells info);
+
+void	set_spell_take(t_data *data);
+void	init_spell(t_data *data);
+
+
+void	display_item_old(t_data *data, int i);
 void	calc_delta(t_hitray *ray);
 void	try_hit_enemy(t_data *data, int i);
 
@@ -58,6 +71,9 @@ void	display_msg(t_data *data, int i, int y, int x);
 // init 
 void	init_img_msg(t_data *data);
 void	open_img_msg(t_data *data);
+
+
+void	open_img(t_img *img, t_data *data);
 
 //raycasting
 void	ray_launch(t_data *data);
@@ -102,6 +118,8 @@ int		get_right_color(int color, double distance);
 
 //spell.c
 void	spell_lumos(t_data *data);
+void	cast_lumos(t_data *data, t_spells info);
+void	cast_spell(t_data *data, t_spells info);
 
 //handle_door.c
 void	handle_door(t_data *data);

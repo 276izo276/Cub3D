@@ -12,7 +12,7 @@ int	handle_ray_y_top(t_data *data, int i)
 {
 	// int	x;
 	// int	y;
-	calc_door(data, i);
+	// calc_door(data, i);
 	if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != '1')
 	{
 		data->ray[i].case_y--;
@@ -70,8 +70,9 @@ int	handle_ray_y_down(t_data *data, int i)
 	// int	x;
 	// int	y;
 
-	calc_door(data, i);
-	if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != '1')
+	// calc_door(data, i);
+	if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != '1'
+	)
 	{
 		data->ray[i].case_y++;
 		data->ray[i].coo_y = 0;
@@ -125,7 +126,7 @@ int	handle_ray_x_left(t_data *data, int i)
 	// int	x;
 	// int	y;
 
-	calc_door(data, i);
+	// calc_door(data, i);
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != '1')
 	{
 		data->ray[i].case_x--;
@@ -180,7 +181,7 @@ int	handle_ray_x_right(t_data *data, int i)
 	// int	x;
 	// int	y;
 
-	calc_door(data, i);
+	// calc_door(data, i);
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] != '1')
 	{
 		data->ray[i].case_x++;

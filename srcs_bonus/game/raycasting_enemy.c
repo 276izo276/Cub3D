@@ -12,10 +12,6 @@ void	try_hit_enemy(t_data *data, int i)
 	t_enemy		*enemy;
 
 	lst = get_first_elem_lst(data->enemy);
-	// ray.j = 0;
-	// while (++ray.j < data->nb_enemy + MAX_CREATE_ENEMY)
-	// 	if (data->ray[i].enemys[ray.j]->use == false)
-	// 		break ;
 	ft_bzero(&ray,sizeof(t_hitray));
 	ray.i = i;
 	while (lst)

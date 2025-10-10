@@ -830,8 +830,10 @@ int	see_player(t_data *data, t_enemy *enemy)
 			if (dist_player < 32)
 			{
 				// printf("Damage player\n");
-				data->damage += enemy->damage;
-				data->slowness += enemy->slowness;
+				data->player.damage.damage_take += enemy->damage.damage_do;
+				data->player.damage.slow_take += enemy->damage.slow_do;
+				data->player.damage.poison_take += enemy->damage.poison_do;
+				data->player.damage.fire_take += enemy->damage.fire_do;
 			}
 			while (enemy->way)
 			{
@@ -871,13 +873,10 @@ void	move_enemy(t_data *data)
 	while (lst)
 	{
 		enemy = lst->dt;
-		if (!enemy->way)
-			gen_enemy_way(data, enemy);
-		else
-		{
-			see_player(data, enemy);
+		if ((see_player(data, enemy) && enemy->way) || enemy->way)
 			make_move_enemy(data, enemy);
-		}
+		else
+			gen_enemy_way(data, enemy);
 		lst = lst->next;
 	}
 }

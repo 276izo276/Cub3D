@@ -21,10 +21,13 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	enemy->speed = 3;
 	enemy->radius = 6;
 	enemy->deg = 90;
-	enemy->damage = 5;
-	enemy->damage = 2;
+	enemy->damage.damage_do = 1;
+	enemy->damage.slow_do = 10;
+	enemy->damage.poison_do = 0;
 	enemy->rad = enemy->deg * (M_PI / 180);
 	enemy->calc = true;
+	enemy->back_img = &data->img[DEMENTOR_BACK];
+	enemy->front_img = &data->img[DEMENTOR_FRONT];
 	calc_left_point(enemy);
 	calc_right_point(enemy);
 	(void)data;

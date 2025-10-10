@@ -52,7 +52,7 @@ void    draw_left_border(t_data *data, int size)
             if (distance <= size)
             {
                 color = get_texture_pixel(data->screen, x, y);
-                color = get_right_red(color, distance, size, data->life);
+                color = get_right_red(color, distance, size, data->player.life);
                 pixel_put(data, x, y, color);
             }
             ++x;
@@ -82,7 +82,7 @@ void    draw_top_border(t_data *data, int size)
             if (distance <= size)
             {
                 color = get_texture_pixel(data->screen, x, y);
-                color = get_right_red(color, distance, size, data->life);
+                color = get_right_red(color, distance, size, data->player.life);
                 pixel_put(data, x, y, color);
             }
             ++x;
@@ -104,7 +104,7 @@ void    draw_right_border(t_data *data, int size)
         while (x <= size)
         {
             color = get_texture_pixel(data->screen, data->mlx.width - x, y);
-            color = get_right_red(color, x, size, data->life);
+            color = get_right_red(color, x, size, data->player.life);
             pixel_put(data, data->mlx.width - x, y, color);
             ++x;
         }
@@ -126,7 +126,7 @@ void    draw_down_border(t_data *data, int size)
         while (x <= data->mlx.width)
         {
             color = get_texture_pixel(data->screen, x, data->mlx.height - y - 100);
-            color = get_right_red(color, y, size, data->life);
+            color = get_right_red(color, y, size, data->player.life);
             pixel_put(data, x, data->mlx.height - y - 100, color);
             ++x;
         }
@@ -141,9 +141,9 @@ void    display_blood_border(t_data *data)
 
     // #include <stdio.h>
     // printf("life >> %d\n", data->life);
-    if (data->life >= 50)
+    if (data->player.life >= 50)
         return ;
-    size = pow(((50.0 - data->life) / 50.0), 1.5) * 150;
+    size = pow(((50.0 - data->player.life) / 50.0), 1.5) * 150;
     draw_left_border(data, size);
     draw_right_border(data, size);
     draw_top_border(data, size);

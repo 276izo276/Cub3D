@@ -69,7 +69,6 @@ int	key_release(int keycode, t_data *data)
 		i++;
 	}
 	return (0);
-	return (0);
 }
 
 static void	key_select_coa(int keycode, t_data *data)
@@ -161,17 +160,17 @@ int	key_press(int keycode, t_data *data)
 	i = 0;
 	while (data->keycode[i] != 0 && i < KEYCODE_NB)
 		i++;
-	if (keycode == KEY_1)
-	{
-		if (!data->spell.active)
-		{
-			data->spell.active = true;
-			data->spell.count_frame = 100;
-		}
-		else
-			data->spell.active = false;
-	}
-	else if (keycode == KEY_2)
+	// if (keycode == KEY_1)
+	// {
+	// 	if (!data->lumos.active)
+	// 	{
+	// 		data->lumos.active = true;
+	// 		data->lumos.count_frame = 100;
+	// 	}
+	// 	else
+	// 		data->lumos.active = false;
+	// }
+	if (keycode == KEY_5)
 		handle_floo_open(data);
 	else if (keycode == KEY_CTRL)
 	{
