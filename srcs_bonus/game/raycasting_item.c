@@ -174,7 +174,12 @@ void	try_hit_item(t_data *data, int i, double x)
 			while (++ray.j < MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door)
 				if (data->ray[i].items[ray.j]->use == false)
 					break ;
-			data->ray[i].items[ray.j]->type = DOOR;
+			if (door->is_floo && door->is_floo_open)
+				data->ray[i].items[ray.j]->type = FLOO_OPEN;
+			else if (door->is_floo && !door->is_floo_open)
+				data->ray[i].items[ray.j]->type = FLOO_CLOSE;
+			else
+				data->ray[i].items[ray.j]->type = DOOR;
 			data->ray[i].items[ray.j]->use = true;
 			data->ray[i].items[ray.j]->door = door;
 			data->ray[i].items[ray.j]->case_y = (int)(ray.hy / 64);

@@ -35,15 +35,17 @@ static void	is_valid_char_map(char c, int y, int x, t_data *data)
 	f_exit(data, 1);
 }
 
-static void	init_door(t_door *door, int y, int x)
+static void	init_door(t_door *door, int y, int x, char c)
 {
 	door->coo.y = y;
 	door->coo.x = x;
-	door->is_open = false;
-	door->pos = 0;
+	// door->is_open = false;
+	// door->pos = 0;
+	if (c == 'F')
+		door->is_floo = 1;
 }
 
-static void	add_door(t_data *data, int y, int x)
+static void	add_door(t_data *data, int y, int x, char c)
 {
 	t_door *door;
 	t_door **doors;
@@ -52,7 +54,8 @@ static void	add_door(t_data *data, int y, int x)
 	door = malloc(sizeof(t_door));
 	if (!door)
 		f_exit(data, 1);
-	init_door(door, y, x);
+	ft_bzero(door, sizeof(t_door));
+	init_door(door, y, x, c);
 	data->door = add_end_lst(door, data->door, f_elem);
 	if (!data->door)
 		f_exit(data, 1);
@@ -90,6 +93,7 @@ static void	add_door(t_data *data, int y, int x)
 // 		f_exit(data, 1);
 // 	}
 // }
+
 static void	is_door(char c, int y, int x, t_data *data)
 {
 	if (c != 'D' && c != 'F')
@@ -98,13 +102,14 @@ static void	is_door(char c, int y, int x, t_data *data)
 		|| (data->map.tabmap[y + 1][x] == '1' && data->map.tabmap[y - 1][x] == '1')))
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
-			"Map >>> " "door found alone\n"_END);
+			"Map >>> " "door found without wall around\n"_END);
 		f_exit(data, 1);
 	}
-	data->nb_door++;
+	if (c == 'D')
+		data->nb_door++;
 	if (c == 'F')
 		data->map.nb_floo++;
-	add_door(data, y, x);
+	add_door(data, y, x, c);
 	if (data->map.tabmap[y][x + 1] == '1' && data->map.tabmap[y][x - 1] == '1')
 	{
 		data->map.door_map[y][x]->is_verti = false;

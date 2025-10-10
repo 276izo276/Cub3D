@@ -700,6 +700,10 @@ void	set_texture(t_data *data, int i, int j)
 	}
 	if (data->ray[i].items[j]->type == DOOR)
 		data->ray[i].items[j]->texture = &data->img[DOOR_FIXED];
+	else if (data->ray[i].items[j]->type == FLOO_CLOSE)
+		data->ray[i].items[j]->texture = &data->img[FLOO_CLOSE];
+	else if (data->ray[i].items[j]->type == FLOO_OPEN)
+		data->ray[i].items[j]->texture = &data->img[FLOO_OPEN];
 	else if (data->ray[i].items[j]->side == BACK)
 		data->ray[i].items[j]->texture = back;
 	else if (data->ray[i].items[j]->side == FRONT)

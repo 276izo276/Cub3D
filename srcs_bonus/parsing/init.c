@@ -5,6 +5,7 @@
 #include <math.h>
 #include "time_bonus.h"
 #include <color_bonus.h>
+#include "ft_printf.h"
 
 static void	set_path_texture(t_data *data)
 {
@@ -18,8 +19,8 @@ static void	set_path_texture(t_data *data)
 	data->img[DOOR_MOVE].path = "./texture/door_close.xpm";
 	data->img[DOOR_FIXED].path = "./texture/door_open.xpm";
 	data->img[INCENDIO_IMG].path = "./texture/spell/incendio.xpm";
-	data->img[FLOO_CLOSE].path = "./texture/spell/floo_close.xpm";
-	data->img[FLOO_OPEN].path = "./texture/spell/floo_open.xpm";
+	data->img[FLOO_CLOSE].path = "./texture/floo_close.xpm";
+	data->img[FLOO_OPEN].path = "./texture/floo_open.xpm";
 }
 
 void	init_textures(t_data *data)
@@ -35,6 +36,9 @@ void	init_textures(t_data *data)
 				&data->img[i].height);
 		if (!data->img[i].img)
 		{
+			ft_printf_fd(2, _BOLD _PURPLE "Image >>> '"
+			_RED _ITALIC "%s"_END _PURPLE _BOLD "' is not a valid path\n"_END,
+			data->img[i].path);
 			while (--i >= 0)
 			{
 				mlx_destroy_image(data->mlx.mlx, data->img[i].img);
@@ -392,7 +396,9 @@ void	init_data(t_data *data, int ac, char **av)
 	data->lumos.count_frame = 0;
 	data->lumos.active = false;
 	// init_texture(data);
+	printf("1\n");
 	init_textures(data);
+	printf("2\n");
 	init_coa(data);
 	init_pause_menu(data);
 	data->nb_msg = 7;

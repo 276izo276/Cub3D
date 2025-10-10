@@ -86,9 +86,11 @@ typedef enum e_imgs
 	DEMENTOR_BACK,
 	DOOR_MOVE,
 	DOOR_FIXED,
-	INCENDIO_IMG
+	INCENDIO_IMG,
+	FLOO_CLOSE,
+	FLOO_OPEN
 }	t_imgs;
-# define NB_TEXTURES 10
+# define NB_TEXTURES 12
 
 typedef enum e_spells
 {
@@ -216,6 +218,7 @@ struct s_door
 	bool	is_open;
 	bool	is_verti;
 	bool	is_floo_open;
+	bool	is_floo;
 };
 
 struct s_hit_door
@@ -468,8 +471,8 @@ struct s_map
 	t_img	*ceiling;
 	t_img	*dementor_front;
 	t_img	*dementor_back;
-	t_img	*floo;
-	t_img	*floo_open;
+	// t_img	*floo;
+	// t_img	*floo_open;
 };
 
 struct s_display
