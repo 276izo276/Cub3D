@@ -114,6 +114,7 @@ int	try_hit_items(t_item *elem, t_data *data)
 	bool		hit;
 
 	hit = false;
+	printf("a\n");
 	lst = get_first_elem_lst(data->enemy);
 	while (lst)
 	{
@@ -160,6 +161,7 @@ int	try_hit_items(t_item *elem, t_data *data)
 		}
 		lst = lst->next;
 	}
+	printf("b\n");
 	// enemy = lst->dt;
 	// bzero(ray, sizeof(t_hitray));
 	// ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
@@ -214,9 +216,11 @@ void	move_item(t_data *data)
 	double	dx;
 	double	v_normalize;
 
+	printf("1\n");
 	lst = get_first_elem_lst(data->item);
 	while (lst)
 	{
+		printf("2\n");
 		item = lst->dt;
 		item->left_before.coo_x = item->left.coo_x;
 		item->left_before.coo_y = item->left.coo_y;
@@ -230,6 +234,7 @@ void	move_item(t_data *data)
 		item->center_before.coo_y = item->center.coo_y;
 		item->center_before.case_x = item->center.case_x;
 		item->center_before.case_y = item->center.case_y;
+		printf("3\n");
 		item->rad = item->deg * (M_PI / 180);
 		dx = sin(item->rad);
 		dy = cos(item->rad);
@@ -282,5 +287,6 @@ void	move_item(t_data *data)
 		calc_left_point_item(item);
 		calc_right_point_item(item);
 		lst = lst->next;
+		printf("4\n");
 	}
 }

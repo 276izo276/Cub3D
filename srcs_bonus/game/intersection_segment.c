@@ -28,6 +28,8 @@ void	calc_end_point(t_hitray *ray)
 	}
 }
 
+#include <stdio.h>
+
 void	calc_delta(t_hitray *ray)
 {
 	ray->hit = false;
