@@ -695,7 +695,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy, t_lst *lst)
 	(void)enemy;
 	// printf("\n\nCoo in case way x>>%d    y>>%d\n",enemy->way->coo_x,enemy->way->coo_y);
 	// printf("Coo in case center x>>%lf    y>>%lf\n",enemy->center.coo_x,enemy->center.coo_y);
-	printf("m1\n");
+	//DBG1printf("m1\n");
 	enemy->left_before.coo_x = enemy->left.coo_x;
 	enemy->left_before.coo_y = enemy->left.coo_y;
 	enemy->left_before.case_x = enemy->left.case_x;
@@ -708,7 +708,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy, t_lst *lst)
 	enemy->center_before.coo_y = enemy->center.coo_y;
 	enemy->center_before.case_x = enemy->center.case_x;
 	enemy->center_before.case_y = enemy->center.case_y;
-	printf("m2\n");
+	//DBG1printf("m2\n");
 	// enemy->life -= enemy->damage.damage_take;
 	// enemy->damage.damage_take = 0;
 	// printf("enemy life > %lf\n",enemy->life);
@@ -752,7 +752,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy, t_lst *lst)
 		enemy->deg = deg;
 		enemy->rad = deg * (M_PI / 180);
 	}
-	printf("m3\n");
+	//DBG1printf("m3\n");
 	double	dy;
 	double	dx;
 	double	v_normalize;
@@ -784,7 +784,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy, t_lst *lst)
 		// printf("END TRAJ IN CASE\n");
 		return ;
 	}
-	printf("m4\n");
+	//DBG1printf("m4\n");
 	enemy->center.coo_x += dx;
 	enemy->center.coo_y += dy;
 	if (enemy->calc_path > 0)
@@ -831,19 +831,19 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy, t_lst *lst)
 		f_case(tmp);
 		enemy->calc = true;
 	}
-	printf("m5\n");
+	//DBG1printf("m5\n");
 	try_hit_enemys(enemy, data);
-	printf("m6\n");
+	//DBG1printf("m6\n");
 	enemy->life -= enemy->damage.damage_take;
 	enemy->damage.damage_take = 0;
-	printf("enemy life > %lf\n",enemy->life);
+	//DBG1printf("enemy life > %lf\n",enemy->life);
 	if (enemy->life <= 0)
 	{
 		data->enemy = remove_elem_lst(lst);
 		f_elem_lst(lst);
 		return ;
 	}
-	printf("m7\n");
+	//DBG1printf("m7\n");
 
 	// if (delta_x > 0)
 	// 	rx = (64 - enemy->center.coo_x) / delta_x;

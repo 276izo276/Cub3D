@@ -37,6 +37,8 @@ static void	set_pix_player(t_data *data, t_utils_mini *u, int start_y, int start
 	}
 }
 
+#include <stdio.h>
+
 void	set_player_in_mini_map(t_data *data, t_utils_mini *u, double rad)
 {
 	t_img	*img;
@@ -58,6 +60,9 @@ void	set_player_in_mini_map(t_data *data, t_utils_mini *u, double rad)
 				set_pix_player(data, u, u->start_y, u->start_x);
 		}
 	}
+	//DBG1printf("t1\n");
 	set_trail_foot(data, u);
+	//DBG1printf("t2\n");
 	save_and_move_foot(data, rad);
+	//DBG1printf("t3\n");
 }

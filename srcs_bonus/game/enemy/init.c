@@ -28,7 +28,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	enemy->calc = true;
 	enemy->back_img = &data->img[DEMENTOR_BACK];
 	enemy->front_img = &data->img[DEMENTOR_FRONT];
-	enemy->life = 100;
+	enemy->life = 500;
 	calc_left_point(enemy);
 	calc_right_point(enemy);
 	(void)data;

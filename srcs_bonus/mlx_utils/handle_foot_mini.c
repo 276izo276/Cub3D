@@ -5,6 +5,8 @@
 #include <math.h>
 #include <stdlib.h>
 
+
+#include <stdio.h>
 static void	set_pix_old_player(t_utils_mini *u, int start_y, int start_x, unsigned int color)
 {
 	int		a_new;
@@ -16,7 +18,8 @@ static void	set_pix_old_player(t_utils_mini *u, int start_y, int start_x, unsign
 	int		b_old;
 	unsigned int old_color;
 
-	if (start_x < 0 || start_x >= u->size || start_y < 0 || start_y >= u->size)
+	//DBG1printf("start_y>%d, start_x>%d,   u->yfloat>%lf,   u->x_float>%lf,   color>%u\n",start_y,start_x,u->yfloat,u->xfloat,color);
+	if (start_x < 0 || start_x + u->xfloat >= u->size || start_y < 0 || start_y + u->yfloat >= u->size)
 		return ;
 	if (u->color != YELLOW)
 	{
@@ -56,6 +59,7 @@ static void	set_pix_old_player(t_utils_mini *u, int start_y, int start_x, unsign
 		b_new = (int)((1 - (a_new / 255.0)) * b_old + (a_new / 255.0) * b_new);
 		*(unsigned int *)u->pixel_addr = (r_new << 16) + (g_new << 8) + b_new;
 	}
+	//DBG1printf("end\n");
 }
 
 static bool	check_gap(t_data *data)
@@ -146,6 +150,8 @@ void	angle_offset(t_data *data, int *start_x, int *start_y, int i)
 
 }
 
+#include <stdio.h>
+
 void	set_foot_in_mini_map(t_data *data, int i, t_utils_mini *u, t_img img, double distance)
 {
 	int		gap_x;
@@ -153,23 +159,31 @@ void	set_foot_in_mini_map(t_data *data, int i, t_utils_mini *u, t_img img, doubl
 	unsigned int	color;
 
 	gap_x = ((data->map.mini.foot_tab[i].coo.case_x - data->map.player_coo->x) * 64) + (data->map.mini.foot_tab[i].coo.coo_x - data->map.mini.player_coo.x);
-		gap_y = ((data->map.mini.foot_tab[i].coo.case_y - data->map.player_coo->y) * 64) + (data->map.mini.foot_tab[i].coo.coo_y - data->map.mini.player_coo.y);
+	gap_y = ((data->map.mini.foot_tab[i].coo.case_y - data->map.player_coo->y) * 64) + (data->map.mini.foot_tab[i].coo.coo_y - data->map.mini.player_coo.y);
+	//DBG1printf("gapx >%d   gapy>%d\n",gap_x,gap_y);
 	while (u->y < img.height)
 	{
 		u->x = 0;
 		while (u->x < img.width)
 		{
+			//DBG1printf("a1\n");
 			calc_value_player_mini_map_aff(u, &img, data->map.mini.foot_tab[i].rad);
+			//DBG1printf("a2\n");
 			if (u->color != 0x00000000)
 			{
+				//DBG1printf("a3\n");
 				color = get_right_color(data->color, distance);
+				//DBG1printf("a4\n");
 				set_pix_old_player(u, u->start_y + gap_y, u->start_x + gap_x, color);
 			}
+			//DBG1printf("a5\n");
 			++u->x;
 		}
 		++u->y;
 	}
 }
+
+#include <stdio.h>
 
 void	set_trail_foot(t_data *data, t_utils_mini *u)
 {
@@ -179,6 +193,7 @@ void	set_trail_foot(t_data *data, t_utils_mini *u)
 
 	i = 1;
 	distance = 0;
+	//DBG1printf("i1\n");
 	while (data->map.mini.foot_tab[i].is_save == true && i < 8)
 	{
 		distance += 5;
@@ -187,8 +202,11 @@ void	set_trail_foot(t_data *data, t_utils_mini *u)
 		else
 			img = data->map.mini.img[MINI_RIGHT];
 		u->y = 0;
+		//DBG1printf("i2  i>%d\n",i);
 		angle_offset(data, &u->start_x, &u->start_y, i);
+		//DBG1printf("i3\n");
 		set_foot_in_mini_map(data, i , u, img, distance);
+		//DBG1printf("i4\n");
 		++i;
 	}
 }
