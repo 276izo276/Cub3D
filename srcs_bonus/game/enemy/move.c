@@ -495,7 +495,7 @@ void	calc_right_point(t_enemy *enemy)
 }
 
 
-int	try_hit_enemys(t_enemy *elem, t_data *data)
+void	try_hit_enemys(t_enemy *elem, t_data *data)
 {
 	// t_enemy		*enemy;
 	t_item		*item;
@@ -509,127 +509,52 @@ int	try_hit_enemys(t_enemy *elem, t_data *data)
 	while (lst)
 	{
 		item = lst->dt;
-		bzero(&ray, sizeof(t_hitray));
-		ray.cx = item->left.case_x * 64 + item->left.coo_x;
-		ray.cy = item->left.case_y * 64 + item->left.coo_y;
+		ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
+		ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
+		ray.bx = elem->right.case_x * 64 + elem->right.coo_x;
+		ray.by = elem->right.case_y * 64 + elem->right.coo_y;
+		ray.cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
+		ray.cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
+		ray.dx = item->left.case_x * 64 + item->left.coo_x;
+		ray.dy = item->left.case_y * 64 + item->left.coo_y;
+		calc_scal(&ray);
+		if (ray.hit == true)
+		{
+			printf("HIT ennemy\n");
+			elem->damage.damage_take += item->damage.damage_do;
+			elem->damage.slow_take += item->damage.slow_do;
+			elem->damage.poison_take += item->damage.poison_do;
+			elem->damage.fire_take += item->damage.fire_do;
+			next = lst->next;
+			hit = true;
+			data->item = remove_elem_lst(lst);
+			f_elem_lst(lst);
+			lst = next;
+			continue;
+		}
+		ray.dx = item->center.case_x * 64 + item->center.coo_x;
+		ray.dy = item->center.case_y * 64 + item->center.coo_y;
+		calc_scal(&ray);
+		if (ray.hit == true)
+		{
+			printf("HIT ennemy\n");
+			elem->damage.damage_take += item->damage.damage_do;
+			elem->damage.slow_take += item->damage.slow_do;
+			elem->damage.poison_take += item->damage.poison_do;
+			elem->damage.fire_take += item->damage.fire_do;
+			next = lst->next;
+			hit = true;
+			data->item = remove_elem_lst(lst);
+			f_elem_lst(lst);
+			lst = next;
+			continue;
+		}
 		ray.dx = item->right.case_x * 64 + item->right.coo_x;
 		ray.dy = item->right.case_y * 64 + item->right.coo_y;
-		
-		ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
-		ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
-		ray.bx = elem->center_before.case_x * 64 + elem->center_before.coo_x;
-		ray.by = elem->center_before.case_y * 64 + elem->center_before.coo_y;
-		calc_delta(&ray);
+		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			elem->damage.damage_take += item->damage.damage_do;
-			elem->damage.slow_take += item->damage.slow_do;
-			elem->damage.poison_take += item->damage.poison_do;
-			elem->damage.fire_take += item->damage.fire_do;
-			next = lst->next;
-			hit = true;
-			data->item = remove_elem_lst(lst);
-			f_elem_lst(lst);
-			lst = next;
-			continue;
-		}
-		ray.ax = elem->center.case_x * 64 + elem->center.coo_x;
-		ray.ay = elem->center.case_y * 64 + elem->center.coo_y;
-		ray.bx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
-		ray.by = elem->left_before.case_y * 64 + elem->left_before.coo_y;
-		calc_delta(&ray);
-		if (ray.hit == true)
-		{
-			elem->damage.damage_take += item->damage.damage_do;
-			elem->damage.slow_take += item->damage.slow_do;
-			elem->damage.poison_take += item->damage.poison_do;
-			elem->damage.fire_take += item->damage.fire_do;
-			next = lst->next;
-			hit = true;
-			data->item = remove_elem_lst(lst);
-			f_elem_lst(lst);
-			lst = next;
-			continue;
-		}
-		ray.ax = elem->right.case_x * 64 + elem->right.coo_x;
-		ray.ay = elem->right.case_y * 64 + elem->right.coo_y;
-		ray.bx = elem->center_before.case_x * 64 + elem->center_before.coo_x;
-		ray.by = elem->center_before.case_y * 64 + elem->center_before.coo_y;
-		calc_delta(&ray);
-		if (ray.hit == true)
-		{
-			elem->damage.damage_take += item->damage.damage_do;
-			elem->damage.slow_take += item->damage.slow_do;
-			elem->damage.poison_take += item->damage.poison_do;
-			elem->damage.fire_take += item->damage.fire_do;
-			next = lst->next;
-			hit = true;
-			data->item = remove_elem_lst(lst);
-			f_elem_lst(lst);
-			lst = next;
-			continue;
-		}
-		ray.ax = elem->center.case_x * 64 + elem->center.coo_x;
-		ray.ay = elem->center.case_y * 64 + elem->center.coo_y;
-		ray.bx = elem->right_before.case_x * 64 + elem->right_before.coo_x;
-		ray.by = elem->right_before.case_y * 64 + elem->right_before.coo_y;
-		calc_delta(&ray);
-		if (ray.hit == true)
-		{
-			elem->damage.damage_take += item->damage.damage_do;
-			elem->damage.slow_take += item->damage.slow_do;
-			elem->damage.poison_take += item->damage.poison_do;
-			elem->damage.fire_take += item->damage.fire_do;
-			next = lst->next;
-			hit = true;
-			data->item = remove_elem_lst(lst);
-			f_elem_lst(lst);
-			lst = next;
-			continue;
-		}
-		ray.ax = elem->center.case_x * 64 + elem->center.coo_x;
-		ray.ay = elem->center.case_y * 64 + elem->center.coo_y;
-		ray.bx = elem->center_before.case_x * 64 + elem->center_before.coo_x;
-		ray.by = elem->center_before.case_y * 64 + elem->center_before.coo_y;
-		calc_delta(&ray);
-		if (ray.hit == true)
-		{
-			elem->damage.damage_take += item->damage.damage_do;
-			elem->damage.slow_take += item->damage.slow_do;
-			elem->damage.poison_take += item->damage.poison_do;
-			elem->damage.fire_take += item->damage.fire_do;
-			next = lst->next;
-			hit = true;
-			data->item = remove_elem_lst(lst);
-			f_elem_lst(lst);
-			lst = next;
-			continue;
-		}
-		ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
-		ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
-		ray.bx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
-		ray.by = elem->left_before.case_y * 64 + elem->left_before.coo_y;
-		calc_delta(&ray);
-		if (ray.hit == true)
-		{
-			elem->damage.damage_take += item->damage.damage_do;
-			elem->damage.slow_take += item->damage.slow_do;
-			elem->damage.poison_take += item->damage.poison_do;
-			elem->damage.fire_take += item->damage.fire_do;
-			next = lst->next;
-			hit = true;
-			data->item = remove_elem_lst(lst);
-			f_elem_lst(lst);
-			lst = next;
-			continue;
-		}
-		ray.ax = elem->right.case_x * 64 + elem->right.coo_x;
-		ray.ay = elem->right.case_y * 64 + elem->right.coo_y;
-		ray.bx = elem->right_before.case_x * 64 + elem->right_before.coo_x;
-		ray.by = elem->right_before.case_y * 64 + elem->right_before.coo_y;
-		calc_delta(&ray);
-		if (ray.hit == true)
-		{
+			printf("HIT ennemy\n");
 			elem->damage.damage_take += item->damage.damage_do;
 			elem->damage.slow_take += item->damage.slow_do;
 			elem->damage.poison_take += item->damage.poison_do;
@@ -643,50 +568,6 @@ int	try_hit_enemys(t_enemy *elem, t_data *data)
 		}
 		lst = lst->next;
 	}
-	// enemy = lst->dt;
-	// bzero(ray, sizeof(t_hitray));
-	// ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
-	// ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
-	// ray.bx = elem->right_before.case_x * 64 + elem->right_before.coo_x;
-	// ray.by = elem->right_before.case_y * 64 + elem->right_before.coo_y;
-	// ray.cx = data->player.left.case_x * 64 + enemy->left.coo_x;
-	// ray.cy = enemy->left.case_y * 64 + enemy->left.coo_y;
-	// ray.dx = enemy->right.case_x * 64 + enemy->right.coo_x;
-	// ray.dy = enemy->right.case_y * 64 + enemy->right.coo_y;
-	// calc_delta(&ray);
-	// if (ray.hit == true)
-	// {
-	// 	enemy->damage.damage_take += elem->damage.damage_do;
-	// 	enemy->damage.slow_take += elem->damage.slow_do;
-	// 	enemy->damage.poison_take += elem->damage.poison_do;
-	// 	enemy->damage.fire_take += elem->damage.fire_do;
-	// 	lst = lst->next;
-	// 	hit = true;
-	// 	return (1);
-	// }
-	// bzero(ray, sizeof(t_hitray));
-	// ray.ax = elem->right.case_x * 64 + elem->right.coo_x;
-	// ray.ay = elem->right.case_y * 64 + elem->right.coo_y;
-	// ray.bx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
-	// ray.by = elem->left_before.case_y * 64 + elem->left_before.coo_y;
-	// ray.cx = enemy->left.case_x * 64 + enemy->left.coo_x;
-	// ray.cy = enemy->left.case_y * 64 + enemy->left.coo_y;
-	// ray.dx = enemy->right.case_x * 64 + enemy->right.coo_x;
-	// ray.dy = enemy->right.case_y * 64 + enemy->right.coo_y;
-	// calc_delta(&ray);
-	// if (ray.hit == true)
-	// {
-	// 	enemy->damage.damage_take += elem->damage.damage_do;
-	// 	enemy->damage.slow_take += elem->damage.slow_do;
-	// 	enemy->damage.poison_take += elem->damage.poison_do;
-	// 	enemy->damage.fire_take += elem->damage.fire_do;
-	// 	lst = lst->next;
-	// 	hit = true;
-	// 	return (1);
-	// }
-	if (hit == true)
-		return (1);
-	return (0);
 }
 
 static void	make_move_enemy(t_data *data, t_enemy *enemy, t_lst *lst)
@@ -696,18 +577,6 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy, t_lst *lst)
 	// printf("\n\nCoo in case way x>>%d    y>>%d\n",enemy->way->coo_x,enemy->way->coo_y);
 	// printf("Coo in case center x>>%lf    y>>%lf\n",enemy->center.coo_x,enemy->center.coo_y);
 	//DBG1printf("m1\n");
-	enemy->left_before.coo_x = enemy->left.coo_x;
-	enemy->left_before.coo_y = enemy->left.coo_y;
-	enemy->left_before.case_x = enemy->left.case_x;
-	enemy->left_before.case_y = enemy->left.case_y;
-	enemy->right_before.coo_x = enemy->right.coo_x;
-	enemy->right_before.coo_y = enemy->right.coo_y;
-	enemy->right_before.case_x = enemy->right.case_x;
-	enemy->right_before.case_y = enemy->right.case_y;
-	enemy->center_before.coo_x = enemy->center.coo_x;
-	enemy->center_before.coo_y = enemy->center.coo_y;
-	enemy->center_before.case_x = enemy->center.case_x;
-	enemy->center_before.case_y = enemy->center.case_y;
 	//DBG1printf("m2\n");
 	// enemy->life -= enemy->damage.damage_take;
 	// enemy->damage.damage_take = 0;
@@ -753,6 +622,21 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy, t_lst *lst)
 		enemy->rad = deg * (M_PI / 180);
 	}
 	//DBG1printf("m3\n");
+	calc_left_point(enemy);
+	calc_right_point(enemy);
+	enemy->left_before.coo_x = enemy->left.coo_x;
+	enemy->left_before.coo_y = enemy->left.coo_y;
+	enemy->left_before.case_x = enemy->left.case_x;
+	enemy->left_before.case_y = enemy->left.case_y;
+	enemy->right_before.coo_x = enemy->right.coo_x;
+	enemy->right_before.coo_y = enemy->right.coo_y;
+	enemy->right_before.case_x = enemy->right.case_x;
+	enemy->right_before.case_y = enemy->right.case_y;
+	// enemy->center_before.coo_x = enemy->center.coo_x;
+	// enemy->center_before.coo_y = enemy->center.coo_y;
+	// enemy->center_before.case_x = enemy->center.case_x;
+	// enemy->center_before.case_y = enemy->center.case_y;
+
 	double	dy;
 	double	dx;
 	double	v_normalize;
@@ -792,6 +676,8 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy, t_lst *lst)
 	// printf("calc_path >>%d\n",enemy->calc_path);
 	calc_left_point(enemy);
 	calc_right_point(enemy);
+	//DBG1printf("m5\n");
+	try_hit_enemys(enemy, data);
 	// enemy->center.coo_x = round(enemy->center.coo_x);
 	// enemy->center.coo_y = round(enemy->center.coo_y);
 	// printf("CURRENT   y>>>%d    x>>%d\n",enemy->center.case_x,enemy->center.case_y);
@@ -831,8 +717,6 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy, t_lst *lst)
 		f_case(tmp);
 		enemy->calc = true;
 	}
-	//DBG1printf("m5\n");
-	try_hit_enemys(enemy, data);
 	//DBG1printf("m6\n");
 	enemy->life -= enemy->damage.damage_take;
 	enemy->damage.damage_take = 0;

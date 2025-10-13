@@ -187,7 +187,7 @@ struct	s_enemy
 	t_fcoo			right_before;
 	double			deg;
 	double			rad;
-	int				radius;
+	double			radius;
 	double			speed;
 	double			life;
 	t_damage		damage;
@@ -210,7 +210,7 @@ struct s_item
 	t_fcoo			right_before;
 	double			deg;
 	double			rad;
-	int				radius;
+	double			radius;
 	int				speed;
 	t_damage		damage;
 };
@@ -532,9 +532,9 @@ struct	s_hitray
 {
 	int		i;
 	int		j;
-	int		radius;
 	int		deg;
 	bool	hit;
+	double	radius;
 	double	delta;
 	double	delta_t;
 	double	delta_u;
