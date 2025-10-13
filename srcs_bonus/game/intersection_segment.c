@@ -30,6 +30,7 @@ void	calc_end_point(t_hitray *ray)
 
 void	calc_delta(t_hitray *ray)
 {
+	ray->hit = false;
 	ray->delta = (ray->dx - ray->cx) * (ray->by - ray->ay)
 		- (ray->dy - ray->cy) * (ray->bx - ray->ax);
 	ray->delta_t = (ray->dx - ray->cx) * (ray->cy - ray->ay)
@@ -46,7 +47,5 @@ void	calc_delta(t_hitray *ray)
 			ray->hx = ray->cx + ray->u * (ray->dx - ray->cx);
 			ray->hy = ray->cy + ray->u * (ray->dy - ray->cy);
 		}
-		else
-			ray->hit = false;
 	}
 }

@@ -18,14 +18,14 @@ static void	init_lumos(t_data *data)
 
 static void	init_incendio(t_data *data)
 {
-	data->spell[INCENDIO].base_cooldown = 25;
+	data->spell[INCENDIO].base_cooldown = 0;
 	data->spell[INCENDIO].call = cast_spell;
 	data->spell[INCENDIO].type = INCENDIO;
 	// data->spell[INCENDIO].img.path = "texture/spell/incendio.xpm";
 	// open_img(&data->spell[INCENDIO].img, data);
 	data->spell[INCENDIO].damage.damage_do = 10;
 	data->spell[INCENDIO].damage.fire_do = 25;
-	data->spell[INCENDIO].item.speed = 15;
+	data->spell[INCENDIO].item.speed = 5;
 	data->spell[INCENDIO].item.radius = 2;
 	data->spell[INCENDIO].item.front_img = &data->img[INCENDIO_IMG];
 	data->spell[INCENDIO].item.back_img = &data->img[INCENDIO_IMG];

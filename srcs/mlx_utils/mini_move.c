@@ -85,6 +85,7 @@ static void	calc_dx_dy(t_data *data, int keycode, t_mini *mini)
 {
 	int	angle;
 
+	(void)data;
 	angle = 0;
 	if (keycode == KEY_W)
 		angle = 0;

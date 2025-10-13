@@ -327,6 +327,8 @@ $(BONUS_NAME): $(STATIC_LIB) $(EXTERN_LIB) $(OBJS_BONUS)
 .PHONY:re
 re: fclean all
 
+.PHONY:re_bonus
+re_bonus: fclean $(BONUS_NAME)
 
 .PHONY:re_all
 re_all: fclean_all all

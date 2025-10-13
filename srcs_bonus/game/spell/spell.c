@@ -61,6 +61,7 @@ void	cast_lumos(t_data *data, t_spells info)
 {
 	data->cast_spell = -1;
 	(void)info;
+	// printf("spell lumos active_spell>%d    lumos_active>%d\n",data->active_spell,data->lumos.active);
 	if (data->active_spell == -1 && !data->lumos.active && get_mtime() > data->spell[LUMOS].end_time
 		+ data->spell[LUMOS].base_cooldown * 1000)
 	{
@@ -93,7 +94,7 @@ void	spell_lumos(t_data *data)
 	start_y = data->lumos.y_wand + 5;
 	lumos_loop(data, start_x, start_y);
 	if (data->lumos.active == false)
-		data->lumos.count_frame -= 5;
+		data->lumos.count_frame -= 3;
 }
 
 void	cast_spell(t_data *data, t_spells info)

@@ -25,7 +25,10 @@ static void	handle_input_move(t_data *data, long long int cur)
 			if (data->keycode[i] == KEY_ESCAPE)
 				f_exit(data, 0);
 			else if (data->keycode[i] >= KEY_1 && data->keycode[i] <= KEY_2)
+			{
 				data->cast_spell = data->spell_take[data->keycode[i] - KEY_1];
+				data->keycode[i] = 0;
+			}
 			else if (is_move_player(data, i))
 				move = 1;
 			else if (data->keycode[i] == KEY_E)

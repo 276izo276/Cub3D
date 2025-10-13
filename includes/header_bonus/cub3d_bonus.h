@@ -16,7 +16,8 @@
 
 
 
-
+void	calc_left_point_item(t_item *item);
+void	calc_right_point_item(t_item *item);
 void	display_item(t_data *data, int i);
 void	calc_end_point(t_hitray *ray);
 void	try_hit_item(t_data *data, int i, double x);

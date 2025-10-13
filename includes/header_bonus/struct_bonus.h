@@ -182,11 +182,14 @@ struct	s_enemy
 	t_fcoo			center;
 	t_fcoo			left;
 	t_fcoo			right;
+	t_fcoo			center_before;
+	t_fcoo			left_before;
+	t_fcoo			right_before;
 	double			deg;
 	double			rad;
 	int				radius;
-	int				speed;
-	int				life;
+	double			speed;
+	double			life;
 	t_damage		damage;
 	t_fcoo			goal;
 	t_case			*way;
@@ -202,6 +205,9 @@ struct s_item
 	t_fcoo			center;
 	t_fcoo			left;
 	t_fcoo			right;
+	t_fcoo			center_before;
+	t_fcoo			left_before;
+	t_fcoo			right_before;
 	double			deg;
 	double			rad;
 	int				radius;
@@ -564,8 +570,6 @@ struct s_case
 	int		is_path;
 };
 
-
-
 struct s_spell
 {
 	t_damage		damage;
@@ -647,7 +651,7 @@ struct s_data
 	t_lst		*enemy;
 	t_lst		*item;
 	t_lst		*door;
-	int		frame_floo;
+	int			frame_floo;
 };
 
 t_coo	*init_t_coo(int y, int x);
