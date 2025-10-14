@@ -130,7 +130,6 @@ void	aff_xp(t_data *data)
 	}
 }
 
-
 void	aff_life(t_data *data)
 {
 	double			x;
@@ -177,7 +176,6 @@ void	aff_life(t_data *data)
 	}
 }
 
-
 void	aff_shield(t_data *data)
 {
 	double			x;
@@ -210,6 +208,30 @@ void	aff_shield(t_data *data)
 			y++;
 		}
 		x++;
+	}
+}
+
+void	aff_spell(t_data *data)
+{
+	double	x;
+	double	y;
+	int		i;
+
+	i = 0;
+	while (i < 4)
+	{
+		x = data->mlx.width - 350 + 64 * i + 13 * (i);
+		while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
+		{
+			y = data->mlx.height - 90 - 64;
+			while (y < data->mlx.height - 90)
+			{
+				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = 0xFFFFFF;
+				y++;
+			}
+			x++;
+		}
+		i++;
 	}
 }
 
@@ -284,6 +306,7 @@ int	game_loop(t_data *data)
 			aff_xp(data);
 			aff_life(data);
 			aff_shield(data);
+			aff_spell(data);
 			display_hand(data);
 			aff_mini_map(data);
 			handle_door(data);
