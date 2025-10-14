@@ -255,9 +255,16 @@ void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 	if (map->tabmap[map->player_coo->y][map->player_coo->x] == 'F' && (map->door_map[map->player_coo->y][map->player_coo->x]->is_floo_open == true))
 	{
 		if (map->door_map[map->player_coo->y][map->player_coo->x]->is_verti == true && ((mini->player_coo.x <= 32.0 && mini->nx > 32.0) || (mini->player_coo.x >= 32.0 && mini->nx < 32.0)))
+		{
 			data->status = MAP;
+			printf("MAP 1\n");
+
+		}
 		else if (map->door_map[map->player_coo->y][map->player_coo->x]->is_verti == false && ((mini->player_coo.y <= 32.0 && mini->ny > 32.0) || (mini->player_coo.y >= 32.0 && mini->ny < 32.0)))
+		{
 			data->status = MAP;
+			printf("MAP 2\n");
+		}
 	}
 }
 

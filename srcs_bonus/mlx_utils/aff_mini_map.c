@@ -4,6 +4,8 @@
 #include "utils_bonus.h"
 #include <math.h>
 
+
+#include <stdio.h>
 static void	set_pix_img(t_utils_mini *u, t_data *data)
 {
 	*(unsigned int *)u->pixel_addr = *(unsigned int *)(data->screen->data_addr

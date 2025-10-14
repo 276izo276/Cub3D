@@ -134,6 +134,29 @@ static void	handle_menu_keys(int keycode, t_data *data)
 		key_select_hand(keycode, data);
 }
 
+static void	handle_map_keys(int keycode, t_data *data)
+{
+	int	angle_deg;
+
+	angle_deg = data->map.mini.deg;
+	if (keycode == KEY_ESCAPE)
+	{
+		data->status = GAME;
+		if (angle_deg >= 315 || angle_deg <= 45)
+			data->map.mini.player_coo.y = 22;
+		else if (angle_deg > 135 && angle_deg < 225)
+			data->map.mini.player_coo.y = 42;
+		else if (angle_deg >= 45 && angle_deg <= 135)
+			data->map.mini.player_coo.x = 42;
+		else if (angle_deg >= 225 && angle_deg <= 315)
+			data->map.mini.player_coo.x = 22;
+		data->map.mini.deg += 180;
+		data->map.mini.deg = fmod(data->map.mini.deg, 360);
+		data->map.mini.rad = data->map.mini.deg * M_PI / 180;
+
+	}
+}
+
 void	handle_floo_open(t_data *data)
 {
 	if (data->map.tabmap[data->map.player_coo->y][data->map.player_coo->x] == 'F')
@@ -155,6 +178,11 @@ int	key_press(int keycode, t_data *data)
 	if (data->status == MENU)
 	{
 		handle_menu_keys(keycode, data);
+		return (0);
+	}
+	else if (data->status == MAP)
+	{
+		handle_map_keys(keycode, data);
 		return (0);
 	}
 	i = 0;

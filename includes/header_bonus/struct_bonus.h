@@ -460,6 +460,7 @@ struct s_map
 	int		tabmap_height;
 	int		nb_floo;
 	char	**tabmap;
+	int		zoom;
 	t_door	***door_map;
 	t_wall_msg		***wall_map;
 	t_img			**msg_img;
