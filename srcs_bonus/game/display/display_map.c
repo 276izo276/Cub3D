@@ -61,7 +61,7 @@ void    draw_player(t_data *data)
         {
             color = get_texture_pixel(&data->map.mini.img[MINI_CURS], (pixel_x / (data->map.zoom / 2)) * data->map.mini.img[MINI_CURS].width, (pixel_y / (data->map.zoom / 2)) * data->map.mini.img[MINI_CURS].height);
             if (color != 0)
-                pixel_put(data, pixel_x + data->mlx.width / 2 - data->map.mini.img[MINI_CURS].width / 2, pixel_y + (data->mlx.height - MARGIN) / 2 - data->map.mini.img[MINI_CURS].height / 2, color);
+                pixel_put(data, pixel_x + data->mlx.width / 2 - (data->map.zoom / 4), pixel_y + (data->mlx.height - MARGIN) / 2 - (data->map.zoom / 4), color);
             ++pixel_x;
         }
         ++pixel_y;
@@ -94,8 +94,8 @@ void    display_floo_map(t_data *data)
         x = 0;
         while(data->map.tabmap[y][x])
         {
-            pos_x = (x - data->map.player_coo->x) * data->map.zoom + data->mlx.width / 2 - data->map.mini.player_coo.x;
-            pos_y = (y - data->map.player_coo->y) * data->map.zoom + (data->mlx.height - MARGIN) / 2 - data->map.mini.player_coo.y;
+            pos_x = (x - data->map.player_coo->x) * data->map.zoom + data->mlx.width / 2 - data->map.mini.player_coo.x * ((double)data->map.zoom / 64.0);
+            pos_y = (y - data->map.player_coo->y) * data->map.zoom + (data->mlx.height - MARGIN) / 2 - data->map.mini.player_coo.y * ((double)data->map.zoom / 64.0);
             if (pos_x + data->map.zoom > 0 && pos_x < data->mlx.width
             && pos_y + data->map.zoom > 0 && pos_y < data->mlx.height)
             {
