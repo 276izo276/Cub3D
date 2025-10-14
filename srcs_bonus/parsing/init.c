@@ -21,6 +21,9 @@ static void	set_path_texture(t_data *data)
 	data->img[INCENDIO_IMG].path = "./texture/spell/incendio.xpm";
 	data->img[FLOO_CLOSE].path = "./texture/floo_close.xpm";
 	data->img[FLOO_OPEN].path = "./texture/floo_open.xpm";
+	data->img[HEART].path = "./texture/heart.xpm";
+	data->img[SHIELD].path = "./texture/shield.xpm";
+	data->img[XP].path = "./texture/xp.xpm";
 }
 
 void	init_textures(t_data *data)

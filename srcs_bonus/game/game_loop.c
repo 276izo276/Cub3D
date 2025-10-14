@@ -97,17 +97,33 @@ void	handle_wall_msg(t_data *data, long long int cur)
 
 void	aff_xp(t_data *data)
 {
-	int	x;
-	int	y;
+	double			x;
+	double			y;
+	unsigned int	color;
 
 	x = data->mlx.width - 350;
 	while (x < data->mlx.width - 350 + fmod(data->player.xp * 300, 300))
 	{
-		y = data->mlx.height - 35;
-		while (y < data->mlx.height - 20)
+		y = data->mlx.height - 30;
+		while (y < data->mlx.height - 15)
 		{
 			
-			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0xFFFF00;
+			*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = 0xFFFF00;
+			y++;
+		}
+		x++;
+	}
+	x = data->mlx.width - 40;
+	while (x <= data->mlx.width - 10)
+	{
+		y = data->mlx.height - 38;
+		while (y <= data->mlx.height - 8)
+		{
+			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 38)) / 30 * data->img[XP].height)) * data->img[XP].size_line;
+			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 40)) / 30 * data->img[XP].width)) * (data->img[XP].bits_per_pixel >> 3);
+			color = *(unsigned int *)(data->img[XP].data_addr + a + b);
+			if (color != WHITE)
+				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel >> 3)) = color;
 			y++;
 		}
 		x++;
@@ -117,8 +133,9 @@ void	aff_xp(t_data *data)
 
 void	aff_life(t_data *data)
 {
-	int	x;
-	int	y;
+	double			x;
+	double			y;
+	unsigned int	color;
 
 	x = data->mlx.width - 350;
 	while (x < data->mlx.width - 350 + ((double)data->player.life / 100 * 300))
@@ -127,7 +144,7 @@ void	aff_life(t_data *data)
 		while (y < data->mlx.height - 40)
 		{
 			
-			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0x00FF00;
+			*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel >> 3)) = 0x00FF00;
 			y++;
 		}
 		x++;
@@ -138,7 +155,22 @@ void	aff_life(t_data *data)
 		while (y < data->mlx.height - 40)
 		{
 			
-			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0xFF0000;
+			*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel >> 3)) = 0xFF0000;
+			y++;
+		}
+		x++;
+	}
+	x = data->mlx.width - 40;
+	while (x <= data->mlx.width - 20)
+	{
+		y = data->mlx.height - 57;
+		while (y <= data->mlx.height - 37)
+		{
+			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 57)) / 20 * data->img[HEART].height)) * data->img[HEART].size_line;
+			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 40)) / 20 * data->img[HEART].width)) * (data->img[HEART].bits_per_pixel >> 3);
+			color = *(unsigned int *)(data->img[HEART].data_addr + a + b);
+			if (color != WHITE)
+				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel >> 3)) = color;
 			y++;
 		}
 		x++;
@@ -148,17 +180,33 @@ void	aff_life(t_data *data)
 
 void	aff_shield(t_data *data)
 {
-	int	x;
-	int	y;
+	double			x;
+	double			y;
+	unsigned int	color;
 
 	x = data->mlx.width - 350;
 	while (x < data->mlx.width - 350 + ((double)data->player.shield / 100 * 300))
 	{
-		y = data->mlx.height - 75;
-		while (y < data->mlx.height - 60)
+		y = data->mlx.height - 80;
+		while (y < data->mlx.height - 65)
 		{
 			
-			*(unsigned int *)(data->screen->data_addr + (y - MARGIN) * data->screen->size_line + (x) * (data->screen->bits_per_pixel / 8)) = 0x0000FF;
+			*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = 0x0000FF;
+			y++;
+		}
+		x++;
+	}
+	x = data->mlx.width - 40;
+	while (x <= data->mlx.width - 20)
+	{
+		y = data->mlx.height - 82;
+		while (y <= data->mlx.height - 62)
+		{
+			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 82)) / 20 * data->img[SHIELD].height)) * data->img[SHIELD].size_line;
+			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 40)) / 20 * data->img[SHIELD].width)) * (data->img[SHIELD].bits_per_pixel >> 3);
+			color = *(unsigned int *)(data->img[SHIELD].data_addr + a + b);
+			if (color != WHITE)
+				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel >> 3)) = color;
 			y++;
 		}
 		x++;

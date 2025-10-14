@@ -102,12 +102,12 @@ void select_right_hand(t_data *data)
 	open_img(&data->img[PLAYER_HAND], data);
 	if (data->is_right_handed == true) // hand_pos
 	{
-		data->display.pos_x_hand = (data->mlx.width / 2) + data->img[PLAYER_HAND].width / 4 - 100;
+		data->display.pos_x_hand = (data->mlx.width / 2) - data->img[PLAYER_HAND].width / 2 + 10;
 		data->display.pos_y_hand = (data->mlx.height - data->img[PLAYER_HAND].height - 100);
 	}
 	else
 	{
-		data->display.pos_x_hand = (data->mlx.width / 2) - data->img[PLAYER_HAND].width / 4 - 150;
+		data->display.pos_x_hand = (data->mlx.width / 2) - data->img[PLAYER_HAND].width / 2 - 10;
 		data->display.pos_y_hand = (data->mlx.height - data->img[PLAYER_HAND].height - 100);
 	}
 	while (y < data->img[PLAYER_HAND].height)

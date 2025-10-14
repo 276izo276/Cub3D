@@ -57,7 +57,6 @@ typedef struct s_damage		t_damage;
 typedef struct s_item		t_item;
 typedef struct s_spell		t_spell;
 
-
 typedef	enum e_dir
 {
 	NORTH,
@@ -88,9 +87,12 @@ typedef enum e_imgs
 	DOOR_FIXED,
 	INCENDIO_IMG,
 	FLOO_CLOSE,
-	FLOO_OPEN
+	FLOO_OPEN,
+	HEART,
+	SHIELD,
+	XP
 }	t_imgs;
-# define NB_TEXTURES 12
+# define NB_TEXTURES 15
 
 typedef enum e_spells
 {
