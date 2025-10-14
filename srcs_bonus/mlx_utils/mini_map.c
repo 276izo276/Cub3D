@@ -13,6 +13,10 @@ static void	set_path_texture_mini_map(t_mini *mini)
 	mini->img[MINI_LEFT].path = "texture/mini_map/left_foot.xpm";
 	mini->img[MINI_RIGHT].path = "texture/mini_map/right_foot.xpm";
 	mini->img[MINI_FLOO].path = "texture/mini_map/mini_floo.xpm";
+	mini->img[MAP_FLOOR].path = "texture/map/map_floor.xpm";
+	mini->img[MAP_DOOR].path = "texture/map/map_door.xpm";
+	mini->img[MAP_FLOO].path = "texture/map/map_floo.xpm";
+	mini->img[MAP_WALL].path = "texture/map/map_wall.xpm";
 
 }
 
@@ -22,7 +26,7 @@ void	init_img_mini(t_data *data, t_mini *mini)
 
 	set_path_texture_mini_map(mini);
 	i = 0;
-	while (i < 9)
+	while (i < 13)
 	{
 		mini->img[i].img = mlx_xpm_file_to_image(data->mlx.mlx,
 				mini->img[i].path, &mini->img[i].width,

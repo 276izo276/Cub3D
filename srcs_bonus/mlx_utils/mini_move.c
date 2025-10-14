@@ -254,10 +254,24 @@ void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 {
 	if (map->tabmap[map->player_coo->y][map->player_coo->x] == 'F' && (map->door_map[map->player_coo->y][map->player_coo->x]->is_floo_open == true))
 	{
-		if (map->door_map[map->player_coo->y][map->player_coo->x]->is_verti == true && ((mini->player_coo.x <= 32.0 && mini->nx > 32.0) || (mini->player_coo.x >= 32.0 && mini->nx < 32.0)))
+		if (map->door_map[map->player_coo->y][map->player_coo->x]->is_verti == true 
+			&& mini->cx == 0 && ((mini->player_coo.x <= 32.0 && mini->nx > 32.0) || (mini->player_coo.x >= 32.0 && mini->nx < 32.0)))
+		{
 			data->status = MAP;
-		else if (map->door_map[map->player_coo->y][map->player_coo->x]->is_verti == false && ((mini->player_coo.y <= 32.0 && mini->ny > 32.0) || (mini->player_coo.y >= 32.0 && mini->ny < 32.0)))
+		}
+		else if (map->door_map[map->player_coo->y][map->player_coo->x]->is_verti == false && 
+			mini->cy == 0 && ((mini->player_coo.y <= 32.0 && mini->ny > 32.0) || (mini->player_coo.y >= 32.0 && mini->ny < 32.0)))
+		{
 			data->status = MAP;
+			printf("MAP 2\n");
+		}
+		if (data->status == MAP)
+		{
+			data->map.mini.player_coo.x = 32;
+			data->map.mini.player_coo.y = 32;
+			printf(" player x >> %f  player y >> %f\n", data->map.mini.player_coo.x, data->map.mini.player_coo.y);
+			printf("MAP 3\n");
+		}
 	}
 }
 
@@ -298,6 +312,8 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	movex(map, mini, data);
 	movey(map, mini, data);
 	handle_map_status(map, data, mini);
+	if (data->status == MAP)
+		return ;
 	if (mini->ny != mini->player_coo.y)
 	{
 		mini->player_coo.y = mini->ny;

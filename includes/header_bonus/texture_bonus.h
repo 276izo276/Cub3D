@@ -10,6 +10,10 @@
 # define MINI_LEFT 6
 # define MINI_RIGHT 7
 # define MINI_FLOO 8
+# define MAP_FLOOR 9
+# define MAP_DOOR 10
+# define MAP_FLOO 11
+# define MAP_WALL 12
 
 # define NORTH 0
 # define SOUTH 1
