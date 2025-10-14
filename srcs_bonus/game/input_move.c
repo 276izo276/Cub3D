@@ -143,9 +143,9 @@ static void	handle_map_keys(int keycode, t_data *data)
 	{
 		data->status = GAME;
 		if (angle_deg >= 315 || angle_deg <= 45)
-			data->map.mini.player_coo.y = 22;
-		else if (angle_deg > 135 && angle_deg < 225)
 			data->map.mini.player_coo.y = 42;
+		else if (angle_deg > 135 && angle_deg < 225)
+			data->map.mini.player_coo.y = 22;
 		else if (angle_deg >= 45 && angle_deg <= 135)
 			data->map.mini.player_coo.x = 42;
 		else if (angle_deg >= 225 && angle_deg <= 315)
@@ -153,7 +153,6 @@ static void	handle_map_keys(int keycode, t_data *data)
 		data->map.mini.deg += 180;
 		data->map.mini.deg = fmod(data->map.mini.deg, 360);
 		data->map.mini.rad = data->map.mini.deg * M_PI / 180;
-
 	}
 }
 

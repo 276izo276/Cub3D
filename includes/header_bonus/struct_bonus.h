@@ -437,7 +437,7 @@ struct s_mini
 {
 	int			need_print[SIZE_MAP][SIZE_MAP];
 	t_foot		foot_tab[9];
-	t_img		img[9];
+	t_img		img[13];
 	int			last_foot;
 	long long int	time_foot;
 	int			height;
