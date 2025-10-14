@@ -252,6 +252,8 @@ void	movey(t_map *map, t_mini *mini, t_data *data)
 
 void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 {
+	if (data->status == MAP)
+		return ;
 	if (map->tabmap[map->player_coo->y][map->player_coo->x] == 'F' && (map->door_map[map->player_coo->y][map->player_coo->x]->is_floo_open == true))
 	{
 		if (map->door_map[map->player_coo->y][map->player_coo->x]->is_verti == true 
@@ -263,14 +265,16 @@ void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 			mini->cy == 0 && ((mini->player_coo.y <= 32.0 && mini->ny > 32.0) || (mini->player_coo.y >= 32.0 && mini->ny < 32.0)))
 		{
 			data->status = MAP;
-			printf("MAP 2\n");
 		}
 		if (data->status == MAP)
 		{
 			data->map.mini.player_coo.x = 32;
 			data->map.mini.player_coo.y = 32;
-			printf(" player x >> %f  player y >> %f\n", data->map.mini.player_coo.x, data->map.mini.player_coo.y);
-			printf("MAP 3\n");
+			data->map.last_pos_x = data->map.player_coo->x;
+			data->map.last_pos_y = data->map.player_coo->y;
+			// data->map.last_mouse_x = data->mlx.width /2;
+			// data->map.last_mouse_y = data->mlx.height / 2;
+			printf(" player x >> %f  player y >> %f\n", data->map.last_pos_x, data->map.last_pos_y);
 		}
 	}
 }
@@ -327,3 +331,4 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	// move_x(data, map, mini);
 	// move_y(data, map, mini);
 }
+

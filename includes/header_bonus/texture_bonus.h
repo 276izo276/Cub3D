@@ -14,6 +14,7 @@
 # define MAP_DOOR 10
 # define MAP_FLOO 11
 # define MAP_WALL 12
+# define MAP_CURSOR 13
 
 # define NORTH 0
 # define SOUTH 1

@@ -19,9 +19,11 @@ bool	is_move_player(t_data *data, int i)
 
 int	mouse_move(int x, int y, t_data *data)
 {
-	(void)data;
+	double	dx;
+	double	dy;
+
 	if ((x != data->mlx.width / 2 || y != data->mlx.height / 2)
-		&& !is_key_pressed(data, KEY_ALT))
+		&& !is_key_pressed(data, KEY_ALT) && data->status != MAP)
 	{
 		data->map.mini.deg += (double)-(x - data->mlx.width / 2) / data->sensitivity;
 		data->map.mini.deg = fmod(data->map.mini.deg, 360.0);
@@ -30,6 +32,38 @@ int	mouse_move(int x, int y, t_data *data)
 		data->map.mini.rad = data->map.mini.deg * (M_PI / 180.0);
 		mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width / 2,
 			data->mlx.height / 2);
+	}
+	else if (data->status == MAP)
+	{
+		dx = x - data->mlx.width / 2;
+		dy = y - data->mlx.height / 2;
+		mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width / 2,
+		data->mlx.height / 2);
+		double sensitivity = (100 / data->sensitivity) / data->map.zoom;
+		if (dx != 0 || dy != 0)
+		{
+			data->map.last_pos_x -= dx * sensitivity;
+			data->map.last_pos_y -= dy * sensitivity;
+		}
+		// data->map.last_mouse_x = x;
+		// data->map.last_mouse_y = y;
+	}
+	return (0);
+}
+
+int	mouse_key(int key, int x, int y, t_data *data)
+{
+	(void)x;
+	(void)y;
+	if (key == 4)
+	{
+		if (data->map.zoom <= 128)
+			data->map.zoom *= 2;
+	}
+	else if (key == 5)
+	{
+		if (data->map.zoom >= 32)
+			data->map.zoom /= 2;
 	}
 	return (0);
 }
@@ -134,6 +168,7 @@ static void	handle_menu_keys(int keycode, t_data *data)
 		key_select_hand(keycode, data);
 }
 
+#include <stdio.h>
 static void	handle_map_keys(int keycode, t_data *data)
 {
 	int	angle_deg;
@@ -153,6 +188,27 @@ static void	handle_map_keys(int keycode, t_data *data)
 		data->map.mini.deg += 180;
 		data->map.mini.deg = fmod(data->map.mini.deg, 360);
 		data->map.mini.rad = data->map.mini.deg * M_PI / 180;
+	}
+	else if (keycode == KEY_W)
+	{
+		data->map.last_pos_y -= 1;
+	}
+	else if (keycode == KEY_S)
+	{
+		data->map.last_pos_y += 1;
+	}
+	else if (keycode == KEY_A)
+	{
+		data->map.last_pos_x -= 1;
+	}
+	else if (keycode == KEY_D)
+	{
+		data->map.last_pos_x += 1;
+	}
+	else if (keycode == KEY_1)
+	{
+		data->map.last_pos_x = data->map.player_coo->x;
+		data->map.last_pos_y = data->map.player_coo->y;
 	}
 }
 
@@ -174,6 +230,7 @@ int	key_press(int keycode, t_data *data)
 {
 	int	i;
 
+	printf("key >> %d\n", keycode);
 	if (data->status == MENU)
 	{
 		handle_menu_keys(keycode, data);
@@ -224,3 +281,4 @@ int	key_press(int keycode, t_data *data)
 		data->map.mini.speed = 3;
 	return (0);
 }
+

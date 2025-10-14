@@ -23,8 +23,6 @@ void    draw_texture(t_data *data, int pos_x, int pos_y, char c)
     while (pixel_y < data->map.zoom)
     {
         pixel_x = 0;
-          printf("Texture width: %d, height: %d\n", data->map.mini.img[MAP_WALL].width, data->map.mini.img[MAP_WALL].height);
-        printf("Zoom: %d\n", data->map.zoom);
         while (pixel_x < data->map.zoom)
         {
             texture_x = (pixel_x * 256) / data->map.zoom;
@@ -34,12 +32,18 @@ void    draw_texture(t_data *data, int pos_x, int pos_y, char c)
             else if (c == 'D')
                 color = get_texture_pixel(&data->map.mini.img[MAP_DOOR], texture_x, texture_y);
             else if (c == 'F')
+            {
                 color = get_texture_pixel(&data->map.mini.img[MAP_FLOO], texture_x, texture_y);
+                if (abs((pos_x + (data->map.zoom / 2 ) - data->mlx.width / 2)) > (data->map.zoom / 2)
+                && abs((pos_y + (data->map.zoom / 2 ) - (data->mlx.height - MARGIN) / 2)) > (data->map.zoom / 2))
+                    color = darken_the_color(color);
+            }
             else if (c == '0' || c == 'W' || c == 'S' || c == 'N' || c == 'E')
                 color = get_texture_pixel(&data->map.mini.img[MAP_FLOOR], texture_x, texture_y);
             else if (c != '.')
                 color = 0x6e583e;
-            pixel_put(data, pos_x + pixel_x, pos_y + pixel_y, color);
+            if (get_texture_pixel(data->screen, pixel_x + pos_x, pos_y + pixel_y) != data->color)
+                pixel_put(data, pos_x + pixel_x, pos_y + pixel_y, color);
             ++pixel_x;
         }
         ++pixel_y;
@@ -47,7 +51,8 @@ void    draw_texture(t_data *data, int pos_x, int pos_y, char c)
 }
 
 
-void    draw_player(t_data *data)
+
+void    draw_player(t_data *data, int pos_x, int pos_y)
 {
     unsigned int    color;
     double pixel_x;
@@ -61,7 +66,32 @@ void    draw_player(t_data *data)
         {
             color = get_texture_pixel(&data->map.mini.img[MINI_CURS], (pixel_x / (data->map.zoom / 2)) * data->map.mini.img[MINI_CURS].width, (pixel_y / (data->map.zoom / 2)) * data->map.mini.img[MINI_CURS].height);
             if (color != 0)
-                pixel_put(data, pixel_x + data->mlx.width / 2 - (data->map.zoom / 4), pixel_y + (data->mlx.height - MARGIN) / 2 - (data->map.zoom / 4), color);
+                pixel_put(data, pixel_x + pos_x + (data->map.zoom / 4), pixel_y + pos_y + (data->map.zoom / 4), data->color);
+            ++pixel_x;
+        }
+        ++pixel_y;
+    }
+}
+
+void    draw_cursor(t_data *data)
+{
+    unsigned int    color;
+    int pixel_x;
+    int pixel_y;
+    double  texture_x;
+    double  texture_y;
+
+    pixel_y = 0;
+    while (pixel_y < data->map.zoom)
+    {
+        pixel_x = 0;
+        while (pixel_x < data->map.zoom)
+        {
+            texture_x = (pixel_x * 256) / data->map.zoom;
+            texture_y = (pixel_y * 256) / data->map.zoom;
+            color = get_texture_pixel(&data->map.mini.img[MAP_CURSOR], texture_x, texture_y);
+             if (color != WHITE)
+                pixel_put(data, pixel_x + data->mlx.width / 2 - (data->map.zoom / 4), pixel_y + (data->mlx.height - MARGIN) / 2 - (data->map.zoom / 4), data->color);
             ++pixel_x;
         }
         ++pixel_y;
@@ -76,7 +106,6 @@ void    display_floo_map(t_data *data)
     int pos_y;
 
     y = 0;
-    // printf(" player x >> %f  player y >> %f\n", data->map.mini.player_coo.x, data->map.mini.player_coo.y);
     while (y < data->mlx.height)
     {
         x = 0;
@@ -94,17 +123,20 @@ void    display_floo_map(t_data *data)
         x = 0;
         while(data->map.tabmap[y][x])
         {
-            pos_x = (x - data->map.player_coo->x) * data->map.zoom + data->mlx.width / 2 - data->map.mini.player_coo.x * ((double)data->map.zoom / 64.0);
-            pos_y = (y - data->map.player_coo->y) * data->map.zoom + (data->mlx.height - MARGIN) / 2 - data->map.mini.player_coo.y * ((double)data->map.zoom / 64.0);
+            pos_x = (x - data->map.last_pos_x) * data->map.zoom + data->mlx.width / 2 - data->map.mini.player_coo.x * ((double)data->map.zoom / 64.0);
+            pos_y = (y - data->map.last_pos_y) * data->map.zoom + (data->mlx.height - MARGIN) / 2 - data->map.mini.player_coo.y * ((double)data->map.zoom / 64.0);
             if (pos_x + data->map.zoom > 0 && pos_x < data->mlx.width
             && pos_y + data->map.zoom > 0 && pos_y < data->mlx.height)
             {
+                if (x == data->map.player_coo->x && y == data->map.player_coo->y)
+                    draw_player(data, pos_x, pos_y);
                 draw_texture(data, pos_x, pos_y, data->map.tabmap[y][x]);
             }
             ++x;
         }
         ++y;
     }
-    draw_player(data);
+    if (data->map.last_pos_x != data->map.player_coo->x || data->map.last_pos_y != data->map.player_coo->y)
+        draw_cursor(data);
     // data->status = GAME;
 }

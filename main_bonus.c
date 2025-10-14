@@ -246,6 +246,7 @@ int	main(int ac, char **av)
 	mlx_hook(data.mlx.win, ON_KEYUP, 1L << 1, key_release, &data);
 	mlx_hook(data.mlx.win, ON_DESTROY, 0, close_win, &data);
 	mlx_hook(data.mlx.win, ON_MOUSEMOVE, 1L << 6, mouse_move, &data);
+	mlx_hook(data.mlx.win, ON_MOUSEDOWN, 1L << 2, mouse_key, &data);
 	mlx_loop_hook(data.mlx.mlx, game_loop, &data);
 	mlx_loop(data.mlx.mlx);
 	// ray_launch(&data, data.ray);

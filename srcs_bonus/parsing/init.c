@@ -419,7 +419,9 @@ void	init_data(t_data *data, int ac, char **av)
 	data->player.xp = 5.868486;
 	data->player.damage.damage_do = 1;
 
-	data->map.zoom = 100;
+	data->map.zoom = 128;
+	// data->map.last_mouse_x = -1;
+	// data->map.last_mouse_y = -1;
 	set_spell_take(data);
 	init_spell(data);
 }

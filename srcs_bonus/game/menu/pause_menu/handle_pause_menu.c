@@ -46,7 +46,7 @@ static void	display_background(t_data *data)
 // 	}
 // }
 
-static int	darken_the_color(int color)
+int	darken_the_color(int color)
 {
 	int r;
 	int g;

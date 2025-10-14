@@ -92,6 +92,7 @@ int		get_texture_pixel(t_img *texture, int x, int y);
 //input_move.c
 bool	is_move_player(t_data *data, int i);
 int		mouse_move(int x, int y, t_data *data);
+int		mouse_key(int key, int x, int y, t_data *data);
 int		key_release(int keycode, t_data *data);
 int		key_press(int keycode, t_data *data);
 int		is_key_pressed(t_data *data, int keycode);
@@ -129,6 +130,7 @@ void	handle_door(t_data *data);
 void	handle_pause_menu(t_data *data, long long int cur);
 void	draw_gradient(t_data *data, int start_x, int start_y);
 
+int		darken_the_color(int color);
 
 typedef enum e_key_down
 {
@@ -170,7 +172,8 @@ typedef enum e_key
 	KEY_TAB = 65289,
 	KEY_ESCAPE = 65307,
 	KEY_ALT = 65513,
-	KEY_ENTER = 65293
+	KEY_ENTER = 65293,
 }	t_key;
 
 #endif
+
