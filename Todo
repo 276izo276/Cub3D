@@ -1,2 +1,1 @@
 Pour les images faire un tableau taille fix et retirer les malloc
-Secure les path xpm sa segfault dans les bonus, peut etre en mandatory aussi ? (je lai vu dans init_img_mini)

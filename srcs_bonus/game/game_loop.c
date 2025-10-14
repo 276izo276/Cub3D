@@ -201,7 +201,7 @@ int	game_loop(t_data *data)
 		display_floo_map(data);
 	else
 	{
-		printf("0\n");
+		//DBG1printf("0\n");
 		take_damage(data);
 		handle_input_move(data, cur);
 		if (data->cast_spell != -1)
@@ -209,7 +209,7 @@ int	game_loop(t_data *data)
 		move_enemy(data);
 		move_item(data);
 		handle_wall_msg(data, cur);
-		printf("5\n");
+		//DBG1printf("5\n");
 		if (data->time_fps + 1000 / FPS < cur)
 		{
 			// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
@@ -242,7 +242,7 @@ int	game_loop(t_data *data)
 			// pthread_mutex_unlock(&data->m_data_ray);
 			// pthread_barrier_wait(&data->barrier);
 		}
-		printf("6\n");
+		//DBG1printf("6\n");
 	}
 	return (0);
 }

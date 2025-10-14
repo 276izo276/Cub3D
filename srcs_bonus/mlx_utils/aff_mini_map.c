@@ -128,14 +128,11 @@ static void	aff_enemy(t_data *data, t_utils_mini *u, t_mini *mini)
 	}
 }
 
-static void	aff_life(t_data *data)
-{
-	(void)data;
-}
+#include <stdio.h>
 
 void	aff_mini_map(t_data *data)
 {
-	printf("n1\n");
+	//DBG1printf("n1\n");
 	data->u.y = -4;
 	while (++data->u.y < 4)
 	{
@@ -156,9 +153,8 @@ void	aff_mini_map(t_data *data)
 			}
 		}
 	}
-	printf("n2\n");
+	//DBG1printf("n2\n");
 	set_player_in_mini_map(data, &data->u, data->map.mini.rad);
-	aff_life(data);
 	print_mini_map(data);
-	printf("n3\n");
+	//DBG1printf("n3\n");
 }

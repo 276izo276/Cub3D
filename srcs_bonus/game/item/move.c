@@ -114,21 +114,20 @@ int	try_hit_items(t_item *elem, t_data *data)
 	bool		hit;
 
 	hit = false;
-	printf("a\n");
+	//DBG1printf("a\n");
 	lst = get_first_elem_lst(data->enemy);
 	while (lst)
 	{
 		enemy = lst->dt;
-		bzero(&ray, sizeof(t_hitray));
 		ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
 		ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
-		ray.bx = elem->right_before.case_x * 64 + elem->right_before.coo_x;
-		ray.by = elem->right_before.case_y * 64 + elem->right_before.coo_y;
-		ray.cx = enemy->left.case_x * 64 + enemy->left.coo_x;
-		ray.cy = enemy->left.case_y * 64 + enemy->left.coo_y;
-		ray.dx = enemy->right.case_x * 64 + enemy->right.coo_x;
-		ray.dy = enemy->right.case_y * 64 + enemy->right.coo_y;
-		calc_delta(&ray);
+		ray.bx = elem->right.case_x * 64 + elem->right.coo_x;
+		ray.by = elem->right.case_y * 64 + elem->right.coo_y;
+		ray.cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
+		ray.cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
+		ray.dx = enemy->left.case_x * 64 + enemy->left.coo_x;
+		ray.dy = enemy->left.case_y * 64 + enemy->left.coo_y;
+		calc_scal(&ray);
 		if (ray.hit == true)
 		{
 			enemy->damage.damage_take += elem->damage.damage_do;
@@ -139,16 +138,22 @@ int	try_hit_items(t_item *elem, t_data *data)
 			hit = true;
 			continue;
 		}
-		bzero(&ray, sizeof(t_hitray));
-		ray.ax = elem->right.case_x * 64 + elem->right.coo_x;
-		ray.ay = elem->right.case_y * 64 + elem->right.coo_y;
-		ray.bx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
-		ray.by = elem->left_before.case_y * 64 + elem->left_before.coo_y;
-		ray.cx = enemy->left.case_x * 64 + enemy->left.coo_x;
-		ray.cy = enemy->left.case_y * 64 + enemy->left.coo_y;
+		ray.dx = enemy->center.case_x * 64 + enemy->center.coo_x;
+		ray.dy = enemy->center.case_y * 64 + enemy->center.coo_y;
+		calc_scal(&ray);
+		if (ray.hit == true)
+		{
+			enemy->damage.damage_take += elem->damage.damage_do;
+			enemy->damage.slow_take += elem->damage.slow_do;
+			enemy->damage.poison_take += elem->damage.poison_do;
+			enemy->damage.fire_take += elem->damage.fire_do;
+			lst = lst->next;
+			hit = true;
+			continue;
+		}
 		ray.dx = enemy->right.case_x * 64 + enemy->right.coo_x;
 		ray.dy = enemy->right.case_y * 64 + enemy->right.coo_y;
-		calc_delta(&ray);
+		calc_scal(&ray);
 		if (ray.hit == true)
 		{
 			enemy->damage.damage_take += elem->damage.damage_do;
@@ -161,7 +166,7 @@ int	try_hit_items(t_item *elem, t_data *data)
 		}
 		lst = lst->next;
 	}
-	printf("b\n");
+	//DBG1printf("b\n");
 	// enemy = lst->dt;
 	// bzero(ray, sizeof(t_hitray));
 	// ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
@@ -216,12 +221,16 @@ void	move_item(t_data *data)
 	double	dx;
 	double	v_normalize;
 
-	printf("1\n");
+	//DBG1printf("1\n");
 	lst = get_first_elem_lst(data->item);
 	while (lst)
 	{
-		printf("2\n");
+		//DBG1printf("2\n");
 		item = lst->dt;
+		//DBG1printf("3\n");
+		item->rad = item->deg * (M_PI / 180);
+		calc_left_point_item(item);
+		calc_right_point_item(item);
 		item->left_before.coo_x = item->left.coo_x;
 		item->left_before.coo_y = item->left.coo_y;
 		item->left_before.case_x = item->left.case_x;
@@ -230,12 +239,10 @@ void	move_item(t_data *data)
 		item->right_before.coo_y = item->right.coo_y;
 		item->right_before.case_x = item->right.case_x;
 		item->right_before.case_y = item->right.case_y;
-		item->center_before.coo_x = item->center.coo_x;
-		item->center_before.coo_y = item->center.coo_y;
-		item->center_before.case_x = item->center.case_x;
-		item->center_before.case_y = item->center.case_y;
-		printf("3\n");
-		item->rad = item->deg * (M_PI / 180);
+		// item->center_before.coo_x = item->center.coo_x;
+		// item->center_before.coo_y = item->center.coo_y;
+		// item->center_before.case_x = item->center.case_x;
+		// item->center_before.case_y = item->center.case_y;
 		dx = sin(item->rad);
 		dy = cos(item->rad);
 		if (round(dy) == 0.0 && round(dx) == 0.0)
@@ -274,19 +281,19 @@ void	move_item(t_data *data)
 			item->center.case_y++;
 		}
 		// try_hit_items(data, item);
+		calc_left_point_item(item);
+		calc_right_point_item(item);
 		if (try_hit_items(item, data)
 			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1')
 		{
-			printf("remove elem lst\n");
+			//DBG1printf("remove elem lst\n");
 			t_lst	*next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
 			lst = next;
 			continue;
 		}
-		calc_left_point_item(item);
-		calc_right_point_item(item);
 		lst = lst->next;
-		printf("4\n");
+		//DBG1printf("4\n");
 	}
 }
