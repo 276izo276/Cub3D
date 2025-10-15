@@ -482,8 +482,11 @@ struct s_map
 	int		zoom;
 	double		last_pos_x;
 	double		last_pos_y;
-	// double		last_mouse_x;
-	// double		last_mouse_y;
+	bool		is_center;
+	bool		floo_active;
+	int		last_mouse_x;
+	int		last_mouse_y;
+	t_coo	*pos_active_floo;
 	t_door	***door_map;
 	t_wall_msg		***wall_map;
 	t_img			**msg_img;

@@ -272,9 +272,6 @@ void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 			data->player.coo.coo_y = 32;
 			data->map.last_pos_x = data->player.coo.case_x;
 			data->map.last_pos_y = data->player.coo.case_y;
-			// data->map.last_mouse_x = data->mlx.width /2;
-			// data->map.last_mouse_y = data->mlx.height / 2;
-			printf(" player x >> %f  player y >> %f\n", data->map.last_pos_x, data->map.last_pos_y);
 		}
 	}
 }

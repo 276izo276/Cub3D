@@ -95,6 +95,8 @@ static void	add_door(t_data *data, int y, int x, char c)
 
 static void	is_door(char c, int y, int x, t_data *data)
 {
+	bool	is_verti;
+
 	if (c != 'D' && c != 'F')
 		return ;
 	if (!((data->map.tabmap[y][x - 1] == '1' && data->map.tabmap[y][x + 1] == '1')
@@ -106,10 +108,30 @@ static void	is_door(char c, int y, int x, t_data *data)
 	}
 	if (c == 'D')
 		data->nb_door++;
-	if (c == 'F')
-		data->map.nb_floo++;
-	add_door(data, y, x, c);
 	if (data->map.tabmap[y][x + 1] == '1' && data->map.tabmap[y][x - 1] == '1')
+		is_verti = false;
+	else
+		is_verti = true;
+	if (c == 'F')
+	{
+		if ((is_verti == false && data->map.tabmap[y - 1][x] == '1' && data->map.tabmap[y + 1][x] == '1')
+		 || (is_verti == true && data->map.tabmap[y][x + 1] == '1' && data->map.tabmap[y][x - 1] == '1'))
+		{
+			ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
+			"Map >>> " "floo found surrounded by wall\n"_END);
+			f_exit(data, 1);
+		}
+		else if ((is_verti == false && data->map.tabmap[y - 1][x] != '1' && data->map.tabmap[y + 1][x] != '1')
+			|| (is_verti == true && data->map.tabmap[y][x + 1] != '1' && data->map.tabmap[y][x - 1] != '1'))
+		{
+			ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
+			"Map >>> " "floo found without wall behind\n"_END);
+			f_exit(data, 1);
+		}
+		data->map.nb_floo++;
+	}
+	add_door(data, y, x, c);
+	if (is_verti == false)
 	{
 		data->map.door_map[y][x]->is_verti = false;
 		data->map.door_map[y][x]->first_p.x = 0;

@@ -39,32 +39,80 @@ int	mouse_move(int x, int y, t_data *data)
 		dy = y - data->mlx.height / 2;
 		mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width / 2,
 		data->mlx.height / 2);
-		double sensitivity = (100 / data->sensitivity) / data->map.zoom;
+		double sensitivity = (50 / data->sensitivity) / data->map.zoom;
 		if (dx != 0 || dy != 0)
 		{
-			data->map.last_pos_x -= dx * sensitivity;
-			data->map.last_pos_y -= dy * sensitivity;
+			data->map.last_pos_x += dx * sensitivity;
+			data->map.last_pos_y += dy * sensitivity;
 		}
-		// data->map.last_mouse_x = x;
-		// data->map.last_mouse_y = y;
+		data->map.last_mouse_x = x;
+		data->map.last_mouse_y = y;
 	}
 	return (0);
+}
+
+void	change_dir_verti(t_data *data)
+{
+	if (data->map.tabmap[data->map.pos_active_floo->y][data->map.pos_active_floo->x + 1] != '1')
+	{
+		data->player.coo.coo_x = 42.0;
+		data->map.mini.deg = 270;
+		data->map.mini.rad = data->map.mini.deg * M_PI / 180;
+	}
+	else
+	{
+		data->player.coo.coo_x = 22.0;
+		data->map.mini.deg = 90;
+		data->map.mini.rad = data->map.mini.deg * M_PI / 180;
+	}
+}
+
+void	change_dir_not_verti(t_data *data)
+{
+	if (data->map.tabmap[data->map.pos_active_floo->y + 1][data->map.pos_active_floo->x] != '1')
+	{
+		data->player.coo.coo_y = 42.0;
+		data->map.mini.deg = 180;
+		data->map.mini.rad = data->map.mini.deg * M_PI / 180;
+	}
+	else
+	{
+		data->player.coo.coo_y = 22.0;
+		data->map.mini.deg = 0;
+		data->map.mini.rad = data->map.mini.deg * M_PI / 180;
+	}
+}
+
+void	handle_mouse_click(t_data *data)
+{
+		if (data->map.door_map[data->map.pos_active_floo->y][data->map.pos_active_floo->x]->is_verti == true)
+		{
+			data->player.coo.coo_y = 32;
+			change_dir_verti(data);
+		}
+		else
+		{
+			data->player.coo.coo_x = 32.0;
+			change_dir_not_verti(data);
+		}
 }
 
 int	mouse_key(int key, int x, int y, t_data *data)
 {
 	(void)x;
 	(void)y;
-	if (key == 4)
+	if (key == 1 && data->map.floo_active == true)
 	{
-		if (data->map.zoom <= 128)
-			data->map.zoom *= 2;
+		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open = false;
+		data->player.coo.case_x = data->map.pos_active_floo->x;
+		data->player.coo.case_y = data->map.pos_active_floo->y;
+		handle_mouse_click(data);
+		data->status = GAME;
 	}
-	else if (key == 5)
-	{
-		if (data->map.zoom >= 32)
-			data->map.zoom /= 2;
-	}
+	if (key == 4 && data->map.zoom <= 128)
+		data->map.zoom *= 2;
+	else if (key == 5 && data->map.zoom >= 32)
+		data->map.zoom /= 2;
 	return (0);
 }
 
@@ -168,8 +216,7 @@ static void	handle_menu_keys(int keycode, t_data *data)
 		key_select_hand(keycode, data);
 }
 
-#include <stdio.h>
-static void	handle_map_keys(int keycode, t_data *data)
+void	handle_exit_map(int keycode, t_data *data)
 {
 	int	angle_deg;
 
@@ -188,28 +235,31 @@ static void	handle_map_keys(int keycode, t_data *data)
 		data->map.mini.deg += 180;
 		data->map.mini.deg = fmod(data->map.mini.deg, 360);
 		data->map.mini.rad = data->map.mini.deg * M_PI / 180;
+		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open = false;
 	}
-	else if (keycode == KEY_W)
-	{
+}
+
+static void	handle_map_keys(int keycode, t_data *data)
+{
+	handle_exit_map(keycode, data);
+	if (keycode == KEY_W)
 		data->map.last_pos_y -= 1;
-	}
 	else if (keycode == KEY_S)
-	{
 		data->map.last_pos_y += 1;
-	}
 	else if (keycode == KEY_A)
-	{
 		data->map.last_pos_x -= 1;
-	}
 	else if (keycode == KEY_D)
-	{
 		data->map.last_pos_x += 1;
-	}
-	else if (keycode == KEY_1)
+	else if (keycode == KEY_SPACE)
 	{
 		data->map.last_pos_x = data->player.coo.case_x;
 		data->map.last_pos_y = data->player.coo.case_y;
 	}
+	if (keycode == KEY_1 && data->map.zoom <= 128)
+		data->map.zoom *= 2;
+	else if (keycode == KEY_2 && data->map.zoom >= 32)
+		data->map.zoom /= 2;
+	
 }
 
 void	handle_floo_open(t_data *data)
@@ -225,12 +275,10 @@ void	handle_floo_open(t_data *data)
 	else if (data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x - 1] == 'F')
 		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x - 1]->is_floo_open = true;
 }
-#include <stdio.h>
 int	key_press(int keycode, t_data *data)
 {
 	int	i;
 
-	printf("key >> %d\n", keycode);
 	if (data->status == MENU)
 	{
 		handle_menu_keys(keycode, data);
@@ -244,16 +292,16 @@ int	key_press(int keycode, t_data *data)
 	i = 0;
 	while (data->keycode[i] != 0 && i < KEYCODE_NB)
 		i++;
-	// if (keycode == KEY_1)
-	// {
-	// 	if (!data->lumos.active)
-	// 	{
-	// 		data->lumos.active = true;
-	// 		data->lumos.count_frame = 100;
-	// 	}
-	// 	else
-	// 		data->lumos.active = false;
-	// }
+	if (keycode == KEY_6)
+	{
+		if (!data->lumos.active)
+		{
+			data->lumos.active = true;
+			data->lumos.count_frame = 100;
+		}
+		else
+			data->lumos.active = false;
+	}
 	if (keycode == KEY_5)
 		handle_floo_open(data);
 	else if (keycode == KEY_CTRL)
@@ -271,14 +319,10 @@ int	key_press(int keycode, t_data *data)
 			data->status = GAME;
 	}
 	else
-	{
-		// printf("oui\n");
 		data->keycode[i] = keycode;
-	}
 	if (keycode == KEY_ALT)
 		mlx_mouse_show(data->mlx.mlx, data->mlx.win);
 	else if (keycode == KEY_SHIFT)
 		data->map.mini.speed = 3;
 	return (0);
 }
-

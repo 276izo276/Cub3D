@@ -409,9 +409,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->lumos.count_frame = 0;
 	data->lumos.active = false;
 	// init_texture(data);
-	printf("1\n");
 	init_textures(data);
-	printf("2\n");
 	init_coa(data);
 	init_pause_menu(data);
 	data->nb_msg = 7;
@@ -430,8 +428,10 @@ void	init_data(t_data *data, int ac, char **av)
 	data->player.damage.damage_do = 1;
 
 	data->map.zoom = 128;
-	// data->map.last_mouse_x = -1;
-	// data->map.last_mouse_y = -1;
+	data->map.last_mouse_x = 960;
+	data->map.last_mouse_y = 555;
+	data->map.is_center = false;
+	data->map.pos_active_floo = init_t_coo(0, 0);
 	set_spell_take(data);
 	init_spell(data);
 }
