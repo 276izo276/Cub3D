@@ -26,9 +26,14 @@ static void	set_path_texture(t_data *data)
 
 	data->img[INCENDIO_IMG].path = "./texture/spell/incendio.xpm";
 	data->img[GLACIUS_IMG].path = "./texture/spell/glacius.xpm";
+	data->img[ARANIA_EXUMAI_IMG].path = "./texture/spell/arania_exumai.xpm";
+	data->img[AGUAMENTI_IMG].path = "./texture/spell/aguamenti.xpm";
+
 	data->img[LUMOS_ICN].path = "./texture/spell/lumos_icn.xpm";
 	data->img[INCENDIO_ICN].path = "./texture/spell/incendio_icn.xpm";
 	data->img[GLACIUS_ICN].path = "./texture/spell/glacius_icn.xpm";
+	data->img[ARANIA_EXUMAI_ICN].path = "./texture/spell/arania_exumai_icn.xpm";
+	data->img[AGUAMENTI_ICN].path = "./texture/spell/aguamenti_icn.xpm";
 }
 
 void	init_textures(t_data *data)

@@ -102,11 +102,15 @@ typedef enum e_imgs
 	XP,
 	INCENDIO_IMG,
 	GLACIUS_IMG,
+	ARANIA_EXUMAI_IMG,
+	AGUAMENTI_IMG,
 	LUMOS_ICN,
 	INCENDIO_ICN,
-	GLACIUS_ICN
+	GLACIUS_ICN,
+	ARANIA_EXUMAI_ICN,
+	AGUAMENTI_ICN
 }	t_imgs;
-# define NB_TEXTURES 19
+# define NB_TEXTURES 23
 
 typedef enum e_spells
 {
