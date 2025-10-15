@@ -52,11 +52,11 @@ int	handle_ray_y_top(t_data *data, int i)
 		// {
 		// 	for (int j = -2; j < 2; j++)
 		// 	{
-		// 		x = k + (5 * 64 / 2) + (data->ray[i].case_x - data->map.player_coo->x)
-		// 			* 64 + (data->ray[i].coo_x - data->map.mini.player_coo.x);
+		// 		x = k + (5 * 64 / 2) + (data->ray[i].case_x - data->player.coo.case_x)
+		// 			* 64 + (data->ray[i].coo_x - data->player.coo.coo_x);
 		// 		y = j + data->mlx.height - MARGIN - (5 * 64 / 2) + (data->ray[i].case_y
-		// 				- data->map.player_coo->y) * 64 + (data->ray[i].coo_y
-		// 				- data->map.mini.player_coo.y);
+		// 				- data->player.coo.case_y) * 64 + (data->ray[i].coo_y
+		// 				- data->player.coo.coo_y);
 		// 		mlx_pixel_put(data->mlx.mlx, data->mlx.win, x, y, 0xFF0000);
 		// 	}
 		// }
@@ -108,11 +108,11 @@ int	handle_ray_y_down(t_data *data, int i)
 		// {
 		// 	for (int j = -2; j < 2; j++)
 		// 	{
-		// 		x = k + (5 * 64 / 2) + (data->ray[i].case_x - data->map.player_coo->x)
-		// 			* 64 + (data->ray[i].coo_x - data->map.mini.player_coo.x);
+		// 		x = k + (5 * 64 / 2) + (data->ray[i].case_x - data->player.coo.case_x)
+		// 			* 64 + (data->ray[i].coo_x - data->player.coo.coo_x);
 		// 		y = j + data->mlx.height - MARGIN - (5 * 64 / 2) + (data->ray[i].case_y
-		// 				- data->map.player_coo->y) * 64 + (data->ray[i].coo_y
-		// 				- data->map.mini.player_coo.y);
+		// 				- data->player.coo.case_y) * 64 + (data->ray[i].coo_y
+		// 				- data->player.coo.coo_y);
 		// 		mlx_pixel_put(data->mlx.mlx, data->mlx.win, x, y, 0xFF0000);
 		// 	}
 		// }
@@ -163,11 +163,11 @@ int	handle_ray_x_left(t_data *data, int i)
 		// {
 		// 	for (int j = -2; j < 2; j++)
 		// 	{
-		// 		x = k + (5 * 64 / 2) + (data->ray[i].case_x - data->map.player_coo->x)
-		// 			* 64 + (data->ray[i].coo_x - data->map.mini.player_coo.x);
+		// 		x = k + (5 * 64 / 2) + (data->ray[i].case_x - data->player.coo.case_x)
+		// 			* 64 + (data->ray[i].coo_x - data->player.coo.coo_x);
 		// 		y = j + data->mlx.height - MARGIN - (5 * 64 / 2) + (data->ray[i].case_y
-		// 				- data->map.player_coo->y) * 64 + (data->ray[i].coo_y
-		// 				- data->map.mini.player_coo.y);
+		// 				- data->player.coo.case_y) * 64 + (data->ray[i].coo_y
+		// 				- data->player.coo.coo_y);
 		// 		mlx_pixel_put(data->mlx.mlx, data->mlx.win, x, y, 0xFF0000);
 		// 	}
 		// }
@@ -218,11 +218,11 @@ int	handle_ray_x_right(t_data *data, int i)
 		// {
 		// 	for (int j = -2; j < 2; j++)
 		// 	{
-		// 		x = k + (5 * 64 / 2) + (data->ray[i].case_x - data->map.player_coo->x)
-		// 			* 64 + (data->ray[i].coo_x - data->map.mini.player_coo.x);
+		// 		x = k + (5 * 64 / 2) + (data->ray[i].case_x - data->player.coo.case_x)
+		// 			* 64 + (data->ray[i].coo_x - data->player.coo.coo_x);
 		// 		y = j + data->mlx.height - MARGIN - (5 * 64 / 2) + (data->ray[i].case_y
-		// 				- data->map.player_coo->y) * 64 + (data->ray[i].coo_y
-		// 				- data->map.mini.player_coo.y);
+		// 				- data->player.coo.case_y) * 64 + (data->ray[i].coo_y
+		// 				- data->player.coo.coo_y);
 		// 		mlx_pixel_put(data->mlx.mlx, data->mlx.win, x, y, 0xFF0000);
 		// 	}
 		// }
@@ -234,12 +234,12 @@ int	handle_ray_x_right(t_data *data, int i)
 void	calc_sqrt(t_data *data, int i)
 {
 	data->ray[i].dist_wall = sqrt(((data->ray[i].case_y
-		- data->map.player_coo->y) * 64.0 + (data->ray[i].coo_y
-		- data->map.mini.player_coo.y)) * ((data->ray[i].case_y
-		- data->map.player_coo->y) * 64.0 + (data->ray[i].coo_y
-		- data->map.mini.player_coo.y)) + ((data->ray[i].case_x
-		- data->map.player_coo->x) * 64.0 + (data->ray[i].coo_x
-		- data->map.mini.player_coo.x)) * ((data->ray[i].case_x
-		- data->map.player_coo->x) * 64.0 + (data->ray[i].coo_x
-		- data->map.mini.player_coo.x)));
+		- data->player.coo.case_y) * 64.0 + (data->ray[i].coo_y
+		- data->player.coo.coo_y)) * ((data->ray[i].case_y
+		- data->player.coo.case_y) * 64.0 + (data->ray[i].coo_y
+		- data->player.coo.coo_y)) + ((data->ray[i].case_x
+		- data->player.coo.case_x) * 64.0 + (data->ray[i].coo_x
+		- data->player.coo.coo_x)) * ((data->ray[i].case_x
+		- data->player.coo.case_x) * 64.0 + (data->ray[i].coo_x
+		- data->player.coo.coo_x)));
 }

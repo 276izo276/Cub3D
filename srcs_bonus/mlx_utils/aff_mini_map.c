@@ -16,13 +16,13 @@ static void	set_pix_img(t_utils_mini *u, t_data *data)
 				* (data->screen->bits_per_pixel / 8)));
 }
 
-void	aff_pix_in_img(t_utils_mini *u, t_mini *mini, t_data *data)
+void	aff_pix_in_img(t_utils_mini *u, t_data *data)
 {
-	u->s.y = 1 * 64 + 32 + (u->y * 64 + 64 - mini->player_coo.y);
+	u->s.y = 1 * 64 + 32 + (u->y * 64 + 64 - data->player.coo.coo_y);
 	u->i.y = 0;
 	while (u->i.y < 64)
 	{
-		u->s.x = 1 * 64 + 32 + (u->x * 64 + 64 - data->map.mini.player_coo.x);
+		u->s.x = 1 * 64 + 32 + (u->x * 64 + 64 - data->player.coo.coo_x);
 		u->i.x = 0;
 		while (u->s.y + u->i.y >= 0 && u->s.y + u->i.y < u->size && u->i.x < 64)
 		{
@@ -43,11 +43,11 @@ void	aff_pix_in_img(t_utils_mini *u, t_mini *mini, t_data *data)
 	}
 }
 
-void	aff_color_in_img(t_utils_mini *u, t_mini *mini, t_data *data)
+void	aff_color_in_img(t_utils_mini *u, t_data *data)
 {
-	u->s.y = 1 * 64 + 32 + (u->y * 64 + 64 - mini->player_coo.y);
+	u->s.y = 1 * 64 + 32 + (u->y * 64 + 64 - data->player.coo.coo_y);
 	u->i.y = 0;
-	u->s.x = 1 * 64 + 32 + (u->x * 64 + 64 - mini->player_coo.x);
+	u->s.x = 1 * 64 + 32 + (u->x * 64 + 64 - data->player.coo.coo_x);
 	while (u->i.y < 64)
 	{
 		u->i.x = 0;
@@ -74,7 +74,7 @@ void	aff_color_in_img(t_utils_mini *u, t_mini *mini, t_data *data)
 	}
 }
 
-static void	aff_enemy(t_data *data, t_utils_mini *u, t_mini *mini)
+static void	aff_enemy(t_data *data, t_utils_mini *u)
 {
 	t_lst	*lst;
 	t_enemy	*enemy;
@@ -83,8 +83,8 @@ static void	aff_enemy(t_data *data, t_utils_mini *u, t_mini *mini)
 	while (lst)
 	{
 		enemy = lst->dt;
-		u->s.y = 1 * 64 + 32 + (u->y * 64 + 64 - mini->player_coo.y);
-		u->s.x = 1 * 64 + 32 + (u->x * 64 + 64 - mini->player_coo.x);
+		u->s.y = 1 * 64 + 32 + (u->y * 64 + 64 - data->player.coo.coo_y);
+		u->s.x = 1 * 64 + 32 + (u->x * 64 + 64 - data->player.coo.coo_x);
 		for(int i = -2; i < 2; i++)  //for
 		{
 			for (int j = -2; j < 2; j++) // for
@@ -139,17 +139,17 @@ void	aff_mini_map(t_data *data)
 		data->u.x = -4;
 		while (++data->u.x < 4)
 		{
-			data->u.new_y = data->map.player_coo->y + data->u.y;
-			data->u.new_x = data->map.player_coo->x + data->u.x;
+			data->u.new_y = data->player.coo.case_y + data->u.y;
+			data->u.new_x = data->player.coo.case_x + data->u.x;
 			if (data->u.new_y >= data->map.tabmap_height || data->u.new_y < 0
 				|| data->u.new_x >= ft_strlen(data->map.tabmap[data->u.new_y])
 				|| data->u.new_x < 0
 				|| data->map.tabmap[data->u.new_y][data->u.new_x] == ' ')
-				aff_pix_in_img(&data->u, &data->map.mini, data);
+				aff_pix_in_img(&data->u, data);
 			else
 			{
-				aff_color_in_img(&data->u, &data->map.mini, data);
-				aff_enemy(data, &data->u, &data->map.mini);
+				aff_color_in_img(&data->u, data);
+				aff_enemy(data, &data->u);
 			}
 		}
 	}

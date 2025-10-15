@@ -178,13 +178,13 @@ static void	handle_map_keys(int keycode, t_data *data)
 	{
 		data->status = GAME;
 		if (angle_deg >= 315 || angle_deg <= 45)
-			data->map.mini.player_coo.y = 42;
+			data->player.coo.coo_y = 42;
 		else if (angle_deg > 135 && angle_deg < 225)
-			data->map.mini.player_coo.y = 22;
+			data->player.coo.coo_y = 22;
 		else if (angle_deg >= 45 && angle_deg <= 135)
-			data->map.mini.player_coo.x = 42;
+			data->player.coo.coo_x = 42;
 		else if (angle_deg >= 225 && angle_deg <= 315)
-			data->map.mini.player_coo.x = 22;
+			data->player.coo.coo_x = 22;
 		data->map.mini.deg += 180;
 		data->map.mini.deg = fmod(data->map.mini.deg, 360);
 		data->map.mini.rad = data->map.mini.deg * M_PI / 180;
@@ -207,23 +207,23 @@ static void	handle_map_keys(int keycode, t_data *data)
 	}
 	else if (keycode == KEY_1)
 	{
-		data->map.last_pos_x = data->map.player_coo->x;
-		data->map.last_pos_y = data->map.player_coo->y;
+		data->map.last_pos_x = data->player.coo.case_x;
+		data->map.last_pos_y = data->player.coo.case_y;
 	}
 }
 
 void	handle_floo_open(t_data *data)
 {
-	if (data->map.tabmap[data->map.player_coo->y][data->map.player_coo->x] == 'F')
-		data->map.door_map[data->map.player_coo->y][data->map.player_coo->x]->is_floo_open = true;
-	else if (data->map.tabmap[data->map.player_coo->y - 1][data->map.player_coo->x] == 'F')
-		data->map.door_map[data->map.player_coo->y - 1][data->map.player_coo->x]->is_floo_open = true;
-	else if (data->map.tabmap[data->map.player_coo->y + 1][data->map.player_coo->x] == 'F')
-		data->map.door_map[data->map.player_coo->y + 1][data->map.player_coo->x]->is_floo_open = true;
-	else if (data->map.tabmap[data->map.player_coo->y][data->map.player_coo->x + 1] == 'F')
-		data->map.door_map[data->map.player_coo->y][data->map.player_coo->x + 1]->is_floo_open = true;
-	else if (data->map.tabmap[data->map.player_coo->y][data->map.player_coo->x - 1] == 'F')
-		data->map.door_map[data->map.player_coo->y][data->map.player_coo->x - 1]->is_floo_open = true;
+	if (data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x] == 'F')
+		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open = true;
+	else if (data->map.tabmap[data->player.coo.case_y - 1][data->player.coo.case_x] == 'F')
+		data->map.door_map[data->player.coo.case_y - 1][data->player.coo.case_x]->is_floo_open = true;
+	else if (data->map.tabmap[data->player.coo.case_y + 1][data->player.coo.case_x] == 'F')
+		data->map.door_map[data->player.coo.case_y + 1][data->player.coo.case_x]->is_floo_open = true;
+	else if (data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x + 1] == 'F')
+		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x + 1]->is_floo_open = true;
+	else if (data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x - 1] == 'F')
+		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x - 1]->is_floo_open = true;
 }
 #include <stdio.h>
 int	key_press(int keycode, t_data *data)

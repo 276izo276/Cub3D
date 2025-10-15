@@ -24,7 +24,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 		{
 			if (data->keycode[i] == KEY_ESCAPE)
 				f_exit(data, 0);
-			else if (data->keycode[i] >= KEY_1 && data->keycode[i] <= KEY_2)
+			else if (data->keycode[i] >= KEY_1 && data->keycode[i] <= KEY_3)
 			{
 				data->cast_spell = data->spell_take[data->keycode[i] - KEY_1];
 				data->keycode[i] = 0;
@@ -114,10 +114,10 @@ void	aff_xp(t_data *data)
 		x++;
 	}
 	x = data->mlx.width - 40;
-	while (x <= data->mlx.width - 10)
+	while (x < data->mlx.width - 10)
 	{
 		y = data->mlx.height - 38;
-		while (y <= data->mlx.height - 8)
+		while (y < data->mlx.height - 8)
 		{
 			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 38)) / 30 * data->img[XP].height)) * data->img[XP].size_line;
 			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 40)) / 30 * data->img[XP].width)) * (data->img[XP].bits_per_pixel >> 3);
@@ -160,10 +160,10 @@ void	aff_life(t_data *data)
 		x++;
 	}
 	x = data->mlx.width - 40;
-	while (x <= data->mlx.width - 20)
+	while (x < data->mlx.width - 20)
 	{
 		y = data->mlx.height - 57;
-		while (y <= data->mlx.height - 37)
+		while (y < data->mlx.height - 37)
 		{
 			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 57)) / 20 * data->img[HEART].height)) * data->img[HEART].size_line;
 			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 40)) / 20 * data->img[HEART].width)) * (data->img[HEART].bits_per_pixel >> 3);
@@ -195,10 +195,10 @@ void	aff_shield(t_data *data)
 		x++;
 	}
 	x = data->mlx.width - 40;
-	while (x <= data->mlx.width - 20)
+	while (x < data->mlx.width - 20)
 	{
 		y = data->mlx.height - 82;
-		while (y <= data->mlx.height - 62)
+		while (y < data->mlx.height - 62)
 		{
 			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 82)) / 20 * data->img[SHIELD].height)) * data->img[SHIELD].size_line;
 			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 40)) / 20 * data->img[SHIELD].width)) * (data->img[SHIELD].bits_per_pixel >> 3);
@@ -211,11 +211,75 @@ void	aff_shield(t_data *data)
 	}
 }
 
+void	define_spell_color(t_data *data, unsigned int *color, int i)
+{
+	*color = 0x000000;
+	if (data->spell[data->spell_take[i]].class == DARK_SPELL)
+		*color = 0x062B16;
+	else if (data->spell[data->spell_take[i]].class == HEAL_SPELL)
+		*color = 0x7CFC00;
+	else if (data->spell[data->spell_take[i]].class == SUMMON_SPELL)
+		*color = 0xFFE436;
+	else if (data->spell[data->spell_take[i]].class == OFFENSIVE_SPELL)
+		*color = 0x720004;
+	else if (data->spell[data->spell_take[i]].class == DEFENSIVE_SPELL)
+		*color = 0x00008B;
+	else if (data->spell[data->spell_take[i]].class == CLASIC_SPELL)
+		*color = 0xFFFFFF;
+}
+
+int	border_case_spell(double x, double y, double base_x, double base_y)
+{
+	double	dist_x;
+	double	dist_y;
+	double	ray;
+
+	// dist_x = abs_value(base_x - x);
+	// dist_y = abs_value(base_y - y);
+	ray = 10;
+	if (y < base_y - (32 - ray))
+	{
+		if (x < base_x - (32 - ray))
+		{
+			dist_x = abs_value(base_x - (32 - ray) - x);
+			dist_y = abs_value(base_y - (32 - ray) - y);
+		}
+		else if (x > base_x + (32 - ray))
+		{
+			dist_x = abs_value(base_x + (32 - ray) - x);
+			dist_y = abs_value(base_y - (32 - ray) - y);
+		}
+		else
+			return (1);
+	}
+	else if (y > base_y + (32 - ray))
+	{
+		if (x < base_x - (32 - ray))
+		{
+			dist_x = abs_value(base_x - (32 - ray) - x);
+			dist_y = abs_value(base_y + (32 - ray) - y);
+		}
+		else if (x > base_x + (32 - ray))
+		{
+			dist_x = abs_value(base_x + (32 - ray) - x);
+			dist_y = abs_value(base_y + (32 - ray) - y);
+		}
+		else
+			return (1);
+	}
+	else
+		return (1);
+	if (sqrt(dist_x * dist_x + dist_y * dist_y) > ray)
+		return (0);
+	return (1);
+}
+
 void	aff_spell(t_data *data)
 {
-	double	x;
-	double	y;
-	int		i;
+	double			x;
+	double			y;
+	int				i;
+	unsigned int	color;
 
 	i = 0;
 	while (i < 4)
@@ -226,7 +290,31 @@ void	aff_spell(t_data *data)
 			y = data->mlx.height - 90 - 64;
 			while (y < data->mlx.height - 90)
 			{
-				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = 0xFFFFFF;
+				define_spell_color(data, &color, i);
+				if (color != 0x000000 && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 90 - 64))
+					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
+				y++;
+			}
+			x++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < 4)
+	{
+		x = data->mlx.width - 350 + 64 * i + 13 * (i);
+		while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
+		{
+			y = data->mlx.height - 90 - 64;
+			while (y < data->mlx.height - 90)
+			{
+				// define_spell_color(data, &color, i);
+				unsigned int	a = ((unsigned int)((y - (data->mlx.height - 90 - 64)) / 64 * data->spell[data->spell_take[i]].icn->height)) *  data->spell[data->spell_take[i]].icn->size_line;
+				unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 + 64 * i + 13 * (i))) / 64 * data->spell[data->spell_take[i]].icn->width)) * ( data->spell[data->spell_take[i]].icn->bits_per_pixel >> 3);
+				unsigned int	color = *(unsigned int *)(data->spell[data->spell_take[i]].icn->data_addr + a + b);
+				if (color != WHITE && color != RED && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 90 - 64))
+					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
+					= color;
 				y++;
 			}
 			x++;

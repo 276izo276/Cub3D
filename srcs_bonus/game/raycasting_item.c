@@ -16,14 +16,14 @@ static void	calc_sqrt_item(t_data *data, t_hitray *ray)
 	// printf("COO_Y>>>>%lf\n",data->ray[i].enemys[j]->coo_y);
 	// printf("COO_X>>>>%lf\n",data->ray[i].enemys[j]->coo_x);
 	data->ray[ray->i].items[ray->j]->dist = sqrt(((data->ray[ray->i].items[ray->j]->case_y
-		- data->map.player_coo->y) * 64.0 + (data->ray[ray->i].items[ray->j]->coo_y
-		- data->map.mini.player_coo.y)) * ((data->ray[ray->i].items[ray->j]->case_y
-		- data->map.player_coo->y) * 64.0 + (data->ray[ray->i].items[ray->j]->coo_y
-		- data->map.mini.player_coo.y)) + ((data->ray[ray->i].items[ray->j]->case_x
-		- data->map.player_coo->x) * 64.0 + (data->ray[ray->i].items[ray->j]->coo_x
-		- data->map.mini.player_coo.x)) * ((data->ray[ray->i].items[ray->j]->case_x
-		- data->map.player_coo->x) * 64.0 + (data->ray[ray->i].items[ray->j]->coo_x
-		- data->map.mini.player_coo.x)));
+		- data->player.coo.case_y) * 64.0 + (data->ray[ray->i].items[ray->j]->coo_y
+		- data->player.coo.coo_y)) * ((data->ray[ray->i].items[ray->j]->case_y
+		- data->player.coo.case_y) * 64.0 + (data->ray[ray->i].items[ray->j]->coo_y
+		- data->player.coo.coo_y)) + ((data->ray[ray->i].items[ray->j]->case_x
+		- data->player.coo.case_x) * 64.0 + (data->ray[ray->i].items[ray->j]->coo_x
+		- data->player.coo.coo_x)) * ((data->ray[ray->i].items[ray->j]->case_x
+		- data->player.coo.case_x) * 64.0 + (data->ray[ray->i].items[ray->j]->coo_x
+		- data->player.coo.coo_x)));
 	// printf("dist enemy >>%lf\n",data->ray[i].enemys[j]->dist_enemy);
 }
 

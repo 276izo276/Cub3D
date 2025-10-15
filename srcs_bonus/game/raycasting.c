@@ -76,10 +76,10 @@ static void	save_data_ray(t_data *data, int i, double x)
 		data->ray[i].rad += M_PI;
 	data->ray[i].rad += data->map.mini.deg * (M_PI / 180);
 	data->ray[i].deg = fmod(data->ray[i].rad / (M_PI / 180) + 360 + 270, 360);
-	data->ray[i].coo_y = data->map.mini.player_coo.y;
-	data->ray[i].coo_x = data->map.mini.player_coo.x;
-	data->ray[i].case_y = data->map.player_coo->y;
-	data->ray[i].case_x = data->map.player_coo->x;
+	data->ray[i].coo_y = data->player.coo.coo_y;
+	data->ray[i].coo_x = data->player.coo.coo_x;
+	data->ray[i].case_y = data->player.coo.case_y;
+	data->ray[i].case_x = data->player.coo.case_x;
 	data->ray[i].delta_x = -cos(data->ray[i].rad);
 	data->ray[i].delta_y = sin(data->ray[i].rad);
 	// data->ray[i].deg = data->ray[i].deg + (180 - data->ray[i].deg) * 2 + 270;
@@ -95,14 +95,14 @@ static void	save_data_ray(t_data *data, int i, double x)
 // 	// printf("CASE_Y>>>>%lf\n",data->ray[i].doors[j]->coo_y);
 // 	// printf("CASE_Y>>>>%lf\n",data->ray[i].doors[j]->coo_x);
 // 	data->ray[i].doors[j]->dist_door = sqrt(((data->ray[i].doors[j]->case_y
-// 		- data->map.player_coo->y) * 64.0 + (data->ray[i].doors[j]->coo_y
-// 		- data->map.mini.player_coo.y)) * ((data->ray[i].doors[j]->case_y
-// 		- data->map.player_coo->y) * 64.0 + (data->ray[i].doors[j]->coo_y
-// 		- data->map.mini.player_coo.y)) + ((data->ray[i].doors[j]->case_x
-// 		- data->map.player_coo->x) * 64.0 + (data->ray[i].doors[j]->coo_x
-// 		- data->map.mini.player_coo.x)) * ((data->ray[i].doors[j]->case_x
-// 		- data->map.player_coo->x) * 64.0 + (data->ray[i].doors[j]->coo_x
-// 		- data->map.mini.player_coo.x)));
+// 		- data->player.coo.case_y) * 64.0 + (data->ray[i].doors[j]->coo_y
+// 		- data->player.coo.coo_y)) * ((data->ray[i].doors[j]->case_y
+// 		- data->player.coo.case_y) * 64.0 + (data->ray[i].doors[j]->coo_y
+// 		- data->player.coo.coo_y)) + ((data->ray[i].doors[j]->case_x
+// 		- data->player.coo.case_x) * 64.0 + (data->ray[i].doors[j]->coo_x
+// 		- data->player.coo.coo_x)) * ((data->ray[i].doors[j]->case_x
+// 		- data->player.coo.case_x) * 64.0 + (data->ray[i].doors[j]->coo_x
+// 		- data->player.coo.coo_x)));
 // }
 
 // #include <stdio.h>
@@ -152,14 +152,14 @@ static void	save_data_ray(t_data *data, int i, double x)
 // 	// printf("COO_Y>>>>%lf\n",data->ray[i].enemys[j]->coo_y);
 // 	// printf("COO_X>>>>%lf\n",data->ray[i].enemys[j]->coo_x);
 // 	data->ray[i].enemys[j]->dist_enemy = sqrt(((data->ray[i].enemys[j]->case_y
-// 		- data->map.player_coo->y) * 64.0 + (data->ray[i].enemys[j]->coo_y
-// 		- data->map.mini.player_coo.y)) * ((data->ray[i].enemys[j]->case_y
-// 		- data->map.player_coo->y) * 64.0 + (data->ray[i].enemys[j]->coo_y
-// 		- data->map.mini.player_coo.y)) + ((data->ray[i].enemys[j]->case_x
-// 		- data->map.player_coo->x) * 64.0 + (data->ray[i].enemys[j]->coo_x
-// 		- data->map.mini.player_coo.x)) * ((data->ray[i].enemys[j]->case_x
-// 		- data->map.player_coo->x) * 64.0 + (data->ray[i].enemys[j]->coo_x
-// 		- data->map.mini.player_coo.x)));
+// 		- data->player.coo.case_y) * 64.0 + (data->ray[i].enemys[j]->coo_y
+// 		- data->player.coo.coo_y)) * ((data->ray[i].enemys[j]->case_y
+// 		- data->player.coo.case_y) * 64.0 + (data->ray[i].enemys[j]->coo_y
+// 		- data->player.coo.coo_y)) + ((data->ray[i].enemys[j]->case_x
+// 		- data->player.coo.case_x) * 64.0 + (data->ray[i].enemys[j]->coo_x
+// 		- data->player.coo.coo_x)) * ((data->ray[i].enemys[j]->case_x
+// 		- data->player.coo.case_x) * 64.0 + (data->ray[i].enemys[j]->coo_x
+// 		- data->player.coo.coo_x)));
 // 	// printf("dist enemy >>%lf\n",data->ray[i].enemys[j]->dist_enemy);
 // }
 

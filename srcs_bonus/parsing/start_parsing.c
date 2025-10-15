@@ -138,8 +138,8 @@ void	parsing(t_data *data)
 		print_map(data);
 		ft_printf_fd(2, "Player start : \n\tdirection = %c\n\ty = %d\n\tx = "
 			"%d\n",
-			data->map.tabmap[data->map.player_coo->y][data->map.player_coo->x],
-			data->map.player_coo->y,
-			data->map.player_coo->x);
+			data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x],
+			data->player.coo.case_y,
+			data->player.coo.case_x);
 	}
 }

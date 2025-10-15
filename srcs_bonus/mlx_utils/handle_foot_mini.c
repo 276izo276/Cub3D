@@ -67,10 +67,10 @@ static bool	check_gap(t_data *data)
 	int	gap_x;
 	int	gap_y;
 
-	gap_x = (data->map.mini.foot_tab[0].coo.case_x - data->map.player_coo->x) * 64 +
-        ((int)data->map.mini.foot_tab[0].coo.coo_x - (int)data->map.mini.player_coo.x);
-	gap_y = (data->map.mini.foot_tab[0].coo.case_y - data->map.player_coo->y) * 64 +
-        ((int)data->map.mini.foot_tab[0].coo.coo_y - (int)data->map.mini.player_coo.y);
+	gap_x = (data->map.mini.foot_tab[0].coo.case_x - data->player.coo.case_x) * 64 +
+        ((int)data->map.mini.foot_tab[0].coo.coo_x - (int)data->player.coo.coo_x);
+	gap_y = (data->map.mini.foot_tab[0].coo.case_y - data->player.coo.case_y) * 64 +
+        ((int)data->map.mini.foot_tab[0].coo.coo_y - (int)data->player.coo.coo_y);
 	if ((abs(gap_x) < 20 && abs(gap_y) < 20))
 		return (false);
 	return (true);
@@ -90,10 +90,10 @@ void	save_and_move_foot(t_data *data, double rad)
 		data->map.mini.foot_tab[i] = data->map.mini.foot_tab[i - 1];
 		--i;
 	}
-	data->map.mini.foot_tab[0].coo.case_x = data->map.player_coo->x;
-	data->map.mini.foot_tab[0].coo.case_y = data->map.player_coo->y;
-	data->map.mini.foot_tab[0].coo.coo_y = data->map.mini.player_coo.y;
-	data->map.mini.foot_tab[0].coo.coo_x = data->map.mini.player_coo.x;
+	data->map.mini.foot_tab[0].coo.case_x = data->player.coo.case_x;
+	data->map.mini.foot_tab[0].coo.case_y = data->player.coo.case_y;
+	data->map.mini.foot_tab[0].coo.coo_y = data->player.coo.coo_y;
+	data->map.mini.foot_tab[0].coo.coo_x = data->player.coo.coo_x;
 	data->map.mini.foot_tab[0].rad = rad;
 	data->map.mini.foot_tab[0].foot_x = -1;
 	data->map.mini.foot_tab[0].foot_y = -1;
@@ -158,8 +158,8 @@ void	set_foot_in_mini_map(t_data *data, int i, t_utils_mini *u, t_img img, doubl
 	int		gap_y;
 	unsigned int	color;
 
-	gap_x = ((data->map.mini.foot_tab[i].coo.case_x - data->map.player_coo->x) * 64) + (data->map.mini.foot_tab[i].coo.coo_x - data->map.mini.player_coo.x);
-	gap_y = ((data->map.mini.foot_tab[i].coo.case_y - data->map.player_coo->y) * 64) + (data->map.mini.foot_tab[i].coo.coo_y - data->map.mini.player_coo.y);
+	gap_x = ((data->map.mini.foot_tab[i].coo.case_x - data->player.coo.case_x) * 64) + (data->map.mini.foot_tab[i].coo.coo_x - data->player.coo.coo_x);
+	gap_y = ((data->map.mini.foot_tab[i].coo.case_y - data->player.coo.case_y) * 64) + (data->map.mini.foot_tab[i].coo.coo_y - data->player.coo.coo_y);
 	//DBG1printf("gapx >%d   gapy>%d\n",gap_x,gap_y);
 	while (u->y < img.height)
 	{

@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include <stdio.h>
+
 t_item	*init_spell_item(t_data *data, t_spells info)
 {
 	t_item	*item;
@@ -11,10 +13,10 @@ t_item	*init_spell_item(t_data *data, t_spells info)
 	item = malloc(sizeof(t_item));
 	if (!item)
 		return (NULL);
-	item->center.case_x = data->map.player_coo->x;
-	item->center.case_y = data->map.player_coo->y;
-	item->center.coo_x = data->map.mini.player_coo.x;
-	item->center.coo_y = data->map.mini.player_coo.y;
+	item->center.case_x = data->player.coo.case_x;
+	item->center.case_y = data->player.coo.case_y;
+	item->center.coo_x = data->player.coo.coo_x;
+	item->center.coo_y = data->player.coo.coo_y;
 	item->deg = fmod(data->map.mini.deg + 180, 360);
 	item->rad = item->deg * (M_PI / 180);
 	item->speed = data->spell[info].item.speed;
@@ -25,7 +27,6 @@ t_item	*init_spell_item(t_data *data, t_spells info)
 	item->radius = data->spell[info].item.radius;
 	item->back_img = data->spell[info].item.back_img;
 	item->front_img = data->spell[info].item.front_img;
-	calc_left_point_item(item);
-	calc_right_point_item(item);
+	make_move_item(item, 20);
 	return (item);
 }

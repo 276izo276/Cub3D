@@ -16,15 +16,14 @@ static void	is_valid_char_map(char c, int y, int x, t_data *data)
 	{
 		if (tab[i] == c && i >= 6)
 		{
-			if (data->map.player_coo)
+			if (data->player.coo.case_x != 0 && data->player.coo.case_y != 0)
 			{
 				ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
 					"Map >>> ""2 player start found\n"_END);
 				f_exit(data, 1);
 			}
-			data->map.player_coo = init_t_coo(y, x);
-			if (!data->map.player_coo)
-				f_exit(data, 1);
+			data->player.coo.case_y = y;
+			data->player.coo.case_x = x;
 			return ;
 		}
 		else if (tab[i] == c && i <= 5)
@@ -198,7 +197,7 @@ static void	set_deg_start(t_data *data)
 {
 	char c;
 
-	c = data->map.tabmap[data->map.player_coo->y][data->map.player_coo->x];
+	c = data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x];
 	if (c == 'S')
 		data->map.mini.deg = 180;
 	else if (c == 'E')
@@ -211,7 +210,7 @@ static void	set_deg_start(t_data *data)
 void	verif_map(t_data *data)
 {
 	check_map_valid_char(data);
-	if (!data->map.player_coo)
+	if (data->player.coo.case_x == 0 && data->player.coo.case_y == 0)
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
 			"Map >>> " "no player start found\n"_END);

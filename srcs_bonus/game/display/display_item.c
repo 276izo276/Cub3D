@@ -62,10 +62,13 @@ void	put_text_pix_img_item(t_data *data, int i, int j, int fixed)
 		else
 			data->ray[i].items[j]->door_status = data->ray[i].items[j]->door->pos;
 	}
+	// printf("a\n");
 	data->ray[i].items[j]->texture_coo.y = (data->ray[i].pix_y - data->ray[i].items[j]->htop + data->ray[i].items[j]->door_status / 100 * data->ray[i].items[j]->size)
 		* data->ray[i].items[j]->texture->height / data->ray[i].items[j]->dist_height;
-	if (data->ray[i].items[j]->texture_coo.y > data->ray[i].items[j]->texture->height - 5)
+	if (data->ray[i].items[j]->texture_coo.y >= data->ray[i].items[j]->texture->height
+	|| data->ray[i].items[j]->texture_coo.y < 0)
 		return ;
+	// printf("b\n");
 	data->ray[i].items[j]->pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
 			* data->screen->size_line);
 	data->ray[i].items[j]->text_pix = data->ray[i].items[j]->texture->data_addr + (data->ray[i].items[j]->texture_coo.y

@@ -65,6 +65,16 @@ typedef	enum e_dir
 	WEST
 } t_dir;
 
+typedef enum e_enum_class_spell
+{
+	DARK_SPELL,
+	HEAL_SPELL,
+	SUMMON_SPELL,
+	OFFENSIVE_SPELL,
+	DEFENSIVE_SPELL,
+	CLASIC_SPELL
+}	t_enum_class_spell;
+
 typedef enum e_enemy_info
 {
 	DEMENTOR = '.',
@@ -85,14 +95,18 @@ typedef enum e_imgs
 	DEMENTOR_BACK,
 	DOOR_MOVE,
 	DOOR_FIXED,
-	INCENDIO_IMG,
 	FLOO_CLOSE,
 	FLOO_OPEN,
 	HEART,
 	SHIELD,
-	XP
+	XP,
+	INCENDIO_IMG,
+	GLACIUS_IMG,
+	LUMOS_ICN,
+	INCENDIO_ICN,
+	GLACIUS_ICN
 }	t_imgs;
-# define NB_TEXTURES 15
+# define NB_TEXTURES 19
 
 typedef enum e_spells
 {
@@ -111,12 +125,12 @@ typedef enum e_spells
 	EXPECTO_PATRONUM,
 	EXPELLIARMUS,
 	EXPULSO,
+	GLACIUS,
 	IMPEDIMENTA,
 	IMPERO,
 	IMMOBULUS,
 	INCENDIO,
 	LUMOS,
-	NOX,
 	OPPUGNO,
 	PETRIFICUS_TOTALUS,
 	PROTEGO,
@@ -213,7 +227,7 @@ struct s_item
 	double			deg;
 	double			rad;
 	double			radius;
-	int				speed;
+	double			speed;
 	t_damage		damage;
 };
 
@@ -444,7 +458,6 @@ struct s_mini
 	long long int	time_foot;
 	int			height;
 	int			width;
-	t_coo_mini	player_coo;
 	double		deg;
 	double		rad;
 	double		speed;
@@ -470,7 +483,6 @@ struct s_map
 	t_door	***door_map;
 	t_wall_msg		***wall_map;
 	t_img			**msg_img;
-	t_coo	*player_coo;
 	t_lst	*lines;
 	t_lst	*map;
 	t_img	*north;
@@ -579,14 +591,16 @@ struct s_case
 
 struct s_spell
 {
-	t_damage		damage;
-	t_item			item;
-	t_spells		type;
-	double			base_cooldown;
-	double			base_timer;
-	long long int	launch_time;
-	long long int	end_time;
-	void			(*call)(t_data *data, t_spells info);
+	t_img				*icn;
+	t_damage			damage;
+	t_item				item;
+	t_spells			type;
+	double				base_cooldown;
+	double				base_timer;
+	long long int		launch_time;
+	long long int		end_time;
+	void				(*call)(t_data *data, t_spells info);
+	t_enum_class_spell	class;
 };
 
 struct	s_player
@@ -595,6 +609,7 @@ struct	s_player
 	double		shield;
 	double		xp;
 	t_damage	damage;
+	t_fcoo		coo;
 };
 
 struct s_data

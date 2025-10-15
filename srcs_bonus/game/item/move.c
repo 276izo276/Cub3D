@@ -115,16 +115,16 @@ int	try_hit_items(t_item *elem, t_data *data)
 
 	hit = false;
 	//DBG1printf("a\n");
+	ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
+	ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
+	ray.bx = elem->right.case_x * 64 + elem->right.coo_x;
+	ray.by = elem->right.case_y * 64 + elem->right.coo_y;
+	ray.cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
+	ray.cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
 	lst = get_first_elem_lst(data->enemy);
 	while (lst)
 	{
 		enemy = lst->dt;
-		ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
-		ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
-		ray.bx = elem->right.case_x * 64 + elem->right.coo_x;
-		ray.by = elem->right.case_y * 64 + elem->right.coo_y;
-		ray.cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
-		ray.cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
 		ray.dx = enemy->left.case_x * 64 + enemy->left.coo_x;
 		ray.dy = enemy->left.case_y * 64 + enemy->left.coo_y;
 		calc_scal(&ray);
@@ -165,6 +165,17 @@ int	try_hit_items(t_item *elem, t_data *data)
 			continue;
 		}
 		lst = lst->next;
+	}
+	ray.dx = data->player.coo.case_x * 64 + data->player.coo.coo_x;
+	ray.dy = data->player.coo.case_y * 64 + data->player.coo.coo_y;
+	calc_scal(&ray);
+	if (ray.hit == true)
+	{
+		data->player.damage.damage_take += elem->damage.damage_do;
+		data->player.damage.slow_take += elem->damage.slow_do;
+		data->player.damage.poison_take += elem->damage.poison_do;
+		data->player.damage.fire_take += elem->damage.fire_do;
+		hit = true;
 	}
 	//DBG1printf("b\n");
 	// enemy = lst->dt;
@@ -213,14 +224,57 @@ int	try_hit_items(t_item *elem, t_data *data)
 	return (0);
 }
 
+void	make_move_item(t_item *item, double speed)
+{
+	double	dx;
+	double	dy;
+	double	v_normalize;
+
+	dx = sin(item->rad);
+	dy = cos(item->rad);
+	if (round(dy) == 0.0 && round(dx) == 0.0)
+	{
+		dy = 0;
+		dx = 0;
+	}
+	else
+	{
+		v_normalize = sqrt(dx * dx + dy * dy);
+		dy = dy / v_normalize;
+		dx = dx / v_normalize;
+	}
+	dy *= speed;
+	dx *= speed;
+	item->center.coo_x += dx;
+	item->center.coo_y += dy;
+	if (item->center.coo_x < 0)
+	{
+		item->center.coo_x += 64;
+		item->center.case_x--;
+	}
+	else if (item->center.coo_x > 64)
+	{
+		item->center.coo_x -= 64;
+		item->center.case_x++;
+	}
+	if (item->center.coo_y < 0)
+	{
+		item->center.coo_y += 64;
+		item->center.case_y--;
+	}
+	else if (item->center.coo_y > 64)
+	{
+		item->center.coo_y -= 64;
+		item->center.case_y++;
+	}
+	calc_left_point_item(item);
+	calc_right_point_item(item);
+}
+
 void	move_item(t_data *data)
 {
 	t_lst	*lst;
 	t_item	*item;
-	double	dy;
-	double	dx;
-	double	v_normalize;
-
 	//DBG1printf("1\n");
 	lst = get_first_elem_lst(data->item);
 	while (lst)
@@ -243,46 +297,9 @@ void	move_item(t_data *data)
 		// item->center_before.coo_y = item->center.coo_y;
 		// item->center_before.case_x = item->center.case_x;
 		// item->center_before.case_y = item->center.case_y;
-		dx = sin(item->rad);
-		dy = cos(item->rad);
-		if (round(dy) == 0.0 && round(dx) == 0.0)
-		{
-			dy = 0;
-			dx = 0;
-		}
-		else
-		{
-			v_normalize = sqrt(dx * dx + dy * dy);
-			dy = dy / v_normalize;
-			dx = dx / v_normalize;
-		}
-		dy *= item->speed;
-		dx *= item->speed;
-		item->center.coo_x += dx;
-		item->center.coo_y += dy;
-		if (item->center.coo_x < 0)
-		{
-			item->center.coo_x += 64;
-			item->center.case_x--;
-		}
-		else if (item->center.coo_x > 64)
-		{
-			item->center.coo_x -= 64;
-			item->center.case_x++;
-		}
-		if (item->center.coo_y < 0)
-		{
-			item->center.coo_y += 64;
-			item->center.case_y--;
-		}
-		else if (item->center.coo_y > 64)
-		{
-			item->center.coo_y -= 64;
-			item->center.case_y++;
-		}
-		// try_hit_items(data, item);
-		calc_left_point_item(item);
-		calc_right_point_item(item);
+		// printf("before move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
+		make_move_item(item, item->speed);
+		// printf("after move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
 		if (try_hit_items(item, data)
 			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1')
 		{

@@ -68,8 +68,8 @@ void	check_map_is_closed(t_data *data)
 	t_lst	*node;
 
 	closed = NULL;
-	open = add_end_lst(init_t_coo(data->map.player_coo->y,
-				data->map.player_coo->x), NULL, f_elem);
+	open = add_end_lst(init_t_coo(data->player.coo.case_y,
+				data->player.coo.case_x), NULL, f_elem);
 	if (!open)
 		f_exit(data, 1);
 	while (open)

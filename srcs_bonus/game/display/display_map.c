@@ -123,12 +123,12 @@ void    display_floo_map(t_data *data)
         x = 0;
         while(data->map.tabmap[y][x])
         {
-            pos_x = (x - data->map.last_pos_x) * data->map.zoom + data->mlx.width / 2 - data->map.mini.player_coo.x * ((double)data->map.zoom / 64.0);
-            pos_y = (y - data->map.last_pos_y) * data->map.zoom + (data->mlx.height - MARGIN) / 2 - data->map.mini.player_coo.y * ((double)data->map.zoom / 64.0);
+            pos_x = (x - data->map.last_pos_x) * data->map.zoom + data->mlx.width / 2 - data->player.coo.coo_x * ((double)data->map.zoom / 64.0);
+            pos_y = (y - data->map.last_pos_y) * data->map.zoom + (data->mlx.height - MARGIN) / 2 - data->player.coo.coo_y * ((double)data->map.zoom / 64.0);
             if (pos_x + data->map.zoom > 0 && pos_x < data->mlx.width
             && pos_y + data->map.zoom > 0 && pos_y < data->mlx.height)
             {
-                if (x == data->map.player_coo->x && y == data->map.player_coo->y)
+                if (x == data->player.coo.case_x && y == data->player.coo.case_y)
                     draw_player(data, pos_x, pos_y);
                 draw_texture(data, pos_x, pos_y, data->map.tabmap[y][x]);
             }
@@ -136,7 +136,7 @@ void    display_floo_map(t_data *data)
         }
         ++y;
     }
-    if (data->map.last_pos_x != data->map.player_coo->x || data->map.last_pos_y != data->map.player_coo->y)
+    if (data->map.last_pos_x != data->player.coo.case_x || data->map.last_pos_y != data->player.coo.case_y)
         draw_cursor(data);
     // data->status = GAME;
 }

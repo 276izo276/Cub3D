@@ -37,10 +37,10 @@ void	handle_door(t_data *data)
 				}
 				else if (data->map.door_map[y][x]->pos <= 50)
 					data->map.door_map[y][x]->is_open = false;
-				if ((y == data->map.player_coo->y && (x == data->map.player_coo->x + 1
-					|| x == data->map.player_coo->x - 1)) || (x == data->map.player_coo->x && (y == data->map.player_coo->y + 1
-					|| y == data->map.player_coo->y - 1))
-					|| (y == data->map.player_coo->y && x == data->map.player_coo->x))
+				if ((y == data->player.coo.case_y && (x == data->player.coo.case_x + 1
+					|| x == data->player.coo.case_x - 1)) || (x == data->player.coo.case_x && (y == data->player.coo.case_y + 1
+					|| y == data->player.coo.case_y - 1))
+					|| (y == data->player.coo.case_y && x == data->player.coo.case_x))
 				{
 					if (data->lumos.count_frame != 0 && data->map.door_map[y][x]->pos < 120)
 						data->map.door_map[y][x]->pos += 0.03 * data->lumos.count_frame;

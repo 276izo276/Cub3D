@@ -195,10 +195,10 @@ void	init_foot_tab(t_data *data)
 	// if (!foot_tab)
 	// 	f_exit(data, 1);
 	i = 1;
-	data->map.mini.foot_tab[0].coo.case_x = data->map.player_coo->x;
-	data->map.mini.foot_tab[0].coo.case_y = data->map.player_coo->y;
-	data->map.mini.foot_tab[0].coo.coo_y = data->map.mini.player_coo.y;
-	data->map.mini.foot_tab[0].coo.coo_x = data->map.mini.player_coo.x;
+	data->map.mini.foot_tab[0].coo.case_x = data->player.coo.case_x;
+	data->map.mini.foot_tab[0].coo.case_y = data->player.coo.case_y;
+	data->map.mini.foot_tab[0].coo.coo_y = data->player.coo.coo_y;
+	data->map.mini.foot_tab[0].coo.coo_x = data->player.coo.coo_x;
 	data->map.mini.foot_tab[0].is_left = true;
 	data->map.mini.foot_tab[0].is_save = true;
 	data->map.mini.foot_tab[0].rad = 0;
@@ -232,8 +232,8 @@ int	main(int ac, char **av)
 	// init_semaphores(&data);
 	create_thread(&data);
 	open_window(&data, &data.mlx);
-	data.map.mini.player_coo.y = 32;
-	data.map.mini.player_coo.x = 32;
+	data.player.coo.coo_y = 32;
+	data.player.coo.coo_x = 32;
 	data.map.mini.speed = 1.5;
 	init_img_mini(&data, &data.map.mini);
 	init_foot_tab(&data);

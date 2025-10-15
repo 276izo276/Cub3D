@@ -13,10 +13,10 @@ static void	get_world_size(t_data *data, t_display *display, int y)
 static void	get_coo_world(t_data *data, t_display *display, int x)
 {
 	display->screen_x = (double)2 * x / data->screen->width - 1;
-	display->world_x = data->map.mini.player_coo.x - display->dist_texture
+	display->world_x = data->player.coo.coo_x - display->dist_texture
 		* (-display->sin_angle) - display->screen_x * display->dist_texture
 		* display->cos_angle;
-	display->world_y = data->map.mini.player_coo.y + display->dist_texture
+	display->world_y = data->player.coo.coo_y + display->dist_texture
 		* display->cos_angle + display->screen_x * display->dist_texture
 		* display->sin_angle;
 	display->pos_cellx = fmod(display->world_x, 64);

@@ -18,12 +18,17 @@ static void	set_path_texture(t_data *data)
 	data->img[DEMENTOR_BACK].path = "./texture/dementor_back.xpm";
 	data->img[DOOR_MOVE].path = "./texture/door_close.xpm";
 	data->img[DOOR_FIXED].path = "./texture/door_open.xpm";
-	data->img[INCENDIO_IMG].path = "./texture/spell/incendio.xpm";
 	data->img[FLOO_CLOSE].path = "./texture/floo_close.xpm";
 	data->img[FLOO_OPEN].path = "./texture/floo_open.xpm";
 	data->img[HEART].path = "./texture/heart.xpm";
 	data->img[SHIELD].path = "./texture/shield.xpm";
 	data->img[XP].path = "./texture/xp.xpm";
+
+	data->img[INCENDIO_IMG].path = "./texture/spell/incendio.xpm";
+	data->img[GLACIUS_IMG].path = "./texture/spell/glacius.xpm";
+	data->img[LUMOS_ICN].path = "./texture/spell/lumos_icn.xpm";
+	data->img[INCENDIO_ICN].path = "./texture/spell/incendio_icn.xpm";
+	data->img[GLACIUS_ICN].path = "./texture/spell/glacius_icn.xpm";
 }
 
 void	init_textures(t_data *data)

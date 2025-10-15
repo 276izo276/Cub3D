@@ -851,9 +851,9 @@ int	see_player(t_data *data, t_enemy *enemy)
 	double	deg;
 
 	deg = 0;
-	int	diff_x = data->map.player_coo->x * 64 + data->map.mini.player_coo.x
+	int	diff_x = data->player.coo.case_x * 64 + data->player.coo.coo_x
 	- enemy->center.case_x * 64 - enemy->center.coo_x;
-	int	diff_y = data->map.player_coo->y * 64 + data->map.mini.player_coo.y
+	int	diff_y = data->player.coo.case_y * 64 + data->player.coo.coo_y
 	- enemy->center.case_y * 64 - enemy->center.coo_y;
 	if (diff_x == 0 && diff_y == 0)
 	{
@@ -931,14 +931,14 @@ int	see_player(t_data *data, t_enemy *enemy)
 		- ray.start_coo_x)) * ((ray.case_x
 		- ray.start_case_x) * 64.0 + (ray.coo_x
 		- ray.start_coo_x)));
-		double	dist_player = sqrt(((data->map.player_coo->y
-		- ray.start_case_y) * 64.0 + (data->map.mini.player_coo.y
-		- ray.start_coo_y)) * ((data->map.player_coo->y
-		- ray.start_case_y) * 64.0 + (data->map.mini.player_coo.y
-		- ray.start_coo_y)) + ((data->map.player_coo->x
-		- ray.start_case_x) * 64.0 + (data->map.mini.player_coo.x
-		- ray.start_coo_x)) * ((data->map.player_coo->x
-		- ray.start_case_x) * 64.0 + (data->map.mini.player_coo.x
+		double	dist_player = sqrt(((data->player.coo.case_y
+		- ray.start_case_y) * 64.0 + (data->player.coo.coo_y
+		- ray.start_coo_y)) * ((data->player.coo.case_y
+		- ray.start_case_y) * 64.0 + (data->player.coo.coo_y
+		- ray.start_coo_y)) + ((data->player.coo.case_x
+		- ray.start_case_x) * 64.0 + (data->player.coo.coo_x
+		- ray.start_coo_x)) * ((data->player.coo.case_x
+		- ray.start_case_x) * 64.0 + (data->player.coo.coo_x
 		- ray.start_coo_x)));
 		// printf("dist player >%lf    dist_wall >%lf\n",dist_player, ray.dist_wall);
 		if (dist_player < ray.dist_wall || enemy->calc_path > 0)
@@ -969,10 +969,10 @@ int	see_player(t_data *data, t_enemy *enemy)
 				}
 			}
 			// printf("pointer way >%p",enemy->way);
-			enemy->goal.case_x = data->map.player_coo->x;
-			enemy->goal.case_y = data->map.player_coo->y;
-			enemy->goal.coo_y = data->map.mini.player_coo.y;
-			enemy->goal.coo_x = data->map.mini.player_coo.x;
+			enemy->goal.case_x = data->player.coo.case_x;
+			enemy->goal.case_y = data->player.coo.case_y;
+			enemy->goal.coo_y = data->player.coo.coo_y;
+			enemy->goal.coo_x = data->player.coo.coo_x;
 			pathfinder(data, enemy);
 			calc_in_cell_path(data, enemy);
 			print_path(enemy);
