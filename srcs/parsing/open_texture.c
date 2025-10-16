@@ -9,7 +9,8 @@ static void	open_img(t_img *img, t_data *data)
 	if (!img)
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_END);
-		ft_printf_fd(2, _BOLD _PURPLE "Image >>> Missing an identifiers !!\n"_END);
+		ft_printf_fd(2, _BOLD _PURPLE
+			"Image >>> Missing an identifiers !!\n"_END);
 		f_exit(data, 1);
 	}
 	img->img = mlx_xpm_file_to_image(data->mlx.mlx, img->path, &img->width,

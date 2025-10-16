@@ -60,7 +60,7 @@ static void	check_map_valid_char(t_data *data)
 
 static void	set_deg_start(t_data *data)
 {
-	char c;
+	char	c;
 
 	c = data->map.tabmap[data->map.player_coo->y][data->map.player_coo->x];
 	if (c == 'S')

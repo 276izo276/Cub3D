@@ -1,9 +1,9 @@
 #include "cub3d.h"
 #include "mlx.h"
 #include "texture.h"
+#include "time.h"
 #include "utils.h"
 #include <math.h>
-#include "time.h"
 
 static void	fill_need_print(t_data *data)
 {
@@ -54,17 +54,12 @@ static void	init_ray(t_data *data)
 void	init_data(t_data *data, int ac, char **av)
 {
 	ft_bzero(data, sizeof(t_data));
-
 	data->time_fps = get_mtime();
 	data->time_move = get_mtime();
 	fill_need_print(data);
 	data->mlx.mlx = mlx_init();
 	if (!data->mlx.mlx)
-	{
-		// error msg
 		f_exit(data, 1);
-	}
-	// mlx_get_screen_size(data->mlx.mlx, &data->mlx.width, &data->mlx.height);
 	data->mlx.height = 1000;
 	data->mlx.width = 1000;
 	init_utils_mini(data);
@@ -79,5 +74,4 @@ void	init_data(t_data *data, int ac, char **av)
 	data->screen->height = data->mlx.height;
 	data->ac = ac;
 	data->av = av;
-	// init_background(data);
 }

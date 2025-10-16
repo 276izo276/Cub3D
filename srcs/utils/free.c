@@ -1,6 +1,6 @@
-#include <stdlib.h>
-#include "struct.h"
 #include "mlx.h"
+#include "struct.h"
+#include <stdlib.h>
 
 void	f_elem(void *elem)
 {
@@ -44,9 +44,6 @@ void	f_tab_char(char **tab)
 	}
 	free(tab);
 }
-
-
-#include <stdio.h>
 
 void	f_exit(t_data *data, int code)
 {

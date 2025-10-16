@@ -33,5 +33,4 @@
 # define _BLIME		"\033[48;2;0;255;0m"
 # define _BORANGE	"\033[48;2;255;165;0m"
 
-
 #endif

@@ -18,7 +18,6 @@ int	mouse_move(int x, int y, t_data *data)
 	if ((x != data->mlx.width / 2 || y != data->mlx.height / 2)
 		&& !is_key_pressed(data, KEY_ALT))
 	{
-		// printf("MOUSE MOVE\n");
 		data->map.mini.deg += (double)-(x - data->mlx.width / 2) / 40;
 		data->map.mini.deg = fmod(data->map.mini.deg, 360.0);
 		if (data->map.mini.deg < 0)
@@ -48,7 +47,6 @@ int	key_release(int keycode, t_data *data)
 {
 	int	i;
 
-	// printf("Key released: %d\n", keycode);
 	i = 0;
 	while (i < KEYCODE_NB)
 	{
@@ -70,7 +68,6 @@ int	key_press(int keycode, t_data *data)
 {
 	int	i;
 
-	// printf("Key pressed: %d\n", keycode);
 	i = 0;
 	while (data->keycode[i] != 0 && i < KEYCODE_NB)
 		i++;

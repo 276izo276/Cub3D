@@ -13,7 +13,6 @@ int	main(int ac, char **av)
 	data.map.mini.player_coo.y = 32;
 	data.map.mini.player_coo.x = 32;
 	init_img_mini(&data, &data.map.mini);
-	// init_display(&data, &data.f_display);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
 	mlx_mouse_hide(data.mlx.mlx, data.mlx.win);
 	mlx_mouse_move(data.mlx.mlx, data.mlx.win, data.mlx.width / 2,
@@ -24,7 +23,6 @@ int	main(int ac, char **av)
 	mlx_hook(data.mlx.win, ON_MOUSEMOVE, 1L << 6, mouse_move, &data);
 	mlx_loop_hook(data.mlx.mlx, game_loop, &data);
 	mlx_loop(data.mlx.mlx);
-	// ray_launch(&data, data.ray);
 	f_exit(&data, 0);
 	return (1);
 }

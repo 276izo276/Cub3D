@@ -36,7 +36,7 @@ int	hit_box_x_wall(t_data *data, t_map *map, t_mini *mini)
 {
 	int	x;
 	int	y;
-	
+
 	y = -1;
 	while (y <= 1)
 	{
@@ -57,7 +57,7 @@ int	hit_box_y_wall(t_data *data, t_map *map, t_mini *mini)
 {
 	int	x;
 	int	y;
-	
+
 	y = -1;
 	while (y <= 1)
 	{
@@ -256,12 +256,12 @@ void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 		return ;
 	if (map->tabmap[data->player.coo.case_y][data->player.coo.case_x] == 'F' && (map->door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open == true))
 	{
-		if (map->door_map[data->player.coo.case_y][data->player.coo.case_x]->is_verti == true 
+		if (map->door_map[data->player.coo.case_y][data->player.coo.case_x]->is_verti == true
 			&& mini->cx == 0 && ((data->player.coo.coo_x <= 32.0 && mini->nx > 32.0) || (data->player.coo.coo_x >= 32.0 && mini->nx < 32.0)))
 		{
 			data->status = MAP;
 		}
-		else if (map->door_map[data->player.coo.case_y][data->player.coo.case_x]->is_verti == false && 
+		else if (map->door_map[data->player.coo.case_y][data->player.coo.case_x]->is_verti == false &&
 			mini->cy == 0 && ((data->player.coo.coo_y <= 32.0 && mini->ny > 32.0) || (data->player.coo.coo_y >= 32.0 && mini->ny < 32.0)))
 		{
 			data->status = MAP;
