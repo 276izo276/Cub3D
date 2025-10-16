@@ -501,10 +501,8 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 	t_item		*item;
 	t_lst		*lst;
 	t_hitray	ray;
-	bool		hit;
 	t_lst		*next;
 
-	hit = false;
 	lst = get_first_elem_lst(data->item);
 	while (lst)
 	{
@@ -526,7 +524,6 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 			elem->damage.poison_take += item->damage.poison_do;
 			elem->damage.fire_take += item->damage.fire_do;
 			next = lst->next;
-			hit = true;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
 			lst = next;
@@ -543,7 +540,6 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 			elem->damage.poison_take += item->damage.poison_do;
 			elem->damage.fire_take += item->damage.fire_do;
 			next = lst->next;
-			hit = true;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
 			lst = next;
@@ -560,7 +556,6 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 			elem->damage.poison_take += item->damage.poison_do;
 			elem->damage.fire_take += item->damage.fire_do;
 			next = lst->next;
-			hit = true;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
 			lst = next;
@@ -570,23 +565,8 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 	}
 }
 
-static void	make_move_enemy(t_data *data, t_enemy *enemy, t_lst *lst)
+static void	make_move_enemy(t_data *data, t_enemy *enemy)
 {
-	(void)data;
-	(void)enemy;
-	// printf("\n\nCoo in case way x>>%d    y>>%d\n",enemy->way->coo_x,enemy->way->coo_y);
-	// printf("Coo in case center x>>%lf    y>>%lf\n",enemy->center.coo_x,enemy->center.coo_y);
-	//DBG1printf("m1\n");
-	//DBG1printf("m2\n");
-	// enemy->life -= enemy->damage.damage_take;
-	// enemy->damage.damage_take = 0;
-	// printf("enemy life > %lf\n",enemy->life);
-	// if (enemy->life < 0)
-	// {
-	// 	data->enemy = remove_elem_lst(lst);
-	// 	f_elem_lst(lst);
-	// 	return ;
-	// }
 
 	if (enemy->calc == true)
 	{
@@ -718,15 +698,6 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy, t_lst *lst)
 		enemy->calc = true;
 	}
 	//DBG1printf("m6\n");
-	enemy->life -= enemy->damage.damage_take;
-	enemy->damage.damage_take = 0;
-	//DBG1printf("enemy life > %lf\n",enemy->life);
-	if (enemy->life <= 0)
-	{
-		data->enemy = remove_elem_lst(lst);
-		f_elem_lst(lst);
-		return ;
-	}
 	//DBG1printf("m7\n");
 
 	// if (delta_x > 0)
@@ -995,9 +966,19 @@ void	move_enemy(t_data *data)
 		enemy = lst->dt;
 		next = lst->next;
 		if ((see_player(data, enemy) && enemy->way) || enemy->way)
-			make_move_enemy(data, enemy, lst);
+			make_move_enemy(data, enemy);
 		else
 			gen_enemy_way(data, enemy);
+		
+		enemy->life -= enemy->damage.damage_take;
+		enemy->damage.damage_take = 0;
+		//DBG1printf("enemy life > %lf\n",enemy->life);
+		if (enemy->life <= 0)
+		{
+			data->enemy = remove_elem_lst(lst);
+			f_elem_lst(lst);
+			return ;
+		}
 		lst = next;
 	}
 }

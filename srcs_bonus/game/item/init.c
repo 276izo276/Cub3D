@@ -3,7 +3,7 @@
 #include "time_bonus.h"
 #include <stdlib.h>
 #include <math.h>
-
+#include <strings.h>
 #include <stdio.h>
 
 t_item	*init_spell_item(t_data *data, t_spells info)
@@ -13,6 +13,7 @@ t_item	*init_spell_item(t_data *data, t_spells info)
 	item = malloc(sizeof(t_item));
 	if (!item)
 		return (NULL);
+	bzero(item, sizeof(t_item));
 	item->center.case_x = data->player.coo.case_x;
 	item->center.case_y = data->player.coo.case_y;
 	item->center.coo_x = data->player.coo.coo_x;
@@ -27,6 +28,6 @@ t_item	*init_spell_item(t_data *data, t_spells info)
 	item->radius = data->spell[info].item.radius;
 	item->back_img = data->spell[info].item.back_img;
 	item->front_img = data->spell[info].item.front_img;
-	make_move_item(item, 20);
+	// make_move_item(item, 20);
 	return (item);
 }

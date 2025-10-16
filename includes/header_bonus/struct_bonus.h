@@ -233,6 +233,7 @@ struct s_item
 	double			radius;
 	double			speed;
 	t_damage		damage;
+	unsigned int	nb_move;
 };
 
 struct s_door
@@ -475,36 +476,34 @@ struct s_mini
 
 struct s_map
 {
-	int		fd;
-	int		tabmap_height;
-	int		nb_floo;
-	char	**tabmap;
-	int		zoom;
-	double		last_pos_x;
-	double		last_pos_y;
-	bool		is_center;
-	bool		floo_active;
-	int		last_mouse_x;
-	int		last_mouse_y;
-	t_coo	*pos_active_floo;
-	t_door	***door_map;
+	int				fd;
+	int				tabmap_height;
+	int				nb_floo;
+	char			**tabmap;
+	int				zoom;
+	double			last_pos_x;
+	double			last_pos_y;
+	bool			is_center;
+	bool			floo_active;
+	int				last_mouse_x;
+	int				last_mouse_y;
+	t_coo			*pos_active_floo;
+	t_door			***door_map;
 	t_wall_msg		***wall_map;
 	t_img			**msg_img;
-	t_lst	*lines;
-	t_lst	*map;
-	t_img	*north;
-	t_img	*south;
-	t_img	*west;
-	t_img	*east;
-	t_img	*door;
-	t_img	*fixed_door;
-	t_mini	mini;
-	t_img	*floor;
-	t_img	*ceiling;
-	t_img	*dementor_front;
-	t_img	*dementor_back;
-	// t_img	*floo;
-	// t_img	*floo_open;
+	t_lst			*lines;
+	t_lst			*map;
+	t_img			*north;
+	t_img			*south;
+	t_img			*west;
+	t_img			*east;
+	t_img			*door;
+	t_img			*fixed_door;
+	t_mini			mini;
+	t_img			*floor;
+	t_img			*ceiling;
+	t_img			*dementor_front;
+	t_img			*dementor_back;
 };
 
 struct s_display
@@ -617,6 +616,11 @@ struct	s_player
 	double		xp;
 	t_damage	damage;
 	t_fcoo		coo;
+	t_fcoo		left;
+	t_fcoo		right;
+	t_fcoo		left_before;
+	t_fcoo		right_before;
+	double		radius;
 };
 
 struct s_data

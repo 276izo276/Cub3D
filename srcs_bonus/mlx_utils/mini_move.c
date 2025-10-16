@@ -276,6 +276,107 @@ void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 	}
 }
 
+void	calc_left_point_player(t_data *data)
+{
+	double	rad;
+	double	dy;
+	double	dx;
+	double	v_normalize;
+
+	rad = data->map.mini.rad + (90 * (M_PI / 180));
+	dx = sin(rad);
+	dy = cos(rad);
+	// printf("dx>>%lf     dy>>%lf\n",dx,dy);
+	if (round(dy) == 0.0 && round(dx) == 0.0)
+	{
+		dy = 0;
+		dx = 0;
+	}
+	else
+	{
+		v_normalize = sqrt(dx * dx + dy * dy);
+		dy = dy / v_normalize;
+		dx = dx / v_normalize;
+	}
+	dy *= data->player.radius;
+	dx *= data->player.radius;
+	data->player.left.coo_x = data->player.coo.coo_x + dx;
+	data->player.left.coo_y = data->player.coo.coo_y + dy;
+	data->player.left.case_x = data->player.coo.case_x;
+	data->player.left.case_y = data->player.coo.case_y;
+	if (data->player.left.coo_x < 0)
+	{
+		data->player.left.case_x--;
+		data->player.left.coo_x += 64;
+	}
+	else if (data->player.left.coo_x > 64)
+	{
+		data->player.left.case_x++;
+		data->player.left.coo_x = fmod(data->player.left.coo_x, 64);
+	}
+	if (data->player.left.coo_y < 0)
+	{
+		data->player.left.case_y--;
+		data->player.left.coo_y += 64;
+	}
+	else if (data->player.left.coo_y > 64)
+	{
+		data->player.left.case_y++;
+		data->player.left.coo_y = fmod(data->player.left.coo_y, 64);
+	}
+}
+
+void	calc_right_point_player(t_data *data)
+{
+	double	rad;
+	double	dy;
+	double	dx;
+	double	v_normalize;
+
+	rad = data->map.mini.rad - (90 * (M_PI / 180));
+	dx = sin(rad);
+	dy = cos(rad);
+	// printf("dx>>%lf     dy>>%lf\n",dx,dy);
+	if (round(dy) == 0.0 && round(dx) == 0.0)
+	{
+		dy = 0;
+		dx = 0;
+	}
+	else
+	{
+		v_normalize = sqrt(dx * dx + dy * dy);
+		dy = dy / v_normalize;
+		dx = dx / v_normalize;
+	}
+	dy *= data->player.radius;
+	dx *= data->player.radius;
+	data->player.left.coo_x = data->player.coo.coo_x + dx;
+	data->player.left.coo_y = data->player.coo.coo_y + dy;
+	data->player.left.case_x = data->player.coo.case_x;
+	data->player.left.case_y = data->player.coo.case_y;
+	if (data->player.left.coo_x < 0)
+	{
+		data->player.left.case_x--;
+		data->player.left.coo_x += 64;
+	}
+	else if (data->player.left.coo_x > 64)
+	{
+		data->player.left.case_x++;
+		data->player.left.coo_x = fmod(data->player.left.coo_x, 64);
+	}
+	if (data->player.left.coo_y < 0)
+	{
+		data->player.left.case_y--;
+		data->player.left.coo_y += 64;
+	}
+	else if (data->player.left.coo_y > 64)
+	{
+		data->player.left.case_y++;
+		data->player.left.coo_y = fmod(data->player.left.coo_y, 64);
+	}
+}
+
+
 void	handle_move(t_map *map, t_mini *mini, t_data *data)
 {
 	int	i;
@@ -315,6 +416,17 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	handle_map_status(map, data, mini);
 	if (data->status == MAP)
 		return ;
+	calc_left_point_player(data);
+	calc_right_point_player(data);
+	data->player.left_before.coo_x = data->player.left.coo_x;
+	data->player.left_before.coo_y = data->player.left.coo_y;
+	data->player.left_before.case_x = data->player.left.case_x;
+	data->player.left_before.case_y = data->player.left.case_y;
+	data->player.right_before.coo_x = data->player.right.coo_x;
+	data->player.right_before.coo_y = data->player.right.coo_y;
+	data->player.right_before.case_x = data->player.right.case_x;
+	data->player.right_before.case_y = data->player.right.case_y;
+
 	if (mini->ny != data->player.coo.coo_y)
 	{
 		data->player.coo.coo_y = mini->ny;
@@ -325,6 +437,8 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 		data->player.coo.coo_x = mini->nx;
 		data->player.coo.case_x += mini->cx;
 	}
+	calc_left_point_player(data);
+	calc_right_point_player(data);
 	// move_x(data, map, mini);
 	// move_y(data, map, mini);
 }

@@ -166,17 +166,22 @@ int	try_hit_items(t_item *elem, t_data *data)
 		}
 		lst = lst->next;
 	}
-	ray.dx = data->player.coo.case_x * 64 + data->player.coo.coo_x;
-	ray.dy = data->player.coo.case_y * 64 + data->player.coo.coo_y;
-	calc_scal(&ray);
-	if (ray.hit == true)
+	// printf("elem mvoe %d",);
+	if (elem->nb_move > 1)
 	{
-		data->player.damage.damage_take += elem->damage.damage_do;
-		data->player.damage.slow_take += elem->damage.slow_do;
-		data->player.damage.poison_take += elem->damage.poison_do;
-		data->player.damage.fire_take += elem->damage.fire_do;
-		hit = true;
+		ray.dx = data->player.coo.case_x * 64 + data->player.coo.coo_x;
+		ray.dy = data->player.coo.case_y * 64 + data->player.coo.coo_y;
+		calc_scal(&ray);
+		if (ray.hit == true)
+		{
+			data->player.damage.damage_take += elem->damage.damage_do;
+			data->player.damage.slow_take += elem->damage.slow_do;
+			data->player.damage.poison_take += elem->damage.poison_do;
+			data->player.damage.fire_take += elem->damage.fire_do;
+			hit = true;
+		}
 	}
+	elem->nb_move++;
 	//DBG1printf("b\n");
 	// enemy = lst->dt;
 	// bzero(ray, sizeof(t_hitray));

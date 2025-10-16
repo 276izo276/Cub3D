@@ -232,6 +232,7 @@ int	main(int ac, char **av)
 	// init_semaphores(&data);
 	create_thread(&data);
 	open_window(&data, &data.mlx);
+	data.player.radius = 8;
 	data.player.coo.coo_y = 32;
 	data.player.coo.coo_x = 32;
 	data.map.mini.speed = 1.5;
