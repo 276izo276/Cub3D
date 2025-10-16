@@ -115,6 +115,12 @@ int	mouse_key(int key, int x, int y, t_data *data)
 		data->map.zoom *= 2;
 	else if (key == 5 && data->map.zoom >= 32)
 		data->map.zoom /= 2;
+	else if (key == 9 && data->status == GAME)
+	{
+		data->status = MAP;
+		data->map.last_pos_x = data->player.coo.case_x;
+		data->map.last_pos_y = data->player.coo.case_y;
+	}
 	return (0);
 }
 
