@@ -133,6 +133,7 @@ GAME_BONUS		=									\
 				display/display_msg.c				\
 				display/display_item.c				\
 				display/display_map.c 				\
+				display/display_map_utils.c 		\
 				display/display_blood_border.c		\
 				environment/handle_door.c 			\
 				input_move.c						\

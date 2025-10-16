@@ -252,21 +252,21 @@ void	movey(t_map *map, t_mini *mini, t_data *data)
 
 void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 {
-	if (data->status == MAP)
+	if (data->status == FLOO_MAP)
 		return ;
 	if (map->tabmap[data->player.coo.case_y][data->player.coo.case_x] == 'F' && (map->door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open == true))
 	{
 		if (map->door_map[data->player.coo.case_y][data->player.coo.case_x]->is_verti == true
 			&& mini->cx == 0 && ((data->player.coo.coo_x <= 32.0 && mini->nx > 32.0) || (data->player.coo.coo_x >= 32.0 && mini->nx < 32.0)))
 		{
-			data->status = MAP;
+			data->status = FLOO_MAP;
 		}
 		else if (map->door_map[data->player.coo.case_y][data->player.coo.case_x]->is_verti == false &&
 			mini->cy == 0 && ((data->player.coo.coo_y <= 32.0 && mini->ny > 32.0) || (data->player.coo.coo_y >= 32.0 && mini->ny < 32.0)))
 		{
-			data->status = MAP;
+			data->status = FLOO_MAP;
 		}
-		if (data->status == MAP)
+		if (data->status == FLOO_MAP)
 		{
 			data->player.coo.coo_x = 32;
 			data->player.coo.coo_y = 32;
@@ -414,7 +414,7 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	movex(map, mini, data);
 	movey(map, mini, data);
 	handle_map_status(map, data, mini);
-	if (data->status == MAP)
+	if (data->status == FLOO_MAP)
 		return ;
 	calc_left_point_player(data);
 	calc_right_point_player(data);

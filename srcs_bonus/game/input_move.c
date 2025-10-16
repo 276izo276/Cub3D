@@ -23,7 +23,8 @@ int	mouse_move(int x, int y, t_data *data)
 	double	dy;
 
 	if ((x != data->mlx.width / 2 || y != data->mlx.height / 2)
-		&& !is_key_pressed(data, KEY_ALT) && data->status != MAP)
+		&& !is_key_pressed(data, KEY_ALT) && data->status != FLOO_MAP
+		&& data->status != MAP)
 	{
 		data->map.mini.deg += (double)-(x - data->mlx.width / 2) / data->sensitivity;
 		data->map.mini.deg = fmod(data->map.mini.deg, 360.0);
@@ -33,7 +34,7 @@ int	mouse_move(int x, int y, t_data *data)
 		mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width / 2,
 			data->mlx.height / 2);
 	}
-	else if (data->status == MAP)
+	else if (data->status == FLOO_MAP || data->status == MAP)
 	{
 		dx = x - data->mlx.width / 2;
 		dy = y - data->mlx.height / 2;
@@ -101,12 +102,13 @@ int	mouse_key(int key, int x, int y, t_data *data)
 {
 	(void)x;
 	(void)y;
-	if (key == 1 && data->map.floo_active == true)
+	if (key == 1 && data->map.floo_active == true && data->status == FLOO_MAP)
 	{
 		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open = false;
 		data->player.coo.case_x = data->map.pos_active_floo->x;
 		data->player.coo.case_y = data->map.pos_active_floo->y;
 		handle_mouse_click(data);
+		data->map.zoom = 128;
 		data->status = GAME;
 	}
 	if (key == 4 && data->map.zoom <= 128)
@@ -221,7 +223,7 @@ void	handle_exit_map(int keycode, t_data *data)
 	int	angle_deg;
 
 	angle_deg = data->map.mini.deg;
-	if (keycode == KEY_ESCAPE)
+	if (keycode == KEY_ESCAPE && data->status == FLOO_MAP)
 	{
 		data->status = GAME;
 		if (angle_deg >= 315 || angle_deg <= 45)
@@ -236,6 +238,12 @@ void	handle_exit_map(int keycode, t_data *data)
 		data->map.mini.deg = fmod(data->map.mini.deg, 360);
 		data->map.mini.rad = data->map.mini.deg * M_PI / 180;
 		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open = false;
+		data->map.zoom = 128;
+	}
+	else if (keycode == KEY_ESCAPE)
+	{
+		data->status = GAME;
+		data->map.zoom = 128;
 	}
 }
 
@@ -279,12 +287,14 @@ int	key_press(int keycode, t_data *data)
 {
 	int	i;
 
+	// #include <stdio.h>
+	// printf("keycode >> %d\n", keycode);
 	if (data->status == MENU)
 	{
 		handle_menu_keys(keycode, data);
 		return (0);
 	}
-	else if (data->status == MAP)
+	else if (data->status == FLOO_MAP || data->status == MAP)
 	{
 		handle_map_keys(keycode, data);
 		return (0);
@@ -317,6 +327,12 @@ int	key_press(int keycode, t_data *data)
 			data->status = PAUSE;
 		else
 			data->status = GAME;
+	}
+	else if (keycode == KEY_M)
+	{
+		data->status = MAP;
+		data->map.last_pos_x = data->player.coo.case_x;
+		data->map.last_pos_y = data->player.coo.case_y;
 	}
 	else
 		data->keycode[i] = keycode;

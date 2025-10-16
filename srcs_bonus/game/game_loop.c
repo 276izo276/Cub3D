@@ -352,9 +352,9 @@ int	game_loop(t_data *data)
 	if (data->status == MENU)
 		display_menu(data);
 	else if (data->status == PAUSE)
-	{
 		handle_pause_menu(data, cur);
-	}
+	else if (data->status == FLOO_MAP)
+		display_floo_map(data);
 	else if (data->status == MAP)
 		display_floo_map(data);
 	else

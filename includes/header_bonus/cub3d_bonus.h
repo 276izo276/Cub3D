@@ -61,6 +61,12 @@ void	*display_third_part(void *ptr);
 void	*display_last_part(void *ptr);
 void    display_blood_border(t_data *data);
 void    display_floo_map(t_data *data);
+bool    is_center_floo(t_data *data, int pos_x, int pos_y);
+void    draw_player(t_data *data, int pos_x, int pos_y);
+void    draw_cursor(t_data *data);
+void    draw_texture(t_data *data, int pos_x, int pos_y, char c);
+
+
 
 void	*ray_launch_first(void *ptr);
 void	*ray_launch_snd(void *ptr);
@@ -163,6 +169,7 @@ typedef enum e_key
 	KEY_Q = 113 , 
 	KEY_E = 101 , 
 	KEY_C = 99 ,
+	KEY_M = 109,
 	KEY_UP = 65362,
 	KEY_DOWN = 65364,
 	KEY_LEFT = 65361,
