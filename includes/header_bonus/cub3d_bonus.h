@@ -13,7 +13,8 @@
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
 #endif
-
+void	calc_left_point_player(t_data *data);
+void	calc_right_point_player(t_data *data);
 void	make_move_item(t_item *item, double speed);
 void	calc_scal(t_hitray *ray);
 void	calc_left_point_item(t_item *item);

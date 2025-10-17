@@ -31,6 +31,8 @@ int	mouse_move(int x, int y, t_data *data)
 		if (data->map.mini.deg < 0)
 			data->map.mini.deg += 360;
 		data->map.mini.rad = data->map.mini.deg * (M_PI / 180.0);
+		calc_left_point_player(data);
+		calc_right_point_player(data);
 		mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width / 2,
 			data->mlx.height / 2);
 	}

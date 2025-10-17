@@ -360,13 +360,13 @@ int	game_loop(t_data *data)
 	else
 	{
 		//DBG1printf("0\n");
-		take_damage(data);
 		handle_input_move(data, cur);
 		if (data->cast_spell != -1)
 			data->spell[data->cast_spell].call(data, data->cast_spell);
 		move_enemy(data);
 		move_item(data);
 		handle_wall_msg(data, cur);
+		take_damage(data);
 		//DBG1printf("5\n");
 		if (data->time_fps + 1000 / FPS < cur)
 		{
