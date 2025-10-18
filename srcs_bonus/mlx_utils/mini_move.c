@@ -376,6 +376,72 @@ void	calc_right_point_player(t_data *data)
 	}
 }
 
+void	try_hit_player(t_data *data)
+{
+	t_hitray	ray;
+	t_lst		*lst;
+	t_item		*item;
+	t_lst		*next;
+
+	ray.ax = data->player.left.case_x * 64 + data->player.left.coo_x;
+	ray.ay = data->player.left.case_y * 64 + data->player.left.coo_y;
+	ray.bx = data->player.right.case_x * 64 + data->player.right.coo_x;
+	ray.by = data->player.right.case_y * 64 + data->player.right.coo_y;
+	ray.cx = data->player.left_before.case_x * 64 + data->player.left_before.coo_x;
+	ray.cy = data->player.left_before.case_y * 64 + data->player.left_before.coo_y;
+
+	lst = get_first_elem_lst(data->item);
+	while (lst)
+	{
+		item = lst->dt;
+		ray.dx = item->left.case_x * 64 + item->left.coo_x;
+		ray.dy = item->left.case_y * 64 + item->left.coo_y;
+		calc_scal(&ray);
+		if (ray.hit == true)
+		{
+			data->player.damage.damage_take += item->damage.damage_do;
+			data->player.damage.slow_take += item->damage.slow_do;
+			data->player.damage.poison_take += item->damage.poison_do;
+			data->player.damage.fire_take += item->damage.fire_do;
+			next = lst->next;
+			data->item = remove_elem_lst(lst);
+			f_elem_lst(lst);
+			lst = next;
+			continue;
+		}
+		ray.dx = item->center.case_x * 64 + item->center.coo_x;
+		ray.dy = item->center.case_y * 64 + item->center.coo_y;
+		calc_scal(&ray);
+		if (ray.hit == true)
+		{
+			data->player.damage.damage_take += item->damage.damage_do;
+			data->player.damage.slow_take += item->damage.slow_do;
+			data->player.damage.poison_take += item->damage.poison_do;
+			data->player.damage.fire_take += item->damage.fire_do;
+			next = lst->next;
+			data->item = remove_elem_lst(lst);
+			f_elem_lst(lst);
+			lst = next;
+			continue;
+		}
+		ray.dx = item->right.case_x * 64 + item->right.coo_x;
+		ray.dy = item->right.case_y * 64 + item->right.coo_y;
+		calc_scal(&ray);
+		if (ray.hit == true)
+		{
+			data->player.damage.damage_take += item->damage.damage_do;
+			data->player.damage.slow_take += item->damage.slow_do;
+			data->player.damage.poison_take += item->damage.poison_do;
+			data->player.damage.fire_take += item->damage.fire_do;
+			next = lst->next;
+			data->item = remove_elem_lst(lst);
+			f_elem_lst(lst);
+			lst = next;
+			continue;
+		}
+		lst = lst->next;
+	}
+}
 
 void	handle_move(t_map *map, t_mini *mini, t_data *data)
 {
@@ -439,6 +505,7 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	}
 	calc_left_point_player(data);
 	calc_right_point_player(data);
+	try_hit_player(data);
 	// move_x(data, map, mini);
 	// move_y(data, map, mini);
 }
