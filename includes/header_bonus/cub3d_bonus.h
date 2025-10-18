@@ -132,10 +132,18 @@ void	cast_spell(t_data *data, t_spells info);
 //handle_door.c
 void	handle_door(t_data *data);
 
+int	border_case_spell(double x, double y, double base_x, double base_y);
+void	define_spell_color(t_data *data, unsigned int *color, int i);
 
 //break_menu
 void	handle_pause_menu(t_data *data, long long int cur);
 void	draw_gradient(t_data *data, int start_x, int start_y);
+void	display_menu_background(t_data *data, t_img *img, int start_x, int start_y);
+
+//spells menu
+void	handle_spells_menu(t_data *data, long long int cur);
+void	handle_menu_spell_keys(int keycode, t_data *data);
+
 
 int		darken_the_color(int color);
 
@@ -170,6 +178,7 @@ typedef enum e_key
 	KEY_E = 101 , 
 	KEY_C = 99 ,
 	KEY_M = 109,
+	KEY_X = 120,
 	KEY_UP = 65362,
 	KEY_DOWN = 65364,
 	KEY_LEFT = 65361,

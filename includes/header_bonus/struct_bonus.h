@@ -17,6 +17,7 @@
 # define PAUSE 2
 # define FLOO_MAP 3
 # define MAP 4
+# define MENU_SPELL 5
 # define SPEED 5
 # define KEYCODE_NB 100
 # define MAX_CREATE_ENEMY 50
@@ -47,6 +48,7 @@ typedef struct s_door		t_door;
 typedef struct s_hitray		t_hitray;
 typedef struct s_wall_msg	t_wall_msg;
 typedef struct s_pause_menu	t_pause_menu;
+typedef struct s_spell_menu	t_spell_menu;
 typedef struct s_enemy		t_enemy;
 typedef	struct s_fcoo		t_fcoo;
 typedef struct s_case		t_case;
@@ -109,16 +111,24 @@ typedef enum e_imgs
 	INCENDIO_ICN,
 	GLACIUS_ICN,
 	ARANIA_EXUMAI_ICN,
-	AGUAMENTI_ICN
+	AGUAMENTI_ICN,
+	LUMOS_NAME,
+	INCENDIO_NAME,
+	GLACIUS_NAME,
+	ARANIA_EXUMAI_NAME,
+	AGUAMENTI_NAME
 }	t_imgs;
-# define NB_TEXTURES 23
+# define NB_TEXTURES 28	
 
 typedef enum e_spells
 {
 	AGUAMENTI,
+	INCENDIO,
+	ARANIA_EXUMAI,
+	GLACIUS,
+	LUMOS,
 	ALOHOMORA,
 	APARECIUM,
-	ARANIA_EXUMAI,
 	AVADA_KEDAVRA,
 	BOMBARDA,
 	CONFRINGO,
@@ -130,12 +140,9 @@ typedef enum e_spells
 	EXPECTO_PATRONUM,
 	EXPELLIARMUS,
 	EXPULSO,
-	GLACIUS,
 	IMPEDIMENTA,
 	IMPERO,
 	IMMOBULUS,
-	INCENDIO,
-	LUMOS,
 	OPPUGNO,
 	PETRIFICUS_TOTALUS,
 	PROTEGO,
@@ -348,6 +355,12 @@ struct s_pause_menu
 	long long int elapsed;
 	long long int time;
 
+};
+
+struct s_spell_menu
+{
+	t_img	*background;
+	int		selected;
 };
 
 struct	s_ray
@@ -599,6 +612,7 @@ struct s_case
 struct s_spell
 {
 	t_img				*icn;
+	t_img				*icn_name;
 	t_damage			damage;
 	t_item				item;
 	t_spells			type;
@@ -672,6 +686,7 @@ struct s_data
 	int					nb_msg;
 	int				random_value;
 	t_pause_menu	pause_menu;
+	t_spell_menu	spell_menu;
 	double			sensitivity;
 	// t_img	*wh;
 	// t_img	*bl;

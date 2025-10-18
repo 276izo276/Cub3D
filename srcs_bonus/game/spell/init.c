@@ -18,6 +18,7 @@ static void	init_lumos(t_data *data)
 	data->spell[LUMOS].type = LUMOS;
 	data->spell[LUMOS].class = CLASIC_SPELL;
 	data->spell[LUMOS].icn = &data->img[LUMOS_ICN];
+	data->spell[LUMOS].icn_name = &data->img[LUMOS_NAME];
 }
 
 static void	init_incendio(t_data *data)
@@ -33,6 +34,7 @@ static void	init_incendio(t_data *data)
 	data->spell[INCENDIO].item.back_img = &data->img[INCENDIO_IMG];
 	data->spell[INCENDIO].class = OFFENSIVE_SPELL;
 	data->spell[INCENDIO].icn = &data->img[INCENDIO_ICN];
+	data->spell[INCENDIO].icn_name = &data->img[INCENDIO_NAME];
 }
 
 static void	init_glacius(t_data *data)
@@ -48,6 +50,7 @@ static void	init_glacius(t_data *data)
 	data->spell[GLACIUS].item.back_img = &data->img[GLACIUS_IMG];
 	data->spell[GLACIUS].class = OFFENSIVE_SPELL;
 	data->spell[GLACIUS].icn = &data->img[GLACIUS_ICN];
+	data->spell[GLACIUS].icn_name = &data->img[GLACIUS_NAME];
 }
 
 static void	init_arania_exumai(t_data *data)
@@ -63,6 +66,7 @@ static void	init_arania_exumai(t_data *data)
 	data->spell[ARANIA_EXUMAI].item.back_img = &data->img[ARANIA_EXUMAI_IMG];
 	data->spell[ARANIA_EXUMAI].class = DEFENSIVE_SPELL;
 	data->spell[ARANIA_EXUMAI].icn = &data->img[ARANIA_EXUMAI_ICN];
+	data->spell[ARANIA_EXUMAI].icn_name = &data->img[ARANIA_EXUMAI_NAME];
 }
 
 static void	init_aguamenti(t_data *data)
@@ -78,12 +82,14 @@ static void	init_aguamenti(t_data *data)
 	data->spell[AGUAMENTI].item.back_img = &data->img[AGUAMENTI_IMG];
 	data->spell[AGUAMENTI].class = DEFENSIVE_SPELL;
 	data->spell[AGUAMENTI].icn = &data->img[AGUAMENTI_ICN];
+	data->spell[AGUAMENTI].icn_name = &data->img[AGUAMENTI_NAME];
 }
 
 void	init_spell(t_data *data)
 {
 	data->active_spell = -1;
 	data->cast_spell = -1;
+	data->spell_menu.selected = -1;
 	init_lumos(data);
 	init_incendio(data);
 	init_glacius(data);

@@ -143,6 +143,7 @@ GAME_BONUS		=									\
 				menu/start_menu/display_menu.c		\
 				menu/start_menu/draw_border.c		\
 				menu/pause_menu/handle_pause_menu.c \
+				menu/spells_menu/handle_spells_menu.c \
 				spell/spell.c						\
 				spell/init.c						\
 				item/free.c							\

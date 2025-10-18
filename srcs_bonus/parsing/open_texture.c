@@ -70,6 +70,10 @@ void	open_textures(t_data *data)
 	open_img(data->pause_menu.resume, data);
 	open_img(data->pause_menu.selector, data);
 
+
+	open_img(data->spell_menu.background, data);
+
+
 	if (!data->map.ceiling || !data->map.floor)
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE

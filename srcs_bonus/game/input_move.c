@@ -115,11 +115,29 @@ int	mouse_key(int key, int x, int y, t_data *data)
 		data->map.zoom *= 2;
 	else if (key == 5 && data->map.zoom >= 32)
 		data->map.zoom /= 2;
-	else if (key == 9 && data->status == GAME)
+	else if (key == 9)
 	{
-		data->status = MAP;
-		data->map.last_pos_x = data->player.coo.case_x;
-		data->map.last_pos_y = data->player.coo.case_y;
+		if (data->status == GAME)
+		{
+			data->status = MAP;
+			data->map.last_pos_x = data->player.coo.case_x;
+			data->map.last_pos_y = data->player.coo.case_y;
+		}
+		else if (data->status == MAP)
+			data->status = GAME;
+	}
+	else if (key == 8)
+	{
+		if (data->status == GAME)
+		{
+			data->status = MENU_SPELL;
+			data->selected = 0;
+		}
+		else if (data->status == MENU_SPELL)
+		{
+			data->status = GAME;
+			data->spell_menu.selected = -1;
+		}
 	}
 	return (0);
 }
@@ -293,8 +311,8 @@ int	key_press(int keycode, t_data *data)
 {
 	int	i;
 
-	// #include <stdio.h>
-	// printf("keycode >> %d\n", keycode);
+	#include <stdio.h>
+	printf("keycode >> %d\n", keycode);
 	if (data->status == MENU)
 	{
 		handle_menu_keys(keycode, data);
@@ -305,19 +323,14 @@ int	key_press(int keycode, t_data *data)
 		handle_map_keys(keycode, data);
 		return (0);
 	}
+	else if (data->status == MENU_SPELL)
+	{
+		handle_menu_spell_keys(keycode, data);
+		return (0);
+	}
 	i = 0;
 	while (data->keycode[i] != 0 && i < KEYCODE_NB)
 		i++;
-	if (keycode == KEY_6)
-	{
-		if (!data->lumos.active)
-		{
-			data->lumos.active = true;
-			data->lumos.count_frame = 100;
-		}
-		else
-			data->lumos.active = false;
-	}
 	if (keycode == KEY_5)
 		handle_floo_open(data);
 	else if (keycode == KEY_CTRL)
@@ -333,6 +346,19 @@ int	key_press(int keycode, t_data *data)
 			data->status = PAUSE;
 		else
 			data->status = GAME;
+	}
+	else if (keycode == KEY_X)
+	{
+		if (data->status == GAME)
+		{
+			data->status = MENU_SPELL;
+			data->selected = 0;
+		}
+		else
+		{
+			data->status = GAME;
+			data->spell_menu.selected = -1;
+		}
 	}
 	else if (keycode == KEY_M)
 	{

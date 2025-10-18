@@ -4,21 +4,21 @@
 #include <unistd.h>
 #include "mlx.h"
 
-static void	display_background(t_data *data)
+void	display_menu_background(t_data *data, t_img *img, int start_x, int start_y)
 {
 	unsigned int	color;
 	int				y;
 	int				x;
 
 	y = 0;
-	while (y < data->pause_menu.background->height)
+	while (y < img->height)
 	{
 		x = 0;
-		while (x < data->pause_menu.background->width)
+		while (x < img->width)
 		{
-			color = get_texture_pixel(data->pause_menu.background,x ,y);
+			color = get_texture_pixel(img,x ,y);
 			if (color != 0)
-				pixel_put(data, x + 448, y + 5, color);
+				pixel_put(data, x + start_x, y + start_y, color);
 			++x;
 		}
 		++y;
@@ -212,7 +212,7 @@ static void	handle_pause_menu_keys(t_data *data)
 
 void	handle_pause_menu(t_data *data, long long int cur)
 {
-	display_background(data);
+	display_menu_background(data, data->pause_menu.background, 448, 5);
 	// display_params(data);
 	// display_pause_menu(data, data->pause_menu.background, 448, 5);
 	display_resume(data, 650, 320);

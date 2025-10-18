@@ -8,25 +8,17 @@
 
 bool	is_center_floo(t_data *data, int pos_x, int pos_y)
 {
-	int	pixel_x;
-	int	pixel_y;
+	int	cursor_x;
+	int	cursor_y;
 
-	pixel_y = 0;
-	while (pixel_y < data->map.zoom)
-	{
-		pixel_x = 0;
-		while (pixel_x < data->map.zoom)
-		{
-			if (pos_x + pixel_x >= data->map.last_mouse_x - data->map.zoom / 2
-				&& pos_x + pixel_x <= data->map.last_mouse_x + data->map.zoom
-				/ 2 && pos_y + pixel_y <= data->map.last_mouse_y
-				+ data->map.zoom / 2 && pos_y
-				+ pixel_y >= data->map.last_mouse_y - data->map.zoom / 2)
-				return (true);
-			++pixel_x;
-		}
-		++pixel_y;
-	}
+	cursor_x = data->mlx.width / 2;
+	cursor_y = (data->mlx.height - MARGIN) / 2;
+	
+	if (cursor_x >= pos_x 
+		&& cursor_x <= pos_x + data->map.zoom
+		&& cursor_y >= pos_y
+		&& cursor_y <= pos_y + data->map.zoom)
+		return (true);
 	return (false);
 }
 

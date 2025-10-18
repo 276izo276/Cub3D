@@ -88,7 +88,7 @@ static void	print_map_content(t_data *data, int x, int y)
 		if (x == data->player.coo.case_x && y == data->player.coo.case_y)
 			draw_player(data, pos_x, pos_y);
 		if (data->status != MAP && x == data->map.pos_active_floo->x
-			&& y == data->map.pos_active_floo->y && data->map.zoom > 32)
+			&& y == data->map.pos_active_floo->y)
 			data->map.is_center = true;
 		draw_texture(data, pos_x, pos_y, data->map.tabmap[y][x]);
 		if (data->status != MAP && data->map.is_center == true)

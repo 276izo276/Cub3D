@@ -34,6 +34,12 @@ static void	set_path_texture(t_data *data)
 	data->img[GLACIUS_ICN].path = "./texture/spell/glacius_icn.xpm";
 	data->img[ARANIA_EXUMAI_ICN].path = "./texture/spell/arania_exumai_icn.xpm";
 	data->img[AGUAMENTI_ICN].path = "./texture/spell/aguamenti_icn.xpm";
+
+	data->img[LUMOS_NAME].path = "./texture/menu/lumos_name.xpm";
+	data->img[INCENDIO_NAME].path = "./texture/menu/incendio_name.xpm";
+	data->img[GLACIUS_NAME].path = "./texture/menu/glacius_name.xpm";
+	data->img[ARANIA_EXUMAI_NAME].path = "./texture/menu/arania_exumai_name.xpm";
+	data->img[AGUAMENTI_NAME].path = "./texture/menu/aguamenti_name.xpm";
 }
 
 void	init_textures(t_data *data)
@@ -180,6 +186,15 @@ void	init_pause_menu(t_data *data)
 	data->pause_menu.selector->path = "./texture/menu/pause_selector.xpm";
 }
 
+void	init_spell_menu(t_data *data)
+{
+	data->spell_menu.background = malloc(sizeof(t_img));
+	if (!data->spell_menu.background)
+		f_exit(data, 1);
+	ft_bzero(data->spell_menu.background, sizeof(t_img));
+	data->spell_menu.background->mlx = data->mlx.mlx;
+	data->spell_menu.background->path = "./texture/menu/spell_background.xpm";
+}
 static void	fill_need_print(t_data *data)
 {
 	int	y;
@@ -412,6 +427,7 @@ void	init_data(t_data *data, int ac, char **av)
 	init_textures(data);
 	init_coa(data);
 	init_pause_menu(data);
+	init_spell_menu(data);
 	data->nb_msg = 7;
 	data->display.time_remove = 10000;
 	data->display.elapsed_time = 0;

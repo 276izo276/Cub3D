@@ -279,27 +279,27 @@ void	aff_spell(t_data *data)
 	double			x;
 	double			y;
 	int				i;
-	unsigned int	color;
+	// unsigned int	color;
 
 	i = 0;
-	while (i < 4)
-	{
-		x = data->mlx.width - 350 + 64 * i + 13 * (i);
-		while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
-		{
-			y = data->mlx.height - 90 - 64;
-			while (y < data->mlx.height - 90)
-			{
-				define_spell_color(data, &color, i);
-				if (color != 0x000000 && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 90 - 64))
-					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
-				y++;
-			}
-			x++;
-		}
-		i++;
-	}
-	i = 0;
+	// while (i < 4)
+	// {
+	// 	x = data->mlx.width - 350 + 64 * i + 13 * (i);
+	// 	while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
+	// 	{
+	// 		y = data->mlx.height - 90 - 64;
+	// 		while (y < data->mlx.height - 90)
+	// 		{
+	// 			define_spell_color(data, &color, i);
+	// 			if (color != 0x000000 && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 90 - 64))
+	// 				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
+	// 			y++;
+	// 		}
+	// 		x++;
+	// 	}
+	// 	i++;
+	// }
+	// i = 0;
 	while (i < 4)
 	{
 		x = data->mlx.width - 350 + 64 * i + 13 * (i);
@@ -357,6 +357,8 @@ int	game_loop(t_data *data)
 		display_floo_map(data);
 	else if (data->status == MAP)
 		display_floo_map(data);
+	else if (data->status == MENU_SPELL)
+		handle_spells_menu(data, cur);
 	else
 	{
 		//DBG1printf("0\n");
