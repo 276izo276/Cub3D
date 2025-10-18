@@ -189,8 +189,8 @@ void	try_hit_item(t_data *data, int i, double x)
 			data->ray[i].items[ray.j]->posx = ray.t;
 			// data->ray[i].items[ray.j]->texture = &data->img[DOOR_FIXED];
 			data->ray[i].items[ray.j]->side = BASIC;
-			// if (ray.delta_x < 0 || ray.delta_y < 0)
-				// data->ray[i].items[ray.j]->side = REVERSED;
+			if ((ray.delta_x < 0 && door->is_verti) || (ray.delta_y > 0 && !door->is_verti))
+				data->ray[i].items[ray.j]->side = REVERSED;
 			calc_item_value(data, &ray, x);
 			// data->ray[i].items[ray.j]->side = FRONT;
 			// ray.deg = fmod(data->ray[i].deg + 360 - 90, 360);
