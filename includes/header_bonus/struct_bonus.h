@@ -224,6 +224,7 @@ struct	s_enemy
 	int				wait;
 	bool			calc;
 	int				calc_path;
+	double			dist_player;
 };
 
 struct s_item

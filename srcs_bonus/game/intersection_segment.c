@@ -33,6 +33,8 @@ void	calc_end_point(t_hitray *ray)
 void	calc_scal(t_hitray *ray)
 {
 	ray->hit = false;
+	if (ray->ax == ray->cx && ray->ay == ray->cy)
+		return ;
 	ray->delta = (ray->bx - ray->ax) * (ray->bx - ray->ax) + (ray->by - ray->ay) * (ray->by - ray->ay);
 	ray->delta_u = (ray->dx - ray->ax) * (ray->bx - ray->ax) + (ray->dy - ray->ay) * (ray->by - ray->ay);
 	// printf("first delta>%lf   delta_u>%lf\n",ray->delta,ray->delta_u);

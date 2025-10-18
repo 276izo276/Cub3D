@@ -166,8 +166,8 @@ int	try_hit_items(t_item *elem, t_data *data)
 		}
 		lst = lst->next;
 	}
-	// printf("elem mvoe %d",);
-	if (elem->nb_move > 1)
+	printf("elem mvoe %d\n",elem->nb_move);
+	if (elem->nb_move > 4)
 	{
 		ray.dx = data->player.coo.case_x * 64 + data->player.coo.coo_x;
 		ray.dy = data->player.coo.case_y * 64 + data->player.coo.coo_y;
@@ -303,7 +303,9 @@ void	move_item(t_data *data)
 		// item->center_before.case_x = item->center.case_x;
 		// item->center_before.case_y = item->center.case_y;
 		// printf("before move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
-		make_move_item(item, item->speed);
+		
+		if (item->nb_move > 1)
+			make_move_item(item, item->speed);
 		// printf("after move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
 		if (try_hit_items(item, data)
 			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1')

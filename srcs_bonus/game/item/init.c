@@ -28,6 +28,6 @@ t_item	*init_spell_item(t_data *data, t_spells info)
 	item->radius = data->spell[info].item.radius;
 	item->back_img = data->spell[info].item.back_img;
 	item->front_img = data->spell[info].item.front_img;
-	// make_move_item(item, 20);
+	make_move_item(item, 10);
 	return (item);
 }

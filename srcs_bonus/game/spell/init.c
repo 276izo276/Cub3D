@@ -23,7 +23,7 @@ static void	init_lumos(t_data *data)
 
 static void	init_incendio(t_data *data)
 {
-	data->spell[INCENDIO].base_cooldown = 0;
+	data->spell[INCENDIO].base_cooldown = 10;
 	data->spell[INCENDIO].call = cast_spell;
 	data->spell[INCENDIO].type = INCENDIO;
 	data->spell[INCENDIO].damage.damage_do = 10;
@@ -76,7 +76,7 @@ static void	init_aguamenti(t_data *data)
 	data->spell[AGUAMENTI].type = AGUAMENTI;
 	data->spell[AGUAMENTI].damage.damage_do = 5;
 	data->spell[AGUAMENTI].damage.slow_do = 15;
-	data->spell[AGUAMENTI].item.speed = 25;
+	data->spell[AGUAMENTI].item.speed = 20;
 	data->spell[AGUAMENTI].item.radius = 3;
 	data->spell[AGUAMENTI].item.front_img = &data->img[AGUAMENTI_IMG];
 	data->spell[AGUAMENTI].item.back_img = &data->img[AGUAMENTI_IMG];

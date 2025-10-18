@@ -518,7 +518,6 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			printf("HIT ennemy\n");
 			elem->damage.damage_take += item->damage.damage_do;
 			elem->damage.slow_take += item->damage.slow_do;
 			elem->damage.poison_take += item->damage.poison_do;
@@ -534,7 +533,6 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			printf("HIT ennemy\n");
 			elem->damage.damage_take += item->damage.damage_do;
 			elem->damage.slow_take += item->damage.slow_do;
 			elem->damage.poison_take += item->damage.poison_do;
@@ -550,7 +548,6 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			printf("HIT ennemy\n");
 			elem->damage.damage_take += item->damage.damage_do;
 			elem->damage.slow_take += item->damage.slow_do;
 			elem->damage.poison_take += item->damage.poison_do;
@@ -567,7 +564,6 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 
 static void	make_move_enemy(t_data *data, t_enemy *enemy)
 {
-
 	if (enemy->calc == true)
 	{
 		// printf("recalc\n");
@@ -617,6 +613,8 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	// enemy->center_before.case_x = enemy->center.case_x;
 	// enemy->center_before.case_y = enemy->center.case_y;
 
+	if (enemy->dist_player < 15)
+		return ;
 	double	dy;
 	double	dx;
 	double	v_normalize;
@@ -911,6 +909,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 		- ray.start_coo_x)) * ((data->player.coo.case_x
 		- ray.start_case_x) * 64.0 + (data->player.coo.coo_x
 		- ray.start_coo_x)));
+		enemy->dist_player = dist_player;
 		// printf("dist player >%lf    dist_wall >%lf\n",dist_player, ray.dist_wall);
 		if (dist_player < ray.dist_wall || enemy->calc_path > 0)
 		{
