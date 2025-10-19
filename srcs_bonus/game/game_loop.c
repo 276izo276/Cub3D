@@ -7,6 +7,7 @@
 #include "enemy_bonus.h"
 #include <math.h>
 
+
 static void	handle_input_move(t_data *data, long long int cur)
 {
 	int i;
@@ -279,27 +280,27 @@ void	aff_spell(t_data *data)
 	double			x;
 	double			y;
 	int				i;
-	// unsigned int	color;
+	unsigned int	color;
 
 	i = 0;
-	// while (i < 4)
-	// {
-	// 	x = data->mlx.width - 350 + 64 * i + 13 * (i);
-	// 	while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
-	// 	{
-	// 		y = data->mlx.height - 90 - 64;
-	// 		while (y < data->mlx.height - 90)
-	// 		{
-	// 			define_spell_color(data, &color, i);
-	// 			if (color != 0x000000 && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 90 - 64))
-	// 				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
-	// 			y++;
-	// 		}
-	// 		x++;
-	// 	}
-	// 	i++;
-	// }
-	// i = 0;
+	while (i < 4)
+	{
+		x = data->mlx.width - 350 + 64 * i + 13 * (i);
+		while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
+		{
+			y = data->mlx.height - 90 - 64;
+			while (y < data->mlx.height - 90)
+			{
+				define_spell_color(data, &color, i);
+				if (color != 0x000000 && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 90 - 64))
+					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
+				y++;
+			}
+			x++;
+		}
+		i++;
+	}
+	i = 0;
 	while (i < 4)
 	{
 		x = data->mlx.width - 350 + 64 * i + 13 * (i);
@@ -313,13 +314,22 @@ void	aff_spell(t_data *data)
 				unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 + 64 * i + 13 * (i))) / 64 * data->spell[data->spell_take[i]].icn->width)) * ( data->spell[data->spell_take[i]].icn->bits_per_pixel >> 3);
 				unsigned int	color = *(unsigned int *)(data->spell[data->spell_take[i]].icn->data_addr + a + b);
 				if (get_mtime() < data->spell[data->spell_take[i]].end_time + data->spell[data->spell_take[i]].base_cooldown * 1000)
+				{
 					color = darken_the_color(color);
+				}
 				if (color != WHITE && color != RED && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 90 - 64))
 					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
 					= color;
 				y++;
 			}
 			x++;
+		}
+		if (get_mtime() < data->spell[data->spell_take[i]].end_time + data->spell[data->spell_take[i]].base_cooldown * 1000)
+		{
+			char *str;
+			str = ft_itoa(((data->spell[data->spell_take[i]].end_time + data->spell[data->spell_take[i]].base_cooldown * 1000) - get_mtime()) / 1000 + 1);
+			aff_text(str, 32, (t_coo){.x = calc_start_text(str, data->mlx.width - 350 + 64 * i + 13 * (i) + 32, data, 32), .y = data->mlx.height - 90 - 64 + 16}, data);
+			free(str);
 		}
 		i++;
 	}
@@ -364,11 +374,11 @@ int	game_loop(t_data *data)
 	else
 	{
 		//DBG1printf("0\n");
+		move_item(data);
+		move_enemy(data);
 		handle_input_move(data, cur);
 		if (data->cast_spell != -1)
 			data->spell[data->cast_spell].call(data, data->cast_spell);
-		move_enemy(data);
-		move_item(data);
 		handle_wall_msg(data, cur);
 		take_damage(data);
 		//DBG1printf("5\n");

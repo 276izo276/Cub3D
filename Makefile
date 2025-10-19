@@ -79,6 +79,8 @@ FILES_BONUS =								\
 
 UTILS_BONUS =								\
 				abs_value.c 				\
+				aff_text.c					\
+				ft_itoa.c					\
 				debug.c						\
 				dup.c						\
 				free.c						\
@@ -159,9 +161,15 @@ ENEMY			=							\
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/enemy/,$(ENEMY))
 
+FILES_UNIT_TEST_BONUS = unit_test_bonus.c
+
+FILES_UNIT_TEST_BONUS += srcs_bonus/utils/ft_itoa.c
+
 OBJS =			$(addprefix .obj/, $(FILES:.c=.o))
 
 OBJS_BONUS =	$(addprefix .obj/, $(FILES_BONUS:.c=.o))
+
+OBJS_UNIT_TEST_BONUS = $(addprefix .obj/, $(FILES_UNIT_TEST_BONUS:.c=.o))
 
 DEPS =			$(addprefix .obj/, $(FILES:.c=.d))
 
@@ -228,6 +236,8 @@ ALL_I_DIR_HEADER_BONUS	=			\
 -I minilibx-linux					
 
 CURRENT_HEADERS = $(ALL_I_DIR_HEADER)
+
+UNIT_TEST_BONUS_NAME = unit_test
 
 # exec name for bonus
 BONUS_NAME = cub3D_bonus
@@ -320,6 +330,10 @@ $(BONUS_NAME): $(STATIC_LIB) $(EXTERN_LIB) $(OBJS_BONUS)
 	fi;
 	@$(CC) $(CURRENT_HEADERS) $(CFLAGS) -c $< -o $@
 
+$(UNIT_TEST_BONUS_NAME): CURRENT_HEADERS = $(ALL_I_DIR_HEADER_BONUS)
+$(UNIT_TEST_BONUS_NAME): $(STATIC_LIB) $(EXTERN_LIB) $(OBJS_UNIT_TEST_BONUS)
+	@echo -e "    ${_BOLD}${_GREEN}💿  ◀◀◀ ${_LIME}Creating Executable 📑🗂️   ${_YELLOW}$(UNIT_TEST_BONUS_NAME)${_END}"
+	@$(CC) $(OBJS_UNIT_TEST_BONUS) $(STATIC_LIB) $(EXTERN_LIB) -o $(UNIT_TEST_BONUS_NAME) $(EXECFLAGS)
 
 
 #	  ▜

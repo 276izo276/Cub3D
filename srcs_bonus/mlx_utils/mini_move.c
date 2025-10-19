@@ -223,7 +223,6 @@ void	hit_box_y_floo(t_mini *mini, t_data *data)
 
 void	movey(t_map *map, t_mini *mini, t_data *data)
 {
-
 	if (hit_box_y_wall(data, map, mini))
 	{
 		// printf("STOP HIT Y\n");
@@ -350,29 +349,29 @@ void	calc_right_point_player(t_data *data)
 	}
 	dy *= data->player.radius;
 	dx *= data->player.radius;
-	data->player.left.coo_x = data->player.coo.coo_x + dx;
-	data->player.left.coo_y = data->player.coo.coo_y + dy;
-	data->player.left.case_x = data->player.coo.case_x;
-	data->player.left.case_y = data->player.coo.case_y;
-	if (data->player.left.coo_x < 0)
+	data->player.right.coo_x = data->player.coo.coo_x + dx;
+	data->player.right.coo_y = data->player.coo.coo_y + dy;
+	data->player.right.case_x = data->player.coo.case_x;
+	data->player.right.case_y = data->player.coo.case_y;
+	if (data->player.right.coo_x < 0)
 	{
-		data->player.left.case_x--;
-		data->player.left.coo_x += 64;
+		data->player.right.case_x--;
+		data->player.right.coo_x += 64;
 	}
-	else if (data->player.left.coo_x > 64)
+	else if (data->player.right.coo_x > 64)
 	{
-		data->player.left.case_x++;
-		data->player.left.coo_x = fmod(data->player.left.coo_x, 64);
+		data->player.right.case_x++;
+		data->player.right.coo_x = fmod(data->player.right.coo_x, 64);
 	}
-	if (data->player.left.coo_y < 0)
+	if (data->player.right.coo_y < 0)
 	{
-		data->player.left.case_y--;
-		data->player.left.coo_y += 64;
+		data->player.right.case_y--;
+		data->player.right.coo_y += 64;
 	}
-	else if (data->player.left.coo_y > 64)
+	else if (data->player.right.coo_y > 64)
 	{
-		data->player.left.case_y++;
-		data->player.left.coo_y = fmod(data->player.left.coo_y, 64);
+		data->player.right.case_y++;
+		data->player.right.coo_y = fmod(data->player.right.coo_y, 64);
 	}
 }
 
@@ -389,11 +388,15 @@ void	try_hit_player(t_data *data)
 	ray.by = data->player.right.case_y * 64 + data->player.right.coo_y;
 	ray.cx = data->player.left_before.case_x * 64 + data->player.left_before.coo_x;
 	ray.cy = data->player.left_before.case_y * 64 + data->player.left_before.coo_y;
-
 	lst = get_first_elem_lst(data->item);
 	while (lst)
 	{
 		item = lst->dt;
+		// if (item->nb_move <= 5)
+		// {
+		// 	lst = lst->next;
+		// 	continue;
+		// }
 		ray.dx = item->left.case_x * 64 + item->left.coo_x;
 		ray.dy = item->left.case_y * 64 + item->left.coo_y;
 		calc_scal(&ray);
@@ -492,7 +495,6 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	data->player.right_before.coo_y = data->player.right.coo_y;
 	data->player.right_before.case_x = data->player.right.case_x;
 	data->player.right_before.case_y = data->player.right.case_y;
-
 	if (mini->ny != data->player.coo.coo_y)
 	{
 		data->player.coo.coo_y = mini->ny;

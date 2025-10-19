@@ -13,6 +13,9 @@
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
 #endif
+
+int	calc_start_text(char *str, int x, t_data *data, int height);
+void	aff_text(char *str, int height, t_coo coo, t_data *data);
 void	calc_left_point_player(t_data *data);
 void	calc_right_point_player(t_data *data);
 void	make_move_item(t_item *item, double speed);

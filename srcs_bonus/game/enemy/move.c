@@ -613,7 +613,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	// enemy->center_before.case_x = enemy->center.case_x;
 	// enemy->center_before.case_y = enemy->center.case_y;
 
-	if (enemy->dist_player < 15)
+	if (enemy->dist_player < 20)
 		return ;
 	double	dy;
 	double	dx;

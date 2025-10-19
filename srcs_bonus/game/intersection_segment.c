@@ -38,12 +38,12 @@ void	calc_scal(t_hitray *ray)
 	ray->delta = (ray->bx - ray->ax) * (ray->bx - ray->ax) + (ray->by - ray->ay) * (ray->by - ray->ay);
 	ray->delta_u = (ray->dx - ray->ax) * (ray->bx - ray->ax) + (ray->dy - ray->ay) * (ray->by - ray->ay);
 	// printf("first delta>%lf   delta_u>%lf\n",ray->delta,ray->delta_u);
-	if (ray->delta_u > ray->delta || ray->delta_u < 0)
+	if (ray->delta_u >= ray->delta || ray->delta_u <= 0)
 		return ;
 	ray->delta = (ray->cx - ray->ax) * (ray->cx - ray->ax) + (ray->cy - ray->ay) * (ray->cy - ray->ay);
 	ray->delta_u = (ray->dx - ray->ax) * (ray->cx - ray->ax) + (ray->dy - ray->ay) * (ray->cy - ray->ay);
 	// printf("second delta>%lf   delta_u>%lf\n",ray->delta,ray->delta_u);
-	if (ray->delta_u > ray->delta || ray->delta_u < 0)
+	if (ray->delta_u >= ray->delta || ray->delta_u <= 0)
 		return ;
 	ray->hit = true;
 }

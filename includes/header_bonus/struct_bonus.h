@@ -89,6 +89,43 @@ typedef enum e_enemy_info
 
 typedef enum e_imgs
 {
+	SPACE,
+	CHAR_A,
+	CHAR_B,
+	CHAR_C,
+	CHAR_D,
+	CHAR_E,
+	CHAR_F,
+	CHAR_G,
+	CHAR_H,
+	CHAR_I,
+	CHAR_J,
+	CHAR_K,
+	CHAR_L,
+	CHAR_M,
+	CHAR_N,
+	CHAR_O,
+	CHAR_P,
+	CHAR_Q,
+	CHAR_R,
+	CHAR_S,
+	CHAR_T,
+	CHAR_U,
+	CHAR_V,
+	CHAR_W,
+	CHAR_X,
+	CHAR_Y,
+	CHAR_Z,
+	NB_0,
+	NB_1,
+	NB_2,
+	NB_3,
+	NB_4,
+	NB_5,
+	NB_6,
+	NB_7,
+	NB_8,
+	NB_9,
 	SELECT,
 	SELECT_HAND,
 	PLAYER_HAND,
@@ -118,7 +155,7 @@ typedef enum e_imgs
 	ARANIA_EXUMAI_NAME,
 	AGUAMENTI_NAME
 }	t_imgs;
-# define NB_TEXTURES 28	
+# define NB_TEXTURES 65
 
 typedef enum e_spells
 {

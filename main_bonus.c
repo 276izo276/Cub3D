@@ -235,7 +235,7 @@ int	main(int ac, char **av)
 	data.player.radius = 8;
 	data.player.coo.coo_y = 32;
 	data.player.coo.coo_x = 32;
-	data.map.mini.speed = 1.5;
+	// data.map.mini.speed = 1.5;
 	init_img_mini(&data, &data.map.mini);
 	init_foot_tab(&data);
 	// init_display(&data, &data.f_display);

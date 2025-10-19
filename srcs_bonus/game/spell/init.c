@@ -23,10 +23,10 @@ static void	init_lumos(t_data *data)
 
 static void	init_incendio(t_data *data)
 {
-	data->spell[INCENDIO].base_cooldown = 10;
+	data->spell[INCENDIO].base_cooldown = 15;
 	data->spell[INCENDIO].call = cast_spell;
 	data->spell[INCENDIO].type = INCENDIO;
-	data->spell[INCENDIO].damage.damage_do = 10;
+	data->spell[INCENDIO].damage.damage_do = 25;
 	data->spell[INCENDIO].damage.fire_do = 25;
 	data->spell[INCENDIO].item.speed = 30;
 	data->spell[INCENDIO].item.radius = 3;
@@ -39,12 +39,12 @@ static void	init_incendio(t_data *data)
 
 static void	init_glacius(t_data *data)
 {
-	data->spell[GLACIUS].base_cooldown = 0;
+	data->spell[GLACIUS].base_cooldown = 3;
 	data->spell[GLACIUS].call = cast_spell;
 	data->spell[GLACIUS].type = GLACIUS;
-	data->spell[GLACIUS].damage.damage_do = 5;
-	data->spell[GLACIUS].damage.slow_do = 15;
-	data->spell[GLACIUS].item.speed = 35;
+	data->spell[GLACIUS].damage.damage_do = 3;
+	data->spell[GLACIUS].damage.slow_do = 50;
+	data->spell[GLACIUS].item.speed = 0;
 	data->spell[GLACIUS].item.radius = 3;
 	data->spell[GLACIUS].item.front_img = &data->img[GLACIUS_IMG];
 	data->spell[GLACIUS].item.back_img = &data->img[GLACIUS_IMG];
@@ -55,10 +55,10 @@ static void	init_glacius(t_data *data)
 
 static void	init_arania_exumai(t_data *data)
 {
-	data->spell[ARANIA_EXUMAI].base_cooldown = 0;
+	data->spell[ARANIA_EXUMAI].base_cooldown = 10;
 	data->spell[ARANIA_EXUMAI].call = cast_spell;
 	data->spell[ARANIA_EXUMAI].type = ARANIA_EXUMAI;
-	data->spell[ARANIA_EXUMAI].damage.damage_do = 5;
+	data->spell[ARANIA_EXUMAI].damage.damage_do = 50;
 	data->spell[ARANIA_EXUMAI].damage.slow_do = 15;
 	data->spell[ARANIA_EXUMAI].item.speed = 50;
 	data->spell[ARANIA_EXUMAI].item.radius = 3;

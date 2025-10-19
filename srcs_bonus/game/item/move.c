@@ -166,9 +166,8 @@ int	try_hit_items(t_item *elem, t_data *data)
 		}
 		lst = lst->next;
 	}
-	printf("elem mvoe %d\n",elem->nb_move);
-	if (elem->nb_move > 4)
-	{
+	// if (elem->nb_move >= 2)
+	// {
 		ray.dx = data->player.coo.case_x * 64 + data->player.coo.coo_x;
 		ray.dy = data->player.coo.case_y * 64 + data->player.coo.coo_y;
 		calc_scal(&ray);
@@ -180,7 +179,7 @@ int	try_hit_items(t_item *elem, t_data *data)
 			data->player.damage.fire_take += elem->damage.fire_do;
 			hit = true;
 		}
-	}
+	// }
 	elem->nb_move++;
 	//DBG1printf("b\n");
 	// enemy = lst->dt;
@@ -303,8 +302,7 @@ void	move_item(t_data *data)
 		// item->center_before.case_x = item->center.case_x;
 		// item->center_before.case_y = item->center.case_y;
 		// printf("before move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
-		
-		if (item->nb_move > 1)
+		if (item->nb_move >= 1)
 			make_move_item(item, item->speed);
 		// printf("after move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
 		if (try_hit_items(item, data)
