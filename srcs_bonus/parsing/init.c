@@ -35,6 +35,27 @@ static void	set_path_texture(t_data *data)
 	data->img[ARANIA_EXUMAI_ICN].path = "./texture/spell/arania_exumai_icn.xpm";
 	data->img[AGUAMENTI_ICN].path = "./texture/spell/aguamenti_icn.xpm";
 
+	data->img[AVADA_KEDAVRA_ICN].path = "./texture/spell/avada_kedavra_icn.xpm";
+	data->img[PETRIFICUS_TOTALUS_ICN].path = "./texture/spell/petrificus_totalus_icn.xpm";
+	data->img[PROTEGO_ICN].path = "./texture/spell/protego_icn.xpm";
+	data->img[BOMBARDA_ICN].path = "./texture/spell/bombarda_icn.xpm";
+	data->img[CONFUNDO_ICN].path = "./texture/spell/confundo_icn.xpm";
+	data->img[ENDOLORIS_ICN].path = "./texture/spell/endoloris_icn.xpm";
+	data->img[EPISKEY_ICN].path = "./texture/spell/episkey_icn.xpm";
+	data->img[EXPECTO_PATRONUM_ICN].path = "./texture/spell/expecto_patronum_icn.xpm";
+	data->img[EXPELLIARMUS_EXUMAI_ICN].path = "./texture/spell/expelliarmus_icn.xpm";
+	data->img[REPULSO_ICN].path = "./texture/spell/repulso_icn.xpm";
+	data->img[STUPEFIX_ICN].path = "./texture/spell/stupefix_icn.xpm";
+	data->img[OPPUGNO_ICN].path = "./texture/spell/oppugno_icn.xpm";
+	data->img[SECTUMSEMPRA_ICN].path = "./texture/spell/sectumsempra_icn.xpm";
+	data->img[SERPENSORTIA_ICN].path = "./texture/spell/serpensortia_icn.xpm";
+	data->img[VENTUS_ICN].path = "./texture/spell/ventus_icn.xpm";
+	data->img[VIPERA_EVANESCA_ICN].path = "./texture/spell/vipera_evanesca_icn.xpm";
+	data->img[VULNERA_SAMENTUR_ICN].path = "./texture/spell/vulnera_samentur_icn.xpm";
+
+
+
+
 	data->img[LUMOS_NAME].path = "./texture/menu/lumos_name.xpm";
 	data->img[INCENDIO_NAME].path = "./texture/menu/incendio_name.xpm";
 	data->img[GLACIUS_NAME].path = "./texture/menu/glacius_name.xpm";

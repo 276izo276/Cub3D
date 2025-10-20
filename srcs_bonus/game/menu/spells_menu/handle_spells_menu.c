@@ -117,7 +117,7 @@ static void	display_spell_list(t_data *data)
 	int				i;
 
 	i = 0;
-	while (i < 5)
+	while (i < 10)
 	{
 		x =  646 + 64 * i + 71 * (i);
 		while (x < 646 + 64 * (i + 1) + 71 * (i))
@@ -147,7 +147,7 @@ static void	display_spell_list(t_data *data)
 
 void	handle_menu_spell_keys(int keycode, t_data *data)
 {
-	if(keycode == KEY_ESCAPE)
+	if(keycode == KEY_ESCAPE || keycode == KEY_X)
 	{
 		data->spell_menu.selected = -1;
 		data->status = GAME;

@@ -356,11 +356,6 @@ int	key_press(int keycode, t_data *data)
 			data->status = MENU_SPELL;
 			data->selected = 0;
 		}
-		else
-		{
-			data->status = GAME;
-			data->spell_menu.selected = -1;
-		}
 	}
 	else if (keycode == KEY_M)
 	{
