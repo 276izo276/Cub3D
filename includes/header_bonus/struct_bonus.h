@@ -230,13 +230,24 @@ struct s_wall_msg
 struct s_damage
 {
 	double		damage_do;
-	double		slow_do;
-	double		poison_do;
-	double		fire_do;
+	double		damage_spider_do;
+	double		damage_dementor_do;
+	double		slow_force_do;
+	double		slow_frame_do;
+	double		poison_force_do;
+	double		poison_frame_do;
+	double		fire_force_do;
+	double		fire_frame_do;
+	
 	double		damage_take;
-	double		slow_take;
-	double		poison_take;
-	double		fire_take;
+	double		damage_spider_take;
+	double		damage_dementor_take;
+	double		slow_force_take;
+	double		slow_frame_take;
+	double		poison_force_take;
+	double		poison_frame_take;
+	double		fire_force_take;
+	double		fire_frame_take;
 };
 
 struct	s_enemy

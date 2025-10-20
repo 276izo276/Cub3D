@@ -27,7 +27,7 @@ static void	init_incendio(t_data *data)
 	data->spell[INCENDIO].call = cast_spell;
 	data->spell[INCENDIO].type = INCENDIO;
 	data->spell[INCENDIO].damage.damage_do = 25;
-	data->spell[INCENDIO].damage.fire_do = 25;
+	data->spell[INCENDIO].damage.fire_force_do = 25;
 	data->spell[INCENDIO].item.speed = 30;
 	data->spell[INCENDIO].item.radius = 3;
 	data->spell[INCENDIO].item.front_img = &data->img[INCENDIO_IMG];
@@ -43,7 +43,8 @@ static void	init_glacius(t_data *data)
 	data->spell[GLACIUS].call = cast_spell;
 	data->spell[GLACIUS].type = GLACIUS;
 	data->spell[GLACIUS].damage.damage_do = 3;
-	data->spell[GLACIUS].damage.slow_do = 50;
+	data->spell[GLACIUS].damage.slow_force_do = 80;
+	data->spell[GLACIUS].damage.slow_frame_do = 120;
 	data->spell[GLACIUS].item.speed = 0;
 	data->spell[GLACIUS].item.radius = 3;
 	data->spell[GLACIUS].item.front_img = &data->img[GLACIUS_IMG];
@@ -58,8 +59,9 @@ static void	init_arania_exumai(t_data *data)
 	data->spell[ARANIA_EXUMAI].base_cooldown = 10;
 	data->spell[ARANIA_EXUMAI].call = cast_spell;
 	data->spell[ARANIA_EXUMAI].type = ARANIA_EXUMAI;
-	data->spell[ARANIA_EXUMAI].damage.damage_do = 50;
-	data->spell[ARANIA_EXUMAI].damage.slow_do = 15;
+	data->spell[ARANIA_EXUMAI].damage.damage_spider_do = 25;
+	data->spell[ARANIA_EXUMAI].damage.damage_do = 5;
+	data->spell[ARANIA_EXUMAI].damage.slow_force_do = 15;
 	data->spell[ARANIA_EXUMAI].item.speed = 50;
 	data->spell[ARANIA_EXUMAI].item.radius = 3;
 	data->spell[ARANIA_EXUMAI].item.front_img = &data->img[ARANIA_EXUMAI_IMG];
@@ -75,7 +77,7 @@ static void	init_aguamenti(t_data *data)
 	data->spell[AGUAMENTI].call = cast_spell;
 	data->spell[AGUAMENTI].type = AGUAMENTI;
 	data->spell[AGUAMENTI].damage.damage_do = 5;
-	data->spell[AGUAMENTI].damage.slow_do = 15;
+	data->spell[AGUAMENTI].damage.slow_force_do = 15;
 	data->spell[AGUAMENTI].item.speed = 20;
 	data->spell[AGUAMENTI].item.radius = 3;
 	data->spell[AGUAMENTI].item.front_img = &data->img[AGUAMENTI_IMG];

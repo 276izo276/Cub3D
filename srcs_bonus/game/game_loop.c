@@ -41,7 +41,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 		if (move)
 			handle_move(&data->map, &data->map.mini, data);
 	}
-	data->player.damage.slow_take = 0;
+	data->player.damage.slow_force_take = 0;
 }
 
 void	remove_wall_msg(t_data *data)
@@ -347,10 +347,19 @@ void	take_damage(t_data *data)
 		data->player.shield = 0;
 	}
 	data->player.damage.damage_take = 0;
-	if (data->player.damage.poison_take > 0)
+	if (data->player.damage.poison_frame_take > 0)
 	{
-		data->player.damage.poison_take--;
-		data->player.life--;
+		data->player.life -= data->player.damage.poison_force_take;
+		data->player.damage.poison_frame_take--;
+		if (data->player.damage.poison_frame_take <= 0)
+			data->player.damage.poison_force_take = 0;
+	}
+	if (data->player.damage.fire_frame_take > 0)
+	{
+		data->player.life -= data->player.damage.fire_force_take;
+		data->player.damage.fire_frame_take--;
+		if (data->player.damage.fire_frame_take <= 0)
+			data->player.damage.fire_force_take = 0;
 	}
 	if (data->player.life <= 0)
 		f_exit(data, 1);

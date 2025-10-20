@@ -22,9 +22,9 @@ t_item	*init_spell_item(t_data *data, t_spells info)
 	item->rad = item->deg * (M_PI / 180);
 	item->speed = data->spell[info].item.speed;
 	item->damage.damage_do = data->spell[info].damage.damage_do;
-	item->damage.poison_do = data->spell[info].damage.poison_do;
-	item->damage.fire_do = data->spell[info].damage.fire_do;
-	item->damage.slow_do = data->spell[info].damage.slow_do;
+	item->damage.poison_force_do = data->spell[info].damage.poison_force_do;
+	item->damage.fire_force_do = data->spell[info].damage.fire_force_do;
+	item->damage.slow_force_do = data->spell[info].damage.slow_force_do;
 	item->radius = data->spell[info].item.radius;
 	item->back_img = data->spell[info].item.back_img;
 	item->front_img = data->spell[info].item.front_img;

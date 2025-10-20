@@ -519,9 +519,14 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 		if (ray.hit == true)
 		{
 			elem->damage.damage_take += item->damage.damage_do;
-			elem->damage.slow_take += item->damage.slow_do;
-			elem->damage.poison_take += item->damage.poison_do;
-			elem->damage.fire_take += item->damage.fire_do;
+			elem->damage.damage_spider_take += item->damage.damage_spider_do;
+			elem->damage.damage_dementor_take += item->damage.damage_dementor_do;
+			elem->damage.slow_force_take += item->damage.slow_force_do;
+			elem->damage.slow_frame_take += item->damage.slow_frame_do;
+			elem->damage.poison_force_take += item->damage.poison_force_do;
+			elem->damage.poison_frame_take += item->damage.poison_frame_do;
+			elem->damage.fire_force_take += item->damage.fire_force_do;
+			elem->damage.fire_frame_take += item->damage.fire_frame_do;
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
@@ -534,9 +539,14 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 		if (ray.hit == true)
 		{
 			elem->damage.damage_take += item->damage.damage_do;
-			elem->damage.slow_take += item->damage.slow_do;
-			elem->damage.poison_take += item->damage.poison_do;
-			elem->damage.fire_take += item->damage.fire_do;
+			elem->damage.damage_spider_take += item->damage.damage_spider_do;
+			elem->damage.damage_dementor_take += item->damage.damage_dementor_do;
+			elem->damage.slow_force_take += item->damage.slow_force_do;
+			elem->damage.slow_frame_take += item->damage.slow_frame_do;
+			elem->damage.poison_force_take += item->damage.poison_force_do;
+			elem->damage.poison_frame_take += item->damage.poison_frame_do;
+			elem->damage.fire_force_take += item->damage.fire_force_do;
+			elem->damage.fire_frame_take += item->damage.fire_frame_do;
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
@@ -549,9 +559,14 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 		if (ray.hit == true)
 		{
 			elem->damage.damage_take += item->damage.damage_do;
-			elem->damage.slow_take += item->damage.slow_do;
-			elem->damage.poison_take += item->damage.poison_do;
-			elem->damage.fire_take += item->damage.fire_do;
+			elem->damage.damage_spider_take += item->damage.damage_spider_do;
+			elem->damage.damage_dementor_take += item->damage.damage_dementor_do;
+			elem->damage.slow_force_take += item->damage.slow_force_do;
+			elem->damage.slow_frame_take += item->damage.slow_frame_do;
+			elem->damage.poison_force_take += item->damage.poison_force_do;
+			elem->damage.poison_frame_take += item->damage.poison_frame_do;
+			elem->damage.fire_force_take += item->damage.fire_force_do;
+			elem->damage.fire_frame_take += item->damage.fire_frame_do;
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
@@ -920,9 +935,9 @@ int	see_player(t_data *data, t_enemy *enemy)
 			{
 				// printf("Damage player\n");
 				// data->player.damage.damage_take += enemy->damage.damage_do;
-				// data->player.damage.slow_take += enemy->damage.slow_do;
-				// data->player.damage.poison_take += enemy->damage.poison_do;
-				// data->player.damage.fire_take += enemy->damage.fire_do;
+				// data->player.damage.slow_force_take += enemy->damage.slow_force_do;
+				// data->player.damage.poison_force_take += enemy->damage.poison_force_do;
+				// data->player.damage.fire_force_take += enemy->damage.fire_force_do;
 			}
 			while (enemy->way)
 			{

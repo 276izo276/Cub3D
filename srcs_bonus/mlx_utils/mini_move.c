@@ -392,20 +392,20 @@ void	try_hit_player(t_data *data)
 	while (lst)
 	{
 		item = lst->dt;
-		// if (item->nb_move <= 5)
-		// {
-		// 	lst = lst->next;
-		// 	continue;
-		// }
 		ray.dx = item->left.case_x * 64 + item->left.coo_x;
 		ray.dy = item->left.case_y * 64 + item->left.coo_y;
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			data->player.damage.damage_take += item->damage.damage_do;
-			data->player.damage.slow_take += item->damage.slow_do;
-			data->player.damage.poison_take += item->damage.poison_do;
-			data->player.damage.fire_take += item->damage.fire_do;
+			data->player.damage.damage_take = item->damage.damage_do;
+			data->player.damage.damage_spider_take = item->damage.damage_spider_do;
+			data->player.damage.damage_dementor_take = item->damage.damage_dementor_do;
+			data->player.damage.slow_force_take = item->damage.slow_force_do;
+			data->player.damage.slow_frame_take = item->damage.slow_frame_do;
+			data->player.damage.poison_force_take = item->damage.poison_force_do;
+			data->player.damage.poison_frame_take = item->damage.poison_frame_do;
+			data->player.damage.fire_force_take = item->damage.fire_force_do;
+			data->player.damage.fire_frame_take = item->damage.fire_frame_do;
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
@@ -417,10 +417,15 @@ void	try_hit_player(t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			data->player.damage.damage_take += item->damage.damage_do;
-			data->player.damage.slow_take += item->damage.slow_do;
-			data->player.damage.poison_take += item->damage.poison_do;
-			data->player.damage.fire_take += item->damage.fire_do;
+			data->player.damage.damage_take = item->damage.damage_do;
+			data->player.damage.damage_spider_take = item->damage.damage_spider_do;
+			data->player.damage.damage_dementor_take = item->damage.damage_dementor_do;
+			data->player.damage.slow_force_take = item->damage.slow_force_do;
+			data->player.damage.slow_frame_take = item->damage.slow_frame_do;
+			data->player.damage.poison_force_take = item->damage.poison_force_do;
+			data->player.damage.poison_frame_take = item->damage.poison_frame_do;
+			data->player.damage.fire_force_take = item->damage.fire_force_do;
+			data->player.damage.fire_frame_take = item->damage.fire_frame_do;
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
@@ -432,10 +437,15 @@ void	try_hit_player(t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			data->player.damage.damage_take += item->damage.damage_do;
-			data->player.damage.slow_take += item->damage.slow_do;
-			data->player.damage.poison_take += item->damage.poison_do;
-			data->player.damage.fire_take += item->damage.fire_do;
+			data->player.damage.damage_take = item->damage.damage_do;
+			data->player.damage.damage_spider_take = item->damage.damage_spider_do;
+			data->player.damage.damage_dementor_take = item->damage.damage_dementor_do;
+			data->player.damage.slow_force_take = item->damage.slow_force_do;
+			data->player.damage.slow_frame_take = item->damage.slow_frame_do;
+			data->player.damage.poison_force_take = item->damage.poison_force_do;
+			data->player.damage.poison_frame_take = item->damage.poison_frame_do;
+			data->player.damage.fire_force_take = item->damage.fire_force_do;
+			data->player.damage.fire_frame_take = item->damage.fire_frame_do;
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
@@ -475,9 +485,18 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 		v_norm(mini, data);
 	mini->dx *= SPEED;
 	mini->dy *= SPEED;
-	mini->dx *= (100 - data->player.damage.slow_take) / 100;
-	mini->dy *= (100 - data->player.damage.slow_take) / 100;
-	data->player.damage.slow_take = 0;
+	printf("value slow player %lf\n",data->player.damage.slow_force_take);
+	if (data->player.damage.slow_frame_take > 0)
+	{
+		printf("slow player frame >>>>>%lf\n",data->player.damage.slow_frame_take);
+		if (data->player.damage.slow_force_take > 100)
+			data->player.damage.slow_force_take = 100;
+		mini->dx *= (100 - data->player.damage.slow_force_take) / 100;
+		mini->dy *= (100 - data->player.damage.slow_force_take) / 100;
+		data->player.damage.slow_frame_take--;
+		if (data->player.damage.slow_frame_take <= 0)
+			data->player.damage.slow_force_take = 0;
+	}
 	recalc_x(data, mini, map);
 	recalc_y(data, mini, map);
 	movex(map, mini, data);
