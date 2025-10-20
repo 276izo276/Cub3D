@@ -37,14 +37,17 @@ static void	init_incendio(t_data *data)
 	data->spell[INCENDIO].icn_name = &data->img[INCENDIO_NAME];
 }
 
+#include <stdio.h>
+
 static void	init_glacius(t_data *data)
 {
 	data->spell[GLACIUS].base_cooldown = 3;
 	data->spell[GLACIUS].call = cast_spell;
 	data->spell[GLACIUS].type = GLACIUS;
-	data->spell[GLACIUS].damage.damage_do = 3;
+	data->spell[GLACIUS].damage.damage_do = 5;
 	data->spell[GLACIUS].damage.slow_force_do = 80;
-	data->spell[GLACIUS].damage.slow_frame_do = 120;
+	data->spell[GLACIUS].damage.slow_frame_do = 30;
+	printf("init frame >%lf\n",data->spell[GLACIUS].damage.slow_frame_do);
 	data->spell[GLACIUS].item.speed = 0;
 	data->spell[GLACIUS].item.radius = 3;
 	data->spell[GLACIUS].item.front_img = &data->img[GLACIUS_IMG];

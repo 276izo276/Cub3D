@@ -41,7 +41,6 @@ static void	handle_input_move(t_data *data, long long int cur)
 		if (move)
 			handle_move(&data->map, &data->map.mini, data);
 	}
-	data->player.damage.slow_force_take = 0;
 }
 
 void	remove_wall_msg(t_data *data)
