@@ -352,7 +352,9 @@ void	take_damage(t_data *data)
 		data->player.damage.poison_take--;
 		data->player.life--;
 	}
-	if (data->player.life <= 0)
+	else if (data->player.life <= 0 && data->player.life >= -92)
+		data->player.life -= 5;
+	if (data->player.life <= -92)
 		f_exit(data, 1);
 }
 
@@ -400,10 +402,6 @@ int	game_loop(t_data *data)
 			pthread_barrier_wait(&data->barrier_display);
 			pthread_barrier_wait(&data->barrier_display);
 			mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
-			// if (data->life > 0)
-			// 	--data->life;
-			// else if (data->life <= 0 && data->life >= -92)
-			// 	data->life -= 5;
 			display_blood_border(data);
 			aff_xp(data);
 			aff_life(data);
