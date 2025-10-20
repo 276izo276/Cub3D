@@ -396,7 +396,7 @@ void	try_hit_player(t_data *data)
 		ray.dy = item->left.case_y * 64 + item->left.coo_y;
 		calc_scal(&ray);
 		if (ray.hit == true)
-		{
+		{	
 			data->player.damage.damage_take = item->damage.damage_do;
 			data->player.damage.damage_spider_take = item->damage.damage_spider_do;
 			data->player.damage.damage_dementor_take = item->damage.damage_dementor_do;
@@ -485,10 +485,8 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 		v_norm(mini, data);
 	mini->dx *= SPEED;
 	mini->dy *= SPEED;
-	printf("value slow player %lf\n",data->player.damage.slow_force_take);
 	if (data->player.damage.slow_frame_take > 0)
 	{
-		printf("slow player frame >>>>>%lf\n",data->player.damage.slow_frame_take);
 		if (data->player.damage.slow_force_take > 100)
 			data->player.damage.slow_force_take = 100;
 		mini->dx *= (100 - data->player.damage.slow_force_take) / 100;

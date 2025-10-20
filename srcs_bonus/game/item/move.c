@@ -186,6 +186,7 @@ int	try_hit_items(t_item *elem, t_data *data)
 	calc_scal(&ray);
 	if (ray.hit == true)
 	{
+		printf("Hit in ray hit item\n\n");
 		data->player.damage.damage_take += elem->damage.damage_do;
 		data->player.damage.damage_spider_take += elem->damage.damage_spider_do;
 		data->player.damage.damage_dementor_take += elem->damage.damage_dementor_do;
