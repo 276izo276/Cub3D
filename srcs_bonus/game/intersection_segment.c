@@ -32,17 +32,22 @@ void	calc_end_point(t_hitray *ray)
 
 void	calc_scal(t_hitray *ray)
 {
+	double	value;
+
 	ray->hit = false;
+	value = (ray->bx - ray->ax) * (ray->cy - ray->ay) - (ray->by - ray->ay) * (ray->cx - ray->ax);
+	if (value < 0)
+		value = -value;
+	if (value < 0.00001)
+		return ;
 	if (ray->ax == ray->cx && ray->ay == ray->cy)
 		return ;
 	ray->delta = (ray->bx - ray->ax) * (ray->bx - ray->ax) + (ray->by - ray->ay) * (ray->by - ray->ay);
 	ray->delta_u = (ray->dx - ray->ax) * (ray->bx - ray->ax) + (ray->dy - ray->ay) * (ray->by - ray->ay);
-	printf("first delta>%lf   delta_u>%lf\n",ray->delta,ray->delta_u);
 	if (ray->delta_u > ray->delta || ray->delta_u < 0)
 		return ;
 	ray->delta = (ray->cx - ray->ax) * (ray->cx - ray->ax) + (ray->cy - ray->ay) * (ray->cy - ray->ay);
 	ray->delta_u = (ray->dx - ray->ax) * (ray->cx - ray->ax) + (ray->dy - ray->ay) * (ray->cy - ray->ay);
-	printf("second delta>%lf   delta_u>%lf\n",ray->delta,ray->delta_u);
 	if (ray->delta_u > ray->delta || ray->delta_u < 0)
 		return ;
 	ray->hit = true;
