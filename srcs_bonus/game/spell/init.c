@@ -126,7 +126,7 @@ static void	init_petrificus_totalus(t_data *data)
 static void	init_protego(t_data *data)
 {
 	data->spell[PROTEGO].base_cooldown = 10;
-	data->spell[PROTEGO].base_timer = 10;
+	data->spell[PROTEGO].base_timer = 5;
 	data->spell[PROTEGO].call = cast_protego;
 	data->spell[PROTEGO].type = PROTEGO;
 	data->spell[PROTEGO].class = DEFENSIVE_SPELL;
