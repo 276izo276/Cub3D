@@ -84,12 +84,16 @@ static void	display_spell_take(t_data *data)
 	}
 }
 
-void	display_name(t_data *data, int i)
+void	display_name(t_data *data, int i, int pos_x)
 {
 	unsigned int	color;
 	int				x;
 	int				y;
 
+	if (i % 8 == 0 && i != 0)
+		data->spell_menu.name_pos_y += 110;
+	else if (i == 20)
+		data->spell_menu.name_pos_y += 35;
 	y = 0;
 	if (!data->spell[i].icn_name)
 		return ;
@@ -103,7 +107,7 @@ void	display_name(t_data *data, int i)
 			{
 				if (data->selected - 4 != i)
 					color = darken_the_color(color);
-				pixel_put(data, x + 610 + 64 * i + 72 * i, y + 570, color);
+				pixel_put(data, x + pos_x, y + data->spell_menu.name_pos_y, color);
 			}
 			++x;
 		}
@@ -117,23 +121,26 @@ static void	display_spell_list(t_data *data)
 	double				y;
 	double				x;
 	int				i;
+	int				final_pos_y;
 
+	data->spell_menu.name_pos_y = 570;
+	final_pos_y = 660;
 	i = 0;
-	while (i < 10)
-	{
-		x =  646 + 64 * i + 71 * (i);
-		while (x < 646 + 64 * (i + 1) + 71 * (i))
+	while (i < 20)
+	{		
+		x =  440 + 64 * (i % 8) + 71 * (i % 8);
+		while (x < 440 + 64 * (i % 8 + 1) + 71 * (i % 8))
 		{
-			y = 660;
-			while (y < 660 + 64)
+			y = final_pos_y;
+			while (y < final_pos_y + 64)
 			{
 				if(data->spell[i].icn)
 				{
-					unsigned int	a = ((unsigned int)((y - 660) / 64 * data->spell[i].icn->height)) *  data->spell[i].icn->size_line;
-					unsigned int	b = ((unsigned int)((x - (646 + 64 * i + 71 * (i))) / 64 * data->spell[i].icn->width)) * ( data->spell[i].icn->bits_per_pixel >> 3);
+					unsigned int	a = ((unsigned int)((y - final_pos_y) / 64 * data->spell[i].icn->height)) *  data->spell[i].icn->size_line;
+					unsigned int	b = ((unsigned int)((x - (440 + 64 * (i % 8) + 71 * (i % 8))) / 64 * data->spell[i].icn->width)) * ( data->spell[i].icn->bits_per_pixel >> 3);
 					color = *(unsigned int *)(data->spell[i].icn->data_addr + a + b);
 				}
-				if (border_case_spell(x, y, 32 + 646 + 64 * i + 71 * (i), 32 + 660))
+				if (border_case_spell(x, y, 32 + 440 + 64 * (i % 8) + 71 * (i % 8), 32 + final_pos_y))
 				{
 					if (data->spell_menu.selected != i)
 						color = darken_the_color(color);
@@ -144,7 +151,38 @@ static void	display_spell_list(t_data *data)
 			}
 			x++;
 		}
-		display_name(data, i);
+		display_name(data, i, 410 + 64 * (i % 8) + 72 * (i % 8));
+		i++;
+		if (i % 8 == 0)
+			final_pos_y += 120;
+	}
+	final_pos_y += 30;
+	while (i < 22)
+	{
+		x =  600 + 64 * (i % 8) + 71 * (i % 8);
+		while (x < 600 + 64 * (i % 8 + 1) + 71 * (i % 8))
+		{
+			y = final_pos_y;
+			while (y < final_pos_y + 64)
+			{
+				if(data->spell[i].icn)
+				{
+					unsigned int	a = ((unsigned int)((y - final_pos_y) / 64 * data->spell[i].icn->height)) *  data->spell[i].icn->size_line;
+					unsigned int	b = ((unsigned int)((x - (600 + 64 * (i % 8) + 71 * (i % 8))) / 64 * data->spell[i].icn->width)) * ( data->spell[i].icn->bits_per_pixel >> 3);
+					color = *(unsigned int *)(data->spell[i].icn->data_addr + a + b);
+				}
+				if (border_case_spell(x, y, 32 + 600 + 64 * (i % 8) + 71 * (i % 8), 32 + final_pos_y))
+				{
+					if (data->spell_menu.selected != i)
+						color = darken_the_color(color);
+					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
+					= color;
+				}
+				y++;
+			}
+			x++;
+		}
+		display_name(data, i, 560 + 64 * (i % 8) + 72 * (i % 8));
 		i++;
 	}
 }
@@ -161,16 +199,16 @@ void	handle_menu_spell_keys(int keycode, t_data *data)
 		if (keycode == KEY_D || keycode == KEY_RIGHT)
 		{
 			if (data->selected != 3)
-			++data->selected;
+				++data->selected;
 			else
-			data->selected = 0;
+				data->selected = 0;
 		}
 		else if (keycode == KEY_LEFT || keycode == KEY_A)
 		{
 			if (data->selected != 0)
-			--data->selected;
+				--data->selected;
 			else
-			data->selected = 3;
+				data->selected = 3;
 		}
 		else if (keycode == KEY_ENTER)
 			data->spell_menu.selected = 0;
@@ -179,17 +217,53 @@ void	handle_menu_spell_keys(int keycode, t_data *data)
 	{
 		if (keycode == KEY_D || keycode == KEY_RIGHT)
 		{
-			if (data->spell_menu.selected != 4)
-			++data->spell_menu.selected;
-			else
-			data->spell_menu.selected = 0;
+			if (data->spell_menu.selected % 8 != 7)
+				++data->spell_menu.selected;
+			else if (data->spell_menu.selected != 21)
+				data->spell_menu.selected -= 7;
+			if (data->spell_menu.selected == 22)
+				data->spell_menu.selected = 16;
 		}
+
 		else if (keycode == KEY_LEFT || keycode == KEY_A)
 		{
-			if (data->spell_menu.selected != 0)
-			--data->spell_menu.selected;
+			if (data->spell_menu.selected % 8 != 0)
+				--data->spell_menu.selected;
+			else if (data->spell_menu.selected != 16)
+				data->spell_menu.selected += 7;
 			else
-			data->spell_menu.selected = 4;
+				data->spell_menu.selected = 21;
+		}
+		else if (keycode == KEY_S || keycode == KEY_DOWN)
+		{
+			if (data->spell_menu.selected == 14
+				|| data->spell_menu.selected == 15)
+				data->spell_menu.selected = 21;
+			else if (data->spell_menu.selected == 13)
+				data->spell_menu.selected = 20;
+			else if (data->spell_menu.selected == 21)
+				data->spell_menu.selected = 6;
+			else if (data->spell_menu.selected == 20)
+				data->spell_menu.selected = 5;
+			else if (data->spell_menu.selected >= 16)
+				data->spell_menu.selected -= 16;
+			else
+				data->spell_menu.selected += 8;
+		}
+		else if (keycode == KEY_W || keycode == KEY_UP)
+		{
+			if (data->spell_menu.selected < 5)
+				data->spell_menu.selected += 16;
+			else if (data->spell_menu.selected == 6
+				|| data->spell_menu.selected == 7)
+				data->spell_menu.selected = 21;
+			else if (data->spell_menu.selected == 5)
+				data->spell_menu.selected = 20;
+			else if (data->spell_menu.selected == 21
+				|| data->spell_menu.selected == 20)
+				data->spell_menu.selected -= 7;
+			else
+				data->spell_menu.selected -= 8;
 		}
 		else if (keycode == KEY_ENTER)
 		{

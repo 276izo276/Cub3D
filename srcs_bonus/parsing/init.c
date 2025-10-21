@@ -58,15 +58,17 @@ static void	set_path_texture(t_data *data)
 	data->img[AGUAMENTI_IMG].path = "./texture/spell/aguamenti.xpm";
 
 
-	data->img[LUMOS_ICN].path = "./texture/spell/lumos_icn.xpm";
-	data->img[INCENDIO_ICN].path = "./texture/spell/incendio_icn.xpm";
-	data->img[GLACIUS_ICN].path = "./texture/spell/glacius_icn.xpm";
-	data->img[ARANIA_EXUMAI_ICN].path = "./texture/spell/arania_exumai_icn.xpm";
 	data->img[AGUAMENTI_ICN].path = "./texture/spell/aguamenti_icn.xpm";
+	data->img[INCENDIO_ICN].path = "./texture/spell/incendio_icn.xpm";
+	data->img[ARANIA_EXUMAI_ICN].path = "./texture/spell/arania_exumai_icn.xpm";
+	data->img[GLACIUS_ICN].path = "./texture/spell/glacius_icn.xpm";
+	data->img[LUMOS_ICN].path = "./texture/spell/lumos_icn.xpm";
 	data->img[AVADA_KEDAVRA_ICN].path = "./texture/spell/avada_kedavra_icn.xpm";
 	data->img[PETRIFICUS_TOTALUS_ICN].path = "./texture/spell/petrificus_totalus_icn.xpm";
 	data->img[PROTEGO_ICN].path = "./texture/spell/protego_icn.xpm";
 	data->img[BOMBARDA_ICN].path = "./texture/spell/bombarda_icn.xpm";
+
+
 	data->img[CONFUNDO_ICN].path = "./texture/spell/confundo_icn.xpm";
 	data->img[ENDOLORIS_ICN].path = "./texture/spell/endoloris_icn.xpm";
 	data->img[EPISKEY_ICN].path = "./texture/spell/episkey_icn.xpm";
@@ -82,13 +84,18 @@ static void	set_path_texture(t_data *data)
 	data->img[VULNERA_SANENTUR_ICN].path = "./texture/spell/vulnera_sanentur_icn.xpm";
 
 
-	data->img[LUMOS_NAME].path = "./texture/menu/lumos_name.xpm";
+	data->img[AGUAMENTI_NAME].path = "./texture/menu/aguamenti_name.xpm";
 	data->img[INCENDIO_NAME].path = "./texture/menu/incendio_name.xpm";
+	data->img[ARANIA_EXUMAI_NAME].path = "./texture/menu/arania_exumai_name.xpm";
 	data->img[GLACIUS_NAME].path = "./texture/menu/glacius_name.xpm";
+	data->img[LUMOS_NAME].path = "./texture/menu/lumos_name.xpm";
 	data->img[AVADA_KEDAVRA_NAME].path = "./texture/menu/avada_kedavra_name.xpm";
-	data->img[PETRIFICUS_TOTALUS_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[PROTEGO_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[BOMBARDA_NAME].path = "./texture/menu/glacius_name.xpm";
+	data->img[PETRIFICUS_TOTALUS_NAME].path = "./texture/menu/petrificus_totalus_name.xpm";
+	data->img[PROTEGO_NAME].path = "./texture/menu/protego_name.xpm";
+	data->img[BOMBARDA_NAME].path = "./texture/menu/bombarda_name.xpm";
+
+
+	
 	data->img[CONFUNDO_NAME].path = "./texture/menu/glacius_name.xpm";
 	data->img[ENDOLORIS_NAME].path = "./texture/menu/glacius_name.xpm";
 	data->img[EPISKEY_NAME].path = "./texture/menu/glacius_name.xpm";
@@ -102,8 +109,6 @@ static void	set_path_texture(t_data *data)
 	data->img[VENTUS_NAME].path = "./texture/menu/glacius_name.xpm";
 	data->img[VIPERA_EVANESCA_NAME].path = "./texture/menu/glacius_name.xpm";
 	data->img[VULNERA_SANENTUR_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[ARANIA_EXUMAI_NAME].path = "./texture/menu/arania_exumai_name.xpm";
-	data->img[AGUAMENTI_NAME].path = "./texture/menu/aguamenti_name.xpm";
 
 	data->img[SPACE].path = "./texture/Letters/space.xpm";
 	data->img[CHAR_A].path = "./texture/Letters/A.xpm";

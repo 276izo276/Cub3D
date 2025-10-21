@@ -149,6 +149,201 @@ static void	init_bombarda(t_data *data)
 	data->spell[BOMBARDA].icn_name = &data->img[BOMBARDA_NAME];
 }
 
+static void	init_confundo(t_data *data)
+{
+	data->spell[CONFUNDO].base_cooldown = 5;
+	data->spell[CONFUNDO].call = cast_spell;
+	data->spell[CONFUNDO].type = CONFUNDO;
+	data->spell[CONFUNDO].damage.damage_do = 25;
+	data->spell[CONFUNDO].item.speed = 0;
+	data->spell[CONFUNDO].item.radius = 6;
+	data->spell[CONFUNDO].item.front_img = &data->img[BOMBARDA_IMG];
+	data->spell[CONFUNDO].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[CONFUNDO].class = OFFENSIVE_SPELL;
+	data->spell[CONFUNDO].icn = &data->img[CONFUNDO_ICN];
+	data->spell[CONFUNDO].icn_name = &data->img[BOMBARDA_NAME];
+}
+
+static void	init_endoloris(t_data *data)
+{
+	data->spell[ENDOLORIS].base_cooldown = 5;
+	data->spell[ENDOLORIS].call = cast_spell;
+	data->spell[ENDOLORIS].type = BOMBARDA;
+	data->spell[ENDOLORIS].damage.damage_do = 25;
+	data->spell[ENDOLORIS].item.speed = 0;
+	data->spell[ENDOLORIS].item.radius = 6;
+	data->spell[ENDOLORIS].item.front_img = &data->img[BOMBARDA_IMG];
+	data->spell[ENDOLORIS].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[ENDOLORIS].class = OFFENSIVE_SPELL;
+	data->spell[ENDOLORIS].icn = &data->img[ENDOLORIS_ICN];
+	data->spell[ENDOLORIS].icn_name = &data->img[BOMBARDA_NAME];
+}
+
+static void	init_episkey(t_data *data)
+{
+	data->spell[EPISKEY].base_cooldown = 5;
+	data->spell[EPISKEY].call = cast_spell;
+	data->spell[EPISKEY].type = BOMBARDA;
+	data->spell[EPISKEY].damage.damage_do = 25;
+	data->spell[EPISKEY].item.speed = 0;
+	data->spell[EPISKEY].item.radius = 6;
+	data->spell[EPISKEY].item.front_img = &data->img[BOMBARDA_IMG];
+	data->spell[EPISKEY].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[EPISKEY].class = OFFENSIVE_SPELL;
+	data->spell[EPISKEY].icn = &data->img[EPISKEY_ICN];
+	data->spell[EPISKEY].icn_name = &data->img[BOMBARDA_NAME];
+}
+
+static void	init_expecto_patronum(t_data *data)
+{
+	data->spell[EXPECTO_PATRONUM].base_cooldown = 5;
+	data->spell[EXPECTO_PATRONUM].call = cast_spell;
+	data->spell[EXPECTO_PATRONUM].type = BOMBARDA;
+	data->spell[EXPECTO_PATRONUM].damage.damage_do = 25;
+	data->spell[EXPECTO_PATRONUM].item.speed = 0;
+	data->spell[EXPECTO_PATRONUM].item.radius = 6;
+	data->spell[EXPECTO_PATRONUM].item.front_img = &data->img[BOMBARDA_IMG];
+	data->spell[EXPECTO_PATRONUM].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[EXPECTO_PATRONUM].class = OFFENSIVE_SPELL;
+	data->spell[EXPECTO_PATRONUM].icn = &data->img[EXPECTO_PATRONUM_ICN];
+	data->spell[EXPECTO_PATRONUM].icn_name = &data->img[BOMBARDA_NAME];
+}
+
+static void	init_expelliarmus(t_data *data)
+{
+	data->spell[EXPELLIARMUS].base_cooldown = 5;
+	data->spell[EXPELLIARMUS].call = cast_spell;
+	data->spell[EXPELLIARMUS].type = BOMBARDA;
+	data->spell[EXPELLIARMUS].damage.damage_do = 25;
+	data->spell[EXPELLIARMUS].item.speed = 0;
+	data->spell[EXPELLIARMUS].item.radius = 6;
+	data->spell[EXPELLIARMUS].item.front_img = &data->img[BOMBARDA_IMG];
+	data->spell[EXPELLIARMUS].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[EXPELLIARMUS].class = OFFENSIVE_SPELL;
+	data->spell[EXPELLIARMUS].icn = &data->img[EXPELLIARMUS_ICN];
+	data->spell[EXPELLIARMUS].icn_name = &data->img[BOMBARDA_NAME];
+}
+
+static void	init_repulso(t_data *data)
+{
+	data->spell[REPULSO].base_cooldown = 5;
+	data->spell[REPULSO].call = cast_spell;
+	data->spell[REPULSO].type = BOMBARDA;
+	data->spell[REPULSO].damage.damage_do = 25;
+	data->spell[REPULSO].item.speed = 0;
+	data->spell[REPULSO].item.radius = 6;
+	data->spell[REPULSO].item.front_img = &data->img[BOMBARDA_IMG];
+	data->spell[REPULSO].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[REPULSO].class = OFFENSIVE_SPELL;
+	data->spell[REPULSO].icn = &data->img[REPULSO_ICN];
+	data->spell[REPULSO].icn_name = &data->img[BOMBARDA_NAME];
+}
+
+static void	init_stupefix(t_data *data)
+{
+	data->spell[STUPEFIX].base_cooldown = 5;
+	data->spell[STUPEFIX].call = cast_spell;
+	data->spell[STUPEFIX].type = BOMBARDA;
+	data->spell[STUPEFIX].damage.damage_do = 25;
+	data->spell[STUPEFIX].item.speed = 0;
+	data->spell[STUPEFIX].item.radius = 6;
+	data->spell[STUPEFIX].item.front_img = &data->img[BOMBARDA_IMG];
+	data->spell[STUPEFIX].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[STUPEFIX].class = OFFENSIVE_SPELL;
+	data->spell[STUPEFIX].icn = &data->img[STUPEFIX_ICN];
+	data->spell[STUPEFIX].icn_name = &data->img[BOMBARDA_NAME];
+}
+
+static void	init_oppugno(t_data *data)
+{
+	data->spell[OPPUGNO].base_cooldown = 5;
+	data->spell[OPPUGNO].call = cast_spell;
+	data->spell[OPPUGNO].type = BOMBARDA;
+	data->spell[OPPUGNO].damage.damage_do = 25;
+	data->spell[OPPUGNO].item.speed = 0;
+	data->spell[OPPUGNO].item.radius = 6;
+	data->spell[OPPUGNO].item.front_img = &data->img[BOMBARDA_IMG];
+	data->spell[OPPUGNO].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[OPPUGNO].class = OFFENSIVE_SPELL;
+	data->spell[OPPUGNO].icn = &data->img[OPPUGNO_ICN];
+	data->spell[OPPUGNO].icn_name = &data->img[BOMBARDA_NAME];
+}
+
+static void	init_sectumsempra(t_data *data)
+{
+	data->spell[SECTUMSEMPRA].base_cooldown = 5;
+	data->spell[SECTUMSEMPRA].call = cast_spell;
+	data->spell[SECTUMSEMPRA].type = BOMBARDA;
+	data->spell[SECTUMSEMPRA].damage.damage_do = 25;
+	data->spell[SECTUMSEMPRA].item.speed = 0;
+	data->spell[SECTUMSEMPRA].item.radius = 6;
+	data->spell[SECTUMSEMPRA].item.front_img = &data->img[BOMBARDA_IMG];
+	data->spell[SECTUMSEMPRA].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[SECTUMSEMPRA].class = OFFENSIVE_SPELL;
+	data->spell[SECTUMSEMPRA].icn = &data->img[SECTUMSEMPRA_ICN];
+	data->spell[SECTUMSEMPRA].icn_name = &data->img[BOMBARDA_NAME];
+}
+
+static void	init_serpensortia(t_data *data)
+{
+	data->spell[SERPENSORTIA].base_cooldown = 5;
+	data->spell[SERPENSORTIA].call = cast_spell;
+	data->spell[SERPENSORTIA].type = BOMBARDA;
+	data->spell[SERPENSORTIA].damage.damage_do = 25;
+	data->spell[SERPENSORTIA].item.speed = 0;
+	data->spell[SERPENSORTIA].item.radius = 6;
+	data->spell[SERPENSORTIA].item.front_img = &data->img[BOMBARDA_IMG];
+	data->spell[SERPENSORTIA].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[SERPENSORTIA].class = OFFENSIVE_SPELL;
+	data->spell[SERPENSORTIA].icn = &data->img[SERPENSORTIA_ICN];
+	data->spell[SERPENSORTIA].icn_name = &data->img[BOMBARDA_NAME];
+}
+
+static void	init_ventus(t_data *data)
+{
+	data->spell[VENTUS].base_cooldown = 5;
+	data->spell[VENTUS].call = cast_spell;
+	data->spell[VENTUS].type = BOMBARDA;
+	data->spell[VENTUS].damage.damage_do = 25;
+	data->spell[VENTUS].item.speed = 0;
+	data->spell[VENTUS].item.radius = 6;
+	data->spell[VENTUS].item.front_img = &data->img[BOMBARDA_IMG];
+	data->spell[VENTUS].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[VENTUS].class = OFFENSIVE_SPELL;
+	data->spell[VENTUS].icn = &data->img[VENTUS_ICN];
+	data->spell[VENTUS].icn_name = &data->img[BOMBARDA_NAME];
+}
+
+static void	init_vipera_evanesca(t_data *data)
+{
+	data->spell[VIPERA_EVANESCA].base_cooldown = 5;
+	data->spell[VIPERA_EVANESCA].call = cast_spell;
+	data->spell[VIPERA_EVANESCA].type = BOMBARDA;
+	data->spell[VIPERA_EVANESCA].damage.damage_do = 25;
+	data->spell[VIPERA_EVANESCA].item.speed = 0;
+	data->spell[VIPERA_EVANESCA].item.radius = 6;
+	data->spell[VIPERA_EVANESCA].item.front_img = &data->img[BOMBARDA_IMG];
+	data->spell[VIPERA_EVANESCA].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[VIPERA_EVANESCA].class = OFFENSIVE_SPELL;
+	data->spell[VIPERA_EVANESCA].icn = &data->img[VIPERA_EVANESCA_ICN];
+	data->spell[VIPERA_EVANESCA].icn_name = &data->img[BOMBARDA_NAME];
+}
+
+static void	init_vulnera_samentur(t_data *data)
+{
+	data->spell[VULNERA_SANENTUR].base_cooldown = 5;
+	data->spell[VULNERA_SANENTUR].call = cast_spell;
+	data->spell[VULNERA_SANENTUR].type = BOMBARDA;
+	data->spell[VULNERA_SANENTUR].damage.damage_do = 25;
+	data->spell[VULNERA_SANENTUR].item.speed = 0;
+	data->spell[VULNERA_SANENTUR].item.radius = 6;
+	data->spell[VULNERA_SANENTUR].item.front_img = &data->img[BOMBARDA_IMG];
+	data->spell[VULNERA_SANENTUR].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[VULNERA_SANENTUR].class = OFFENSIVE_SPELL;
+	data->spell[VULNERA_SANENTUR].icn = &data->img[VULNERA_SANENTUR_ICN];
+	data->spell[VULNERA_SANENTUR].icn_name = &data->img[BOMBARDA_NAME];
+}
+
 void	init_spell(t_data *data)
 {
 	data->active_spell = -1;
@@ -163,4 +358,18 @@ void	init_spell(t_data *data)
 	init_petrificus_totalus(data);
 	init_protego(data);
 	init_bombarda(data);
+
+	init_confundo(data);
+	init_endoloris(data);
+	init_episkey(data);
+	init_expecto_patronum(data);
+	init_expelliarmus(data);
+	init_repulso(data);
+	init_stupefix(data);
+	init_oppugno(data);
+	init_sectumsempra(data);
+	init_serpensortia(data);
+	init_ventus(data);
+	init_vipera_evanesca(data);
+	init_vulnera_samentur(data);
 }
