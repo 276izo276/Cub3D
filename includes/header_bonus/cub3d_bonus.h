@@ -14,6 +14,7 @@
 # define M_PI 3.14159265358979323846
 #endif
 
+void	apply_damage(t_damage *take, t_damage *apply);
 void	spell_protego(t_data *data);
 void	cast_protego(t_data *data, t_spells info);
 int		calc_start_text(char *str, int x, t_data *data, int height);

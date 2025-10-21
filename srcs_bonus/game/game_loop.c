@@ -376,6 +376,11 @@ void	aff_effect_info(t_data *data)
 		aff_img_effect_info(&data->img[SLOW], nb_effect, data);
 		nb_effect++;
 	}
+	if (data->player.damage.curse_force_take > 0)
+	{
+		aff_img_effect_info(&data->img[CURSE], nb_effect, data);
+		nb_effect++;
+	}
 }
 
 void	aff_protego(t_data *data)

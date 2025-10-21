@@ -518,15 +518,16 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			elem->damage.damage_take += item->damage.damage_do;
-			elem->damage.damage_spider_take += item->damage.damage_spider_do;
-			elem->damage.damage_dementor_take += item->damage.damage_dementor_do;
-			elem->damage.slow_force_take += item->damage.slow_force_do;
-			elem->damage.slow_frame_take += item->damage.slow_frame_do;
-			elem->damage.poison_force_take += item->damage.poison_force_do;
-			elem->damage.poison_frame_take += item->damage.poison_frame_do;
-			elem->damage.fire_force_take += item->damage.fire_force_do;
-			elem->damage.fire_frame_take += item->damage.fire_frame_do;
+			// elem->damage.damage_take += item->damage.damage_do;
+			// elem->damage.damage_spider_take += item->damage.damage_spider_do;
+			// elem->damage.damage_dementor_take += item->damage.damage_dementor_do;
+			// elem->damage.slow_force_take += item->damage.slow_force_do;
+			// elem->damage.slow_frame_take += item->damage.slow_frame_do;
+			// elem->damage.poison_force_take += item->damage.poison_force_do;
+			// elem->damage.poison_frame_take += item->damage.poison_frame_do;
+			// elem->damage.fire_force_take += item->damage.fire_force_do;
+			// elem->damage.fire_frame_take += item->damage.fire_frame_do;
+			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
@@ -538,15 +539,16 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			elem->damage.damage_take += item->damage.damage_do;
-			elem->damage.damage_spider_take += item->damage.damage_spider_do;
-			elem->damage.damage_dementor_take += item->damage.damage_dementor_do;
-			elem->damage.slow_force_take += item->damage.slow_force_do;
-			elem->damage.slow_frame_take += item->damage.slow_frame_do;
-			elem->damage.poison_force_take += item->damage.poison_force_do;
-			elem->damage.poison_frame_take += item->damage.poison_frame_do;
-			elem->damage.fire_force_take += item->damage.fire_force_do;
-			elem->damage.fire_frame_take += item->damage.fire_frame_do;
+			// elem->damage.damage_take += item->damage.damage_do;
+			// elem->damage.damage_spider_take += item->damage.damage_spider_do;
+			// elem->damage.damage_dementor_take += item->damage.damage_dementor_do;
+			// elem->damage.slow_force_take += item->damage.slow_force_do;
+			// elem->damage.slow_frame_take += item->damage.slow_frame_do;
+			// elem->damage.poison_force_take += item->damage.poison_force_do;
+			// elem->damage.poison_frame_take += item->damage.poison_frame_do;
+			// elem->damage.fire_force_take += item->damage.fire_force_do;
+			// elem->damage.fire_frame_take += item->damage.fire_frame_do;
+			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
@@ -558,15 +560,16 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			elem->damage.damage_take += item->damage.damage_do;
-			elem->damage.damage_spider_take += item->damage.damage_spider_do;
-			elem->damage.damage_dementor_take += item->damage.damage_dementor_do;
-			elem->damage.slow_force_take += item->damage.slow_force_do;
-			elem->damage.slow_frame_take += item->damage.slow_frame_do;
-			elem->damage.poison_force_take += item->damage.poison_force_do;
-			elem->damage.poison_frame_take += item->damage.poison_frame_do;
-			elem->damage.fire_force_take += item->damage.fire_force_do;
-			elem->damage.fire_frame_take += item->damage.fire_frame_do;
+			// elem->damage.damage_take += item->damage.damage_do;
+			// elem->damage.damage_spider_take += item->damage.damage_spider_do;
+			// elem->damage.damage_dementor_take += item->damage.damage_dementor_do;
+			// elem->damage.slow_force_take += item->damage.slow_force_do;
+			// elem->damage.slow_frame_take += item->damage.slow_frame_do;
+			// elem->damage.poison_force_take += item->damage.poison_force_do;
+			// elem->damage.poison_frame_take += item->damage.poison_frame_do;
+			// elem->damage.fire_force_take += item->damage.fire_force_do;
+			// elem->damage.fire_frame_take += item->damage.fire_frame_do;
+			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);

@@ -26,6 +26,7 @@ static void	set_path_texture(t_data *data)
 	data->img[FLAME].path = "./texture/flame.xpm";
 	data->img[POISON].path = "./texture/poison.xpm";
 	data->img[SLOW].path = "./texture/slow.xpm";
+	data->img[CURSE].path = "./texture/curse.xpm";
 
 	data->img[SHIELD_1].path = "./texture/shield_1.xpm";
 	data->img[SHIELD_2].path = "./texture/shield_2.xpm";

@@ -6,7 +6,7 @@ void	set_spell_take(t_data *data)
 	data->cast_spell = -1;
 	data->spell_take[0] = BOMBARDA;
 	data->spell_take[1] = INCENDIO;
-	data->spell_take[2] = ARANIA_EXUMAI;
+	data->spell_take[2] = AVADA_KEDAVRA;
 	data->spell_take[3] = PROTEGO;
 }
 
@@ -95,10 +95,10 @@ static void	init_avada_kedavra(t_data *data)
 	data->spell[AVADA_KEDAVRA].base_cooldown = 30;
 	data->spell[AVADA_KEDAVRA].call = cast_spell;
 	data->spell[AVADA_KEDAVRA].type = AVADA_KEDAVRA;
-	data->spell[AVADA_KEDAVRA].item.damage.damage_do = 5;
-	data->spell[AVADA_KEDAVRA].item.damage.curse_force_do = 40;
-	data->spell[AVADA_KEDAVRA].item.damage.curse_frame_do = 3;
-	data->spell[AVADA_KEDAVRA].item.speed = 50;
+	data->spell[AVADA_KEDAVRA].damage.damage_do = 5;
+	data->spell[AVADA_KEDAVRA].damage.curse_force_do = .1;
+	data->spell[AVADA_KEDAVRA].damage.curse_frame_do = 400;
+	data->spell[AVADA_KEDAVRA].item.speed = 0;
 	data->spell[AVADA_KEDAVRA].item.radius = 1;
 	data->spell[AVADA_KEDAVRA].item.front_img = &data->img[AVADA_KEDAVRA_IMG];
 	data->spell[AVADA_KEDAVRA].item.back_img = &data->img[AVADA_KEDAVRA_IMG];

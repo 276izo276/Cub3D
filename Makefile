@@ -148,7 +148,8 @@ GAME_BONUS		=									\
 				spell/init.c						\
 				item/free.c							\
 				item/init.c							\
-				item/move.c							
+				item/move.c							\
+				damage.c							
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 

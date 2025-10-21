@@ -212,6 +212,7 @@ typedef enum e_imgs
 	FLAME,
 	POISON,
 	SLOW,
+	CURSE,
 
 	SHIELD_1,
 	SHIELD_2,
@@ -220,7 +221,7 @@ typedef enum e_imgs
 	SHIELD_5,
 	SHIELD_6,
 }	t_imgs;
-# define NB_TEXTURES 125
+# define NB_TEXTURES 126
 
 typedef enum e_spells
 {
@@ -233,7 +234,7 @@ typedef enum e_spells
 	PETRIFICUS_TOTALUS,
 	PROTEGO,
 	BOMBARDA,
-	
+
 	CONFUNDO,
 	ENDOLORIS,
 	EPISKEY,
