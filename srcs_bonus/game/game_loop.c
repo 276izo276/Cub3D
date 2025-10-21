@@ -415,7 +415,6 @@ void	take_damage(t_data *data)
 	double	damage;
 
 	damage = data->player.damage.damage_take;
-	printf("damage >> %lf\n",damage);
 	while (damage > 0 && data->player.protego > 0)
 	{
 		damage -= 5;
