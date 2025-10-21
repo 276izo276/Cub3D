@@ -93,22 +93,22 @@ static void	set_path_texture(t_data *data)
 	data->img[PETRIFICUS_TOTALUS_NAME].path = "./texture/menu/petrificus_totalus_name.xpm";
 	data->img[PROTEGO_NAME].path = "./texture/menu/protego_name.xpm";
 	data->img[BOMBARDA_NAME].path = "./texture/menu/bombarda_name.xpm";
-
-
+	data->img[EPISKEY_NAME].path = "./texture/menu/episkey_name.xpm";
+	data->img[EXPECTO_PATRONUM_NAME].path = "./texture/menu/expecto_patronum_name.xpm";
+	data->img[EXPELLIARMUS_NAME].path = "./texture/menu/expelliarmus_name.xpm";
+	data->img[REPULSO_NAME].path = "./texture/menu/repulso_name.xpm";
+	data->img[STUPEFIX_NAME].path = "./texture/menu/stupefix_name.xpm";
+	data->img[SECTUMSEMPRA_NAME].path = "./texture/menu/sectumsempra_name.xpm";
+	data->img[VENTUS_NAME].path = "./texture/menu/ventus_name.xpm";
+	data->img[VULNERA_SANENTUR_NAME].path = "./texture/menu/vulnera_sanentur_name.xpm";
+	data->img[VIPERA_EVANESCA_NAME].path = "./texture/menu/vipera_evanesca_name.xpm";
+	data->img[OPPUGNO_NAME].path = "./texture/menu/oppugno_name.xpm";
+	data->img[SERPENSORTIA_NAME].path = "./texture/menu/serpensortia_name.xpm";
 	
-	data->img[CONFUNDO_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[ENDOLORIS_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[EPISKEY_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[EXPECTO_PATRONUM_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[EXPELLIARMUS_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[REPULSO_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[STUPEFIX_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[OPPUGNO_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[SECTUMSEMPRA_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[SERPENSORTIA_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[VENTUS_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[VIPERA_EVANESCA_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[VULNERA_SANENTUR_NAME].path = "./texture/menu/glacius_name.xpm";
+	
+	
+	data->img[CONFUNDO_NAME].path = "./texture/menu/confundo_name.xpm";
+	data->img[ENDOLORIS_NAME].path = "./texture/menu/endoloris_name.xpm";
 
 	data->img[SPACE].path = "./texture/Letters/space.xpm";
 	data->img[CHAR_A].path = "./texture/Letters/A.xpm";

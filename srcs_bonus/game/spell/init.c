@@ -161,7 +161,7 @@ static void	init_confundo(t_data *data)
 	data->spell[CONFUNDO].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[CONFUNDO].class = OFFENSIVE_SPELL;
 	data->spell[CONFUNDO].icn = &data->img[CONFUNDO_ICN];
-	data->spell[CONFUNDO].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[CONFUNDO].icn_name = &data->img[CONFUNDO_NAME];
 }
 
 static void	init_endoloris(t_data *data)
@@ -176,7 +176,7 @@ static void	init_endoloris(t_data *data)
 	data->spell[ENDOLORIS].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[ENDOLORIS].class = OFFENSIVE_SPELL;
 	data->spell[ENDOLORIS].icn = &data->img[ENDOLORIS_ICN];
-	data->spell[ENDOLORIS].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[ENDOLORIS].icn_name = &data->img[ENDOLORIS_NAME];
 }
 
 static void	init_episkey(t_data *data)
@@ -191,7 +191,7 @@ static void	init_episkey(t_data *data)
 	data->spell[EPISKEY].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[EPISKEY].class = OFFENSIVE_SPELL;
 	data->spell[EPISKEY].icn = &data->img[EPISKEY_ICN];
-	data->spell[EPISKEY].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[EPISKEY].icn_name = &data->img[EPISKEY_NAME];
 }
 
 static void	init_expecto_patronum(t_data *data)
@@ -206,7 +206,7 @@ static void	init_expecto_patronum(t_data *data)
 	data->spell[EXPECTO_PATRONUM].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[EXPECTO_PATRONUM].class = OFFENSIVE_SPELL;
 	data->spell[EXPECTO_PATRONUM].icn = &data->img[EXPECTO_PATRONUM_ICN];
-	data->spell[EXPECTO_PATRONUM].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[EXPECTO_PATRONUM].icn_name = &data->img[EXPECTO_PATRONUM_NAME];
 }
 
 static void	init_expelliarmus(t_data *data)
@@ -221,7 +221,7 @@ static void	init_expelliarmus(t_data *data)
 	data->spell[EXPELLIARMUS].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[EXPELLIARMUS].class = OFFENSIVE_SPELL;
 	data->spell[EXPELLIARMUS].icn = &data->img[EXPELLIARMUS_ICN];
-	data->spell[EXPELLIARMUS].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[EXPELLIARMUS].icn_name = &data->img[EXPELLIARMUS_NAME];
 }
 
 static void	init_repulso(t_data *data)
@@ -236,7 +236,7 @@ static void	init_repulso(t_data *data)
 	data->spell[REPULSO].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[REPULSO].class = OFFENSIVE_SPELL;
 	data->spell[REPULSO].icn = &data->img[REPULSO_ICN];
-	data->spell[REPULSO].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[REPULSO].icn_name = &data->img[REPULSO_NAME];
 }
 
 static void	init_stupefix(t_data *data)
@@ -251,7 +251,7 @@ static void	init_stupefix(t_data *data)
 	data->spell[STUPEFIX].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[STUPEFIX].class = OFFENSIVE_SPELL;
 	data->spell[STUPEFIX].icn = &data->img[STUPEFIX_ICN];
-	data->spell[STUPEFIX].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[STUPEFIX].icn_name = &data->img[STUPEFIX_NAME];
 }
 
 static void	init_oppugno(t_data *data)
@@ -266,7 +266,7 @@ static void	init_oppugno(t_data *data)
 	data->spell[OPPUGNO].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[OPPUGNO].class = OFFENSIVE_SPELL;
 	data->spell[OPPUGNO].icn = &data->img[OPPUGNO_ICN];
-	data->spell[OPPUGNO].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[OPPUGNO].icn_name = &data->img[OPPUGNO_NAME];
 }
 
 static void	init_sectumsempra(t_data *data)
@@ -281,7 +281,7 @@ static void	init_sectumsempra(t_data *data)
 	data->spell[SECTUMSEMPRA].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[SECTUMSEMPRA].class = OFFENSIVE_SPELL;
 	data->spell[SECTUMSEMPRA].icn = &data->img[SECTUMSEMPRA_ICN];
-	data->spell[SECTUMSEMPRA].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[SECTUMSEMPRA].icn_name = &data->img[SECTUMSEMPRA_NAME];
 }
 
 static void	init_serpensortia(t_data *data)
@@ -296,7 +296,7 @@ static void	init_serpensortia(t_data *data)
 	data->spell[SERPENSORTIA].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[SERPENSORTIA].class = OFFENSIVE_SPELL;
 	data->spell[SERPENSORTIA].icn = &data->img[SERPENSORTIA_ICN];
-	data->spell[SERPENSORTIA].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[SERPENSORTIA].icn_name = &data->img[SERPENSORTIA_NAME];
 }
 
 static void	init_ventus(t_data *data)
@@ -311,7 +311,7 @@ static void	init_ventus(t_data *data)
 	data->spell[VENTUS].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[VENTUS].class = OFFENSIVE_SPELL;
 	data->spell[VENTUS].icn = &data->img[VENTUS_ICN];
-	data->spell[VENTUS].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[VENTUS].icn_name = &data->img[VENTUS_NAME];
 }
 
 static void	init_vipera_evanesca(t_data *data)
@@ -326,7 +326,7 @@ static void	init_vipera_evanesca(t_data *data)
 	data->spell[VIPERA_EVANESCA].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[VIPERA_EVANESCA].class = OFFENSIVE_SPELL;
 	data->spell[VIPERA_EVANESCA].icn = &data->img[VIPERA_EVANESCA_ICN];
-	data->spell[VIPERA_EVANESCA].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[VIPERA_EVANESCA].icn_name = &data->img[VIPERA_EVANESCA_NAME];
 }
 
 static void	init_vulnera_samentur(t_data *data)
@@ -341,7 +341,7 @@ static void	init_vulnera_samentur(t_data *data)
 	data->spell[VULNERA_SANENTUR].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[VULNERA_SANENTUR].class = OFFENSIVE_SPELL;
 	data->spell[VULNERA_SANENTUR].icn = &data->img[VULNERA_SANENTUR_ICN];
-	data->spell[VULNERA_SANENTUR].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[VULNERA_SANENTUR].icn_name = &data->img[VULNERA_SANENTUR_NAME];
 }
 
 void	init_spell(t_data *data)

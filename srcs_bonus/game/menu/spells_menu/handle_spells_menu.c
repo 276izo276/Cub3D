@@ -105,8 +105,7 @@ void	display_name(t_data *data, int i, int pos_x)
 			color = get_texture_pixel(data->spell[i].icn_name, x, y);
 			if (color != YELLOW)
 			{
-				if (data->selected - 4 != i)
-					color = darken_the_color(color);
+				color = darken_the_color(color);
 				pixel_put(data, x + pos_x, y + data->spell_menu.name_pos_y, color);
 			}
 			++x;
