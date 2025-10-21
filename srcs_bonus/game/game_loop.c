@@ -334,11 +334,95 @@ void	aff_spell(t_data *data)
 	}
 }
 
+void	aff_img_effect_info(t_img *img, int nb_effect, t_data *data)
+{
+	double	x;
+	double	y;
+
+	x = data->mlx.width - 350 - (nb_effect * 20) - 30;
+	while (x < data->mlx.width - 350 - (nb_effect * 20) - 10)
+	{
+		y = data->mlx.height - 35;
+		while (y < data->mlx.height - 15)
+		{
+			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 35)) / 20 * img->height)) * img->size_line;
+			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 - (nb_effect * 20) - 30)) / 20 * img->width)) * ( img->bits_per_pixel >> 3);
+			unsigned int	color = *(unsigned int *)(img->data_addr + a + b);
+			if (color != WHITE)
+				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
+			y++;
+		}
+		x++;
+	}
+}
+
+void	aff_effect_info(t_data *data)
+{
+	int		nb_effect;
+
+	nb_effect = 0;
+	if (data->player.damage.fire_force_take > 0)
+	{
+		aff_img_effect_info(&data->img[FLAME], nb_effect, data);
+		nb_effect++;
+	}
+	if (data->player.damage.poison_force_take > 0)
+	{
+		aff_img_effect_info(&data->img[POISON], nb_effect, data);
+		nb_effect++;
+	}
+	if (data->player.damage.slow_force_take > 0)
+	{
+		aff_img_effect_info(&data->img[SLOW], nb_effect, data);
+		nb_effect++;
+	}
+}
+
+void	aff_protego(t_data *data)
+{
+	double	x;
+	double	y;
+	t_img	*img;
+
+	if (data->player.protego > 0)
+	{
+		img = &data->img[SHIELD_1 + data->player.protego - 1];
+		x = data->mlx.width - 350 - 40;
+		while (x < data->mlx.width - 350 - 10)
+		{
+			y = data->mlx.height - 70;
+			while (y < data->mlx.height - 40)
+			{
+				unsigned int	a = ((unsigned int)((y - (data->mlx.height - 70)) / 30 * img->height)) * img->size_line;
+				unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 - 40)) / 30 * img->width)) * ( img->bits_per_pixel >> 3);
+				unsigned int	color = *(unsigned int *)(img->data_addr + a + b);
+				if (color != WHITE)
+					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
+				y++;
+			}
+			x++;
+		}
+		aff_text("ACTIVE",50,(t_coo){.y = 0, .x = 0},data);
+	}
+	else
+	{
+		aff_text("OFF",50,(t_coo){.y = 0, .x = 0},data);
+	}
+}
+
 void	take_damage(t_data *data)
 {
 	double	damage;
 
 	damage = data->player.damage.damage_take;
+	printf("damage >> %lf\n",damage);
+	while (damage > 0 && data->player.protego > 0)
+	{
+		damage -= 5;
+		data->player.protego--;
+	}
+	if (damage < 0)
+		damage = 0;
 	data->player.shield -= damage;
 	if (data->player.shield < 0)
 	{
@@ -360,7 +444,14 @@ void	take_damage(t_data *data)
 		if (data->player.damage.fire_frame_take <= 0)
 			data->player.damage.fire_force_take = 0;
 	}
-	else if (data->player.life <= 0 && data->player.life >= -92)
+	if (data->player.damage.curse_frame_take > 0)
+	{
+		data->player.life -= data->player.damage.curse_force_take;
+		data->player.damage.curse_frame_take--;
+		if (data->player.damage.curse_frame_take <= 0)
+			data->player.damage.curse_force_take = 0;
+	}
+	if (data->player.life <= 0 && data->player.life >= -92)
 		data->player.life -= 5;
 	if (data->player.life <= -92)
 		f_exit(data, 1);
@@ -415,6 +506,9 @@ int	game_loop(t_data *data)
 			aff_life(data);
 			aff_shield(data);
 			aff_spell(data);
+			aff_effect_info(data);
+			spell_protego(data);
+			aff_protego(data);
 			display_hand(data);
 			aff_mini_map(data);
 			handle_door(data);

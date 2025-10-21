@@ -140,10 +140,29 @@ typedef enum e_imgs
 	HEART,
 	SHIELD,
 	XP,
+
 	INCENDIO_IMG,
 	GLACIUS_IMG,
+	AVADA_KEDAVRA_IMG,
+	PETRIFICUS_TOTALUS_IMG,
+	PROTEGO_IMG,
+	BOMBARDA_IMG,
+	CONFUNDO_IMG,
+	ENDOLORIS_IMG,
+	EPISKEY_IMG,
+	EXPECTO_PATRONUM_IMG,
+	EXPELLIARMUS_IMG,
+	REPULSO_IMG,
+	STUPEFIX_IMG,
+	OPPUGNO_IMG,
+	SECTUMSEMPRA_IMG,
+	SERPENSORTIA_IMG,
+	VENTUS_IMG,
+	VIPERA_EVANESCA_IMG,
+	VULNERA_SANENTUR_IMG,
 	ARANIA_EXUMAI_IMG,
 	AGUAMENTI_IMG,
+
 	LUMOS_ICN,
 	INCENDIO_ICN,
 	GLACIUS_ICN,
@@ -155,7 +174,7 @@ typedef enum e_imgs
 	ENDOLORIS_ICN,
 	EPISKEY_ICN,
 	EXPECTO_PATRONUM_ICN,
-	EXPELLIARMUS_EXUMAI_ICN,
+	EXPELLIARMUS_ICN,
 	REPULSO_ICN,
 	STUPEFIX_ICN,
 	OPPUGNO_ICN,
@@ -163,16 +182,45 @@ typedef enum e_imgs
 	SERPENSORTIA_ICN,
 	VENTUS_ICN,
 	VIPERA_EVANESCA_ICN,
-	VULNERA_SAMENTUR_ICN,
+	VULNERA_SANENTUR_ICN,
 	ARANIA_EXUMAI_ICN,
 	AGUAMENTI_ICN,
+
 	LUMOS_NAME,
 	INCENDIO_NAME,
 	GLACIUS_NAME,
+	AVADA_KEDAVRA_NAME,
+	PETRIFICUS_TOTALUS_NAME,
+	PROTEGO_NAME,
+	BOMBARDA_NAME,
+	CONFUNDO_NAME,
+	ENDOLORIS_NAME,
+	EPISKEY_NAME,
+	EXPECTO_PATRONUM_NAME,
+	EXPELLIARMUS_NAME,
+	REPULSO_NAME,
+	STUPEFIX_NAME,
+	OPPUGNO_NAME,
+	SECTUMSEMPRA_NAME,
+	SERPENSORTIA_NAME,
+	VENTUS_NAME,
+	VIPERA_EVANESCA_NAME,
+	VULNERA_SANENTUR_NAME,
 	ARANIA_EXUMAI_NAME,
-	AGUAMENTI_NAME
+	AGUAMENTI_NAME,
+
+	FLAME,
+	POISON,
+	SLOW,
+
+	SHIELD_1,
+	SHIELD_2,
+	SHIELD_3,
+	SHIELD_4,
+	SHIELD_5,
+	SHIELD_6,
 }	t_imgs;
-# define NB_TEXTURES 82
+# define NB_TEXTURES 125
 
 typedef enum e_spells
 {
@@ -184,6 +232,7 @@ typedef enum e_spells
 	AVADA_KEDAVRA,
 	PETRIFICUS_TOTALUS,
 	PROTEGO,
+
 	BOMBARDA,
 	CONFUNDO,
 	ENDOLORIS,
@@ -197,7 +246,6 @@ typedef enum e_spells
 	SERPENSORTIA,
 	VENTUS,
 	VIPERA_EVANESCA,
-	
 	VULNERA_SANENTUR,
 	
 	
@@ -211,7 +259,7 @@ typedef enum e_spells
 	EVANESCO,
 	ALOHOMORA,
 }	t_spells;
-# define NB_SPELL 32
+# define NB_SPELL 31
 
 typedef enum e_coas
 {
@@ -257,6 +305,8 @@ struct s_damage
 	double		poison_frame_do;
 	double		fire_force_do;
 	double		fire_frame_do;
+	double		curse_force_do;
+	double		curse_frame_do;
 	
 	double		damage_take;
 	double		damage_spider_take;
@@ -267,6 +317,8 @@ struct s_damage
 	double		poison_frame_take;
 	double		fire_force_take;
 	double		fire_frame_take;
+	double		curse_force_take;
+	double		curse_frame_take;
 };
 
 struct	s_enemy
@@ -704,6 +756,7 @@ struct	s_player
 	t_fcoo		left_before;
 	t_fcoo		right_before;
 	double		radius;
+	int			protego;
 };
 
 struct s_data

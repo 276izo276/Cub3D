@@ -91,6 +91,8 @@ void	display_name(t_data *data, int i)
 	int				y;
 
 	y = 0;
+	if (!data->spell[i].icn_name)
+		return ;
 	while (y < data->spell[i].icn_name->height)
 	{
 		x = 0;
@@ -125,10 +127,12 @@ static void	display_spell_list(t_data *data)
 			y = 660;
 			while (y < 660 + 64)
 			{
-				unsigned int	a = ((unsigned int)((y - 660) / 64 * data->spell[i].icn->height)) *  data->spell[i].icn->size_line;
-				unsigned int	b = ((unsigned int)((x - (646 + 64 * i + 71 * (i))) / 64 * data->spell[i].icn->width)) * ( data->spell[i].icn->bits_per_pixel >> 3);
-				color = *(unsigned int *)(data->spell[i].icn->data_addr + a + b);
-
+				if(data->spell[i].icn)
+				{
+					unsigned int	a = ((unsigned int)((y - 660) / 64 * data->spell[i].icn->height)) *  data->spell[i].icn->size_line;
+					unsigned int	b = ((unsigned int)((x - (646 + 64 * i + 71 * (i))) / 64 * data->spell[i].icn->width)) * ( data->spell[i].icn->bits_per_pixel >> 3);
+					color = *(unsigned int *)(data->spell[i].icn->data_addr + a + b);
+				}
 				if (border_case_spell(x, y, 32 + 646 + 64 * i + 71 * (i), 32 + 660))
 				{
 					if (data->spell_menu.selected != i)

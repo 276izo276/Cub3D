@@ -21,7 +21,6 @@ int	calc_start_text(char *str, int x, t_data *data, int height)
 		else if (str[i] >= 'A' && str[i] <= 'Z')
 		{
 			img = &data->img[str[i] - 'A' + CHAR_A];
-			printf("index >%d\n",str[i] - 'A' + 1);
 		}
 		else if (str[i] >= '0' && str[i] <= '9')
 			img = &data->img[str[i] - '0' + NB_0];
@@ -33,6 +32,8 @@ int	calc_start_text(char *str, int x, t_data *data, int height)
 	return (x - size / 2);
 }
 
+#include <stdlib.h>
+
 void	aff_text(char *str, int height, t_coo coo, t_data *data)
 {
 	int				i;
@@ -42,6 +43,10 @@ void	aff_text(char *str, int height, t_coo coo, t_data *data)
 	unsigned int	color;
 
 	// new.x = ;
+	if (coo.y <= MARGIN)
+	{
+		coo.y = MARGIN;
+	}
 	new.y = coo.y + height;
 	i = 0;
 	img = NULL;
@@ -50,26 +55,25 @@ void	aff_text(char *str, int height, t_coo coo, t_data *data)
 		if (str[i] >= 'a' && str[i] <= 'z')
 			img = &data->img[str[i] - 'a' + CHAR_A];
 		else if (str[i] >= 'A' && str[i] <= 'Z')
-		{
 			img = &data->img[str[i] - 'A' + CHAR_A];
-			printf("index >%d\n",str[i] - 'A' + 1);
-		}
 		else if (str[i] >= '0' && str[i] <= '9')
 			img = &data->img[str[i] - '0' + NB_0];
 		else
 			img = &data->img[0];
 		// printf("width aff %d\n",(int)(coo.x + ((double)img->width / (double)img->height) * height));
+
 		cur.y = coo.y;
 		new.x = coo.x + (double)((double)img->width / (double)img->height) * height;
-		while (cur.y < new.y)
+		while (cur.y < new.y && cur.y < data->mlx.height - MARGIN)
 		{
 			cur.x = coo.x;
-			while (cur.x < new.x)
+			if (cur.x < 0)
+				cur.x = 0;
+			while (cur.x < new.x && cur.x < data->mlx.width)
 			{
 				// printf("rap >>%lf  %d\n",(double)(cur.y - coo.y) / (double)height * img->height, img->height);
 				unsigned int	a = (unsigned int)((double)((double)(cur.y - coo.y) / (double)height) * img->height);
 				unsigned int	b = (unsigned int)((double)((double)(cur.x - coo.x) / (double)(new.x - coo.x)) * img->width);
-				// printf("value %u    %u\n",a,b);
 				color = *(unsigned int *)(img->data_addr + a * img->size_line + b * (img->bits_per_pixel >> 3));
 				// printf("%X",color);
 				if (color != RED)

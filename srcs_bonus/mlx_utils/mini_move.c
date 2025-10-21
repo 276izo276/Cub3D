@@ -396,8 +396,7 @@ void	try_hit_player(t_data *data)
 		ray.dy = item->left.case_y * 64 + item->left.coo_y;
 		calc_scal(&ray);
 		if (ray.hit == true)
-		{	
-			printf("left frame >%lf\n",item->damage.slow_frame_do);
+		{
 			data->player.damage.damage_take += item->damage.damage_do;
 			data->player.damage.damage_spider_take += item->damage.damage_spider_do;
 			data->player.damage.damage_dementor_take += item->damage.damage_dementor_do;
@@ -418,7 +417,6 @@ void	try_hit_player(t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			printf("center frame >%lf\n",item->damage.slow_frame_do);
 			data->player.damage.damage_take += item->damage.damage_do;
 			data->player.damage.damage_spider_take += item->damage.damage_spider_do;
 			data->player.damage.damage_dementor_take += item->damage.damage_dementor_do;
@@ -439,7 +437,6 @@ void	try_hit_player(t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			printf("right frame >%lf\n",item->damage.slow_frame_do);
 			data->player.damage.damage_take += item->damage.damage_do;
 			data->player.damage.damage_spider_take += item->damage.damage_spider_do;
 			data->player.damage.damage_dementor_take += item->damage.damage_dementor_do;
@@ -457,8 +454,6 @@ void	try_hit_player(t_data *data)
 		}
 		lst = lst->next;
 	}
-	printf("frame >%lf\n",data->player.damage.slow_frame_take);
-	printf("force >%lf\n",data->player.damage.slow_force_take);
 }
 
 void	handle_move(t_map *map, t_mini *mini, t_data *data)

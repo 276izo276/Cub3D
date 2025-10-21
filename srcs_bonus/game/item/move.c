@@ -186,7 +186,6 @@ int	try_hit_items(t_item *elem, t_data *data)
 	calc_scal(&ray);
 	if (ray.hit == true)
 	{
-		printf("Hit in ray hit item\n\n");
 		data->player.damage.damage_take += elem->damage.damage_do;
 		data->player.damage.damage_spider_take += elem->damage.damage_spider_do;
 		data->player.damage.damage_dementor_take += elem->damage.damage_dementor_do;
@@ -199,48 +198,6 @@ int	try_hit_items(t_item *elem, t_data *data)
 		hit = true;
 	}
 	elem->nb_move++;
-	//DBG1printf("b\n");
-	// enemy = lst->dt;
-	// bzero(ray, sizeof(t_hitray));
-	// ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
-	// ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
-	// ray.bx = elem->right_before.case_x * 64 + elem->right_before.coo_x;
-	// ray.by = elem->right_before.case_y * 64 + elem->right_before.coo_y;
-	// ray.cx = data->player.left.case_x * 64 + enemy->left.coo_x;
-	// ray.cy = enemy->left.case_y * 64 + enemy->left.coo_y;
-	// ray.dx = enemy->right.case_x * 64 + enemy->right.coo_x;
-	// ray.dy = enemy->right.case_y * 64 + enemy->right.coo_y;
-	// calc_delta(&ray);
-	// if (ray.hit == true)
-	// {
-	// 	enemy->damage.damage_take += elem->damage.damage_do;
-	// 	enemy->damage.slow_force_take += elem->damage.slow_force_do;
-	// 	enemy->damage.poison_force_take += elem->damage.poison_force_do;
-	// 	enemy->damage.fire_force_take += elem->damage.fire_force_do;
-	// 	lst = lst->next;
-	// 	hit = true;
-	// 	return (1);
-	// }
-	// bzero(ray, sizeof(t_hitray));
-	// ray.ax = elem->right.case_x * 64 + elem->right.coo_x;
-	// ray.ay = elem->right.case_y * 64 + elem->right.coo_y;
-	// ray.bx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
-	// ray.by = elem->left_before.case_y * 64 + elem->left_before.coo_y;
-	// ray.cx = enemy->left.case_x * 64 + enemy->left.coo_x;
-	// ray.cy = enemy->left.case_y * 64 + enemy->left.coo_y;
-	// ray.dx = enemy->right.case_x * 64 + enemy->right.coo_x;
-	// ray.dy = enemy->right.case_y * 64 + enemy->right.coo_y;
-	// calc_delta(&ray);
-	// if (ray.hit == true)
-	// {
-	// 	enemy->damage.damage_take += elem->damage.damage_do;
-	// 	enemy->damage.slow_force_take += elem->damage.slow_force_do;
-	// 	enemy->damage.poison_force_take += elem->damage.poison_force_do;
-	// 	enemy->damage.fire_force_take += elem->damage.fire_force_do;
-	// 	lst = lst->next;
-	// 	hit = true;
-	// 	return (1);
-	// }
 	if (hit == true)
 		return (1);
 	return (0);

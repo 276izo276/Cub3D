@@ -649,6 +649,17 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	}
 	dy *= enemy->speed;
 	dx *= enemy->speed;
+	if (enemy->damage.slow_frame_take > 0 || enemy->damage.slow_force_take > 0)
+	{
+		if (enemy->damage.slow_force_take > 100)
+			enemy->damage.slow_force_take = 100;
+		dx *= (100 - enemy->damage.slow_force_take) / 100;
+		dy *= (100 - enemy->damage.slow_force_take) / 100;
+		if (enemy->damage.slow_frame_take > 0)
+			enemy->damage.slow_frame_take--;
+		if (enemy->damage.slow_frame_take <= 0)
+			enemy->damage.slow_force_take--;
+	}
 	if (are_double_close(enemy->center.coo_x, enemy->goal.coo_x)
 		&& are_double_close(enemy->center.coo_y, enemy->goal.coo_y)
 		&& enemy->center.case_x == enemy->goal.case_x
@@ -968,6 +979,36 @@ int	see_player(t_data *data, t_enemy *enemy)
 	return (0);
 }
 
+void	take_damage_enemy(t_enemy *enemy)
+{
+	enemy->life -= enemy->damage.damage_take;
+	enemy->damage.damage_take = 0;
+	if (enemy->damage.poison_frame_take > 0)
+	{
+		enemy->life -= enemy->damage.poison_force_take;
+		enemy->damage.poison_frame_take--;
+		if (enemy->damage.poison_frame_take <= 0)
+			enemy->damage.poison_force_take = 0;
+	}
+	if (enemy->damage.fire_frame_take > 0)
+	{
+		enemy->life -= enemy->damage.fire_force_take;
+		enemy->damage.fire_frame_take--;
+		if (enemy->damage.fire_frame_take <= 0)
+			enemy->damage.fire_force_take = 0;
+	}
+	if (enemy->type != DEMENTOR)
+	{
+		if (enemy->damage.curse_frame_take > 0)
+		{
+			enemy->life -= enemy->damage.curse_force_take;
+			enemy->damage.curse_frame_take--;
+			if (enemy->damage.curse_frame_take <= 0)
+				enemy->damage.curse_force_take = 0;
+		}
+	}
+}
+
 void	move_enemy(t_data *data)
 {
 	t_lst	*lst;
@@ -983,10 +1024,7 @@ void	move_enemy(t_data *data)
 			make_move_enemy(data, enemy);
 		else
 			gen_enemy_way(data, enemy);
-		
-		enemy->life -= enemy->damage.damage_take;
-		enemy->damage.damage_take = 0;
-		//DBG1printf("enemy life > %lf\n",enemy->life);
+		take_damage_enemy(enemy);
 		if (enemy->life <= 0)
 		{
 			data->enemy = remove_elem_lst(lst);
