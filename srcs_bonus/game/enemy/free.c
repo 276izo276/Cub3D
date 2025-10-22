@@ -17,6 +17,24 @@ void	f_case(void *elem)
 	free(cel);
 }
 
+void	f_way(t_enemy *enemy)
+{
+	while (enemy->way)
+	{
+		if (enemy->way->child)
+		{
+			enemy->way = enemy->way->child;
+			f_case(enemy->way->parent);
+			enemy->way->parent = NULL;
+		}
+		else
+		{
+			f_case(enemy->way);
+			enemy->way = NULL;
+		}
+	}
+}
+
 void	f_list_final_path(t_lst *open, t_lst *closed)
 {
 	t_lst	*tmp;

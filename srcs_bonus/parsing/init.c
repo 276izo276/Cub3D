@@ -37,12 +37,12 @@ static void	set_path_texture(t_data *data)
 
 	data->img[INCENDIO_IMG].path = "./texture/spell/incendio.xpm";
 	data->img[GLACIUS_IMG].path = "./texture/spell/glacius.xpm";
-	data->img[AVADA_KEDAVRA_IMG].path = "./texture/spell/avada_kedavra.xpm";
+	data->img[AVADA_KEDAVRA_IMG].path = "./texture/spell/curse_spell.xpm";
 	data->img[PETRIFICUS_TOTALUS_IMG].path = "./texture/spell/petrificus_totalus.xpm";
 	data->img[PROTEGO_IMG].path = "./texture/spell/glacius.xpm";
 	data->img[BOMBARDA_IMG].path = "./texture/spell/bombarda.xpm";
-	data->img[CONFUNDO_IMG].path = "./texture/spell/glacius.xpm";
-	data->img[ENDOLORIS_IMG].path = "./texture/spell/glacius.xpm";
+	data->img[CONFUNDO_IMG].path = "./texture/spell/confundo.xpm";
+	data->img[ENDOLORIS_IMG].path = "./texture/spell/curse_spell.xpm";
 	data->img[EPISKEY_IMG].path = "./texture/spell/glacius.xpm";
 	data->img[EXPECTO_PATRONUM_IMG].path = "./texture/spell/glacius.xpm";
 	data->img[EXPELLIARMUS_IMG].path = "./texture/spell/glacius.xpm";

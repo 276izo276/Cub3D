@@ -381,6 +381,11 @@ void	aff_effect_info(t_data *data)
 		aff_img_effect_info(&data->img[CURSE], nb_effect, data);
 		nb_effect++;
 	}
+	if (data->player.episkey_heal > 0)
+	{
+		aff_img_effect_info(&data->img[EPISKEY_ICN], nb_effect, data);
+		nb_effect++;
+	}
 }
 
 void	aff_protego(t_data *data)
@@ -407,11 +412,6 @@ void	aff_protego(t_data *data)
 			}
 			x++;
 		}
-		aff_text("ACTIVE",50,(t_coo){.y = 0, .x = 0},data);
-	}
-	else
-	{
-		aff_text("OFF",50,(t_coo){.y = 0, .x = 0},data);
 	}
 }
 
@@ -512,6 +512,7 @@ int	game_loop(t_data *data)
 			aff_spell(data);
 			aff_effect_info(data);
 			spell_protego(data);
+			spell_episkey(data);
 			aff_protego(data);
 			display_hand(data);
 			aff_mini_map(data);

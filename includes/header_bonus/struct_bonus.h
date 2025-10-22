@@ -236,7 +236,6 @@ typedef enum e_spells
 	EPISKEY,
 	EXPECTO_PATRONUM,
 	ARANIA_EXUMAI,
-	
 	EXPELLIARMUS,
 	REPULSO, 	
 	STUPEFIX,
@@ -308,6 +307,8 @@ struct s_damage
 	double		fire_frame_do;
 	double		curse_force_do;
 	double		curse_frame_do;
+	double		confundo_frame_do;
+	double		confundo_force_do;
 	
 	double		damage_take;
 	double		damage_spider_take;
@@ -320,6 +321,8 @@ struct s_damage
 	double		fire_frame_take;
 	double		curse_force_take;
 	double		curse_frame_take;
+	double		confundo_frame_take;
+	double		confundo_force_take;
 };
 
 struct	s_enemy
@@ -759,6 +762,8 @@ struct	s_player
 	t_fcoo		right_before;
 	double		radius;
 	int			protego;
+	double		episkey_frame;
+	double		episkey_heal;
 };
 
 struct s_data

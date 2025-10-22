@@ -110,11 +110,38 @@ void	cast_protego(t_data *data, t_spells info)
 	(void)data;
 	(void)info;
 	data->cast_spell = -1;
+	if (data->active_spell == -1 && get_mtime() > data->spell[PROTEGO].end_time
+		+ data->spell[PROTEGO].base_cooldown * 1000)
+	{
+		data->spell[PROTEGO].launch_time = get_mtime();
+		data->player.protego = 6;
+		data->spell[PROTEGO].end_time = get_mtime();
+	}
+}
+
+void	spell_episkey(t_data *data)
+{
+	if (data->player.episkey_heal > 0)
+	{
+		if (data->player.episkey_frame > 0)
+			data->player.episkey_frame--;
+		data->player.life += data->player.episkey_heal;
+		if (data->player.episkey_frame <= 0)
+			data->player.episkey_heal = 0;
+	}
+}
+
+void	cast_episkey(t_data *data, t_spells info)
+{
+	(void)data;
+	(void)info;
+	data->cast_spell = -1;
 	if (data->active_spell == -1 && get_mtime() > data->spell[info].end_time
 		+ data->spell[info].base_cooldown * 1000)
 	{
 		data->spell[info].launch_time = get_mtime();
-		data->player.protego = 6;
+		data->player.episkey_frame = 150;
+		data->player.episkey_heal = .1;
 		data->spell[info].end_time = get_mtime();
 	}
 }

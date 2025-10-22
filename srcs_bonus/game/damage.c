@@ -13,4 +13,6 @@ void	apply_damage(t_damage *take, t_damage *apply)
 	take->fire_frame_take += apply->fire_frame_do;
 	take->curse_force_take += apply->curse_force_do;
 	take->curse_frame_take += apply->curse_frame_do;
+	take->confundo_force_take += apply->confundo_force_do;
+	take->confundo_frame_take += apply->confundo_frame_do;
 }

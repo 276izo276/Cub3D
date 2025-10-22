@@ -582,6 +582,8 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 
 static void	make_move_enemy(t_data *data, t_enemy *enemy)
 {
+	if (!enemy->way)
+		return ;
 	if (enemy->calc == true)
 	{
 		// printf("recalc\n");
@@ -612,6 +614,14 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			deg = 180;
 		// printf("deg angle >>>%lf\n",deg);
 		// printf("deg angle >>>%lf     player>>%lf\n",deg,data->map.mini.deg);
+		if (enemy->damage.confundo_force_take > 0)
+		{
+			f_way(enemy);
+			deg += 180;
+			enemy->damage.confundo_frame_take--;
+			if (enemy->damage.confundo_frame_take <= 0)
+				enemy->damage.confundo_force_take = 0;
+		}
 		enemy->deg = deg;
 		enemy->rad = deg * (M_PI / 180);
 	}
@@ -631,7 +641,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	// enemy->center_before.case_x = enemy->center.case_x;
 	// enemy->center_before.case_y = enemy->center.case_y;
 
-	if (enemy->dist_player < 20)
+	if (enemy->dist_player < 20 && enemy->way)
 		return ;
 	double	dy;
 	double	dx;
@@ -663,7 +673,8 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		if (enemy->damage.slow_frame_take <= 0)
 			enemy->damage.slow_force_take--;
 	}
-	if (are_double_close(enemy->center.coo_x, enemy->goal.coo_x)
+	if (enemy->way 
+		&& are_double_close(enemy->center.coo_x, enemy->goal.coo_x)
 		&& are_double_close(enemy->center.coo_y, enemy->goal.coo_y)
 		&& enemy->center.case_x == enemy->goal.case_x
 		&& enemy->center.case_y == enemy->goal.case_y)
@@ -675,7 +686,57 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		// printf("END TRAJ IN CASE\n");
 		return ;
 	}
+	printf("\ncoo before        case   y>%d    x>%d       coo   y>%lf      x>%lf\n",enemy->center.case_y,enemy->center.case_x,enemy->center.coo_y,enemy->center.coo_x);
 	//DBG1printf("m4\n");
+	if (!enemy->way)
+	{
+		int	cy;
+		int	cx;
+		int	new_x;
+		int	new_y;
+
+		if (enemy->center.coo_x + dx < 0)
+			cx = -1;
+		else if (enemy->center.coo_x + dx >= 64)
+			cx = 1;
+		else
+			cx = 0;
+		if (enemy->center.coo_y + dy < 0)
+			cy = -1;
+		else if (enemy->center.coo_y + dy >= 64)
+			cy = 1;
+		else
+			cy = 0;
+		new_x = enemy->center.case_x + cx;
+		new_y = enemy->center.case_y + cy;
+		if ((enemy->center.coo_x + dx < 0 || enemy->center.coo_x + dx >= 64) && (new_x < 0 || new_x >= ft_strlen(data->map.tabmap[new_y]) || data->map.tabmap[new_y][new_x] == '1'))
+		{
+			dx = 0;
+			new_x = enemy->center.case_x;
+		}
+		else if (enemy->center.coo_x + dx >= 64)
+			enemy->center.coo_x = fmod(enemy->center.coo_x + dx, 64);
+		else if (enemy->center.coo_x + dx < 0)
+			enemy->center.coo_x = enemy->center.coo_x + dx + 64;
+		else
+			enemy->center.coo_x = enemy->center.coo_x + dx;
+		if ((enemy->center.coo_y + dy < 0 || enemy->center.coo_y + dy >= 64) && (new_y < 0 || new_y >= data->map.tabmap_height || data->map.tabmap[new_y][new_x] == '1'))
+		{
+			dy = 0;
+			new_y = enemy->center.case_y;
+		}
+		else if (enemy->center.coo_y + dy >= 64)
+			enemy->center.coo_y = fmod(enemy->center.coo_y + dy, 64);
+		else if (enemy->center.coo_y + dy < 0)
+			enemy->center.coo_y = enemy->center.coo_y + dy + 64;
+		else
+			enemy->center.coo_y = enemy->center.coo_y + dy;
+		enemy->center.case_x = new_x;
+		enemy->center.case_y = new_y;
+		enemy->calc = true;
+		printf("coo after __IN__ case   y>%d    x>%d       coo   y>%lf      x>%lf\n",enemy->center.case_y,enemy->center.case_x,enemy->center.coo_y,enemy->center.coo_x);
+		return ;
+	}
 	enemy->center.coo_x += dx;
 	enemy->center.coo_y += dy;
 	if (enemy->calc_path > 0)
@@ -700,11 +761,11 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		// printf("Change Case\n");
 		if (enemy->center.coo_x < 0)
 			enemy->center.coo_x = 64;
-		if (enemy->center.coo_x > 64)
+		else if (enemy->center.coo_x >= 64)
 			enemy->center.coo_x = 0;
 		if (enemy->center.coo_y < 0)
 			enemy->center.coo_y = 64;
-		if (enemy->center.coo_y > 64)
+		else if (enemy->center.coo_y >= 64)
 			enemy->center.coo_y = 0;
 		if (enemy->way->child)
 			enemy->way->child->parent = NULL;
@@ -724,6 +785,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		f_case(tmp);
 		enemy->calc = true;
 	}
+	printf("coo after case   y>%d    x>%d       coo   y>%lf      x>%lf\n",enemy->center.case_y,enemy->center.case_x,enemy->center.coo_y,enemy->center.coo_x);
 	//DBG1printf("m6\n");
 	//DBG1printf("m7\n");
 
@@ -878,6 +940,9 @@ int	see_player(t_data *data, t_enemy *enemy)
 		deg = 180;
 	// printf("\ndeg angle to player>>>%lf     base>>%lf\n",deg,enemy->deg);
 	// printf("\ndeg angle to player>>>%lf     %lf     %lf\n",enemy->deg - 90 + 360, deg + 360, enemy->deg + 90 + 360);
+	if (enemy->damage.confundo_force_take > 0)
+		enemy->deg = enemy->deg + 180;
+	enemy->deg = fmod(enemy->deg, 360);
 	if ((deg + 360 >= enemy->deg - 90 + 360
 		&& deg + 360 <= enemy->deg + 90 + 360)
 	||
@@ -953,20 +1018,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 				// data->player.damage.poison_force_take += enemy->damage.poison_force_do;
 				// data->player.damage.fire_force_take += enemy->damage.fire_force_do;
 			}
-			while (enemy->way)
-			{
-				if (enemy->way->child)
-				{
-					enemy->way = enemy->way->child;
-					f_case(enemy->way->parent);
-					enemy->way->parent = NULL;
-				}
-				else
-				{
-					f_case(enemy->way);
-					enemy->way = NULL;
-				}
-			}
+			f_way(enemy);
 			// printf("pointer way >%p",enemy->way);
 			enemy->goal.case_x = data->player.coo.case_x;
 			enemy->goal.case_y = data->player.coo.case_y;
