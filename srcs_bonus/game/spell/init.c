@@ -171,7 +171,7 @@ static void	init_confundo(t_data *data)
 	data->spell[CONFUNDO].base_cooldown = 0;
 	data->spell[CONFUNDO].call = cast_spell;
 	data->spell[CONFUNDO].type = CONFUNDO;
-	data->spell[CONFUNDO].damage.confundo_frame_do = 150;
+	data->spell[CONFUNDO].damage.confundo_frame_do = 1500;
 	data->spell[CONFUNDO].damage.confundo_force_do = 1;
 	data->spell[CONFUNDO].damage.slow_force_do = 25;
 	data->spell[CONFUNDO].damage.slow_frame_do = 150;
