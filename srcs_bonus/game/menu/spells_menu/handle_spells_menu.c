@@ -290,7 +290,7 @@ void	handle_menu_spell_keys(int keycode, t_data *data)
 			else
 				data->spell_menu.selected -= 8;
 		}
-		else if (keycode == KEY_ENTER)
+		else if (keycode == KEY_ENTER && data->spell[data->spell_menu.selected].is_available == true)
 		{
 			data->spell_take[data->selected] = data->spell_menu.selected;
 			data->spell_menu.selected = -1;

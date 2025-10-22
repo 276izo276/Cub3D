@@ -301,6 +301,8 @@ void	init_spell_menu(t_data *data)
 	ft_bzero(data->spell_menu.background, sizeof(t_img));
 	data->spell_menu.background->mlx = data->mlx.mlx;
 	data->spell_menu.background->path = "./texture/menu/spell_background.xpm";
+	data->spell_menu.third_spell = false;
+	data->spell_menu.last_spell = false;
 }
 static void	fill_need_print(t_data *data)
 {

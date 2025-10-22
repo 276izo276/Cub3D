@@ -487,6 +487,8 @@ struct s_spell_menu
 	t_img	*background;
 	int		selected;
 	int		name_pos_y;
+	bool	third_spell;
+	bool	last_spell;
 };
 
 struct	s_ray

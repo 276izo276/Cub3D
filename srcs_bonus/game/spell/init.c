@@ -4,10 +4,10 @@
 void	set_spell_take(t_data *data)
 {
 	data->cast_spell = -1;
-	data->spell_take[0] = BOMBARDA;
-	data->spell_take[1] = CONFUNDO;
-	data->spell_take[2] = AVADA_KEDAVRA;
-	data->spell_take[3] = PROTEGO;
+	data->spell_take[0] = LUMOS;
+	data->spell_take[1] = GLACIUS;
+	data->spell_take[2] = INCENDIO;
+	data->spell_take[3] = ARANIA_EXUMAI;
 }
 
 static void	init_lumos(t_data *data)
@@ -37,7 +37,7 @@ static void	init_incendio(t_data *data)
 	data->spell[INCENDIO].class = OFFENSIVE_SPELL;
 	data->spell[INCENDIO].icn = &data->img[INCENDIO_ICN];
 	data->spell[INCENDIO].icn_name = &data->img[INCENDIO_NAME];
-	data->spell[INCENDIO].is_available = true;
+	data->spell[INCENDIO].is_available = false;
 }
 
 #include <stdio.h>
@@ -57,7 +57,7 @@ static void	init_glacius(t_data *data)
 	data->spell[GLACIUS].class = OFFENSIVE_SPELL;
 	data->spell[GLACIUS].icn = &data->img[GLACIUS_ICN];
 	data->spell[GLACIUS].icn_name = &data->img[GLACIUS_NAME];
-	data->spell[GLACIUS].is_available = true;
+	data->spell[GLACIUS].is_available = false;
 }
 
 static void	init_arania_exumai(t_data *data)
@@ -74,7 +74,7 @@ static void	init_arania_exumai(t_data *data)
 	data->spell[ARANIA_EXUMAI].class = DEFENSIVE_SPELL;
 	data->spell[ARANIA_EXUMAI].icn = &data->img[ARANIA_EXUMAI_ICN];
 	data->spell[ARANIA_EXUMAI].icn_name = &data->img[ARANIA_EXUMAI_NAME];
-	data->spell[ARANIA_EXUMAI].is_available = true;
+	data->spell[ARANIA_EXUMAI].is_available = false;
 }
 
 static void	init_aguamenti(t_data *data)
@@ -90,7 +90,7 @@ static void	init_aguamenti(t_data *data)
 	data->spell[AGUAMENTI].class = OFFENSIVE_SPELL;
 	data->spell[AGUAMENTI].icn = &data->img[AGUAMENTI_ICN];
 	data->spell[AGUAMENTI].icn_name = &data->img[AGUAMENTI_NAME];
-	data->spell[AGUAMENTI].is_available = true;
+	data->spell[AGUAMENTI].is_available = false;
 }
 
 static void	init_avada_kedavra(t_data *data)
@@ -371,11 +371,11 @@ void	init_spell(t_data *data)
 	data->active_spell = -1;
 	data->cast_spell = -1;
 	data->spell_menu.selected = -1;
+	init_lumos(data);
+	init_glacius(data);
 	init_aguamenti(data);
 	init_incendio(data);
 	init_arania_exumai(data);
-	init_glacius(data);
-	init_lumos(data);
 	init_avada_kedavra(data);
 	init_petrificus_totalus(data);
 	init_protego(data);

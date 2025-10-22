@@ -27,8 +27,13 @@ static void	handle_input_move(t_data *data, long long int cur)
 				f_exit(data, 0);
 			else if (data->keycode[i] >= KEY_1 && data->keycode[i] <= KEY_4)
 			{
-				data->cast_spell = data->spell_take[data->keycode[i] - KEY_1];
-				data->keycode[i] = 0;
+				if ((data->keycode[i] == KEY_3 && data->spell_menu.third_spell == true)
+					|| (data->keycode[i] == KEY_4 && data->spell_menu.last_spell == true)
+					|| (data->keycode[i] != KEY_3 && data->keycode[i] != KEY_4))
+				{
+					data->cast_spell = data->spell_take[data->keycode[i] - KEY_1];
+					data->keycode[i] = 0;
+				}
 			}
 			else if (is_move_player(data, i))
 				move = 1;
@@ -313,12 +318,19 @@ void	aff_spell(t_data *data)
 				unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 + 64 * i + 13 * (i))) / 64 * data->spell[data->spell_take[i]].icn->width)) * ( data->spell[data->spell_take[i]].icn->bits_per_pixel >> 3);
 				unsigned int	color = *(unsigned int *)(data->spell[data->spell_take[i]].icn->data_addr + a + b);
 				if (get_mtime() < data->spell[data->spell_take[i]].end_time + data->spell[data->spell_take[i]].base_cooldown * 1000)
-				{
 					color = darken_the_color(color);
-				}
 				if (color != WHITE && color != RED && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 90 - 64))
 					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
 					= color;
+				if ((data->spell_menu.third_spell == false && i == 2) || (data->spell_menu.last_spell == false && i == 3))
+				{
+					unsigned int	a = ((unsigned int)((y - (data->mlx.height - 90 - 64)) / 64 * data->img[SPELL_LOCK].height)) *  data->img[SPELL_LOCK].size_line;
+					unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 + 64 * i + 13 * (i))) / 64 * data->img[SPELL_LOCK].width)) * ( data->img[SPELL_LOCK].bits_per_pixel >> 3);
+					unsigned int	color = *(unsigned int *)(data->img[SPELL_LOCK].data_addr + a + b);
+					if (color != YELLOW && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 90 - 64))
+					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
+					= color;
+				}
 				y++;
 			}
 			x++;
