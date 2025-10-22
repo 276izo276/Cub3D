@@ -173,6 +173,8 @@ static void	init_confundo(t_data *data)
 	data->spell[CONFUNDO].type = CONFUNDO;
 	data->spell[CONFUNDO].damage.confundo_frame_do = 150;
 	data->spell[CONFUNDO].damage.confundo_force_do = 1;
+	data->spell[CONFUNDO].damage.slow_force_do = 25;
+	data->spell[CONFUNDO].damage.slow_frame_do = 150;
 	data->spell[CONFUNDO].item.speed = 30;
 	data->spell[CONFUNDO].item.radius = 2;
 	data->spell[CONFUNDO].item.front_img = &data->img[CONFUNDO_IMG];
