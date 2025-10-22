@@ -583,16 +583,17 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 static void	make_move_enemy(t_data *data, t_enemy *enemy)
 {
 	double	deg;
-	if (!enemy->way)
-		return ;
-	if (enemy->calc == true)
+	double	dy;
+	double	dx;
+	double	v_normalize;
+	//DBG2 printf("\nmove\n");
+	if (enemy->damage.confundo_force_take > 0)
 	{
-		// printf("recalc\n");
-		enemy->calc = false;
+		//DBG2 printf("confundo ennemy\n");
 		deg = 0;
 		enemy->rad = 0;
-		double	diff_x = enemy->way->coo_x - enemy->center.coo_x;
-		double	diff_y = enemy->way->coo_y - enemy->center.coo_y;
+		double	diff_x = (enemy->center.case_x * 64 + enemy->center.coo_x) - (data->player.coo.case_x * 64 + data->player.coo.coo_x);
+		double	diff_y = (enemy->center.case_y * 64 + enemy->center.coo_y) - (data->player.coo.case_y * 64 + data->player.coo.coo_y);
 		// printf("way >>> y>%d     x>%d",enemy->way->coo_y,enemy->way->coo_x);
 		// printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
 		if (diff_y != 0)
@@ -615,85 +616,33 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			deg = 180;
 		// printf("deg angle >>>%lf\n",deg);
 		// printf("deg angle >>>%lf     player>>%lf\n",deg,data->map.mini.deg);
-		if (enemy->damage.confundo_force_take > 0)
-		{
-			f_way(enemy);
-			deg += 180;
-		}
+		// if (enemy->damage.confundo_force_take > 0)
+		// {
+		// 	f_way(enemy);
+		// 	deg += 180;
+		// }
 		enemy->deg = deg;
 		enemy->rad = deg * (M_PI / 180);
-	}
-	if (enemy->damage.confundo_force_take > 0)
-	{
+		dx = sin(enemy->rad);
+		dy = cos(enemy->rad);
+		// printf("dx>>%lf     dy>>%lf\n",dx,dy);
+		if (round(dy) == 0.0 && round(dx) == 0.0)
+		{
+			dy = 0;
+			dx = 0;
+		}
+		else
+		{
+			v_normalize = sqrt(dx * dx + dy * dy);
+			dy = dy / v_normalize;
+			dx = dx / v_normalize;
+		}
+		dy *= enemy->speed;
+		dx *= enemy->speed;
 		f_way(enemy);
 		enemy->damage.confundo_frame_take--;
 		if (enemy->damage.confundo_frame_take <= 0)
 			enemy->damage.confundo_force_take = 0;
-	}
-	else
-	{
-		calc_left_point(enemy);
-		calc_right_point(enemy);
-		enemy->left_before.coo_x = enemy->left.coo_x;
-		enemy->left_before.coo_y = enemy->left.coo_y;
-		enemy->left_before.case_x = enemy->left.case_x;
-		enemy->left_before.case_y = enemy->left.case_y;
-		enemy->right_before.coo_x = enemy->right.coo_x;
-		enemy->right_before.coo_y = enemy->right.coo_y;
-		enemy->right_before.case_x = enemy->right.case_x;
-		enemy->right_before.case_y = enemy->right.case_y;
-	}
-	if (enemy->dist_player < 20 && enemy->way && enemy->dist_player != -1)
-		return ;
-	double	dy;
-	double	dx;
-	double	v_normalize;
-	dx = sin(enemy->rad);
-	dy = cos(enemy->rad);
-	// printf("dx>>%lf     dy>>%lf\n",dx,dy);
-	if (round(dy) == 0.0 && round(dx) == 0.0)
-	{
-		dy = 0;
-		dx = 0;
-	}
-	else
-	{
-		v_normalize = sqrt(dx * dx + dy * dy);
-		dy = dy / v_normalize;
-		dx = dx / v_normalize;
-	}
-	dy *= enemy->speed;
-	dx *= enemy->speed;
-	if (enemy->damage.slow_frame_take > 0 || enemy->damage.slow_force_take > 0)
-	{
-		if (enemy->damage.slow_force_take > 100)
-			enemy->damage.slow_force_take = 100;
-		dx *= (100 - enemy->damage.slow_force_take) / 100;
-		dy *= (100 - enemy->damage.slow_force_take) / 100;
-		if (enemy->damage.slow_frame_take > 0)
-			enemy->damage.slow_frame_take--;
-		if (enemy->damage.slow_frame_take <= 0)
-			enemy->damage.slow_force_take--;
-	}
-	if (enemy->way 
-		&& are_double_close(enemy->center.coo_x, enemy->goal.coo_x)
-		&& are_double_close(enemy->center.coo_y, enemy->goal.coo_y)
-		&& enemy->center.case_x == enemy->goal.case_x
-		&& enemy->center.case_y == enemy->goal.case_y)
-	{
-		f_case(enemy->way);
-		enemy->way = NULL;
-		enemy->wait = 0;
-		enemy->calc = true;
-		// printf("END TRAJ IN CASE\n");
-		return ;
-	}
-	// printf("\ncoo before        case   y>%d    x>%d       coo   y>%lf      x>%lf\n",enemy->center.case_y,enemy->center.case_x,enemy->center.coo_y,enemy->center.coo_x);
-	//DBG1printf("m4\n");
-
-	printf("\n");
-	if (!enemy->way)
-	{
 		int	cy;
 		int	cx;
 		int	right_cy;
@@ -707,16 +656,16 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		int	new_right_x;
 		int	new_right_y;
 
-		if ((enemy->center.case_x * 64 + enemy->center.coo_x < data->player.coo.case_x * 64 + data->player.coo.coo_x && dx > 0)
-		|| (enemy->center.case_x * 64 + enemy->center.coo_x > data->player.coo.case_x * 64 + data->player.coo.coo_x && dx < 0))
-		{
-			dx = -dx;
-		}
-		if ((enemy->center.case_y * 64 + enemy->center.coo_y < data->player.coo.case_y * 64 + data->player.coo.coo_y && dy > 0)
-		|| (enemy->center.case_y * 64 + enemy->center.coo_y > data->player.coo.case_y * 64 + data->player.coo.coo_y && dy < 0))
-		{
-			dy = -dy;
-		}
+		// if ((enemy->center.case_x * 64 + enemy->center.coo_x < data->player.coo.case_x * 64 + data->player.coo.coo_x && dx > 0)
+		// || (enemy->center.case_x * 64 + enemy->center.coo_x > data->player.coo.case_x * 64 + data->player.coo.coo_x && dx < 0))
+		// {
+		// 	dx = -dx;
+		// }
+		// if ((enemy->center.case_y * 64 + enemy->center.coo_y < data->player.coo.case_y * 64 + data->player.coo.coo_y && dy > 0)
+		// || (enemy->center.case_y * 64 + enemy->center.coo_y > data->player.coo.case_y * 64 + data->player.coo.coo_y && dy < 0))
+		// {
+		// 	dy = -dy;
+		// }
 		if (dy != 0)
 		{
 			deg = atan(((double)dx / dy)) / (M_PI / 180);
@@ -742,7 +691,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 
 		if (enemy->left.case_y < 0 || enemy->left.case_y > data->map.tabmap_height || enemy->left.case_x < 0 || enemy->left.case_x >= ft_strlen(data->map.tabmap[enemy->left.case_y]) || data->map.tabmap[enemy->left.case_y][enemy->left.case_x] == '1')
 		{
-			// printf("left in wall\n");
+			//DBG2 printf("left in wall\n");
 			cx = enemy->center.case_x - enemy->left.case_x;
 			cy = enemy->center.case_y - enemy->left.case_y;
 			new_x = enemy->left.case_x + cx;
@@ -751,13 +700,13 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			{
 				double	diff;
 
-				// printf("left correc y ____POS___ %d\n",cy);
+				//DBG2 printf("left correc y ____POS___ %d\n",cy);
 				diff = 0;
 				if (cy > 0)
-					diff = 63.999 - enemy->left.coo_y;
+					diff = 64 - enemy->left.coo_y;
 				else if (cy < 0)
 					diff = -enemy->left.coo_y - 0.001;
-				// printf("diff >%lf\n",diff);
+				//DBG2 printf("diff >%lf\n",diff);
 				enemy->right.coo_y += diff;
 				enemy->center.coo_y += diff;
 				enemy->left.coo_y = fmod(enemy->left.coo_y + diff + 64, 64);
@@ -767,13 +716,13 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			{
 				double	diff;
 
-				// printf("left correc x ____POS___ %d\n",cy);
+				//DBG2 printf("left correc x ____POS___ %d\n",cy);
 				diff = 0;
 				if (cx > 0)
-					diff = 63.999 - enemy->left.coo_x;
+					diff = 64 - enemy->left.coo_x;
 				else if (cx < 0)
 					diff = -enemy->left.coo_x - 0.001;
-				// printf("diff >%lf\n",diff);
+				//DBG2 printf("diff >%lf\n",diff);
 				enemy->right.coo_x += diff;
 				enemy->center.coo_x += diff;
 				enemy->left.coo_x = fmod(enemy->left.coo_x + diff + 64, 64);
@@ -782,22 +731,22 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		}
 		if (enemy->right.case_y < 0 || enemy->right.case_y > data->map.tabmap_height || enemy->right.case_x < 0 || enemy->right.case_x >= ft_strlen(data->map.tabmap[enemy->right.case_y]) || data->map.tabmap[enemy->right.case_y][enemy->right.case_x] == '1')
 		{
-			// printf("right in wall\n");
+			//DBG2 printf("right in wall\n");
 			cx = enemy->center.case_x - enemy->right.case_x;
 			cy = enemy->center.case_y - enemy->right.case_y;
 			new_x = enemy->right.case_x + cx;
 			new_y = enemy->right.case_y + cy;
 			if (cy != 0 && !(new_y < 0 || new_y > data->map.tabmap_height || enemy->right.case_x < 0 || enemy->right.case_x >= ft_strlen(data->map.tabmap[new_y])) && data->map.tabmap[new_y][enemy->right.case_x] != '1')
 			{
-				// printf("right correc y ____POS___ %d\n",cy);
+				//DBG2 printf("right correc y ____POS___ %d\n",cy);
 				double	diff;
 
 				diff = 0;
 				if (cy > 0)
-					diff = 63.999 - enemy->right.coo_y;
+					diff = 64 - enemy->right.coo_y;
 				else if (cy < 0)
 					diff = -enemy->right.coo_y - 0.001;
-				// printf("diff >%lf\n",diff);
+				//DBG2 printf("diff >%lf\n",diff);
 				enemy->left.coo_y += diff;
 				enemy->center.coo_y += diff;
 				enemy->right.coo_y = fmod(enemy->right.coo_y + diff + 64, 64);
@@ -805,22 +754,22 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			}
 			else if (cx != 0 && !(enemy->right.case_y < 0 || enemy->right.case_y > data->map.tabmap_height || new_x < 0 || new_x >= ft_strlen(data->map.tabmap[enemy->right.case_y])) && data->map.tabmap[enemy->right.case_y][new_x] != '1')
 			{
-				// printf("right correc x ____POS___ %d\n",cy);
+				//DBG2 printf("right correc x ____POS___ %d\n",cy);
 				double	diff;
 
 				diff = 0;
 				if (cx > 0)
-					diff = 63.999 - enemy->right.coo_x;
+					diff = 64 - enemy->right.coo_x;
 				else if (cx < 0)
 					diff = -enemy->right.coo_x - 0.001;
-				// printf("diff >%lf\n",diff);
+				//DBG2 printf("diff >%lf\n",diff);
 				enemy->left.coo_x += diff;
 				enemy->center.coo_x += diff;
 				enemy->right.coo_x = fmod(enemy->right.coo_x + diff + 64, 64);
 				enemy->right.case_x += cx;
 			}
 		}
-		// printf("center y >%lf\n",enemy->center.coo_y);
+		//DBG2 printf("center y >%lf\n",enemy->center.coo_y);
 		enemy->left_before.coo_x = enemy->left.coo_x;
 		enemy->left_before.coo_y = enemy->left.coo_y;
 		enemy->left_before.case_x = enemy->left.case_x;
@@ -873,12 +822,18 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		new_right_y = enemy->right.case_y + right_cy;
 		new_left_x = enemy->left.case_x + left_cx;
 		new_left_y = enemy->left.case_y + left_cy;
-		if (((enemy->center.coo_x + dx < 0 || enemy->center.coo_x + dx >= 64) && (new_y < 0 || new_y > data->map.tabmap_height || new_x < 0 || new_x >= ft_strlen(data->map.tabmap[new_y]) || data->map.tabmap[new_y][new_x] == '1'))
-			|| ((enemy->right.coo_x + dx < 0 || enemy->right.coo_x + dx >= 64) && (new_right_y < 0 || new_right_y > data->map.tabmap_height || new_right_x < 0 || new_right_x >= ft_strlen(data->map.tabmap[new_right_y]) || data->map.tabmap[new_right_y][new_right_x] == '1'))
-			|| ((enemy->left.coo_x + dx < 0 || enemy->left.coo_x + dx >= 64) && (new_left_y < 0 || new_left_y > data->map.tabmap_height || new_left_x < 0 || new_left_x >= ft_strlen(data->map.tabmap[new_left_y]) || data->map.tabmap[new_left_y][new_left_x] == '1')))
+		//DBG2 printf("cx >%d\n",cx);
+		//DBG2 printf("right coo + dx >%lf          basic >%lf\n",enemy->right.coo_x + dx,enemy->right.coo_x);
+		//DBG2 printf("left coo + dx >%lf          basic >%lf\n",enemy->left.coo_x + dx,enemy->left.coo_x);
+		if (((enemy->center.coo_x + dx < 0 || enemy->center.coo_x + dx >= 64) && (enemy->center.case_y < 0 || enemy->center.case_y > data->map.tabmap_height || new_x < 0 || new_x >= ft_strlen(data->map.tabmap[enemy->center.case_y]) || data->map.tabmap[enemy->center.case_y][new_x] == '1'))
+			|| ((enemy->right.coo_x + dx < 0 || enemy->right.coo_x + dx >= 64) && (enemy->right.case_y < 0 || enemy->right.case_y > data->map.tabmap_height || new_right_x < 0 || new_right_x >= ft_strlen(data->map.tabmap[enemy->right.case_y]) || data->map.tabmap[enemy->right.case_y][new_right_x] == '1'))
+			|| ((enemy->left.coo_x + dx < 0 || enemy->left.coo_x + dx >= 64) && (enemy->left.case_y < 0 || enemy->left.case_y > data->map.tabmap_height || new_left_x < 0 || new_left_x >= ft_strlen(data->map.tabmap[enemy->left.case_y]) || data->map.tabmap[enemy->left.case_y][new_left_x] == '1')))
 		{
+			//DBG2 printf("cancel dx\n");
 			dx = 0;
 			new_x = enemy->center.case_x;
+			new_left_x = enemy->left.case_x;
+			new_right_x = enemy->right.case_x;
 		}
 		else if (enemy->center.coo_x + dx >= 64)
 			enemy->center.coo_x = fmod(enemy->center.coo_x + dx, 64);
@@ -886,14 +841,18 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			enemy->center.coo_x = enemy->center.coo_x + dx + 64;
 		else
 			enemy->center.coo_x = enemy->center.coo_x + dx;
-		// printf("left coo + dy >%lf          basic >%lf\n",enemy->left.coo_y + dy,enemy->left.coo_y);
+		//DBG2 printf("cy >%d\n",cy);
+		//DBG2 printf("right coo + dy >%lf          basic >%lf\n",enemy->right.coo_y + dy,enemy->right.coo_y);
+		//DBG2 printf("left coo + dy >%lf          basic >%lf\n",enemy->left.coo_y + dy,enemy->left.coo_y);
 		if (((enemy->center.coo_y + dy < 0 || enemy->center.coo_y + dy >= 64) && (new_y < 0 || new_y > data->map.tabmap_height || new_x < 0 || new_x >= ft_strlen(data->map.tabmap[new_y]) || data->map.tabmap[new_y][new_x] == '1'))
 			|| ((enemy->right.coo_y + dy < 0 || enemy->right.coo_y + dy >= 64) && (new_right_y < 0 || new_right_y > data->map.tabmap_height || new_right_x < 0 || new_right_x >= ft_strlen(data->map.tabmap[new_right_y]) || data->map.tabmap[new_right_y][new_right_x] == '1'))
 			|| ((enemy->left.coo_y + dy < 0 || enemy->left.coo_y + dy >= 64) && (new_left_y < 0 || new_left_y > data->map.tabmap_height || new_left_x < 0 || new_left_x >= ft_strlen(data->map.tabmap[new_left_y]) || data->map.tabmap[new_left_y][new_left_x] == '1')))
 		{
-			// printf("cancel dy\n");
+			printf("cancel dy\n");
 			dy = 0;
 			new_y = enemy->center.case_y;
+			new_left_y = enemy->left.case_y;
+			new_right_y = enemy->right.case_y;
 		}
 		else if (enemy->center.coo_y + dy >= 64)
 			enemy->center.coo_y = fmod(enemy->center.coo_y + dy, 64);
@@ -920,12 +879,116 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		// 	enemy->deg += 180;
 		// 	enemy->rad = enemy->deg * (M_PI / 180);
 		// }
-		// printf("left coo y>%lf          center_coo>%lf\n",enemy->left.coo_y,enemy->center.coo_y);
+		//DBG2 printf("left coo y>%lf          center_coo>%lf\n",enemy->left.coo_y,enemy->center.coo_y);
 		calc_left_point(enemy);
 		calc_right_point(enemy);
 		// printf("coo after __IN__ case   y>%d    x>%d       coo   y>%lf      x>%lf\n",enemy->center.case_y,enemy->center.case_x,enemy->center.coo_y,enemy->center.coo_x);
 		return ;
 	}
+	if (enemy->calc == true)
+	{
+		// printf("recalc\n");
+		enemy->calc = false;
+		deg = 0;
+		enemy->rad = 0;
+		double	diff_x = enemy->way->coo_x - enemy->center.coo_x;
+		double	diff_y = enemy->way->coo_y - enemy->center.coo_y;
+		// printf("way >>> y>%d     x>%d",enemy->way->coo_y,enemy->way->coo_x);
+		// printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
+		if (diff_y != 0)
+		{
+			deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
+			if (deg < 0)
+				deg = -deg;
+		}
+		if (diff_y < 0 && diff_x < 0)
+			deg = 180 + deg;
+		else if (diff_y < 0 && diff_x > 0)
+			deg = 180 - deg;
+		else if (diff_y > 0 && diff_x < 0)
+			deg = 360 - deg;
+		else if (diff_y == 0 && diff_x < 0)
+			deg = 270;
+		else if (diff_y == 0 && diff_x > 0)
+			deg = 90;
+		else if (diff_x == 0 && diff_y < 0)
+			deg = 180;
+		// printf("deg angle >>>%lf\n",deg);
+		// printf("deg angle >>>%lf     player>>%lf\n",deg,data->map.mini.deg);
+		// if (enemy->damage.confundo_force_take > 0)
+		// {
+		// 	f_way(enemy);
+		// 	deg += 180;
+		// }
+		enemy->deg = deg;
+		enemy->rad = deg * (M_PI / 180);
+	}
+	// if (enemy->damage.confundo_force_take > 0)
+	// {
+	// 	f_way(enemy);
+	// 	enemy->damage.confundo_frame_take--;
+	// 	if (enemy->damage.confundo_frame_take <= 0)
+	// 		enemy->damage.confundo_force_take = 0;
+	// }
+	// else
+	// {
+	calc_left_point(enemy);
+	calc_right_point(enemy);
+	enemy->left_before.coo_x = enemy->left.coo_x;
+	enemy->left_before.coo_y = enemy->left.coo_y;
+	enemy->left_before.case_x = enemy->left.case_x;
+	enemy->left_before.case_y = enemy->left.case_y;
+	enemy->right_before.coo_x = enemy->right.coo_x;
+	enemy->right_before.coo_y = enemy->right.coo_y;
+	enemy->right_before.case_x = enemy->right.case_x;
+	enemy->right_before.case_y = enemy->right.case_y;
+	// }
+	if (enemy->dist_player < 20 && enemy->way && enemy->dist_player != -1)
+		return ;
+	dx = sin(enemy->rad);
+	dy = cos(enemy->rad);
+	// printf("dx>>%lf     dy>>%lf\n",dx,dy);
+	if (round(dy) == 0.0 && round(dx) == 0.0)
+	{
+		dy = 0;
+		dx = 0;
+	}
+	else
+	{
+		v_normalize = sqrt(dx * dx + dy * dy);
+		dy = dy / v_normalize;
+		dx = dx / v_normalize;
+	}
+	dy *= enemy->speed;
+	dx *= enemy->speed;
+	if (enemy->damage.slow_frame_take > 0 || enemy->damage.slow_force_take > 0)
+	{
+		if (enemy->damage.slow_force_take > 100)
+			enemy->damage.slow_force_take = 100;
+		dx *= (100 - enemy->damage.slow_force_take) / 100;
+		dy *= (100 - enemy->damage.slow_force_take) / 100;
+		if (enemy->damage.slow_frame_take > 0)
+			enemy->damage.slow_frame_take--;
+		if (enemy->damage.slow_frame_take <= 0)
+			enemy->damage.slow_force_take--;
+	}
+	if (enemy->way 
+		&& are_double_close(enemy->center.coo_x, enemy->goal.coo_x)
+		&& are_double_close(enemy->center.coo_y, enemy->goal.coo_y)
+		&& enemy->center.case_x == enemy->goal.case_x
+		&& enemy->center.case_y == enemy->goal.case_y)
+	{
+		f_case(enemy->way);
+		enemy->way = NULL;
+		enemy->wait = 0;
+		enemy->calc = true;
+		// printf("END TRAJ IN CASE\n");
+		return ;
+	}
+	// printf("\ncoo before        case   y>%d    x>%d       coo   y>%lf      x>%lf\n",enemy->center.case_y,enemy->center.case_x,enemy->center.coo_y,enemy->center.coo_x);
+	//DBG1printf("m4\n");
+
+	
 
 
 	enemy->center.coo_x += dx;
@@ -1213,14 +1276,14 @@ int	see_player(t_data *data, t_enemy *enemy)
 			enemy->goal.case_y = data->player.coo.case_y;
 			enemy->goal.coo_y = data->player.coo.coo_y;
 			enemy->goal.coo_x = data->player.coo.coo_x;
-			printf("new path\n");
+			// printf("new path\n");
 			pathfinder(data, enemy);
 			calc_in_cell_path(data, enemy);
 			print_path(enemy);
 			if (enemy->damage.confundo_force_take <= 0)
 			{
 				enemy->calc = true;
-				printf("recalc enemy ray to player\n");
+				// printf("recalc enemy ray to player\n");
 			}
 			return (1);
 		}
@@ -1270,7 +1333,7 @@ void	move_enemy(t_data *data)
 		enemy = lst->dt;
 		next = lst->next;
 		// if (enemy->way)
-		if ((see_player(data, enemy) && enemy->way) || enemy->way)
+		if ((see_player(data, enemy) && enemy->way) || enemy->way || enemy->damage.confundo_force_take > 0)
 			make_move_enemy(data, enemy);
 		else
 			gen_enemy_way(data, enemy);
