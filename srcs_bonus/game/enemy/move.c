@@ -694,8 +694,16 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	{
 		int	cy;
 		int	cx;
+		int	right_cy;
+		int	right_cx;
+		int	left_cy;
+		int	left_cx;
 		int	new_x;
 		int	new_y;
+		int	new_left_x;
+		int	new_left_y;
+		int	new_right_x;
+		int	new_right_y;
 
 		if ((enemy->center.case_x * 64 + enemy->center.coo_x < data->player.coo.case_x * 64 + data->player.coo.coo_x && dx > 0)
 		|| (enemy->center.case_x * 64 + enemy->center.coo_x > data->player.coo.case_x * 64 + data->player.coo.coo_x && dx < 0))
@@ -749,9 +757,41 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			cy = 1;
 		else
 			cy = 0;
+
+		if (enemy->right.coo_x + dx < 0)
+			right_cx = -1;
+		else if (enemy->right.coo_x + dx >= 64)
+			right_cx = 1;
+		else
+			right_cx = 0;
+		if (enemy->right.coo_y + dy < 0)
+			right_cy = -1;
+		else if (enemy->right.coo_y + dy >= 64)
+			right_cy = 1;
+		else
+			right_cy = 0;
+
+		if (enemy->left.coo_x + dx < 0)
+			left_cx = -1;
+		else if (enemy->left.coo_x + dx >= 64)
+			left_cx = 1;
+		else
+			left_cx = 0;
+		if (enemy->left.coo_y + dy < 0)
+			left_cy = -1;
+		else if (enemy->left.coo_y + dy >= 64)
+			left_cy = 1;
+		else
+			left_cy = 0;
 		new_x = enemy->center.case_x + cx;
 		new_y = enemy->center.case_y + cy;
-		if ((enemy->center.coo_x + dx < 0 || enemy->center.coo_x + dx >= 64) && (new_x < 0 || new_x >= ft_strlen(data->map.tabmap[new_y]) || data->map.tabmap[new_y][new_x] == '1'))
+		new_right_x = enemy->right.case_x + right_cx;
+		new_right_y = enemy->right.case_y + right_cy;
+		new_left_x = enemy->left.case_x + left_cx;
+		new_left_y = enemy->left.case_y + left_cy;
+		if (((enemy->center.coo_x + dx < 0 || enemy->center.coo_x + dx >= 64) && (new_x < 0 || new_x >= ft_strlen(data->map.tabmap[new_y]) || data->map.tabmap[new_y][new_x] == '1'))
+			|| ((enemy->right.coo_x + dx < 0 || enemy->right.coo_x + dx >= 64) && (new_right_x < 0 || new_right_x >= ft_strlen(data->map.tabmap[new_right_y]) || data->map.tabmap[new_right_y][new_right_x] == '1'))
+			|| ((enemy->left.coo_x + dx < 0 || enemy->left.coo_x + dx >= 64) && (new_left_x < 0 || new_left_x >= ft_strlen(data->map.tabmap[new_left_y]) || data->map.tabmap[new_left_y][new_left_x] == '1')))
 		{
 			dx = 0;
 			new_x = enemy->center.case_x;
@@ -762,7 +802,9 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			enemy->center.coo_x = enemy->center.coo_x + dx + 64;
 		else
 			enemy->center.coo_x = enemy->center.coo_x + dx;
-		if ((enemy->center.coo_y + dy < 0 || enemy->center.coo_y + dy >= 64) && (new_y < 0 || new_y >= data->map.tabmap_height || data->map.tabmap[new_y][new_x] == '1'))
+		if (((enemy->center.coo_y + dy < 0 || enemy->center.coo_y + dy >= 64) && (new_y < 0 || new_y >= ft_strlen(data->map.tabmap[new_y]) || data->map.tabmap[new_y][new_y] == '1'))
+			|| ((enemy->right.coo_y + dy < 0 || enemy->right.coo_y + dy >= 64) && (new_right_y < 0 || new_right_y >= ft_strlen(data->map.tabmap[new_right_y]) || data->map.tabmap[new_right_y][new_right_y] == '1'))
+			|| ((enemy->left.coo_y + dy < 0 || enemy->left.coo_y + dy >= 64) && (new_left_y < 0 || new_left_y >= ft_strlen(data->map.tabmap[new_left_y]) || data->map.tabmap[new_left_y][new_left_y] == '1')))
 		{
 			dy = 0;
 			new_y = enemy->center.case_y;
