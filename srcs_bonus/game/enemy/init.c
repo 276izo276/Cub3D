@@ -21,6 +21,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	enemy->speed = 3;
 	enemy->radius = 6;
 	enemy->deg = 90;
+	enemy->dist_player = -1;
 	enemy->damage.damage_do = 1;
 	enemy->damage.slow_force_do = 10;
 	enemy->damage.poison_force_do = 0;
