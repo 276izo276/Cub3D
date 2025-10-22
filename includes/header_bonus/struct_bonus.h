@@ -140,7 +140,7 @@ typedef enum e_imgs
 	HEART,
 	SHIELD,
 	XP,
-
+	
 	INCENDIO_IMG,
 	GLACIUS_IMG,
 	AVADA_KEDAVRA_IMG,
@@ -186,6 +186,7 @@ typedef enum e_imgs
 	ARANIA_EXUMAI_ICN,
 	AGUAMENTI_ICN,
 
+	SPELL_LOCK,
 	LUMOS_NAME,
 	INCENDIO_NAME,
 	GLACIUS_NAME,
@@ -221,13 +222,13 @@ typedef enum e_imgs
 	SHIELD_5,
 	SHIELD_6,
 }	t_imgs;
-# define NB_TEXTURES 126
+# define NB_TEXTURES 127
 
 typedef enum e_spells
 {
 	LUMOS,
+	ARANIA_EXUMAI,
 	PROTEGO,
-	PETRIFICUS_TOTALUS,
 	AGUAMENTI,
 	INCENDIO,
 	GLACIUS,
@@ -235,7 +236,7 @@ typedef enum e_spells
 	VENTUS,
 	EPISKEY,
 	EXPECTO_PATRONUM,
-	ARANIA_EXUMAI,
+	PETRIFICUS_TOTALUS,
 	EXPELLIARMUS,
 	REPULSO, 	
 	STUPEFIX,
@@ -741,6 +742,7 @@ struct s_spell
 	t_damage			damage;
 	t_item				item;
 	t_spells			type;
+	bool				is_available;
 	double				base_cooldown;
 	double				base_timer;
 	long long int		launch_time;

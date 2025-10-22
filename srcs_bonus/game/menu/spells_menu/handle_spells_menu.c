@@ -146,6 +146,19 @@ static void	display_spell_list(t_data *data)
 					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
 					= color;
 				}
+				if (data->spell[i].is_available == false)
+				{
+					unsigned int	a = ((unsigned int)((y - final_pos_y) / 64 * data->img[SPELL_LOCK].height)) *  data->img[SPELL_LOCK].size_line;
+					unsigned int	b = ((unsigned int)((x - (440 + 64 * (i % 8) + 71 * (i % 8))) / 64 * data->img[SPELL_LOCK].width)) * ( data->img[SPELL_LOCK].bits_per_pixel >> 3);
+					color = *(unsigned int *)(data->img[SPELL_LOCK].data_addr + a + b);
+					if (color != YELLOW)
+					{
+						if (data->spell_menu.selected != i)
+							color = darken_the_color(color);
+						*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
+						= color;
+					}
+				}
 				y++;
 			}
 			x++;
@@ -176,6 +189,19 @@ static void	display_spell_list(t_data *data)
 						color = darken_the_color(color);
 					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
 					= color;
+				}
+				if (data->spell[i].is_available == false)
+				{
+					unsigned int	a = ((unsigned int)((y - final_pos_y) / 64 * data->img[SPELL_LOCK].height)) *  data->img[SPELL_LOCK].size_line;
+					unsigned int	b = ((unsigned int)((x - (600 + 64 * (i % 8) + 71 * (i % 8))) / 64 * data->img[SPELL_LOCK].width)) * ( data->img[SPELL_LOCK].bits_per_pixel >> 3);
+					color = *(unsigned int *)(data->img[SPELL_LOCK].data_addr + a + b);
+					if (color != YELLOW)
+					{
+						if (data->spell_menu.selected != i)
+							color = darken_the_color(color);
+						*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
+						= color;
+					}
 				}
 				y++;
 			}

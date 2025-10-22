@@ -19,6 +19,7 @@ static void	init_lumos(t_data *data)
 	data->spell[LUMOS].class = CLASIC_SPELL;
 	data->spell[LUMOS].icn = &data->img[LUMOS_ICN];
 	data->spell[LUMOS].icn_name = &data->img[LUMOS_NAME];
+	data->spell[LUMOS].is_available = true;
 }
 
 static void	init_incendio(t_data *data)
@@ -36,6 +37,7 @@ static void	init_incendio(t_data *data)
 	data->spell[INCENDIO].class = OFFENSIVE_SPELL;
 	data->spell[INCENDIO].icn = &data->img[INCENDIO_ICN];
 	data->spell[INCENDIO].icn_name = &data->img[INCENDIO_NAME];
+	data->spell[INCENDIO].is_available = true;
 }
 
 #include <stdio.h>
@@ -55,6 +57,7 @@ static void	init_glacius(t_data *data)
 	data->spell[GLACIUS].class = OFFENSIVE_SPELL;
 	data->spell[GLACIUS].icn = &data->img[GLACIUS_ICN];
 	data->spell[GLACIUS].icn_name = &data->img[GLACIUS_NAME];
+	data->spell[GLACIUS].is_available = true;
 }
 
 static void	init_arania_exumai(t_data *data)
@@ -71,6 +74,7 @@ static void	init_arania_exumai(t_data *data)
 	data->spell[ARANIA_EXUMAI].class = DEFENSIVE_SPELL;
 	data->spell[ARANIA_EXUMAI].icn = &data->img[ARANIA_EXUMAI_ICN];
 	data->spell[ARANIA_EXUMAI].icn_name = &data->img[ARANIA_EXUMAI_NAME];
+	data->spell[ARANIA_EXUMAI].is_available = true;
 }
 
 static void	init_aguamenti(t_data *data)
@@ -86,6 +90,7 @@ static void	init_aguamenti(t_data *data)
 	data->spell[AGUAMENTI].class = OFFENSIVE_SPELL;
 	data->spell[AGUAMENTI].icn = &data->img[AGUAMENTI_ICN];
 	data->spell[AGUAMENTI].icn_name = &data->img[AGUAMENTI_NAME];
+	data->spell[AGUAMENTI].is_available = true;
 }
 
 static void	init_avada_kedavra(t_data *data)
@@ -103,6 +108,7 @@ static void	init_avada_kedavra(t_data *data)
 	data->spell[AVADA_KEDAVRA].class = DARK_SPELL;
 	data->spell[AVADA_KEDAVRA].icn = &data->img[AVADA_KEDAVRA_ICN];
 	data->spell[AVADA_KEDAVRA].icn_name = &data->img[AVADA_KEDAVRA_NAME];
+	data->spell[AVADA_KEDAVRA].is_available = false;
 }
 
 static void	init_petrificus_totalus(t_data *data)
@@ -119,6 +125,7 @@ static void	init_petrificus_totalus(t_data *data)
 	data->spell[PETRIFICUS_TOTALUS].class = DEFENSIVE_SPELL;
 	data->spell[PETRIFICUS_TOTALUS].icn = &data->img[PETRIFICUS_TOTALUS_ICN];
 	data->spell[PETRIFICUS_TOTALUS].icn_name = &data->img[PETRIFICUS_TOTALUS_NAME];
+	data->spell[PETRIFICUS_TOTALUS].is_available = false;
 }
 
 static void	init_protego(t_data *data)
@@ -130,6 +137,7 @@ static void	init_protego(t_data *data)
 	data->spell[PROTEGO].class = DEFENSIVE_SPELL;
 	data->spell[PROTEGO].icn = &data->img[PROTEGO_ICN];
 	data->spell[PROTEGO].icn_name = &data->img[PROTEGO_NAME];
+	data->spell[PROTEGO].is_available = false;
 }
 
 static void	init_bombarda(t_data *data)
@@ -147,6 +155,7 @@ static void	init_bombarda(t_data *data)
 	data->spell[BOMBARDA].class = OFFENSIVE_SPELL;
 	data->spell[BOMBARDA].icn = &data->img[BOMBARDA_ICN];
 	data->spell[BOMBARDA].icn_name = &data->img[BOMBARDA_NAME];
+	data->spell[BOMBARDA].is_available = false;
 }
 
 static void	init_endoloris(t_data *data)
@@ -164,6 +173,7 @@ static void	init_endoloris(t_data *data)
 	data->spell[ENDOLORIS].class = DARK_SPELL;
 	data->spell[ENDOLORIS].icn = &data->img[ENDOLORIS_ICN];
 	data->spell[ENDOLORIS].icn_name = &data->img[ENDOLORIS_NAME];
+	data->spell[ENDOLORIS].is_available = false;
 }
 
 static void	init_confundo(t_data *data)
@@ -182,6 +192,7 @@ static void	init_confundo(t_data *data)
 	data->spell[CONFUNDO].class = OFFENSIVE_SPELL;
 	data->spell[CONFUNDO].icn = &data->img[CONFUNDO_ICN];
 	data->spell[CONFUNDO].icn_name = &data->img[CONFUNDO_NAME];
+	data->spell[CONFUNDO].is_available = false;
 }
 static void	init_episkey(t_data *data)
 {
@@ -191,6 +202,7 @@ static void	init_episkey(t_data *data)
 	data->spell[EPISKEY].class = CLASIC_SPELL;
 	data->spell[EPISKEY].icn = &data->img[EPISKEY_ICN];
 	data->spell[EPISKEY].icn_name = &data->img[EPISKEY_NAME];
+	data->spell[EPISKEY].is_available = false;
 }
 
 static void	init_vulnera_samentur(t_data *data)
@@ -206,6 +218,7 @@ static void	init_vulnera_samentur(t_data *data)
 	data->spell[VULNERA_SANENTUR].class = OFFENSIVE_SPELL;
 	data->spell[VULNERA_SANENTUR].icn = &data->img[VULNERA_SANENTUR_ICN];
 	data->spell[VULNERA_SANENTUR].icn_name = &data->img[VULNERA_SANENTUR_NAME];
+	data->spell[VULNERA_SANENTUR].is_available = false;
 }
 
 static void	init_expecto_patronum(t_data *data)
@@ -221,6 +234,7 @@ static void	init_expecto_patronum(t_data *data)
 	data->spell[EXPECTO_PATRONUM].class = OFFENSIVE_SPELL;
 	data->spell[EXPECTO_PATRONUM].icn = &data->img[EXPECTO_PATRONUM_ICN];
 	data->spell[EXPECTO_PATRONUM].icn_name = &data->img[EXPECTO_PATRONUM_NAME];
+	data->spell[EXPECTO_PATRONUM].is_available = false;
 }
 
 static void	init_expelliarmus(t_data *data)
@@ -236,6 +250,7 @@ static void	init_expelliarmus(t_data *data)
 	data->spell[EXPELLIARMUS].class = OFFENSIVE_SPELL;
 	data->spell[EXPELLIARMUS].icn = &data->img[EXPELLIARMUS_ICN];
 	data->spell[EXPELLIARMUS].icn_name = &data->img[EXPELLIARMUS_NAME];
+	data->spell[EXPELLIARMUS].is_available = false;
 }
 
 static void	init_repulso(t_data *data)
@@ -251,6 +266,7 @@ static void	init_repulso(t_data *data)
 	data->spell[REPULSO].class = OFFENSIVE_SPELL;
 	data->spell[REPULSO].icn = &data->img[REPULSO_ICN];
 	data->spell[REPULSO].icn_name = &data->img[REPULSO_NAME];
+	data->spell[REPULSO].is_available = false;
 }
 
 static void	init_stupefix(t_data *data)
@@ -266,6 +282,7 @@ static void	init_stupefix(t_data *data)
 	data->spell[STUPEFIX].class = OFFENSIVE_SPELL;
 	data->spell[STUPEFIX].icn = &data->img[STUPEFIX_ICN];
 	data->spell[STUPEFIX].icn_name = &data->img[STUPEFIX_NAME];
+	data->spell[STUPEFIX].is_available = false;
 }
 
 static void	init_oppugno(t_data *data)
@@ -281,6 +298,7 @@ static void	init_oppugno(t_data *data)
 	data->spell[OPPUGNO].class = OFFENSIVE_SPELL;
 	data->spell[OPPUGNO].icn = &data->img[OPPUGNO_ICN];
 	data->spell[OPPUGNO].icn_name = &data->img[OPPUGNO_NAME];
+	data->spell[OPPUGNO].is_available = false;
 }
 
 static void	init_sectumsempra(t_data *data)
@@ -296,6 +314,7 @@ static void	init_sectumsempra(t_data *data)
 	data->spell[SECTUMSEMPRA].class = OFFENSIVE_SPELL;
 	data->spell[SECTUMSEMPRA].icn = &data->img[SECTUMSEMPRA_ICN];
 	data->spell[SECTUMSEMPRA].icn_name = &data->img[SECTUMSEMPRA_NAME];
+	data->spell[SECTUMSEMPRA].is_available = false;
 }
 
 static void	init_serpensortia(t_data *data)
@@ -311,6 +330,7 @@ static void	init_serpensortia(t_data *data)
 	data->spell[SERPENSORTIA].class = OFFENSIVE_SPELL;
 	data->spell[SERPENSORTIA].icn = &data->img[SERPENSORTIA_ICN];
 	data->spell[SERPENSORTIA].icn_name = &data->img[SERPENSORTIA_NAME];
+	data->spell[SERPENSORTIA].is_available = false;
 }
 
 static void	init_ventus(t_data *data)
@@ -326,6 +346,7 @@ static void	init_ventus(t_data *data)
 	data->spell[VENTUS].class = OFFENSIVE_SPELL;
 	data->spell[VENTUS].icn = &data->img[VENTUS_ICN];
 	data->spell[VENTUS].icn_name = &data->img[VENTUS_NAME];
+	data->spell[VENTUS].is_available = false;
 }
 
 static void	init_vipera_evanesca(t_data *data)
@@ -341,6 +362,7 @@ static void	init_vipera_evanesca(t_data *data)
 	data->spell[VIPERA_EVANESCA].class = OFFENSIVE_SPELL;
 	data->spell[VIPERA_EVANESCA].icn = &data->img[VIPERA_EVANESCA_ICN];
 	data->spell[VIPERA_EVANESCA].icn_name = &data->img[VIPERA_EVANESCA_NAME];
+	data->spell[VIPERA_EVANESCA].is_available = false;
 }
 
 

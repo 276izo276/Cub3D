@@ -27,7 +27,6 @@ static void	set_path_texture(t_data *data)
 	data->img[POISON].path = "./texture/poison.xpm";
 	data->img[SLOW].path = "./texture/slow.xpm";
 	data->img[CURSE].path = "./texture/curse.xpm";
-
 	data->img[SHIELD_1].path = "./texture/shield_1.xpm";
 	data->img[SHIELD_2].path = "./texture/shield_2.xpm";
 	data->img[SHIELD_3].path = "./texture/shield_3.xpm";
@@ -84,6 +83,7 @@ static void	set_path_texture(t_data *data)
 	data->img[VULNERA_SANENTUR_ICN].path = "./texture/spell/vulnera_sanentur_icn.xpm";
 
 
+	data->img[SPELL_LOCK].path = "./texture/menu/spell_lock.xpm";
 	data->img[AGUAMENTI_NAME].path = "./texture/menu/aguamenti_name.xpm";
 	data->img[INCENDIO_NAME].path = "./texture/menu/incendio_name.xpm";
 	data->img[ARANIA_EXUMAI_NAME].path = "./texture/menu/arania_exumai_name.xpm";
