@@ -17,6 +17,9 @@ static void	set_path_texture(t_data *data)
 	data->img[DEMENTOR_FRONT].path = "./texture/dementor_front.xpm";
 	data->img[DEMENTOR_BACK].path = "./texture/dementor_back.xpm";
 	data->img[DEMENTOR_SIDE_90].path = "./texture/dementor_left.xpm";
+	data->img[DEMENTOR_FRONT_45].path = "./texture/dementor_front_45.xpm";
+	data->img[DEMENTOR_BACK_45].path = "./texture/dementor_back_45.xpm";
+
 	data->img[DOOR_MOVE].path = "./texture/door_close.xpm";
 	data->img[DOOR_FIXED].path = "./texture/door_open.xpm";
 	data->img[FLOO_CLOSE].path = "./texture/floo_close.xpm";
@@ -548,7 +551,7 @@ void	init_data(t_data *data, int ac, char **av)
 
 	data->player.life = 50;
 	data->player.shield = 50;
-	data->player.xp = 99.179;
+	data->player.xp = 99.175;
 	data->player.damage.damage_do = 1;
 
 	data->map.zoom = 128;

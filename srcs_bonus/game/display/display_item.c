@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <unistd.h>
 
-
 void	set_texture(t_data *data, int i, int j)
 {
 	t_img	*front;

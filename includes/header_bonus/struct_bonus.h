@@ -70,6 +70,10 @@ typedef enum e_side
 	BACK,
 	RIGHT,
 	LEFT,
+	LEFT_BACK,
+	LEFT_FRONT,
+	RIGHT_FRONT,
+	RIGHT_BACK,
 	BASIC,
 	REVERSED,
 }	t_side;
@@ -140,6 +144,8 @@ typedef enum e_imgs
 	DEMENTOR_FRONT,
 	DEMENTOR_SIDE_90,
 	DEMENTOR_BACK,
+	DEMENTOR_FRONT_45,
+	DEMENTOR_BACK_45,
 	DOOR_MOVE,
 	DOOR_FIXED,
 	FLOO_CLOSE,
@@ -229,7 +235,7 @@ typedef enum e_imgs
 	SHIELD_5,
 	SHIELD_6,
 }	t_imgs;
-# define NB_TEXTURES 128
+# define NB_TEXTURES 130
 
 typedef enum e_spells
 {
@@ -497,6 +503,8 @@ struct s_spell_menu
 	t_img	*background;
 	int		selected;
 	int		name_pos_y;
+	long long int		end_time;
+	long long int		start_time;
 };
 
 struct	s_ray

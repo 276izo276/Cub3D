@@ -3,6 +3,7 @@
 #include "utils_bonus.h"
 #include <color_bonus.h>
 #include <math.h>
+#include "time_bonus.h"
 
 
 static int	menu_border_case_spell(double x, double y, double base_x, double base_y)
@@ -92,6 +93,14 @@ static void	display_spell_take(t_data *data)
 				y++;
 			}
 			x++;
+		}
+		long long int cur_time = get_mtime();
+		if (cur_time < data->spell[data->spell_take[i]].end_time +  (cur_time - data->spell_menu.start_time) + data->spell[data->spell_take[i]].base_cooldown * 1000)
+		{
+			char *str;
+			str = ft_itoa(((data->spell[data->spell_take[i]].end_time + (cur_time - data->spell_menu.start_time)+ data->spell[data->spell_take[i]].base_cooldown * 1000) - cur_time) / 1000 + 1);
+			aff_text(str, 64, (t_coo){.x = calc_start_text(str, ((634 + 128 * i + 40 * (i)) + 64), data, 64), .y = 460 + 32}, data);
+			free(str);
 		}
 		i++;
 	}
@@ -225,11 +234,25 @@ static void	display_spell_list(t_data *data)
 	}
 }
 
+void	update_spell_cooldown(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	data->spell_menu.end_time = get_mtime() - data->spell_menu.start_time;
+	while (i < 4)
+	{
+		data->spell[data->spell_take[i]].end_time += data->spell_menu.end_time;
+		++i;
+	}
+}
+
 void	handle_menu_spell_keys(int keycode, t_data *data)
 {
 	if(keycode == KEY_ESCAPE || keycode == KEY_X)
 	{
 		data->spell_menu.selected = -1;
+		update_spell_cooldown(data);
 		data->status = GAME;
 	}
 	if (data->spell_menu.selected == -1)
@@ -248,7 +271,7 @@ void	handle_menu_spell_keys(int keycode, t_data *data)
 			else
 				data->selected = 3;
 		}
-		else if (keycode == KEY_ENTER && data->spell[data->spell_take[data->selected]].launch_time == 0)
+		else if (keycode == KEY_ENTER && data->spell_menu.start_time > data->spell[data->spell_take[data->selected]].end_time + data->spell[data->spell_take[data->selected]].base_cooldown * 1000)
 			data->spell_menu.selected = 0;
 	}
 	else

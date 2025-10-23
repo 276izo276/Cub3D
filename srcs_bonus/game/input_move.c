@@ -5,6 +5,7 @@
 #include "utils_bonus.h"
 #include <color_bonus.h>
 #include <math.h>
+#include "time_bonus.h"
 
 bool	is_move_player(t_data *data, int i)
 {
@@ -134,6 +135,7 @@ int	mouse_key(int key, int x, int y, t_data *data)
 		{
 			data->status = MENU_SPELL;
 			data->selected = 0;
+			data->spell_menu.start_time = get_mtime();
 		}
 		else if (data->status == MENU_SPELL)
 		{
@@ -356,6 +358,7 @@ int	key_press(int keycode, t_data *data)
 		if (data->status == GAME)
 		{
 			data->status = MENU_SPELL;
+			data->spell_menu.start_time = get_mtime();
 			data->selected = 0;
 		}
 	}
