@@ -264,7 +264,7 @@ static void	init_oppugno(t_data *data) // PAS FINI
 	data->spell[OPPUGNO].necessary_lvl = 8.0;
 }
 
-static void	init_vulnera_samentur(t_data *data)
+static void	init_vulnera_sanentur(t_data *data)
 {
 	data->spell[VULNERA_SANENTUR].base_cooldown = 30;
 	data->spell[VULNERA_SANENTUR].call = cast_vulnera_sanentur;
@@ -385,7 +385,7 @@ void	init_spell(t_data *data)
 	init_episkey(data);
 	init_stupefix(data);
 	init_oppugno(data);
-	init_vulnera_samentur(data);
+	init_vulnera_sanentur(data);
 	init_petrificus_totalus(data);
 	init_sectumsempra(data);
 	init_confundo(data);

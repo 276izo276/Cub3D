@@ -498,6 +498,7 @@ int	game_loop(t_data *data)
 	else
 	{
 		//DBG1printf("0\n");
+		// data->player.life -= .5;
 		move_item(data);
 		move_enemy(data);
 		handle_input_move(data, cur);
