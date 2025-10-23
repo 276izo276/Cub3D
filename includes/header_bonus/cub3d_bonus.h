@@ -14,6 +14,7 @@
 # define M_PI 3.14159265358979323846
 #endif
 
+void	calc_left_and_right_point(t_enemy *enemy, t_data *data);
 void	cast_vulnera_sanentur(t_data *data, t_spells info);
 void	f_way(t_enemy *enemy);
 void	cast_episkey(t_data *data, t_spells info);

@@ -396,14 +396,14 @@ static void	gen_enemy_way(t_data *data, t_enemy *enemy)
 
 void	calc_left_point(t_enemy *enemy)
 {
-	double	rad;
-	double	dy;
 	double	dx;
+	double	dy;
 	double	v_normalize;
+	double	aff_rad;
 
-	rad = enemy->rad + (90 * (M_PI / 180));
-	dx = sin(rad);
-	dy = cos(rad);
+	aff_rad = enemy->aff_rad + (90 * (M_PI / 180));
+	dx = sin(aff_rad);
+	dy = cos(aff_rad);
 	// printf("dx>>%lf     dy>>%lf\n",dx,dy);
 	if (round(dy) == 0.0 && round(dx) == 0.0)
 	{
@@ -446,15 +446,14 @@ void	calc_left_point(t_enemy *enemy)
 
 void	calc_right_point(t_enemy *enemy)
 {
-	double	rad;
 	double	dy;
 	double	dx;
 	double	v_normalize;
+	double	aff_rad;
 
-	rad = enemy->rad - (90 * (M_PI / 180));
-	dx = sin(rad);
-	dy = cos(rad);
-	// printf("dx>>%lf     dy>>%lf\n",dx,dy);
+	aff_rad = enemy->aff_rad - (90 * (M_PI / 180));
+	dx = sin(aff_rad);
+	dy = cos(aff_rad);
 	if (round(dy) == 0.0 && round(dx) == 0.0)
 	{
 		dy = 0;
@@ -494,6 +493,39 @@ void	calc_right_point(t_enemy *enemy)
 	}
 }
 
+void	calc_left_and_right_point(t_enemy *enemy, t_data *data)
+{
+	double	diff_x;
+	double	diff_y;
+
+	enemy->aff_deg = 0;
+	enemy->aff_rad = 0;
+	diff_x = (data->player.coo.case_x * 64 + data->player.coo.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
+	diff_y = (data->player.coo.case_y * 64 + data->player.coo.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
+	// printf("diff_y>%lf   diff_x>%lf\n",diff_y,diff_x);
+	if (diff_y != 0)
+	{
+		enemy->aff_deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
+		if (enemy->aff_deg < 0)
+			enemy->aff_deg = -enemy->aff_deg;
+	}
+	if (diff_y < 0 && diff_x < 0)
+		enemy->aff_deg = 180 + enemy->aff_deg;
+	else if (diff_y < 0 && diff_x > 0)
+		enemy->aff_deg = 180 - enemy->aff_deg;
+	else if (diff_y > 0 && diff_x < 0)
+		enemy->aff_deg = 360 - enemy->aff_deg;
+	else if (diff_y == 0 && diff_x < 0)
+		enemy->aff_deg = 270;
+	else if (diff_y == 0 && diff_x > 0)
+		enemy->aff_deg = 90;
+	else if (diff_x == 0 && diff_y < 0)
+		enemy->aff_deg = 180;
+	enemy->aff_deg = enemy->aff_deg;
+	enemy->aff_rad = enemy->aff_deg * (M_PI / 180);
+	calc_left_point(enemy);
+	calc_right_point(enemy);
+}
 
 void	try_hit_enemys(t_enemy *elem, t_data *data)
 {
@@ -686,8 +718,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			deg = 180;
 		enemy->deg = deg;
 		enemy->rad = enemy->deg * (M_PI / 180);
-		calc_left_point(enemy);
-		calc_right_point(enemy);
+		calc_left_and_right_point(enemy, data);
 
 		if (enemy->left.case_y < 0 || enemy->left.case_y > data->map.tabmap_height || enemy->left.case_x < 0 || enemy->left.case_x >= ft_strlen(data->map.tabmap[enemy->left.case_y]) || data->map.tabmap[enemy->left.case_y][enemy->left.case_x] == '1')
 		{
@@ -880,8 +911,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		// 	enemy->rad = enemy->deg * (M_PI / 180);
 		// }
 		//DBG2 printf("left coo y>%lf          center_coo>%lf\n",enemy->left.coo_y,enemy->center.coo_y);
-		calc_left_point(enemy);
-		calc_right_point(enemy);
+		calc_left_and_right_point(enemy, data);
 		// printf("coo after __IN__ case   y>%d    x>%d       coo   y>%lf      x>%lf\n",enemy->center.case_y,enemy->center.case_x,enemy->center.coo_y,enemy->center.coo_x);
 		return ;
 	}
@@ -932,8 +962,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	// }
 	// else
 	// {
-	calc_left_point(enemy);
-	calc_right_point(enemy);
+	calc_left_and_right_point(enemy, data);
 	enemy->left_before.coo_x = enemy->left.coo_x;
 	enemy->left_before.coo_y = enemy->left.coo_y;
 	enemy->left_before.case_x = enemy->left.case_x;
@@ -996,8 +1025,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	if (enemy->calc_path > 0)
 		enemy->calc_path--;
 	// printf("calc_path >>%d\n",enemy->calc_path);
-	calc_left_point(enemy);
-	calc_right_point(enemy);
+	calc_left_and_right_point(enemy, data);
 	//DBG1printf("m5\n");
 	try_hit_enemys(enemy, data);
 	// enemy->center.coo_x = round(enemy->center.coo_x);

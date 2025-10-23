@@ -25,10 +25,6 @@
 # define ITEM 1
 # define ENEMY 2
 # define DOOR 3
-# define BASIC 0
-# define FRONT 1
-# define BACK 2
-# define REVERSED 3
 
 typedef struct s_data		t_data;
 typedef struct s_map		t_map;
@@ -67,6 +63,16 @@ typedef	enum e_dir
 	EAST,
 	WEST
 } t_dir;
+
+typedef enum e_side
+{
+	FRONT,
+	BACK,
+	RIGHT,
+	LEFT,
+	BASIC,
+	REVERSED,
+}	t_side;
 
 typedef enum e_enum_class_spell
 {
@@ -331,6 +337,7 @@ struct	s_enemy
 {
 	t_img			*front_img;
 	t_img			*back_img;
+	t_img			*side_img;
 	t_enemy_info	type;
 	t_fcoo			center;
 	t_fcoo			left;
@@ -338,6 +345,8 @@ struct	s_enemy
 	t_fcoo			center_before;
 	t_fcoo			left_before;
 	t_fcoo			right_before;
+	double			aff_deg;
+	double			aff_rad;
 	double			deg;
 	double			rad;
 	double			radius;

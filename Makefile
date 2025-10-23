@@ -13,7 +13,7 @@ DBG ?= 1
 FULL_NAME ?= 1
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -MMD -DDEBUG_VALUE=${DEBUG_VALUE} -g3 -O3
+CFLAGS = -Wall -Werror -Wextra -MMD -DDEBUG_VALUE=${DEBUG_VALUE} -g3
 SHELL = /bin/bash
 
 EXECFLAGS = -lXext -lX11 -lm

@@ -130,11 +130,38 @@ void	try_hit_item(t_data *data, int i, double x)
 			data->ray[i].items[ray.j]->coo_y = fmod(ray.hy, 64);
 			data->ray[i].items[ray.j]->coo_x = fmod(ray.hx, 64);
 			data->ray[i].items[ray.j]->posx = ray.t;
+
 			data->ray[i].items[ray.j]->side = FRONT;
-			ray.deg = fmod(data->ray[i].deg + 360 - 90, 360);
-			if ((ray.deg <= enemy->deg && ray.deg + 180 >= enemy->deg)
-				|| (ray.deg >= enemy->deg && !(ray.deg - 180 <= enemy->deg)))
+			enemy->aff_deg = fmod(enemy->aff_deg, 360);
+			ray.deg = fmod(enemy->aff_deg + 45, 360);
+			if ((enemy->deg >= ray.deg && enemy->deg <= ray.deg + 90)
+			||	(enemy->deg <= ray.deg && enemy->deg <= ray.deg - 270))
+			{
+				// printf("left\n");
+				data->ray[i].items[ray.j]->side = LEFT;
+			}
+			ray.deg = fmod(enemy->aff_deg - 45 + 360, 360);
+			if ((enemy->deg <= ray.deg && enemy->deg >= ray.deg - 90)
+			||	(enemy->deg >= ray.deg && enemy->deg >= ray.deg + 270))
+			{
+				// printf("right\n");
+				data->ray[i].items[ray.j]->side = RIGHT;
+			}
+			ray.deg = fmod(enemy->aff_deg + 135, 360);
+			if ((enemy->deg >= ray.deg && enemy->deg <= ray.deg + 90)
+			||	(enemy->deg <= ray.deg && enemy->deg <= ray.deg - 270))
+			{
+				// printf("back  aff_deg>%lf    deg>%lf\n",enemy->aff_deg,enemy->deg);
 				data->ray[i].items[ray.j]->side = BACK;
+			}
+
+			// data->ray[i].items[ray.j]->side = FRONT;
+			// ray.deg = fmod(data->ray[i].deg + 360 - 90, 360);
+			// if ((ray.deg <= enemy->deg && ray.deg + 180 >= enemy->deg)
+			// 	|| (ray.deg >= enemy->deg && !(ray.deg - 180 <= enemy->deg)))
+			// 	data->ray[i].items[ray.j]->side = BACK;
+
+
 			// data->ray[i].items[ray.j]->texture = enemy->front_img;
 			// if (data->ray[i].items[ray.j]->side == BACK)
 				// data->ray[i].items[ray.j]->texture = enemy->back_img;
