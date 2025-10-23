@@ -132,6 +132,7 @@ typedef enum e_imgs
 	PLAYER_WAND,
 	LEFT_SELECT,
 	DEMENTOR_FRONT,
+	DEMENTOR_SIDE_90,
 	DEMENTOR_BACK,
 	DOOR_MOVE,
 	DOOR_FIXED,
@@ -222,7 +223,7 @@ typedef enum e_imgs
 	SHIELD_5,
 	SHIELD_6,
 }	t_imgs;
-# define NB_TEXTURES 127
+# define NB_TEXTURES 128
 
 typedef enum e_spells
 {
