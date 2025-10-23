@@ -27,9 +27,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 				f_exit(data, 0);
 			else if (data->keycode[i] >= KEY_1 && data->keycode[i] <= KEY_4)
 			{
-				if ((data->keycode[i] == KEY_3 && data->spell_menu.third_spell == true)
-					|| (data->keycode[i] == KEY_4 && data->spell_menu.last_spell == true)
-					|| (data->keycode[i] != KEY_3 && data->keycode[i] != KEY_4))
+				if (data->spell[data->spell_take[data->keycode[i] - KEY_1]].necessary_lvl <= data->player.xp)
 				{
 					data->cast_spell = data->spell_take[data->keycode[i] - KEY_1];
 					data->keycode[i] = 0;
@@ -322,7 +320,7 @@ void	aff_spell(t_data *data)
 				if (color != WHITE && color != RED && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 90 - 64))
 					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
 					= color;
-				if ((data->spell_menu.third_spell == false && i == 2) || (data->spell_menu.last_spell == false && i == 3))
+				if (data->spell[data->spell_take[i]].necessary_lvl > data->player.xp)
 				{
 					unsigned int	a = ((unsigned int)((y - (data->mlx.height - 90 - 64)) / 64 * data->img[SPELL_LOCK].height)) *  data->img[SPELL_LOCK].size_line;
 					unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 + 64 * i + 13 * (i))) / 64 * data->img[SPELL_LOCK].width)) * ( data->img[SPELL_LOCK].bits_per_pixel >> 3);
@@ -487,7 +485,7 @@ int	game_loop(t_data *data)
 	else if (data->status == MAP)
 		display_floo_map(data);
 	else if (data->status == MENU_SPELL)
-		handle_spells_menu(data, cur);
+		handle_spells_menu(data);
 	else
 	{
 		//DBG1printf("0\n");
@@ -534,6 +532,7 @@ int	game_loop(t_data *data)
 		}
 		//DBG1printf("6\n");
 	}
+	// is_new_level(data);
 	return (0);
 }
 

@@ -76,6 +76,19 @@ static void	display_spell_take(t_data *data)
 					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
 					= color;
 				}
+				if (data->spell[data->spell_take[i]].necessary_lvl > data->player.xp)
+				{
+					unsigned int	a = ((unsigned int)((y - 460) / 128 * data->img[SPELL_LOCK].height)) *  data->img[SPELL_LOCK].size_line;
+					unsigned int	b = ((unsigned int)((x - (634 + 128 * i + 40 * (i))) / 128 * data->img[SPELL_LOCK].width)) * ( data->img[SPELL_LOCK].bits_per_pixel >> 3);
+					color = *(unsigned int *)(data->img[SPELL_LOCK].data_addr + a + b);
+					if (color != YELLOW)
+					{
+						if (data->selected != i)
+						color = darken_the_color(color);
+						*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
+						= color;
+					}
+				}
 				y++;
 			}
 			x++;
@@ -146,7 +159,7 @@ static void	display_spell_list(t_data *data)
 					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
 					= color;
 				}
-				if (data->spell[i].is_available == false)
+				if (data->spell[i].necessary_lvl > data->player.xp)
 				{
 					unsigned int	a = ((unsigned int)((y - final_pos_y) / 64 * data->img[SPELL_LOCK].height)) *  data->img[SPELL_LOCK].size_line;
 					unsigned int	b = ((unsigned int)((x - (440 + 64 * (i % 8) + 71 * (i % 8))) / 64 * data->img[SPELL_LOCK].width)) * ( data->img[SPELL_LOCK].bits_per_pixel >> 3);
@@ -190,7 +203,7 @@ static void	display_spell_list(t_data *data)
 					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8))
 					= color;
 				}
-				if (data->spell[i].is_available == false)
+				if (data->spell[i].necessary_lvl > data->player.xp)
 				{
 					unsigned int	a = ((unsigned int)((y - final_pos_y) / 64 * data->img[SPELL_LOCK].height)) *  data->img[SPELL_LOCK].size_line;
 					unsigned int	b = ((unsigned int)((x - (600 + 64 * (i % 8) + 71 * (i % 8))) / 64 * data->img[SPELL_LOCK].width)) * ( data->img[SPELL_LOCK].bits_per_pixel >> 3);
@@ -290,24 +303,18 @@ void	handle_menu_spell_keys(int keycode, t_data *data)
 			else
 				data->spell_menu.selected -= 8;
 		}
-		else if (keycode == KEY_ENTER && data->spell[data->spell_menu.selected].is_available == true)
+		else if (keycode == KEY_ENTER && data->spell[data->spell_menu.selected].necessary_lvl <= data->player.xp)
 		{
 			data->spell_take[data->selected] = data->spell_menu.selected;
 			data->spell_menu.selected = -1;
 		}
 	}
 }
-void	handle_spells_menu(t_data *data, long long int cur)
+void	handle_spells_menu(t_data *data)
 {
-	(void)cur;
 	display_menu_background(data, data->spell_menu.background, 384, 57);
 	display_spell_take(data);
 	display_spell_list(data);
-	// if (data->pause_menu.elapsed + 1000 / 10 < cur)
-	// {
-	// 	handle_spell_menu_keys(data);
-	// 	data->pause_menu.elapsed = cur;
-	// }
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0, 0);
 }
  
