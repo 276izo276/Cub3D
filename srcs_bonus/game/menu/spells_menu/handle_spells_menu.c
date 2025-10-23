@@ -248,7 +248,7 @@ void	handle_menu_spell_keys(int keycode, t_data *data)
 			else
 				data->selected = 3;
 		}
-		else if (keycode == KEY_ENTER)
+		else if (keycode == KEY_ENTER && data->spell[data->spell_take[data->selected]].launch_time == 0)
 			data->spell_menu.selected = 0;
 	}
 	else
