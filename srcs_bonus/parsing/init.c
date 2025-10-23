@@ -545,7 +545,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->pause_menu.selected = 0;
 	data->pause_menu.elapsed = 0;
 
-	data->player.life = 50;
+	data->player.life = 100;
 	data->player.shield = 10;
 	data->player.xp = 99.179;
 	data->player.damage.damage_do = 1;

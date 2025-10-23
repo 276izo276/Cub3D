@@ -313,8 +313,8 @@ int	key_press(int keycode, t_data *data)
 {
 	int	i;
 
-	#include <stdio.h>
-	printf("keycode >> %d\n", keycode);
+	// #include <stdio.h>
+	// printf("keycode >> %d\n", keycode);
 	if (data->status == MENU)
 	{
 		handle_menu_keys(keycode, data);
