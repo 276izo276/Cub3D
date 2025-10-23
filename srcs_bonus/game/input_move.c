@@ -309,6 +309,8 @@ void	handle_floo_open(t_data *data)
 	else if (data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x - 1] == 'F')
 		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x - 1]->is_floo_open = true;
 }
+
+	// #include <stdio.h>
 int	key_press(int keycode, t_data *data)
 {
 	int	i;
