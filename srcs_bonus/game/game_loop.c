@@ -521,6 +521,7 @@ int	game_loop(t_data *data)
 			// sem_post(data->sem_display);
 			// sem_post(data->sem_display);
 			// sem_post(data->sem_display);
+			// data->player.life--;
 			pthread_barrier_wait(&data->barrier_display);
 			pthread_barrier_wait(&data->barrier_display);
 			mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
