@@ -152,7 +152,7 @@ void	draw_gradient(t_data *data, int start_x, int start_y);
 void	display_menu_background(t_data *data, t_img *img, int start_x, int start_y);
 
 //spells menu
-void	handle_spells_menu(t_data *data, long long int cur);
+void	handle_spells_menu(t_data *data	);
 void	handle_menu_spell_keys(int keycode, t_data *data);
 
 

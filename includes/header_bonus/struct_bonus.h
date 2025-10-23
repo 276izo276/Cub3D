@@ -229,23 +229,23 @@ typedef enum e_spells
 	LUMOS,
 	ARANIA_EXUMAI,
 	PROTEGO,
-	AGUAMENTI,
 	INCENDIO,
 	GLACIUS,
-	BOMBARDA,
-	VENTUS,
+	REPULSO,
+	AGUAMENTI,
+	EXPELLIARMUS,
 	EPISKEY,
 	EXPECTO_PATRONUM,
 	PETRIFICUS_TOTALUS,
-	EXPELLIARMUS,
-	REPULSO, 	
+	SERPENSORTIA,
+	VENTUS,
+	BOMBARDA,
 	STUPEFIX,
-	SECTUMSEMPRA,
 	OPPUGNO,
 	VULNERA_SANENTUR,
 	VIPERA_EVANESCA,
 	CONFUNDO,
-	SERPENSORTIA,
+	SECTUMSEMPRA,
 	ENDOLORIS,	
 	AVADA_KEDAVRA,
 	
@@ -742,7 +742,7 @@ struct s_spell
 	t_damage			damage;
 	t_item				item;
 	t_spells			type;
-	bool				is_available;
+	double				necessary_lvl;
 	double				base_cooldown;
 	double				base_timer;
 	long long int		launch_time;
