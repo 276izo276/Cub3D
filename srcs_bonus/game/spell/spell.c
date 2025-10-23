@@ -119,7 +119,7 @@ void	cast_protego(t_data *data, t_spells info)
 	}
 }
 
-void	spell_episkey(t_data *data)
+void	spell_heal(t_data *data)
 {
 	if (data->player.episkey_heal > 0)
 	{
@@ -129,6 +129,16 @@ void	spell_episkey(t_data *data)
 		if (data->player.episkey_frame <= 0)
 			data->player.episkey_heal = 0;
 	}
+	if (data->player.vul_sanen_heal > 0)
+	{
+		if (data->player.vul_sanen_frame > 0)
+			data->player.vul_sanen_frame--;
+		data->player.life += data->player.vul_sanen_heal;
+		if (data->player.vul_sanen_frame <= 0)
+			data->player.vul_sanen_heal = 0;
+	}
+	if (data->player.life > 100)
+		data->player.life = 100;
 }
 
 void	cast_episkey(t_data *data, t_spells info)
@@ -136,13 +146,30 @@ void	cast_episkey(t_data *data, t_spells info)
 	(void)data;
 	(void)info;
 	data->cast_spell = -1;
-	if (data->active_spell == -1 && get_mtime() > data->spell[info].end_time
-		+ data->spell[info].base_cooldown * 1000)
+	if (data->active_spell == -1 && get_mtime() > data->spell[EPISKEY].end_time
+		+ data->spell[EPISKEY].base_cooldown * 1000)
 	{
-		data->spell[info].launch_time = get_mtime();
+		data->spell[EPISKEY].launch_time = get_mtime();
 		data->player.episkey_frame = 150;
 		data->player.episkey_heal = .1;
-		data->spell[info].end_time = get_mtime();
+		data->spell[EPISKEY].end_time = get_mtime();
+	}
+}
+
+void	cast_vulnera_sanentur(t_data *data, t_spells info)
+{
+	(void)data;
+	(void)info;
+	data->cast_spell = -1;
+	if (data->active_spell == -1 && get_mtime() > data->spell[VULNERA_SANENTUR].end_time
+		+ data->spell[VULNERA_SANENTUR].base_cooldown * 1000)
+	{
+		data->spell[VULNERA_SANENTUR].launch_time = get_mtime();
+		data->player.vul_sanen_frame = 300;
+		data->player.vul_sanen_heal = .2;
+		data->player.damage.curse_force_take = 0;
+		data->player.damage.curse_frame_take = 0;
+		data->spell[VULNERA_SANENTUR].end_time = get_mtime();
 	}
 }
 

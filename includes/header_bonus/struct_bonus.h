@@ -766,6 +766,8 @@ struct	s_player
 	int			protego;
 	double		episkey_frame;
 	double		episkey_heal;
+	double		vul_sanen_frame;
+	double		vul_sanen_heal;
 };
 
 struct s_data

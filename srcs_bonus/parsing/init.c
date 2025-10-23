@@ -547,7 +547,7 @@ void	init_data(t_data *data, int ac, char **av)
 
 	data->player.life = 50;
 	data->player.shield = 10;
-	data->player.xp = 5.868486;
+	data->player.xp = 99.179;
 	data->player.damage.damage_do = 1;
 
 	data->map.zoom = 128;

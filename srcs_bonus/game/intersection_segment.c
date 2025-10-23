@@ -38,7 +38,7 @@ void	calc_scal(t_hitray *ray)
 	value = (ray->bx - ray->ax) * (ray->cy - ray->ay) - (ray->by - ray->ay) * (ray->cx - ray->ax);
 	if (value < 0)
 		value = -value;
-	if (value < 0.00001)
+	if (value < 0.000001)
 		return ;
 	if (ray->ax == ray->cx && ray->ay == ray->cy)
 		return ;

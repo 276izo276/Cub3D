@@ -14,10 +14,10 @@
 # define M_PI 3.14159265358979323846
 #endif
 
-
+void	cast_vulnera_sanentur(t_data *data, t_spells info);
 void	f_way(t_enemy *enemy);
 void	cast_episkey(t_data *data, t_spells info);
-void	spell_episkey(t_data *data);
+void	spell_heal(t_data *data);
 void	apply_damage(t_damage *take, t_damage *apply);
 void	spell_protego(t_data *data);
 void	cast_protego(t_data *data, t_spells info);

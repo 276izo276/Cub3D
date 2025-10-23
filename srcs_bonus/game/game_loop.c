@@ -128,6 +128,10 @@ void	aff_xp(t_data *data)
 		}
 		x++;
 	}
+	char *str;
+	str = ft_itoa((int)data->player.xp);
+	aff_text(str, 20, (t_coo){.x = calc_start_text(str, data->mlx.width - 365, data, 20), .y = data->mlx.height - 32}, data);
+	free(str);
 }
 
 void	aff_life(t_data *data)
@@ -339,14 +343,14 @@ void	aff_img_effect_info(t_img *img, int nb_effect, t_data *data)
 	double	x;
 	double	y;
 
-	x = data->mlx.width - 350 - (nb_effect * 20) - 30;
-	while (x < data->mlx.width - 350 - (nb_effect * 20) - 10)
+	x = data->mlx.width - 370 - (nb_effect * 20) - 30;
+	while (x < data->mlx.width - 370 - (nb_effect * 20) - 10)
 	{
 		y = data->mlx.height - 35;
 		while (y < data->mlx.height - 15)
 		{
 			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 35)) / 20 * img->height)) * img->size_line;
-			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 - (nb_effect * 20) - 30)) / 20 * img->width)) * ( img->bits_per_pixel >> 3);
+			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 370 - (nb_effect * 20) - 30)) / 20 * img->width)) * ( img->bits_per_pixel >> 3);
 			unsigned int	color = *(unsigned int *)(img->data_addr + a + b);
 			if (color != WHITE)
 				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
@@ -384,6 +388,11 @@ void	aff_effect_info(t_data *data)
 	if (data->player.episkey_heal > 0)
 	{
 		aff_img_effect_info(&data->img[EPISKEY_ICN], nb_effect, data);
+		nb_effect++;
+	}
+	if (data->player.vul_sanen_heal > 0)
+	{
+		aff_img_effect_info(&data->img[HEART], nb_effect, data);
 		nb_effect++;
 	}
 }
@@ -512,7 +521,7 @@ int	game_loop(t_data *data)
 			aff_spell(data);
 			aff_effect_info(data);
 			spell_protego(data);
-			spell_episkey(data);
+			spell_heal(data);
 			aff_protego(data);
 			display_hand(data);
 			aff_mini_map(data);

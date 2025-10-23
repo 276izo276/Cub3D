@@ -64,7 +64,7 @@ void	aff_text(char *str, int height, t_coo coo, t_data *data)
 
 		cur.y = coo.y;
 		new.x = coo.x + (double)((double)img->width / (double)img->height) * height;
-		while (cur.y < new.y && cur.y < data->mlx.height - MARGIN)
+		while (cur.y < new.y && cur.y < data->mlx.height)
 		{
 			cur.x = coo.x;
 			if (cur.x < 0)
