@@ -35,6 +35,8 @@ t_item	*init_spell_item(t_data *data, t_spells info)
 	item->damage.curse_frame_do = data->spell[info].damage.curse_frame_do;
 	item->damage.confundo_force_do = data->spell[info].damage.confundo_force_do;
 	item->damage.confundo_frame_do = data->spell[info].damage.confundo_frame_do;
+	item->damage.repulso_force_do = data->spell[info].damage.repulso_force_do;
+	item->damage.repulso_frame_do = data->spell[info].damage.repulso_frame_do;
 
 	item->radius = data->spell[info].item.radius;
 	item->back_img = data->spell[info].item.back_img;

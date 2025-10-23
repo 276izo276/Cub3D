@@ -139,6 +139,12 @@ int	try_hit_items(t_item *elem, t_data *data)
 			// enemy->damage.poison_frame_take += elem->damage.poison_frame_do;
 			// enemy->damage.fire_force_take += elem->damage.fire_force_do;
 			// enemy->damage.fire_frame_take += elem->damage.fire_frame_do;
+
+			// enemy->damage.hit.case_x = elem->damage.hit.case_x;
+			// enemy->damage.hit.case_y = elem->damage.hit.case_y;
+			// enemy->damage.hit.coo_x = elem->damage.hit.coo_x;
+			// enemy->damage.hit.coo_y = elem->damage.hit.coo_y;
+
 			apply_damage(&enemy->damage, &elem->damage);
 			lst = lst->next;
 			hit = true;
@@ -250,6 +256,10 @@ void	make_move_item(t_item *item, double speed)
 		item->center.coo_y -= 64;
 		item->center.case_y++;
 	}
+	item->damage.hit.case_x = item->center_before.case_x;
+	item->damage.hit.case_y = item->center_before.case_y;
+	item->damage.hit.coo_x = item->center_before.coo_x;
+	item->damage.hit.coo_y = item->center_before.coo_y;
 	calc_left_point_item(item);
 	calc_right_point_item(item);
 }
@@ -276,10 +286,10 @@ void	move_item(t_data *data)
 		item->right_before.coo_y = item->right.coo_y;
 		item->right_before.case_x = item->right.case_x;
 		item->right_before.case_y = item->right.case_y;
-		// item->center_before.coo_x = item->center.coo_x;
-		// item->center_before.coo_y = item->center.coo_y;
-		// item->center_before.case_x = item->center.case_x;
-		// item->center_before.case_y = item->center.case_y;
+		item->center_before.coo_x = item->center.coo_x;
+		item->center_before.coo_y = item->center.coo_y;
+		item->center_before.case_x = item->center.case_x;
+		item->center_before.case_y = item->center.case_y;
 		// printf("before move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
 		if (item->nb_move >= 1)
 			make_move_item(item, item->speed);

@@ -6,7 +6,7 @@ void	set_spell_take(t_data *data)
 	data->cast_spell = -1;
 	data->spell_take[0] = INCENDIO;
 	data->spell_take[1] = EPISKEY;
-	data->spell_take[2] = CONFUNDO;
+	data->spell_take[2] = REPULSO;
 	data->spell_take[3] = PROTEGO;
 }
 
@@ -28,9 +28,9 @@ static void	init_incendio(t_data *data)
 	data->spell[INCENDIO].call = cast_spell;
 	data->spell[INCENDIO].type = INCENDIO;
 	data->spell[INCENDIO].damage.damage_do = 10;
-	data->spell[INCENDIO].damage.fire_frame_do = 70;
+	data->spell[INCENDIO].damage.fire_frame_do = 60;
 	data->spell[INCENDIO].damage.fire_force_do = .1;
-	data->spell[INCENDIO].item.speed = 35;
+	data->spell[INCENDIO].item.speed = 0;
 	data->spell[INCENDIO].item.radius = 3;
 	data->spell[INCENDIO].item.front_img = &data->img[INCENDIO_IMG];
 	data->spell[INCENDIO].item.back_img = &data->img[INCENDIO_IMG];
@@ -50,7 +50,7 @@ static void	init_glacius(t_data *data)
 	data->spell[GLACIUS].damage.damage_do = 5;
 	data->spell[GLACIUS].damage.slow_force_do = 30;
 	data->spell[GLACIUS].damage.slow_frame_do = 35;
-	data->spell[GLACIUS].item.speed = 20;
+	data->spell[GLACIUS].item.speed = 0;
 	data->spell[GLACIUS].item.radius = 3;
 	data->spell[GLACIUS].item.front_img = &data->img[GLACIUS_IMG];
 	data->spell[GLACIUS].item.back_img = &data->img[GLACIUS_IMG];
@@ -60,16 +60,18 @@ static void	init_glacius(t_data *data)
 	data->spell[GLACIUS].necessary_lvl = 1.5;
 }
 
-static void	init_repulso(t_data *data) // PAS FINI 
+static void	init_repulso(t_data *data) 
 {
-	data->spell[REPULSO].base_cooldown = 5;
+	data->spell[REPULSO].base_cooldown = 0;
 	data->spell[REPULSO].call = cast_spell;
-	data->spell[REPULSO].type = BOMBARDA;
-	data->spell[REPULSO].damage.damage_do = 25;
+	data->spell[REPULSO].type = REPULSO;
+	data->spell[REPULSO].damage.damage_do = 5;
+	data->spell[REPULSO].damage.repulso_force_do = 1.2;
+	data->spell[REPULSO].damage.repulso_frame_do = 15;
 	data->spell[REPULSO].item.speed = 0;
-	data->spell[REPULSO].item.radius = 6;
-	data->spell[REPULSO].item.front_img = &data->img[BOMBARDA_IMG];
-	data->spell[REPULSO].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[REPULSO].item.radius = 3;
+	data->spell[REPULSO].item.front_img = &data->img[REPULSO_IMG];
+	data->spell[REPULSO].item.back_img = &data->img[REPULSO_IMG];
 	data->spell[REPULSO].class = OFFENSIVE_SPELL;
 	data->spell[REPULSO].icn = &data->img[REPULSO_ICN];
 	data->spell[REPULSO].icn_name = &data->img[REPULSO_NAME];
@@ -82,7 +84,7 @@ static void	init_aguamenti(t_data *data)
 	data->spell[AGUAMENTI].call = cast_spell;
 	data->spell[AGUAMENTI].type = AGUAMENTI;
 	data->spell[AGUAMENTI].damage.damage_do = 5;
-	data->spell[AGUAMENTI].item.speed = 25;
+	data->spell[AGUAMENTI].item.speed = 0;
 	data->spell[AGUAMENTI].item.radius = 3;
 	data->spell[AGUAMENTI].item.front_img = &data->img[AGUAMENTI_IMG];
 	data->spell[AGUAMENTI].item.back_img = &data->img[AGUAMENTI_IMG];
@@ -99,7 +101,7 @@ static void	init_arania_exumai(t_data *data)
 	data->spell[ARANIA_EXUMAI].type = ARANIA_EXUMAI;
 	data->spell[ARANIA_EXUMAI].damage.damage_spider_do = 25;
 	data->spell[ARANIA_EXUMAI].damage.damage_do = 5;
-	data->spell[ARANIA_EXUMAI].item.speed = 70;
+	data->spell[ARANIA_EXUMAI].item.speed = 0;
 	data->spell[ARANIA_EXUMAI].item.radius = 3;
 	data->spell[ARANIA_EXUMAI].item.front_img = &data->img[ARANIA_EXUMAI_IMG];
 	data->spell[ARANIA_EXUMAI].item.back_img = &data->img[ARANIA_EXUMAI_IMG];
@@ -126,12 +128,12 @@ static void	init_expelliarmus(t_data *data) // PAS FINI
 {
 	data->spell[EXPELLIARMUS].base_cooldown = 5;
 	data->spell[EXPELLIARMUS].call = cast_spell;
-	data->spell[EXPELLIARMUS].type = BOMBARDA;
+	data->spell[EXPELLIARMUS].type = EXPELLIARMUS;
 	data->spell[EXPELLIARMUS].damage.damage_do = 25;
 	data->spell[EXPELLIARMUS].item.speed = 0;
-	data->spell[EXPELLIARMUS].item.radius = 6;
-	data->spell[EXPELLIARMUS].item.front_img = &data->img[BOMBARDA_IMG];
-	data->spell[EXPELLIARMUS].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[EXPELLIARMUS].item.radius = 3;
+	data->spell[EXPELLIARMUS].item.front_img = &data->img[EXPELLIARMUS_IMG];
+	data->spell[EXPELLIARMUS].item.back_img = &data->img[EXPELLIARMUS_IMG];
 	data->spell[EXPELLIARMUS].class = OFFENSIVE_SPELL;
 	data->spell[EXPELLIARMUS].icn = &data->img[EXPELLIARMUS_ICN];
 	data->spell[EXPELLIARMUS].icn_name = &data->img[EXPELLIARMUS_NAME];
