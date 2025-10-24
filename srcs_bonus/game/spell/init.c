@@ -232,7 +232,7 @@ static void	init_episkey(t_data *data)
 	data->spell[EPISKEY].necessary_lvl = 7.0;
 }
 
-static void	init_stupefix(t_data *data) // PAS FINI
+static void	init_stupefix(t_data *data)
 {
 	data->spell[STUPEFIX].base_cooldown = 0;
 	data->spell[STUPEFIX].call = cast_spell;
@@ -294,16 +294,18 @@ static void	init_petrificus_totalus(t_data *data)
 	data->spell[PETRIFICUS_TOTALUS].necessary_lvl = 9.0;
 }
 
-static void    init_sectumsempra(t_data *data) // PAS FINI
+static void    init_sectumsempra(t_data *data)
 {
     data->spell[SECTUMSEMPRA].base_cooldown = 5;
     data->spell[SECTUMSEMPRA].call = cast_spell;
-    data->spell[SECTUMSEMPRA].type = BOMBARDA;
-    data->spell[SECTUMSEMPRA].damage.damage_do = 25;
+    data->spell[SECTUMSEMPRA].type = SECTUMSEMPRA;
+    data->spell[SECTUMSEMPRA].damage.damage_do = 21;
+    data->spell[SECTUMSEMPRA].damage.curse_frame_do = 210;
+    data->spell[SECTUMSEMPRA].damage.curse_force_do = .1;
     data->spell[SECTUMSEMPRA].item.speed = 0;
-    data->spell[SECTUMSEMPRA].item.radius = 6;
-    data->spell[SECTUMSEMPRA].item.front_img = &data->img[BOMBARDA_IMG];
-    data->spell[SECTUMSEMPRA].item.back_img = &data->img[BOMBARDA_IMG];
+    data->spell[SECTUMSEMPRA].item.radius = 3;
+    data->spell[SECTUMSEMPRA].item.front_img = &data->img[SECTUMSEMPRA_IMG];
+    data->spell[SECTUMSEMPRA].item.back_img = &data->img[SECTUMSEMPRA_IMG];
     data->spell[SECTUMSEMPRA].class = OFFENSIVE_SPELL;
     data->spell[SECTUMSEMPRA].icn = &data->img[SECTUMSEMPRA_ICN];
     data->spell[SECTUMSEMPRA].icn_name = &data->img[SECTUMSEMPRA_NAME];

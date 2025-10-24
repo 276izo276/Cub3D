@@ -166,7 +166,7 @@ void	cast_vulnera_sanentur(t_data *data, t_spells info)
 	{
 		data->spell[VULNERA_SANENTUR].launch_time = get_mtime();
 		data->player.vul_sanen_frame = 300;
-		data->player.vul_sanen_heal = .2;
+		data->player.vul_sanen_heal = .1;
 		data->player.damage.curse_force_take = 0;
 		data->player.damage.curse_frame_take = 0;
 		data->spell[VULNERA_SANENTUR].end_time = get_mtime();
