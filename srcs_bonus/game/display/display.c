@@ -72,8 +72,8 @@ static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x)
 	char			*pixel_addr;
 	unsigned int	color;
 
-	text_y = (data->ray[i].pix_y - data->ray[i].htop_wall)
-		* data->ray[i].img->height / dist_heigh;
+	text_y = (data->ray[i].pix_y - data->ray[i].htop_wall) / dist_heigh
+		* data->ray[i].img->height ;
 	pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
 			* data->screen->size_line);
 	text_pix = data->ray[i].img->data_addr + (text_y
