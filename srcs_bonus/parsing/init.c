@@ -14,11 +14,32 @@ static void	set_path_texture(t_data *data)
 	data->img[PLAYER_HAND].path = "./texture/player_hand/wand_sureau.xpm";
 	data->img[PLAYER_WAND].path = "./texture/player_hand/wand_sureau.xpm";
 	data->img[LEFT_SELECT].path = "./texture/menu/left_select.xpm";
+
+
 	data->img[DEMENTOR_FRONT].path = "./texture/dementor_front.xpm";
 	data->img[DEMENTOR_BACK].path = "./texture/dementor_back.xpm";
 	data->img[DEMENTOR_SIDE_90].path = "./texture/dementor_90.xpm";
 	data->img[DEMENTOR_FRONT_45].path = "./texture/dementor_front_45.xpm";
 	data->img[DEMENTOR_BACK_45].path = "./texture/dementor_back_45.xpm";
+
+
+	data->img[SPIDER_FRONT].path = "./texture/spider_front.xpm";
+	data->img[SPIDER_BACK].path = "./texture/spider_back.xpm";
+	data->img[SPIDER_SIDE_90].path = "./texture/spider_90.xpm";
+	data->img[SPIDER_FRONT_45].path = "./texture/spider_front_45.xpm";
+	data->img[SPIDER_BACK_45].path = "./texture/spider_back_45.xpm";
+
+	data->img[WOLF_FRONT].path = "./texture/wolf_front.xpm";
+	data->img[WOLF_BACK].path = "./texture/wolf_back.xpm";
+	data->img[WOLF_SIDE_90].path = "./texture/wolf_90.xpm";
+	data->img[WOLF_FRONT_45].path = "./texture/wolf_front_45.xpm";
+	data->img[WOLF_BACK_45].path = "./texture/wolf_back_45.xpm";
+
+	data->img[ELEM_FRONT].path = "./texture/elem_front.xpm";
+	data->img[ELEM_BACK].path = "./texture/elem_back.xpm";
+	data->img[ELEM_SIDE_90].path = "./texture/elem_90.xpm";	
+	data->img[ELEM_FRONT_45].path = "./texture/elem_front_45.xpm";
+	data->img[ELEM_BACK_45].path = "./texture/elem_back_45.xpm";
 
 	data->img[DOOR_MOVE].path = "./texture/door_close.xpm";
 	data->img[DOOR_FIXED].path = "./texture/door_open.xpm";
@@ -551,9 +572,11 @@ void	init_data(t_data *data, int ac, char **av)
 
 	data->player.life = 100;
 	data->player.shield = 0;
-	data->player.xp = 99.175;
+	data->player.xp = 11.0;
 	data->player.damage.damage_do = 1;
 
+	data->spawn_frame = 100;
+	data->last_spawn = get_mtime();
 	data->map.zoom = 128;
 	data->map.last_mouse_x = 960;
 	data->map.last_mouse_y = 555;

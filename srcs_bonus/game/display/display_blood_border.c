@@ -225,3 +225,4 @@ void	display_blood_border(t_data *data, int start_x, int max_x)
 	radius = (int)(life_factor * (data->mlx.width) / 2.5);
 	draw_border(data, radius, start_x, max_x);
 }
+

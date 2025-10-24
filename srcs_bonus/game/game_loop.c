@@ -480,11 +480,112 @@ void	take_damage(t_data *data)
 		f_exit(data, 1);
 }
 
+double	max(double a, double b)
+{
+	if (a < b)
+		return (b);
+	return (a);
+}
+
+double	min(double a, double b)
+{
+	if (a > b)
+		return (b);
+	return (a);
+}
+void	update_enemy(t_data *data)
+{
+	int	random;
+	int	x;
+	int	y;
+
+	y = 0;
+	data->spider_factor = max(10, 100 - (data->player.xp * 10));
+	data->elem_factor = min(15, data->player.xp * 5);
+	if (data->player.xp >= 3)
+		data->dementor_factor = min(35, (data->player.xp - 2) * 2);
+	if (data->player.xp >= 7)
+		data->wolf_factor = min(40, (data->player.xp - 6) * 2);
+	double total_factor = data->spider_factor + data->dementor_factor + data->elem_factor + data->wolf_factor;
+	data->spider_factor = (data->spider_factor / total_factor) * 100;
+	data->elem_factor = (data->elem_factor / total_factor) * 100;
+	data->dementor_factor = (data->dementor_factor / total_factor) * 100;
+	data->wolf_factor = (data->wolf_factor / total_factor) * 100;
+	while (data->map.tabmap[y])
+	{
+		x = 0;
+		while (data->map.tabmap[y][x])
+		{
+			if (data->map.tabmap[y][x] == '0')
+			{
+				random = rand() % 15000;
+				if (random <= data->player.xp * 2)
+				{
+					random = rand() % 100;
+					total_factor = data->spider_factor;
+					if (random <= total_factor)
+					{
+						printf("add spider\n");
+						data->enemy = add_end_lst(init_enemy(',', y, x, data), data->enemy, f_enemy);
+						if (!data->enemy)
+							f_exit(data, 1);
+						data->nb_enemy++;
+					}
+					else
+					{
+						total_factor += data->elem_factor;
+						if (random <= total_factor)
+						{
+
+							data->enemy = add_end_lst(init_enemy('>', y, x, data), data->enemy, f_enemy);
+							if (!data->enemy)
+								f_exit(data, 1);
+							printf("add elem\n");
+						}
+						else
+						{
+							total_factor += data->dementor_factor;
+							if (random <= total_factor)
+							{
+	
+								data->enemy = add_end_lst(init_enemy('.', y, x, data), data->enemy, f_enemy);
+								if (!data->enemy)
+									f_exit(data, 1);
+								printf("add dementor\n");
+							}
+							else
+							{
+								total_factor += data->wolf_factor;
+								if (random <= total_factor)
+								{
+		
+									data->enemy = add_end_lst(init_enemy('<', y, x, data), data->enemy, f_enemy);
+									if (!data->enemy)
+										f_exit(data, 1);
+									printf("add wolf\n");
+								}
+							}
+						}
+					}
+				}
+			}
+			++x;
+		}
+		++y;
+	}
+}
+
 int	game_loop(t_data *data)
 {
 	long long int	cur;
 	
 	cur = get_mtime();
+	if (cur - data->last_spawn >= data->spawn_frame)
+	{
+		update_enemy(data);
+		data->last_spawn = get_mtime();
+		// data->player.xp++;
+	}
 	if (data->status == MENU)
 		display_menu(data);
 	else if (data->status == PAUSE)
@@ -509,7 +610,7 @@ int	game_loop(t_data *data)
 		//DBG1printf("5\n");
 		if (data->time_fps + 1000 / FPS < cur)
 		{
-			printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
+			// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 			data->time_fps = cur;
 			pthread_barrier_wait(&data->barrier_background);
 			// sem_post(data->sem_background);

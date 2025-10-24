@@ -1532,6 +1532,8 @@ void	move_enemy(t_data *data)
 		if (enemy->life <= 0)
 		{
 			data->enemy = remove_elem_lst(lst);
+			if (enemy->type == DEMENTOR)
+				data->player.xp += 0.25;
 			f_elem_lst(lst);
 			return ;
 		}

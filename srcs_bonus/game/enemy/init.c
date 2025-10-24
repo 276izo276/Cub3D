@@ -27,12 +27,42 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	enemy->damage.poison_force_do = 0;
 	enemy->rad = enemy->deg * (M_PI / 180);
 	enemy->calc = true;
-	enemy->back_img = &data->img[DEMENTOR_BACK];
-	enemy->front_img = &data->img[DEMENTOR_FRONT];
-	enemy->side_img = &data->img[DEMENTOR_SIDE_90];
-	enemy->side_front_img = &data->img[DEMENTOR_FRONT_45];
-	enemy->side_back_img = &data->img[DEMENTOR_BACK_45];
-	enemy->life = 100;
+	if (c == '.')
+	{
+		enemy->back_img = &data->img[DEMENTOR_BACK];
+		enemy->front_img = &data->img[DEMENTOR_FRONT];
+		enemy->side_img = &data->img[DEMENTOR_SIDE_90];
+		enemy->side_front_img = &data->img[DEMENTOR_FRONT_45];
+		enemy->side_back_img = &data->img[DEMENTOR_BACK_45];
+		enemy->life = 100;
+	}
+	else if (c == ',')
+	{
+		enemy->back_img = &data->img[SPIDER_BACK];
+		enemy->front_img = &data->img[SPIDER_FRONT];
+		enemy->side_img = &data->img[SPIDER_SIDE_90];
+		enemy->side_front_img = &data->img[SPIDER_FRONT_45];
+		enemy->side_back_img = &data->img[SPIDER_BACK_45];
+		enemy->life = 100;
+	}
+	else if (c == '>')
+	{
+		enemy->back_img = &data->img[ELEM_BACK];
+		enemy->front_img = &data->img[ELEM_FRONT];
+		enemy->side_img = &data->img[ELEM_SIDE_90];
+		enemy->side_front_img = &data->img[ELEM_FRONT_45];
+		enemy->side_back_img = &data->img[ELEM_BACK_45];
+		enemy->life = 100;
+	}
+	else if (c == '<')
+	{
+		enemy->back_img = &data->img[WOLF_BACK];
+		enemy->front_img = &data->img[WOLF_FRONT];
+		enemy->side_img = &data->img[WOLF_SIDE_90];
+		enemy->side_front_img = &data->img[WOLF_FRONT_45];
+		enemy->side_back_img = &data->img[WOLF_BACK_45];
+		enemy->life = 100;
+	}
 	calc_left_and_right_point(enemy, data);
 	(void)data;
 	return (enemy);

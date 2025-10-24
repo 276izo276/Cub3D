@@ -4,9 +4,9 @@
 # include "struct_bonus.h"
 # include <stdbool.h>
 # define MARGIN 100
-# define SEM_BACKGROUND "/sem_background"
-# define SEM_DOOR "/sem_door"
-# define SEM_DISPLAY "/sem_display"
+// # define SEM_BACKGROUND "/sem_background"
+// # define SEM_DOOR "/sem_door"
+// # define SEM_DISPLAY "/sem_display"
 
 // # define SEM_START "/sem_start"
 

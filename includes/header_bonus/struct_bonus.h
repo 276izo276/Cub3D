@@ -146,6 +146,21 @@ typedef enum e_imgs
 	DEMENTOR_BACK,
 	DEMENTOR_FRONT_45,
 	DEMENTOR_BACK_45,
+	SPIDER_FRONT,
+	SPIDER_SIDE_90,
+	SPIDER_BACK,
+	SPIDER_FRONT_45,
+	SPIDER_BACK_45,
+	ELEM_FRONT,
+	ELEM_SIDE_90,
+	ELEM_BACK,
+	ELEM_FRONT_45,
+	ELEM_BACK_45,
+	WOLF_FRONT,
+	WOLF_SIDE_90,
+	WOLF_BACK,
+	WOLF_FRONT_45,
+	WOLF_BACK_45,
 	DOOR_MOVE,
 	DOOR_FIXED,
 	FLOO_CLOSE,
@@ -235,7 +250,7 @@ typedef enum e_imgs
 	SHIELD_5,
 	SHIELD_6,
 }	t_imgs;
-# define NB_TEXTURES 130
+# define NB_TEXTURES 145
 
 typedef enum e_spells
 {
@@ -855,6 +870,10 @@ struct s_data
 	// t_img	*bl;
 	int			nb_enemy;
 	int			nb_create_enemy;
+	double			spider_factor;
+	double			elem_factor;
+	double			dementor_factor;
+	double			wolf_factor;
 	t_player	player;
 	t_spell		spell[NB_SPELL];
 	int			spell_take[4];
@@ -864,6 +883,8 @@ struct s_data
 	t_lst		*item;
 	t_lst		*door;
 	int			frame_floo;
+	long long int spawn_frame;
+	long long int last_spawn;
 };
 
 t_coo	*init_t_coo(int y, int x);
