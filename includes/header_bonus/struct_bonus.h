@@ -1,5 +1,5 @@
-#ifndef STRUCT_H
-# define STRUCT_H
+#ifndef STRUCT_BONUS_H
+# define STRUCT_BONUS_H
 
 # include "t_lst.h"
 # include <stdbool.h>
@@ -33,7 +33,7 @@ typedef struct s_ray		t_ray;
 typedef struct s_color		t_color;
 typedef	struct s_mlx		t_mlx;
 typedef struct s_coo		t_coo;
-typedef struct s_coo_mini		t_coo_mini;
+typedef struct s_coo_mini	t_coo_mini;
 typedef	struct s_mini		t_mini;
 typedef struct s_utils_mini	t_utils_mini;
 typedef struct s_display	t_display;
@@ -310,6 +310,7 @@ struct s_wall_msg
 
 struct s_damage
 {
+	t_fcoo		hit;
 	double		damage_do;
 	double		damage_spider_do;
 	double		damage_dementor_do;
@@ -323,6 +324,8 @@ struct s_damage
 	double		curse_frame_do;
 	double		confundo_frame_do;
 	double		confundo_force_do;
+	double		repulso_frame_do;
+	double		repulso_force_do;
 	
 	double		damage_take;
 	double		damage_spider_take;
@@ -337,6 +340,8 @@ struct s_damage
 	double		curse_frame_take;
 	double		confundo_frame_take;
 	double		confundo_force_take;
+	double		repulso_frame_take;
+	double		repulso_force_take;
 };
 
 struct	s_enemy

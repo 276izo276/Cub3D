@@ -17,8 +17,8 @@ void	display_menu_background(t_data *data, t_img *img, int start_x, int start_y)
 		while (x < img->width)
 		{
 			color = get_texture_pixel(img,x ,y);
-			if (color != 0)
-				pixel_put(data, x + start_x, y + start_y, color);
+			// if (color != 0)
+			pixel_put(data, x + start_x, y + start_y, color);
 			++x;
 		}
 		++y;

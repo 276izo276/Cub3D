@@ -16,7 +16,7 @@ static void	set_path_texture(t_data *data)
 	data->img[LEFT_SELECT].path = "./texture/menu/left_select.xpm";
 	data->img[DEMENTOR_FRONT].path = "./texture/dementor_front.xpm";
 	data->img[DEMENTOR_BACK].path = "./texture/dementor_back.xpm";
-	data->img[DEMENTOR_SIDE_90].path = "./texture/dementor_left.xpm";
+	data->img[DEMENTOR_SIDE_90].path = "./texture/dementor_90.xpm";
 	data->img[DEMENTOR_FRONT_45].path = "./texture/dementor_front_45.xpm";
 	data->img[DEMENTOR_BACK_45].path = "./texture/dementor_back_45.xpm";
 
@@ -48,8 +48,8 @@ static void	set_path_texture(t_data *data)
 	data->img[ENDOLORIS_IMG].path = "./texture/spell/curse_spell.xpm";
 	data->img[EPISKEY_IMG].path = "./texture/spell/glacius.xpm";
 	data->img[EXPECTO_PATRONUM_IMG].path = "./texture/spell/glacius.xpm";
-	data->img[EXPELLIARMUS_IMG].path = "./texture/spell/glacius.xpm";
-	data->img[REPULSO_IMG].path = "./texture/spell/glacius.xpm";
+	data->img[EXPELLIARMUS_IMG].path = "./texture/spell/expelliarmus.xpm";
+	data->img[REPULSO_IMG].path = "./texture/spell/repulso.xpm";
 	data->img[STUPEFIX_IMG].path = "./texture/spell/glacius.xpm";
 	data->img[OPPUGNO_IMG].path = "./texture/spell/glacius.xpm";
 	data->img[SECTUMSEMPRA_IMG].path = "./texture/spell/glacius.xpm";

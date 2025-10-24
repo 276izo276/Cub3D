@@ -1,5 +1,7 @@
 #include "struct_bonus.h"
 
+#include <stdio.h>
+
 void	apply_damage(t_damage *take, t_damage *apply)
 {
 	take->damage_take += apply->damage_do;
@@ -15,4 +17,11 @@ void	apply_damage(t_damage *take, t_damage *apply)
 	take->curse_frame_take += apply->curse_frame_do;
 	take->confundo_force_take += apply->confundo_force_do;
 	take->confundo_frame_take += apply->confundo_frame_do;
+	take->repulso_force_take += apply->repulso_force_do;
+	take->repulso_frame_take += apply->repulso_frame_do;
+
+	take->hit.case_x = apply->hit.case_x;
+	take->hit.case_y = apply->hit.case_y;
+	take->hit.coo_x = apply->hit.coo_x;
+	take->hit.coo_y = apply->hit.coo_y;
 }
