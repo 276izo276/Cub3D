@@ -71,7 +71,7 @@ void	*display_fst_part(void *ptr);
 void	*display_snd_part(void *ptr);
 void	*display_third_part(void *ptr);
 void	*display_last_part(void *ptr);
-void    display_blood_border(t_data *data);
+void    display_blood_border(t_data *data, int start_x, int max_x);
 void    display_floo_map(t_data *data);
 bool    is_center_floo(t_data *data, int pos_x, int pos_y);
 void    draw_player(t_data *data, int pos_x, int pos_y);
@@ -121,10 +121,18 @@ int		game_loop(t_data *data);
 int		close_win(t_data *data);
 
 //display_floor.c
-void	*display_floor(void *ptr);
+void	*display_floor_first(void *ptr);
+void	*display_floor_snd(void *ptr);
+void	*display_floor_third(void *ptr);
+void	*display_floor_last(void *ptr);
+
 
 //display_sky.c
-void	*display_sky(void *ptr);
+void	*display_sky_first(void *ptr);
+void	*display_sky_snd(void *ptr);
+void	*display_sky_third(void *ptr);
+void	*display_sky_last(void *ptr);
+
 
 //display_hand.c
 void	display_hand(t_data *data);

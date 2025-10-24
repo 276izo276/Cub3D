@@ -54,7 +54,7 @@ static void	put_text_pix_img(t_data *data, t_display *display, int x, int y)
 	*(unsigned int *)display->pixel_addr = display->color;
 }
 
-void	*display_sky(void *ptr)
+void	*display_sky_first(void *ptr)
 {
 	int	x;
 	int	y;
@@ -73,7 +73,121 @@ void	*display_sky(void *ptr)
 		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
 		display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
 		y = 0;
-		while (y < data->screen->height / 2)
+		while (y < data->screen->height / 8)
+		{
+			get_world_size(data, &display, y);
+			x = 0;
+			while (x < data->mlx.width)
+			{
+				get_coo_world(data, &display, x);
+				get_coo_text(data, &display);
+				put_text_pix_img(data, &display, x, y);
+				++x;
+			}
+			++y;
+		}
+		pthread_barrier_wait(&data->barrier_background);
+		// pthread_barrier_wait(&data->barrier);
+	}
+	return (NULL);
+}
+
+void	*display_sky_snd(void *ptr)
+{
+	int	x;
+	int	y;
+	t_data *data;
+	t_display display;
+
+	data = (t_data *)ptr;
+	display = data->display;
+	while (1)
+	{
+		// sem_post(data->sem_start);
+		// sem_wait(data->sem_background);
+		pthread_barrier_wait(&data->barrier_background);
+		display.cos_angle = cos(data->map.mini.rad);
+		display.sin_angle = sin(data->map.mini.rad);
+		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
+		display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
+		y = data->screen->height / 8;
+		while (y < data->screen->height / 8 * 2)
+		{
+			get_world_size(data, &display, y);
+			x = 0;
+			while (x < data->mlx.width)
+			{
+				get_coo_world(data, &display, x);
+				get_coo_text(data, &display);
+				put_text_pix_img(data, &display, x, y);
+				++x;
+			}
+			++y;
+		}
+		pthread_barrier_wait(&data->barrier_background);
+		// pthread_barrier_wait(&data->barrier);
+	}
+	return (NULL);
+}
+
+void	*display_sky_third(void *ptr)
+{
+	int	x;
+	int	y;
+	t_data *data;
+	t_display display;
+
+	data = (t_data *)ptr;
+	display = data->display;
+	while (1)
+	{
+		// sem_post(data->sem_start);
+		// sem_wait(data->sem_background);
+		pthread_barrier_wait(&data->barrier_background);
+		display.cos_angle = cos(data->map.mini.rad);
+		display.sin_angle = sin(data->map.mini.rad);
+		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
+		display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
+		y = data->screen->height / 8 * 2;
+		while (y < data->screen->height / 8 * 3)
+		{
+			get_world_size(data, &display, y);
+			x = 0;
+			while (x < data->mlx.width)
+			{
+				get_coo_world(data, &display, x);
+				get_coo_text(data, &display);
+				put_text_pix_img(data, &display, x, y);
+				++x;
+			}
+			++y;
+		}
+		pthread_barrier_wait(&data->barrier_background);
+		// pthread_barrier_wait(&data->barrier);
+	}
+	return (NULL);
+}
+
+void	*display_sky_last(void *ptr)
+{
+	int	x;
+	int	y;
+	t_data *data;
+	t_display display;
+
+	data = (t_data *)ptr;
+	display = data->display;
+	while (1)
+	{
+		// sem_post(data->sem_start);
+		// sem_wait(data->sem_background);
+		pthread_barrier_wait(&data->barrier_background);
+		display.cos_angle = cos(data->map.mini.rad);
+		display.sin_angle = sin(data->map.mini.rad);
+		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
+		display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
+		y = data->screen->height / 8 * 3;
+		while (y <= data->screen->height / 8 * 4)
 		{
 			get_world_size(data, &display, y);
 			x = 0;
