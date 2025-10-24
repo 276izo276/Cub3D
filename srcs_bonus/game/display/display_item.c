@@ -14,6 +14,8 @@ void	set_texture(t_data *data, int i, int j)
 	t_img	*front;
 	t_img	*back;
 	t_img	*side;
+	t_img	*side_front;
+	t_img	*side_back;
 
 	if (data->ray[i].items[j]->type == ITEM)
 	{
@@ -25,6 +27,8 @@ void	set_texture(t_data *data, int i, int j)
 		front = data->ray[i].items[j]->enemy->front_img;
 		back = data->ray[i].items[j]->enemy->back_img;
 		side = data->ray[i].items[j]->enemy->side_img;
+		side_back = data->ray[i].items[j]->enemy->side_back_img;
+		side_front = data->ray[i].items[j]->enemy->side_front_img;
 	}
 	if (data->ray[i].items[j]->type == DOOR)
 		data->ray[i].items[j]->texture = &data->img[DOOR_FIXED];
@@ -38,6 +42,10 @@ void	set_texture(t_data *data, int i, int j)
 		data->ray[i].items[j]->texture = front;
 	else if (data->ray[i].items[j]->side == RIGHT || data->ray[i].items[j]->side == LEFT)
 		data->ray[i].items[j]->texture = side;
+	else if (data->ray[i].items[j]->side == LEFT_FRONT || data->ray[i].items[j]->side == RIGHT_FRONT)
+		data->ray[i].items[j]->texture = side_front;
+	else if (data->ray[i].items[j]->side == LEFT_BACK || data->ray[i].items[j]->side == RIGHT_BACK)
+		data->ray[i].items[j]->texture = side_back;
 }
 
 void	define_posx_texture(t_data *data, int i, int j)
@@ -46,7 +54,8 @@ void	define_posx_texture(t_data *data, int i, int j)
 
 	posx_display = data->ray[i].items[j]->posx;
 	// printf("widdth >>>%d\n",data->ray[i].items[j]->texture->width);
-	if (data->ray[i].items[j]->side == REVERSED || data->ray[i].items[j]->side == RIGHT)
+	if (data->ray[i].items[j]->side == REVERSED || data->ray[i].items[j]->side == LEFT
+		|| data->ray[i].items[j]->side == LEFT_FRONT || data->ray[i].items[j]->side == RIGHT_BACK)
 		posx_display = 1 - posx_display;
 	data->ray[i].items[j]->texture_coo.x = (int)(posx_display * data->ray[i].items[j]->texture->width);
 	if (data->ray[i].items[j]->texture_coo.x < 0)
