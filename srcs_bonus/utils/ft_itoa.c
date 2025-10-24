@@ -21,7 +21,7 @@ char	*ft_itoa(int nb)
 	if (!str)
 		return (NULL);
 	i = 0;
-	while (i <= 13)
+	while (i < 13)
 	{
 		str[i++] = 0;
 	}
