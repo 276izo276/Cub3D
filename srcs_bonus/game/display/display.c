@@ -137,7 +137,8 @@ void	*display_fst_part(void *ptr)
 			// display_msg(data, i);
 			++i;
 		}
-			// //write(1,"19\n",3);
+		// //write(1,"19\n",3);
+		display_blood_border(data, 0, data->mlx.width / 4);
 		pthread_barrier_wait(&data->barrier_display);
 	}
 	return (NULL);
@@ -167,7 +168,8 @@ void	*display_snd_part(void *ptr)
 			// display_msg(data, i);
 			++i;
 		}
-			// //write(1,"16\n",3);
+		// //write(1,"16\n",3);
+		display_blood_border(data, data->mlx.width / 4, max_pix);
 		pthread_barrier_wait(&data->barrier_display);
 	}
 	return (NULL);
@@ -197,7 +199,8 @@ void	*display_third_part(void *ptr)
 			// display_msg(data, i);
 			++i;
 		}
-			// //write(1,"13\n",3);
+		// //write(1,"13\n",3);
+		display_blood_border(data, 2 * (data->mlx.width / 4), max_pix);
 		pthread_barrier_wait(&data->barrier_display);
 	}
 	return (NULL);
@@ -226,6 +229,7 @@ void	*display_last_part(void *ptr)
 			++i;
 		}
 		// //write(1,"11\n",3);
+		display_blood_border(data, 3 * (data->mlx.width / 4), data->mlx.width);
 		pthread_barrier_wait(&data->barrier_display);
 	}
 	return (NULL);

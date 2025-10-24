@@ -815,7 +815,14 @@ struct s_data
 	int				keycode[100];
 	pthread_mutex_t	m_data_ray;
 	pthread_t		thread_wall;
-	pthread_t		thread_floor;
+	pthread_t		thread_sky_first;
+	pthread_t		thread_sky_snd;
+	pthread_t		thread_sky_third;
+	pthread_t		thread_sky_last;
+	pthread_t		thread_floor_first;
+	pthread_t		thread_floor_snd;
+	pthread_t		thread_floor_third;
+	pthread_t		thread_floor_last;
 	pthread_t		thread_ray_first;
 	pthread_t		thread_ray_snd;
 	pthread_t		thread_ray_third;
@@ -824,7 +831,6 @@ struct s_data
 	pthread_t		thread_snd_part;
 	pthread_t		thread_third_part;
 	pthread_t		thread_last_part;
-	pthread_t		thread_sky;
 	pthread_barrier_t		barrier_background;
 	pthread_barrier_t		barrier_display;
 	t_coa			*coa;

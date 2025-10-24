@@ -31,23 +31,61 @@ static void	init_mutex(t_data *data)
 
 static void	create_thread(t_data *data)
 {
-	if (pthread_barrier_init(&data->barrier_background, NULL, 7) != 0)
+	if (pthread_barrier_init(&data->barrier_background, NULL, 13) != 0)
 	{
         // error msg
 		f_exit(data, 1);
     }
-	if (pthread_create(&data->thread_sky, NULL, display_sky, data) != 0)
+	if (pthread_create(&data->thread_sky_first, NULL, display_sky_first, data) != 0)
 	{
 		// error msg
 		f_exit(data, 1);
 	}
-	pthread_detach(data->thread_sky);
-	if (pthread_create(&data->thread_floor, NULL, display_floor, data) != 0)
+	pthread_detach(data->thread_sky_first);
+	if (pthread_create(&data->thread_sky_snd, NULL, display_sky_snd, data) != 0)
 	{
 		// error msg
 		f_exit(data, 1);
 	}
-	pthread_detach(data->thread_floor);
+	pthread_detach(data->thread_sky_snd);
+	if (pthread_create(&data->thread_sky_third, NULL, display_sky_third, data) != 0)
+	{
+		// error msg
+		f_exit(data, 1);
+	}
+	pthread_detach(data->thread_sky_third);
+	if (pthread_create(&data->thread_sky_last, NULL, display_sky_last, data) != 0)
+	{
+		// error msg
+		f_exit(data, 1);
+	}
+	pthread_detach(data->thread_sky_last);
+
+
+	if (pthread_create(&data->thread_floor_first, NULL, display_floor_first, data) != 0)
+	{
+		// error msg
+		f_exit(data, 1);
+	}
+	pthread_detach(data->thread_floor_first);
+	if (pthread_create(&data->thread_floor_snd, NULL, display_floor_snd, data) != 0)
+	{
+		// error msg
+		f_exit(data, 1);
+	}
+	pthread_detach(data->thread_floor_snd);
+	if (pthread_create(&data->thread_floor_third, NULL, display_floor_third, data) != 0)
+	{
+		// error msg
+		f_exit(data, 1);
+	}
+	pthread_detach(data->thread_floor_third);
+	if (pthread_create(&data->thread_floor_last, NULL, display_floor_last, data) != 0)
+	{
+		// error msg
+		f_exit(data, 1);
+	}
+	pthread_detach(data->thread_floor_last);
 
 
 	if (pthread_create(&data->thread_ray_first, NULL, ray_launch_first, data) != 0)
@@ -74,9 +112,6 @@ static void	create_thread(t_data *data)
 		f_exit(data, 1);
 	}
 	pthread_detach(data->thread_ray_last);
-
-
-
 
 	if (pthread_barrier_init(&data->barrier_display, NULL, 5) != 0)
 	{

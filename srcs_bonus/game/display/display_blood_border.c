@@ -21,7 +21,7 @@ int	get_right_red(int color, double distance, int max_dist, int life)
 		factor = 0.0;
 	intensity = (50.0 - life) / 50.0;
 	factor = pow(factor, 0.5);
-	r = (int)((20 + (int)(intensity * 80)) * factor + r * (1.0 - factor));
+	r = (int)((30 + (int)(intensity * 90)) * factor + r * (1.0 - factor));
 	g = (int)((int)(intensity * 5)) * factor + g * (1.0 - factor);
 	b = (int)(b * (1.0 - factor));
 	color = (r << 16) + (g << 8) + b;
@@ -184,7 +184,7 @@ int	get_right_red(int color, double distance, int max_dist, int life)
 //     // draw_down_border(data, size);
 // }
 
-void	draw_border(t_data *data, int radius)
+void	draw_border(t_data *data, int radius, int start_x, int max_x)
 {
 	int		x;
 	int		y;
@@ -196,8 +196,8 @@ void	draw_border(t_data *data, int radius)
 	y = 0;
 	while (y <= data->mlx.height - 100)
 	{
-		x = 0;
-		while (x <= data->mlx.width)
+		x = start_x;
+		while (x < max_x)
 		{
 			distance = sqrt((x - (data->mlx.width / 2)) * (x - (data->mlx.width / 2)) + (y - ((data->mlx.height - MARGIN) / 2))
 					* (y - ((data->mlx.height - MARGIN) / 2)));
@@ -214,7 +214,7 @@ void	draw_border(t_data *data, int radius)
 	}
 }
 
-void	display_blood_border(t_data *data)
+void	display_blood_border(t_data *data, int start_x, int max_x)
 {
 	int		radius;
 	double	life_factor;
@@ -223,5 +223,5 @@ void	display_blood_border(t_data *data)
 		return ;
 	life_factor = data->player.life / 50.0;
 	radius = (int)(life_factor * (data->mlx.width) / 2.5);
-	draw_border(data, radius);
+	draw_border(data, radius, start_x, max_x);
 }
