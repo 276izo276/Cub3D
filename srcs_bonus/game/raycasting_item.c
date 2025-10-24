@@ -133,23 +133,33 @@ void	try_hit_item(t_data *data, int i, double x)
 
 			data->ray[i].items[ray.j]->side = FRONT;
 			enemy->aff_deg = fmod(enemy->aff_deg, 360);
-			ray.deg = fmod(enemy->aff_deg + 45, 360);
-			if ((enemy->deg >= ray.deg && enemy->deg <= ray.deg + 90)
-			||	(enemy->deg <= ray.deg && enemy->deg <= ray.deg - 270))
-			{
-				// printf("left\n");
-				data->ray[i].items[ray.j]->side = LEFT;
-			}
-			ray.deg = fmod(enemy->aff_deg - 45 + 360, 360);
-			if ((enemy->deg <= ray.deg && enemy->deg >= ray.deg - 90)
-			||	(enemy->deg >= ray.deg && enemy->deg >= ray.deg + 270))
-			{
-				// printf("right\n");
+			ray.deg = fmod(enemy->aff_deg + 67.5, 360);
+			if ((enemy->deg >= ray.deg && enemy->deg <= ray.deg + 45)
+			||	(enemy->deg <= ray.deg && enemy->deg <= ray.deg - 315))
 				data->ray[i].items[ray.j]->side = RIGHT;
-			}
-			ray.deg = fmod(enemy->aff_deg + 135, 360);
-			if ((enemy->deg >= ray.deg && enemy->deg <= ray.deg + 90)
-			||	(enemy->deg <= ray.deg && enemy->deg <= ray.deg - 270))
+			ray.deg = fmod(enemy->aff_deg + 22.5, 360);
+			if ((enemy->deg >= ray.deg && enemy->deg <= ray.deg + 45)
+			||	(enemy->deg <= ray.deg && enemy->deg <= ray.deg - 315))
+				data->ray[i].items[ray.j]->side = RIGHT_FRONT;
+			ray.deg = fmod(enemy->aff_deg + 112.5, 360);
+			if ((enemy->deg >= ray.deg && enemy->deg <= ray.deg + 45)
+			||	(enemy->deg <= ray.deg && enemy->deg <= ray.deg - 315))
+				data->ray[i].items[ray.j]->side = RIGHT_BACK;
+			ray.deg = fmod(enemy->aff_deg + 247.5, 360);
+			if ((enemy->deg >= ray.deg && enemy->deg <= ray.deg + 45)
+			||	(enemy->deg <= ray.deg && enemy->deg <= ray.deg - 315))
+				data->ray[i].items[ray.j]->side = LEFT;
+			ray.deg = fmod(enemy->aff_deg + 202.5, 360);
+			if ((enemy->deg >= ray.deg && enemy->deg <= ray.deg + 45)
+			||	(enemy->deg <= ray.deg && enemy->deg <= ray.deg - 315))
+				data->ray[i].items[ray.j]->side = LEFT_BACK;
+			ray.deg = fmod(enemy->aff_deg + 292.5, 360);
+			if ((enemy->deg >= ray.deg && enemy->deg <= ray.deg + 45)
+			||	(enemy->deg <= ray.deg && enemy->deg <= ray.deg - 315))
+				data->ray[i].items[ray.j]->side = LEFT_FRONT;
+			ray.deg = fmod(enemy->aff_deg + 157.5, 360);
+			if ((enemy->deg >= ray.deg && enemy->deg <= ray.deg + 45)
+			||	(enemy->deg <= ray.deg && enemy->deg <= ray.deg - 315))
 			{
 				// printf("back  aff_deg>%lf    deg>%lf\n",enemy->aff_deg,enemy->deg);
 				data->ray[i].items[ray.j]->side = BACK;

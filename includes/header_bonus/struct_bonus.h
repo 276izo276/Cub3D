@@ -349,6 +349,8 @@ struct	s_enemy
 	t_img			*front_img;
 	t_img			*back_img;
 	t_img			*side_img;
+	t_img			*side_front_img;
+	t_img			*side_back_img;
 	t_enemy_info	type;
 	t_fcoo			center;
 	t_fcoo			left;
