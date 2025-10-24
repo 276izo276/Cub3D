@@ -13,6 +13,20 @@ static int	man_dist(int startY, int startX, int endY, int endX)
 
 static int	is_a_wall(t_case *cur, const int dir[2], t_data *data)
 {
+	int	x;
+	int	y;
+
+	y = 0;
+	while (data->map.tabmap[y])
+	{
+		x = 0;
+		while (data->map.tabmap[y][x])
+			++x;
+		++y;
+	}
+	if (cur->case_y + dir[0] >= y || cur->case_x + dir[1] >= x
+		|| cur->case_y + dir[0] < 0 || cur->case_x + dir[1] < 0)
+		return (1);
 	if (data->map.tabmap[cur->case_y + dir[0]][cur->case_x + dir[1]] == '1')
 		return (1);
 	return (0);

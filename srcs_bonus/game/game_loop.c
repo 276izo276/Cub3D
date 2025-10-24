@@ -582,7 +582,8 @@ int	game_loop(t_data *data)
 	cur = get_mtime();
 	if (cur - data->last_spawn >= data->spawn_frame)
 	{
-		update_enemy(data);
+		if (data->nb_enemy < 5 + data->player.xp * 2)
+			update_enemy(data);
 		data->last_spawn = get_mtime();
 		// data->player.xp++;
 	}
