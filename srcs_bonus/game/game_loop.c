@@ -475,7 +475,7 @@ void	take_damage(t_data *data)
 			data->player.damage.curse_force_take = 0;
 	}
 	if (data->player.life <= 0 && data->player.life >= -92)
-		data->player.life -= 5;
+		data->player.life -= 3;
 	if (data->player.life <= -92)
 		f_exit(data, 1);
 }

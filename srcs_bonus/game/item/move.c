@@ -121,30 +121,55 @@ int	try_hit_items(t_item *elem, t_data *data)
 	ray.by = elem->right.case_y * 64 + elem->right.coo_y;
 	ray.cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
 	ray.cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
+
+	if (hit == false)
+	{
+		ray.dx = data->player.coo.case_x * 64 + data->player.coo.coo_x;
+		ray.dy = data->player.coo.case_y * 64 + data->player.coo.coo_y;
+		calc_scal(&ray);
+		if (ray.hit == true)
+		{
+			apply_damage(&data->player.damage, &elem->damage);
+			hit = true;
+		}
+	}
+	if (hit == false)
+	{
+		ray.dx = data->player.left.case_x * 64 + data->player.left.coo_x;
+		ray.dy = data->player.left.case_y * 64 + data->player.left.coo_y;
+		calc_scal(&ray);
+		if (ray.hit == true)
+		{
+			apply_damage(&data->player.damage, &elem->damage);
+			hit = true;
+		}
+	}
+	if (hit == false)
+	{
+		ray.dx = data->player.right.case_x * 64 + data->player.right.coo_x;
+		ray.dy = data->player.right.case_y * 64 + data->player.right.coo_y;
+		calc_scal(&ray);
+		if (ray.hit == true)
+		{
+			apply_damage(&data->player.damage, &elem->damage);
+			hit = true;
+		}
+	}
 	lst = get_first_elem_lst(data->enemy);
 	while (lst)
 	{
+		ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
+		ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
+		ray.bx = elem->right.case_x * 64 + elem->right.coo_x;
+		ray.by = elem->right.case_y * 64 + elem->right.coo_y;
+		ray.cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
+		ray.cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
 		enemy = lst->dt;
 		ray.dx = enemy->left.case_x * 64 + enemy->left.coo_x;
 		ray.dy = enemy->left.case_y * 64 + enemy->left.coo_y;
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			// enemy->damage.damage_take += elem->damage.damage_do;
-			// enemy->damage.damage_spider_take += elem->damage.damage_spider_do;
-			// enemy->damage.damage_dementor_take += elem->damage.damage_dementor_do;
-			// enemy->damage.slow_force_take += elem->damage.slow_force_do;
-			// enemy->damage.slow_frame_take += elem->damage.slow_frame_do;
-			// enemy->damage.poison_force_take += elem->damage.poison_force_do;
-			// enemy->damage.poison_frame_take += elem->damage.poison_frame_do;
-			// enemy->damage.fire_force_take += elem->damage.fire_force_do;
-			// enemy->damage.fire_frame_take += elem->damage.fire_frame_do;
-
-			// enemy->damage.hit.case_x = elem->damage.hit.case_x;
-			// enemy->damage.hit.case_y = elem->damage.hit.case_y;
-			// enemy->damage.hit.coo_x = elem->damage.hit.coo_x;
-			// enemy->damage.hit.coo_y = elem->damage.hit.coo_y;
-
 			apply_damage(&enemy->damage, &elem->damage);
 			lst = lst->next;
 			hit = true;
@@ -155,15 +180,6 @@ int	try_hit_items(t_item *elem, t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			// enemy->damage.damage_take += elem->damage.damage_do;
-			// enemy->damage.damage_spider_take += elem->damage.damage_spider_do;
-			// enemy->damage.damage_dementor_take += elem->damage.damage_dementor_do;
-			// enemy->damage.slow_force_take += elem->damage.slow_force_do;
-			// enemy->damage.slow_frame_take += elem->damage.slow_frame_do;
-			// enemy->damage.poison_force_take += elem->damage.poison_force_do;
-			// enemy->damage.poison_frame_take += elem->damage.poison_frame_do;
-			// enemy->damage.fire_force_take += elem->damage.fire_force_do;
-			// enemy->damage.fire_frame_take += elem->damage.fire_frame_do;
 			apply_damage(&enemy->damage, &elem->damage);
 			lst = lst->next;
 			hit = true;
@@ -174,38 +190,42 @@ int	try_hit_items(t_item *elem, t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			// enemy->damage.damage_take += elem->damage.damage_do;
-			// enemy->damage.damage_spider_take += elem->damage.damage_spider_do;
-			// enemy->damage.damage_dementor_take += elem->damage.damage_dementor_do;
-			// enemy->damage.slow_force_take += elem->damage.slow_force_do;
-			// enemy->damage.slow_frame_take += elem->damage.slow_frame_do;
-			// enemy->damage.poison_force_take += elem->damage.poison_force_do;
-			// enemy->damage.poison_frame_take += elem->damage.poison_frame_do;
-			// enemy->damage.fire_force_take += elem->damage.fire_force_do;
-			// enemy->damage.fire_frame_take += elem->damage.fire_frame_do;
+			apply_damage(&enemy->damage, &elem->damage);
+			lst = lst->next;
+			hit = true;
+			continue;
+		}
+
+		ray.ax = elem->center.case_x * 64 + elem->center.coo_x;
+		ray.ay = elem->center.case_y * 64 + elem->center.coo_y;
+		ray.bx = elem->center_before.case_x * 64 + elem->center_before.coo_x;
+		ray.by = elem->center_before.case_y * 64 + elem->center_before.coo_y;
+
+		ray.cx = enemy->left.case_x * 64 + enemy->left.coo_x;
+		ray.cy = enemy->left.case_y * 64 + enemy->left.coo_y;
+		ray.dx = enemy->center.case_x * 64 + enemy->center.coo_x;
+		ray.dy = enemy->center.case_y * 64 + enemy->center.coo_y;
+		calc_delta(&ray);
+		if (ray.hit == true)
+		{
+			apply_damage(&enemy->damage, &elem->damage);
+			lst = lst->next;
+			hit = true;
+			continue;
+		}
+		ray.cx = enemy->center.case_x * 64 + enemy->center.coo_x;
+		ray.cy = enemy->center.case_y * 64 + enemy->center.coo_y;
+		ray.dx = enemy->right.case_x * 64 + enemy->right.coo_x;
+		ray.dy = enemy->right.case_y * 64 + enemy->right.coo_y;
+		calc_delta(&ray);
+		if (ray.hit == true)
+		{
 			apply_damage(&enemy->damage, &elem->damage);
 			lst = lst->next;
 			hit = true;
 			continue;
 		}
 		lst = lst->next;
-	}
-	ray.dx = data->player.coo.case_x * 64 + data->player.coo.coo_x;
-	ray.dy = data->player.coo.case_y * 64 + data->player.coo.coo_y;
-	calc_scal(&ray);
-	if (ray.hit == true)
-	{
-		// data->player.damage.damage_take += elem->damage.damage_do;
-		// data->player.damage.damage_spider_take += elem->damage.damage_spider_do;
-		// data->player.damage.damage_dementor_take += elem->damage.damage_dementor_do;
-		// data->player.damage.slow_force_take += elem->damage.slow_force_do;
-		// data->player.damage.slow_frame_take += elem->damage.slow_frame_do;
-		// data->player.damage.poison_force_take += elem->damage.poison_force_do;
-		// data->player.damage.poison_frame_take += elem->damage.poison_frame_do;
-		// data->player.damage.fire_force_take += elem->damage.fire_force_do;
-		// data->player.damage.fire_frame_take += elem->damage.fire_frame_do;
-		apply_damage(&data->player.damage, &elem->damage);
-		hit = true;
 	}
 	elem->nb_move++;
 	if (hit == true)

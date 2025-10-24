@@ -4,10 +4,10 @@
 void	set_spell_take(t_data *data)
 {
 	data->cast_spell = -1;
-	data->spell_take[0] = GLACIUS;
-	data->spell_take[1] = REPULSO;
-	data->spell_take[2] = AGUAMENTI;
-	data->spell_take[3] = ARANIA_EXUMAI;
+	data->spell_take[0] = ENDOLORIS;
+	data->spell_take[1] = AVADA_KEDAVRA;
+	data->spell_take[2] = PETRIFICUS_TOTALUS;
+	data->spell_take[3] = CONFUNDO;
 }
 
 static void	init_lumos(t_data *data)
@@ -24,7 +24,7 @@ static void	init_lumos(t_data *data)
 
 static void	init_incendio(t_data *data)
 {
-	data->spell[INCENDIO].base_cooldown = 3;
+	data->spell[INCENDIO].base_cooldown = 0;
 	data->spell[INCENDIO].call = cast_spell;
 	data->spell[INCENDIO].type = INCENDIO;
 	data->spell[INCENDIO].damage.damage_do = 10;
@@ -42,7 +42,7 @@ static void	init_incendio(t_data *data)
 
 static void	init_glacius(t_data *data)
 {
-	data->spell[GLACIUS].base_cooldown = 3;
+	data->spell[GLACIUS].base_cooldown = 0;
 	data->spell[GLACIUS].call = cast_spell;
 	data->spell[GLACIUS].type = GLACIUS;
 	data->spell[GLACIUS].damage.damage_do = 5;
@@ -78,7 +78,7 @@ static void	init_repulso(t_data *data)
 
 static void	init_aguamenti(t_data *data)
 {
-	data->spell[AGUAMENTI].base_cooldown = 5;
+	data->spell[AGUAMENTI].base_cooldown = 0;
 	data->spell[AGUAMENTI].call = cast_spell;
 	data->spell[AGUAMENTI].type = AGUAMENTI;
 	data->spell[AGUAMENTI].damage.damage_do = 5;
@@ -94,7 +94,7 @@ static void	init_aguamenti(t_data *data)
 
 static void	init_arania_exumai(t_data *data)
 {
-	data->spell[ARANIA_EXUMAI].base_cooldown = 5;
+	data->spell[ARANIA_EXUMAI].base_cooldown = 0;
 	data->spell[ARANIA_EXUMAI].call = cast_spell;
 	data->spell[ARANIA_EXUMAI].type = ARANIA_EXUMAI;
 	data->spell[ARANIA_EXUMAI].damage.damage_spider_do = 25;
@@ -112,7 +112,7 @@ static void	init_arania_exumai(t_data *data)
 
 static void	init_protego(t_data *data)
 {
-	data->spell[PROTEGO].base_cooldown = 10;
+	data->spell[PROTEGO].base_cooldown = 0;
 	data->spell[PROTEGO].base_timer = 5;
 	data->spell[PROTEGO].call = cast_protego;
 	data->spell[PROTEGO].type = PROTEGO;
@@ -124,7 +124,7 @@ static void	init_protego(t_data *data)
 
 static void	init_expelliarmus(t_data *data)
 {
-	data->spell[EXPELLIARMUS].base_cooldown = 5;
+	data->spell[EXPELLIARMUS].base_cooldown = 0;
 	data->spell[EXPELLIARMUS].call = cast_spell;
 	data->spell[EXPELLIARMUS].type = EXPELLIARMUS;
 	data->spell[EXPELLIARMUS].damage.damage_do = 25;
@@ -140,7 +140,7 @@ static void	init_expelliarmus(t_data *data)
 
 static void	init_expecto_patronum(t_data *data) // PAS FINI
 {
-	data->spell[EXPECTO_PATRONUM].base_cooldown = 5;
+	data->spell[EXPECTO_PATRONUM].base_cooldown = 0;
 	data->spell[EXPECTO_PATRONUM].call = cast_spell;
 	data->spell[EXPECTO_PATRONUM].type = BOMBARDA;
 	data->spell[EXPECTO_PATRONUM].damage.damage_do = 25;
@@ -156,7 +156,7 @@ static void	init_expecto_patronum(t_data *data) // PAS FINI
 
 static void	init_vipera_evanesca(t_data *data) // PAS FINI
 {
-	data->spell[VIPERA_EVANESCA].base_cooldown = 5;
+	data->spell[VIPERA_EVANESCA].base_cooldown = 0;
 	data->spell[VIPERA_EVANESCA].call = cast_spell;
 	data->spell[VIPERA_EVANESCA].type = BOMBARDA;
 	data->spell[VIPERA_EVANESCA].damage.damage_do = 25;
@@ -172,7 +172,7 @@ static void	init_vipera_evanesca(t_data *data) // PAS FINI
 
 static void	init_serpensortia(t_data *data) // PAS FINI
 {
-	data->spell[SERPENSORTIA].base_cooldown = 5;
+	data->spell[SERPENSORTIA].base_cooldown = 0;
 	data->spell[SERPENSORTIA].call = cast_spell;
 	data->spell[SERPENSORTIA].type = BOMBARDA;
 	data->spell[SERPENSORTIA].damage.damage_do = 25;
@@ -188,7 +188,7 @@ static void	init_serpensortia(t_data *data) // PAS FINI
 
 static void	init_ventus(t_data *data) // PAS FINI
 {
-	data->spell[VENTUS].base_cooldown = 5;
+	data->spell[VENTUS].base_cooldown = 0;
 	data->spell[VENTUS].call = cast_spell;
 	data->spell[VENTUS].type = BOMBARDA;
 	data->spell[VENTUS].damage.damage_do = 25;
@@ -204,7 +204,7 @@ static void	init_ventus(t_data *data) // PAS FINI
 
 static void	init_bombarda(t_data *data) 
 {
-	data->spell[BOMBARDA].base_cooldown = 5;
+	data->spell[BOMBARDA].base_cooldown = 0;
 	data->spell[BOMBARDA].call = cast_spell;
 	data->spell[BOMBARDA].type = BOMBARDA;
 	data->spell[BOMBARDA].damage.damage_do = 25;
@@ -223,7 +223,7 @@ static void	init_bombarda(t_data *data)
 
 static void	init_episkey(t_data *data)
 {
-	data->spell[EPISKEY].base_cooldown = 10;
+	data->spell[EPISKEY].base_cooldown = 0;
 	data->spell[EPISKEY].call = cast_episkey;
 	data->spell[EPISKEY].type = EPISKEY;
 	data->spell[EPISKEY].class = CLASIC_SPELL;
@@ -234,14 +234,16 @@ static void	init_episkey(t_data *data)
 
 static void	init_stupefix(t_data *data) // PAS FINI
 {
-	data->spell[STUPEFIX].base_cooldown = 5;
+	data->spell[STUPEFIX].base_cooldown = 0;
 	data->spell[STUPEFIX].call = cast_spell;
-	data->spell[STUPEFIX].type = BOMBARDA;
+	data->spell[STUPEFIX].type = STUPEFIX;
 	data->spell[STUPEFIX].damage.damage_do = 25;
+	data->spell[STUPEFIX].damage.slow_force_do = 80;
+	data->spell[STUPEFIX].damage.slow_frame_do = 60;
 	data->spell[STUPEFIX].item.speed = 0;
-	data->spell[STUPEFIX].item.radius = 6;
-	data->spell[STUPEFIX].item.front_img = &data->img[BOMBARDA_IMG];
-	data->spell[STUPEFIX].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[STUPEFIX].item.radius = 2;
+	data->spell[STUPEFIX].item.front_img = &data->img[STUPEFIX_IMG];
+	data->spell[STUPEFIX].item.back_img = &data->img[STUPEFIX_IMG];
 	data->spell[STUPEFIX].class = OFFENSIVE_SPELL;
 	data->spell[STUPEFIX].icn = &data->img[STUPEFIX_ICN];
 	data->spell[STUPEFIX].icn_name = &data->img[STUPEFIX_NAME];
@@ -329,7 +331,7 @@ static void	init_confundo(t_data *data)
 
 static void	init_endoloris(t_data *data)
 {
-	data->spell[ENDOLORIS].base_cooldown = 45;
+	data->spell[ENDOLORIS].base_cooldown = 0;
 	data->spell[ENDOLORIS].call = cast_spell;
 	data->spell[ENDOLORIS].type = ENDOLORIS;
 	data->spell[ENDOLORIS].damage.damage_do = 10;
@@ -347,7 +349,7 @@ static void	init_endoloris(t_data *data)
 
 static void	init_avada_kedavra(t_data *data)
 {
-	data->spell[AVADA_KEDAVRA].base_cooldown = 30;
+	data->spell[AVADA_KEDAVRA].base_cooldown = 0;
 	data->spell[AVADA_KEDAVRA].call = cast_spell;
 	data->spell[AVADA_KEDAVRA].type = AVADA_KEDAVRA;
 	data->spell[AVADA_KEDAVRA].damage.damage_do = 20;

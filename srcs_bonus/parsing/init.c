@@ -50,7 +50,7 @@ static void	set_path_texture(t_data *data)
 	data->img[EXPECTO_PATRONUM_IMG].path = "./texture/spell/glacius.xpm";
 	data->img[EXPELLIARMUS_IMG].path = "./texture/spell/expelliarmus.xpm";
 	data->img[REPULSO_IMG].path = "./texture/spell/repulso.xpm";
-	data->img[STUPEFIX_IMG].path = "./texture/spell/glacius.xpm";
+	data->img[STUPEFIX_IMG].path = "./texture/spell/stupefix.xpm";
 	data->img[OPPUGNO_IMG].path = "./texture/spell/glacius.xpm";
 	data->img[SECTUMSEMPRA_IMG].path = "./texture/spell/glacius.xpm";
 	data->img[SERPENSORTIA_IMG].path = "./texture/spell/glacius.xpm";
