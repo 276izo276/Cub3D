@@ -255,9 +255,9 @@ void	init_foot_tab(t_data *data)
 	data->map.mini.time_foot = 0;
 }
 
-int	main(int ac, char **av)
+void	start(int ac, char **av)
 {
-	t_data	data;
+	t_data data;
 
 	srand(get_mtime());
 	init_data(&data, ac, av);
@@ -293,5 +293,9 @@ int	main(int ac, char **av)
 	// sem_unlink(SEM_BACKGROUND);
 	pthread_barrier_destroy(&data.barrier_background);
 	pthread_barrier_destroy(&data.barrier_display);
+}
+int	main(int ac, char **av)
+{
+	start(ac, av);
 	return (1);
 }

@@ -238,6 +238,33 @@ static void key_select_hand(int keycode, t_data *data)
 		f_exit(data, 1);
 }
 
+void handle_death_menu_keys(int keycode, t_data *data)
+{
+	if (keycode == KEY_LEFT || keycode == KEY_A)
+	{
+		if (data->selected == 1)
+			data->selected -= 1;
+		else
+			data->selected += 1;
+	}
+	else if (keycode == KEY_RIGHT || keycode == KEY_D)
+	{
+		if (data->selected == 0)
+			data->selected += 1;
+		else
+			data->selected -= 1;
+	}
+	else if (keycode == KEY_ENTER)
+	{
+		if (data->selected == 1)
+			f_exit(data, 0); 
+		else
+			restart(data);
+	}
+	else if (keycode == KEY_ESCAPE)
+		f_exit(data, 0);
+}
+
 static void	handle_menu_keys(int keycode, t_data *data)
 {
 	if (data->color == 0)
@@ -332,6 +359,11 @@ int	key_press(int keycode, t_data *data)
 	else if (data->status == MENU_SPELL)
 	{
 		handle_menu_spell_keys(keycode, data);
+		return (0);
+	}
+	else if (data->status == MENU_DEATH)
+	{
+		handle_death_menu_keys(keycode, data);
 		return (0);
 	}
 	i = 0;

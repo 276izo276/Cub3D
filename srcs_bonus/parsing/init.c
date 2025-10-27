@@ -190,6 +190,11 @@ static void	set_path_texture(t_data *data)
 	data->img[NB_7].path = "./texture/Numbers/7.xpm";
 	data->img[NB_8].path = "./texture/Numbers/8.xpm";
 	data->img[NB_9].path = "./texture/Numbers/9.xpm";
+
+	data->img[END_MENU].path = "./texture/menu/death_background.xpm";
+	data->img[RETRY_BUTTON].path = "./texture/menu/retry_button.xpm";
+	data->img[QUIT_BUTTON].path = "./texture/menu/quit_button.xpm";
+
 }
 
 void	init_textures(t_data *data)
@@ -590,7 +595,7 @@ void	init_data(t_data *data, int ac, char **av)
 
 	data->player.life = 100;
 	data->player.shield = 0;
-	data->player.xp = 5.0;
+	data->player.xp = 15.0;
 	data->player.damage.damage_do = 1;
 
 	data->spawn_frame = 100;

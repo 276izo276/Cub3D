@@ -14,6 +14,9 @@
 # define M_PI 3.14159265358979323846
 #endif
 
+void	start(int ac, char **av);
+void	restart(t_data *data);
+
 void	calc_left_and_right_point(t_enemy *enemy, t_data *data);
 void	cast_vulnera_sanentur(t_data *data, t_spells info);
 void	f_way(t_enemy *enemy);
@@ -164,6 +167,8 @@ void	display_menu_background(t_data *data, t_img *img, int start_x, int start_y)
 void	handle_spells_menu(t_data *data	);
 void	handle_menu_spell_keys(int keycode, t_data *data);
 
+// end menu
+void	handle_death_menu(t_data *data);
 
 int		darken_the_color(int color);
 

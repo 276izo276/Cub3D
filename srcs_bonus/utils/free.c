@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "struct_bonus.h"
 #include "mlx.h"
+#include "cub3d_bonus.h"
 
 void	f_elem(void *elem)
 {
@@ -75,4 +76,25 @@ void	f_exit(t_data *data, int code)
 	free(data->mlx.mlx);
 	free(data->ray);
 	exit(code);
+}
+
+void	restart(t_data *data)
+{
+	if (data->mlx.mlx)
+		mlx_do_key_autorepeaton(data->mlx.mlx);
+	f_imgs(data);
+	f_all_lst(data->map.map);
+	f_all_lst(data->map.lines);
+	f_tab_char(data->map.tabmap);
+	if (data->u.mmap.img)
+		mlx_destroy_image(data->mlx.mlx, data->u.mmap.img);
+	if (data->screen)
+		mlx_destroy_image(data->mlx.mlx, data->screen->img);
+	free(data->screen);
+	if (data->mlx.win)
+		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
+	mlx_destroy_display(data->mlx.mlx);
+	free(data->mlx.mlx);
+	free(data->ray);
+	start(data->ac, data->av);
 }

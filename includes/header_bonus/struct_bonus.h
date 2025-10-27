@@ -18,6 +18,8 @@
 # define FLOO_MAP 3
 # define MAP 4
 # define MENU_SPELL 5
+# define MENU_DEATH 6
+# define MENU_END 7
 # define SPEED 5
 # define KEYCODE_NB 100
 # define MAX_CREATE_ENEMY 50
@@ -249,8 +251,11 @@ typedef enum e_imgs
 	SHIELD_4,
 	SHIELD_5,
 	SHIELD_6,
+	END_MENU,
+	RETRY_BUTTON,
+	QUIT_BUTTON,
 }	t_imgs;
-# define NB_TEXTURES 145
+# define NB_TEXTURES 148
 
 typedef enum e_spells
 {

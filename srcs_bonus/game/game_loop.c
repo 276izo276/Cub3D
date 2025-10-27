@@ -474,10 +474,13 @@ void	take_damage(t_data *data)
 		if (data->player.damage.curse_frame_take <= 0)
 			data->player.damage.curse_force_take = 0;
 	}
-	if (data->player.life <= 0 && data->player.life >= -92)
-		data->player.life -= 3;
-	if (data->player.life <= -92)
-		f_exit(data, 1);
+	if (data->player.life <= 0 && data->player.life >= -114)
+		data->player.life -= 1;
+	if (data->player.life <= -115)
+	{
+		data->status = MENU_DEATH;
+		data->selected = 0;
+	}
 }
 
 double	max(double a, double b)
@@ -580,13 +583,6 @@ int	game_loop(t_data *data)
 	long long int	cur;
 	
 	cur = get_mtime();
-	if (cur - data->last_spawn >= data->spawn_frame)
-	{
-		if (data->nb_enemy < 5 + data->player.xp * 2)
-			update_enemy(data);
-		data->last_spawn = get_mtime();
-		// data->player.xp++;
-	}
 	if (data->status == MENU)
 		display_menu(data);
 	else if (data->status == PAUSE)
@@ -597,10 +593,20 @@ int	game_loop(t_data *data)
 		display_floo_map(data);
 	else if (data->status == MENU_SPELL)
 		handle_spells_menu(data);
+	else if (data->status == MENU_DEATH)
+		handle_death_menu(data);
+		// restart(data);
 	else
 	{
 		//DBG1printf("0\n");
 		// data->player.life -= .5;
+		if (cur - data->last_spawn >= data->spawn_frame)
+		{
+			if (data->nb_enemy < 5 + data->player.xp * 2)
+				update_enemy(data);
+			data->last_spawn = get_mtime();
+			// data->player.xp++;
+		}
 		move_item(data);
 		move_enemy(data);
 		handle_input_move(data, cur);
