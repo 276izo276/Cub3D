@@ -8,13 +8,13 @@
 
 static void	is_valid_char_map(char c, int y, int x, t_data *data)
 {
-	const char	tab[] = {'0', '1', 'D', 'F', ' ', '.', 'N', 'S', 'W', 'E', 0};
+	const char	tab[] = {'0', '1', 'D', 'F', ' ', '.', ',', 'N', 'S', 'W', 'E', 0};
 	int			i;
 
 	i = -1;
 	while (tab[++i])
 	{
-		if (tab[i] == c && i >= 6)
+		if (tab[i] == c && i >= 7)
 		{
 			if (data->player.coo.case_x != 0 && data->player.coo.case_y != 0)
 			{
@@ -26,7 +26,7 @@ static void	is_valid_char_map(char c, int y, int x, t_data *data)
 			data->player.coo.case_x = x;
 			return ;
 		}
-		else if (tab[i] == c && i <= 5)
+		else if (tab[i] == c && i <= 6)
 			return ;
 	}
 	ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE "Map >>> '"
@@ -170,7 +170,7 @@ static void	save_wall(char c, int y, int x, t_data *data)
 static void	is_enemy(char c, int y, int x, t_data *data)
 {
 	int			i;
-	const char	tab[] = {'.', 0};
+	const char	tab[] = {'.', ',', 0};
 
 	i = 0;
 	while (tab[i])

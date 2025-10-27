@@ -7,6 +7,7 @@
 #include "enemy_bonus.h"
 #include <math.h>
 
+#include <stdio.h>
 
 static void	handle_input_move(t_data *data, long long int cur)
 {
@@ -17,8 +18,10 @@ static void	handle_input_move(t_data *data, long long int cur)
 	move = 0;
 	if (data->time_move + 1000 / FPM < cur)
 	{
+		move_item(data);
+		move_enemy(data);
 		// printf("fpm >>>%lld     \n",1000 / (cur - data->time_move));
-		data->frame_move = 1000 / (cur - data->time_move);
+		// data->frame_move = 1000 / (cur - data->time_move);
 		data->time_move = cur;
 		data->player_moved = false;
 		while (i < KEYCODE_NB)
@@ -43,6 +46,8 @@ static void	handle_input_move(t_data *data, long long int cur)
 		}
 		if (move)
 			handle_move(&data->map, &data->map.mini, data);
+		
+		take_damage(data);
 	}
 }
 
@@ -600,24 +605,21 @@ int	game_loop(t_data *data)
 	{
 		//DBG1printf("0\n");
 		// data->player.life -= .5;
-		if (cur - data->last_spawn >= data->spawn_frame)
-		{
-			if (data->nb_enemy < 5 + data->player.xp * 2)
-				update_enemy(data);
-			data->last_spawn = get_mtime();
-			// data->player.xp++;
-		}
-		move_item(data);
-		move_enemy(data);
+		// if (cur - data->last_spawn >= data->spawn_frame)
+		// {
+		// 	if (data->nb_enemy < 5 + data->player.xp * 2)
+		// 		update_enemy(data);
+		// 	data->last_spawn = get_mtime();
+		// 	// data->player.xp++;
+		// }
 		handle_input_move(data, cur);
 		if (data->cast_spell != -1)
 			data->spell[data->cast_spell].call(data, data->cast_spell);
 		handle_wall_msg(data, cur);
-		take_damage(data);
 		//DBG1printf("5\n");
 		if (data->time_fps + 1000 / FPS < cur)
 		{
-			// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
+			printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 			data->time_fps = cur;
 			pthread_barrier_wait(&data->barrier_background);
 			// sem_post(data->sem_background);

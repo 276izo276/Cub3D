@@ -144,8 +144,8 @@ static void	init_expecto_patronum(t_data *data) // PAS FINI
 	data->spell[EXPECTO_PATRONUM].call = cast_spell;
 	data->spell[EXPECTO_PATRONUM].type = BOMBARDA;
 	data->spell[EXPECTO_PATRONUM].damage.damage_do = 25;
-	data->spell[EXPECTO_PATRONUM].item.speed = 0;
-	data->spell[EXPECTO_PATRONUM].item.radius = 6;
+	data->spell[EXPECTO_PATRONUM].item.speed = 1;
+	data->spell[EXPECTO_PATRONUM].item.radius = 3;
 	data->spell[EXPECTO_PATRONUM].item.front_img = &data->img[BOMBARDA_IMG];
 	data->spell[EXPECTO_PATRONUM].item.back_img = &data->img[BOMBARDA_IMG];
 	data->spell[EXPECTO_PATRONUM].class = OFFENSIVE_SPELL;

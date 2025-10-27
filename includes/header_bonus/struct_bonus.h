@@ -8,10 +8,10 @@
 # include <semaphore.h>
 
 # define SIZE_MAP (5 * 64)
-# define FPS 120.0
+# define FPS 30.0
 # define V_FOV 90.0
 # define H_FOV 90.0
-# define FPM 60.0
+# define FPM 40.0
 # define MENU 0
 # define GAME 1
 # define PAUSE 2

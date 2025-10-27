@@ -16,7 +16,7 @@
 
 void	start(int ac, char **av);
 void	restart(t_data *data);
-
+void	take_damage(t_data *data);
 void	calc_left_and_right_point(t_enemy *enemy, t_data *data);
 void	cast_vulnera_sanentur(t_data *data, t_spells info);
 void	f_way(t_enemy *enemy);
