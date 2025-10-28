@@ -634,6 +634,26 @@ int	game_loop(t_data *data)
 			// data->player.life--;
 			pthread_barrier_wait(&data->barrier_display);
 			pthread_barrier_wait(&data->barrier_display);
+
+			// int	x1 = 500;
+			// int	y1 = 500;
+			// while (x1 < 800)
+			// {
+			// 	y1 = 500;
+			// 	while (y1 < 800)
+			// 	{
+			// 		if (sqrt((x1 - 650) * (x1 - 650)
+			// 			+ (y1 - 650) * (y1 - 650))
+			// 			< 150)
+			// 		{
+			// 			*(unsigned int *)(data->screen->data_addr + (y1 * data->screen->size_line) + (x1
+			// 			* data->screen->bits_per_pixel >> 3)) = 0xFF0000;
+			// 		}
+			// 		y1++;
+			// 	}
+			// 	x1++;
+
+			// }
 			mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
 			// display_blood_border(data);
 			aff_xp(data);

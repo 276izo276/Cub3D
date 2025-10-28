@@ -283,7 +283,7 @@ void	make_move_item(t_item *item, double speed)
 	if (item->type == EXPECTO_PATRONUM)
 	{
 		// printf("expecto patronum uo radius\n");
-		// item->radius += .1;
+		item->radius += .3;
 	}
 	calc_left_point_item(item);
 	calc_right_point_item(item);
