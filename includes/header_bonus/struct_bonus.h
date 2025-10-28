@@ -408,6 +408,7 @@ struct s_item
 	double			rad;
 	double			radius;
 	double			speed;
+	int				type;
 	t_damage		damage;
 	unsigned int	nb_move;
 };

@@ -280,6 +280,10 @@ void	make_move_item(t_item *item, double speed)
 	item->damage.hit.case_y = item->center_before.case_y;
 	item->damage.hit.coo_x = item->center_before.coo_x;
 	item->damage.hit.coo_y = item->center_before.coo_y;
+	if (item->type == EXPECTO_PATRONUM)
+	{
+		printf("expecto patronum uo radius\n");
+	}
 	calc_left_point_item(item);
 	calc_right_point_item(item);
 }

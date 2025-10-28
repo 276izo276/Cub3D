@@ -21,6 +21,7 @@ t_item	*init_spell_item(t_data *data, t_spells info)
 	item->deg = fmod(data->map.mini.deg + 180, 360);
 	item->rad = item->deg * (M_PI / 180);
 	item->speed = data->spell[info].item.speed;
+	item->type = data->spell[info].type;
 
 	item->damage.damage_do = data->spell[info].damage.damage_do;
 	item->damage.damage_spider_do = data->spell[info].damage.damage_spider_do;
