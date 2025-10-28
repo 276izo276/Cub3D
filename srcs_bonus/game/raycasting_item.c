@@ -72,6 +72,8 @@ void	try_hit_item(t_data *data, int i, double x)
 				if (data->ray[i].items[ray.j]->use == false)
 					break ;
 			data->ray[i].items[ray.j]->type = ITEM;
+			if (item->type == EXPECTO_PATRONUM)
+				data->ray[i].items[ray.j]->type = EXPECTO_PATRONUM;
 			data->ray[i].items[ray.j]->use = true;
 			data->ray[i].items[ray.j]->item = item;
 			// printf("hy>>%lf       hx>>%lf\n",ray.hy,ray.hx);
