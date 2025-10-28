@@ -148,21 +148,22 @@ void	display_item(t_data *data, int i)
 		}    
 		if (data->ray[i].items[j]->type == EXPECTO_PATRONUM)
 		{
+			data->ray[i].items[j]->htop = data->mlx.height / 2 - (2 * data->ray[i].items[j]->item->radius) * data->ray[i].d_proj / data->ray[i].items[j]->dist;
 			data->ray[i].pix_y = data->ray[i].items[j]->htop;
 			if (data->ray[i].pix_y < 0)
 				data->ray[i].pix_y = 0;
-			data->ray[i].items[j]->dist_height = data->ray[i].items[j]->hbot - data->ray[i].items[j]->htop;
 			printf("\nmax_size>%lf\n",data->ray[i].items[j]->max_size);
 			printf("dist>%lf\n",data->ray[i].items[j]->dist);
 			printf("dproj>%lf\n",data->ray[i].d_proj);
 			printf("item radius>%lf\n",data->ray[i].items[j]->item->radius);
+			data->ray[i].items[j]->hbot = data->mlx.height / 2 + (2 * data->ray[i].items[j]->item->radius) * data->ray[i].d_proj / data->ray[i].items[j]->dist;
 			while (data->ray[i].pix_y < data->ray[i].items[j]->hbot
 				&& data->ray[i].pix_y < data->mlx.height)
 			{
 				// double	div_part = ;
 				double	rap_y = 0;
-				// if (div_part > 0.00001)
-				rap_y = (data->ray[i].pix_y - data->mlx.height / 2) / data->ray[i].items[j]->max_size;
+				// // if (div_part > 0.00001)
+				rap_y = ;
 				// printf("rap_y>%lf\n",rap_y);
 				// printf("rap>%lf  pix_y>%d     radius>%lf\n",rap_y,data->ray[i].pix_y,data->ray[i].items[j]->item->radius);
 				if (sqrt((data->ray[i].items[j]->posx - 0.5) * (data->ray[i].items[j]->posx - 0.5)
