@@ -479,7 +479,7 @@ void	take_damage(t_data *data)
 		if (data->player.damage.curse_frame_take <= 0)
 			data->player.damage.curse_force_take = 0;
 	}
-	if (data->player.life <= 0 && data->player.life >= -114)
+	if (data->player.life <= 0 && data->player.life >= -114) // Lock le heal
 		data->player.life -= 1;
 	if (data->player.life <= -115)
 	{

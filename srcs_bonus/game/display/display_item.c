@@ -163,7 +163,8 @@ void	display_item(t_data *data, int i)
 				// double	div_part = ;
 				double	rap_y = 0;
 				// // if (div_part > 0.00001)
-				rap_y = ;
+				double centre_y = (data->ray[i].items[j]->htop + data->ray[i].items[j]->hbot) / 2.0;
+				rap_y = (data->ray[i].pix_y - centre_y) / ((data->ray[i].items[j]->hbot - data->ray[i].items[j]->htop) / 2.0);
 				// printf("rap_y>%lf\n",rap_y);
 				// printf("rap>%lf  pix_y>%d     radius>%lf\n",rap_y,data->ray[i].pix_y,data->ray[i].items[j]->item->radius);
 				if (sqrt((data->ray[i].items[j]->posx - 0.5) * (data->ray[i].items[j]->posx - 0.5)
