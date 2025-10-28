@@ -64,6 +64,14 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->life = 100;
 	}
 	calc_left_and_right_point(enemy, data);
+	enemy->left_before.coo_x = enemy->left.coo_x;
+	enemy->left_before.coo_y = enemy->left.coo_y;
+	enemy->left_before.case_x = enemy->left.case_x;
+	enemy->left_before.case_y = enemy->left.case_y;
+	enemy->right_before.coo_x = enemy->right.coo_x;
+	enemy->right_before.coo_y = enemy->right.coo_y;
+	enemy->right_before.case_x = enemy->right.case_x;
+	enemy->right_before.case_y = enemy->right.case_y;
 	(void)data;
 	return (enemy);
 }
