@@ -35,7 +35,7 @@ static void	set_path_texture(t_data *data)
 	// data->img[SPIDER_FRONT_45].path = "./texture/spider_front_45.xpm";
 	// data->img[SPIDER_BACK_45].path = "./texture/spider_back_45.xpm";
 
-	data->img[WOLF_FRONT].path = "./texture/dementor_front.xpm";
+	data->img[WOLF_FRONT].path = "./texture/wolf_front.xpm";
 	data->img[WOLF_BACK].path = "./texture/dementor_back.xpm";
 	data->img[WOLF_SIDE_90].path = "./texture/dementor_90.xpm";
 	data->img[WOLF_FRONT_45].path = "./texture/dementor_front_45.xpm";
