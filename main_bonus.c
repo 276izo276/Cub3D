@@ -286,13 +286,13 @@ void	start(int ac, char **av)
 	mlx_loop_hook(data.mlx.mlx, game_loop, &data);
 	mlx_loop(data.mlx.mlx);
 	// ray_launch(&data, data.ray);
+	pthread_barrier_destroy(&data.barrier_background);
+	pthread_barrier_destroy(&data.barrier_display);
 	f_exit(&data, 0);
 	// sem_close(data.sem_background); // FAUT CLOSE les sem dans f_exit et destroy les barier aussi
 	// sem_close(data.sem_display);
 	// sem_unlink(SEM_DISPLAY);
 	// sem_unlink(SEM_BACKGROUND);
-	pthread_barrier_destroy(&data.barrier_background);
-	pthread_barrier_destroy(&data.barrier_display);
 }
 int	main(int ac, char **av)
 {

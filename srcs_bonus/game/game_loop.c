@@ -524,7 +524,7 @@ void	update_enemy(t_data *data)
 		x = 0;
 		while (data->map.tabmap[y][x])
 		{
-			if (data->map.tabmap[y][x] == '0')
+			if (data->nb_enemy < 5 + data->player.xp * 2 && data->map.tabmap[y][x] == '0')
 			{
 				random = rand() % 15000;
 				if (random <= data->player.xp * 2)
@@ -607,7 +607,6 @@ int	game_loop(t_data *data)
 		// data->player.life -= .5;
 		// if (cur - data->last_spawn >= data->spawn_frame)
 		// {
-		// 	if (data->nb_enemy < 5 + data->player.xp * 2)
 		// 		update_enemy(data);
 		// 	data->last_spawn = get_mtime();
 		// 	// data->player.xp++;

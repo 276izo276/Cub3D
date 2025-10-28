@@ -58,7 +58,7 @@ static void	display_quit_button(t_data *data, int start_x, int start_y)
 void	handle_death_menu(t_data *data)
 {
 	display_menu_background(data, &data->img[END_MENU], 0, 0);
-	display_retry_button(data, 300, 800);
-	display_quit_button(data, 1000, 800);
+	display_retry_button(data, 250, 600);
+	display_quit_button(data, 1000, 600);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,0);
 }
