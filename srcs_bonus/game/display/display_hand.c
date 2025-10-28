@@ -13,24 +13,40 @@ int	get_texture_pixel(t_img *texture, int x, int y)
 	return (*(unsigned int *)pixel);
 }
 
+static void	wich_wand(t_data *data, t_img **img)
+{
+	if (data->nb_wand == 1)
+		*img = &data->img[PLAYER_WAND_2];
+	else if (data->nb_wand == 2)
+		*img = &data->img[PLAYER_WAND_3];
+	else if (data->nb_wand == 3)
+		*img = &data->img[PLAYER_WAND_4];
+	else if (data->nb_wand == 4)
+		*img = &data->img[PLAYER_WAND_5];
+	else if (data->nb_wand == 5 && data->easter_egg == true)
+		*img = &data->img[PLAYER_WAND_6];
+}
 static void display_wand(t_data *data, int pos_x, int pos_y)
 {
 	int				x;
 	int				y;
 	unsigned int	color;
+	t_img			*img;
 
 	y = 0;
 	color = 0;
+	img = &data->img[PLAYER_WAND];
+	wich_wand(data, &img);
 	if (data->is_right_handed == false)
 		pos_x -= 40;
 	else
 		pos_x -= 60;
-	while (y < data->img[PLAYER_WAND].height && pos_y + y < data->mlx.height)
+	while (y < img->height && pos_y + y < data->mlx.height)
 	{
 		x = 0;
-		while (x < data->img[PLAYER_WAND].width)
+		while (x < img->width)
 		{
-			color = get_texture_pixel(&data->img[PLAYER_WAND], x, y);
+			color = get_texture_pixel(img, x, y);
 			if (color != WHITE)
 			{
 				pixel_put(data, x + pos_x, pos_y + y, color);

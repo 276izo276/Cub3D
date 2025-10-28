@@ -105,6 +105,20 @@ int	mouse_key(int key, int x, int y, t_data *data)
 {
 	(void)x;
 	(void)y;
+	if (key == 4 && data->status == GAME)
+	{
+		if (data->nb_wand != 5)
+			++data->nb_wand;
+		else
+			data->nb_wand = 0;
+	}
+	else if (key == 5 && data->status == GAME)
+	{
+		if (data->nb_wand != 0)
+			--data->nb_wand;
+		else
+			data->nb_wand = 5;
+	}
 	if (key == 1 && data->map.floo_active == true && data->status == FLOO_MAP)
 	{
 		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open = false;
@@ -340,6 +354,24 @@ void	handle_floo_open(t_data *data)
 }
 
 	// #include <stdio.h>
+bool	is_easter_egg(int keycode, t_data *data)
+{
+	if (keycode == KEY_B && data->count_egg == 0)
+		data->count_egg++;
+	else if (keycode == KEY_A && data->count_egg == 1)
+		data->count_egg++;
+	else if (keycode == KEY_G && data->count_egg == 2)
+		data->count_egg++;
+	else if (keycode == KEY_U && data->count_egg == 3)
+		data->count_egg++;
+	else if (keycode == KEY_E && (data->count_egg == 4 || data->count_egg == 7))
+		data->count_egg++;
+	else if (keycode == KEY_T && (data->count_egg == 5 || data->count_egg == 6))
+		data->count_egg++;
+	if (data->count_egg == 8)
+		return (true);
+	return (false);
+}
 int	key_press(int keycode, t_data *data)
 {
 	int	i;
@@ -400,6 +432,8 @@ int	key_press(int keycode, t_data *data)
 		data->map.last_pos_x = data->player.coo.case_x;
 		data->map.last_pos_y = data->player.coo.case_y;
 	}
+	else if(data->easter_egg != true && is_easter_egg(keycode, data) == true)
+		data->easter_egg = true;
 	else
 		data->keycode[i] = keycode;
 	if (keycode == KEY_ALT)

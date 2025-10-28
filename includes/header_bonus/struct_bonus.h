@@ -142,6 +142,11 @@ typedef enum e_imgs
 	SELECT_HAND,
 	PLAYER_HAND,
 	PLAYER_WAND,
+	PLAYER_WAND_2,
+	PLAYER_WAND_3,
+	PLAYER_WAND_4,
+	PLAYER_WAND_5,
+	PLAYER_WAND_6,
 	LEFT_SELECT,
 	DEMENTOR_FRONT,
 	DEMENTOR_SIDE_90,
@@ -255,7 +260,7 @@ typedef enum e_imgs
 	RETRY_BUTTON,
 	QUIT_BUTTON,
 }	t_imgs;
-# define NB_TEXTURES 148
+# define NB_TEXTURES 153
 
 typedef enum e_spells
 {
@@ -857,11 +862,11 @@ struct s_data
 	t_coa			*coa;
 	int				color;
 	int				selected;
-	t_img			*select;
-	t_img			*select_hand;
-	t_img			*player_hand;
-	t_img			*player_wand;
-	t_img			*left_select;
+	// t_img			*select;
+	// t_img			*select_hand;
+	// t_img			*player_hand;
+	// t_img			*player_wand;
+	// t_img			*left_select;
 	bool				is_right_handed;
 	int					nb_door;
 	t_door				**doors;
@@ -891,6 +896,9 @@ struct s_data
 	int			frame_floo;
 	long long int spawn_frame;
 	long long int last_spawn;
+	int				nb_wand;
+	bool 			easter_egg;
+	int				count_egg;
 };
 
 t_coo	*init_t_coo(int y, int x);

@@ -12,7 +12,14 @@ static void	set_path_texture(t_data *data)
 	data->img[SELECT].path = "./texture/menu/select.xpm";
 	data->img[SELECT_HAND].path = "./texture/menu/select_hand.xpm";
 	data->img[PLAYER_HAND].path = "./texture/player_hand/wand_sureau.xpm";
+
 	data->img[PLAYER_WAND].path = "./texture/player_hand/wand_sureau.xpm";
+	data->img[PLAYER_WAND_2].path = "./texture/player_hand/wand_2.xpm";
+	data->img[PLAYER_WAND_3].path = "./texture/player_hand/wand_3.xpm";
+	data->img[PLAYER_WAND_4].path = "./texture/player_hand/wand_4.xpm";
+	data->img[PLAYER_WAND_5].path = "./texture/player_hand/wand_5.xpm";
+	data->img[PLAYER_WAND_6].path = "./texture/player_hand/wand_6.xpm";
+
 	data->img[LEFT_SELECT].path = "./texture/menu/left_select.xpm";
 
 
@@ -604,6 +611,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->map.last_mouse_x = 960;
 	data->map.last_mouse_y = 555;
 	data->map.is_center = false;
+	data->easter_egg = false;
 	data->map.pos_active_floo = init_t_coo(0, 0);
 	set_spell_take(data);
 	init_spell(data);
