@@ -5,7 +5,7 @@
 #include <math.h>
 #include "time_bonus.h"
 
-static int	get_right_white(t_data *data, int color, double distance)
+int	get_right_white(t_data *data, int color, double distance)
 {
 	int r;
 	int g;

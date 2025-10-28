@@ -14,6 +14,8 @@
 # define M_PI 3.14159265358979323846
 #endif
 
+
+int	get_right_white(t_data *data, int color, double distance);
 void	start(int ac, char **av);
 void	restart(t_data *data);
 void	take_damage(t_data *data);
