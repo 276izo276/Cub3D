@@ -174,6 +174,9 @@ void	handle_death_menu(t_data *data);
 
 int		darken_the_color(int color);
 
+//wand
+void	init_textures_wand(t_data *data);
+
 typedef enum e_key_down
 {
 	ON_KEYDOWN = 2,
@@ -210,6 +213,7 @@ typedef enum e_key
 	KEY_G = 103,
 	KEY_U = 117,
 	KEY_T = 116,
+	KEY_MINUS = 45,
 	KEY_UP = 65362,
 	KEY_DOWN = 65364,
 	KEY_LEFT = 65361,

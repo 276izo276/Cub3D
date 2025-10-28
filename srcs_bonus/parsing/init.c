@@ -7,23 +7,25 @@
 #include <color_bonus.h>
 #include "ft_printf.h"
 
+static void	set_path_wand(t_data *data)
+{
+	data->wand.img[PLAYER_WAND].path = "./texture/player_hand/wand_sureau.xpm";
+	data->wand.img[PLAYER_WAND_2].path = "./texture/player_hand/wand_2.xpm";
+	data->wand.img[PLAYER_WAND_3].path = "./texture/player_hand/wand_3.xpm";
+	data->wand.img[PLAYER_WAND_4].path = "./texture/player_hand/wand_4.xpm";
+	data->wand.img[PLAYER_WAND_5].path = "./texture/player_hand/wand_5.xpm";
+	data->wand.img[PLAYER_WAND_6].path = "./texture/player_hand/wand_6.xpm";
+	data->wand.img[PLAYER_WAND_7].path = "./texture/player_hand/wand_7.xpm";
+}
 static void	set_path_texture(t_data *data)
 {
 	data->img[SELECT].path = "./texture/menu/select.xpm";
 	data->img[SELECT_HAND].path = "./texture/menu/select_hand.xpm";
 	data->img[PLAYER_HAND].path = "./texture/player_hand/wand_sureau.xpm";
-
-	data->img[PLAYER_WAND].path = "./texture/player_hand/wand_sureau.xpm";
-	data->img[PLAYER_WAND_2].path = "./texture/player_hand/wand_2.xpm";
-	data->img[PLAYER_WAND_3].path = "./texture/player_hand/wand_3.xpm";
-	data->img[PLAYER_WAND_4].path = "./texture/player_hand/wand_4.xpm";
-	data->img[PLAYER_WAND_5].path = "./texture/player_hand/wand_5.xpm";
-	data->img[PLAYER_WAND_6].path = "./texture/player_hand/wand_6.xpm";
-
 	data->img[LEFT_SELECT].path = "./texture/menu/left_select.xpm";
 
 
-	data->img[DEMENTOR_FRONT].path = "./texture/dementor_front.xpm";
+	data->img[DEMENTOR_FRONT].path = "./texture/spider_back_45.xpm";
 	data->img[DEMENTOR_BACK].path = "./texture/dementor_back.xpm";
 	data->img[DEMENTOR_SIDE_90].path = "./texture/dementor_90.xpm";
 	data->img[DEMENTOR_FRONT_45].path = "./texture/dementor_front_45.xpm";
@@ -36,11 +38,6 @@ static void	set_path_texture(t_data *data)
 	data->img[SPIDER_FRONT_45].path = "./texture/spider_front_45.xpm";
 	data->img[SPIDER_BACK_45].path = "./texture/spider_back_45.xpm";
 
-	// data->img[SPIDER_FRONT].path = "./texture/spider_front.xpm";
-	// data->img[SPIDER_BACK].path = "./texture/spider_back.xpm";
-	// data->img[SPIDER_SIDE_90].path = "./texture/spider_90.xpm";
-	// data->img[SPIDER_FRONT_45].path = "./texture/spider_front_45.xpm";
-	// data->img[SPIDER_BACK_45].path = "./texture/spider_back_45.xpm";
 
 	data->img[WOLF_FRONT].path = "./texture/wolf_front.xpm";
 	data->img[WOLF_BACK].path = "./texture/dementor_back.xpm";
@@ -48,11 +45,6 @@ static void	set_path_texture(t_data *data)
 	data->img[WOLF_FRONT_45].path = "./texture/dementor_front_45.xpm";
 	data->img[WOLF_BACK_45].path = "./texture/dementor_back_45.xpm";
 
-	// data->img[WOLF_FRONT].path = "./texture/wolf_front.xpm";
-	// data->img[WOLF_BACK].path = "./texture/wolf_back.xpm";
-	// data->img[WOLF_SIDE_90].path = "./texture/wolf_90.xpm";
-	// data->img[WOLF_FRONT_45].path = "./texture/wolf_front_45.xpm";
-	// data->img[WOLF_BACK_45].path = "./texture/wolf_back_45.xpm";
 
 	data->img[ELEM_FRONT].path = "./texture/dementor_front.xpm";
 	data->img[ELEM_BACK].path = "./texture/dementor_back.xpm";
@@ -60,11 +52,6 @@ static void	set_path_texture(t_data *data)
 	data->img[ELEM_FRONT_45].path = "./texture/dementor_front_45.xpm";
 	data->img[ELEM_BACK_45].path = "./texture/dementor_back_45.xpm";
 
-	// data->img[ELEM_FRONT].path = "./texture/elem_front.xpm";
-	// data->img[ELEM_BACK].path = "./texture/elem_back.xpm";
-	// data->img[ELEM_SIDE_90].path = "./texture/elem_90.xpm";	
-	// data->img[ELEM_FRONT_45].path = "./texture/elem_front_45.xpm";
-	// data->img[ELEM_BACK_45].path = "./texture/elem_back_45.xpm";
 
 	data->img[DOOR_MOVE].path = "./texture/door_close.xpm";
 	data->img[DOOR_FIXED].path = "./texture/door_open.xpm";
@@ -230,6 +217,36 @@ void	init_textures(t_data *data)
 		data->img[i].data_addr = mlx_get_data_addr(data->img[i].img,
 				&data->img[i].bits_per_pixel, &data->img[i].size_line,
 				&data->img[i].endian);
+		++i;
+	}
+}
+
+void	init_textures_wand(t_data *data)
+{
+	int	i;
+
+	set_path_wand(data);
+	i = 0;
+	while (i < NB_WAND)
+	{
+		data->wand.img[i].img = mlx_xpm_file_to_image(data->mlx.mlx,
+				data->wand.img[i].path, &data->wand.img[i].width,
+				&data->wand.img[i].height);
+		if (!data->wand.img[i].img)
+		{
+			ft_printf_fd(2, _BOLD _PURPLE "Image >>> '"
+			_RED _ITALIC "%s"_END _PURPLE _BOLD "' is not a valid path\n"_END,
+			data->wand.img[i].path);
+			while (--i >= 0)
+			{
+				mlx_destroy_image(data->mlx.mlx, data->wand.img[i].img);
+				data->wand.img[i].img = NULL;
+			}
+			f_exit(data, 1);
+		}
+		data->wand.img[i].data_addr = mlx_get_data_addr(data->wand.img[i].img,
+				&data->wand.img[i].bits_per_pixel, &data->wand.img[i].size_line,
+				&data->wand.img[i].endian);
 		++i;
 	}
 }
@@ -587,6 +604,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->lumos.active = false;
 	// init_texture(data);
 	init_textures(data);
+	init_textures_wand(data);
 	init_coa(data);
 	init_pause_menu(data);
 	init_spell_menu(data);
@@ -611,7 +629,54 @@ void	init_data(t_data *data, int ac, char **av)
 	data->map.last_mouse_x = 960;
 	data->map.last_mouse_y = 555;
 	data->map.is_center = false;
-	data->easter_egg = false;
+
+	data->wand.secret_wand[0] = 'B';
+	data->wand.secret_wand[1] = 'A';
+	data->wand.secret_wand[2] = 'G';
+	data->wand.secret_wand[3] = 'U';
+	data->wand.secret_wand[4] = 'E';
+	data->wand.secret_wand[5] = 'T';
+	data->wand.secret_wand[6] = 'T';
+	data->wand.secret_wand[7] = 'E';
+	data->wand.secret_wand[8] = '\0';
+
+	data->wand.secret_sword[0] = 'S';
+	data->wand.secret_sword[1] = 'W';
+	data->wand.secret_sword[2] = 'O';
+	data->wand.secret_sword[3] = 'R';
+	data->wand.secret_sword[4] = 'D';
+	data->wand.secret_sword[5] = '\0';
+
+	int	i = 1;
+	data->wand.wand_status[0] = true;
+	while (i < 6)
+	{
+		data->wand.wand_status[i] = true; // a changer quand on aura le loot
+		++i;
+	}
+	data->cheat_code_xp[0] = 'S';
+	data->cheat_code_xp[1] = 'A';
+	data->cheat_code_xp[2] = 'M';
+	data->cheat_code_xp[3] = 'A';
+	data->cheat_code_xp[4] = 'O';
+	data->cheat_code_xp[5] = 'U';
+	data->cheat_code_xp[6] = 'C';
+	data->cheat_code_xp[7] = 'H';
+	data->cheat_code_xp[8] = '\0';
+
+
+	data->cheat_code_life[0] = 'A';
+	data->cheat_code_life[1] = 'L';
+	data->cheat_code_life[2] = 'E';
+	data->cheat_code_life[3] = '-';
+	data->cheat_code_life[4] = 'G';
+	data->cheat_code_life[5] = 'U';
+	data->cheat_code_life[6] = 'E';
+	data->cheat_code_life[7] = 'L';
+	data->cheat_code_life[8] = '\0';
+
+	data->wand.wand_status[5] = false;
+	data->wand.wand_status[6] = false;
 	data->map.pos_active_floo = init_t_coo(0, 0);
 	set_spell_take(data);
 	init_spell(data);

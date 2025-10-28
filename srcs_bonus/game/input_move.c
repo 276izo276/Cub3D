@@ -107,17 +107,25 @@ int	mouse_key(int key, int x, int y, t_data *data)
 	(void)y;
 	if (key == 4 && data->status == GAME)
 	{
-		if (data->nb_wand != 5)
-			++data->nb_wand;
+		if (data->wand.nb_wand == 6)
+			data->wand.nb_wand = 0;
 		else
-			data->nb_wand = 0;
+			++data->wand.nb_wand;
+		while (data->wand.wand_status[data->wand.nb_wand] == false && data->wand.nb_wand < 5)
+			++data->wand.nb_wand;
+		if (data->wand.wand_status[data->wand.nb_wand] == false)
+			data->wand.nb_wand = 0;
 	}
 	else if (key == 5 && data->status == GAME)
 	{
-		if (data->nb_wand != 0)
-			--data->nb_wand;
+		if (data->wand.nb_wand == 0)
+			data->wand.nb_wand = 6;
 		else
-			data->nb_wand = 5;
+			--data->wand.nb_wand;
+		while (data->wand.wand_status[data->wand.nb_wand] == false && data->wand.nb_wand > 0 )
+			--data->wand.nb_wand;
+		if (data->wand.wand_status[data->wand.nb_wand] == false)
+			data->wand.nb_wand = 0;
 	}
 	if (key == 1 && data->map.floo_active == true && data->status == FLOO_MAP)
 	{
@@ -354,30 +362,47 @@ void	handle_floo_open(t_data *data)
 }
 
 	// #include <stdio.h>
-bool	is_easter_egg(int keycode, t_data *data)
+void	is_easter_egg(int keycode, t_data *data)
 {
-	if (keycode == KEY_B && data->count_egg == 0)
-		data->count_egg++;
-	else if (keycode == KEY_A && data->count_egg == 1)
-		data->count_egg++;
-	else if (keycode == KEY_G && data->count_egg == 2)
-		data->count_egg++;
-	else if (keycode == KEY_U && data->count_egg == 3)
-		data->count_egg++;
-	else if (keycode == KEY_E && (data->count_egg == 4 || data->count_egg == 7))
-		data->count_egg++;
-	else if (keycode == KEY_T && (data->count_egg == 5 || data->count_egg == 6))
-		data->count_egg++;
-	if (data->count_egg == 8)
-		return (true);
-	return (false);
+	if (keycode == data->wand.secret_wand[data->wand.count_egg] + 32)
+		data->wand.count_egg++;
+	if (data->wand.count_egg == 7)
+		data->wand.wand_status[5] = true;
+	else if (keycode == data->wand.secret_sword[data->wand.count_sword] + 32)
+		data->wand.count_sword++;
+	if (data->wand.count_sword == 5)
+		data->wand.wand_status[6] = true;
+}
+
+void	cheat_code(t_data *data, int keycode)
+{
+	if (keycode == data->cheat_code_xp[data->index_xp] + 32)
+	{
+		data->index_xp++;
+		if (data->index_xp == 8)
+		{
+			data->index_xp = 0;
+			data->player.xp += 20;
+		}
+	}
+	else if (keycode == data->cheat_code_life[data->index_life] + 32
+	|| (keycode == KEY_MINUS && data->index_life == 3))
+	{
+		data->index_life++;
+		if (data->index_life == 8)
+		{
+			data->player.life = 100;
+			data->player.shield = 100;
+		}
+	}
+	if(data->wand.wand_status[5] != true || data->wand.wand_status[6] != true)
+		is_easter_egg(keycode, data);
 }
 int	key_press(int keycode, t_data *data)
 {
 	int	i;
 
-	// #include <stdio.h>
-	// printf("keycode >> %d\n", keycode);
+	cheat_code(data, keycode);
 	if (data->status == MENU)
 	{
 		handle_menu_keys(keycode, data);
@@ -432,8 +457,6 @@ int	key_press(int keycode, t_data *data)
 		data->map.last_pos_x = data->player.coo.case_x;
 		data->map.last_pos_y = data->player.coo.case_y;
 	}
-	else if(data->easter_egg != true && is_easter_egg(keycode, data) == true)
-		data->easter_egg = true;
 	else
 		data->keycode[i] = keycode;
 	if (keycode == KEY_ALT)

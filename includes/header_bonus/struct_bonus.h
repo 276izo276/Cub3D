@@ -57,6 +57,7 @@ typedef struct s_player		t_player;
 typedef struct s_damage		t_damage;
 typedef struct s_item		t_item;
 typedef struct s_spell		t_spell;
+typedef struct s_wand		t_wand;
 
 typedef	enum e_dir
 {
@@ -141,12 +142,6 @@ typedef enum e_imgs
 	SELECT,
 	SELECT_HAND,
 	PLAYER_HAND,
-	PLAYER_WAND,
-	PLAYER_WAND_2,
-	PLAYER_WAND_3,
-	PLAYER_WAND_4,
-	PLAYER_WAND_5,
-	PLAYER_WAND_6,
 	LEFT_SELECT,
 	DEMENTOR_FRONT,
 	DEMENTOR_SIDE_90,
@@ -260,7 +255,19 @@ typedef enum e_imgs
 	RETRY_BUTTON,
 	QUIT_BUTTON,
 }	t_imgs;
-# define NB_TEXTURES 153
+# define NB_TEXTURES 147
+
+typedef enum e_wand
+{
+	PLAYER_WAND,
+	PLAYER_WAND_2,
+	PLAYER_WAND_3,
+	PLAYER_WAND_4,
+	PLAYER_WAND_5,
+	PLAYER_WAND_6,
+	PLAYER_WAND_7
+}	t_wands;
+# define NB_WAND 7
 
 typedef enum e_spells
 {
@@ -821,6 +828,17 @@ struct	s_player
 	double		vul_sanen_heal;
 };
 
+struct s_wand
+{
+	int		nb_wand;
+	int		count_egg;
+	t_img	img[NB_WAND];
+	char	secret_wand[9];
+	bool	wand_status[7];
+	char	secret_sword[6];
+	int		count_sword;
+};
+
 struct s_data
 {
 	t_img			img[NB_TEXTURES];
@@ -896,9 +914,11 @@ struct s_data
 	int			frame_floo;
 	long long int spawn_frame;
 	long long int last_spawn;
-	int				nb_wand;
-	bool 			easter_egg;
-	int				count_egg;
+	t_wand		wand;
+	char		cheat_code_xp[9];
+	char		cheat_code_life[9];
+	int			index_life;
+	int			index_xp;
 };
 
 t_coo	*init_t_coo(int y, int x);
