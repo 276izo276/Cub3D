@@ -154,10 +154,10 @@ void	display_item(t_data *data, int i)
 				data->ray[i].pix_y = 0;
 			if (data->ray[i].pix_y < round(data->ray[i].max_height - data->ray[i].items[j]->max_size))
 				data->ray[i].pix_y = round(data->ray[i].max_height - data->ray[i].items[j]->max_size);
-			printf("\nmax_size>%lf\n",data->ray[i].items[j]->max_size);
-			printf("dist>%lf\n",data->ray[i].items[j]->dist);
-			printf("dproj>%lf\n",data->ray[i].d_proj);
-			printf("item radius>%lf\n",data->ray[i].items[j]->item->radius);
+			// printf("\nmax_size>%lf\n",data->ray[i].items[j]->max_size);
+			// printf("dist>%lf\n",data->ray[i].items[j]->dist);
+			// printf("dproj>%lf\n",data->ray[i].d_proj);
+			// printf("item radius>%lf\n",data->ray[i].items[j]->item->radius);
 			data->ray[i].items[j]->hbot = data->mlx.height / 2 + (2 * data->ray[i].items[j]->item->radius) * data->ray[i].d_proj / data->ray[i].items[j]->dist;
 			while (data->ray[i].pix_y < data->ray[i].items[j]->hbot
 				&& data->ray[i].pix_y < data->mlx.height && data->ray[i].pix_y < round(data->ray[i].max_height + data->ray[i].items[j]->max_size))

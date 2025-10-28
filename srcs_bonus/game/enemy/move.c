@@ -625,6 +625,8 @@ void	calc_left_and_right_point(t_enemy *enemy, t_data *data)
 		}
 	}
 	//DBG2 printf("center y >%lf\n",enemy->center.coo_y);
+
+
 	enemy->left_before.coo_x = enemy->left.coo_x;
 	enemy->left_before.coo_y = enemy->left.coo_y;
 	enemy->left_before.case_x = enemy->left.case_x;
@@ -633,10 +635,74 @@ void	calc_left_and_right_point(t_enemy *enemy, t_data *data)
 	enemy->right_before.coo_y = enemy->right.coo_y;
 	enemy->right_before.case_x = enemy->right.case_x;
 	enemy->right_before.case_y = enemy->right.case_y;
+
+	
 	// enemy->damage.hit.case_x = enemy->center.case_x;
 	// enemy->damage.hit.case_y = enemy->center.case_y;
 	// enemy->damage.hit.coo_x = enemy->center.coo_x;
 	// enemy->damage.hit.coo_y = enemy->center.coo_y;
+}
+
+void	change_hit_pos(t_enemy *enemy, t_item *item)
+{
+	double	deg;
+	double	rad;
+	double	dx;
+	double	dy;
+	double	v_normalize;
+
+	deg = 0;
+	rad = 0;
+	double	diff_x = (enemy->center.case_x * 64 + enemy->center.coo_x) - (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x);
+	double	diff_y = (enemy->center.case_y * 64 + enemy->center.coo_y) - (enemy->damage.hit.case_y * 64 + enemy->damage.hit.coo_y);
+	// printf("way >>> y>%d     x>%d",enemy->way->coo_y,enemy->way->coo_x);
+	// printf("x>>>%lf     y>>>%lf\n",diff_x,diff_y);
+	if (diff_y != 0)
+	{
+		deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
+		if (deg < 0)
+			deg = -deg;
+	}
+	if (diff_y < 0 && diff_x < 0)
+		deg = 180 + deg;
+	else if (diff_y < 0 && diff_x > 0)
+		deg = 180 - deg;
+	else if (diff_y > 0 && diff_x < 0)
+		deg = 360 - deg;
+	else if (diff_y == 0 && diff_x < 0)
+		deg = 270;
+	else if (diff_y == 0 && diff_x > 0)
+		deg = 90;
+	else if (diff_x == 0 && diff_y < 0)
+		deg = 180;
+	// printf("deg angle >>>%lf\n",deg);
+	// printf("deg angle >>>%lf     player>>%lf\n",deg,data->map.mini.deg);
+	// if (enemy->damage.confundo_force_take > 0)
+	// {
+	// 	f_way(enemy);
+	// 	deg += 180;
+	// }
+	deg += 180;
+	rad = deg * (M_PI / 180);
+	dx = sin(rad);
+	dy = cos(rad);
+	// printf("dx>>%lf     dy>>%lf\n",dx,dy);
+	if (round(dy) == 0.0 && round(dx) == 0.0)
+	{
+		dy = 0;
+		dx = 0;
+	}
+	else
+	{
+		v_normalize = sqrt(dx * dx + dy * dy);
+		dy = dy / v_normalize;
+		dx = dx / v_normalize;
+	}
+	dx *= 15;
+	dy *= 15;
+	printf("change hit pos dy>%lf   dx>%lf\n",dy,dx);
+	item->damage.hit.coo_x += dx;
+	item->damage.hit.coo_y += dy;
 }
 
 void	try_hit_enemys(t_enemy *elem, t_data *data)
@@ -657,24 +723,25 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 		ray.by = elem->right.case_y * 64 + elem->right.coo_y;
 		ray.cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
 		ray.cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
+		printf("\nax>%lf   ay>%lf\n",ray.ax, ray.ay);
+		printf("bx>%lf   by>%lf\n",ray.bx, ray.by);
+		printf("cx>%lf   cy>%lf\n",ray.cx, ray.cy);
 		ray.dx = item->left.case_x * 64 + item->left.coo_x;
 		ray.dy = item->left.case_y * 64 + item->left.coo_y;
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			// elem->damage.damage_take += item->damage.damage_do;
-			// elem->damage.damage_spider_take += item->damage.damage_spider_do;
-			// elem->damage.damage_dementor_take += item->damage.damage_dementor_do;
-			// elem->damage.slow_force_take += item->damage.slow_force_do;
-			// elem->damage.slow_frame_take += item->damage.slow_frame_do;
-			// elem->damage.poison_force_take += item->damage.poison_force_do;
-			// elem->damage.poison_frame_take += item->damage.poison_frame_do;
-			// elem->damage.fire_force_take += item->damage.fire_force_do;
-			// elem->damage.fire_frame_take += item->damage.fire_frame_do;
+			if (item->damage.repulso_force_do > 0)
+			{
+				change_hit_pos(elem, item);
+			}
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			data->item = remove_elem_lst(lst);
-			f_elem_lst(lst);
+			if (item->type != EXPECTO_PATRONUM)
+			{
+				data->item = remove_elem_lst(lst);
+				f_elem_lst(lst);
+			}
 			lst = next;
 			continue;
 		}
@@ -683,19 +750,17 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			// elem->damage.damage_take += item->damage.damage_do;
-			// elem->damage.damage_spider_take += item->damage.damage_spider_do;
-			// elem->damage.damage_dementor_take += item->damage.damage_dementor_do;
-			// elem->damage.slow_force_take += item->damage.slow_force_do;
-			// elem->damage.slow_frame_take += item->damage.slow_frame_do;
-			// elem->damage.poison_force_take += item->damage.poison_force_do;
-			// elem->damage.poison_frame_take += item->damage.poison_frame_do;
-			// elem->damage.fire_force_take += item->damage.fire_force_do;
-			// elem->damage.fire_frame_take += item->damage.fire_frame_do;
+			if (item->damage.repulso_force_do > 0)
+			{
+				change_hit_pos(elem, item);
+			}
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			data->item = remove_elem_lst(lst);
-			f_elem_lst(lst);
+			if (item->type != EXPECTO_PATRONUM)
+			{
+				data->item = remove_elem_lst(lst);
+				f_elem_lst(lst);
+			}
 			lst = next;
 			continue;
 		}
@@ -704,19 +769,65 @@ void	try_hit_enemys(t_enemy *elem, t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			// elem->damage.damage_take += item->damage.damage_do;
-			// elem->damage.damage_spider_take += item->damage.damage_spider_do;
-			// elem->damage.damage_dementor_take += item->damage.damage_dementor_do;
-			// elem->damage.slow_force_take += item->damage.slow_force_do;
-			// elem->damage.slow_frame_take += item->damage.slow_frame_do;
-			// elem->damage.poison_force_take += item->damage.poison_force_do;
-			// elem->damage.poison_frame_take += item->damage.poison_frame_do;
-			// elem->damage.fire_force_take += item->damage.fire_force_do;
-			// elem->damage.fire_frame_take += item->damage.fire_frame_do;
+			if (item->damage.repulso_force_do > 0)
+			{
+				change_hit_pos(elem, item);
+			}
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			data->item = remove_elem_lst(lst);
-			f_elem_lst(lst);
+			if (item->type != EXPECTO_PATRONUM)
+			{
+				data->item = remove_elem_lst(lst);
+				f_elem_lst(lst);
+			}
+			lst = next;
+			continue;
+		}
+
+		ray.ax = elem->center.case_x * 64 + elem->center.coo_x;
+		ray.ay = elem->center.case_y * 64 + elem->center.coo_y;
+		ray.bx = elem->center_before.case_x * 64 + elem->center_before.coo_x;
+		ray.by = elem->center_before.case_y * 64 + elem->center_before.coo_y;
+
+		ray.cx = item->left.case_x * 64 + item->left.coo_x;
+		ray.cy = item->left.case_y * 64 + item->left.coo_y;
+		ray.dx = item->center.case_x * 64 + item->center.coo_x;
+		ray.dy = item->center.case_y * 64 + item->center.coo_y;
+		calc_delta(&ray);
+		if (ray.hit == true)
+		{
+			if (item->damage.repulso_force_do > 0)
+			{
+				change_hit_pos(elem, item);
+			}
+			apply_damage(&elem->damage, &item->damage);
+			next = lst->next;
+			if (item->type != EXPECTO_PATRONUM)
+			{
+				data->item = remove_elem_lst(lst);
+				f_elem_lst(lst);
+			}
+			lst = next;
+			continue;
+		}
+		ray.cx = item->center.case_x * 64 + item->center.coo_x;
+		ray.cy = item->center.case_y * 64 + item->center.coo_y;
+		ray.dx = item->right.case_x * 64 + item->right.coo_x;
+		ray.dy = item->right.case_y * 64 + item->right.coo_y;
+		calc_delta(&ray);
+		if (ray.hit == true)
+		{
+			if (item->damage.repulso_force_do > 0)
+			{
+				change_hit_pos(elem, item);
+			}
+			apply_damage(&elem->damage, &item->damage);
+			next = lst->next;
+			if (item->type != EXPECTO_PATRONUM)
+			{
+				data->item = remove_elem_lst(lst);
+				f_elem_lst(lst);
+			}
 			lst = next;
 			continue;
 		}
@@ -751,7 +862,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		double	diff_x = (enemy->center.case_x * 64 + enemy->center.coo_x) - (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x);
 		double	diff_y = (enemy->center.case_y * 64 + enemy->center.coo_y) - (enemy->damage.hit.case_y * 64 + enemy->damage.hit.coo_y);
 		// printf("way >>> y>%d     x>%d",enemy->way->coo_y,enemy->way->coo_x);
-		printf("x>>>%lf     y>>>%lf\n",diff_x,diff_y);
+		// printf("x>>>%lf     y>>>%lf\n",diff_x,diff_y);
 		if (diff_y != 0)
 		{
 			deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
@@ -798,7 +909,19 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		enemy->damage.repulso_frame_take--;
 		if (enemy->damage.repulso_frame_take <= 0)
 			enemy->damage.repulso_force_take = 0;
-		// calc_left_and_right_point(enemy, data);
+		calc_left_and_right_point(enemy, data);
+		enemy->center_before.coo_x = enemy->center.coo_x;
+		enemy->center_before.coo_y = enemy->center.coo_y;
+		enemy->center_before.case_x = enemy->center.case_x;
+		enemy->center_before.case_y = enemy->center.case_y;
+		enemy->left_before.coo_x = enemy->left.coo_x;
+		enemy->left_before.coo_y = enemy->left.coo_y;
+		enemy->left_before.case_x = enemy->left.case_x;
+		enemy->left_before.case_y = enemy->left.case_y;
+		enemy->right_before.coo_x = enemy->right.coo_x;
+		enemy->right_before.coo_y = enemy->right.coo_y;
+		enemy->right_before.case_x = enemy->right.case_x;
+		enemy->right_before.case_y = enemy->right.case_y;
 
 		if (enemy->center.coo_x + dx < 0)
 			cx = -1;
@@ -870,7 +993,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			|| ((enemy->right.coo_y + dy < 0 || enemy->right.coo_y + dy >= 64) && (new_right_y < 0 || new_right_y > data->map.tabmap_height || new_right_x < 0 || new_right_x >= ft_strlen(data->map.tabmap[new_right_y]) || data->map.tabmap[new_right_y][new_right_x] == '1'))
 			|| ((enemy->left.coo_y + dy < 0 || enemy->left.coo_y + dy >= 64) && (new_left_y < 0 || new_left_y > data->map.tabmap_height || new_left_x < 0 || new_left_x >= ft_strlen(data->map.tabmap[new_left_y]) || data->map.tabmap[new_left_y][new_left_x] == '1')))
 		{
-			printf("cancel dy\n");
+			// printf("cancel dy\n");
 			dy = 0;
 			new_y = enemy->center.case_y;
 			new_left_y = enemy->left.case_y;
@@ -893,6 +1016,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			// enemy->deg += 180;
 		}
 		calc_left_and_right_point(enemy, data);
+		try_hit_enemys(enemy, data);
 		return ;
 	}
 	if (enemy->damage.confundo_force_take > 0)
@@ -995,7 +1119,18 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		enemy->deg = deg;
 		enemy->rad = enemy->deg * (M_PI / 180);
 		calc_left_and_right_point(enemy, data);
-
+		enemy->center_before.coo_x = enemy->center.coo_x;
+		enemy->center_before.coo_y = enemy->center.coo_y;
+		enemy->center_before.case_x = enemy->center.case_x;
+		enemy->center_before.case_y = enemy->center.case_y;
+		enemy->left_before.coo_x = enemy->left.coo_x;
+		enemy->left_before.coo_y = enemy->left.coo_y;
+		enemy->left_before.case_x = enemy->left.case_x;
+		enemy->left_before.case_y = enemy->left.case_y;
+		enemy->right_before.coo_x = enemy->right.coo_x;
+		enemy->right_before.coo_y = enemy->right.coo_y;
+		enemy->right_before.case_x = enemy->right.case_x;
+		enemy->right_before.case_y = enemy->right.case_y;
 		if (enemy->center.coo_x + dx < 0)
 			cx = -1;
 		else if (enemy->center.coo_x + dx >= 64)
@@ -1066,7 +1201,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			|| ((enemy->right.coo_y + dy < 0 || enemy->right.coo_y + dy >= 64) && (new_right_y < 0 || new_right_y > data->map.tabmap_height || new_right_x < 0 || new_right_x >= ft_strlen(data->map.tabmap[new_right_y]) || data->map.tabmap[new_right_y][new_right_x] == '1'))
 			|| ((enemy->left.coo_y + dy < 0 || enemy->left.coo_y + dy >= 64) && (new_left_y < 0 || new_left_y > data->map.tabmap_height || new_left_x < 0 || new_left_x >= ft_strlen(data->map.tabmap[new_left_y]) || data->map.tabmap[new_left_y][new_left_x] == '1')))
 		{
-			printf("cancel dy\n");
+			// printf("cancel dy\n");
 			dy = 0;
 			new_y = enemy->center.case_y;
 			new_left_y = enemy->left.case_y;
@@ -1089,6 +1224,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			// enemy->deg += 180;
 		}
 		calc_left_and_right_point(enemy, data);
+		try_hit_enemys(enemy, data);
 		// printf("coo after __IN__ case   y>%d    x>%d       coo   y>%lf      x>%lf\n",enemy->center.case_y,enemy->center.case_x,enemy->center.coo_y,enemy->center.coo_x);
 		return ;
 	}
@@ -1140,6 +1276,10 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	// else
 	// {
 	calc_left_and_right_point(enemy, data);
+	enemy->center_before.coo_x = enemy->center.coo_x;
+	enemy->center_before.coo_y = enemy->center.coo_y;
+	enemy->center_before.case_x = enemy->center.case_x;
+	enemy->center_before.case_y = enemy->center.case_y;
 	enemy->left_before.coo_x = enemy->left.coo_x;
 	enemy->left_before.coo_y = enemy->left.coo_y;
 	enemy->left_before.case_x = enemy->left.case_x;

@@ -319,7 +319,7 @@ void	move_item(t_data *data)
 		if (item->nb_move >= 1)
 			make_move_item(item, item->speed);
 		// printf("after move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
-		if (try_hit_items(item, data)
+		if ((try_hit_items(item, data) && item->type != EXPECTO_PATRONUM)
 			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1')
 		{
 			//DBG1printf("remove elem lst\n");
