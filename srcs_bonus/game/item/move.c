@@ -282,7 +282,8 @@ void	make_move_item(t_item *item, double speed)
 	item->damage.hit.coo_y = item->center_before.coo_y;
 	if (item->type == EXPECTO_PATRONUM)
 	{
-		printf("expecto patronum uo radius\n");
+		// printf("expecto patronum uo radius\n");
+		// item->radius += .1;
 	}
 	calc_left_point_item(item);
 	calc_right_point_item(item);
@@ -322,6 +323,14 @@ void	move_item(t_data *data)
 			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1')
 		{
 			//DBG1printf("remove elem lst\n");
+			t_lst	*next = lst->next;
+			data->item = remove_elem_lst(lst);
+			f_elem_lst(lst);
+			lst = next;
+			continue;
+		}
+		if (item->type == EXPECTO_PATRONUM && item->nb_move >= 300)
+		{
 			t_lst	*next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);

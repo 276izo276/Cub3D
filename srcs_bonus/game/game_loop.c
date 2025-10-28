@@ -618,7 +618,7 @@ int	game_loop(t_data *data)
 		//DBG1printf("5\n");
 		if (data->time_fps + 1000 / FPS < cur)
 		{
-			printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
+			// printf("fps >>>%lld     \n",1000 / (cur - data->time_fps));
 			data->time_fps = cur;
 			pthread_barrier_wait(&data->barrier_background);
 			// sem_post(data->sem_background);

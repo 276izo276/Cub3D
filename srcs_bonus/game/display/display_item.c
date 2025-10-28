@@ -145,21 +145,54 @@ void	display_item(t_data *data, int i)
 					put_text_pix_img_item(data, i, j, 0);
 				data->ray[i].pix_y++;
 			}
-		}
-		set_texture(data, i, j);
-		define_posx_texture(data, i, j);
-		data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
-			* data->ray[i].calc_bits;
-		data->ray[i].items[j]->texture_coo.x = data->ray[i].items[j]->texture_coo.x * (data->ray[i].items[j]->texture->bits_per_pixel >> 3);
-		data->ray[i].pix_y = data->ray[i].items[j]->htop;
-		if (data->ray[i].pix_y < 0)
-			data->ray[i].pix_y = 0;
-		data->ray[i].items[j]->dist_height = data->ray[i].items[j]->hbot - data->ray[i].items[j]->htop;
-		while (data->ray[i].pix_y < data->ray[i].items[j]->hbot
-			&& data->ray[i].pix_y < data->mlx.height)
+		}    
+		if (data->ray[i].items[j]->type == EXPECTO_PATRONUM)
 		{
-			put_text_pix_img_item(data, i, j, 1);
-			data->ray[i].pix_y++;
+			data->ray[i].pix_y = data->ray[i].items[j]->htop;
+			if (data->ray[i].pix_y < 0)
+				data->ray[i].pix_y = 0;
+			data->ray[i].items[j]->dist_height = data->ray[i].items[j]->hbot - data->ray[i].items[j]->htop;
+			printf("\nmax_size>%lf\n",data->ray[i].items[j]->max_size);
+			printf("dist>%lf\n",data->ray[i].items[j]->dist);
+			printf("dproj>%lf\n",data->ray[i].d_proj);
+			printf("item radius>%lf\n",data->ray[i].items[j]->item->radius);
+			while (data->ray[i].pix_y < data->ray[i].items[j]->hbot
+				&& data->ray[i].pix_y < data->mlx.height)
+			{
+				// double	div_part = ;
+				double	rap_y = 0;
+				// if (div_part > 0.00001)
+				rap_y = (data->ray[i].pix_y - data->mlx.height / 2) / data->ray[i].items[j]->max_size;
+				// printf("rap_y>%lf\n",rap_y);
+				// printf("rap>%lf  pix_y>%d     radius>%lf\n",rap_y,data->ray[i].pix_y,data->ray[i].items[j]->item->radius);
+				if (sqrt((data->ray[i].items[j]->posx - 0.5) * (data->ray[i].items[j]->posx - 0.5)
+					+ rap_y * rap_y)
+					< 1)
+				{
+					*(unsigned int *)(data->screen->data_addr + (data->ray[i].pix_y * data->screen->size_line) + (data->ray[i].pix_x
+					* data->ray[i].calc_bits)) = 0xFF0000;
+				}
+				data->ray[i].pix_y++;
+			}
+
+		}
+		else 
+		{
+			set_texture(data, i, j);
+			define_posx_texture(data, i, j);
+			data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
+				* data->ray[i].calc_bits;
+			data->ray[i].items[j]->texture_coo.x = data->ray[i].items[j]->texture_coo.x * (data->ray[i].items[j]->texture->bits_per_pixel >> 3);
+			data->ray[i].pix_y = data->ray[i].items[j]->htop;
+			if (data->ray[i].pix_y < 0)
+				data->ray[i].pix_y = 0;
+			data->ray[i].items[j]->dist_height = data->ray[i].items[j]->hbot - data->ray[i].items[j]->htop;
+			while (data->ray[i].pix_y < data->ray[i].items[j]->hbot
+				&& data->ray[i].pix_y < data->mlx.height)
+			{
+				put_text_pix_img_item(data, i, j, 1);
+				data->ray[i].pix_y++;
+			}
 		}
 		bzero(data->ray[i].items[j], sizeof(t_hit_item));
 	}
