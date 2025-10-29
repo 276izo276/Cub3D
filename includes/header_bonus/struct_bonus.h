@@ -833,9 +833,9 @@ struct s_wand
 	int		nb_wand;
 	int		count_egg;
 	t_img	img[NB_WAND];
-	char	secret_wand[9];
+	char	*secret_wand;
 	bool	wand_status[7];
-	char	secret_sword[6];
+	char	*secret_sword;
 	int		count_sword;
 };
 
@@ -915,8 +915,8 @@ struct s_data
 	long long int spawn_frame;
 	long long int last_spawn;
 	t_wand		wand;
-	char		cheat_code_xp[9];
-	char		cheat_code_life[9];
+	char		*cheat_code_xp;
+	char		*cheat_code_life;
 	int			index_life;
 	int			index_xp;
 };
