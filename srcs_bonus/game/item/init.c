@@ -45,3 +45,83 @@ t_item	*init_spell_item(t_data *data, t_spells info)
 	make_move_item(item, 10);
 	return (item);
 }
+
+t_item	*create_item(t_data *data, t_items info, t_fcoo *coo, double deg)
+{
+	t_item	*item;
+
+	item = malloc(sizeof(t_item));
+	if (!item)
+		return (NULL);
+	bzero(item, sizeof(t_item));
+	item->center.case_x = coo->case_x;
+	item->center.case_y = coo->case_y;
+	item->center.coo_x = coo->coo_x;
+	item->center.coo_y = coo->coo_y;
+	item->deg = fmod(deg + 180, 360);
+	item->rad = item->deg * (M_PI / 180);
+	item->speed = data->items[info].speed;
+	item->type = data->items[info].type;
+
+	item->damage.damage_do = data->items[info].damage.damage_do;
+	item->damage.damage_spider_do = data->items[info].damage.damage_spider_do;
+	item->damage.damage_dementor_do = data->items[info].damage.damage_dementor_do;
+	item->damage.slow_force_do = data->items[info].damage.slow_force_do;
+	item->damage.slow_frame_do = data->items[info].damage.slow_frame_do;
+	item->damage.poison_force_do = data->items[info].damage.poison_force_do;
+	item->damage.poison_frame_do = data->items[info].damage.poison_frame_do;
+	item->damage.fire_force_do = data->items[info].damage.fire_force_do;
+	item->damage.fire_frame_do = data->items[info].damage.fire_frame_do;
+	item->damage.curse_force_do = data->items[info].damage.curse_force_do;
+	item->damage.curse_frame_do = data->items[info].damage.curse_frame_do;
+	item->damage.confundo_force_do = data->items[info].damage.confundo_force_do;
+	item->damage.confundo_frame_do = data->items[info].damage.confundo_frame_do;
+	item->damage.repulso_force_do = data->items[info].damage.repulso_force_do;
+	item->damage.repulso_frame_do = data->items[info].damage.repulso_frame_do;
+
+	item->radius = data->items[info].radius;
+	item->back_img = data->items[info].back_img;
+	item->front_img = data->items[info].front_img;
+	make_move_item(item, 10);
+	return (item);
+}
+
+void	init_poison_spider(t_data *data)
+{
+	data->items[POISON_SPIDER].categ = ITEM;
+	data->items[POISON_SPIDER].damage.poison_force_do = .1;
+	data->items[POISON_SPIDER].damage.poison_frame_do = 120;
+	data->items[POISON_SPIDER].speed = 1;
+	data->items[POISON_SPIDER].radius = 3;
+	data->items[POISON_SPIDER].front_img = &data->img[POISON_SPIDER_IMG];
+	data->items[POISON_SPIDER].back_img = &data->img[POISON_SPIDER_IMG];
+}
+
+void	init_web_spider(t_data *data)
+{
+	data->items[WEB_SPIDER].categ = ITEM;
+	data->items[WEB_SPIDER].damage.damage_do = 10;
+	// data->items[WEB_SPIDER].damage.slow_force_do = 50;
+	// data->items[WEB_SPIDER].damage.slow_frame_do = 120;
+	data->items[WEB_SPIDER].speed = 5;
+	data->items[WEB_SPIDER].radius = 3;
+	data->items[WEB_SPIDER].front_img = &data->img[WEB_SPIDER_IMG];
+	data->items[WEB_SPIDER].back_img = &data->img[WEB_SPIDER_IMG];
+}
+
+void	init_fireball_elem(t_data *data)
+{
+	data->items[FIREBALL_ELEM].categ = ITEM;
+	data->items[FIREBALL_ELEM].damage.damage_do = 10;
+	data->items[FIREBALL_ELEM].speed = 5;
+	data->items[FIREBALL_ELEM].radius = 3;
+	data->items[FIREBALL_ELEM].front_img = &data->img[INCENDIO_IMG];
+	data->items[FIREBALL_ELEM].back_img = &data->img[INCENDIO_IMG];
+}
+
+void	init_item(t_data *data)
+{
+	init_poison_spider(data);
+	init_web_spider(data);
+	init_fireball_elem(data);
+}

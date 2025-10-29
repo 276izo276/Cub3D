@@ -70,6 +70,9 @@ static void	set_path_texture(t_data *data)
 	data->img[SHIELD_4].path = "./texture/shield_4.xpm";
 	data->img[SHIELD_5].path = "./texture/shield_5.xpm";
 	data->img[SHIELD_6].path = "./texture/shield_6.xpm";
+	data->img[WEB_SPIDER_IMG].path = "./texture/web.xpm";
+	data->img[POISON_SPIDER_IMG].path = "./texture/web.xpm";
+
 
 	data->img[INCENDIO_IMG].path = "./texture/spell/incendio.xpm";
 	data->img[GLACIUS_IMG].path = "./texture/spell/glacius.xpm";
@@ -680,4 +683,5 @@ void	init_data(t_data *data, int ac, char **av)
 	data->map.pos_active_floo = init_t_coo(0, 0);
 	set_spell_take(data);
 	init_spell(data);
+	init_item(data);
 }

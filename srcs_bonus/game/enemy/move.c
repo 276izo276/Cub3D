@@ -2,6 +2,7 @@
 #include "utils_bonus.h"
 #include "enemy_bonus.h"
 #include "cub3d_bonus.h"
+#include "time_bonus.h"
 #include <math.h>
 
 #include <stdio.h>
@@ -1373,7 +1374,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	enemy->right_before.case_x = enemy->right.case_x;
 	enemy->right_before.case_y = enemy->right.case_y;
 	// }
-	if (enemy->dist_player < 20 && enemy->way && enemy->dist_player != -1)
+	if (enemy->dist_player < enemy->dist_stop && enemy->way && enemy->dist_player != -1)
 		return ;
 	dx = sin(enemy->rad);
 	dy = cos(enemy->rad);
@@ -1690,14 +1691,28 @@ int	see_player(t_data *data, t_enemy *enemy)
 		{
 			// printf("SEE PLAYER GO ON IT     im in x>%d  y>%d\n",enemy->center.case_x,enemy->center.case_y);
 			if (dist_player < ray.dist_wall)
-				enemy->calc_path = 30;
-			if (dist_player < 32)
+			{
+				if (dist_player < enemy->dist_visu)
+				{
+					if (rand() % 1000 < 10 && get_mtime() > enemy->time_attack_dist + enemy->cooldown_dist * 1000)
+					{
+						enemy->time_attack_dist = get_mtime();
+						if (enemy->type == SPIDER)
+						{
+							data->item = add_end_lst(create_item(data, WEB_SPIDER, &enemy->center, enemy->aff_deg + 180), data->item, f_item);
+						}
+						else if (enemy->type == ELEM)
+							data->item = add_end_lst(create_item(data, FIREBALL_ELEM, &enemy->center, enemy->aff_deg + 180), data->item, f_item);
+					}
+						// data->item = add_end_lst(init_spell_item(data, AVADA_KEDAVRA), data->item, f_item);
+					enemy->calc_path = 30;
+				}
+			}
+			if (dist_player < enemy->dist_damage && get_mtime() > enemy->time_attack_cac + enemy->cooldown_cac * 1000)
 			{
 				// printf("Damage player\n");
-				// data->player.damage.damage_take += enemy->damage.damage_do;
-				// data->player.damage.slow_force_take += enemy->damage.slow_force_do;
-				// data->player.damage.poison_force_take += enemy->damage.poison_force_do;
-				// data->player.damage.fire_force_take += enemy->damage.fire_force_do;
+				enemy->time_attack_cac = get_mtime();
+				apply_damage(&data->player.damage, &enemy->damage);
 			}
 			f_way(enemy);
 			// printf("pointer way >%p",enemy->way);

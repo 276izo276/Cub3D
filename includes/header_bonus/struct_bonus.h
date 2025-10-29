@@ -139,10 +139,12 @@ typedef enum e_imgs
 	NB_7,
 	NB_8,
 	NB_9,
+
 	SELECT,
 	SELECT_HAND,
 	PLAYER_HAND,
 	LEFT_SELECT,
+
 	DEMENTOR_FRONT,
 	DEMENTOR_SIDE_90,
 	DEMENTOR_BACK,
@@ -163,6 +165,7 @@ typedef enum e_imgs
 	WOLF_BACK,
 	WOLF_FRONT_45,
 	WOLF_BACK_45,
+
 	DOOR_MOVE,
 	DOOR_FIXED,
 	FLOO_CLOSE,
@@ -170,6 +173,9 @@ typedef enum e_imgs
 	HEART,
 	SHIELD,
 	XP,
+
+	WEB_SPIDER_IMG,
+	POISON_SPIDER_IMG,
 	
 	INCENDIO_IMG,
 	GLACIUS_IMG,
@@ -255,7 +261,7 @@ typedef enum e_imgs
 	RETRY_BUTTON,
 	QUIT_BUTTON,
 }	t_imgs;
-# define NB_TEXTURES 147
+# define NB_TEXTURES 149
 
 typedef enum e_wand
 {
@@ -306,6 +312,14 @@ typedef enum e_spells
 	ALOHOMORA,
 }	t_spells;
 # define NB_SPELL 31
+
+typedef enum e_items
+{
+	WEB_SPIDER,
+	POISON_SPIDER,
+	FIREBALL_ELEM
+}	t_items;
+# define NB_TYPE_ITEM 3
 
 typedef enum e_coas
 {
@@ -404,6 +418,13 @@ struct	s_enemy
 	bool			calc;
 	int				calc_path;
 	double			dist_player;
+	long long int	time_attack_dist;
+	long long int	time_attack_cac;
+	int				cooldown_dist;
+	double			cooldown_cac;
+	int				dist_stop;
+	int				dist_damage;
+	int				dist_visu;
 };
 
 struct s_item
@@ -421,6 +442,7 @@ struct s_item
 	double			radius;
 	double			speed;
 	int				type;
+	int				categ;
 	t_damage		damage;
 	unsigned int	nb_move;
 };
@@ -905,6 +927,7 @@ struct s_data
 	double			wolf_factor;
 	t_player	player;
 	t_spell		spell[NB_SPELL];
+	t_item		items[NB_TYPE_ITEM];
 	int			spell_take[4];
 	int			cast_spell;
 	int			active_spell;

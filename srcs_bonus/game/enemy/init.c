@@ -22,11 +22,10 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	enemy->radius = 6;
 	enemy->deg = 90;
 	enemy->dist_player = -1;
-	enemy->damage.damage_do = 1;
-	enemy->damage.slow_force_do = 10;
-	enemy->damage.poison_force_do = 0;
 	enemy->rad = enemy->deg * (M_PI / 180);
 	enemy->calc = true;
+	enemy->cooldown_dist = 10;
+	enemy->cooldown_cac = 1;
 	if (c == DEMENTOR)
 	{
 		enemy->back_img = &data->img[DEMENTOR_BACK];
@@ -35,6 +34,9 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->side_front_img = &data->img[DEMENTOR_FRONT_45];
 		enemy->side_back_img = &data->img[DEMENTOR_BACK_45];
 		enemy->life = 100;
+		enemy->dist_stop = 20;
+		enemy->dist_damage = 32;
+		enemy->dist_visu = 640;
 	}
 	else if (c == SPIDER)
 	{
@@ -43,7 +45,13 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->side_img = &data->img[SPIDER_SIDE_90];
 		enemy->side_front_img = &data->img[SPIDER_FRONT_45];
 		enemy->side_back_img = &data->img[SPIDER_BACK_45];
+		enemy->damage.damage_do = 5;
+		enemy->damage.poison_force_do = .1;
+		enemy->damage.poison_frame_do = 60;
 		enemy->life = 100;
+		enemy->dist_stop = 120;
+		enemy->dist_damage = 32;
+		enemy->dist_visu = 640;
 	}
 	else if (c == ELEM)
 	{
@@ -52,7 +60,13 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->side_img = &data->img[ELEM_SIDE_90];
 		enemy->side_front_img = &data->img[ELEM_FRONT_45];
 		enemy->side_back_img = &data->img[ELEM_BACK_45];
+		enemy->damage.damage_do = 5;
+		enemy->damage.fire_force_do = .1;
+		enemy->damage.fire_frame_do = 60;
 		enemy->life = 100;
+		enemy->dist_stop = 30;
+		enemy->dist_damage = 50;
+		enemy->dist_visu = 640;
 	}
 	else if (c == WOLF)
 	{
@@ -62,6 +76,9 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->side_front_img = &data->img[WOLF_FRONT_45];
 		enemy->side_back_img = &data->img[WOLF_BACK_45];
 		enemy->life = 100;
+		enemy->dist_stop = 15;
+		enemy->dist_damage = 25;
+		enemy->dist_visu = 640;
 	}
 	calc_left_and_right_point(enemy, data);
 	enemy->left_before.coo_x = enemy->left.coo_x;
@@ -72,6 +89,10 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	enemy->right_before.coo_y = enemy->right.coo_y;
 	enemy->right_before.case_x = enemy->right.case_x;
 	enemy->right_before.case_y = enemy->right.case_y;
+	enemy->center_before.coo_x = enemy->right.coo_x;
+	enemy->center_before.coo_y = enemy->right.coo_y;
+	enemy->center_before.case_x = enemy->right.case_x;
+	enemy->center_before.case_y = enemy->right.case_y;
 	(void)data;
 	return (enemy);
 }
