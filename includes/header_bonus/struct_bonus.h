@@ -333,6 +333,7 @@ struct s_coo
 {
 	int	x;
 	int	y;
+	int	y_offset;
 };
 
 struct s_fcoo
@@ -516,6 +517,7 @@ struct s_hit_item
 	t_enemy		*enemy;
 	t_door		*door;
 	int			type;
+	int			status;
 	int			side;
 	int			dist_height;
 	double		door_status;

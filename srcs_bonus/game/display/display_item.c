@@ -17,7 +17,7 @@ void	set_texture(t_data *data, int i, int j)
 	t_img	*side_front;
 	t_img	*side_back;
 
-	if (data->ray[i].items[j]->type == ITEM)
+	if (data->ray[i].items[j]->type == ITEM || data->ray[i].items[j]->type == VENTUS)
 	{
 		front = data->ray[i].items[j]->item->front_img;
 		back = data->ray[i].items[j]->item->back_img;
@@ -51,21 +51,52 @@ void	set_texture(t_data *data, int i, int j)
 void	define_posx_texture(t_data *data, int i, int j)
 {
 	double	posx_display;
+	int		frame_width;
+	int		frame_height;
+	int		frame_index;
 
 	posx_display = data->ray[i].items[j]->posx;
-	// printf("widdth >>>%d\n",data->ray[i].items[j]->texture->width);
 	if (data->ray[i].items[j]->side == REVERSED || data->ray[i].items[j]->side == LEFT
 		|| data->ray[i].items[j]->side == LEFT_FRONT || data->ray[i].items[j]->side == RIGHT_BACK)
 		posx_display = 1 - posx_display;
-	data->ray[i].items[j]->texture_coo.x = (int)(posx_display * data->ray[i].items[j]->texture->width);
+	if (data->ray[i].items[j]->type == VENTUS)
+	{
+		frame_index = data->ray[i].items[j]->status;
+		frame_width = data->ray[i].items[j]->texture->width / 4;
+		frame_height = data->ray[i].items[j]->texture->height / 4;
+		data->ray[i].items[j]->texture_coo.x = data->ray[i].items[j]->status * frame_width + (int)(posx_display * frame_width);
+		data->ray[i].items[j]->texture_coo.y_offset = (frame_index / 4) * frame_height;
+		++data->ray[i].items[j]->status;
+		// if (data->ray[i].items[j]->status >= 16)
+		// 	data->ray[i].items[j]->status = 0;
+	}
+	else
+		data->ray[i].items[j]->texture_coo.x = (int)(posx_display * data->ray[i].items[j]->texture->width);
 	if (data->ray[i].items[j]->texture_coo.x < 0)
 		data->ray[i].items[j]->texture_coo.x = 0;
 	if (data->ray[i].items[j]->texture_coo.x >= data->ray[i].items[j]->texture->width)
 		data->ray[i].items[j]->texture_coo.x = data->ray[i].items[j]->texture->width - 1;
 }
+// void	define_posx_texture(t_data *data, int i, int j)
+// {
+// 	double	posx_display;
+
+// 	posx_display = data->ray[i].items[j]->posx;
+// 	// printf("widdth >>>%d\n",data->ray[i].items[j]->texture->width);
+// 	if (data->ray[i].items[j]->side == REVERSED || data->ray[i].items[j]->side == LEFT
+// 		|| data->ray[i].items[j]->side == LEFT_FRONT || data->ray[i].items[j]->side == RIGHT_BACK)
+// 		posx_display = 1 - posx_display;
+// 	data->ray[i].items[j]->texture_coo.x = (int)(posx_display * data->ray[i].items[j]->texture->width);
+// 	if (data->ray[i].items[j]->texture_coo.x < 0)
+// 		data->ray[i].items[j]->texture_coo.x = 0;
+// 	if (data->ray[i].items[j]->texture_coo.x >= data->ray[i].items[j]->texture->width)
+// 		data->ray[i].items[j]->texture_coo.x = data->ray[i].items[j]->texture->width - 1;
+// }
 
 void	put_text_pix_img_item(t_data *data, int i, int j, int fixed)
 {
+	int	frame_height;
+
 	data->ray[i].items[j]->door_status = 0;
 	if (data->ray[i].items[j]->type == DOOR && !fixed)
 	{
@@ -75,7 +106,14 @@ void	put_text_pix_img_item(t_data *data, int i, int j, int fixed)
 			data->ray[i].items[j]->door_status = data->ray[i].items[j]->door->pos;
 	}
 	// printf("a\n");
-	data->ray[i].items[j]->texture_coo.y = (data->ray[i].pix_y - data->ray[i].items[j]->htop + data->ray[i].items[j]->door_status / 100 * data->ray[i].items[j]->size)
+	if (data->ray[i].items[j]->type == VENTUS)
+	{
+		frame_height = data->ray[i].items[j]->texture->height / 4;
+
+		data->ray[i].items[j]->texture_coo.y = 	((data->ray[i].pix_y - data->ray[i].items[j]->htop + data->ray[i].items[j]->door_status / 100 * data->ray[i].items[j]->size) * frame_height) / data->ray[i].items[j]->dist_height + data->ray[i].items[j]->texture_coo.y_offset;
+	}
+	else
+		data->ray[i].items[j]->texture_coo.y = (data->ray[i].pix_y - data->ray[i].items[j]->htop + data->ray[i].items[j]->door_status / 100 * data->ray[i].items[j]->size)
 		* data->ray[i].items[j]->texture->height / data->ray[i].items[j]->dist_height;
 	if (data->ray[i].items[j]->texture_coo.y >= data->ray[i].items[j]->texture->height
 	|| data->ray[i].items[j]->texture_coo.y < 0)

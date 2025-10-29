@@ -90,7 +90,7 @@ static void	set_path_texture(t_data *data)
 	data->img[OPPUGNO_IMG].path = "./texture/spell/glacius.xpm";
 	data->img[SECTUMSEMPRA_IMG].path = "./texture/spell/sectumsempra.xpm";
 	data->img[SERPENSORTIA_IMG].path = "./texture/spell/glacius.xpm";
-	data->img[VENTUS_IMG].path = "./texture/spell/glacius.xpm";
+	data->img[VENTUS_IMG].path = "./texture/spell/ventus.xpm";
 	data->img[VIPERA_EVANESCA_IMG].path = "./texture/spell/glacius.xpm";
 	data->img[VULNERA_SANENTUR_IMG].path = "./texture/spell/glacius.xpm";
 	data->img[ARANIA_EXUMAI_IMG].path = "./texture/spell/arania_exumai.xpm";

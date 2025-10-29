@@ -198,8 +198,8 @@ static void	init_ventus(t_data *data) // PAS FINI
 	data->spell[VENTUS].damage.repulso_frame_do = 1;
 	data->spell[VENTUS].item.speed = 1.0;
 	data->spell[VENTUS].item.radius = 6;
-	data->spell[VENTUS].item.front_img = &data->img[PETRIFICUS_TOTALUS_IMG];
-	data->spell[VENTUS].item.back_img = &data->img[PETRIFICUS_TOTALUS_IMG];
+	data->spell[VENTUS].item.front_img = &data->img[VENTUS_IMG];
+	data->spell[VENTUS].item.back_img = &data->img[VENTUS_IMG];
 	data->spell[VENTUS].class = OFFENSIVE_SPELL;
 	data->spell[VENTUS].icn = &data->img[VENTUS_ICN];
 	data->spell[VENTUS].icn_name = &data->img[VENTUS_NAME];

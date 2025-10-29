@@ -421,7 +421,6 @@ void	apply_ventus_attraction(t_item *tornado, t_data *data)
 		lst = lst->next;
 	}
 	tornado->nb_move++;
-
 }
 
 void	move_item(t_data *data)
