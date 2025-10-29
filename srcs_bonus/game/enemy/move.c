@@ -943,7 +943,6 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	if (enemy->damage.repulso_force_take < 0)
 	{
 		deg = 0;
-		printf("repulso force >>> %f  frame >> %f\n", enemy->damage.repulso_force_take, enemy->damage.repulso_frame_take);
 		enemy->rad = 0;
 		double	diff_x = (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
 		double	diff_y = (enemy->damage.hit.case_y * 64 + enemy->damage.hit.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
@@ -991,6 +990,8 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		}
 		dy *= fabs(enemy->damage.repulso_force_take) * enemy->damage.repulso_frame_take;
 		dx *= fabs(enemy->damage.repulso_force_take) * enemy->damage.repulso_frame_take;
+
+		printf("----dist parcouru>%lf\n",sqrt(dx *dx + dy * dy));
 		f_way(enemy);
 		enemy->damage.repulso_frame_take--;
 		if (enemy->damage.repulso_frame_take <= 0)

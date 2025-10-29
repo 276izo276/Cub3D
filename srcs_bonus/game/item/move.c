@@ -401,11 +401,21 @@ void	apply_ventus_attraction(t_item *tornado, t_data *data)
 			enemy->damage.hit.case_y = tornado->center.case_y;
 			enemy->damage.hit.coo_x = tornado->center.coo_x;
 			enemy->damage.hit.coo_y = tornado->center.coo_y;
-			apply_damage(&enemy->damage, &tornado->damage);
-			if (distance >= 1)
+			printf("\n\ndistance>%lf\n",distance);
+			if (distance >= fabs(tornado->damage.repulso_force_do / (distance * 0.5)))
+			{
+				// pritnf("in\n");
 				enemy->damage.repulso_force_take = tornado->damage.repulso_force_do / (distance * 0.5);
+				enemy->damage.repulso_frame_take = tornado->damage.repulso_frame_do;
+				printf("1__repulso force >>> %f  frame >> %f\n", enemy->damage.repulso_force_take, enemy->damage.repulso_frame_take);
+			}
 			else
-				enemy->damage.repulso_force_take = 0;
+			{
+				enemy->damage.repulso_force_take = -distance * .5;
+				enemy->damage.repulso_frame_take = tornado->damage.repulso_frame_do;
+				printf("1__repulso force >>> %f  frame >> %f\n", enemy->damage.repulso_force_take, enemy->damage.repulso_frame_take);
+			}
+			apply_damage(&enemy->damage, &tornado->damage);
 			// enemy->damage.repulso_frame_take = 15;
 		}
 		lst = lst->next;
