@@ -36,9 +36,6 @@ void	apply_damage(t_damage *take, t_damage *apply)
 	{
 		take->repulso_force_take = apply->repulso_force_do;
 		take->repulso_frame_take = apply->repulso_frame_do;
-	}
-	if (take->repulso_force_take > 0)
-	{
 		take->hit.case_x = apply->hit.case_x;
 		take->hit.case_y = apply->hit.case_y;
 		take->hit.coo_x = apply->hit.coo_x;

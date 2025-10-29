@@ -395,7 +395,7 @@ void	apply_ventus_attraction(t_item *tornado, t_data *data)
 		dist_x = (tornado->center.case_x * 64 + tornado->center.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
 		dist_y = (tornado->center.case_y * 64 + tornado->center.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
 		distance = sqrt(dist_x * dist_x + dist_y * dist_y);
-		if (distance < tornado->radius * 10)
+		if (distance < tornado->radius * 20)
 		{
 			enemy->damage.hit.case_x = tornado->center.case_x;
 			enemy->damage.hit.case_y = tornado->center.case_y;
@@ -421,6 +421,7 @@ void	apply_ventus_attraction(t_item *tornado, t_data *data)
 		lst = lst->next;
 	}
 	tornado->nb_move++;
+
 }
 
 void	move_item(t_data *data)

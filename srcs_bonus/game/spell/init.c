@@ -194,7 +194,7 @@ static void	init_ventus(t_data *data) // PAS FINI
 	data->spell[VENTUS].call = cast_spell;
 	data->spell[VENTUS].type = VENTUS;
 	data->spell[VENTUS].damage.damage_do = 0.01;
-	data->spell[VENTUS].damage.repulso_force_do = -10.0;
+	data->spell[VENTUS].damage.repulso_force_do = -5.0;
 	data->spell[VENTUS].damage.repulso_frame_do = 1;
 	data->spell[VENTUS].item.speed = 1.0;
 	data->spell[VENTUS].item.radius = 6;
