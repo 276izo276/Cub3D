@@ -27,7 +27,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	enemy->damage.poison_force_do = 0;
 	enemy->rad = enemy->deg * (M_PI / 180);
 	enemy->calc = true;
-	if (c == '.')
+	if (c == DEMENTOR)
 	{
 		enemy->back_img = &data->img[DEMENTOR_BACK];
 		enemy->front_img = &data->img[DEMENTOR_FRONT];
@@ -36,7 +36,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->side_back_img = &data->img[DEMENTOR_BACK_45];
 		enemy->life = 100;
 	}
-	else if (c == ',')
+	else if (c == SPIDER)
 	{
 		enemy->back_img = &data->img[SPIDER_BACK];
 		enemy->front_img = &data->img[SPIDER_FRONT];
@@ -45,7 +45,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->side_back_img = &data->img[SPIDER_BACK_45];
 		enemy->life = 100;
 	}
-	else if (c == '>')
+	else if (c == ELEM)
 	{
 		enemy->back_img = &data->img[ELEM_BACK];
 		enemy->front_img = &data->img[ELEM_FRONT];
@@ -54,7 +54,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->side_back_img = &data->img[ELEM_BACK_45];
 		enemy->life = 100;
 	}
-	else if (c == '<')
+	else if (c == WOLF)
 	{
 		enemy->back_img = &data->img[WOLF_BACK];
 		enemy->front_img = &data->img[WOLF_FRONT];

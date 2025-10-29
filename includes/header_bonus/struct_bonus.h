@@ -95,8 +95,8 @@ typedef enum e_enemy_info
 {
 	DEMENTOR = '.',
 	SPIDER = ',',
-	WOLF = ';',
-	TROLL = ':'
+	WOLF = '<',
+	ELEM = '>'
 }	t_enemy_info;
 # define NB_TYPE_ENEMY 4
 
