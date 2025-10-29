@@ -25,14 +25,14 @@ static void	set_path_texture(t_data *data)
 	data->img[LEFT_SELECT].path = "./texture/menu/left_select.xpm";
 
 
-	data->img[DEMENTOR_FRONT].path = "./texture/spider_back_45.xpm";
+	data->img[DEMENTOR_FRONT].path = "./texture/dementor_front.xpm";
 	data->img[DEMENTOR_BACK].path = "./texture/dementor_back.xpm";
 	data->img[DEMENTOR_SIDE_90].path = "./texture/dementor_90.xpm";
 	data->img[DEMENTOR_FRONT_45].path = "./texture/dementor_front_45.xpm";
 	data->img[DEMENTOR_BACK_45].path = "./texture/dementor_back_45.xpm";
 
 
-	data->img[SPIDER_FRONT].path = "./texture/spider_back.xpm";
+	data->img[SPIDER_FRONT].path = "./texture/spider_front.xpm";
 	data->img[SPIDER_BACK].path = "./texture/spider_back.xpm";
 	data->img[SPIDER_SIDE_90].path = "./texture/spider_90.xpm";
 	data->img[SPIDER_FRONT_45].path = "./texture/spider_front_45.xpm";

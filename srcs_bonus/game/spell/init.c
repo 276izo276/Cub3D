@@ -5,7 +5,7 @@ void	set_spell_take(t_data *data)
 {
 	data->cast_spell = -1;
 	data->spell_take[0] = REPULSO;
-	data->spell_take[1] = AVADA_KEDAVRA;
+	data->spell_take[1] = EXPECTO_PATRONUM;
 	data->spell_take[2] = PETRIFICUS_TOTALUS;
 	data->spell_take[3] = CONFUNDO;
 }
@@ -66,7 +66,7 @@ static void	init_repulso(t_data *data)
 	data->spell[REPULSO].damage.damage_do = 5;
 	data->spell[REPULSO].damage.repulso_force_do = 1.2;
 	data->spell[REPULSO].damage.repulso_frame_do = 15;
-	data->spell[REPULSO].item.speed = 0;
+	data->spell[REPULSO].item.speed = 1;
 	data->spell[REPULSO].item.radius = 3;
 	data->spell[REPULSO].item.front_img = &data->img[REPULSO_IMG];
 	data->spell[REPULSO].item.back_img = &data->img[REPULSO_IMG];
@@ -143,8 +143,8 @@ static void	init_expecto_patronum(t_data *data) // PAS FINI
 	data->spell[EXPECTO_PATRONUM].base_cooldown = 0;
 	data->spell[EXPECTO_PATRONUM].call = cast_spell;
 	data->spell[EXPECTO_PATRONUM].type = EXPECTO_PATRONUM;
-	data->spell[EXPECTO_PATRONUM].damage.damage_dementor_do = 25;
-	data->spell[EXPECTO_PATRONUM].damage.repulso_force_do = .2;
+	// data->spell[EXPECTO_PATRONUM].damage.damage_dementor_do = 25;
+	data->spell[EXPECTO_PATRONUM].damage.repulso_force_do = .1;
 	data->spell[EXPECTO_PATRONUM].damage.repulso_frame_do = 10;
 	data->spell[EXPECTO_PATRONUM].item.speed = .5;
 	data->spell[EXPECTO_PATRONUM].item.radius = 0;

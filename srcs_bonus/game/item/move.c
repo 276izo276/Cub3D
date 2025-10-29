@@ -105,6 +105,82 @@ void	calc_right_point_item(t_item *item)
 
 #include <stdio.h>
 
+
+void	move_more_hit_pos_item(t_item *item)
+{
+	double	deg;
+	double	rad;
+	double	dx;
+	double	dy;
+	double	v_normalize;
+
+	deg = 0;
+	rad = 0;
+	double	diff_x = (item->center_before.case_x * 64 + item->center_before.coo_x) - (item->center.case_x * 64 + item->center.coo_x);
+	double	diff_y = (item->center_before.case_y * 64 + item->center_before.coo_y) - (item->center.case_y * 64 + item->center.coo_y);
+	// printf("way >>> y>%d     x>%d",enemy->way->coo_y,enemy->way->coo_x);
+	// printf("x>>>%lf     y>>>%lf\n",diff_x,diff_y);
+	if (diff_y != 0)
+	{
+		deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
+		if (deg < 0)
+			deg = -deg;
+	}
+	if (diff_y < 0 && diff_x < 0)
+		deg = 180 + deg;
+	else if (diff_y < 0 && diff_x > 0)
+		deg = 180 - deg;
+	else if (diff_y > 0 && diff_x < 0)
+		deg = 360 - deg;
+	else if (diff_y == 0 && diff_x < 0)
+		deg = 270;
+	else if (diff_y == 0 && diff_x > 0)
+		deg = 90;
+	else if (diff_x == 0 && diff_y < 0)
+		deg = 180;
+	// printf("deg angle >>>%lf\n",deg);
+	// printf("deg angle >>>%lf     player>>%lf\n",deg,data->map.mini.deg);
+	// if (enemy->damage.confundo_force_take > 0)
+	// {
+	// 	f_way(enemy);
+	// 	deg += 180;
+	// }
+	// deg += 180;
+	rad = deg * (M_PI / 180);
+	dx = sin(rad);
+	dy = cos(rad);
+	// printf("dx>>%lf     dy>>%lf\n",dx,dy);
+	if (round(dy) == 0.0 && round(dx) == 0.0)
+	{
+		dy = 0;
+		dx = 0;
+	}
+	else
+	{
+		v_normalize = sqrt(dx * dx + dy * dy);
+		dy = dy / v_normalize;
+		dx = dx / v_normalize;
+	}
+	// double	ay;
+	// double	ax;
+
+	// ay = dy;
+	// ax = dx;
+	// if (ay < 0)
+	// 	ay = -ay;
+	// if (ax < 0)
+	// 	ax = -ax;
+	// if (ax < ay)
+	// 	dy = -dy;
+	// if (ay < ax)
+	// 	dx = -dx;
+	dx *= 2000;
+	dy *= 2000;
+	printf("change hit pos dy>%lf   dx>%lf\n",dy,dx);
+	item->damage.hit.coo_x += dx;
+	item->damage.hit.coo_y += dy;
+}
+
 int	try_hit_items(t_item *elem, t_data *data)
 {
 	t_enemy		*enemy;
@@ -121,7 +197,6 @@ int	try_hit_items(t_item *elem, t_data *data)
 	ray.by = elem->right.case_y * 64 + elem->right.coo_y;
 	ray.cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
 	ray.cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
-
 	if (hit == false)
 	{
 		ray.dx = data->player.coo.case_x * 64 + data->player.coo.coo_x;
@@ -164,37 +239,55 @@ int	try_hit_items(t_item *elem, t_data *data)
 		ray.by = elem->right.case_y * 64 + elem->right.coo_y;
 		ray.cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
 		ray.cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
+		printf("\nax>%lf   ay>%lf\n",ray.ax, ray.ay);
+		printf("bx>%lf   by>%lf\n",ray.bx, ray.by);
+		printf("cx>%lf   cy>%lf\n",ray.cx, ray.cy);
 		enemy = lst->dt;
 		ray.dx = enemy->left.case_x * 64 + enemy->left.coo_x;
 		ray.dy = enemy->left.case_y * 64 + enemy->left.coo_y;
+		printf("dx>%lf   dy>%lf\n",ray.dx, ray.dy);
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
+			printf("----------------------------------------HIT\n");
+			move_more_hit_pos_item(elem);
 			apply_damage(&enemy->damage, &elem->damage);
 			lst = lst->next;
 			hit = true;
 			continue;
 		}
+		else
+			printf("_______not hit\n");
 		ray.dx = enemy->center.case_x * 64 + enemy->center.coo_x;
 		ray.dy = enemy->center.case_y * 64 + enemy->center.coo_y;
+		printf("dx>%lf   dy>%lf\n",ray.dx, ray.dy);
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
+			printf("----------------------------------------HIT\n");
+			move_more_hit_pos_item(elem);
 			apply_damage(&enemy->damage, &elem->damage);
 			lst = lst->next;
 			hit = true;
 			continue;
 		}
+		else
+			printf("_______not hit\n");
 		ray.dx = enemy->right.case_x * 64 + enemy->right.coo_x;
 		ray.dy = enemy->right.case_y * 64 + enemy->right.coo_y;
+		printf("dx>%lf   dy>%lf\n",ray.dx, ray.dy);
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
+			printf("----------------------------------------HIT\n");
+			move_more_hit_pos_item(elem);
 			apply_damage(&enemy->damage, &elem->damage);
 			lst = lst->next;
 			hit = true;
 			continue;
 		}
+		else
+			printf("_______not hit\n");
 
 		ray.ax = elem->center.case_x * 64 + elem->center.coo_x;
 		ray.ay = elem->center.case_y * 64 + elem->center.coo_y;
@@ -208,6 +301,7 @@ int	try_hit_items(t_item *elem, t_data *data)
 		calc_delta(&ray);
 		if (ray.hit == true)
 		{
+			move_more_hit_pos_item(elem);
 			apply_damage(&enemy->damage, &elem->damage);
 			lst = lst->next;
 			hit = true;
@@ -220,6 +314,7 @@ int	try_hit_items(t_item *elem, t_data *data)
 		calc_delta(&ray);
 		if (ray.hit == true)
 		{
+			move_more_hit_pos_item(elem);
 			apply_damage(&enemy->damage, &elem->damage);
 			lst = lst->next;
 			hit = true;
@@ -280,11 +375,6 @@ void	make_move_item(t_item *item, double speed)
 	item->damage.hit.case_y = item->center_before.case_y;
 	item->damage.hit.coo_x = item->center_before.coo_x;
 	item->damage.hit.coo_y = item->center_before.coo_y;
-	if (item->type == EXPECTO_PATRONUM)
-	{
-		// printf("expecto patronum uo radius\n");
-		item->radius += .3;
-	}
 	calc_left_point_item(item);
 	calc_right_point_item(item);
 }
@@ -301,6 +391,11 @@ void	move_item(t_data *data)
 		item = lst->dt;
 		//DBG1printf("3\n");
 		item->rad = item->deg * (M_PI / 180);
+		if (item->type == EXPECTO_PATRONUM)
+		{
+			// printf("expecto patronum uo radius\n");
+			item->radius += .3;
+		}
 		calc_left_point_item(item);
 		calc_right_point_item(item);
 		item->left_before.coo_x = item->left.coo_x;
