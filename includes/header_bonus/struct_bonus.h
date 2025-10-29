@@ -357,6 +357,7 @@ struct s_wall_msg
 
 struct s_damage
 {
+	double		dist;
 	t_fcoo		hit;
 	double		damage_do;
 	double		damage_spider_do;

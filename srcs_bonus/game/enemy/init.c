@@ -18,7 +18,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	enemy->center.case_y = y;
 	enemy->center.coo_x = 32;
 	enemy->center.coo_y = 32;
-	enemy->speed = 0;
+	enemy->speed = 3;
 	enemy->radius = 6;
 	enemy->deg = 90;
 	enemy->dist_player = -1;
@@ -49,7 +49,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->damage.poison_force_do = .1;
 		enemy->damage.poison_frame_do = 60;
 		enemy->life = 100;
-		enemy->dist_stop = 120;
+		enemy->dist_stop = 64;
 		enemy->dist_damage = 32;
 		enemy->dist_visu = 640;
 	}
@@ -64,7 +64,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->damage.fire_force_do = .1;
 		enemy->damage.fire_frame_do = 60;
 		enemy->life = 100;
-		enemy->dist_stop = 30;
+		enemy->dist_stop = 20;
 		enemy->dist_damage = 50;
 		enemy->dist_visu = 640;
 	}
