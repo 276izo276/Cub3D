@@ -403,7 +403,7 @@ void	apply_ventus_attraction(t_item *tornado, t_data *data)
 			enemy->damage.hit.coo_y = tornado->center.coo_y;
 			apply_damage(&enemy->damage, &tornado->damage);
 			if (distance >= 1)
-				enemy->damage.repulso_force_take = tornado->damage.repulso_force_do / distance;
+				enemy->damage.repulso_force_take = tornado->damage.repulso_force_do / (distance * 0.5);
 			else
 				enemy->damage.repulso_force_take = 0;
 			// enemy->damage.repulso_frame_take = 15;
