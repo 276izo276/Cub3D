@@ -632,24 +632,9 @@ void	init_data(t_data *data, int ac, char **av)
 	data->map.last_mouse_x = 960;
 	data->map.last_mouse_y = 555;
 	data->map.is_center = false;
-
-	data->wand.secret_wand[0] = 'B';
-	data->wand.secret_wand[1] = 'A';
-	data->wand.secret_wand[2] = 'G';
-	data->wand.secret_wand[3] = 'U';
-	data->wand.secret_wand[4] = 'E';
-	data->wand.secret_wand[5] = 'T';
-	data->wand.secret_wand[6] = 'T';
-	data->wand.secret_wand[7] = 'E';
-	data->wand.secret_wand[8] = '\0';
-
-	data->wand.secret_sword[0] = 'S';
-	data->wand.secret_sword[1] = 'W';
-	data->wand.secret_sword[2] = 'O';
-	data->wand.secret_sword[3] = 'R';
-	data->wand.secret_sword[4] = 'D';
-	data->wand.secret_sword[5] = '\0';
-
+	
+	data->wand.secret_wand = "BAGUETTE";
+	data->wand.secret_sword = "SWORD";
 	int	i = 1;
 	data->wand.wand_status[0] = true;
 	while (i < 6)
@@ -657,27 +642,8 @@ void	init_data(t_data *data, int ac, char **av)
 		data->wand.wand_status[i] = true; // a changer quand on aura le loot
 		++i;
 	}
-	data->cheat_code_xp[0] = 'S';
-	data->cheat_code_xp[1] = 'A';
-	data->cheat_code_xp[2] = 'M';
-	data->cheat_code_xp[3] = 'A';
-	data->cheat_code_xp[4] = 'O';
-	data->cheat_code_xp[5] = 'U';
-	data->cheat_code_xp[6] = 'C';
-	data->cheat_code_xp[7] = 'H';
-	data->cheat_code_xp[8] = '\0';
-
-
-	data->cheat_code_life[0] = 'A';
-	data->cheat_code_life[1] = 'L';
-	data->cheat_code_life[2] = 'E';
-	data->cheat_code_life[3] = '-';
-	data->cheat_code_life[4] = 'G';
-	data->cheat_code_life[5] = 'U';
-	data->cheat_code_life[6] = 'E';
-	data->cheat_code_life[7] = 'L';
-	data->cheat_code_life[8] = '\0';
-
+	data->cheat_code_xp = "SAMAOUCH";
+	data->cheat_code_life = "ALE-GUEL";
 	data->wand.wand_status[5] = false;
 	data->wand.wand_status[6] = false;
 	data->map.pos_active_floo = init_t_coo(0, 0);

@@ -239,17 +239,17 @@ int	try_hit_items(t_item *elem, t_data *data)
 		ray.by = elem->right.case_y * 64 + elem->right.coo_y;
 		ray.cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
 		ray.cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
-		printf("\nax>%lf   ay>%lf\n",ray.ax, ray.ay);
-		printf("bx>%lf   by>%lf\n",ray.bx, ray.by);
-		printf("cx>%lf   cy>%lf\n",ray.cx, ray.cy);
+		// printf("\nax>%lf   ay>%lf\n",ray.ax, ray.ay);
+		// printf("bx>%lf   by>%lf\n",ray.bx, ray.by);
+		// printf("cx>%lf   cy>%lf\n",ray.cx, ray.cy);
 		enemy = lst->dt;
 		ray.dx = enemy->left.case_x * 64 + enemy->left.coo_x;
 		ray.dy = enemy->left.case_y * 64 + enemy->left.coo_y;
-		printf("dx>%lf   dy>%lf\n",ray.dx, ray.dy);
+		// printf("dx>%lf   dy>%lf\n",ray.dx, ray.dy);
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			printf("----------------------------------------HIT\n");
+			// printf("----------------------------------------HIT\n");
 			move_more_hit_pos_item(elem);
 			apply_damage(&enemy->damage, &elem->damage);
 			lst = lst->next;
@@ -257,14 +257,14 @@ int	try_hit_items(t_item *elem, t_data *data)
 			continue;
 		}
 		else
-			printf("_______not hit\n");
+			// printf("_______not hit\n");
 		ray.dx = enemy->center.case_x * 64 + enemy->center.coo_x;
 		ray.dy = enemy->center.case_y * 64 + enemy->center.coo_y;
-		printf("dx>%lf   dy>%lf\n",ray.dx, ray.dy);
+		// printf("dx>%lf   dy>%lf\n",ray.dx, ray.dy);
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			printf("----------------------------------------HIT\n");
+			// printf("----------------------------------------HIT\n");
 			move_more_hit_pos_item(elem);
 			apply_damage(&enemy->damage, &elem->damage);
 			lst = lst->next;
@@ -272,14 +272,14 @@ int	try_hit_items(t_item *elem, t_data *data)
 			continue;
 		}
 		else
-			printf("_______not hit\n");
+			// printf("_______not hit\n");
 		ray.dx = enemy->right.case_x * 64 + enemy->right.coo_x;
 		ray.dy = enemy->right.case_y * 64 + enemy->right.coo_y;
-		printf("dx>%lf   dy>%lf\n",ray.dx, ray.dy);
+		// printf("dx>%lf   dy>%lf\n",ray.dx, ray.dy);
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			printf("----------------------------------------HIT\n");
+			// printf("----------------------------------------HIT\n");
 			move_more_hit_pos_item(elem);
 			apply_damage(&enemy->damage, &elem->damage);
 			lst = lst->next;
@@ -287,7 +287,7 @@ int	try_hit_items(t_item *elem, t_data *data)
 			continue;
 		}
 		else
-			printf("_______not hit\n");
+			// printf("_______not hit\n");
 
 		ray.ax = elem->center.case_x * 64 + elem->center.coo_x;
 		ray.ay = elem->center.case_y * 64 + elem->center.coo_y;
@@ -327,6 +327,7 @@ int	try_hit_items(t_item *elem, t_data *data)
 		return (1);
 	return (0);
 }
+
 
 void	make_move_item(t_item *item, double speed)
 {
@@ -379,6 +380,40 @@ void	make_move_item(t_item *item, double speed)
 	calc_right_point_item(item);
 }
 
+void	apply_ventus_attraction(t_item *tornado, t_data *data)
+{
+	t_lst	*lst;
+	t_enemy	*enemy;
+	double	dist_x;
+	double	dist_y;
+	double	distance;
+
+	lst = get_first_elem_lst(data->enemy);
+	while (lst)
+	{
+		enemy = lst->dt;
+		dist_x = (tornado->center.case_x * 64 + tornado->center.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
+		dist_y = (tornado->center.case_y * 64 + tornado->center.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
+		distance = sqrt(dist_x * dist_x + dist_y * dist_y);
+		if (distance < tornado->radius * 10)
+		{
+			enemy->damage.hit.case_x = tornado->center.case_x;
+			enemy->damage.hit.case_y = tornado->center.case_y;
+			enemy->damage.hit.coo_x = tornado->center.coo_x;
+			enemy->damage.hit.coo_y = tornado->center.coo_y;
+			apply_damage(&enemy->damage, &tornado->damage);
+			if (distance >= 1)
+				enemy->damage.repulso_force_take = tornado->damage.repulso_force_do / (distance * 0.5);
+			else
+				enemy->damage.repulso_force_take = 0;
+			// enemy->damage.repulso_frame_take = 15;
+		}
+		lst = lst->next;
+	}
+	tornado->nb_move++;
+
+}
+
 void	move_item(t_data *data)
 {
 	t_lst	*lst;
@@ -396,6 +431,8 @@ void	move_item(t_data *data)
 			// printf("expecto patronum uo radius\n");
 			item->radius += .3;
 		}
+		if (item->type == VENTUS)
+			apply_ventus_attraction(item, data);
 		calc_left_point_item(item);
 		calc_right_point_item(item);
 		item->left_before.coo_x = item->left.coo_x;
@@ -414,7 +451,7 @@ void	move_item(t_data *data)
 		if (item->nb_move >= 1)
 			make_move_item(item, item->speed);
 		// printf("after move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
-		if ((try_hit_items(item, data) && item->type != EXPECTO_PATRONUM)
+		if ((item->type != VENTUS && try_hit_items(item, data) && item->type != EXPECTO_PATRONUM)
 			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1')
 		{
 			//DBG1printf("remove elem lst\n");
@@ -424,7 +461,7 @@ void	move_item(t_data *data)
 			lst = next;
 			continue;
 		}
-		if (item->type == EXPECTO_PATRONUM && item->nb_move >= 300)
+		if ((item->type == VENTUS || item->type == EXPECTO_PATRONUM) && item->nb_move >= 300)
 		{
 			t_lst	*next = lst->next;
 			data->item = remove_elem_lst(lst);

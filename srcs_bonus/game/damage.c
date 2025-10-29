@@ -18,8 +18,8 @@ void	apply_damage(t_damage *take, t_damage *apply)
 	take->curse_frame_take += apply->curse_frame_do;
 	take->confundo_force_take += apply->confundo_force_do;
 	take->confundo_frame_take += apply->confundo_frame_do;
-	take->repulso_force_take += apply->repulso_force_do;
-	take->repulso_frame_take += apply->repulso_frame_do;
+	take->repulso_force_take = apply->repulso_force_do;
+	take->repulso_frame_take = apply->repulso_frame_do;
 	if (take->repulso_force_take > 0)
 	{
 		take->hit.case_x = apply->hit.case_x;
