@@ -152,6 +152,12 @@ typedef enum e_imgs
 	DEMENTOR_FRONT_45,
 	DEMENTOR_BACK_45,
 
+	SNAKE_FRONT,
+	SNAKE_SIDE_90,
+	SNAKE_BACK,
+	SNAKE_FRONT_45,
+	SNAKE_BACK_45,
+
 	SPIDER_FRONT,
 	SPIDER_SIDE_90,
 	SPIDER_BACK,
@@ -271,7 +277,7 @@ typedef enum e_imgs
 	RETRY_BUTTON,
 	QUIT_BUTTON,
 }	t_imgs;
-# define NB_TEXTURES 154
+# define NB_TEXTURES 159
 
 typedef enum e_wand
 {

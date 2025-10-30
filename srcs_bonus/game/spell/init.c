@@ -137,7 +137,7 @@ static void	init_expelliarmus(t_data *data)
 	data->spell[EXPELLIARMUS].necessary_lvl = 4.0;
 }
 
-static void	init_expecto_patronum(t_data *data) // PAS FINI
+static void	init_expecto_patronum(t_data *data)
 {
 	data->spell[EXPECTO_PATRONUM].base_cooldown = 0;
 	data->spell[EXPECTO_PATRONUM].call = cast_spell;
@@ -175,20 +175,19 @@ static void	init_serpensortia(t_data *data) // PAS FINI
 {
 	data->spell[SERPENSORTIA].base_cooldown = 0;
 	data->spell[SERPENSORTIA].call = cast_spell;
-	data->spell[SERPENSORTIA].type = BOMBARDA;
+	data->spell[SERPENSORTIA].type = SERPENSORTIA;
 	data->spell[SERPENSORTIA].damage.damage_do = 25;
 	data->spell[SERPENSORTIA].item.speed = 0;
 	data->spell[SERPENSORTIA].item.radius = 6;
-	data->spell[SERPENSORTIA].item.front_img = &data->img[BOMBARDA_IMG];
-	data->spell[SERPENSORTIA].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[SERPENSORTIA].item.front_img = &data->img[CONFUNDO_IMG];
+	data->spell[SERPENSORTIA].item.back_img = &data->img[CONFUNDO_IMG];
 	data->spell[SERPENSORTIA].class = OFFENSIVE_SPELL;
 	data->spell[SERPENSORTIA].icn = &data->img[SERPENSORTIA_ICN];
 	data->spell[SERPENSORTIA].icn_name = &data->img[SERPENSORTIA_NAME];
 	data->spell[SERPENSORTIA].necessary_lvl = 6.0;
 }
 
-static void	init_ventus(t_data *data) // PAS FINI
-{
+static void	init_ventus(t_data *data)
 	data->spell[VENTUS].base_cooldown = 0;
 	data->spell[VENTUS].call = cast_spell;
 	data->spell[VENTUS].type = VENTUS;
