@@ -395,15 +395,15 @@ void	apply_ventus_attraction(t_item *tornado, t_data *data)
 		dist_x = (tornado->center.case_x * 64 + tornado->center.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
 		dist_y = (tornado->center.case_y * 64 + tornado->center.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
 		distance = sqrt(dist_x * dist_x + dist_y * dist_y);
-		// if (distance < tornado->radius * 20)
-		// {
-		// 	enemy->damage.hit.case_x = tornado->center.case_x;
-		// 	enemy->damage.hit.case_y = tornado->center.case_y;
-		// 	enemy->damage.hit.coo_x = tornado->center.coo_x;
-		// 	enemy->damage.hit.coo_y = tornado->center.coo_y;
-		// 	enemy->damage.repulso_force_take = tornado->damage.repulso_force_do;
-		// 	enemy->damage.repulso_frame_take = tornado->damage.repulso_frame_do;
-		// }
+		if (distance < tornado->radius * 20)
+		{
+			enemy->damage.hit.case_x = tornado->center.case_x;
+			enemy->damage.hit.case_y = tornado->center.case_y;
+			enemy->damage.hit.coo_x = tornado->center.coo_x;
+			enemy->damage.hit.coo_y = tornado->center.coo_y;
+			enemy->damage.repulso_force_take = tornado->damage.repulso_force_do;
+			enemy->damage.repulso_frame_take = tornado->damage.repulso_frame_do;
+		}
 
 		// if (distance < tornado->radius * 20)
 		// {

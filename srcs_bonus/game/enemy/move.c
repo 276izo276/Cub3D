@@ -950,6 +950,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	//DBG2 printf("\nmove\n");
 	if (enemy->damage.repulso_force_take > 0)
 	{
+		printf("repulso enemy\n");
 		deg = 0;
 		rad = 0;
 		double	diff_x = (enemy->center.case_x * 64 + enemy->center.coo_x) - (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x);
@@ -1114,7 +1115,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	}
 	if (enemy->damage.confundo_force_take > 0)
 	{
-		//DBG2 printf("confundo ennemy\n");
+		printf("confundo ennemy\n");
 		deg = 0;
 		enemy->rad = 0;
 		double	diff_x = (enemy->center.case_x * 64 + enemy->center.coo_x) - (data->player.coo.case_x * 64 + data->player.coo.coo_x);
@@ -1323,16 +1324,27 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	}
 	
 	
+
+
+
+
+
+
+
+
+
+
+	// printf("\n\nBEFORE deg>%lf   rad>%lf\n",enemy->deg,enemy->rad);
 	if (enemy->calc == true)
 	{
-		// printf("recalc\n");
+		printf("recalc\n");
 		enemy->calc = false;
 		deg = 0;
 		enemy->rad = 0;
 		double	diff_x = enemy->way->coo_x - enemy->center.coo_x;
 		double	diff_y = enemy->way->coo_y - enemy->center.coo_y;
 		// printf("way >>> y>%d     x>%d",enemy->way->coo_y,enemy->way->coo_x);
-		// printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
+		// printf("x>>>%lf     y>>>%lf\n",diff_x,diff_y);
 		if (diff_y != 0)
 		{
 			deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
@@ -1361,15 +1373,6 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		enemy->deg = deg;
 		enemy->rad = deg * (M_PI / 180);
 	}
-	// if (enemy->damage.confundo_force_take > 0)
-	// {
-	// 	f_way(enemy);
-	// 	enemy->damage.confundo_frame_take--;
-	// 	if (enemy->damage.confundo_frame_take <= 0)
-	// 		enemy->damage.confundo_force_take = 0;
-	// }
-	// else
-	// {
 	calc_left_and_right_point(enemy, data);
 	enemy->center_before.coo_x = enemy->center.coo_x;
 	enemy->center_before.coo_y = enemy->center.coo_y;
@@ -1383,7 +1386,6 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	enemy->right_before.coo_y = enemy->right.coo_y;
 	enemy->right_before.case_x = enemy->right.case_x;
 	enemy->right_before.case_y = enemy->right.case_y;
-	// }
 	if (enemy->dist_player < enemy->dist_stop && enemy->way && enemy->dist_player != -1)
 	{
 		// printf("______________________________________________________HERE\n");
@@ -1407,7 +1409,9 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		}
 		dy *= enemy->speed;
 		dx *= enemy->speed;
-		// printf("_________________________________________________________dist parcouru BASICS>%lf\n",sqrt(dx * dx + dy * dy));
+
+		// printf("WITH SPEED dx>>%lf     dy>>%lf\n",dx,dy);
+		// printf("__________________________dist parcouru BASICS>%lf\n",sqrt(dx * dx + dy * dy));
 		if (enemy->damage.slow_frame_take > 0 || enemy->damage.slow_force_take > 0)
 		{
 			if (enemy->damage.slow_force_take > 100)
@@ -1435,6 +1439,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		}
 		else
 		{
+			// printf("move ennemy with dyx\n");
 			enemy->center.coo_x += dx;
 			enemy->center.coo_y += dy;
 			if (enemy->recalc_path > 0)
@@ -1442,7 +1447,6 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			if (enemy->calc_path > 0)
 				enemy->calc_path--;
 			// printf("calc_path >>%d\n",enemy->calc_path);
-			calc_left_and_right_point(enemy, data);
 			//DBG1printf("m5\n");
 			try_hit_enemys(enemy, data, 0);
 			// enemy->center.coo_x = round(enemy->center.coo_x);
@@ -1450,22 +1454,31 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			// printf("CURRENT   y>>>%d    x>>%d\n",enemy->center.case_x,enemy->center.case_y);
 			// printf("y>>>%lf      x>>>%lf\n",enemy->center.coo_y,enemy->center.coo_x);
 			// printf("way_y>%d   way_x>%d\n",enemy->way->coo_y,enemy->way->coo_x);
-			// printf("GOAL   y>>>%d    x>>%d\n",enemy->goal.case_x,enemy->goal.case_y);
 			// printf("goal >>%lf   %lf\n",enemy->goal.coo_x,enemy->goal.coo_y);
 			// printf("goal case >>%d   %d\n",enemy->goal.case_x,enemy->goal.case_y);
 			// printf("enemy is in case  >>%d   %d\n",enemy->center.case_x,enemy->center.case_y);
-			if (enemy->center.coo_x < 0 || enemy->center.coo_x >= 64
-				|| enemy->center.coo_y < 0 || enemy->center.coo_y >= 64)
+			if (enemy->center.coo_x <= 0 || enemy->center.coo_x >= 64
+				|| enemy->center.coo_y <= 0 || enemy->center.coo_y >= 64)
 			{
 				// printf("Change Case\n");
+
+				// if (enemy->center.coo_x < 0)
+				// 	enemy->center.coo_x += 63.999;
+				// else if (enemy->center.coo_x >= 64)
+				// 	fmod(enemy->center.coo_x, 64);
+				// if (enemy->center.coo_y < 0)
+				// 	enemy->center.coo_y += 63.999;
+				// else if (enemy->center.coo_y >= 64)
+				// 	fmod(enemy->center.coo_y, 64);
+
 				if (enemy->center.coo_x < 0)
 					enemy->center.coo_x += 63.999;
-				else if (enemy->center.coo_x >= 64)
-					enemy->center.coo_x -= 64;
+				if (enemy->center.coo_x >= 64)
+					enemy->center.coo_x -= 63.999;
 				if (enemy->center.coo_y < 0)
-					enemy->center.coo_y += 64;
-				else if (enemy->center.coo_y >= 64)
-					enemy->center.coo_y -= 64;
+					enemy->center.coo_y += 63.999;
+				if (enemy->center.coo_y >= 64)
+					enemy->center.coo_y -= 63.999;
 				if (enemy->way->child)
 				{
 					enemy->way->child->parent = NULL;
@@ -1489,6 +1502,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 					// return ;
 				}
 			}
+			calc_left_and_right_point(enemy, data);
 		}
 	}
 	// printf("\ncoo before        case   y>%d    x>%d       coo   y>%lf      x>%lf\n",enemy->center.case_y,enemy->center.case_x,enemy->center.coo_y,enemy->center.coo_x);
@@ -1508,8 +1522,10 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	// printf("enemy->rad >>>%lf\n", enemy->rad);
 
 
+	// printf("INTER deg>%lf   rad>%lf\n",enemy->deg,enemy->rad);
 	if (enemy->damage.repulso_force_take < 0)
 	{
+		printf("attracto enemy\n");
 		deg = 0;
 		rad = 0;
 		double	diff_x = (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
@@ -1688,6 +1704,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		enemy->calc = true;
 		calc_left_and_right_point(enemy, data);
 		try_hit_enemys(enemy, data, 1);
+		printf("AFTER deg>%lf   rad>%lf\n",enemy->deg,enemy->rad);
 		// printf("end center y>%lf   x>%lf\n",enemy->center.coo_y + enemy->center.case_y * 64,enemy->center.coo_x + enemy->center.case_x * 64);
 		return ;
 	}
@@ -1914,7 +1931,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 							data->item = add_end_lst(create_item(data, FIREBALL_ELEM, &enemy->center, enemy->aff_deg + 180), data->item, f_item);
 					}
 					// data->item = add_end_lst(init_spell_item(data, AVADA_KEDAVRA), data->item, f_item);
-					if (enemy->recalc_path <= 50)
+					if (enemy->recalc_path <= 50 || !enemy->way)
 						enemy->recalc_path = 100;
 					enemy->calc_path = 30;
 				}
