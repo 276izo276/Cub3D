@@ -119,13 +119,13 @@ static t_lst	*add_node(t_case *cur, const int dir[2], t_lst *lst, t_enemy *enemy
 	lst = get_first_elem_lst(lst);
 	while (lst)
 	{
-		if (((t_case *)lst->dt)->t_cost == cel->t_cost)
-		{
-			if (rand() % 10 == 1)
-			{
-				return(add_before_lst(cel, lst, f_case));
-			}
-		}
+		// if (((t_case *)lst->dt)->t_cost == cel->t_cost)
+		// {
+		// 	if (rand() % 10 == 1)
+		// 	{
+		// 		return(add_before_lst(cel, lst, f_case));
+		// 	}
+		// }
 		if (((t_case *)lst->dt)->t_cost > cel->t_cost)
 		{
 			return(add_before_lst(cel, lst, f_case));
@@ -1683,9 +1683,9 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			// printf("recalc switch case\n");
 			// calc_left_point(enemy);
 			// calc_right_point(enemy);
-			enemy->calc = true;
 			// enemy->deg += 180;
 		}
+		enemy->calc = true;
 		calc_left_and_right_point(enemy, data);
 		try_hit_enemys(enemy, data, 1);
 		// printf("end center y>%lf   x>%lf\n",enemy->center.coo_y + enemy->center.case_y * 64,enemy->center.coo_x + enemy->center.case_x * 64);
@@ -1927,7 +1927,6 @@ int	see_player(t_data *data, t_enemy *enemy)
 			}
 			if (enemy->recalc_path == 100)
 			{
-
 				f_way(enemy);
 				// printf("pointer way >%p",enemy->way);
 				enemy->goal.case_x = data->player.coo.case_x;

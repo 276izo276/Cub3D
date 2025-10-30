@@ -41,11 +41,11 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	}
 	else if (c == SPIDER)
 	{
-		enemy->back_img = &data->img[BIRD_BACK];
-		enemy->front_img = &data->img[BIRD_FRONT];
-		enemy->side_img = &data->img[BIRD_SIDE_90];
-		enemy->side_front_img = &data->img[BIRD_FRONT_45];
-		enemy->side_back_img = &data->img[BIRD_BACK_45];
+		enemy->back_img = &data->img[SPIDER_BACK];
+		enemy->front_img = &data->img[SPIDER_FRONT];
+		enemy->side_img = &data->img[SPIDER_SIDE_90];
+		enemy->side_front_img = &data->img[SPIDER_FRONT_45];
+		enemy->side_back_img = &data->img[SPIDER_BACK_45];
 		enemy->damage.damage_do = 5;
 		enemy->damage.poison_force_do = .1;
 		enemy->damage.poison_frame_do = 60;
