@@ -62,10 +62,9 @@ void	define_posx_texture(t_data *data, int i, int j)
 	if (data->ray[i].items[j]->type == VENTUS)
 	{
 		frame_index = data->ray[i].items[j]->status;
-		frame_width = data->ray[i].items[j]->texture->width / 4;
-		frame_height = data->ray[i].items[j]->texture->height / 4;
+		frame_width = data->ray[i].items[j]->texture->width / 32;
+		frame_height = data->ray[i].items[j]->texture->height / 32;
 		data->ray[i].items[j]->texture_coo.x = data->ray[i].items[j]->status * frame_width + (int)(posx_display * frame_width);
-		data->ray[i].items[j]->texture_coo.y_offset = (frame_index / 4) * frame_height;
 		++data->ray[i].items[j]->status;
 		// if (data->ray[i].items[j]->status >= 16)
 		// 	data->ray[i].items[j]->status = 0;
@@ -108,9 +107,9 @@ void	put_text_pix_img_item(t_data *data, int i, int j, int fixed)
 	// printf("a\n");
 	if (data->ray[i].items[j]->type == VENTUS)
 	{
-		frame_height = data->ray[i].items[j]->texture->height / 4;
+		frame_height = data->ray[i].items[j]->texture->height;
 
-		data->ray[i].items[j]->texture_coo.y = 	((data->ray[i].pix_y - data->ray[i].items[j]->htop + data->ray[i].items[j]->door_status / 100 * data->ray[i].items[j]->size) * frame_height) / data->ray[i].items[j]->dist_height + data->ray[i].items[j]->texture_coo.y_offset;
+		data->ray[i].items[j]->texture_coo.y = 	((data->ray[i].pix_y - data->ray[i].items[j]->htop + data->ray[i].items[j]->door_status / 100 * data->ray[i].items[j]->size) * frame_height) / data->ray[i].items[j]->dist_height;
 	}
 	else
 		data->ray[i].items[j]->texture_coo.y = (data->ray[i].pix_y - data->ray[i].items[j]->htop + data->ray[i].items[j]->door_status / 100 * data->ray[i].items[j]->size)

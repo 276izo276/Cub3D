@@ -109,7 +109,6 @@ static void	init_arania_exumai(t_data *data)
 	data->spell[ARANIA_EXUMAI].necessary_lvl = 3.0;
 }
 
-
 static void	init_protego(t_data *data)
 {
 	data->spell[PROTEGO].base_cooldown = 0;
