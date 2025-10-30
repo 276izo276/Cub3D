@@ -4,6 +4,7 @@
 #include "utils_bonus.h"
 #include <math.h>
 #include "time_bonus.h"
+#include "enemy_bonus.h"
 
 int	get_right_white(t_data *data, int color, double distance)
 {
@@ -153,6 +154,21 @@ void	cast_episkey(t_data *data, t_spells info)
 		data->player.episkey_frame = 150;
 		data->player.episkey_heal = .1;
 		data->spell[EPISKEY].end_time = get_mtime();
+	}
+}
+
+void	cast_opugno(t_data *data, t_spells info)
+{
+	t_fcoo	coo;
+	(void)info;
+
+	if (data->active_spell == -1 && get_mtime() > data->spell[OPPUGNO].end_time + data->spell[OPPUGNO].base_cooldown * 1000)
+	{
+		coo.case_x = data->player.coo.case_x;
+		coo.case_y = data->player.coo.case_y;
+		coo.coo_x = data->player.coo.coo_x;
+		coo.coo_y = data->player.coo.coo_y;
+		data->enemy = add_end_lst(init_enemy(BIRD, coo, data),data->enemy,f_enemy);
 	}
 }
 

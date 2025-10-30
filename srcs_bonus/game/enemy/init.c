@@ -5,8 +5,22 @@
 
 #include <stdio.h>
 
+void	fill_bird(t_data *data, t_enemy *enemy)
+{
+	enemy->back_img = &data->img[BIRD_BACK];
+	enemy->front_img = &data->img[BIRD_FRONT];
+	enemy->side_img = &data->img[BIRD_SIDE_90];
+	enemy->side_front_img = &data->img[BIRD_FRONT_45];
+	enemy->side_back_img = &data->img[BIRD_BACK_45];
+	enemy->life = 100;
+	enemy->dist_stop = 15;
+	enemy->dist_damage = 25;
+	enemy->dist_visu = 640;
+	enemy->speed = 3;
+	enemy->radius = 2;
+}
 
-t_enemy	*init_enemy(char c, int y, int x, t_data *data)
+t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data)
 {
 	t_enemy	*enemy;
 
@@ -15,10 +29,10 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		return (NULL);
 	ft_bzero(enemy, sizeof(t_enemy));
 	enemy->type = c;
-	enemy->center.case_x = x;
-	enemy->center.case_y = y;
-	enemy->center.coo_x = 32;
-	enemy->center.coo_y = 32;
+	enemy->center.case_x = coo.case_x;
+	enemy->center.case_y = coo.case_y;
+	enemy->center.coo_x = coo.coo_x;
+	enemy->center.coo_y = coo.coo_y;
 	enemy->radius = 6;
 	enemy->deg = 90;
 	enemy->dist_player = -1;
@@ -86,17 +100,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	}
 	else if (c == BIRD)
 	{
-		enemy->back_img = &data->img[BIRD_BACK];
-		enemy->front_img = &data->img[BIRD_FRONT];
-		enemy->side_img = &data->img[BIRD_SIDE_90];
-		enemy->side_front_img = &data->img[BIRD_FRONT_45];
-		enemy->side_back_img = &data->img[BIRD_BACK_45];
-		enemy->life = 100;
-		enemy->dist_stop = 15;
-		enemy->dist_damage = 25;
-		enemy->dist_visu = 640;
-		enemy->speed = 3;
-		enemy->radius = 2;
+		fill_bird(data, enemy);
 	}
 	calc_left_and_right_point(enemy, data);
 	enemy->left_before.coo_x = enemy->left.coo_x;

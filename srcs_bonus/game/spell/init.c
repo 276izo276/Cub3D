@@ -256,13 +256,8 @@ static void	init_stupefix(t_data *data)
 static void	init_oppugno(t_data *data) // PAS FINI
 {
 	data->spell[OPPUGNO].base_cooldown = 5;
-	data->spell[OPPUGNO].call = cast_spell;
-	data->spell[OPPUGNO].type = BOMBARDA;
-	data->spell[OPPUGNO].damage.damage_do = 25;
-	data->spell[OPPUGNO].item.speed = 0;
-	data->spell[OPPUGNO].item.radius = 6;
-	data->spell[OPPUGNO].item.front_img = &data->img[BOMBARDA_IMG];
-	data->spell[OPPUGNO].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[OPPUGNO].call = cast_opugno;
+	data->spell[OPPUGNO].type = OPPUGNO;
 	data->spell[OPPUGNO].class = OFFENSIVE_SPELL;
 	data->spell[OPPUGNO].icn = &data->img[OPPUGNO_ICN];
 	data->spell[OPPUGNO].icn_name = &data->img[OPPUGNO_NAME];

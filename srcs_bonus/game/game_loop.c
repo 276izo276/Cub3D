@@ -534,7 +534,7 @@ void	update_enemy(t_data *data)
 					if (random <= total_factor)
 					{
 						printf("add spider\n");
-						data->enemy = add_end_lst(init_enemy(',', y, x, data), data->enemy, f_enemy);
+						data->enemy = add_end_lst(init_enemy(',', (t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data), data->enemy, f_enemy);
 						if (!data->enemy)
 							f_exit(data, 1);
 						data->nb_enemy++;
@@ -545,7 +545,7 @@ void	update_enemy(t_data *data)
 						if (random <= total_factor)
 						{
 
-							data->enemy = add_end_lst(init_enemy('>', y, x, data), data->enemy, f_enemy);
+							data->enemy = add_end_lst(init_enemy('>', (t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data), data->enemy, f_enemy);
 							if (!data->enemy)
 								f_exit(data, 1);
 							printf("add elem\n");
@@ -556,7 +556,7 @@ void	update_enemy(t_data *data)
 							if (random <= total_factor)
 							{
 	
-								data->enemy = add_end_lst(init_enemy('.', y, x, data), data->enemy, f_enemy);
+								data->enemy = add_end_lst(init_enemy('.', (t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data), data->enemy, f_enemy);
 								if (!data->enemy)
 									f_exit(data, 1);
 								printf("add dementor\n");
@@ -567,7 +567,7 @@ void	update_enemy(t_data *data)
 								if (random <= total_factor)
 								{
 		
-									data->enemy = add_end_lst(init_enemy('<', y, x, data), data->enemy, f_enemy);
+									data->enemy = add_end_lst(init_enemy('<', (t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data), data->enemy, f_enemy);
 									if (!data->enemy)
 										f_exit(data, 1);
 									printf("add wolf\n");

@@ -14,6 +14,7 @@
 # define M_PI 3.14159265358979323846
 #endif
 
+void	cast_opugno(t_data *data, t_spells info);
 void	init_item(t_data *data);
 t_item	*create_item(t_data *data, t_items info, t_fcoo *coo, double deg);
 int		get_right_white(t_data *data, int color, double distance);
