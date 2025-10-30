@@ -123,7 +123,7 @@ void	put_text_pix_img_item(t_data *data, int i, int j, int fixed)
 	data->ray[i].items[j]->text_pix = data->ray[i].items[j]->texture->data_addr + (data->ray[i].items[j]->texture_coo.y
 			* data->ray[i].items[j]->texture->size_line + data->ray[i].items[j]->texture_coo.x);
 	data->ray[i].items[j]->color = *(unsigned int *)data->ray[i].items[j]->text_pix;
-	if (data->ray[i].items[j]->color != WHITE && data->ray[i].items[j]->color != YELLOW && data->ray[i].items[j]->color != RED)
+	if (data->ray[i].items[j]->color != WHITE && data->ray[i].items[j]->color != RED && data->ray[i].items[j]->color != RED)
 		*(unsigned int *)data->ray[i].items[j]->pixel_addr = data->ray[i].items[j]->color;
 }
 

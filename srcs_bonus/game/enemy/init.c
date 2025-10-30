@@ -20,6 +20,21 @@ void	fill_bird(t_data *data, t_enemy *enemy)
 	enemy->radius = 2;
 }
 
+void	fill_snake(t_data *data, t_enemy *enemy)
+{
+	enemy->back_img = &data->img[SNAKE_BACK];
+	enemy->front_img = &data->img[SNAKE_FRONT];
+	enemy->side_img = &data->img[SNAKE_SIDE_90];
+	enemy->side_front_img = &data->img[SNAKE_FRONT_45];
+	enemy->side_back_img = &data->img[SNAKE_BACK_45];
+	enemy->life = 100;
+	enemy->dist_stop = 15;
+	enemy->dist_damage = 25;
+	enemy->dist_visu = 640;
+	enemy->speed = 3;
+	enemy->radius = 2;
+}
+
 t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data)
 {
 	t_enemy	*enemy;
@@ -102,6 +117,8 @@ t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data)
 	{
 		fill_bird(data, enemy);
 	}
+	else if (c == SNAKE)
+		fill_snake(data, enemy);
 	calc_left_and_right_point(enemy, data);
 	enemy->left_before.coo_x = enemy->left.coo_x;
 	enemy->left_before.coo_y = enemy->left.coo_y;

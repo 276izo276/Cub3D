@@ -25,7 +25,7 @@ static void	set_path_texture(t_data *data)
 	data->img[LEFT_SELECT].path = "./texture/menu/left_select.xpm";
 
 
-	data->img[DEMENTOR_FRONT].path = "./texture/dementor_front.xpm";
+	data->img[DEMENTOR_FRONT].path = "./texture/zippy_front.xpm";
 	data->img[DEMENTOR_BACK].path = "./texture/dementor_back.xpm";
 	data->img[DEMENTOR_SIDE_90].path = "./texture/dementor_90.xpm";
 	data->img[DEMENTOR_FRONT_45].path = "./texture/dementor_front_45.xpm";
