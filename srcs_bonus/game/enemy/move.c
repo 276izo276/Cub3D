@@ -119,13 +119,13 @@ static t_lst	*add_node(t_case *cur, const int dir[2], t_lst *lst, t_enemy *enemy
 	lst = get_first_elem_lst(lst);
 	while (lst)
 	{
-		// if (((t_case *)lst->dt)->t_cost == cel->t_cost)
-		// {
-		// 	if (rand() % 10 == 1)
-		// 	{
-		// 		return(add_before_lst(cel, lst, f_case));
-		// 	}
-		// }
+		if (((t_case *)lst->dt)->t_cost == cel->t_cost)
+		{
+			if (rand() % 10 == 1)
+			{
+				return(add_before_lst(cel, lst, f_case));
+			}
+		}
 		if (((t_case *)lst->dt)->t_cost > cel->t_cost)
 		{
 			return(add_before_lst(cel, lst, f_case));
@@ -1337,7 +1337,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	// printf("\n\nBEFORE deg>%lf   rad>%lf\n",enemy->deg,enemy->rad);
 	if (enemy->calc == true)
 	{
-		printf("recalc\n");
+		// printf("recalc\n");
 		enemy->calc = false;
 		deg = 0;
 		enemy->rad = 0;
@@ -1525,7 +1525,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	// printf("INTER deg>%lf   rad>%lf\n",enemy->deg,enemy->rad);
 	if (enemy->damage.repulso_force_take < 0)
 	{
-		printf("attracto enemy\n");
+		printf("\n\nattracto enemy\n");
 		deg = 0;
 		rad = 0;
 		double	diff_x = (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
@@ -1576,22 +1576,25 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		diff_x = (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
 		diff_y = (enemy->damage.hit.case_y * 64 + enemy->damage.hit.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
 		enemy->damage.dist = sqrt(diff_x * diff_x + diff_y * diff_y);
-		// printf("dist>%lf\n",enemy->damage.dist);
-		if (enemy->damage.dist >= fabs(enemy->damage.repulso_force_take / (enemy->damage.dist * 0.35)))
+		printf("dist>%lf\n",enemy->damage.dist);
+		double	decal = -(1000 / (enemy->damage.dist + 30) + enemy->damage.repulso_force_take) / 4;
+		if (decal > 0)
+			return;
+		if (enemy->damage.dist >= fabs(decal))
 		{
-			enemy->damage.repulso_force_take = enemy->damage.repulso_force_take / (enemy->damage.dist * 0.35);
-			enemy->damage.repulso_frame_take = enemy->damage.repulso_frame_take;
-			// printf("BASIC\n");
+			enemy->damage.repulso_force_take = decal;
+			// enemy->damage.repulso_frame_take = enemy->damage.repulso_frame_take;
+			printf("BASIC\n");
 		}
 		else
 		{
 			enemy->damage.repulso_force_take = -enemy->damage.dist;
 			enemy->damage.repulso_frame_take = enemy->damage.repulso_frame_take;
-			// printf("SHORT DIST\n");
+			printf("SHORT DIST\n");
 		}
 		dy *= fabs(enemy->damage.repulso_force_take) * enemy->damage.repulso_frame_take;
 		dx *= fabs(enemy->damage.repulso_force_take) * enemy->damage.repulso_frame_take;
-		// printf("----dist parcouru REPULSO>%lf\n",sqrt(dx *dx + dy * dy));
+		printf("----dist parcouru REPULSO>%lf\n",sqrt(dx *dx + dy * dy));
 		f_way(enemy);
 		enemy->damage.repulso_frame_take--;
 		if (enemy->damage.repulso_frame_take <= 0)
@@ -1704,7 +1707,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		enemy->calc = true;
 		calc_left_and_right_point(enemy, data);
 		try_hit_enemys(enemy, data, 1);
-		printf("AFTER deg>%lf   rad>%lf\n",enemy->deg,enemy->rad);
+		// printf("AFTER deg>%lf   rad>%lf\n",enemy->deg,enemy->rad);
 		// printf("end center y>%lf   x>%lf\n",enemy->center.coo_y + enemy->center.case_y * 64,enemy->center.coo_x + enemy->center.case_x * 64);
 		return ;
 	}

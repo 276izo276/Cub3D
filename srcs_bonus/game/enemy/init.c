@@ -37,7 +37,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->dist_stop = 20;
 		enemy->dist_damage = 32;
 		enemy->dist_visu = 640;
-		enemy->speed = 3;
+		enemy->speed = 2.5;
 	}
 	else if (c == SPIDER)
 	{
