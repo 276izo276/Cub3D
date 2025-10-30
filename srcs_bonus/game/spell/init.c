@@ -188,6 +188,7 @@ static void	init_serpensortia(t_data *data) // PAS FINI
 }
 
 static void	init_ventus(t_data *data)
+{
 	data->spell[VENTUS].base_cooldown = 0;
 	data->spell[VENTUS].call = cast_spell;
 	data->spell[VENTUS].type = VENTUS;
