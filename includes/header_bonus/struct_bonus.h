@@ -436,7 +436,7 @@ struct	s_enemy
 	bool			calc;
 	int				calc_path;
 	int				recalc_path;
-	double			dist_player;
+	double			dist_target;
 	long long int	time_attack_dist;
 	long long int	time_attack_cac;
 	int				cooldown_dist;
