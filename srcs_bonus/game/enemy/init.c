@@ -18,6 +18,7 @@ void	fill_bird(t_data *data, t_enemy *enemy)
 	enemy->dist_visu = 640;
 	enemy->speed = 3;
 	enemy->radius = 2;
+	enemy->damage.damage_do = 50;
 }
 
 void	fill_snake(t_data *data, t_enemy *enemy)
@@ -35,7 +36,7 @@ void	fill_snake(t_data *data, t_enemy *enemy)
 	enemy->radius = 2;
 }
 
-t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data)
+t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)
 {
 	t_enemy	*enemy;
 
@@ -49,12 +50,12 @@ t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data)
 	enemy->center.coo_x = coo.coo_x;
 	enemy->center.coo_y = coo.coo_y;
 	enemy->radius = 6;
-	enemy->deg = 90;
-	enemy->dist_player = -1;
+	enemy->dist_target = -1;
 	enemy->rad = enemy->deg * (M_PI / 180);
 	enemy->calc = true;
 	enemy->cooldown_dist = 10;
 	enemy->cooldown_cac = 1;
+	enemy->deg = deg;
 	if (c == DEMENTOR)
 	{
 		enemy->back_img = &data->img[DEMENTOR_BACK];

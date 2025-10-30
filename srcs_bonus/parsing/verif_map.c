@@ -177,7 +177,7 @@ static void	is_enemy(char c, int y, int x, t_data *data)
 	{
 		if (tab[i] == c)
 		{
-			data->enemy = add_end_lst(init_enemy(c, (t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data), data->enemy, f_enemy);
+			data->enemy = add_end_lst(init_enemy(c, (t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data, data->map.mini.deg), data->enemy, f_enemy);
 			if (!data->enemy)
 				f_exit(data, 1);
 			data->map.tabmap[y][x] = '0';
