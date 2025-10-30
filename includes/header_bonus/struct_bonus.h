@@ -98,6 +98,7 @@ typedef enum e_enemy_info
 	WOLF = '<',
 	ELEM = '>',
 	BIRD = ';',
+	SNAKE = ':',
 }	t_enemy_info;
 # define NB_TYPE_ENEMY 5
 

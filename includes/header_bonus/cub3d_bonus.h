@@ -155,6 +155,7 @@ int		get_right_color(int color, double distance);
 void	spell_lumos(t_data *data);
 void	cast_lumos(t_data *data, t_spells info);
 void	cast_spell(t_data *data, t_spells info);
+void	cast_serpensortia(t_data *data, t_spells info);
 
 //handle_door.c
 void	handle_door(t_data *data);

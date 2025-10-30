@@ -172,6 +172,24 @@ void	cast_opugno(t_data *data, t_spells info)
 	}
 }
 
+void	cast_serpensortia(t_data *data, t_spells info)
+{
+	t_fcoo	coo;
+	(void)info;
+
+	data->cast_spell = -1;
+	if (data->active_spell == -1 && get_mtime() > data->spell[SERPENSORTIA].end_time + data->spell[SERPENSORTIA].base_cooldown * 1000)
+	{
+		data->spell[SERPENSORTIA].launch_time = get_mtime();
+		data->spell[SERPENSORTIA].end_time = get_mtime();
+		coo.case_x = data->player.coo.case_x;
+		coo.case_y = data->player.coo.case_y;
+		coo.coo_x = data->player.coo.coo_x;
+		coo.coo_y = data->player.coo.coo_y;
+		data->enemy = add_end_lst(init_enemy(SNAKE, coo, data),data->enemy,f_enemy);
+	}
+}
+
 void	cast_vulnera_sanentur(t_data *data, t_spells info)
 {
 	(void)data;

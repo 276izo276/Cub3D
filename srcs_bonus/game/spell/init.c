@@ -174,11 +174,11 @@ static void	init_vipera_evanesca(t_data *data) // PAS FINI
 static void	init_serpensortia(t_data *data) // PAS FINI
 {
 	data->spell[SERPENSORTIA].base_cooldown = 0;
-	data->spell[SERPENSORTIA].call = cast_spell;
+	data->spell[SERPENSORTIA].call = cast_serpensortia;
 	data->spell[SERPENSORTIA].type = SERPENSORTIA;
-	data->spell[SERPENSORTIA].damage.damage_do = 25;
-	data->spell[SERPENSORTIA].item.speed = 0;
-	data->spell[SERPENSORTIA].item.radius = 6;
+	// data->spell[SERPENSORTIA].damage.damage_do = 25;
+	// data->spell[SERPENSORTIA].item.speed = 0;
+	// data->spell[SERPENSORTIA].item.radius = 6;
 	data->spell[SERPENSORTIA].item.front_img = &data->img[CONFUNDO_IMG];
 	data->spell[SERPENSORTIA].item.back_img = &data->img[CONFUNDO_IMG];
 	data->spell[SERPENSORTIA].class = OFFENSIVE_SPELL;
