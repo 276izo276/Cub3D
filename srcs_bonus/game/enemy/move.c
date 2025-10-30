@@ -1828,6 +1828,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 	{
 		t_lst	*lst;
 		t_enemy	*elem;
+		t_enemy *keep_elem;
 		// double	dist;
 		double	dist_min = -1;
 		t_fcoo	coo;
@@ -1932,6 +1933,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 				{
 					if (enemy->dist_target < dist_min || dist_min == -1)
 					{
+						keep_elem = elem;
 						dist_min = enemy->dist_target;
 						coo.case_x = elem->center.case_x;
 						coo.case_y = elem->center.case_y;
@@ -1955,8 +1957,10 @@ int	see_player(t_data *data, t_enemy *enemy)
 			{
 				// printf("Damage player\n");
 				enemy->time_attack_cac = get_mtime();
-				printf("type>%d\n",enemy->type);
-				apply_damage(&elem->damage, &enemy->damage);
+				printf("type>%d\n",keep_elem->type);
+				apply_damage(&keep_elem->damage, &enemy->damage);
+				printf("keep_elem damge tale>>>>%lf\n",keep_elem->damage.damage_take);
+				printf("ennemy damge do>>>>%lf\n",enemy->damage.damage_take);
 			}
 			if (enemy->recalc_path == 100)
 			{
@@ -2122,6 +2126,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 
 void	take_damage_enemy(t_enemy *enemy)
 {
+	printf("enemy type>%d  take>%lf\n",enemy->type, enemy->damage.damage_take);
 	enemy->life -= enemy->damage.damage_take;
 	enemy->damage.damage_take = 0;
 	if (enemy->damage.poison_frame_take > 0)
