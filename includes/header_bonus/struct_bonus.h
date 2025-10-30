@@ -96,9 +96,10 @@ typedef enum e_enemy_info
 	DEMENTOR = '.',
 	SPIDER = ',',
 	WOLF = '<',
-	ELEM = '>'
+	ELEM = '>',
+	BIRD = ';',
 }	t_enemy_info;
-# define NB_TYPE_ENEMY 4
+# define NB_TYPE_ENEMY 5
 
 typedef enum e_imgs
 {
@@ -150,21 +151,30 @@ typedef enum e_imgs
 	DEMENTOR_BACK,
 	DEMENTOR_FRONT_45,
 	DEMENTOR_BACK_45,
+
 	SPIDER_FRONT,
 	SPIDER_SIDE_90,
 	SPIDER_BACK,
 	SPIDER_FRONT_45,
 	SPIDER_BACK_45,
+
 	ELEM_FRONT,
 	ELEM_SIDE_90,
 	ELEM_BACK,
 	ELEM_FRONT_45,
 	ELEM_BACK_45,
+
 	WOLF_FRONT,
 	WOLF_SIDE_90,
 	WOLF_BACK,
 	WOLF_FRONT_45,
 	WOLF_BACK_45,
+
+	BIRD_FRONT,
+	BIRD_SIDE_90,
+	BIRD_BACK,
+	BIRD_FRONT_45,
+	BIRD_BACK_45,
 
 	DOOR_MOVE,
 	DOOR_FIXED,
@@ -261,7 +271,7 @@ typedef enum e_imgs
 	RETRY_BUTTON,
 	QUIT_BUTTON,
 }	t_imgs;
-# define NB_TEXTURES 149
+# define NB_TEXTURES 154
 
 typedef enum e_wand
 {
@@ -419,6 +429,7 @@ struct	s_enemy
 	int				wait;
 	bool			calc;
 	int				calc_path;
+	int				recalc_path;
 	double			dist_player;
 	long long int	time_attack_dist;
 	long long int	time_attack_cac;

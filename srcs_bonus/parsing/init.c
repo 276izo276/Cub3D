@@ -53,6 +53,13 @@ static void	set_path_texture(t_data *data)
 	data->img[ELEM_BACK_45].path = "./texture/elem_back_45.xpm";
 
 
+	data->img[BIRD_FRONT].path = "./texture/bird_front.xpm";
+	data->img[BIRD_BACK].path = "./texture/bird_back.xpm";
+	data->img[BIRD_SIDE_90].path = "./texture/bird_90.xpm";	
+	data->img[BIRD_FRONT_45].path = "./texture/bird_front_45.xpm";
+	data->img[BIRD_BACK_45].path = "./texture/bird_back_45.xpm";
+
+
 	data->img[DOOR_MOVE].path = "./texture/door_close.xpm";
 	data->img[DOOR_FIXED].path = "./texture/door_open.xpm";
 	data->img[FLOO_CLOSE].path = "./texture/floo_close.xpm";

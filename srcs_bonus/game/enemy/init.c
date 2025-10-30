@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 
+
 t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 {
 	t_enemy	*enemy;
@@ -18,7 +19,6 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 	enemy->center.case_y = y;
 	enemy->center.coo_x = 32;
 	enemy->center.coo_y = 32;
-	enemy->speed = 3;
 	enemy->radius = 6;
 	enemy->deg = 90;
 	enemy->dist_player = -1;
@@ -37,14 +37,15 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->dist_stop = 20;
 		enemy->dist_damage = 32;
 		enemy->dist_visu = 640;
+		enemy->speed = 3;
 	}
 	else if (c == SPIDER)
 	{
-		enemy->back_img = &data->img[SPIDER_BACK];
-		enemy->front_img = &data->img[SPIDER_FRONT];
-		enemy->side_img = &data->img[SPIDER_SIDE_90];
-		enemy->side_front_img = &data->img[SPIDER_FRONT_45];
-		enemy->side_back_img = &data->img[SPIDER_BACK_45];
+		enemy->back_img = &data->img[BIRD_BACK];
+		enemy->front_img = &data->img[BIRD_FRONT];
+		enemy->side_img = &data->img[BIRD_SIDE_90];
+		enemy->side_front_img = &data->img[BIRD_FRONT_45];
+		enemy->side_back_img = &data->img[BIRD_BACK_45];
 		enemy->damage.damage_do = 5;
 		enemy->damage.poison_force_do = .1;
 		enemy->damage.poison_frame_do = 60;
@@ -52,6 +53,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->dist_stop = 64;
 		enemy->dist_damage = 32;
 		enemy->dist_visu = 640;
+		enemy->speed = 1;
 	}
 	else if (c == ELEM)
 	{
@@ -67,6 +69,7 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->dist_stop = 20;
 		enemy->dist_damage = 50;
 		enemy->dist_visu = 640;
+		enemy->speed = 3;
 	}
 	else if (c == WOLF)
 	{
@@ -79,6 +82,21 @@ t_enemy	*init_enemy(char c, int y, int x, t_data *data)
 		enemy->dist_stop = 15;
 		enemy->dist_damage = 25;
 		enemy->dist_visu = 640;
+		enemy->speed = 3;
+	}
+	else if (c == BIRD)
+	{
+		enemy->back_img = &data->img[BIRD_BACK];
+		enemy->front_img = &data->img[BIRD_FRONT];
+		enemy->side_img = &data->img[BIRD_SIDE_90];
+		enemy->side_front_img = &data->img[BIRD_FRONT_45];
+		enemy->side_back_img = &data->img[BIRD_BACK_45];
+		enemy->life = 100;
+		enemy->dist_stop = 15;
+		enemy->dist_damage = 25;
+		enemy->dist_visu = 640;
+		enemy->speed = 3;
+		enemy->radius = 2;
 	}
 	calc_left_and_right_point(enemy, data);
 	enemy->left_before.coo_x = enemy->left.coo_x;
