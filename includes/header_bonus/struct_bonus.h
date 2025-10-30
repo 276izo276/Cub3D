@@ -343,7 +343,6 @@ struct s_coo
 {
 	int	x;
 	int	y;
-	int	y_offset;
 };
 
 struct s_fcoo

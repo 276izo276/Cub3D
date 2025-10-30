@@ -77,7 +77,12 @@ void	try_hit_item(t_data *data, int i, double x)
 			if (item->type == VENTUS)
 			{
 				data->ray[i].items[ray.j]->type = VENTUS;
-				data->ray[i].items[ray.j]->status = item->nb_move / 32;
+				if (item->nb_move <= 102)
+					data->ray[i].items[ray.j]->status = item->nb_move / 6;
+				else if (item->nb_move > 102 && item->nb_move <= 300 - (10 * 6))
+					data->ray[i].items[ray.j]->status = item->nb_move / 6 % 4 + 18;
+				else
+					data->ray[i].items[ray.j]->status = item->nb_move / 6 - 18;
 			}
 			data->ray[i].items[ray.j]->use = true;
 			data->ray[i].items[ray.j]->item = item;
