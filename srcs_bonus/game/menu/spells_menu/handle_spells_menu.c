@@ -249,7 +249,7 @@ void	update_spell_cooldown(t_data *data)
 
 void	handle_menu_spell_keys(int keycode, t_data *data)
 {
-	if(keycode == KEY_ESCAPE || keycode == KEY_X)
+	if(keycode == KEY_ESCAPE || keycode == KEY_N)
 	{
 		data->spell_menu.selected = -1;
 		update_spell_cooldown(data);

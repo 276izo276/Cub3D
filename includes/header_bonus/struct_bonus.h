@@ -285,7 +285,7 @@ typedef enum e_imgs
 	POPO_HEAL,
 	POPO_FLOO,
 	POPO_INVI,
-	
+
 	END_IMG
 }	t_imgs;
 # define NB_TEXTURES END_IMG
@@ -901,6 +901,7 @@ struct s_popo
 	t_img	*img;
 	int		nb;
 	char	*key;
+	int		active;
 };
 
 

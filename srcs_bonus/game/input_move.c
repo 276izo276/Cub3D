@@ -188,8 +188,18 @@ int	key_release(int keycode, t_data *data)
 
 	// printf("Key released: %d\n", keycode);
 	i = 0;
+
+	if (keycode == KEY_Z)
+		data->popo[0].active = 0;
+	else if (keycode == KEY_X)
+		data->popo[1].active = 0;
+	else if (keycode == KEY_C)
+		data->popo[2].active = 0;
+	else if (keycode == KEY_V)
+		data->popo[3].active = 0;
 	while (i < KEYCODE_NB)
 	{
+			data->popo[3].active = 0;
 		if (data->keycode[i] == keycode)
 			data->keycode[i] = 0;
 		if (keycode == KEY_ALT)
@@ -398,10 +408,13 @@ void	cheat_code(t_data *data, int keycode)
 	if(data->wand.wand_status[5] != true || data->wand.wand_status[6] != true)
 		is_easter_egg(keycode, data);
 }
+
+#include <stdio.h>
 int	key_press(int keycode, t_data *data)
 {
 	int	i;
 
+	// printf("keycode >%d\n",keycode);
 	cheat_code(data, keycode);
 	if (data->status == MENU)
 	{
@@ -442,7 +455,7 @@ int	key_press(int keycode, t_data *data)
 		else
 			data->status = GAME;
 	}
-	else if (keycode == KEY_X)
+	else if (keycode == KEY_N)
 	{
 		if (data->status == GAME)
 		{

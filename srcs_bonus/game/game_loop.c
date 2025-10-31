@@ -42,6 +42,14 @@ static void	handle_input_move(t_data *data, long long int cur)
 				rotate_right(data);
 			else if (data->keycode[i] == KEY_Q)
 				rotate_left(data);
+			else if (data->keycode[i] == KEY_Z)
+				data->popo[0].call(data);
+			else if (data->keycode[i] == KEY_X)
+				data->popo[1].call(data);
+			else if (data->keycode[i] == KEY_C)
+				data->popo[2].call(data);
+			else if (data->keycode[i] == KEY_V)
+				data->popo[3].call(data);
 			i++;
 		}
 		if (move)
@@ -590,7 +598,7 @@ void	update_enemy(t_data *data)
 					total_factor = data->spider_factor;
 					if (random <= total_factor)
 					{
-						printf("add spider\n");
+						// printf("add spider\n");
 						data->enemy = add_end_lst(init_enemy(',', (t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data, data->map.mini.deg), data->enemy, f_enemy);
 						if (!data->enemy)
 							f_exit(data, 1);
@@ -605,7 +613,7 @@ void	update_enemy(t_data *data)
 							data->enemy = add_end_lst(init_enemy('>', (t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data, data->map.mini.deg), data->enemy, f_enemy);
 							if (!data->enemy)
 								f_exit(data, 1);
-							printf("add elem\n");
+							// printf("add elem\n");
 						}
 						else
 						{
@@ -616,7 +624,7 @@ void	update_enemy(t_data *data)
 								data->enemy = add_end_lst(init_enemy('.', (t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data, data->map.mini.deg), data->enemy, f_enemy);
 								if (!data->enemy)
 									f_exit(data, 1);
-								printf("add dementor\n");
+								// printf("add dementor\n");
 							}
 							else
 							{
@@ -627,7 +635,7 @@ void	update_enemy(t_data *data)
 									data->enemy = add_end_lst(init_enemy('<', (t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data, data->map.mini.deg), data->enemy, f_enemy);
 									if (!data->enemy)
 										f_exit(data, 1);
-									printf("add wolf\n");
+									// printf("add wolf\n");
 								}
 							}
 						}

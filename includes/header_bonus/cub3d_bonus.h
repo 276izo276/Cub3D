@@ -14,6 +14,9 @@
 # define M_PI 3.14159265358979323846
 #endif
 
+void	cast_popo_invi(t_data *data);
+void	cast_popo_floo(t_data *data);
+void	cast_popo_shield(t_data *data);
 void	init_popo(t_data *data);
 void	cast_popo_heal(t_data *data);
 void	cast_opugno(t_data *data, t_spells info);
@@ -213,11 +216,14 @@ typedef enum e_key
 	KEY_E = 101 , 
 	KEY_C = 99 ,
 	KEY_M = 109,
+	KEY_N = 110,
 	KEY_X = 120,
 	KEY_B = 98,
 	KEY_G = 103,
 	KEY_U = 117,
 	KEY_T = 116,
+	KEY_Z = 122,
+	KEY_V = 118,
 	KEY_MINUS = 45,
 	KEY_UP = 65362,
 	KEY_DOWN = 65364,
