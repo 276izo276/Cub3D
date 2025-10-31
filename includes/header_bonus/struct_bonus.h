@@ -240,6 +240,7 @@ typedef enum e_imgs
 	AGUAMENTI_ICN,
 
 	SPELL_LOCK,
+
 	LUMOS_NAME,
 	INCENDIO_NAME,
 	GLACIUS_NAME,
@@ -277,8 +278,15 @@ typedef enum e_imgs
 	END_MENU,
 	RETRY_BUTTON,
 	QUIT_BUTTON,
+
+	POPO_SHIELD,
+	POPO_HEAL,
+
+
+
+	END_IMG
 }	t_imgs;
-# define NB_TEXTURES 159
+# define NB_TEXTURES END_IMG
 
 typedef enum e_wand
 {
@@ -881,6 +889,13 @@ struct s_wand
 	char	*secret_sword;
 	int		count_sword;
 };
+
+struct s_popo
+{
+	void	(*call)(t_data *data, int type);
+	int		nb;
+};
+
 
 struct s_data
 {
