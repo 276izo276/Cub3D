@@ -28,7 +28,7 @@ void	fill_snake(t_data *data, t_enemy *enemy)
 	enemy->side_img = &data->img[SNAKE_SIDE_90];
 	enemy->side_front_img = &data->img[SNAKE_FRONT_45];
 	enemy->side_back_img = &data->img[SNAKE_BACK_45];
-	enemy->life = 100;
+	enemy->life = 30;
 	enemy->dist_stop = 15;
 	enemy->dist_damage = 25;
 	enemy->dist_visu = 640;
