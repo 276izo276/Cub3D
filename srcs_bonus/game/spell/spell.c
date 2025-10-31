@@ -167,7 +167,6 @@ void	cast_opugno(t_data *data, t_spells info)
 	data->cast_spell = -1;
 	if (data->active_spell == -1 && get_mtime() > data->spell[OPPUGNO].end_time + data->spell[OPPUGNO].base_cooldown * 1000)
 	{
-		write(1,"a1\n",3);
 		data->spell[OPPUGNO].launch_time = get_mtime();
 		data->spell[OPPUGNO].end_time = get_mtime();
 		coo.case_x = data->player.coo.case_x;
@@ -175,7 +174,10 @@ void	cast_opugno(t_data *data, t_spells info)
 		coo.coo_x = data->player.coo.coo_x;
 		coo.coo_y = data->player.coo.coo_y;
 		data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
-		write(1,"a2\n",3);
+		data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
+		data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
+		data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
+		data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
 	}
 }
 

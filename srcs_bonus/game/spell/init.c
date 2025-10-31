@@ -253,9 +253,9 @@ static void	init_stupefix(t_data *data)
 	data->spell[STUPEFIX].necessary_lvl = 7.5;
 }
 
-static void	init_oppugno(t_data *data) // PAS FINI
+static void	init_oppugno(t_data *data)
 {
-	data->spell[OPPUGNO].base_cooldown = 5;
+	data->spell[OPPUGNO].base_cooldown = 20;
 	data->spell[OPPUGNO].call = cast_opugno;
 	data->spell[OPPUGNO].type = OPPUGNO;
 	data->spell[OPPUGNO].class = OFFENSIVE_SPELL;

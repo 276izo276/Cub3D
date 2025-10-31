@@ -12,13 +12,13 @@ void	fill_bird(t_data *data, t_enemy *enemy)
 	enemy->side_img = &data->img[BIRD_SIDE_90];
 	enemy->side_front_img = &data->img[BIRD_FRONT_45];
 	enemy->side_back_img = &data->img[BIRD_BACK_45];
-	enemy->life = 100;
+	enemy->life = 30;
 	enemy->dist_stop = 15;
 	enemy->dist_damage = 25;
 	enemy->dist_visu = 640;
 	enemy->speed = 3;
 	enemy->radius = 2;
-	enemy->damage.damage_do = 50;
+	enemy->damage.damage_do = 3;
 }
 
 void	fill_snake(t_data *data, t_enemy *enemy)
