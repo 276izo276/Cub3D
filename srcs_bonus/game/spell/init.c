@@ -159,9 +159,9 @@ static void	init_vipera_evanesca(t_data *data) // PAS FINI
 {
 	data->spell[VIPERA_EVANESCA].base_cooldown = 0;
 	data->spell[VIPERA_EVANESCA].call = cast_spell;
-	data->spell[VIPERA_EVANESCA].type = BOMBARDA;
-	data->spell[VIPERA_EVANESCA].damage.damage_do = 25;
-	data->spell[VIPERA_EVANESCA].item.speed = 0;
+	data->spell[VIPERA_EVANESCA].type = VIPERA_EVANESCA;
+	data->spell[VIPERA_EVANESCA].damage.damage_snake_do = 30;
+	data->spell[VIPERA_EVANESCA].item.speed = 60.0;
 	data->spell[VIPERA_EVANESCA].item.radius = 6;
 	data->spell[VIPERA_EVANESCA].item.front_img = &data->img[BOMBARDA_IMG];
 	data->spell[VIPERA_EVANESCA].item.back_img = &data->img[BOMBARDA_IMG];

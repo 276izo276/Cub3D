@@ -477,7 +477,7 @@ void	move_item(t_data *data)
 			lst = next;
 			continue;
 		}
-		if ((item->type == VENTUS || item->type == EXPECTO_PATRONUM) && item->nb_move >= 300)
+		if ((item->type == VENTUS && item->nb_move >= 400) || (item->type == EXPECTO_PATRONUM && item->nb_move >= 300))
 		{
 			t_lst	*next = lst->next;
 			data->item = remove_elem_lst(lst);

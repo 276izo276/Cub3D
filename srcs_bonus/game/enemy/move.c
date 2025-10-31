@@ -2545,6 +2545,12 @@ void	take_damage_enemy(t_enemy *enemy)
 				enemy->damage.curse_force_take = 0;
 		}
 	}
+	if (enemy->type == SNAKE)
+	{
+		enemy->life -= enemy->damage.damage_snake_take;
+		printf("JE SUIS HIT %f\n", enemy->damage.damage_snake_do);
+		enemy->damage.damage_snake_take = 0;
+	}
 }
 
 void	move_enemy(t_data *data)

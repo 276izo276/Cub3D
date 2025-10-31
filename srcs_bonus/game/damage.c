@@ -7,6 +7,7 @@ void	apply_damage(t_damage *take, t_damage *apply)
 	take->damage_take += apply->damage_do;
 	take->damage_spider_take += apply->damage_spider_do;
 	take->damage_dementor_take += apply->damage_dementor_do;
+	take->damage_snake_take += apply->damage_snake_do;
 	if (take->slow_force_take < apply->slow_force_do)
 		take->slow_force_take = apply->slow_force_do;
 	if (take->poison_force_take < apply->poison_force_do)
