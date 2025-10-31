@@ -34,6 +34,7 @@ void	fill_snake(t_data *data, t_enemy *enemy)
 	enemy->dist_visu = 640;
 	enemy->speed = 3;
 	enemy->radius = 2;
+	enemy->damage.damage_do = 15;
 }
 
 t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)

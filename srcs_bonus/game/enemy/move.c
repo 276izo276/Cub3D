@@ -1822,7 +1822,9 @@ static int	handle_ray_y_gen(t_data *data, t_ray *ray)
 int	see_player(t_data *data, t_enemy *enemy)
 {
 	double	deg;
+	double dist_min_player;
 
+	dist_min_player = -1;
 	deg = 0;
 	if (enemy->type == BIRD)
 	{
@@ -1957,10 +1959,263 @@ int	see_player(t_data *data, t_enemy *enemy)
 			{
 				// printf("Damage player\n");
 				enemy->time_attack_cac = get_mtime();
-				printf("type>%d\n",keep_elem->type);
-				apply_damage(&keep_elem->damage, &enemy->damage);
-				printf("keep_elem damge tale>>>>%lf\n",keep_elem->damage.damage_take);
-				printf("ennemy damge do>>>>%lf\n",enemy->damage.damage_take);
+				// printf("type>%d\n",keep_elem->type);
+				// apply_damage(&keep_elem->damage, &enemy->damage);
+				// printf("keep_elem damge tale>>>>%lf\n",keep_elem->damage.damage_take);
+				// printf("ennemy damge do>>>>%lf\n",enemy->damage.damage_take);
+			}
+			if (enemy->recalc_path == 100)
+			{
+				f_way(enemy);
+				// printf("pointer way >%p",enemy->way);
+				enemy->goal.case_x = coo.case_x;
+				enemy->goal.case_y = coo.case_y;
+				enemy->goal.coo_y = coo.coo_y;
+				enemy->goal.coo_x = coo.coo_x;
+				// printf("new path\n");
+				pathfinder(data, enemy);
+				calc_in_cell_path(data, enemy);
+				print_path(enemy);
+				enemy->calc = true;
+			}
+		}
+	}
+	else if (enemy->type == SNAKE)
+	{
+		t_lst	*lst;
+		t_enemy	*elem;
+		t_enemy *keep_elem;
+		// double	dist;
+		double	dist_min = -1;
+		t_fcoo	coo;
+
+		lst = get_first_elem_lst(data->enemy);
+		while (lst)
+		{
+			elem = lst->dt;
+			if (elem->type == SNAKE)
+			{
+				lst = lst->next;
+				continue;
+			}
+			int	diff_x = elem->center.case_x * 64 + elem->center.coo_x
+			- enemy->center.case_x * 64 - enemy->center.coo_x;
+			int	diff_y = elem->center.case_y * 64 + elem->center.coo_y
+			- enemy->center.case_y * 64 - enemy->center.coo_y;
+			lst = lst->next;
+			if (diff_x == 0 && diff_y == 0)
+			{
+				return (0);
+			}
+			// printf("x>>>%d     y>>>%d\n",diff_x,diff_y);
+			if (diff_x != 0 && diff_y != 0)
+			{
+				deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
+				if (deg < 0)
+					deg = -deg;
+			}
+			if (diff_y < 0 && diff_x < 0)
+				deg = 180 + deg;
+			else if (diff_y < 0 && diff_x > 0)
+				deg = 180 - deg;
+			else if (diff_y > 0 && diff_x < 0)
+				deg = 360 - deg;
+			else if (diff_y == 0 && diff_x < 0)
+				deg = 270;
+			else if (diff_y == 0 && diff_x > 0)
+				deg = 90;
+			else if (diff_x == 0 && diff_y < 0)
+				deg = 180;
+			if ((deg + 360 >= elem->deg - 90 + 360
+				&& deg + 360 <= elem->deg + 90 + 360)
+			||
+				enemy->calc_path > 0)
+			{
+				t_ray	ray;
+				ray.deg = deg;
+				ray.start_case_x = enemy->center.case_x;
+				ray.start_case_y = enemy->center.case_y;
+				ray.start_coo_x = enemy->center.coo_x;
+				ray.start_coo_y = enemy->center.coo_y;
+				ray.coo_y = enemy->center.coo_y;
+				ray.coo_x = enemy->center.coo_x;
+				ray.case_y = enemy->center.case_y;
+				ray.case_x = enemy->center.case_x;
+				ray.deg = fmod(ray.deg, 360);
+				ray.rad = ray.deg * (M_PI / 180);
+				ray.delta_y = cos(ray.rad);
+				ray.delta_x = sin(ray.rad);
+				// printf("Angle >%lf       dx>>%lf        dy>>%lf\n",ray.deg,ray.delta_x,ray.delta_y);
+				while (1)
+				{
+					if (ray.delta_x > 0)
+						ray.rx = (64 - ray.coo_x) / ray.delta_x;
+					else
+						ray.rx = -ray.coo_x / ray.delta_x;
+					if (ray.delta_y > 0)
+						ray.ry = (64 - ray.coo_y) / ray.delta_y;
+					else
+						ray.ry = -ray.coo_y / ray.delta_y;
+					if (ray.rx < ray.ry)
+					{
+						if (handle_ray_x_gen(data, &ray) == 1)
+							break ;
+					}
+					else
+					{
+						if (handle_ray_y_gen(data, &ray) == 1)
+							break ;
+					}
+				}
+				ray.dist_wall = sqrt(((ray.case_y
+					- ray.start_case_y) * 64.0 + (ray.coo_y
+					- ray.start_coo_y)) * ((ray.case_y
+					- ray.start_case_y) * 64.0 + (ray.coo_y
+					- ray.start_coo_y)) + ((ray.case_x
+					- ray.start_case_x) * 64.0 + (ray.coo_x
+					- ray.start_coo_x)) * ((ray.case_x
+					- ray.start_case_x) * 64.0 + (ray.coo_x
+					- ray.start_coo_x)));
+				enemy->dist_target = sqrt(((elem->center.case_y
+					- ray.start_case_y) * 64.0 + (elem->center.coo_y
+					- ray.start_coo_y)) * ((elem->center.case_y
+					- ray.start_case_y) * 64.0 + (elem->center.coo_y
+					- ray.start_coo_y)) + ((elem->center.case_x
+					- ray.start_case_x) * 64.0 + (elem->center.coo_x
+					- ray.start_coo_x)) * ((elem->center.case_x
+					- ray.start_case_x) * 64.0 + (elem->center.coo_x
+					- ray.start_coo_x)));
+				if (enemy->dist_target < ray.dist_wall || enemy->calc_path > 0)
+				{
+					if (enemy->dist_target < dist_min || dist_min == -1)
+					{
+						keep_elem = elem;
+						dist_min = enemy->dist_target;
+						coo.case_x = elem->center.case_x;
+						coo.case_y = elem->center.case_y;
+						coo.coo_y = elem->center.coo_y;
+						coo.coo_x = elem->center.coo_x;
+					}
+					
+				}
+			}
+		}
+		if (enemy->nb_move >= 4)
+		{
+			int	diff_player_x = data->player.coo.case_x * 64 + data->player.coo.coo_x
+			- enemy->center.case_x * 64 - enemy->center.coo_x;
+			int	diff_player_y = data->player.coo.case_y * 64 + data->player.coo.coo_y
+			- enemy->center.case_y * 64 - enemy->center.coo_y;
+			dist_min_player = sqrt(diff_player_x * diff_player_x + diff_player_y * diff_player_y);
+			// printf("x>>>%d     y>>>%d\n",diff_player_x,diff_player_y);
+			deg = 0;
+			if (diff_player_x != 0 && diff_player_y != 0)
+			{
+				deg = atan(((double)diff_player_x / diff_player_y)) / (M_PI / 180);
+				if (deg < 0)
+					deg = -deg;
+			}
+			if (diff_player_y < 0 && diff_player_x < 0)
+				deg = 180 + deg;
+			else if (diff_player_y < 0 && diff_player_x > 0)
+				deg = 180 - deg;
+			else if (diff_player_y > 0 && diff_player_x < 0)
+				deg = 360 - deg;
+			else if (diff_player_y == 0 && diff_player_x < 0)
+				deg = 270;
+			else if (diff_player_y == 0 && diff_player_x > 0)
+				deg = 90;
+			else if (diff_player_x == 0 && diff_player_y < 0)
+				deg = 180;
+			// printf("\ndeg angle to player>>>%lf     base>>%lf\n",deg,enemy->deg);
+			// printf("\ndeg angle to player>>>%lf     %lf     %lf\n",enemy->deg - 90 + 360, deg + 360, enemy->deg + 90 + 360);
+			enemy->deg = fmod(enemy->deg, 360);
+			if ((deg + 360 >= enemy->deg - 90 + 360
+				&& deg + 360 <= enemy->deg + 90 + 360)
+			||
+				enemy->calc_path > 0)
+			{
+				// printf("ray lauch try see enemy   %lf     %lf\n",deg,enemy->deg);
+				t_ray	ray;
+				ray.deg = deg;
+				ray.start_case_x = enemy->center.case_x;
+				ray.start_case_y = enemy->center.case_y;
+				ray.start_coo_x = enemy->center.coo_x;
+				ray.start_coo_y = enemy->center.coo_y;
+				ray.coo_y = enemy->center.coo_y;
+				ray.coo_x = enemy->center.coo_x;
+				ray.case_y = enemy->center.case_y;
+				ray.case_x = enemy->center.case_x;
+				ray.deg = fmod(ray.deg, 360);
+				ray.rad = ray.deg * (M_PI / 180);
+				ray.delta_y = cos(ray.rad);
+				ray.delta_x = sin(ray.rad);
+				// printf("Angle >%lf       dx>>%lf        dy>>%lf\n",ray.deg,ray.delta_x,ray.delta_y);
+				while (1)
+				{
+					if (ray.delta_x > 0)
+						ray.rx = (64 - ray.coo_x) / ray.delta_x;
+					else
+						ray.rx = -ray.coo_x / ray.delta_x;
+					if (ray.delta_y > 0)
+						ray.ry = (64 - ray.coo_y) / ray.delta_y;
+					else
+						ray.ry = -ray.coo_y / ray.delta_y;
+					if (ray.rx < ray.ry)
+					{
+						if (handle_ray_x_gen(data, &ray) == 1)
+							break ;
+					}
+					else
+					{
+						if (handle_ray_y_gen(data, &ray) == 1)
+							break ;
+					}
+				}
+				ray.dist_wall = sqrt(((ray.case_y
+				- ray.start_case_y) * 64.0 + (ray.coo_y
+				- ray.start_coo_y)) * ((ray.case_y
+				- ray.start_case_y) * 64.0 + (ray.coo_y
+				- ray.start_coo_y)) + ((ray.case_x
+				- ray.start_case_x) * 64.0 + (ray.coo_x
+				- ray.start_coo_x)) * ((ray.case_x
+				- ray.start_case_x) * 64.0 + (ray.coo_x
+				- ray.start_coo_x)));
+				// printf("dist player >%lf    dist_wall >%lf\n",dist_target, ray.dist_wall);
+				if (dist_min_player < ray.dist_wall || enemy->calc_path > 0)
+				{
+					if (dist_min_player < dist_min || dist_min == -1)
+					{
+						dist_min = dist_min_player;
+						coo.case_x = data->player.coo.case_x;
+						coo.case_y = data->player.coo.case_y;
+						coo.coo_y = data->player.coo.coo_y;
+						coo.coo_x = data->player.coo.coo_x;
+					}
+					
+				}
+			}
+		}
+		if (dist_min != -1)
+		{
+			enemy->dist_target = dist_min;
+			if (enemy->dist_target < enemy->dist_visu)
+			{
+				if (enemy->recalc_path <= 50 || !enemy->way)
+					enemy->recalc_path = 100;
+				enemy->calc_path = 30;
+			}
+			if (enemy->dist_target < enemy->dist_damage && get_mtime() > enemy->time_attack_cac + enemy->cooldown_cac * 1000)
+			{
+				// printf("Damage player\n");
+				enemy->time_attack_cac = get_mtime();
+				// printf("type>%d\n",keep_elem->type);
+				if (dist_min == dist_min_player)
+					apply_damage(&data->player.damage, &enemy->damage);
+				else
+					apply_damage(&keep_elem->damage, &enemy->damage);
+				// printf("keep_elem damge tale>>>>%lf\n",keep_elem->damage.damage_take);
+				// printf("ennemy damge do>>>>%lf\n",enemy->damage.damage_take);
 			}
 			if (enemy->recalc_path == 100)
 			{
@@ -2180,6 +2435,7 @@ void	move_enemy(t_data *data)
 			f_elem_lst(lst);
 			return ;
 		}
+		enemy->nb_move++;
 		lst = next;
 	}
 }
