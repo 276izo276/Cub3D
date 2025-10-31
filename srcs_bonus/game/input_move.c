@@ -362,18 +362,44 @@ static void	handle_map_keys(int keycode, t_data *data)
 	
 }
 
-void	handle_floo_open(t_data *data)
+bool	handle_floo_open(t_data *data)
 {
 	if (data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x] == 'F')
+	{
+		if (data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open == true)
+			return (false);
 		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open = true;
+		return (true);
+	}
 	else if (data->map.tabmap[data->player.coo.case_y - 1][data->player.coo.case_x] == 'F')
+	{
+		if (data->map.door_map[data->player.coo.case_y - 1][data->player.coo.case_x]->is_floo_open == true)
+			return (false);
 		data->map.door_map[data->player.coo.case_y - 1][data->player.coo.case_x]->is_floo_open = true;
+		return (true);
+	}
 	else if (data->map.tabmap[data->player.coo.case_y + 1][data->player.coo.case_x] == 'F')
+	{
+		if (data->map.door_map[data->player.coo.case_y + 1][data->player.coo.case_x]->is_floo_open == true)
+			return (false);
 		data->map.door_map[data->player.coo.case_y + 1][data->player.coo.case_x]->is_floo_open = true;
+		return (true);
+	}
 	else if (data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x + 1] == 'F')
+	{
+		if (data->map.door_map[data->player.coo.case_y][data->player.coo.case_x + 1]->is_floo_open == true)
+			return (false);
 		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x + 1]->is_floo_open = true;
+		return (true);
+	}
 	else if (data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x - 1] == 'F')
+	{
+		if (data->map.door_map[data->player.coo.case_y][data->player.coo.case_x - 1]->is_floo_open == true)
+			return (false);
 		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x - 1]->is_floo_open = true;
+		return (true);
+	}
+	return (false);
 }
 
 	// #include <stdio.h>
@@ -441,9 +467,9 @@ int	key_press(int keycode, t_data *data)
 	i = 0;
 	while (data->keycode[i] != 0 && i < KEYCODE_NB)
 		i++;
-	if (keycode == KEY_5)
-		handle_floo_open(data);
-	else if (keycode == KEY_CTRL)
+	// if (keycode == KEY_5)
+	// 	handle_floo_open(data);
+	if (keycode == KEY_CTRL)
 	{
 		if (data->display.player_height != 16) // a changer on a plus besoins un bool suffit
 			data->display.player_height = 16;
@@ -457,7 +483,7 @@ int	key_press(int keycode, t_data *data)
 		else
 			data->status = GAME;
 	}
-	else if (keycode == KEY_X)
+	else if (keycode == KEY_N)
 	{
 		if (data->status == GAME)
 		{
