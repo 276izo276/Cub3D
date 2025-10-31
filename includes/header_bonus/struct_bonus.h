@@ -388,6 +388,7 @@ struct s_damage
 	double		damage_do;
 	double		damage_spider_do;
 	double		damage_dementor_do;
+	double		damage_snake_do;
 	double		slow_force_do;
 	double		slow_frame_do;
 	double		poison_force_do;
@@ -404,6 +405,7 @@ struct s_damage
 	double		damage_take;
 	double		damage_spider_take;
 	double		damage_dementor_take;
+	double		damage_snake_take;
 	double		slow_force_take;
 	double		slow_frame_take;
 	double		poison_force_take;
