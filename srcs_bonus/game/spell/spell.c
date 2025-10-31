@@ -108,6 +108,9 @@ void	spell_protego(t_data *data)
 
 void	cast_protego(t_data *data, t_spells info)
 {
+	long	save_time;
+
+	save_time = 0;
 	(void)data;
 	(void)info;
 	data->cast_spell = -1;
@@ -117,6 +120,11 @@ void	cast_protego(t_data *data, t_spells info)
 		data->spell[PROTEGO].launch_time = get_mtime();
 		data->player.protego = 6;
 		data->spell[PROTEGO].end_time = get_mtime();
+		data->lumos.active = true;
+		data->lumos.count_frame = 50;
+		save_time = data->spell[LUMOS].end_time;
+		spell_lumos(data);
+		data->spell[LUMOS].end_time = save_time;
 	}
 }
 
@@ -144,6 +152,9 @@ void	spell_heal(t_data *data)
 
 void	cast_episkey(t_data *data, t_spells info)
 {
+	long	save_time;
+
+	save_time = 0;
 	(void)data;
 	(void)info;
 	data->cast_spell = -1;
@@ -154,6 +165,11 @@ void	cast_episkey(t_data *data, t_spells info)
 		data->player.episkey_frame = 150;
 		data->player.episkey_heal = .1;
 		data->spell[EPISKEY].end_time = get_mtime();
+		data->lumos.active = true;
+		data->lumos.count_frame = 50;
+		save_time = data->spell[LUMOS].end_time;
+		spell_lumos(data);
+		data->spell[LUMOS].end_time = save_time;
 	}
 }
 
@@ -162,8 +178,10 @@ void	cast_episkey(t_data *data, t_spells info)
 void	cast_opugno(t_data *data, t_spells info)
 {
 	t_fcoo	coo;
-	(void)info;
+	long	save_time;
 
+	save_time = 0;
+	(void)info;
 	data->cast_spell = -1;
 	if (data->active_spell == -1 && get_mtime() > data->spell[OPPUGNO].end_time + data->spell[OPPUGNO].base_cooldown * 1000)
 	{
@@ -178,14 +196,21 @@ void	cast_opugno(t_data *data, t_spells info)
 		data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
 		data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
 		data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
+		data->lumos.active = true;
+		data->lumos.count_frame = 50;
+		save_time = data->spell[LUMOS].end_time;
+		spell_lumos(data);
+		data->spell[LUMOS].end_time = save_time;
 	}
 }
 
 void	cast_serpensortia(t_data *data, t_spells info)
 {
 	t_fcoo	coo;
-	(void)info;
+	long	save_time;
 
+	save_time = 0;
+	(void)info;
 	data->cast_spell = -1;
 	if (data->active_spell == -1 && get_mtime() > data->spell[SERPENSORTIA].end_time + data->spell[SERPENSORTIA].base_cooldown * 1000)
 	{
@@ -196,11 +221,19 @@ void	cast_serpensortia(t_data *data, t_spells info)
 		coo.coo_x = data->player.coo.coo_x;
 		coo.coo_y = data->player.coo.coo_y;
 		data->enemy = add_end_lst(init_enemy(SNAKE, coo, data, data->map.mini.deg),data->enemy,f_enemy);
+		data->lumos.active = true;
+		data->lumos.count_frame = 50;
+		save_time = data->spell[LUMOS].end_time;
+		spell_lumos(data);
+		data->spell[LUMOS].end_time = save_time;
 	}
 }
 
 void	cast_vulnera_sanentur(t_data *data, t_spells info)
 {
+	long	save_time;
+
+	save_time = 0;
 	(void)data;
 	(void)info;
 	data->cast_spell = -1;
@@ -213,6 +246,11 @@ void	cast_vulnera_sanentur(t_data *data, t_spells info)
 		data->player.damage.curse_force_take = 0;
 		data->player.damage.curse_frame_take = 0;
 		data->spell[VULNERA_SANENTUR].end_time = get_mtime();
+		data->lumos.active = true;
+		data->lumos.count_frame = 50;
+		save_time = data->spell[LUMOS].end_time;
+		spell_lumos(data);
+		data->spell[LUMOS].end_time = save_time;
 	}
 }
 

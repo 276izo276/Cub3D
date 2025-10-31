@@ -671,12 +671,12 @@ int	game_loop(t_data *data)
 	{
 		//DBG1printf("0\n");
 		// data->player.life -= .5;
-		// if (cur - data->last_spawn >= data->spawn_frame)
-		// {
-		// 		update_enemy(data);
-		// 	data->last_spawn = get_mtime();
-		// 	// data->player.xp++;
-		// }
+		if (cur - data->last_spawn >= data->spawn_frame)
+		{
+			update_enemy(data);
+			data->last_spawn = get_mtime();
+			// data->player.xp++;
+		}
 		handle_input_move(data, cur);
 		if (data->cast_spell != -1)
 			data->spell[data->cast_spell].call(data, data->cast_spell);

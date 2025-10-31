@@ -873,6 +873,7 @@ struct	s_player
 	t_fcoo		right;
 	t_fcoo		left_before;
 	t_fcoo		right_before;
+	t_coo		save;
 	double		radius;
 	int			protego;
 	double		episkey_frame;

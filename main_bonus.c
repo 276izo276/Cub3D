@@ -255,6 +255,35 @@ void	init_foot_tab(t_data *data)
 	data->map.mini.time_foot = 0;
 }
 
+void	restart(t_data *data)
+{
+	srand(get_mtime());
+	f_all_lst(data->enemy);
+	f_all_lst(data->item);
+	data->enemy = NULL;
+	data->item = NULL;
+	data->wand.count_egg = 0;
+	data->wand.nb_wand = 0;
+	data->wand.count_sword = 0;
+	data->player.life = 100;
+	data->player.xp = 1;
+	data->player.radius = 8;
+	data->player.coo.coo_y = 32;
+	data->player.coo.coo_x = 32;
+	data->player.coo.case_x = data->player.save.x;
+	data->player.coo.case_y = data->player.save.y;
+	init_foot_tab(data);
+	int i;
+	i = 1;
+	while (i <= 6)
+	{
+		data->wand.wand_status[i] = false;
+		++i;
+	}
+	// ADD reset nb collectible a 0 (popo poudre etc..)
+	data->status = GAME;
+}
+
 void	start(int ac, char **av)
 {
 	t_data data;
@@ -270,6 +299,8 @@ void	start(int ac, char **av)
 	data.player.radius = 8;
 	data.player.coo.coo_y = 32;
 	data.player.coo.coo_x = 32;
+	data.player.save.x = data.player.coo.case_x;
+	data.player.save.y = data.player.coo.case_y;
 	// data.map.mini.speed = 1.5;
 	init_img_mini(&data, &data.map.mini);
 	init_foot_tab(&data);

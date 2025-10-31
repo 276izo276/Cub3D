@@ -641,7 +641,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->player.xp = 15.0;
 	data->player.damage.damage_do = 1;
 
-	data->spawn_frame = 100;
+	data->spawn_frame = 5000;
 	data->last_spawn = get_mtime();
 	data->map.zoom = 128;
 	data->map.last_mouse_x = 960;
