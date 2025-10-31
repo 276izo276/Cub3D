@@ -188,18 +188,8 @@ int	key_release(int keycode, t_data *data)
 
 	// printf("Key released: %d\n", keycode);
 	i = 0;
-
-	if (keycode == KEY_Z)
-		data->popo[0].active = 0;
-	else if (keycode == KEY_X)
-		data->popo[1].active = 0;
-	else if (keycode == KEY_C)
-		data->popo[2].active = 0;
-	else if (keycode == KEY_V)
-		data->popo[3].active = 0;
 	while (i < KEYCODE_NB)
 	{
-			data->popo[3].active = 0;
 		if (data->keycode[i] == keycode)
 			data->keycode[i] = 0;
 		if (keycode == KEY_ALT)
@@ -313,21 +303,36 @@ void	handle_exit_map(int keycode, t_data *data)
 	if (keycode == KEY_ESCAPE && data->status == FLOO_MAP)
 	{
 		data->status = GAME;
-		if (angle_deg >= 315 || angle_deg <= 45)
-			data->player.coo.coo_y = 42;
-		else if (angle_deg > 135 && angle_deg < 225)
-			data->player.coo.coo_y = 22;
-		else if (angle_deg >= 45 && angle_deg <= 135)
-			data->player.coo.coo_x = 42;
-		else if (angle_deg >= 225 && angle_deg <= 315)
-			data->player.coo.coo_x = 22;
-		data->map.mini.deg += 180;
+		if (data->player.is_front == true)
+		{
+			if (angle_deg >= 315 || angle_deg <= 45)
+				data->player.coo.coo_y = 42;
+			else if (angle_deg > 135 && angle_deg < 225)
+				data->player.coo.coo_y = 22;
+			else if (angle_deg >= 45 && angle_deg <= 135)
+				data->player.coo.coo_x = 42;
+			else if (angle_deg >= 225 && angle_deg <= 315)
+				data->player.coo.coo_x = 22;
+			data->map.mini.deg += 180;
+		}
+		else
+		{
+			if (angle_deg >= 315 || angle_deg <= 45)
+				data->player.coo.coo_y = 22;
+			else if (angle_deg > 135 && angle_deg < 225)
+				data->player.coo.coo_y = 42;
+			else if (angle_deg >= 45 && angle_deg <= 135)
+				data->player.coo.coo_x = 22;
+			else if (angle_deg >= 225 && angle_deg <= 315)
+				data->player.coo.coo_x = 42;
+
+		}
 		data->map.mini.deg = fmod(data->map.mini.deg, 360);
 		data->map.mini.rad = data->map.mini.deg * M_PI / 180;
 		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open = false;
 		data->map.zoom = 128;
 	}
-	else if (keycode == KEY_ESCAPE)
+	else if (keycode == KEY_ESCAPE || keycode == KEY_M)
 	{
 		data->status = GAME;
 		data->map.zoom = 128;
@@ -408,13 +413,10 @@ void	cheat_code(t_data *data, int keycode)
 	if(data->wand.wand_status[5] != true || data->wand.wand_status[6] != true)
 		is_easter_egg(keycode, data);
 }
-
-#include <stdio.h>
 int	key_press(int keycode, t_data *data)
 {
 	int	i;
 
-	// printf("keycode >%d\n",keycode);
 	cheat_code(data, keycode);
 	if (data->status == MENU)
 	{
@@ -455,7 +457,7 @@ int	key_press(int keycode, t_data *data)
 		else
 			data->status = GAME;
 	}
-	else if (keycode == KEY_N)
+	else if (keycode == KEY_X)
 	{
 		if (data->status == GAME)
 		{

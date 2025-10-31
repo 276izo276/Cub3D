@@ -882,6 +882,7 @@ struct	s_player
 	double		episkey_heal;
 	double		vul_sanen_frame;
 	double		vul_sanen_heal;
+	bool		is_front;
 };
 
 struct s_wand

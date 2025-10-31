@@ -110,9 +110,15 @@ static void	calc_dx_dy(t_data *data, int keycode, t_mini *mini)
 
 	angle = 0;
 	if (keycode == KEY_W || keycode == KEY_UP)
+	{
+		data->player.is_front = true;
 		angle = 180;
+	}
 	else if (keycode == KEY_S || keycode == KEY_DOWN)
+	{
 		angle = 0;
+		data->player.is_front = false;
+	}
 	else if (keycode == KEY_D || keycode == KEY_RIGHT)
 		angle = 90;
 	else if (keycode == KEY_A || keycode == KEY_LEFT)
