@@ -307,7 +307,7 @@ void	aff_popo(t_data *data)
 				else if (i == 1)
 					color = 0x00BFFF;
 				else
-					color = 0xFFFFFF;
+					color = 0x888888;
 				if (color != 0x000000 && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 105 - 128))
 					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
 				y++;
@@ -337,7 +337,8 @@ void	aff_popo(t_data *data)
 		}
 		char *str;
 		str = ft_itoa(data->popo[i].nb);
-		aff_text(str, 20, (t_coo){.y=data->mlx.height - 115 - 80,.x=calc_start_text(str, 10 + data->mlx.width - 350 + 64 * i + 13 * (i), data, 20)}, data);
+		aff_text(str, 25, (t_coo){.y=data->mlx.height - 115 - 80,.x=calc_start_text(str, 10 + data->mlx.width - 350 + 64 * i + 13 * (i), data, 25)}, data);
+		aff_text(data->popo[i].key, 25, (t_coo){.y=data->mlx.height - 115 - 80,.x=calc_start_text(data->popo[i].key,  50 + data->mlx.width - 350 + 64 * i + 13 * (i), data, 25)}, data);
 		i++;
 	}
 }

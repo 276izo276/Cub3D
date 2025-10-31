@@ -1471,11 +1471,11 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 				// else if (enemy->center.coo_y >= 64)
 				// 	fmod(enemy->center.coo_y, 64);
 
-				if (enemy->center.coo_x < 0)
+				if (enemy->center.coo_x <= 0)
 					enemy->center.coo_x += 63.999;
 				if (enemy->center.coo_x >= 64)
 					enemy->center.coo_x -= 63.999;
-				if (enemy->center.coo_y < 0)
+				if (enemy->center.coo_y <= 0)
 					enemy->center.coo_y += 63.999;
 				if (enemy->center.coo_y >= 64)
 					enemy->center.coo_y -= 63.999;

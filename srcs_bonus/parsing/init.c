@@ -87,7 +87,8 @@ static void	set_path_texture(t_data *data)
 	data->img[POISON_SPIDER_IMG].path = "./texture/web.xpm";
 	data->img[POPO_HEAL].path = "./texture/popo_heal.xpm";
 	data->img[POPO_SHIELD].path = "./texture/popo_shield.xpm";
-
+	data->img[POPO_FLOO].path = "./texture/popo_floo.xpm";
+	data->img[POPO_INVI].path = "./texture/invisibility_cloth.xpm";
 
 	data->img[INCENDIO_IMG].path = "./texture/spell/incendio.xpm";
 	data->img[GLACIUS_IMG].path = "./texture/spell/glacius.xpm";

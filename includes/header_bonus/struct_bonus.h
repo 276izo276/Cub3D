@@ -283,9 +283,9 @@ typedef enum e_imgs
 
 	POPO_SHIELD,
 	POPO_HEAL,
-
-
-
+	POPO_FLOO,
+	POPO_INVI,
+	
 	END_IMG
 }	t_imgs;
 # define NB_TEXTURES END_IMG
