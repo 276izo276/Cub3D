@@ -172,7 +172,7 @@ static void	init_vipera_evanesca(t_data *data) // PAS FINI
 	data->spell[VIPERA_EVANESCA].necessary_lvl = 5.5;
 }
 
-static void	init_serpensortia(t_data *data) // PAS FINI
+static void	init_serpensortia(t_data *data)
 {
 	data->spell[SERPENSORTIA].base_cooldown = 0;
 	data->spell[SERPENSORTIA].call = cast_serpensortia;

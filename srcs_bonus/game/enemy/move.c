@@ -2461,11 +2461,10 @@ int	see_player(t_data *data, t_enemy *enemy)
 			
 		}
 		
-		if (dist_min_player < ray.dist_wall || dist_min < ray.dist_wall || enemy->calc_path > 0)
+		if (dist_min != -1)
 		{
 			// printf("SEE PLAYER GO ON IT     im in x>%d  y>%d\n",enemy->center.case_x,enemy->center.case_y);
-			if ((dist_min_player < ray.dist_wall && dist_min_player < enemy->dist_visu) 
-				|| (dist_min < ray.dist_wall && dist_min_player < enemy->dist_visu))
+			if (dist_min < enemy->dist_visu || dist_min < enemy->dist_visu)
 			{
 				if (rand() % 1000 < 50 && get_mtime() > enemy->time_attack_dist + enemy->cooldown_dist * 1000)
 				{
