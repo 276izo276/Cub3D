@@ -286,6 +286,11 @@ typedef enum e_imgs
 	POPO_FLOO,
 	POPO_INVI,
 
+	POPO_SHIELD_IMG,
+	POPO_HEAL_IMG,
+	POPO_FLOO_IMG,
+	POPO_INVI_IMG,
+
 	END_IMG
 }	t_imgs;
 # define NB_TEXTURES END_IMG
@@ -337,16 +342,25 @@ typedef enum e_spells
 	EVERTE_STATUM,
 	EVANESCO,
 	ALOHOMORA,
+
+	END_SPELL
 }	t_spells;
-# define NB_SPELL 31
+# define NB_SPELL END_SPELL
 
 typedef enum e_items
 {
 	WEB_SPIDER,
 	POISON_SPIDER,
-	FIREBALL_ELEM
+	FIREBALL_ELEM,
+	HEAL_POPO,
+	SHIELD_POPO,
+	FLOO_POPO,
+	INVI_POPO,
+
+
+	END_ITEM
 }	t_items;
-# define NB_TYPE_ITEM 3
+# define NB_TYPE_ITEM END_ITEM
 
 typedef enum e_coas
 {

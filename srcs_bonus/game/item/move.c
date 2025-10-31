@@ -233,6 +233,12 @@ int	try_hit_items(t_item *elem, t_data *data)
 	lst = get_first_elem_lst(data->enemy);
 	while (lst)
 	{
+		enemy = lst->dt;
+		if (enemy->type != DEMENTOR && elem->type == EXPECTO_PATRONUM)
+		{
+			lst =lst->next;
+			continue;
+		}
 		ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
 		ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
 		ray.bx = elem->right.case_x * 64 + elem->right.coo_x;
@@ -242,7 +248,6 @@ int	try_hit_items(t_item *elem, t_data *data)
 		// printf("\nax>%lf   ay>%lf\n",ray.ax, ray.ay);
 		// printf("bx>%lf   by>%lf\n",ray.bx, ray.by);
 		// printf("cx>%lf   cy>%lf\n",ray.cx, ray.cy);
-		enemy = lst->dt;
 		ray.dx = enemy->left.case_x * 64 + enemy->left.coo_x;
 		ray.dy = enemy->left.case_y * 64 + enemy->left.coo_y;
 		// printf("dx>%lf   dy>%lf\n",ray.dx, ray.dy);
@@ -256,8 +261,6 @@ int	try_hit_items(t_item *elem, t_data *data)
 			hit = true;
 			continue;
 		}
-		else
-			// printf("_______not hit\n");
 		ray.dx = enemy->center.case_x * 64 + enemy->center.coo_x;
 		ray.dy = enemy->center.case_y * 64 + enemy->center.coo_y;
 		// printf("dx>%lf   dy>%lf\n",ray.dx, ray.dy);
@@ -271,8 +274,6 @@ int	try_hit_items(t_item *elem, t_data *data)
 			hit = true;
 			continue;
 		}
-		else
-			// printf("_______not hit\n");
 		ray.dx = enemy->right.case_x * 64 + enemy->right.coo_x;
 		ray.dy = enemy->right.case_y * 64 + enemy->right.coo_y;
 		// printf("dx>%lf   dy>%lf\n",ray.dx, ray.dy);
@@ -286,8 +287,6 @@ int	try_hit_items(t_item *elem, t_data *data)
 			hit = true;
 			continue;
 		}
-		else
-			// printf("_______not hit\n");
 
 		ray.ax = elem->center.case_x * 64 + elem->center.coo_x;
 		ray.ay = elem->center.case_y * 64 + elem->center.coo_y;
@@ -395,7 +394,7 @@ void	apply_ventus_attraction(t_item *tornado, t_data *data)
 		dist_x = (tornado->center.case_x * 64 + tornado->center.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
 		dist_y = (tornado->center.case_y * 64 + tornado->center.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
 		distance = sqrt(dist_x * dist_x + dist_y * dist_y);
-		if (distance < tornado->radius * 30)
+		if (distance < tornado->radius * 25)
 		{
 			enemy->damage.hit.case_x = tornado->center.case_x;
 			enemy->damage.hit.case_y = tornado->center.case_y;
@@ -446,6 +445,11 @@ void	move_item(t_data *data)
 		{
 			// printf("expecto patronum uo radius\n");
 			item->radius += .3;
+		}
+		if (item->type == VENTUS)
+		{
+			// printf("expecto patronum uo radius\n");
+			item->radius += .1;
 		}
 		if (item->type == VENTUS)
 			apply_ventus_attraction(item, data);

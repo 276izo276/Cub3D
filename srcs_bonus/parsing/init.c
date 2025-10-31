@@ -85,10 +85,16 @@ static void	set_path_texture(t_data *data)
 	data->img[SHIELD_6].path = "./texture/shield_6.xpm";
 	data->img[WEB_SPIDER_IMG].path = "./texture/web.xpm";
 	data->img[POISON_SPIDER_IMG].path = "./texture/web.xpm";
+
 	data->img[POPO_HEAL].path = "./texture/popo_heal.xpm";
 	data->img[POPO_SHIELD].path = "./texture/popo_shield.xpm";
 	data->img[POPO_FLOO].path = "./texture/popo_floo.xpm";
 	data->img[POPO_INVI].path = "./texture/invisibility_cloth.xpm";
+
+	data->img[POPO_HEAL_IMG].path = "./texture/popo_heal_img.xpm";
+	data->img[POPO_SHIELD_IMG].path = "./texture/popo_shield_img.xpm";
+	data->img[POPO_FLOO_IMG].path = "./texture/popo_floo_img.xpm";
+	data->img[POPO_INVI_IMG].path = "./texture/invisibility_cloth_img.xpm";
 
 	data->img[INCENDIO_IMG].path = "./texture/spell/incendio.xpm";
 	data->img[GLACIUS_IMG].path = "./texture/spell/glacius.xpm";

@@ -801,7 +801,13 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 	lst = get_first_elem_lst(data->item);
 	while (lst)
 	{
+		
 		item = lst->dt;
+		if (item->type == POPO_HEAL || item->type == POPO_SHIELD || item->type == POPO_FLOO || item->type == POPO_INVI || (elem->type != DEMENTOR && item->type == EXPECTO_PATRONUM))
+		{
+			lst = lst->next;
+			continue;
+		}
 		ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
 		ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
 		ray.bx = elem->right.case_x * 64 + elem->right.coo_x;
