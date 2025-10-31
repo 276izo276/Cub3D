@@ -444,6 +444,7 @@ struct	s_enemy
 	int				dist_stop;
 	int				dist_damage;
 	int				dist_visu;
+	int				nb_move;
 };
 
 struct s_item
