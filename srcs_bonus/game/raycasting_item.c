@@ -74,6 +74,8 @@ void	try_hit_item(t_data *data, int i, double x)
 			data->ray[i].items[ray.j]->type = ITEM;
 			if (item->type == EXPECTO_PATRONUM)
 				data->ray[i].items[ray.j]->type = EXPECTO_PATRONUM;
+			else if (item->type == ANIM_DEATH)
+				data->ray[i].items[ray.j]->type = ANIM_DEATH;
 			if (item->type == VENTUS)
 			{
 				data->ray[i].items[ray.j]->type = VENTUS;

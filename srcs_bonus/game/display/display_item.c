@@ -255,7 +255,7 @@ void	display_item(t_data *data, int i)
 				// double	div_part = ;
 				double	rap_y = 0;
 				// // if (div_part > 0.00001)
-				rap_y = (data->ray[i].pix_y - data->mlx.height / 2) / ((data->ray[i].items[j]->hbot - data->ray[i].items[j]->htop) / 2);
+				rap_y = (data->ray[i].pix_y - data->mlx.height / 2) / ((data->ray[i].items[j]->hbot - data->ray[i].items[j]->htop));
 				// printf("rap_y>%lf\n",rap_y);
 				// printf("rap>%lf  pix_y>%d     radius>%lf\n",rap_y,data->ray[i].pix_y,data->ray[i].items[j]->item->radius);
 				double dist = sqrt((data->ray[i].items[j]->posx - 0.5) * (data->ray[i].items[j]->posx - 0.5)
@@ -268,15 +268,15 @@ void	display_item(t_data *data, int i)
 					int g;
 					int b;
 					b = (color & 255);
-					b = (int)(b + b * ((1 - dist * 2)));
+					b = (int)(b - b * ((1 - dist * 0.5)));
 					if (b > 255)
 						b = 255;
 					g = (color >> 8 & 255);
-					g = (int)(g + g * ((1 - dist * 2)));
+					g = (int)(g - g * ((1 - dist * 0.5)));
 					if (g > 255)
 						g = 255;
 					r = (color >> 16 & 255);
-					r = (int)(r + r * ((1 - dist * 2)));
+					r = (int)(r - r * ((1 - dist * 0.5)));
 					if (r > 255)
 						r = 255;
 					color = (r << 16) + (g << 8) + b;

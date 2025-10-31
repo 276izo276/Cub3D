@@ -133,7 +133,7 @@ void	init_death_anim(t_data *data)
 {
 	data->items[ANIM_DEATH].categ = ITEM;
 	data->items[ANIM_DEATH].type = ANIM_DEATH;
-	data->items[ANIM_DEATH].radius = 3;
+	data->items[ANIM_DEATH].radius = 10;
 }
 
 void	init_popo_shield(t_data *data)
