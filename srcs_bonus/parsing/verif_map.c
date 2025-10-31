@@ -8,13 +8,13 @@
 
 static void	is_valid_char_map(char c, int y, int x, t_data *data)
 {
-	const char	tab[] = {'0', '1', 'D', 'F', ' ', '.', ',', '<', '>', ';', 'N', 'S', 'W', 'E', 0};
+	const char	tab[] = {'0', '1', 'D', 'F', ' ', '.', ',', '<', '>', ';','z','x','c','v', 'N', 'S', 'W', 'E', 0};
 	int			i;
 
 	i = -1;
 	while (tab[++i])
 	{
-		if (tab[i] == c && i >= 10)
+		if (tab[i] == c && i >= 14)
 		{
 			if (data->player.coo.case_x != 0 && data->player.coo.case_y != 0)
 			{
@@ -26,7 +26,7 @@ static void	is_valid_char_map(char c, int y, int x, t_data *data)
 			data->player.coo.case_x = x;
 			return ;
 		}
-		else if (tab[i] == c && i <= 9)
+		else if (tab[i] == c && i <= 13)
 			return ;
 	}
 	ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE "Map >>> '"
@@ -187,6 +187,35 @@ static void	is_enemy(char c, int y, int x, t_data *data)
 	}
 }
 
+static void	is_item(char c, int y, int x, t_data *data)
+{
+	int			i;
+	const char	tab[] = {'z', 'x', 'c', 'v', 0};
+	int			info;
+
+	i = 0;
+	while (tab[i])
+	{
+		if (tab[i] == c)
+		{
+			if (c == 'z')
+				info = HEAL_POPO;
+			if (c == 'x')
+				info = SHIELD_POPO;
+			if (c == 'c')
+				info = FLOO_POPO;
+			if (c == 'v')
+				info = INVI_POPO;
+			data->item = add_end_lst(create_item(data, info, &(t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data->map.mini.deg), data->item, f_item);
+			if (!data->item)
+				f_exit(data, 1);
+			data->map.tabmap[y][x] = '0';
+			// data->nb_item++;
+		}
+		i++;
+	}
+}
+
 static void	check_map_valid_char(t_data *data)
 {
 	int	y;
@@ -203,6 +232,7 @@ static void	check_map_valid_char(t_data *data)
 			is_door(data->map.tabmap[y][x], y, x, data);
 			// is_foo(data->map.tabmap[y][x], y, x, data);
 			is_enemy(data->map.tabmap[y][x], y, x, data);
+			is_item(data->map.tabmap[y][x], y, x, data);
 			x++;
 		}
 		if (x == 0)

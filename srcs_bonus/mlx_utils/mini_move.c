@@ -398,20 +398,24 @@ void	try_hit_player(t_data *data)
 	while (lst)
 	{
 		item = lst->dt;
+		if (item->type == CONFUNDO || item->type == VENTUS || item->type == EXPECTO_PATRONUM || item->type == REPULSO)
+		{
+			lst = lst->next;
+			continue;
+		}
 		ray.dx = item->left.case_x * 64 + item->left.coo_x;
 		ray.dy = item->left.case_y * 64 + item->left.coo_y;
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			// data->player.damage.damage_take += item->damage.damage_do;
-			// data->player.damage.damage_spider_take += item->damage.damage_spider_do;
-			// data->player.damage.damage_dementor_take += item->damage.damage_dementor_do;
-			// data->player.damage.slow_force_take += item->damage.slow_force_do;
-			// data->player.damage.slow_frame_take += item->damage.slow_frame_do;
-			// data->player.damage.poison_force_take += item->damage.poison_force_do;
-			// data->player.damage.poison_frame_take += item->damage.poison_frame_do;
-			// data->player.damage.fire_force_take += item->damage.fire_force_do;
-			// data->player.damage.fire_frame_take += item->damage.fire_frame_do;
+			if (item->type == POPO_HEAL)
+				data->popo[0].nb ++;
+			if (item->type == POPO_SHIELD)
+				data->popo[1].nb ++;
+			if (item->type == POPO_FLOO)
+				data->popo[2].nb ++;
+			if (item->type == POPO_INVI)
+				data->popo[3].nb ++;
 			apply_damage(&data->player.damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
@@ -424,15 +428,14 @@ void	try_hit_player(t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			// data->player.damage.damage_take += item->damage.damage_do;
-			// data->player.damage.damage_spider_take += item->damage.damage_spider_do;
-			// data->player.damage.damage_dementor_take += item->damage.damage_dementor_do;
-			// data->player.damage.slow_force_take += item->damage.slow_force_do;
-			// data->player.damage.slow_frame_take += item->damage.slow_frame_do;
-			// data->player.damage.poison_force_take += item->damage.poison_force_do;
-			// data->player.damage.poison_frame_take += item->damage.poison_frame_do;
-			// data->player.damage.fire_force_take += item->damage.fire_force_do;
-			// data->player.damage.fire_frame_take += item->damage.fire_frame_do;
+			if (item->type == POPO_HEAL)
+				data->popo[0].nb ++;
+			if (item->type == POPO_SHIELD)
+				data->popo[1].nb ++;
+			if (item->type == POPO_FLOO)
+				data->popo[2].nb ++;
+			if (item->type == POPO_INVI)
+				data->popo[3].nb ++;
 			apply_damage(&data->player.damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
@@ -445,15 +448,14 @@ void	try_hit_player(t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			// data->player.damage.damage_take += item->damage.damage_do;
-			// data->player.damage.damage_spider_take += item->damage.damage_spider_do;
-			// data->player.damage.damage_dementor_take += item->damage.damage_dementor_do;
-			// data->player.damage.slow_force_take += item->damage.slow_force_do;
-			// data->player.damage.slow_frame_take += item->damage.slow_frame_do;
-			// data->player.damage.poison_force_take += item->damage.poison_force_do;
-			// data->player.damage.poison_frame_take += item->damage.poison_frame_do;
-			// data->player.damage.fire_force_take += item->damage.fire_force_do;
-			// data->player.damage.fire_frame_take += item->damage.fire_frame_do;
+			if (item->type == POPO_HEAL)
+				data->popo[0].nb ++;
+			if (item->type == POPO_SHIELD)
+				data->popo[1].nb ++;
+			if (item->type == POPO_FLOO)
+				data->popo[2].nb ++;
+			if (item->type == POPO_INVI)
+				data->popo[3].nb ++;
 			apply_damage(&data->player.damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);

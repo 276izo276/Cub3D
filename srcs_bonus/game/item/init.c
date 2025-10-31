@@ -120,9 +120,50 @@ void	init_fireball_elem(t_data *data)
 	data->items[FIREBALL_ELEM].back_img = &data->img[INCENDIO_IMG];
 }
 
+void	init_popo_heal(t_data *data)
+{
+	data->items[HEAL_POPO].categ = ITEM;
+	data->items[HEAL_POPO].type = POPO_HEAL;
+	data->items[HEAL_POPO].radius = 3;
+	data->items[HEAL_POPO].front_img = &data->img[POPO_HEAL_IMG];
+	data->items[HEAL_POPO].back_img = &data->img[POPO_HEAL_IMG];
+}
+
+
+void	init_popo_shield(t_data *data)
+{
+	data->items[SHIELD_POPO].categ = ITEM;
+	data->items[SHIELD_POPO].type = POPO_SHIELD;
+	data->items[SHIELD_POPO].radius = 3;
+	data->items[SHIELD_POPO].front_img = &data->img[POPO_SHIELD_IMG];
+	data->items[SHIELD_POPO].back_img = &data->img[POPO_SHIELD_IMG];
+}
+
+void	init_popo_floo(t_data *data)
+{
+	data->items[FLOO_POPO].categ = ITEM;
+	data->items[FLOO_POPO].type = POPO_FLOO;
+	data->items[FLOO_POPO].radius = 3;
+	data->items[FLOO_POPO].front_img = &data->img[POPO_FLOO_IMG];
+	data->items[FLOO_POPO].back_img = &data->img[POPO_FLOO_IMG];
+}
+
+void	init_popo_invi(t_data *data)
+{
+	data->items[INVI_POPO].categ = ITEM;
+	data->items[INVI_POPO].type = POPO_INVI;
+	data->items[INVI_POPO].radius = 12;
+	data->items[INVI_POPO].front_img = &data->img[POPO_INVI_IMG];
+	data->items[INVI_POPO].back_img = &data->img[POPO_INVI_IMG];
+}
+
 void	init_item(t_data *data)
 {
 	init_poison_spider(data);
 	init_web_spider(data);
 	init_fireball_elem(data);
+	init_popo_heal(data);
+	init_popo_shield(data);
+	init_popo_floo(data);
+	init_popo_invi(data);
 }
