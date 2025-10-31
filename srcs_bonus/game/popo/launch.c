@@ -46,8 +46,8 @@ void	cast_popo_floo(t_data *data)
 
 void	cast_popo_invi(t_data *data)
 {
-	if (data->popo[3].active)
-		return ;
+	if (data->popo[3].active || data->popo[3].nb_cloak != 4)
+		return;
 	data->popo[3].active = 1;
 	printf("popo invi\n");
 }
