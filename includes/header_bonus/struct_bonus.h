@@ -903,6 +903,7 @@ struct s_popo
 	int		nb;
 	char	*key;
 	int		active;
+	int		nb_cloak;
 };
 
 
