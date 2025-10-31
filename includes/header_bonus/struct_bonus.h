@@ -58,6 +58,8 @@ typedef struct s_damage		t_damage;
 typedef struct s_item		t_item;
 typedef struct s_spell		t_spell;
 typedef struct s_wand		t_wand;
+typedef struct s_popo		t_popo;
+
 
 typedef	enum e_dir
 {
@@ -892,8 +894,10 @@ struct s_wand
 
 struct s_popo
 {
-	void	(*call)(t_data *data, int type);
+	void	(*call)(t_data *data);
+	t_img	*img;
 	int		nb;
+	char	*key;
 };
 
 
@@ -978,6 +982,7 @@ struct s_data
 	char		*cheat_code_life;
 	int			index_life;
 	int			index_xp;
+	t_popo		popo[4];
 };
 
 t_coo	*init_t_coo(int y, int x);
