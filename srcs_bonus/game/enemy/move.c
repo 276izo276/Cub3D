@@ -950,7 +950,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	//DBG2 printf("\nmove\n");
 	if (enemy->damage.repulso_force_take > 0)
 	{
-		printf("repulso enemy\n");
+		// printf("repulso enemy\n");
 		deg = 0;
 		rad = 0;
 		double	diff_x = (enemy->center.case_x * 64 + enemy->center.coo_x) - (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x);
@@ -1525,7 +1525,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	// printf("INTER deg>%lf   rad>%lf\n",enemy->deg,enemy->rad);
 	if (enemy->damage.repulso_force_take < 0)
 	{
-		printf("\n\nattracto enemy\n");
+		// printf("\n\nattracto enemy\n");
 		deg = 0;
 		rad = 0;
 		double	diff_x = (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
@@ -1576,7 +1576,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		diff_x = (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
 		diff_y = (enemy->damage.hit.case_y * 64 + enemy->damage.hit.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
 		enemy->damage.dist = sqrt(diff_x * diff_x + diff_y * diff_y);
-		printf("dist>%lf\n",enemy->damage.dist);
+		// printf("dist>%lf\n",enemy->damage.dist);
 		double	decal = -(1000 / (enemy->damage.dist + 30) + enemy->damage.repulso_force_take) / 4;
 		if (decal > 0)
 			return;
@@ -1584,17 +1584,17 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		{
 			enemy->damage.repulso_force_take = decal;
 			// enemy->damage.repulso_frame_take = enemy->damage.repulso_frame_take;
-			printf("BASIC\n");
+			// printf("BASIC\n");
 		}
 		else
 		{
 			enemy->damage.repulso_force_take = -enemy->damage.dist;
 			enemy->damage.repulso_frame_take = enemy->damage.repulso_frame_take;
-			printf("SHORT DIST\n");
+			// printf("SHORT DIST\n");
 		}
 		dy *= fabs(enemy->damage.repulso_force_take) * enemy->damage.repulso_frame_take;
 		dx *= fabs(enemy->damage.repulso_force_take) * enemy->damage.repulso_frame_take;
-		printf("----dist parcouru REPULSO>%lf\n",sqrt(dx *dx + dy * dy));
+		// printf("----dist parcouru REPULSO>%lf\n",sqrt(dx *dx + dy * dy));
 		f_way(enemy);
 		enemy->damage.repulso_frame_take--;
 		if (enemy->damage.repulso_frame_take <= 0)
@@ -2518,7 +2518,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 
 void	take_damage_enemy(t_enemy *enemy)
 {
-	printf("enemy type>%d  take>%lf\n",enemy->type, enemy->damage.damage_take);
+	// printf("enemy type>%d  take>%lf\n",enemy->type, enemy->damage.damage_take);
 	enemy->life -= enemy->damage.damage_take;
 	enemy->damage.damage_take = 0;
 	if (enemy->damage.poison_frame_take > 0)
@@ -2548,7 +2548,7 @@ void	take_damage_enemy(t_enemy *enemy)
 	if (enemy->type == SNAKE)
 	{
 		enemy->life -= enemy->damage.damage_snake_take;
-		printf("JE SUIS HIT %f\n", enemy->damage.damage_snake_do);
+		// printf("JE SUIS HIT %f\n", enemy->damage.damage_snake_do);
 		enemy->damage.damage_snake_take = 0;
 	}
 }

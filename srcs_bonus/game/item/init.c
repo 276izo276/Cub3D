@@ -26,6 +26,7 @@ t_item	*init_spell_item(t_data *data, t_spells info)
 	item->damage.damage_do = data->spell[info].damage.damage_do;
 	item->damage.damage_spider_do = data->spell[info].damage.damage_spider_do;
 	item->damage.damage_dementor_do = data->spell[info].damage.damage_dementor_do;
+	item->damage.damage_snake_do = data->spell[info].damage.damage_snake_do;
 	item->damage.slow_force_do = data->spell[info].damage.slow_force_do;
 	item->damage.slow_frame_do = data->spell[info].damage.slow_frame_do;
 	item->damage.poison_force_do = data->spell[info].damage.poison_force_do;
