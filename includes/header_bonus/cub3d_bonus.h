@@ -14,6 +14,8 @@
 # define M_PI 3.14159265358979323846
 #endif
 
+void	init_popo(t_data *data);
+void	cast_popo_heal(t_data *data);
 void	cast_opugno(t_data *data, t_spells info);
 void	init_item(t_data *data);
 t_item	*create_item(t_data *data, t_items info, t_fcoo *coo, double deg);

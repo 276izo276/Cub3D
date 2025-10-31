@@ -4,6 +4,7 @@
 
 void	apply_damage(t_damage *take, t_damage *apply)
 {
+	printf("HIT>>>%lf \n",apply->damage_snake_do);
 	take->damage_take += apply->damage_do;
 	take->damage_spider_take += apply->damage_spider_do;
 	take->damage_dementor_take += apply->damage_dementor_do;

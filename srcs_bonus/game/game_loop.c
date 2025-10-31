@@ -317,38 +317,28 @@ void	aff_popo(t_data *data)
 		i++;
 	}
 	i = 0;
-	x = data->mlx.width - 350 + 64 * i + 13 * (i);
-	while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
+	while (i < 4)
 	{
-		y = data->mlx.height - 115 - 128;
-		while (y < data->mlx.height - 115 - 64)
+		x = data->mlx.width - 350 + 64 * i + 13 * (i);
+		while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
 		{
-			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 115 - 128)) / 64 * data->img[POPO_HEAL].height)) * data->img[POPO_HEAL].size_line;
-			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 + 64 * i + 13 * (i))) / 64 * data->img[POPO_HEAL].width)) * ( data->img[POPO_HEAL].bits_per_pixel >> 3);
-			unsigned int	color = *(unsigned int *)(data->img[POPO_HEAL].data_addr + a + b);
-			
-			if (color != WHITE && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 105 - 128))
-				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
-			y++;
+			y = data->mlx.height - 115 - 128;
+			while (y < data->mlx.height - 115 - 64)
+			{
+				unsigned int	a = ((unsigned int)((y - (data->mlx.height - 115 - 128)) / 64 * data->popo[i].img->height)) * data->popo[i].img->size_line;
+				unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 + 64 * i + 13 * (i))) / 64 * data->popo[i].img->width)) * ( data->popo[i].img->bits_per_pixel >> 3);
+				unsigned int	color = *(unsigned int *)(data->popo[i].img->data_addr + a + b);
+				
+				if (color != WHITE && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 105 - 128))
+					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
+				y++;
+			}
+			x++;
 		}
-		x++;
-	}
-	i = 1;
-	x = data->mlx.width - 350 + 64 * i + 13 * (i);
-	while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
-	{
-		y = data->mlx.height - 115 - 128;
-		while (y < data->mlx.height - 115 - 64)
-		{
-			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 115 - 128)) / 64 * data->img[POPO_SHIELD].height)) * data->img[POPO_SHIELD].size_line;
-			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 + 64 * i + 13 * (i))) / 64 * data->img[POPO_SHIELD].width)) * ( data->img[POPO_SHIELD].bits_per_pixel >> 3);
-			unsigned int	color = *(unsigned int *)(data->img[POPO_SHIELD].data_addr + a + b);
-			
-			if (color != WHITE && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 105 - 128))
-				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
-			y++;
-		}
-		x++;
+		char *str;
+		str = ft_itoa(data->popo[i].nb);
+		aff_text(str, 20, (t_coo){.y=data->mlx.height - 115 - 80,.x=calc_start_text(str, 10 + data->mlx.width - 350 + 64 * i + 13 * (i), data, 20)}, data);
+		i++;
 	}
 }
 

@@ -665,4 +665,5 @@ void	init_data(t_data *data, int ac, char **av)
 	set_spell_take(data);
 	init_spell(data);
 	init_item(data);
+	init_popo(data);
 }
