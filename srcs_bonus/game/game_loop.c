@@ -286,6 +286,72 @@ int	border_case_spell(double x, double y, double base_x, double base_y)
 	return (1);
 }
 
+void	aff_popo(t_data *data)
+{
+	double			x;
+	double			y;
+	int				i;
+	unsigned int	color;
+	
+	i = 0;
+	while (i < 4)
+	{
+		x = data->mlx.width - 350 + 64 * i + 13 * (i);
+		while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
+		{
+			y = data->mlx.height - 105 - 128;
+			while (y < data->mlx.height - 105 - 64)
+			{
+				if (i == 0)
+					color = 0xFF5555;
+				else if (i == 1)
+					color = 0x00BFFF;
+				else
+					color = 0xFFFFFF;
+				if (color != 0x000000 && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 105 - 128))
+					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
+				y++;
+			}
+			x++;
+		}
+		i++;
+	}
+	i = 0;
+	x = data->mlx.width - 350 + 64 * i + 13 * (i);
+	while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
+	{
+		y = data->mlx.height - 115 - 128;
+		while (y < data->mlx.height - 115 - 64)
+		{
+			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 115 - 128)) / 64 * data->img[POPO_HEAL].height)) * data->img[POPO_HEAL].size_line;
+			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 + 64 * i + 13 * (i))) / 64 * data->img[POPO_HEAL].width)) * ( data->img[POPO_HEAL].bits_per_pixel >> 3);
+			unsigned int	color = *(unsigned int *)(data->img[POPO_HEAL].data_addr + a + b);
+			
+			if (color != WHITE && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 105 - 128))
+				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
+			y++;
+		}
+		x++;
+	}
+	i = 1;
+	x = data->mlx.width - 350 + 64 * i + 13 * (i);
+	while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
+	{
+		y = data->mlx.height - 115 - 128;
+		while (y < data->mlx.height - 115 - 64)
+		{
+			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 115 - 128)) / 64 * data->img[POPO_SHIELD].height)) * data->img[POPO_SHIELD].size_line;
+			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 + 64 * i + 13 * (i))) / 64 * data->img[POPO_SHIELD].width)) * ( data->img[POPO_SHIELD].bits_per_pixel >> 3);
+			unsigned int	color = *(unsigned int *)(data->img[POPO_SHIELD].data_addr + a + b);
+			
+			if (color != WHITE && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 105 - 128))
+				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
+			y++;
+		}
+		x++;
+	}
+}
+
 void	aff_spell(t_data *data)
 {
 	double			x;
@@ -660,6 +726,7 @@ int	game_loop(t_data *data)
 			aff_life(data);
 			aff_shield(data);
 			aff_spell(data);
+			aff_popo(data);
 			aff_effect_info(data);
 			spell_protego(data);
 			spell_heal(data);
