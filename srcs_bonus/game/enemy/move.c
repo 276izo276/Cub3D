@@ -2577,9 +2577,18 @@ void	move_enemy(t_data *data)
 		take_damage_enemy(enemy);
 		if (enemy->life <= 0)
 		{
+			data->item = add_end_lst(create_item(data, ANIM_DEATH, &(t_fcoo){.case_x=enemy->center.case_x, .case_y=enemy->center.case_y, .coo_y= enemy->center.coo_y, .coo_x= enemy->center.coo_x}, data->map.mini.deg), data->item, f_item);
 			data->enemy = remove_elem_lst(lst);
 			if (enemy->type == DEMENTOR)
-				data->player.xp += 0.25;
+				data->player.xp +=  0.42/ 0.8 + (data->player.xp * 0.1);
+			else if (enemy->type == SPIDER)
+				data->player.xp += 0.23/ 0.8 + (data->player.xp * 0.1);
+			else if (enemy->type == ELEM)
+				data->player.xp += 0.35/ 0.8 + (data->player.xp * 0.1);
+			else if (enemy->type == WOLF)
+				data->player.xp +=  0.5/ 0.8 + (data->player.xp * 0.1);
+			// else if (enemy->type == SORCERER)
+			// 	data->player.xp +=  3/ 0.8 + (data->player.xp * 0.1);
 			f_elem_lst(lst);
 			return ;
 		}

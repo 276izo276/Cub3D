@@ -129,6 +129,12 @@ void	init_popo_heal(t_data *data)
 	data->items[HEAL_POPO].back_img = &data->img[POPO_HEAL_IMG];
 }
 
+void	init_death_anim(t_data *data)
+{
+	data->items[ANIM_DEATH].categ = ITEM;
+	data->items[ANIM_DEATH].type = ANIM_DEATH;
+	data->items[ANIM_DEATH].radius = 3;
+}
 
 void	init_popo_shield(t_data *data)
 {
@@ -166,4 +172,5 @@ void	init_item(t_data *data)
 	init_popo_shield(data);
 	init_popo_floo(data);
 	init_popo_invi(data);
+	init_death_anim(data);
 }

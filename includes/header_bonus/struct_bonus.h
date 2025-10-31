@@ -356,7 +356,7 @@ typedef enum e_items
 	SHIELD_POPO,
 	FLOO_POPO,
 	INVI_POPO,
-
+	ANIM_DEATH,
 
 	END_ITEM
 }	t_items;
@@ -917,7 +917,7 @@ struct s_popo
 	int		nb;
 	char	*key;
 	int		active;
-	int		nb_cloak;
+	int		nb_part_cloak;
 };
 
 

@@ -471,7 +471,7 @@ void	move_item(t_data *data)
 		if (item->nb_move >= 1)
 			make_move_item(item, item->speed);
 		// printf("after move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
-		if ((item->type != VENTUS && try_hit_items(item, data) && item->type != EXPECTO_PATRONUM)
+		if ((item->type != ANIM_DEATH && item->type != VENTUS && try_hit_items(item, data) && item->type != EXPECTO_PATRONUM)
 			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1')
 		{
 			//DBG1printf("remove elem lst\n");
@@ -481,7 +481,7 @@ void	move_item(t_data *data)
 			lst = next;
 			continue;
 		}
-		if ((item->type == VENTUS && item->nb_move >= 400) || (item->type == EXPECTO_PATRONUM && item->nb_move >= 300))
+		if ((item->type == VENTUS && item->nb_move >= 400) || ((item->type == ANIM_DEATH || item->type == EXPECTO_PATRONUM) && item->nb_move >= 300))
 		{
 			t_lst	*next = lst->next;
 			data->item = remove_elem_lst(lst);

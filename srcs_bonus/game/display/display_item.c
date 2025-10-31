@@ -236,6 +236,58 @@ void	display_item(t_data *data, int i)
 			}
 
 		}
+		else if (data->ray[i].items[j]->type == ANIM_DEATH)
+		{
+			data->ray[i].items[j]->htop = data->mlx.height / 2 - (2 * data->ray[i].items[j]->item->radius) * data->ray[i].d_proj / data->ray[i].items[j]->dist;
+			data->ray[i].pix_y = data->ray[i].items[j]->htop;
+			if (data->ray[i].pix_y < 0)
+				data->ray[i].pix_y = 0;
+			if (data->ray[i].pix_y < round(data->ray[i].max_height - data->ray[i].items[j]->max_size))
+				data->ray[i].pix_y = round(data->ray[i].max_height - data->ray[i].items[j]->max_size);
+			// printf("\nmax_size>%lf\n",data->ray[i].items[j]->max_size);
+			// printf("dist>%lf\n",data->ray[i].items[j]->dist);
+			// printf("dproj>%lf\n",data->ray[i].d_proj);
+			// printf("item radius>%lf\n",data->ray[i].items[j]->item->radius);
+			data->ray[i].items[j]->hbot = data->mlx.height / 2 + (2 * data->ray[i].items[j]->item->radius) * data->ray[i].d_proj / data->ray[i].items[j]->dist;
+			while (data->ray[i].pix_y < data->ray[i].items[j]->hbot
+				&& data->ray[i].pix_y < data->mlx.height && data->ray[i].pix_y < round(data->ray[i].max_height + data->ray[i].items[j]->max_size))
+			{
+				// double	div_part = ;
+				double	rap_y = 0;
+				// // if (div_part > 0.00001)
+				rap_y = (data->ray[i].pix_y - data->mlx.height / 2) / ((data->ray[i].items[j]->hbot - data->ray[i].items[j]->htop) / 2);
+				// printf("rap_y>%lf\n",rap_y);
+				// printf("rap>%lf  pix_y>%d     radius>%lf\n",rap_y,data->ray[i].pix_y,data->ray[i].items[j]->item->radius);
+				double dist = sqrt((data->ray[i].items[j]->posx - 0.5) * (data->ray[i].items[j]->posx - 0.5)
+					+ rap_y * rap_y);
+				if (dist < .5)
+				{
+					unsigned int color = *(unsigned int *)(data->screen->data_addr + (data->ray[i].pix_y * data->screen->size_line) + (data->ray[i].pix_x
+					* data->ray[i].calc_bits));
+					int r;
+					int g;
+					int b;
+					b = (color & 255);
+					b = (int)(b + b * ((1 - dist * 2)));
+					if (b > 255)
+						b = 255;
+					g = (color >> 8 & 255);
+					g = (int)(g + g * ((1 - dist * 2)));
+					if (g > 255)
+						g = 255;
+					r = (color >> 16 & 255);
+					r = (int)(r + r * ((1 - dist * 2)));
+					if (r > 255)
+						r = 255;
+					color = (r << 16) + (g << 8) + b;
+					// return (color);
+					// color = get_right_white(data, color, dist * 500000);
+					*(unsigned int *)(data->screen->data_addr + (data->ray[i].pix_y * data->screen->size_line) + (data->ray[i].pix_x
+					* data->ray[i].calc_bits)) = color;
+				}
+				data->ray[i].pix_y++;
+			}
+		}
 		else 
 		{
 			set_texture(data, i, j);
