@@ -10,7 +10,7 @@ void	cast_popo_heal(t_data *data)
 	printf("popo heal\n");
 	if (data->popo[0].nb > 0 && data->player.life < 100)
 	{
-		data->player.life += 25;
+		data->player.life += 20;
 		if (data->player.life > 100)
 			data->player.life = 100;
 		data->popo[0].nb--;
@@ -25,7 +25,7 @@ void	cast_popo_shield(t_data *data)
 	printf("popo shield\n");
 	if (data->popo[1].nb > 0 && data->player.shield < 100)
 	{
-		data->player.shield += 25;
+		data->player.shield += 20;
 		if (data->player.shield > 100)
 			data->player.shield = 100;
 		data->popo[1].nb--;

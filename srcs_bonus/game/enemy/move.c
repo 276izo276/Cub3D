@@ -2480,7 +2480,9 @@ int	see_player(t_data *data, t_enemy *enemy)
 						data->item = add_end_lst(create_item(data, WEB_SPIDER, &enemy->center, enemy->aff_deg + 180), data->item, f_item);
 					}
 					else if (enemy->type == ELEM)
+					{
 						data->item = add_end_lst(create_item(data, FIREBALL_ELEM, &enemy->center, enemy->aff_deg + 180), data->item, f_item);
+					}
 				}
 				// data->item = add_end_lst(init_spell_item(data, AVADA_KEDAVRA), data->item, f_item);
 				if (enemy->recalc_path <= 50 || !enemy->way)
@@ -2558,6 +2560,38 @@ void	take_damage_enemy(t_enemy *enemy)
 	}
 }
 
+void	spawn_item(t_data *data, t_enemy *enemy)
+{
+	if (rand() % 100 <= enemy->drop_heal)
+	{
+		printf("SPAWN ITEM\n");
+		data->item = add_end_lst(create_item(data, HEAL_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},enemy->aff_deg),data->item,f_item);
+		make_move_item(data->item->dt, 5);
+		return;
+	}
+	if (rand() % 100 <= enemy->drop_floo)
+	{
+		printf("SPAWN ITEM\n");
+		data->item = add_end_lst(create_item(data, FLOO_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},enemy->aff_deg),data->item,f_item);
+		make_move_item(data->item->dt, 5);
+		return;
+	}
+	if (rand() % 100 <= enemy->drop_shield)
+	{
+		printf("SPAWN ITEM\n");
+		data->item = add_end_lst(create_item(data, SHIELD_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},enemy->aff_deg),data->item,f_item);
+		make_move_item(data->item->dt, 5);
+		return;
+	}
+	if (rand() % 100 <= enemy->drop_cloak)
+	{
+		printf("SPAWN ITEM\n");
+		data->item = add_end_lst(create_item(data, INVI_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},enemy->aff_deg),data->item,f_item);
+		make_move_item(data->item->dt, 5);
+		return;
+	}
+}
+
 void	move_enemy(t_data *data)
 {
 	t_lst	*lst;
@@ -2577,8 +2611,11 @@ void	move_enemy(t_data *data)
 		take_damage_enemy(enemy);
 		if (enemy->life <= 0)
 		{
-			if (enemy->type != SNAKE)
+			if (enemy->type != SNAKE && enemy->type != BIRD)
+			{
 				data->item = add_end_lst(create_item(data, ANIM_DEATH, &(t_fcoo){.case_x=enemy->center.case_x, .case_y=enemy->center.case_y, .coo_y= enemy->center.coo_y, .coo_x= enemy->center.coo_x}, data->map.mini.deg), data->item, f_item);
+				spawn_item(data, enemy);
+			}
 			data->enemy = remove_elem_lst(lst);
 			if (enemy->type == DEMENTOR)
 				data->player.xp +=  0.42/ (0.8 + (data->player.xp * 0.1));

@@ -268,15 +268,15 @@ void	display_item(t_data *data, int i)
 					int g;
 					int b;
 					b = (color & 255);
-					b = (int)(b - b * ((1 - dist * 0.5)));
+					b = (int)(b - b * ((1 - dist / 10)));
 					if (b > 255)
 						b = 255;
 					g = (color >> 8 & 255);
-					g = (int)(g - g * ((1 - dist * 0.5)));
+					g = (int)(g - g * ((1 - dist / 10)));
 					if (g > 255)
 						g = 255;
 					r = (color >> 16 & 255);
-					r = (int)(r - r * ((1 - dist * 0.5)));
+					r = (int)(r - r * ((1 - dist / 10)));
 					if (r > 255)
 						r = 255;
 					color = (r << 16) + (g << 8) + b;

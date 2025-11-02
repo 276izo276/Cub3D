@@ -447,7 +447,7 @@ void	move_item(t_data *data)
 			item->radius += .3;
 		}
 		else if (item->type == ANIM_DEATH)
-			item->radius += 1;
+			item->radius += 1.5;
 		if (item->type == VENTUS)
 		{
 			// printf("expecto patronum uo radius\n");
@@ -483,7 +483,7 @@ void	move_item(t_data *data)
 			lst = next;
 			continue;
 		}
-		if ((item->type == VENTUS && item->nb_move >= 400) || (item->type == ANIM_DEATH && item->nb_move >= 20) || ( item->type == EXPECTO_PATRONUM && item->nb_move >= 300))
+		if ((item->type == VENTUS && item->nb_move >= 400) || (item->type == ANIM_DEATH && item->nb_move >= 10) || ( item->type == EXPECTO_PATRONUM && item->nb_move >= 300))
 		{
 			t_lst	*next = lst->next;
 

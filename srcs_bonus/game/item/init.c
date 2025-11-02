@@ -27,6 +27,7 @@ t_item	*init_spell_item(t_data *data, t_spells info)
 	item->damage.damage_spider_do = data->spell[info].damage.damage_spider_do;
 	item->damage.damage_dementor_do = data->spell[info].damage.damage_dementor_do;
 	item->damage.damage_snake_do = data->spell[info].damage.damage_snake_do;
+	item->damage.damage_elem_do = data->spell[info].damage.damage_elem_do;
 	item->damage.slow_force_do = data->spell[info].damage.slow_force_do;
 	item->damage.slow_frame_do = data->spell[info].damage.slow_frame_do;
 	item->damage.poison_force_do = data->spell[info].damage.poison_force_do;
@@ -102,9 +103,9 @@ void	init_web_spider(t_data *data)
 {
 	data->items[WEB_SPIDER].categ = ITEM;
 	data->items[WEB_SPIDER].damage.damage_do = 10;
-	// data->items[WEB_SPIDER].damage.slow_force_do = 50;
-	// data->items[WEB_SPIDER].damage.slow_frame_do = 120;
-	data->items[WEB_SPIDER].speed = 5;
+	data->items[WEB_SPIDER].damage.slow_force_do = 20;
+	data->items[WEB_SPIDER].damage.slow_frame_do = 60;
+	data->items[WEB_SPIDER].speed = 20;
 	data->items[WEB_SPIDER].radius = 3;
 	data->items[WEB_SPIDER].front_img = &data->img[WEB_SPIDER_IMG];
 	data->items[WEB_SPIDER].back_img = &data->img[WEB_SPIDER_IMG];
@@ -133,7 +134,7 @@ void	init_death_anim(t_data *data)
 {
 	data->items[ANIM_DEATH].categ = ITEM;
 	data->items[ANIM_DEATH].type = ANIM_DEATH;
-	data->items[ANIM_DEATH].radius = 10;
+	data->items[ANIM_DEATH].radius = 20;
 }
 
 void	init_popo_shield(t_data *data)

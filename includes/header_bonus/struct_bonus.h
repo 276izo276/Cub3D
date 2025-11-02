@@ -403,6 +403,7 @@ struct s_damage
 	double		damage_spider_do;
 	double		damage_dementor_do;
 	double		damage_snake_do;
+	double		damage_elem_do;
 	double		slow_force_do;
 	double		slow_frame_do;
 	double		poison_force_do;
@@ -420,6 +421,7 @@ struct s_damage
 	double		damage_spider_take;
 	double		damage_dementor_take;
 	double		damage_snake_take;
+	double		damage_elem_take;
 	double		slow_force_take;
 	double		slow_frame_take;
 	double		poison_force_take;
@@ -471,6 +473,10 @@ struct	s_enemy
 	int				dist_damage;
 	int				dist_visu;
 	int				nb_move;
+	int				drop_heal;
+	int				drop_shield;
+	int				drop_floo;
+	int				drop_cloak;
 };
 
 struct s_item

@@ -16,9 +16,13 @@ void	fill_bird(t_data *data, t_enemy *enemy)
 	enemy->dist_stop = 15;
 	enemy->dist_damage = 25;
 	enemy->dist_visu = 640;
-	enemy->speed = 3;
+	enemy->speed = 2.5;
 	enemy->radius = 2;
 	enemy->damage.damage_do = 3;
+	enemy->drop_heal = 10;
+	enemy->drop_shield = 10;
+	enemy->drop_floo = 10;
+	enemy->drop_cloak = 10;
 }
 
 void	fill_snake(t_data *data, t_enemy *enemy)
@@ -32,9 +36,93 @@ void	fill_snake(t_data *data, t_enemy *enemy)
 	enemy->dist_stop = 15;
 	enemy->dist_damage = 25;
 	enemy->dist_visu = 640;
-	enemy->speed = 3;
+	enemy->speed = 2;
 	enemy->radius = 2;
 	enemy->damage.damage_do = 15;
+	enemy->drop_heal = 10;
+	enemy->drop_shield = 10;
+	enemy->drop_floo = 10;
+	enemy->drop_cloak = 10;
+}
+
+void	fill_wolf(t_data *data, t_enemy *enemy)
+{
+	enemy->back_img = &data->img[WOLF_BACK];
+	enemy->front_img = &data->img[WOLF_FRONT];
+	enemy->side_img = &data->img[WOLF_SIDE_90];
+	enemy->side_front_img = &data->img[WOLF_FRONT_45];
+	enemy->side_back_img = &data->img[WOLF_BACK_45];
+	enemy->life = 100;
+	enemy->dist_stop = 15;
+	enemy->dist_damage = 25;
+	enemy->dist_visu = 640;
+	enemy->speed = 3.5;
+	enemy->drop_heal = 10;
+	enemy->drop_shield = 10;
+	enemy->drop_floo = 10;
+	enemy->drop_cloak = 10;
+}
+
+void	fill_elem(t_data *data, t_enemy *enemy)
+{
+	enemy->back_img = &data->img[ELEM_BACK];
+	enemy->front_img = &data->img[ELEM_FRONT];
+	enemy->side_img = &data->img[ELEM_SIDE_90];
+	enemy->side_front_img = &data->img[ELEM_FRONT_45];
+	enemy->side_back_img = &data->img[ELEM_BACK_45];
+	enemy->damage.damage_do = 5;
+	enemy->damage.fire_force_do = .1;
+	enemy->damage.fire_frame_do = 60;
+	enemy->life = 40;
+	enemy->dist_stop = 20;
+	enemy->dist_damage = 50;
+	enemy->dist_visu = 640;
+	enemy->speed = 2.5;
+	enemy->drop_heal = 10;
+	enemy->drop_shield = 10;
+	enemy->drop_floo = 10;
+	enemy->drop_cloak = 10;
+}
+
+void	fill_spider(t_data *data, t_enemy *enemy)
+{
+	enemy->back_img = &data->img[SPIDER_BACK];
+	enemy->front_img = &data->img[SPIDER_FRONT];
+	enemy->side_img = &data->img[SPIDER_SIDE_90];
+	enemy->side_front_img = &data->img[SPIDER_FRONT_45];
+	enemy->side_back_img = &data->img[SPIDER_BACK_45];
+	enemy->damage.damage_do = 5;
+	enemy->damage.poison_force_do = .1;
+	enemy->damage.poison_frame_do = 60;
+	enemy->life = 35;
+	enemy->dist_stop = 64;
+	enemy->dist_damage = 32;
+	enemy->dist_visu = 640;
+	enemy->speed = 1.5;
+	enemy->drop_heal = 10;
+	enemy->drop_shield = 10;
+	enemy->drop_floo = 10;
+	enemy->drop_cloak = 10;
+}
+
+void	fill_dementor(t_data *data, t_enemy *enemy)
+{
+	enemy->back_img = &data->img[DEMENTOR_BACK];
+	enemy->front_img = &data->img[DEMENTOR_FRONT];
+	enemy->side_img = &data->img[DEMENTOR_SIDE_90];
+	enemy->side_front_img = &data->img[DEMENTOR_FRONT_45];
+	enemy->side_back_img = &data->img[DEMENTOR_BACK_45];
+	enemy->life = 100;
+	enemy->dist_stop = 20;
+	enemy->dist_damage = 32;
+	enemy->dist_visu = 640;
+	enemy->speed = 2.5;
+	enemy->cooldown_cac = .2;
+	enemy->damage.curse_force_do = .2;
+	enemy->damage.curse_frame_do = 10;
+	enemy->damage.slow_force_do = 25;
+	enemy->damage.slow_frame_do = 60;
+
 }
 
 t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)
@@ -54,71 +142,19 @@ t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)
 	enemy->dist_target = -1;
 	enemy->rad = enemy->deg * (M_PI / 180);
 	enemy->calc = true;
-	enemy->cooldown_dist = 10;
+	enemy->cooldown_dist = 8;
 	enemy->cooldown_cac = 1;
 	enemy->deg = deg;
 	if (c == DEMENTOR)
-	{
-		enemy->back_img = &data->img[DEMENTOR_BACK];
-		enemy->front_img = &data->img[DEMENTOR_FRONT];
-		enemy->side_img = &data->img[DEMENTOR_SIDE_90];
-		enemy->side_front_img = &data->img[DEMENTOR_FRONT_45];
-		enemy->side_back_img = &data->img[DEMENTOR_BACK_45];
-		enemy->life = 100;
-		enemy->dist_stop = 20;
-		enemy->dist_damage = 32;
-		enemy->dist_visu = 640;
-		enemy->speed = 2.5;
-	}
+		fill_dementor(data, enemy);
 	else if (c == SPIDER)
-	{
-		enemy->back_img = &data->img[SPIDER_BACK];
-		enemy->front_img = &data->img[SPIDER_FRONT];
-		enemy->side_img = &data->img[SPIDER_SIDE_90];
-		enemy->side_front_img = &data->img[SPIDER_FRONT_45];
-		enemy->side_back_img = &data->img[SPIDER_BACK_45];
-		enemy->damage.damage_do = 5;
-		enemy->damage.poison_force_do = .1;
-		enemy->damage.poison_frame_do = 60;
-		enemy->life = 100;
-		enemy->dist_stop = 64;
-		enemy->dist_damage = 32;
-		enemy->dist_visu = 640;
-		enemy->speed = 1;
-	}
+		fill_spider(data, enemy);
 	else if (c == ELEM)
-	{
-		enemy->back_img = &data->img[ELEM_BACK];
-		enemy->front_img = &data->img[ELEM_FRONT];
-		enemy->side_img = &data->img[ELEM_SIDE_90];
-		enemy->side_front_img = &data->img[ELEM_FRONT_45];
-		enemy->side_back_img = &data->img[ELEM_BACK_45];
-		enemy->damage.damage_do = 5;
-		enemy->damage.fire_force_do = .1;
-		enemy->damage.fire_frame_do = 60;
-		enemy->life = 100;
-		enemy->dist_stop = 20;
-		enemy->dist_damage = 50;
-		enemy->dist_visu = 640;
-		enemy->speed = 3;
-	}
+		fill_elem(data, enemy);
 	else if (c == WOLF)
-	{
-		enemy->back_img = &data->img[WOLF_BACK];
-		enemy->front_img = &data->img[WOLF_FRONT];
-		enemy->side_img = &data->img[WOLF_SIDE_90];
-		enemy->side_front_img = &data->img[WOLF_FRONT_45];
-		enemy->side_back_img = &data->img[WOLF_BACK_45];
-		enemy->life = 100;
-		enemy->dist_stop = 15;
-		enemy->dist_damage = 25;
-		enemy->dist_visu = 640;
-		enemy->speed = 3;
-	}
+		fill_wolf(data, enemy);
 	else if (c == BIRD)
-	{
 		fill_bird(data, enemy);
-	}
 	else if (c == SNAKE)
 		fill_snake(data, enemy);
 	calc_left_and_right_point(enemy, data);
