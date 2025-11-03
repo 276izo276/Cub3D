@@ -16,7 +16,7 @@ void	pixel_put(t_data *data, int x, int y, unsigned int color)
 	}
 }
 
-void	alpha_pixel_put(t_data *data, int x, int y, unsigned int color)
+void	apply_transparancy(t_data *data, int x, int y, unsigned int color)
 {
 	char	*tmp_addr;
 	int		a_new;
@@ -173,7 +173,7 @@ void	draw_gradient(t_data *data, int start_x, int start_y)
 			if (distance < 40)
 			{
 				color = get_right_color(data->color, distance);
-				alpha_pixel_put(data, x + start_x, y + start_y, color);
+				apply_transparancy(data, x + start_x, y + start_y, color);
 			}
 			++x;
 		}
@@ -243,3 +243,54 @@ void	display_menu(t_data *data)
 	else if (data->is_right_handed == 0)
 		select_your_hand(data);
 }
+
+
+// void display_hand(t_data *data)
+// {
+//     int             x;
+//     int             y;
+//     unsigned int    color;
+//     int             pos_x;
+//     int             pos_y;
+//     unsigned int    alpha_color;
+
+//     pos_x = data->display.pos_x_hand;
+//     pos_y = data->display.pos_y_hand;
+    
+//     // ... ton code d'animation ...
+    
+//     if (data->display.player_height == 18)
+//         pos_y += 80;
+//     display_wand(data, pos_x, pos_y + data->display.move_hand);
+    
+//     y = 0;
+//     while (y < data->img[PLAYER_HAND].height && pos_y + y < data->mlx.height)
+//     {
+//         x = 0;
+//         while (x < data->img[PLAYER_HAND].width)
+//         {
+//             color = get_texture_pixel(&data->img[PLAYER_HAND], x, y);
+//             if (color != 0xFFFFFF)
+//             {
+//                 if (data->player.invisible == 0)
+//                 {
+//                     // Ajoute l'alpha (128 = 50% transparent)
+//                     alpha_color = (128 << 24) | (color & 0x00FFFFFF);
+//                     apply_transparancy(data, x + pos_x, 
+//                                       pos_y + y + data->display.move_hand, 
+//                                       alpha_color);
+//                 }
+//                 else
+//                 {
+//                     // Mode invisible : totalement opaque ou plus transparent ?
+//                     pixel_put(data, x + pos_x, 
+//                              pos_y + y + data->display.move_hand, color);
+//                 }
+//             }
+//             ++x;
+//         }
+//         ++y;
+//     }
+//     if (data->lumos.count_frame > 0)
+//         spell_lumos(data);
+// }

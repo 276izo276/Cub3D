@@ -13,29 +13,16 @@ int	get_texture_pixel(t_img *texture, int x, int y)
 	return (*(unsigned int *)pixel);
 }
 
-// static void	wich_wand(t_data *data, t_img **img)
-// {
-// 	if (data->wand.nb_wand == 1)
-// 		*img = &data->wand.img[PLAYER_WAND_2];
-// 	else if (data->wand.nb_wand == 2)
-// 		*img = &data->wand.img[PLAYER_WAND_3];
-// 	else if (data->wand.nb_wand == 3)
-// 		*img = &data->wand.img[PLAYER_WAND_4];
-// 	else if (data->wand.nb_wand == 4)
-// 		*img = &data->wand.img[PLAYER_WAND_5];
-// 	else if (data->wand.nb_wand == 5 && data->wand.wand_status[] == true)
-// 		*img = &data->wand.img[PLAYER_WAND_6];
-// }
 static void display_wand(t_data *data, int pos_x, int pos_y)
 {
 	int				x;
 	int				y;
 	unsigned int	color;
+	unsigned int	alpha_color;
 
 	y = 0;
+	alpha_color = 0;
 	color = 0;
-	// img = &data->wand.img[PLAYER_WAND];
-	// wich_wand(data, &img);
 	if (data->is_right_handed == false)
 		pos_x -= 40;
 	else
@@ -53,7 +40,8 @@ static void display_wand(t_data *data, int pos_x, int pos_y)
 			color = get_texture_pixel(&data->wand.img[data->wand.nb_wand], x, y);
 			if (color != WHITE)
 			{
-				pixel_put(data, x + pos_x, pos_y + y, color);
+				alpha_color = (data->player.invisible << 24) | (color & 0x00FFFFFF);
+				apply_transparancy(data, x + pos_x, y + pos_y, alpha_color);
 			}
 			++x;
 		}
@@ -70,7 +58,9 @@ void	display_hand(t_data *data)
 	unsigned int	color;
 	int				pos_x;
 	int				pos_y;
+	unsigned int	alpha_color;
 
+	alpha_color = 0;
 	pos_x = data->display.pos_x_hand;
 	pos_y = data->display.pos_y_hand;
 	if (data->player_moved == true && data->display.move_hand < 50 && data->display.is_up_move_hand == false)
@@ -104,7 +94,8 @@ void	display_hand(t_data *data)
 			color = get_texture_pixel(&data->img[PLAYER_HAND], x, y);
 			if (color != 0xFFFFFF)
 			{
-				pixel_put(data, x + pos_x, pos_y + y + data->display.move_hand, color);
+				alpha_color = (data->player.invisible << 24) | (color & 0x00FFFFFF);
+				apply_transparancy(data, x + pos_x, y + pos_y + data->display.move_hand, alpha_color);
 			}
 			++x;
 		}
