@@ -2106,7 +2106,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 				}
 			}
 		}
-		if (enemy->nb_move >= 10)
+		if (enemy->nb_move >= 10 && data->player.invisible == 255)
 		{
 			int	diff_player_x = data->player.coo.case_x * 64 + data->player.coo.coo_x
 			- enemy->center.case_x * 64 - enemy->center.coo_x;
@@ -2359,112 +2359,115 @@ int	see_player(t_data *data, t_enemy *enemy)
 				}
 			}
 		}
-		int	diff_player_x = data->player.coo.case_x * 64 + data->player.coo.coo_x
-		- enemy->center.case_x * 64 - enemy->center.coo_x;
-		int	diff_player_y = data->player.coo.case_y * 64 + data->player.coo.coo_y
-		- enemy->center.case_y * 64 - enemy->center.coo_y;
-		dist_min_player = sqrt(diff_player_x * diff_player_x + diff_player_y * diff_player_y);
-		// if (diff_player_x == 0 && diff_player_y == 0)
-		// {
-		// 	return (0);
-		// }
-		// printf("x>>>%d     y>>>%d\n",diff_player_x,diff_player_y);
-		if (diff_player_x != 0 && diff_player_y != 0)
+		if (data->player.invisible == 255)
 		{
-			deg = atan(((double)diff_player_x / diff_player_y)) / (M_PI / 180);
-			if (deg < 0)
-				deg = -deg;
-		}
-		if (diff_player_y < 0 && diff_player_x < 0)
-			deg = 180 + deg;
-		else if (diff_player_y < 0 && diff_player_x > 0)
-			deg = 180 - deg;
-		else if (diff_player_y > 0 && diff_player_x < 0)
-			deg = 360 - deg;
-		else if (diff_player_y == 0 && diff_player_x < 0)
-			deg = 270;
-		else if (diff_player_y == 0 && diff_player_x > 0)
-			deg = 90;
-		else if (diff_player_x == 0 && diff_player_y < 0)
-			deg = 180;
-		// printf("\ndeg angle to player>>>%lf     base>>%lf\n",deg,enemy->deg);
-		// printf("\ndeg angle to player>>>%lf     %lf     %lf\n",enemy->deg - 90 + 360, deg + 360, enemy->deg + 90 + 360);
-		enemy->deg = fmod(enemy->deg, 360);
-		t_ray	ray;
-		ray.deg = deg;
-		if ((deg + 360 >= enemy->deg - 90 + 360
-			&& deg + 360 <= enemy->deg + 90 + 360)
-		||
-			enemy->calc_path > 0)
-		{
-			// printf("ray lauch try see enemy   %lf     %lf\n",deg,enemy->deg);
-			ray.start_case_x = enemy->center.case_x;
-			ray.start_case_y = enemy->center.case_y;
-			ray.start_coo_x = enemy->center.coo_x;
-			ray.start_coo_y = enemy->center.coo_y;
-			ray.coo_y = enemy->center.coo_y;
-			ray.coo_x = enemy->center.coo_x;
-			ray.case_y = enemy->center.case_y;
-			ray.case_x = enemy->center.case_x;
-			ray.deg = fmod(ray.deg, 360);
-			ray.rad = ray.deg * (M_PI / 180);
-			ray.delta_y = cos(ray.rad);
-			ray.delta_x = sin(ray.rad);
-			// printf("Angle >%lf       dx>>%lf        dy>>%lf\n",ray.deg,ray.delta_x,ray.delta_y);
-			while (1)
+			int	diff_player_x = data->player.coo.case_x * 64 + data->player.coo.coo_x
+			- enemy->center.case_x * 64 - enemy->center.coo_x;
+			int	diff_player_y = data->player.coo.case_y * 64 + data->player.coo.coo_y
+			- enemy->center.case_y * 64 - enemy->center.coo_y;
+			dist_min_player = sqrt(diff_player_x * diff_player_x + diff_player_y * diff_player_y);
+			// if (diff_player_x == 0 && diff_player_y == 0)
+			// {
+			// 	return (0);
+			// }
+			// printf("x>>>%d     y>>>%d\n",diff_player_x,diff_player_y);
+			if (diff_player_x != 0 && diff_player_y != 0)
 			{
-				if (ray.delta_x > 0)
-					ray.rx = (64 - ray.coo_x) / ray.delta_x;
-				else
-					ray.rx = -ray.coo_x / ray.delta_x;
-				if (ray.delta_y > 0)
-					ray.ry = (64 - ray.coo_y) / ray.delta_y;
-				else
-					ray.ry = -ray.coo_y / ray.delta_y;
-				if (ray.rx < ray.ry)
-				{
-					if (handle_ray_x_gen(data, &ray) == 1)
-						break ;
-				}
-				else
-				{
-					if (handle_ray_y_gen(data, &ray) == 1)
-						break ;
-				}
+				deg = atan(((double)diff_player_x / diff_player_y)) / (M_PI / 180);
+				if (deg < 0)
+					deg = -deg;
 			}
-			ray.dist_wall = sqrt(((ray.case_y
-			- ray.start_case_y) * 64.0 + (ray.coo_y
-			- ray.start_coo_y)) * ((ray.case_y
-			- ray.start_case_y) * 64.0 + (ray.coo_y
-			- ray.start_coo_y)) + ((ray.case_x
-			- ray.start_case_x) * 64.0 + (ray.coo_x
-			- ray.start_coo_x)) * ((ray.case_x
-			- ray.start_case_x) * 64.0 + (ray.coo_x
-			- ray.start_coo_x)));
-			// double	dist_target = sqrt(((data->player.coo.case_y
-			// - ray.start_case_y) * 64.0 + (data->player.coo.coo_y
-			// - ray.start_coo_y)) * ((data->player.coo.case_y
-			// - ray.start_case_y) * 64.0 + (data->player.coo.coo_y
-			// - ray.start_coo_y)) + ((data->player.coo.case_x
-			// - ray.start_case_x) * 64.0 + (data->player.coo.coo_x
-			// - ray.start_coo_x)) * ((data->player.coo.case_x
-			// - ray.start_case_x) * 64.0 + (data->player.coo.coo_x
-			// - ray.start_coo_x)));
-			enemy->dist_target = dist_min_player;
-			if (dist_min_player < ray.dist_wall || enemy->calc_path > 0)
+			if (diff_player_y < 0 && diff_player_x < 0)
+				deg = 180 + deg;
+			else if (diff_player_y < 0 && diff_player_x > 0)
+				deg = 180 - deg;
+			else if (diff_player_y > 0 && diff_player_x < 0)
+				deg = 360 - deg;
+			else if (diff_player_y == 0 && diff_player_x < 0)
+				deg = 270;
+			else if (diff_player_y == 0 && diff_player_x > 0)
+				deg = 90;
+			else if (diff_player_x == 0 && diff_player_y < 0)
+				deg = 180;
+			// printf("\ndeg angle to player>>>%lf     base>>%lf\n",deg,enemy->deg);
+			// printf("\ndeg angle to player>>>%lf     %lf     %lf\n",enemy->deg - 90 + 360, deg + 360, enemy->deg + 90 + 360);
+			enemy->deg = fmod(enemy->deg, 360);
+			t_ray	ray;
+			ray.deg = deg;
+			if ((deg + 360 >= enemy->deg - 90 + 360
+				&& deg + 360 <= enemy->deg + 90 + 360)
+			||
+				enemy->calc_path > 0)
+			{
+				// printf("ray lauch try see enemy   %lf     %lf\n",deg,enemy->deg);
+				ray.start_case_x = enemy->center.case_x;
+				ray.start_case_y = enemy->center.case_y;
+				ray.start_coo_x = enemy->center.coo_x;
+				ray.start_coo_y = enemy->center.coo_y;
+				ray.coo_y = enemy->center.coo_y;
+				ray.coo_x = enemy->center.coo_x;
+				ray.case_y = enemy->center.case_y;
+				ray.case_x = enemy->center.case_x;
+				ray.deg = fmod(ray.deg, 360);
+				ray.rad = ray.deg * (M_PI / 180);
+				ray.delta_y = cos(ray.rad);
+				ray.delta_x = sin(ray.rad);
+				// printf("Angle >%lf       dx>>%lf        dy>>%lf\n",ray.deg,ray.delta_x,ray.delta_y);
+				while (1)
 				{
-					if (dist_min_player < dist_min || dist_min == -1)
+					if (ray.delta_x > 0)
+						ray.rx = (64 - ray.coo_x) / ray.delta_x;
+					else
+						ray.rx = -ray.coo_x / ray.delta_x;
+					if (ray.delta_y > 0)
+						ray.ry = (64 - ray.coo_y) / ray.delta_y;
+					else
+						ray.ry = -ray.coo_y / ray.delta_y;
+					if (ray.rx < ray.ry)
 					{
-						dist_min = dist_min_player;
-						coo.case_x = data->player.coo.case_x;
-						coo.case_y = data->player.coo.case_y;
-						coo.coo_y = data->player.coo.coo_y;
-						coo.coo_x = data->player.coo.coo_x;
+						if (handle_ray_x_gen(data, &ray) == 1)
+							break ;
 					}
-					
+					else
+					{
+						if (handle_ray_y_gen(data, &ray) == 1)
+							break ;
+					}
 				}
-			// printf("dist player >%lf    dist_wall >%lf\n",dist_min_player, ray.dist_wall);
-			
+				ray.dist_wall = sqrt(((ray.case_y
+				- ray.start_case_y) * 64.0 + (ray.coo_y
+				- ray.start_coo_y)) * ((ray.case_y
+				- ray.start_case_y) * 64.0 + (ray.coo_y
+				- ray.start_coo_y)) + ((ray.case_x
+				- ray.start_case_x) * 64.0 + (ray.coo_x
+				- ray.start_coo_x)) * ((ray.case_x
+				- ray.start_case_x) * 64.0 + (ray.coo_x
+				- ray.start_coo_x)));
+				// double	dist_target = sqrt(((data->player.coo.case_y
+				// - ray.start_case_y) * 64.0 + (data->player.coo.coo_y
+				// - ray.start_coo_y)) * ((data->player.coo.case_y
+				// - ray.start_case_y) * 64.0 + (data->player.coo.coo_y
+				// - ray.start_coo_y)) + ((data->player.coo.case_x
+				// - ray.start_case_x) * 64.0 + (data->player.coo.coo_x
+				// - ray.start_coo_x)) * ((data->player.coo.case_x
+				// - ray.start_case_x) * 64.0 + (data->player.coo.coo_x
+				// - ray.start_coo_x)));
+				enemy->dist_target = dist_min_player;
+				if (dist_min_player < ray.dist_wall || enemy->calc_path > 0)
+					{
+						if (dist_min_player < dist_min || dist_min == -1)
+						{
+							dist_min = dist_min_player;
+							coo.case_x = data->player.coo.case_x;
+							coo.case_y = data->player.coo.case_y;
+							coo.coo_y = data->player.coo.coo_y;
+							coo.coo_x = data->player.coo.coo_x;
+						}
+						
+					}
+				// printf("dist player >%lf    dist_wall >%lf\n",dist_min_player, ray.dist_wall);
+				
+			}
 		}
 		
 		if (dist_min != -1)
@@ -2489,7 +2492,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 					enemy->recalc_path = 100;
 				enemy->calc_path = 30;
 			}
-			if ((dist_min_player < enemy->dist_damage || dist_min < enemy->dist_damage) && get_mtime() > enemy->time_attack_cac + enemy->cooldown_cac * 1000)
+			if (dist_min_player != -1 && (dist_min_player < enemy->dist_damage || dist_min < enemy->dist_damage) && get_mtime() > enemy->time_attack_cac + enemy->cooldown_cac * 1000)
 			{
 				// printf("Damage player\n");
 				enemy->time_attack_cac = get_mtime();

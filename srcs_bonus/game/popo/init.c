@@ -22,5 +22,4 @@ void	init_popo(t_data *data)
 	data->popo[3].key = "V";
 	data->popo[3].img = &data->img[POPO_INVI];
 	data->popo[3].call = cast_popo_invi;
-	data->popo[3].nb_part_cloak = 0;
 }

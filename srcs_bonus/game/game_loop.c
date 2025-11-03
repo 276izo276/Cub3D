@@ -9,6 +9,33 @@
 
 #include <stdio.h>
 
+void	player_invisible(t_data *data)
+{
+	if (data->player.invisible < 255)
+	{
+		// data->player.timer_invi = get_mtime();
+		if (get_mtime() > data->player.timer_invi_short + 100)
+		{
+			data->player.timer_invi_short = get_mtime();
+			data->player.invisible += 1;
+		}
+		if (get_mtime() > data->player.timer_invi + 5 * 1000)
+		{
+			data->player.timer_invi = get_mtime();
+			data->popo[3].nb--;
+			printf("time>>>%lld\n",(get_mtime() - data->player.timer_invi) / 1000);
+			data->player.invisible = 255 - data->popo[3].nb * 55;
+			if (data->player.invisible < 32)
+				data->player.invisible = 32;
+		}
+		if (data->player.invisible > 255)
+		{
+			data->player.invisible = 255;
+		}
+		printf("invisible>>%d    \n",data->player.invisible);
+	}
+}
+
 static void	handle_input_move(t_data *data, long long int cur)
 {
 	int i;
@@ -18,6 +45,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 	move = 0;
 	if (data->time_move + 1000 / FPM < cur)
 	{
+		player_invisible(data);
 		move_item(data);
 		move_enemy(data);
 		// printf("fpm >>>%lld     \n",1000 / (cur - data->time_move));
@@ -301,8 +329,6 @@ void	aff_popo(t_data *data)
 	unsigned int	color;
 	
 	i = 0;
-	if (data->popo[3].nb_part_cloak >= 4)
-		data->popo[3].nb++;
 	while (i < 4)
 	{
 		x = data->mlx.width - 350 + 64 * i + 13 * (i);
@@ -319,9 +345,10 @@ void	aff_popo(t_data *data)
 					color = 0x888888;
 				if (i == 3)
 				{
-					if ((x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y <= data->mlx.height - 105 - 96 && data->popo[3].nb_part_cloak < 4) || (x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && data->popo[3].nb_part_cloak < 3) || (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) &&
-					y >= data->mlx.height - 105 - 96 && data->popo[3].nb_part_cloak < 1) || 
-					(x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y >= data->mlx.height - 105 - 96 && data->popo[3].nb_part_cloak < 2) || (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y <= data->mlx.height - 105 - 96 && data->popo[3].nb_part_cloak < 1))
+					if ((x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y <= data->mlx.height - 105 - 96 && data->popo[3].nb < 4)
+					|| (x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && data->popo[3].nb < 3)
+					|| (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y >= data->mlx.height - 105 - 96 && data->popo[3].nb < 2)
+					|| (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y <= data->mlx.height - 105 - 96 && data->popo[3].nb < 1))
 						color = darken_the_color(color);
 				}
 				if (color != 0x000000 && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 105 - 128))
@@ -350,7 +377,11 @@ void	aff_popo(t_data *data)
 
 					if (i == 3)
 					{
-						if ((x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y <= data->mlx.height - 105 - 96 && data->popo[3].nb_part_cloak < 4) || (x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && data->popo[3].nb_part_cloak < 3) || (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y >= data->mlx.height - 105 - 96 && data->popo[3].nb_part_cloak < 1) || (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y > data->mlx.height - 105 - 96 && data->popo[3].nb_part_cloak < 2) || (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y <= data->mlx.height - 105 - 96 && data->popo[3].nb_part_cloak < 1))
+						if ((x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y <= data->mlx.height - 105 - 96 && data->popo[3].nb < 4)
+						|| (x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && data->popo[3].nb < 3)
+						|| (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y >= data->mlx.height - 105 - 96 && data->popo[3].nb < 1)
+						|| (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y > data->mlx.height - 105 - 96 && data->popo[3].nb < 2)
+						|| (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y <= data->mlx.height - 105 - 96 && data->popo[3].nb < 1))
 							color = darken_the_color(color);	
 					}
 					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;

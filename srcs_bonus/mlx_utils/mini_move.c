@@ -415,7 +415,7 @@ void	try_hit_player(t_data *data)
 			if (item->type == POPO_FLOO)
 				data->popo[2].nb ++;
 			if (item->type == POPO_INVI)
-				data->popo[3].nb_part_cloak++;
+				data->popo[3].nb++;
 			apply_damage(&data->player.damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
@@ -435,7 +435,7 @@ void	try_hit_player(t_data *data)
 			if (item->type == POPO_FLOO)
 				data->popo[2].nb ++;
 			if (item->type == POPO_INVI)
-				data->popo[3].nb_part_cloak++;
+				data->popo[3].nb++;
 			apply_damage(&data->player.damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
@@ -455,7 +455,7 @@ void	try_hit_player(t_data *data)
 			if (item->type == POPO_FLOO)
 				data->popo[2].nb ++;
 			if (item->type == POPO_INVI)
-				data->popo[3].nb_part_cloak++;
+				data->popo[3].nb++;
 			apply_damage(&data->player.damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);

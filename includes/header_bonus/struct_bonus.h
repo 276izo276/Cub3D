@@ -893,24 +893,26 @@ struct s_spell
 
 struct	s_player
 {
-	double		life;
-	double		shield;
-	double		xp;
-	t_damage	damage;
-	t_fcoo		coo;
-	t_fcoo		left;
-	t_fcoo		right;
-	t_fcoo		left_before;
-	t_fcoo		right_before;
-	t_coo		save;
-	double		radius;
-	int			protego;
-	double		episkey_frame;
-	double		episkey_heal;
-	double		vul_sanen_frame;
-	double		vul_sanen_heal;
-	bool		is_front;
-	bool		invisible;
+	double			life;
+	double			shield;
+	double			xp;
+	t_damage		damage;
+	t_fcoo			coo;
+	t_fcoo			left;
+	t_fcoo			right;
+	t_fcoo			left_before;
+	t_fcoo			right_before;
+	t_coo			save;
+	double			radius;
+	int				protego;
+	double			episkey_frame;
+	double			episkey_heal;
+	double			vul_sanen_frame;
+	double			vul_sanen_heal;
+	bool			is_front;
+	int				invisible;
+	long long int	timer_invi;
+	long long int	timer_invi_short;
 };
 
 struct s_wand
@@ -931,7 +933,6 @@ struct s_popo
 	int		nb;
 	char	*key;
 	int		active;
-	int		nb_part_cloak;
 };
 
 
