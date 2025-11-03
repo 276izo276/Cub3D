@@ -1,5 +1,6 @@
 #include "struct_bonus.h"
 #include "cub3d_bonus.h"
+#include "time_bonus.h"
 #include <stdio.h>
 
 void	cast_popo_heal(t_data *data)
@@ -46,11 +47,11 @@ void	cast_popo_floo(t_data *data)
 
 void	cast_popo_invi(t_data *data)
 {
-	if (data->popo[3].active || data->popo[3].nb_part_cloak < 4)
+	if (data->popo[3].active || data->popo[3].nb < 4)
 		return;
 	data->popo[3].active = 1;
-	data->popo[3].nb--;
-	data->popo[3].nb_part_cloak -= 4;
+	data->player.invisible = 32;
+	data->player.timer_invi = get_mtime();
 	printf("popo invi\n");
 }
 
