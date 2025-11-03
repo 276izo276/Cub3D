@@ -14,10 +14,16 @@ void	player_invisible(t_data *data)
 	if (data->player.invisible < 255)
 	{
 		// data->player.timer_invi = get_mtime();
+		if (get_mtime() > data->player.timer_invi_short + 100)
+		{
+			data->player.timer_invi_short = get_mtime();
+			data->player.invisible += 1;
+		}
 		if (get_mtime() > data->player.timer_invi + 5 * 1000)
 		{
 			data->player.timer_invi = get_mtime();
 			data->popo[3].nb--;
+			printf("time>>>%lld\n",(get_mtime() - data->player.timer_invi) / 1000);
 			data->player.invisible = 255 - data->popo[3].nb * 55;
 			if (data->player.invisible < 32)
 				data->player.invisible = 32;

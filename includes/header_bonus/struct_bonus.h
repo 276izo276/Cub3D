@@ -906,6 +906,7 @@ struct	s_player
 	bool			is_front;
 	int				invisible;
 	long long int	timer_invi;
+	long long int	timer_invi_short;
 };
 
 struct s_wand
