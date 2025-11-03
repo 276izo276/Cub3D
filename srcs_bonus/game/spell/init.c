@@ -1,5 +1,5 @@
-#include "struct_bonus.h"
 #include "cub3d_bonus.h"
+#include "struct_bonus.h"
 
 void	set_spell_take(t_data *data)
 {
@@ -59,7 +59,7 @@ static void	init_glacius(t_data *data)
 	data->spell[GLACIUS].necessary_lvl = 1.5;
 }
 
-static void	init_repulso(t_data *data) 
+static void	init_repulso(t_data *data)
 {
 	data->spell[REPULSO].base_cooldown = 8;
 	data->spell[REPULSO].call = cast_spell;
@@ -203,7 +203,7 @@ static void	init_ventus(t_data *data)
 	data->spell[VENTUS].necessary_lvl = 6.5;
 }
 
-static void	init_bombarda(t_data *data) 
+static void	init_bombarda(t_data *data)
 {
 	data->spell[BOMBARDA].base_cooldown = 0;
 	data->spell[BOMBARDA].call = cast_spell;
@@ -220,7 +220,6 @@ static void	init_bombarda(t_data *data)
 	data->spell[BOMBARDA].icn_name = &data->img[BOMBARDA_NAME];
 	data->spell[BOMBARDA].necessary_lvl = 7.0;
 }
-
 
 static void	init_episkey(t_data *data)
 {
@@ -290,22 +289,22 @@ static void	init_petrificus_totalus(t_data *data)
 	data->spell[PETRIFICUS_TOTALUS].necessary_lvl = 9.0;
 }
 
-static void    init_sectumsempra(t_data *data)
+static void	init_sectumsempra(t_data *data)
 {
-    data->spell[SECTUMSEMPRA].base_cooldown = 5;
-    data->spell[SECTUMSEMPRA].call = cast_spell;
-    data->spell[SECTUMSEMPRA].type = SECTUMSEMPRA;
-    data->spell[SECTUMSEMPRA].damage.damage_do = 21;
-    data->spell[SECTUMSEMPRA].damage.curse_frame_do = 210;
-    data->spell[SECTUMSEMPRA].damage.curse_force_do = .1;
-    data->spell[SECTUMSEMPRA].item.speed = 0;
-    data->spell[SECTUMSEMPRA].item.radius = 3;
-    data->spell[SECTUMSEMPRA].item.front_img = &data->img[SECTUMSEMPRA_IMG];
-    data->spell[SECTUMSEMPRA].item.back_img = &data->img[SECTUMSEMPRA_IMG];
-    data->spell[SECTUMSEMPRA].class = OFFENSIVE_SPELL;
-    data->spell[SECTUMSEMPRA].icn = &data->img[SECTUMSEMPRA_ICN];
-    data->spell[SECTUMSEMPRA].icn_name = &data->img[SECTUMSEMPRA_NAME];
-    data->spell[SECTUMSEMPRA].necessary_lvl = 9.5;
+	data->spell[SECTUMSEMPRA].base_cooldown = 5;
+	data->spell[SECTUMSEMPRA].call = cast_spell;
+	data->spell[SECTUMSEMPRA].type = SECTUMSEMPRA;
+	data->spell[SECTUMSEMPRA].damage.damage_do = 21;
+	data->spell[SECTUMSEMPRA].damage.curse_frame_do = 210;
+	data->spell[SECTUMSEMPRA].damage.curse_force_do = .1;
+	data->spell[SECTUMSEMPRA].item.speed = 0;
+	data->spell[SECTUMSEMPRA].item.radius = 3;
+	data->spell[SECTUMSEMPRA].item.front_img = &data->img[SECTUMSEMPRA_IMG];
+	data->spell[SECTUMSEMPRA].item.back_img = &data->img[SECTUMSEMPRA_IMG];
+	data->spell[SECTUMSEMPRA].class = OFFENSIVE_SPELL;
+	data->spell[SECTUMSEMPRA].icn = &data->img[SECTUMSEMPRA_ICN];
+	data->spell[SECTUMSEMPRA].icn_name = &data->img[SECTUMSEMPRA_NAME];
+	data->spell[SECTUMSEMPRA].necessary_lvl = 9.5;
 }
 
 static void	init_confundo(t_data *data)
@@ -362,7 +361,6 @@ static void	init_avada_kedavra(t_data *data)
 	data->spell[AVADA_KEDAVRA].icn_name = &data->img[AVADA_KEDAVRA_NAME];
 	data->spell[AVADA_KEDAVRA].necessary_lvl = 12.0;
 }
-
 
 void	init_spell(t_data *data)
 {

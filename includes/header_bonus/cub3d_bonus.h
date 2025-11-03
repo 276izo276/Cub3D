@@ -14,6 +14,7 @@
 # define M_PI 3.14159265358979323846
 #endif
 
+void	apply_transparancy(t_data *data, int x, int y, unsigned int color);
 bool	handle_floo_open(t_data *data);
 void	cast_popo_invi(t_data *data);
 void	cast_popo_floo(t_data *data);
