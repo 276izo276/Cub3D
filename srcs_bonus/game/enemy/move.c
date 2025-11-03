@@ -2564,28 +2564,24 @@ void	spawn_item(t_data *data, t_enemy *enemy)
 {
 	if (rand() % 100 <= enemy->drop_heal)
 	{
-		printf("SPAWN ITEM\n");
 		data->item = add_end_lst(create_item(data, HEAL_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},enemy->aff_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
 		return;
 	}
 	if (rand() % 100 <= enemy->drop_floo)
 	{
-		printf("SPAWN ITEM\n");
 		data->item = add_end_lst(create_item(data, FLOO_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},enemy->aff_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
 		return;
 	}
 	if (rand() % 100 <= enemy->drop_shield)
 	{
-		printf("SPAWN ITEM\n");
 		data->item = add_end_lst(create_item(data, SHIELD_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},enemy->aff_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
 		return;
 	}
 	if (rand() % 100 <= enemy->drop_cloak)
 	{
-		printf("SPAWN ITEM\n");
 		data->item = add_end_lst(create_item(data, INVI_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},enemy->aff_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
 		return;
