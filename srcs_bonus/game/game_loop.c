@@ -664,6 +664,7 @@ void	update_enemy(t_data *data)
 	}
 }
 
+
 int	game_loop(t_data *data)
 {
 	long long int	cur;
