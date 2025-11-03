@@ -440,6 +440,7 @@ void	move_item(t_data *data)
 		//DBG1printf("2\n");
 		item = lst->dt;
 		//DBG1printf("3\n");
+		item->deg += item->deg_rotate;
 		item->rad = item->deg * (M_PI / 180);
 		if (item->type == EXPECTO_PATRONUM)
 		{

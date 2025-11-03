@@ -64,6 +64,7 @@ t_item	*create_item(t_data *data, t_items info, t_fcoo *coo, double deg)
 	item->rad = item->deg * (M_PI / 180);
 	item->speed = data->items[info].speed;
 	item->type = data->items[info].type;
+	item->deg_rotate = data->items[info].deg_rotate;
 
 	item->damage.damage_do = data->items[info].damage.damage_do;
 	item->damage.damage_spider_do = data->items[info].damage.damage_spider_do;
@@ -126,6 +127,7 @@ void	init_popo_heal(t_data *data)
 	data->items[HEAL_POPO].categ = ITEM;
 	data->items[HEAL_POPO].type = POPO_HEAL;
 	data->items[HEAL_POPO].radius = 3;
+	data->items[HEAL_POPO].deg_rotate = 6;
 	data->items[HEAL_POPO].front_img = &data->img[POPO_HEAL_IMG];
 	data->items[HEAL_POPO].back_img = &data->img[POPO_HEAL_IMG];
 }
@@ -142,6 +144,7 @@ void	init_popo_shield(t_data *data)
 	data->items[SHIELD_POPO].categ = ITEM;
 	data->items[SHIELD_POPO].type = POPO_SHIELD;
 	data->items[SHIELD_POPO].radius = 3;
+	data->items[SHIELD_POPO].deg_rotate = 6;
 	data->items[SHIELD_POPO].front_img = &data->img[POPO_SHIELD_IMG];
 	data->items[SHIELD_POPO].back_img = &data->img[POPO_SHIELD_IMG];
 }
@@ -151,6 +154,7 @@ void	init_popo_floo(t_data *data)
 	data->items[FLOO_POPO].categ = ITEM;
 	data->items[FLOO_POPO].type = POPO_FLOO;
 	data->items[FLOO_POPO].radius = 3;
+	data->items[FLOO_POPO].deg_rotate = 6;
 	data->items[FLOO_POPO].front_img = &data->img[POPO_FLOO_IMG];
 	data->items[FLOO_POPO].back_img = &data->img[POPO_FLOO_IMG];
 }
@@ -160,6 +164,7 @@ void	init_popo_invi(t_data *data)
 	data->items[INVI_POPO].categ = ITEM;
 	data->items[INVI_POPO].type = POPO_INVI;
 	data->items[INVI_POPO].radius = 12;
+	data->items[INVI_POPO].deg_rotate = 6;
 	data->items[INVI_POPO].front_img = &data->img[POPO_INVI_IMG];
 	data->items[INVI_POPO].back_img = &data->img[POPO_INVI_IMG];
 }

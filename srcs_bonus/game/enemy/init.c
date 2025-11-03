@@ -19,10 +19,6 @@ void	fill_bird(t_data *data, t_enemy *enemy)
 	enemy->speed = 2.5;
 	enemy->radius = 2;
 	enemy->damage.damage_do = 3;
-	enemy->drop_heal = 10;
-	enemy->drop_shield = 10;
-	enemy->drop_floo = 10;
-	enemy->drop_cloak = 10;
 }
 
 void	fill_snake(t_data *data, t_enemy *enemy)
@@ -39,10 +35,6 @@ void	fill_snake(t_data *data, t_enemy *enemy)
 	enemy->speed = 2;
 	enemy->radius = 2;
 	enemy->damage.damage_do = 15;
-	enemy->drop_heal = 10;
-	enemy->drop_shield = 10;
-	enemy->drop_floo = 10;
-	enemy->drop_cloak = 10;
 }
 
 void	fill_wolf(t_data *data, t_enemy *enemy)
@@ -99,10 +91,10 @@ void	fill_spider(t_data *data, t_enemy *enemy)
 	enemy->dist_damage = 32;
 	enemy->dist_visu = 640;
 	enemy->speed = 1.5;
-	enemy->drop_heal = 10;
-	enemy->drop_shield = 10;
-	enemy->drop_floo = 10;
-	enemy->drop_cloak = 10;
+	enemy->drop_heal = 50;
+	enemy->drop_shield = 50;
+	enemy->drop_floo = 50;
+	enemy->drop_cloak = 50;
 }
 
 void	fill_dementor(t_data *data, t_enemy *enemy)

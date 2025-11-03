@@ -497,6 +497,7 @@ struct s_item
 	int				categ;
 	t_damage		damage;
 	unsigned int	nb_move;
+	double			deg_rotate;
 };
 
 struct s_door
@@ -903,6 +904,7 @@ struct	s_player
 	double		vul_sanen_frame;
 	double		vul_sanen_heal;
 	bool		is_front;
+	bool		invisible;
 };
 
 struct s_wand

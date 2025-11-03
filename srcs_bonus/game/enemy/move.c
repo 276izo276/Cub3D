@@ -2562,29 +2562,73 @@ void	take_damage_enemy(t_enemy *enemy)
 
 void	spawn_item(t_data *data, t_enemy *enemy)
 {
+	double	new_x;
+	double	new_y;
+	double	new_deg;
+
 	if (rand() % 100 <= enemy->drop_heal)
 	{
-		data->item = add_end_lst(create_item(data, HEAL_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},enemy->aff_deg),data->item,f_item);
+		new_x = enemy->center.coo_x + (10 - rand() % 20);
+		new_y = enemy->center.coo_y + (10 - rand() % 20);
+		if (new_x >= 64)
+			new_x = 63.5;
+		if (new_y >= 64)
+			new_y = 63.5;
+		if (new_x < 0)
+			new_x = .5;
+		if (new_y < 0)
+			new_y = .5;
+		new_deg = enemy->aff_deg + (60 - rand() % 120);
+		data->item = add_end_lst(create_item(data, HEAL_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=new_x,.coo_y=new_y},new_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
-		return;
 	}
 	if (rand() % 100 <= enemy->drop_floo)
 	{
-		data->item = add_end_lst(create_item(data, FLOO_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},enemy->aff_deg),data->item,f_item);
+		new_x = enemy->center.coo_x + (10 - rand() % 20);
+		new_y = enemy->center.coo_y + (10 - rand() % 20);
+		if (new_x >= 64)
+			new_x = 63.5;
+		if (new_y >= 64)
+			new_y = 63.5;
+		if (new_x < 0)
+			new_x = .5;
+		if (new_y < 0)
+			new_y = .5;
+		new_deg = enemy->aff_deg + (60 - rand() % 120);
+		data->item = add_end_lst(create_item(data, FLOO_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
-		return;
 	}
 	if (rand() % 100 <= enemy->drop_shield)
 	{
-		data->item = add_end_lst(create_item(data, SHIELD_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},enemy->aff_deg),data->item,f_item);
+		new_x = enemy->center.coo_x + (10 - rand() % 20);
+		new_y = enemy->center.coo_y + (10 - rand() % 20);
+		if (new_x >= 64)
+			new_x = 63.5;
+		if (new_y >= 64)
+			new_y = 63.5;
+		if (new_x < 0)
+			new_x = .5;
+		if (new_y < 0)
+			new_y = .5;
+		new_deg = enemy->aff_deg + (60 - rand() % 120);
+		data->item = add_end_lst(create_item(data, SHIELD_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
-		return;
 	}
 	if (rand() % 100 <= enemy->drop_cloak)
 	{
-		data->item = add_end_lst(create_item(data, INVI_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},enemy->aff_deg),data->item,f_item);
+		new_x = enemy->center.coo_x + (10 - rand() % 20);
+		new_y = enemy->center.coo_y + (10 - rand() % 20);
+		if (new_x >= 64)
+			new_x = 63.5;
+		if (new_y >= 64)
+			new_y = 63.5;
+		if (new_x < 0)
+			new_x = .5;
+		if (new_y < 0)
+			new_y = .5;
+		new_deg = enemy->aff_deg + (60 - rand() % 120);
+		data->item = add_end_lst(create_item(data, INVI_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
-		return;
 	}
 }
 
