@@ -32,19 +32,19 @@ static void	set_path_texture(t_data *data)
 	data->img[DEMENTOR_BACK_45].path = "./texture/dementor_back_45.xpm";
 
 	data->img[KUNFANDI_FRONT].path = "./texture/kunfandi_front.xpm";
-	data->img[KUNFANDI_FRONT_45].path = "./texture/dementor_front_45.xpm";
+	data->img[KUNFANDI_FRONT_45].path = "./texture/sorcerer_front_45.xpm";
 
 	data->img[NANCY_FRONT].path = "./texture/nancy_front.xpm";
-	data->img[NANCY_FRONT_45].path = "./texture/dementor_front_45.xpm";
+	data->img[NANCY_FRONT_45].path = "./texture/sorcerer_front_45.xpm";
 	data->img[PILO_FRONT].path = "./texture/pilo_front.xpm";
-	data->img[PILO_FRONT_45].path = "./texture/dementor_front_45.xpm";
+	data->img[PILO_FRONT_45].path = "./texture/sorcerer_front_45.xpm";
 	data->img[ZIPPY_FRONT].path = "./texture/zippy_front.xpm";
-	data->img[ZIPPY_FRONT_45].path = "./texture/dementor_front_45.xpm";
+	data->img[ZIPPY_FRONT_45].path = "./texture/sorcerer_front_45.xpm";
 
 
-	data->img[SORCERER_BACK].path = "./texture/dementor_back.xpm";
-	data->img[SORCERER_SIDE_90].path = "./texture/dementor_90.xpm";
-	data->img[SORCERER_BACK_45].path = "./texture/dementor_back_45.xpm";
+	data->img[SORCERER_BACK].path = "./texture/sorcerer_back.xpm";
+	data->img[SORCERER_SIDE_90].path = "./texture/sorcerer_90.xpm";
+	data->img[SORCERER_BACK_45].path = "./texture/dementor_back_45.xpm"; // need sorcerer 45 back
 
 	data->img[SNAKE_FRONT].path = "./texture/snake_front.xpm";
 	data->img[SNAKE_BACK].path = "./texture/snake_back.xpm";

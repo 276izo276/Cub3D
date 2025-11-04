@@ -101,7 +101,6 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 {
 	if (c == E_WATER)
 	{
-		printf("je passe ici\n");
 		enemy->front_img = &data->img[NANCY_FRONT];
 		enemy->side_front_img = &data->img[NANCY_FRONT_45];
 		data->sorcerer[0].nb_spawn++;
@@ -110,7 +109,6 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 	}
 	else if (c == E_FIRE)
 	{
-		printf("je passe ici 2 \n");
 		enemy->front_img = &data->img[ZIPPY_FRONT];
 		enemy->side_front_img = &data->img[ZIPPY_FRONT_45];
 		data->sorcerer[2].nb_spawn++;
@@ -119,7 +117,6 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 	}
 	else if (c == E_AIR)
 	{
-		printf("je passe ici 3 \n");
 		enemy->front_img = &data->img[KUNFANDI_FRONT];
 		enemy->side_front_img = &data->img[KUNFANDI_FRONT_45];
 		data->sorcerer[3].nb_spawn++;
@@ -128,7 +125,6 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 	}
 	else if (c == E_EARTH)
 	{
-		printf("je passe ici 4 \n");
 		enemy->front_img = &data->img[PILO_FRONT];
 		enemy->side_front_img = &data->img[PILO_FRONT_45];
 		data->sorcerer[1].nb_spawn++;
