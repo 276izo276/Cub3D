@@ -2668,8 +2668,26 @@ void	move_enemy(t_data *data)
 				data->player.xp += 0.35/ (0.8 + (data->player.xp * 0.1));
 			else if (enemy->type == WOLF)
 				data->player.xp +=  0.5/ (0.8 + (data->player.xp * 0.1));
-			// else if (enemy->type == SORCERER)
-			// 	data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
+			else if (enemy->type == E_WATER)
+			{
+				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
+				data->sorcerer[0].is_alive = false;
+			}
+			else if (enemy->type == E_EARTH)
+			{
+				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
+				data->sorcerer[1].is_alive = false;
+			}
+			else if (enemy->type == E_FIRE)
+			{
+				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
+				data->sorcerer[2].is_alive = false;
+			}
+			else if (enemy->type == E_AIR)
+			{
+				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
+				data->sorcerer[3].is_alive = false;
+			}
 			f_elem_lst(lst);
 			return ;
 		}

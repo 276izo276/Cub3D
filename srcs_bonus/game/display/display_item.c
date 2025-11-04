@@ -17,6 +17,11 @@ void	set_texture(t_data *data, int i, int j)
 	t_img	*side_front;
 	t_img	*side_back;
 
+	if (!data->ray[i].items[j]->texture)
+	{
+		printf("ERROR: texture is NULL for type '%d'\n", data->ray[i].items[j]->type);
+		return;
+	}
 	if (data->ray[i].items[j]->type == ITEM || data->ray[i].items[j]->type == VENTUS)
 	{
 		front = data->ray[i].items[j]->item->front_img;

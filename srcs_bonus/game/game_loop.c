@@ -695,12 +695,54 @@ void	update_enemy(t_data *data)
 	}
 }
 
+void	spawn_sorcerer(t_data *data, char type)
+{
+	int	y;
+	int	x;
+	int	random_y;
+	int	random_x;
+	int	attempts;
 
+	attempts = 0;
+	random_y = 0;
+	while (attempts < 1000)
+	{
+		y = 0;
+		while (data->map.tabmap[y])
+			++y;
+		random_y = rand() % y;
+		x = 0;
+		while (data->map.tabmap[random_y][x])
+			++x;
+		random_x = rand() % x;
+		if (data->map.tabmap[random_y][random_x] == '0')
+			break ;
+		attempts++;
+	}
+	data->enemy = add_end_lst(init_enemy(type, (t_fcoo){.case_x=random_x,.case_y=random_y,.coo_y=32,.coo_x=32}, data, data->map.mini.deg), data->enemy, f_enemy);
+	if (!data->enemy)
+		f_exit(data, 1);
+	data->nb_enemy++;
+}
+
+void	update_sorcerer(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (data->sorcerer[i].is_alive == false)
+			spawn_sorcerer(data, data->sorcerer[i].type);
+		++i;
+	}
+}
 int	game_loop(t_data *data)
 {
 	long long int	cur;
 	
 	cur = get_mtime();
+	update_sorcerer(data);
 	if (data->status == MENU)
 		display_menu(data);
 	else if (data->status == PAUSE)

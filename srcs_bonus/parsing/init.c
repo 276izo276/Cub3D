@@ -31,10 +31,19 @@ static void	set_path_texture(t_data *data)
 	data->img[DEMENTOR_FRONT_45].path = "./texture/dementor_front_45.xpm";
 	data->img[DEMENTOR_BACK_45].path = "./texture/dementor_back_45.xpm";
 
-	data->img[SORCERER_FRONT].path = "./texture/kunfandi_front.xpm";
-	data->img[SORCERER_BACK].path = "./texture/sorcerer_back.xpm";
-	data->img[SORCERER_SIDE_90].path = "./texture/sorcerer_90.xpm";
-	data->img[SORCERER_FRONT_45].path = "./texture/sorcerer_front_45.xpm";
+	data->img[KUNFANDI_FRONT].path = "./texture/dementor_front.xpm";
+	data->img[KUNFANDI_FRONT_45].path = "./texture/dementor_front_45.xpm";
+
+	data->img[NANCY_FRONT].path = "./texture/dementor_front.xpm";
+	data->img[NANCY_FRONT_45].path = "./texture/dementor_front_45.xpm";
+	data->img[PILO_FRONT].path = "./texture/dementor_front.xpm";
+	data->img[PILO_FRONT_45].path = "./texture/dementor_front_45.xpm";
+	data->img[ZIPPY_FRONT].path = "./texture/dementor_front.xpm";
+	data->img[ZIPPY_FRONT_45].path = "./texture/dementor_front_45.xpm";
+
+
+	data->img[SORCERER_BACK].path = "./texture/dementor_back.xpm";
+	data->img[SORCERER_SIDE_90].path = "./texture/dementor_90.xpm";
 	data->img[SORCERER_BACK_45].path = "./texture/dementor_back_45.xpm";
 
 	data->img[SNAKE_FRONT].path = "./texture/snake_front.xpm";
@@ -598,6 +607,22 @@ void	init_img_msg(t_data *data)
 	open_img_msg(data);
 }
 
+void	init_sorcerer(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		data->sorcerer[i].is_alive = false;
+		data->sorcerer[i].nb_spawn = 0;
+		++i;
+	}
+	data->sorcerer[0].type = E_WATER;
+	data->sorcerer[1].type = E_EARTH;
+	data->sorcerer[2].type = E_FIRE;
+	data->sorcerer[3].type = E_AIR;
+}
 void	init_data(t_data *data, int ac, char **av)
 {
 	ft_bzero(data, sizeof(t_data));
@@ -638,13 +663,14 @@ void	init_data(t_data *data, int ac, char **av)
 	init_coa(data);
 	init_pause_menu(data);
 	init_spell_menu(data);
+	init_sorcerer(data);
 	data->nb_msg = 7;
 	data->display.time_remove = 10000;
 	data->display.elapsed_time = 0;
 	data->current_msg = 0;
 	data->display.is_msg_active = true;
 	data->display.is_first_msg = true;
-	data->sensitivity = 60;
+	data->sensitivity = 100;
 	data->pause_menu.selected = 0;
 	data->pause_menu.elapsed = 0;
 

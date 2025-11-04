@@ -59,6 +59,7 @@ typedef struct s_item		t_item;
 typedef struct s_spell		t_spell;
 typedef struct s_wand		t_wand;
 typedef struct s_popo		t_popo;
+typedef struct s_sorcerer	t_sorcerer;
 
 
 typedef	enum e_dir
@@ -93,6 +94,7 @@ typedef enum e_enum_class_spell
 	CLASIC_SPELL
 }	t_enum_class_spell;
 
+
 typedef enum e_enemy_info
 {
 	DEMENTOR = '.',
@@ -101,8 +103,12 @@ typedef enum e_enemy_info
 	ELEM = '>',
 	BIRD = ';',
 	SNAKE = ':',
+	E_WATER = 'w',
+	E_EARTH = 'e',
+	E_FIRE = 'f',
+	E_AIR = 'a'
 }	t_enemy_info;
-# define NB_TYPE_ENEMY 5
+# define NB_TYPE_ENEMY 10
 
 typedef enum e_imgs
 {
@@ -155,10 +161,18 @@ typedef enum e_imgs
 	DEMENTOR_FRONT_45,
 	DEMENTOR_BACK_45,
 
-	SORCERER_FRONT,
+	KUNFANDI_FRONT,
+	NANCY_FRONT,
+	PILO_FRONT,
+	ZIPPY_FRONT,
+
+	KUNFANDI_FRONT_45,
+	NANCY_FRONT_45,
+	PILO_FRONT_45,
+	ZIPPY_FRONT_45,
+
 	SORCERER_SIDE_90,
 	SORCERER_BACK,
-	SORCERER_FRONT_45,
 	SORCERER_BACK_45,
 
 	SNAKE_FRONT,
@@ -485,6 +499,12 @@ struct	s_enemy
 	int				drop_cloak;
 };
 
+struct s_sorcerer
+{
+	bool	is_alive;
+	char	type;
+	int		nb_spawn;
+};
 struct s_item
 {
 	t_img			*front_img;
@@ -1018,6 +1038,7 @@ struct s_data
 	int			index_life;
 	int			index_xp;
 	t_popo		popo[4];
+	t_sorcerer	sorcerer[4];
 };
 
 t_coo	*init_t_coo(int y, int x);

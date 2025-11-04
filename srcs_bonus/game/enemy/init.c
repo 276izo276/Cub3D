@@ -97,6 +97,62 @@ void	fill_spider(t_data *data, t_enemy *enemy)
 	enemy->drop_cloak = 50;
 }
 
+void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
+{
+	if (c == E_WATER)
+	{
+		printf("je passe ici\n");
+		enemy->front_img = &data->img[NANCY_FRONT];
+		enemy->side_front_img = &data->img[NANCY_FRONT_45];
+		data->sorcerer[0].nb_spawn++;
+		data->sorcerer[0].is_alive = true;
+		enemy->life = 500 + (data->sorcerer[0].nb_spawn * 100);
+	}
+	else if (c == E_FIRE)
+	{
+		printf("je passe ici 2 \n");
+		enemy->front_img = &data->img[ZIPPY_FRONT];
+		enemy->side_front_img = &data->img[ZIPPY_FRONT_45];
+		data->sorcerer[2].nb_spawn++;
+		data->sorcerer[2].is_alive = true;
+		enemy->life = 500 + (data->sorcerer[2].nb_spawn * 100);
+	}
+	else if (c == E_AIR)
+	{
+		printf("je passe ici 3 \n");
+		enemy->front_img = &data->img[KUNFANDI_FRONT];
+		enemy->side_front_img = &data->img[KUNFANDI_FRONT_45];
+		data->sorcerer[3].nb_spawn++;
+		data->sorcerer[3].is_alive = true;
+		enemy->life = 500 + (data->sorcerer[3].nb_spawn * 100);
+	}
+	else if (c == E_EARTH)
+	{
+		printf("je passe ici 4 \n");
+		enemy->front_img = &data->img[PILO_FRONT];
+		enemy->side_front_img = &data->img[PILO_FRONT_45];
+		data->sorcerer[1].nb_spawn++;
+		data->sorcerer[1].is_alive = true;
+		enemy->life = 500 + (data->sorcerer[1].nb_spawn * 100);
+	}
+	enemy->back_img = &data->img[SORCERER_BACK];
+	enemy->side_img = &data->img[SORCERER_SIDE_90];
+	enemy->side_back_img = &data->img[SORCERER_BACK_45];
+}
+void	fill_sorcerer(t_data *data, t_enemy *enemy, char c)
+{
+	enemy->dist_stop = 20;
+	enemy->dist_damage = 32;
+	enemy->dist_visu = 640;
+	enemy->speed = 2.5;
+	enemy->cooldown_cac = .2;
+	enemy->damage.curse_force_do = .2;
+	enemy->damage.curse_frame_do = 10;
+	enemy->damage.slow_force_do = 25;
+	enemy->damage.slow_frame_do = 60;
+	fill_right_img_sorcerer(data, enemy, c);
+}
+
 void	fill_dementor(t_data *data, t_enemy *enemy)
 {
 	enemy->back_img = &data->img[DEMENTOR_BACK];
@@ -149,6 +205,8 @@ t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)
 		fill_bird(data, enemy);
 	else if (c == SNAKE)
 		fill_snake(data, enemy);
+	else
+		fill_sorcerer(data, enemy, c);
 	calc_left_and_right_point(enemy, data);
 	enemy->left_before.coo_x = enemy->left.coo_x;
 	enemy->left_before.coo_y = enemy->left.coo_y;
@@ -162,7 +220,6 @@ t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)
 	enemy->center_before.coo_y = enemy->right.coo_y;
 	enemy->center_before.case_x = enemy->right.case_x;
 	enemy->center_before.case_y = enemy->right.case_y;
-	(void)data;
 	return (enemy);
 }
 
