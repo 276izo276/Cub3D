@@ -130,6 +130,8 @@ void	cast_protego(t_data *data, t_spells info)
 
 void	spell_heal(t_data *data)
 {
+	if (data->player.life <= 0)
+		return ;
 	if (data->player.episkey_heal > 0)
 	{
 		if (data->player.episkey_frame > 0)
