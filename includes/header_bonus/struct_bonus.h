@@ -61,7 +61,6 @@ typedef struct s_wand		t_wand;
 typedef struct s_popo		t_popo;
 typedef struct s_sorcerer	t_sorcerer;
 
-
 typedef	enum e_dir
 {
 	NORTH,
@@ -237,6 +236,8 @@ typedef enum e_imgs
 	VULNERA_SANENTUR_IMG,
 	ARANIA_EXUMAI_IMG,
 	AGUAMENTI_IMG,
+	TIG_IMG,
+	BH_IMG,
 
 	LUMOS_ICN,
 	INCENDIO_ICN,
@@ -352,16 +353,8 @@ typedef enum e_spells
 	ENDOLORIS,	
 	AVADA_KEDAVRA,
 	
-	
-	IMPEDIMENTA,
-	IMMOBULUS,
-	IMPERO,
-	REVELIO,
-	APARECIUM,
-	CONFRINGO,
-	EVERTE_STATUM,
-	EVANESCO,
-	ALOHOMORA,
+	TIG,
+	BH,
 
 	END_SPELL
 }	t_spells;
@@ -505,6 +498,7 @@ struct s_sorcerer
 	char	type;
 	int		nb_spawn;
 };
+
 struct s_item
 {
 	t_img			*front_img;

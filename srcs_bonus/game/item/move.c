@@ -379,7 +379,7 @@ void	make_move_item(t_item *item, double speed)
 	calc_right_point_item(item);
 }
 
-void	apply_ventus_attraction(t_item *tornado, t_data *data)
+void	apply_attraction(t_item *attract, t_data *data)
 {
 	t_lst	*lst;
 	t_enemy	*enemy;
@@ -391,17 +391,17 @@ void	apply_ventus_attraction(t_item *tornado, t_data *data)
 	while (lst)
 	{
 		enemy = lst->dt;
-		dist_x = (tornado->center.case_x * 64 + tornado->center.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
-		dist_y = (tornado->center.case_y * 64 + tornado->center.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
+		dist_x = (attract->center.case_x * 64 + attract->center.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
+		dist_y = (attract->center.case_y * 64 + attract->center.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
 		distance = sqrt(dist_x * dist_x + dist_y * dist_y);
-		if (distance < tornado->radius * 25)
+		if (distance < attract->radius * 25)
 		{
-			enemy->damage.hit.case_x = tornado->center.case_x;
-			enemy->damage.hit.case_y = tornado->center.case_y;
-			enemy->damage.hit.coo_x = tornado->center.coo_x;
-			enemy->damage.hit.coo_y = tornado->center.coo_y;
-			enemy->damage.repulso_force_take = tornado->damage.repulso_force_do;
-			enemy->damage.repulso_frame_take = tornado->damage.repulso_frame_do;
+			enemy->damage.hit.case_x = attract->center.case_x;
+			enemy->damage.hit.case_y = attract->center.case_y;
+			enemy->damage.hit.coo_x = attract->center.coo_x;
+			enemy->damage.hit.coo_y = attract->center.coo_y;
+			enemy->damage.repulso_force_take = attract->damage.repulso_force_do;
+			enemy->damage.repulso_frame_take = attract->damage.repulso_frame_do;
 		}
 
 		// if (distance < tornado->radius * 20)
@@ -425,7 +425,7 @@ void	apply_ventus_attraction(t_item *tornado, t_data *data)
 		// }
 		lst = lst->next;
 	}
-	tornado->nb_move++;
+	attract->nb_move++;
 
 }
 
@@ -442,11 +442,10 @@ void	move_item(t_data *data)
 		//DBG1printf("3\n");
 		item->deg += item->deg_rotate;
 		item->rad = item->deg * (M_PI / 180);
+		// if (item->type == BH)
+			// item->radius += .1;
 		if (item->type == EXPECTO_PATRONUM)
-		{
-			// printf("expecto patronum uo radius\n");
 			item->radius += .3;
-		}
 		else if (item->type == ANIM_DEATH)
 			item->radius += 1.5;
 		if (item->type == VENTUS)
@@ -454,8 +453,8 @@ void	move_item(t_data *data)
 			// printf("expecto patronum uo radius\n");
 			item->radius += .1;
 		}
-		if (item->type == VENTUS)
-			apply_ventus_attraction(item, data);
+		if (item->type == VENTUS || item->type == BH)
+			apply_attraction(item, data);
 		calc_left_point_item(item);
 		calc_right_point_item(item);
 		item->left_before.coo_x = item->left.coo_x;
@@ -474,7 +473,7 @@ void	move_item(t_data *data)
 		if (item->nb_move >= 1)
 			make_move_item(item, item->speed);
 		// printf("after move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
-		if ((item->type != VENTUS && try_hit_items(item, data) && (item->type != EXPECTO_PATRONUM || item->type != ANIM_DEATH))
+		if ((try_hit_items(item, data) && item->type != VENTUS && item->type != EXPECTO_PATRONUM && item->type != ANIM_DEATH)
 			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1')
 		{
 			//DBG1printf("remove elem lst\n");

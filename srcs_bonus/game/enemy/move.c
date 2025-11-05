@@ -1121,7 +1121,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	}
 	if (enemy->damage.confundo_force_take > 0)
 	{
-		printf("confundo ennemy\n");
+		// printf("confundo ennemy\n");
 		deg = 0;
 		enemy->rad = 0;
 		double	diff_x = (enemy->center.case_x * 64 + enemy->center.coo_x) - (data->player.coo.case_x * 64 + data->player.coo.coo_x);

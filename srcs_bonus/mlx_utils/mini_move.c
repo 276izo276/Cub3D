@@ -467,6 +467,17 @@ void	try_hit_player(t_data *data)
 	}
 }
 
+int	is_align(t_hitray *ray)
+{
+	double	value;
+
+	value = (ray->bx - ray->ax) * (ray->cy - ray->ay) - (ray->by - ray->ay) * (ray->cx - ray->ax);
+	if (value < 0)
+		value = -value;
+	if (value < 0.000001)
+		return ;
+}
+
 void	handle_move(t_map *map, t_mini *mini, t_data *data)
 {
 	int	i;
@@ -529,13 +540,24 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 		data->player.coo.coo_y = mini->ny;
 		data->player.coo.case_y += mini->cy;
 	}
+	calc_left_point_player(data);
+	calc_right_point_player(data);
+	t_hitray	ray;
+	ray.ax = data->player.left_before.case_x * 64 + data->player.left_before.coo_x;
+	ray.ay = data->player.left_before.case_y * 64 + data->player.left_before.coo_y;
+	ray.bx = data->player.right_before.case_x * 64 + data->player.right_before.coo_x;
+	ray.by = data->player.right_before.case_y * 64 + data->player.right_before.coo_y;
+	ray.cx = data->player.left.case_x * 64 + data->player.left.coo_x;
+	ray.cy = data->player.left.case_y * 64 + data->player.left.coo_y;
+	if (is_align(&ray))
+	{
+		
+	}
 	if (mini->nx != data->player.coo.coo_x)
 	{
 		data->player.coo.coo_x = mini->nx;
 		data->player.coo.case_x += mini->cx;
 	}
-	calc_left_point_player(data);
-	calc_right_point_player(data);
 	try_hit_player(data);
 	// move_x(data, map, mini);
 	// move_y(data, map, mini);

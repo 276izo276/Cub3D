@@ -78,6 +78,26 @@ static void	handle_input_move(t_data *data, long long int cur)
 				data->popo[2].call(data);
 			else if (data->keycode[i] == KEY_V)
 				data->popo[3].call(data);
+			else if (data->keycode[i] == KEY_5)
+			{
+				data->cast_spell = TIG;
+				data->keycode[i] = 0;
+			}
+			else if (data->keycode[i] == KEY_6)
+			{
+				data->cast_spell = TIG;
+				data->keycode[i] = 0;
+			}
+			else if (data->keycode[i] == KEY_7)
+			{
+				data->cast_spell = TIG;
+				data->keycode[i] = 0;
+			}
+			else if (data->keycode[i] == KEY_8)
+			{
+				data->cast_spell = TIG;
+				data->keycode[i] = 0;
+			}
 			i++;
 		}
 		if (move)
