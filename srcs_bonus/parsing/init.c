@@ -32,13 +32,24 @@ static void	set_path_texture(t_data *data)
 	data->img[DEMENTOR_BACK_45].path = "./texture/dementor_back_45.xpm";
 
 	data->img[KUNFANDI_FRONT].path = "./texture/kunfandi_front.xpm";
-	data->img[KUNFANDI_FRONT_45].path = "./texture/sorcerer_front_45.xpm";
+	data->img[KUNFANDI_FRONT_45].path = "./texture/kunfandi_front_45.xpm";
 	data->img[NANCY_FRONT].path = "./texture/nancy_front.xpm";
-	data->img[NANCY_FRONT_45].path = "./texture/sorcerer_front_45.xpm";
+	data->img[NANCY_FRONT_45].path = "./texture/nancy_front_45.xpm";
 	data->img[PILO_FRONT].path = "./texture/pilo_front.xpm";
-	data->img[PILO_FRONT_45].path = "./texture/sorcerer_front_45.xpm";
+	data->img[PILO_FRONT_45].path = "./texture/pilo_front_45.xpm";
 	data->img[ZIPPY_FRONT].path = "./texture/zippy_front.xpm";
-	data->img[ZIPPY_FRONT_45].path = "./texture/sorcerer_front_45.xpm";
+	data->img[ZIPPY_FRONT_45].path = "./texture/zippy_front_45.xpm";
+
+	data->img[STEF_FRONT].path = "./texture/stef_front.xpm";
+	data->img[STEF_FRONT_45].path = "./texture/stef_front_45.xpm";
+	data->img[DIRLO_FRONT].path = "./texture/dirlo_front.xpm";
+	data->img[DIRLO_FRONT_45].path = "./texture/dirlo_front_45.xpm";
+	data->img[CAMEO_FRONT].path = "./texture/cameo_front.xpm";
+	data->img[CAMEO_FRONT_45].path = "./texture/cameo_front_45.xpm";
+	data->img[ANAIS_FRONT].path = "./texture/anais_front.xpm";
+	data->img[ANAIS_FRONT_45].path = "./texture/anais_front_45.xpm";
+	data->img[MARINA_FRONT].path = "./texture/marina_front.xpm";
+	data->img[MARINA_FRONT_45].path = "./texture/marina_front_45.xpm";
 
 
 	data->img[SORCERER_BACK].path = "./texture/sorcerer_back.xpm";
@@ -613,16 +624,34 @@ void	init_sorcerer(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	data->sorcerer[0].type = NANCY;
+	data->sorcerer[0].color = WATER_COLOR;
+	data->sorcerer[1].type = ZIPPY;
+	data->sorcerer[1].color = FIRE_COLOR;
+	data->sorcerer[2].type = KUNFANDI;
+	data->sorcerer[2].color = AIR_COLOR;
+	data->sorcerer[3].type = PILO;
+	data->sorcerer[3].color = EARTH_COLOR;
+	data->sorcerer[4].type = CAMEO;
+	data->sorcerer[4].color = AIR_COLOR;
+	data->sorcerer[5].type = ANAIS;
+	data->sorcerer[5].color = AIR_COLOR;
+	data->sorcerer[6].type = DIRLO;
+	data->sorcerer[6].color = EARTH_COLOR;
+	data->sorcerer[7].type = STEF;
+	data->sorcerer[7].color = FIRE_COLOR;
+	data->sorcerer[8].type = MARINA;
+	data->sorcerer[8].color = EARTH_COLOR;
+	while (i < 9)
 	{
-		data->sorcerer[i].is_alive = false;
+		printf("selected >>> %u color >> %u\n", data->color, data->sorcerer[i].color);
+		if (data->sorcerer[i].color != data->color)
+			data->sorcerer[i].is_alive = false;
+		else
+			data->sorcerer[i].is_alive = true;
 		data->sorcerer[i].nb_spawn = 0;
 		++i;
 	}
-	data->sorcerer[0].type = E_WATER;
-	data->sorcerer[1].type = E_EARTH;
-	data->sorcerer[2].type = E_FIRE;
-	data->sorcerer[3].type = E_AIR;
 }
 
 void	init_data(t_data *data, int ac, char **av)

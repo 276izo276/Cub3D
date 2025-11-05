@@ -235,6 +235,20 @@ static void	key_select_coa(int keycode, t_data *data)
 	{
 		data->color = data->coa[data->selected].color;
 		data->selected = 0;
+		int i = 0;
+		while (i < 9)
+		{
+			if (data->sorcerer[i].color != data->color)
+				data->sorcerer[i].is_alive = false;
+			else
+			{
+				#include <stdio.h>
+				printf("i >>> %d\n", i);
+				data->sorcerer[i].is_alive = true;
+			}
+			data->sorcerer[i].nb_spawn = 0;
+			++i;
+		}
 	}
 	else if (keycode == KEY_ESCAPE)
 		f_exit(data, 1);

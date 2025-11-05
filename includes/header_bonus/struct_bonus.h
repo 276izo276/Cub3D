@@ -102,10 +102,16 @@ typedef enum e_enemy_info
 	ELEM = '>',
 	BIRD = ';',
 	SNAKE = ':',
-	E_WATER = 'w',
-	E_EARTH = 'e',
-	E_FIRE = 'f',
-	E_AIR = 'a'
+	NANCY = '2',
+	PILO = '3',
+	ZIPPY = '4',
+	KUNFANDI = '5',
+	CAMEO = '6',
+	ANAIS = '7',
+	DIRLO = '8',
+	STEF = '9',
+	MARINA = 'm'
+
 }	t_enemy_info;
 # define NB_TYPE_ENEMY 10
 
@@ -164,11 +170,21 @@ typedef enum e_imgs
 	NANCY_FRONT,
 	PILO_FRONT,
 	ZIPPY_FRONT,
+	CAMEO_FRONT,
+	ANAIS_FRONT,
+	DIRLO_FRONT,
+	MARINA_FRONT,
+	STEF_FRONT,
 
 	KUNFANDI_FRONT_45,
 	NANCY_FRONT_45,
 	PILO_FRONT_45,
 	ZIPPY_FRONT_45,
+	CAMEO_FRONT_45,
+	ANAIS_FRONT_45,
+	DIRLO_FRONT_45,
+	MARINA_FRONT_45,
+	STEF_FRONT_45,
 
 	SORCERER_SIDE_90,
 	SORCERER_BACK,
@@ -490,6 +506,7 @@ struct	s_enemy
 	int				drop_shield;
 	int				drop_floo;
 	int				drop_cloak;
+	unsigned int	color_coa;
 };
 
 struct s_sorcerer
@@ -497,6 +514,7 @@ struct s_sorcerer
 	bool	is_alive;
 	char	type;
 	int		nb_spawn;
+	unsigned int color;
 };
 
 struct s_item
@@ -841,7 +859,7 @@ struct s_lumos
 
 struct s_coa
 {
-	int		color;
+	unsigned int		color;
 	char	*name;
 	t_img	*img_coa;
 	t_img 	*border;
@@ -989,7 +1007,7 @@ struct s_data
 	pthread_barrier_t		barrier_background;
 	pthread_barrier_t		barrier_display;
 	t_coa			*coa;
-	int				color;
+	unsigned int	color;
 	int				selected;
 	// t_img			*select;
 	// t_img			*select_hand;
@@ -1032,7 +1050,7 @@ struct s_data
 	int			index_life;
 	int			index_xp;
 	t_popo		popo[4];
-	t_sorcerer	sorcerer[4];
+	t_sorcerer	sorcerer[10];
 };
 
 t_coo	*init_t_coo(int y, int x);

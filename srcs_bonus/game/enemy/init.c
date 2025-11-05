@@ -2,6 +2,7 @@
 #include "utils_bonus.h"
 #include "enemy_bonus.h"
 #include "cub3d_bonus.h"
+#include "color_bonus.h"
 
 #include <stdio.h>
 
@@ -99,37 +100,87 @@ void	fill_spider(t_data *data, t_enemy *enemy)
 
 void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 {
-	if (c == E_WATER)
+	if (c == NANCY)
 	{
 		enemy->front_img = &data->img[NANCY_FRONT];
 		enemy->side_front_img = &data->img[NANCY_FRONT_45];
 		data->sorcerer[0].nb_spawn++;
 		data->sorcerer[0].is_alive = true;
-		enemy->life = 500 + (data->sorcerer[0].nb_spawn * 100);
+		enemy->life = 250 + (data->sorcerer[0].nb_spawn * 100);
+		enemy->color_coa = WATER_COLOR;
 	}
-	else if (c == E_FIRE)
+	else if (c == ZIPPY)
 	{
 		enemy->front_img = &data->img[ZIPPY_FRONT];
 		enemy->side_front_img = &data->img[ZIPPY_FRONT_45];
-		data->sorcerer[2].nb_spawn++;
-		data->sorcerer[2].is_alive = true;
-		enemy->life = 500 + (data->sorcerer[2].nb_spawn * 100);
+		data->sorcerer[1].nb_spawn++;
+		data->sorcerer[1].is_alive = true;
+		enemy->life = 200 + (data->sorcerer[2].nb_spawn * 100);
+		enemy->color_coa = FIRE_COLOR;
+		printf("in ??? \n");
 	}
-	else if (c == E_AIR)
+	else if (c == KUNFANDI)
 	{
 		enemy->front_img = &data->img[KUNFANDI_FRONT];
 		enemy->side_front_img = &data->img[KUNFANDI_FRONT_45];
-		data->sorcerer[3].nb_spawn++;
-		data->sorcerer[3].is_alive = true;
-		enemy->life = 500 + (data->sorcerer[3].nb_spawn * 100);
+		data->sorcerer[2].nb_spawn++;
+		data->sorcerer[2].is_alive = true;
+		enemy->life = 150 + (data->sorcerer[3].nb_spawn * 100);
+		enemy->color_coa = AIR_COLOR;
 	}
-	else if (c == E_EARTH)
+	else if (c == PILO)
 	{
 		enemy->front_img = &data->img[PILO_FRONT];
 		enemy->side_front_img = &data->img[PILO_FRONT_45];
-		data->sorcerer[1].nb_spawn++;
-		data->sorcerer[1].is_alive = true;
-		enemy->life = 500 + (data->sorcerer[1].nb_spawn * 100);
+		data->sorcerer[3].nb_spawn++;
+		data->sorcerer[3].is_alive = true;
+		enemy->life = 150 + (data->sorcerer[1].nb_spawn * 100);
+		enemy->color_coa = EARTH_COLOR;
+	}
+	else if (c == CAMEO)
+	{
+		enemy->front_img = &data->img[CAMEO_FRONT];
+		enemy->side_front_img = &data->img[CAMEO_FRONT_45];
+		data->sorcerer[4].nb_spawn++;
+		data->sorcerer[4].is_alive = true;
+		enemy->life = 150 + (data->sorcerer[1].nb_spawn * 100);
+		enemy->color_coa = AIR_COLOR;
+	}
+	else if (c == ANAIS)
+	{
+		enemy->front_img = &data->img[ANAIS_FRONT];
+		enemy->side_front_img = &data->img[ANAIS_FRONT_45];
+		data->sorcerer[5].nb_spawn++;
+		data->sorcerer[5].is_alive = true;
+		enemy->life = 150 + (data->sorcerer[1].nb_spawn * 100);
+		enemy->color_coa = AIR_COLOR;
+	}
+	else if (c == DIRLO)
+	{
+		enemy->front_img = &data->img[DIRLO_FRONT];
+		enemy->side_front_img = &data->img[DIRLO_FRONT_45];
+		data->sorcerer[6].nb_spawn++;
+		data->sorcerer[6].is_alive = true;
+		enemy->life = 150 + (data->sorcerer[1].nb_spawn * 100);
+		enemy->color_coa = EARTH_COLOR;
+	}
+	else if (c == STEF)
+	{
+		enemy->front_img = &data->img[STEF_FRONT];
+		enemy->side_front_img = &data->img[STEF_FRONT_45];
+		data->sorcerer[7].nb_spawn++;
+		data->sorcerer[7].is_alive = true;
+		enemy->life = 200 + (data->sorcerer[1].nb_spawn * 100);
+		enemy->color_coa = FIRE_COLOR;
+	}
+	else if (c == MARINA)
+	{
+		enemy->front_img = &data->img[MARINA_FRONT];
+		enemy->side_front_img = &data->img[MARINA_FRONT_45];
+		data->sorcerer[8].nb_spawn++;
+		data->sorcerer[8].is_alive = true;
+		enemy->life = 150 + (data->sorcerer[1].nb_spawn * 100);
+		enemy->color_coa = EARTH_COLOR;
 	}
 	enemy->back_img = &data->img[SORCERER_BACK];
 	enemy->side_img = &data->img[SORCERER_SIDE_90];

@@ -2,7 +2,7 @@
 #include "cub3d_bonus.h"
 #include "color_bonus.h"
 
-int	get_texture_pixel(t_img *texture, int x, int y)
+unsigned int	get_texture_pixel(t_img *texture, int x, int y)
 {
 	char	*pixel;
 

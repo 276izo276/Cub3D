@@ -170,7 +170,7 @@ static void	save_wall(char c, int y, int x, t_data *data)
 static void	is_enemy(char c, int y, int x, t_data *data)
 {
 	int			i;
-	const char	tab[] = {'.', ',', '<', '>', ';', 'w', 'f', 'e', 'a', 0};
+	const char	tab[] = {'.', ',', '<', '>', ';', '2', '3', '4', '5', '6', '7', '8', '9', 'm', 0};
 
 	i = 0;
 	while (tab[i])

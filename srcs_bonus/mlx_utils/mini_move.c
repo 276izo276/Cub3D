@@ -475,7 +475,8 @@ int	is_align(t_hitray *ray)
 	if (value < 0)
 		value = -value;
 	if (value < 0.000001)
-		return ;
+		return (10);  //TODO ICI C EST ULTRA BIZARRE 
+	return (0); // LA AUSSI 
 }
 
 void	handle_move(t_map *map, t_mini *mini, t_data *data)

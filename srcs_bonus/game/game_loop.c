@@ -750,7 +750,7 @@ void	update_sorcerer(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 9)
 	{
 		if (data->sorcerer[i].is_alive == false)
 			spawn_sorcerer(data, data->sorcerer[i].type);

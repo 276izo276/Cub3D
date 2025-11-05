@@ -14,6 +14,7 @@
 # define M_PI 3.14159265358979323846
 #endif
 
+void	init_sorcerer(t_data *data);
 void	apply_transparancy(t_data *data, int x, int y, unsigned int color);
 bool	handle_floo_open(t_data *data);
 void	cast_popo_invi(t_data *data);
@@ -120,7 +121,7 @@ void	calc_sqrt(t_data *data, int i);
 void    display_game(t_data *data);
 
 //TODO display_hand (a move dans un utils ?)
-int		get_texture_pixel(t_img *texture, int x, int y);
+unsigned int		get_texture_pixel(t_img *texture, int x, int y);
 
 //input_move.c
 bool	is_move_player(t_data *data, int i);
