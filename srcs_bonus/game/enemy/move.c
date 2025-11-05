@@ -2676,17 +2676,42 @@ void	move_enemy(t_data *data)
 			else if (enemy->type == PILO)
 			{
 				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
-				data->sorcerer[1].is_alive = false;
+				data->sorcerer[3].is_alive = false;
 			}
 			else if (enemy->type == ZIPPY)
 			{
 				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
-				data->sorcerer[2].is_alive = false;
+				data->sorcerer[1].is_alive = false;
 			}
 			else if (enemy->type == KUNFANDI)
 			{
 				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
-				data->sorcerer[3].is_alive = false;
+				data->sorcerer[2].is_alive = false;
+			}
+				else if (enemy->type == DIRLO)
+			{
+				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
+				data->sorcerer[6].is_alive = false;
+			}
+			else if (enemy->type == STEF)
+			{
+				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
+				data->sorcerer[7].is_alive = false;
+			}
+			else if (enemy->type == MARINA)
+			{
+				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
+				data->sorcerer[8].is_alive = false;
+			}
+			else if (enemy->type == ANAIS)
+			{
+				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
+				data->sorcerer[5].is_alive = false;
+			}
+			else if (enemy->type == CAMEO)
+			{
+				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
+				data->sorcerer[4].is_alive = false;
 			}
 			f_elem_lst(lst);
 			return ;

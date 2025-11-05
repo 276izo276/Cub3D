@@ -644,11 +644,7 @@ void	init_sorcerer(t_data *data)
 	data->sorcerer[8].color = EARTH_COLOR;
 	while (i < 9)
 	{
-		printf("selected >>> %u color >> %u\n", data->color, data->sorcerer[i].color);
-		if (data->sorcerer[i].color != data->color)
-			data->sorcerer[i].is_alive = false;
-		else
-			data->sorcerer[i].is_alive = true;
+		data->sorcerer[i].is_alive = true;
 		data->sorcerer[i].nb_spawn = 0;
 		++i;
 	}
@@ -707,7 +703,7 @@ void	init_data(t_data *data, int ac, char **av)
 
 	data->player.life = 100;
 	data->player.shield = 0;
-	data->player.xp = 15.0;
+	data->player.xp = 1.0;
 	data->player.damage.damage_do = 1;
 	data->player.invisible = 255;
 

@@ -240,13 +240,6 @@ static void	key_select_coa(int keycode, t_data *data)
 		{
 			if (data->sorcerer[i].color != data->color)
 				data->sorcerer[i].is_alive = false;
-			else
-			{
-				#include <stdio.h>
-				printf("i >>> %d\n", i);
-				data->sorcerer[i].is_alive = true;
-			}
-			data->sorcerer[i].nb_spawn = 0;
 			++i;
 		}
 	}
