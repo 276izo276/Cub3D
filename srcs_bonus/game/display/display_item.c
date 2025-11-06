@@ -52,8 +52,8 @@ void	define_posx_texture(t_data *data, int i, int j)
 {
 	double	posx_display;
 	int		frame_width;
-	int		frame_height;
-	int		frame_index;
+	// int		frame_height;
+	// int		frame_index;
 
 	posx_display = data->ray[i].items[j]->posx;
 	if (data->ray[i].items[j]->side == REVERSED || data->ray[i].items[j]->side == LEFT
@@ -61,9 +61,9 @@ void	define_posx_texture(t_data *data, int i, int j)
 		posx_display = 1 - posx_display;
 	if (data->ray[i].items[j]->type == VENTUS)
 	{
-		frame_index = data->ray[i].items[j]->status;
+		// frame_index = data->ray[i].items[j]->status;
 		frame_width = data->ray[i].items[j]->texture->width / 32;
-		frame_height = data->ray[i].items[j]->texture->height / 32;
+		// frame_height = data->ray[i].items[j]->texture->height / 32;
 		data->ray[i].items[j]->texture_coo.x = data->ray[i].items[j]->status * frame_width + (int)(posx_display * frame_width);
 		++data->ray[i].items[j]->status;
 		// if (data->ray[i].items[j]->status >= 16)

@@ -778,6 +778,8 @@ struct s_mini
 	double		deg;
 	double		rad;
 	double		speed;
+	double		sdy;
+	double		sdx;
 	double		dy;
 	double		dx;
 	double		ny;

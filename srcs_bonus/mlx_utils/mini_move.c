@@ -74,7 +74,7 @@ int	hit_box_y_wall(t_data *data, t_map *map, t_mini *mini)
 	return (0);
 }
 
-void	v_norm(t_mini *mini, t_data *data)
+void	v_norm_d(t_mini *mini, t_data *data)
 {
 	double	v_normalize;
 	int		i;
@@ -103,6 +103,36 @@ void	v_norm(t_mini *mini, t_data *data)
 	}
 }
 
+
+void	v_norm_sd(t_mini *mini, t_data *data)
+{
+	double	v_normalize;
+	int		i;
+
+	v_normalize = sqrt(mini->dx * mini->dx + mini->dy * mini->dy);
+	mini->sdy = mini->sdy / v_normalize;
+	mini->sdx = mini->sdx / v_normalize;
+	i = -1;
+	while (++i < KEYCODE_NB)
+	{
+		if (data->keycode[i] == KEY_S)
+		{
+			mini->sdy *= .6;
+			mini->sdx *= .6;
+		}
+		else if (data->keycode[i] == KEY_A || data->keycode[i] == KEY_D)
+		{
+			mini->sdy *= .9;
+			mini->sdx *= .9;
+		}
+		if (data->keycode[i] == KEY_SHIFT)
+		{
+			mini->sdy *= 1.6;
+			mini->sdx *= 1.6;
+		}
+	}
+}
+
 static void	calc_dx_dy(t_data *data, int keycode, t_mini *mini)
 {
 	int	angle;
@@ -123,6 +153,11 @@ static void	calc_dx_dy(t_data *data, int keycode, t_mini *mini)
 		angle = 90;
 	else if (keycode == KEY_A || keycode == KEY_LEFT)
 		angle = 270;
+	if (angle % 180 != 0)
+	{
+		mini->sdx += sin(mini->rad + angle * (M_PI / 180.0));
+		mini->sdy += cos(mini->rad + angle * (M_PI / 180.0));
+	}
 	mini->dx += sin(mini->rad + angle * (M_PI / 180.0));
 	mini->dy += cos(mini->rad + angle * (M_PI / 180.0));
 }
@@ -467,24 +502,14 @@ void	try_hit_player(t_data *data)
 	}
 }
 
-int	is_align(t_hitray *ray)
-{
-	double	value;
-
-	value = (ray->bx - ray->ax) * (ray->cy - ray->ay) - (ray->by - ray->ay) * (ray->cx - ray->ax);
-	if (value < 0)
-		value = -value;
-	if (value < 0.000001)
-		return (10);  //TODO ICI C EST ULTRA BIZARRE 
-	return (0); // LA AUSSI 
-}
-
 void	handle_move(t_map *map, t_mini *mini, t_data *data)
 {
 	int	i;
 
 	mini->dy = 0;
 	mini->dx = 0;
+	mini->sdy = 0;
+	mini->sdx = 0;
 	i = 0;
 	while (i < KEYCODE_NB)
 	{
@@ -499,15 +524,26 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 		}
 		i++;
 	}
+	
+	if (round(mini->sdy) == 0.0 && round(mini->sdx) == 0.0)
+	{
+		mini->sdy = 0;
+		mini->sdx = 0;
+	}
+	else
+		v_norm_sd(mini, data);
 	if (round(mini->dy) == 0.0 && round(mini->dx) == 0.0)
 	{
 		mini->dy = 0;
 		mini->dx = 0;
 	}
 	else
-		v_norm(mini, data);
+		v_norm_d(mini, data);
 	mini->dx *= SPEED;
 	mini->dy *= SPEED;
+	mini->sdx *= SPEED;
+	mini->sdy *= SPEED;
+	printf("\ndx>%lf   dy>%lf         sdx>%lf   sdy>%lf\n",mini->dx,mini->dy,mini->sdx,mini->sdy);
 	if (data->player.damage.slow_frame_take > 0 || data->player.damage.slow_force_take > 0)
 	{
 		if (data->player.damage.slow_force_take > 100)
@@ -540,25 +576,16 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	{
 		data->player.coo.coo_y = mini->ny;
 		data->player.coo.case_y += mini->cy;
-	}
-	calc_left_point_player(data);
-	calc_right_point_player(data);
-	t_hitray	ray;
-	ray.ax = data->player.left_before.case_x * 64 + data->player.left_before.coo_x;
-	ray.ay = data->player.left_before.case_y * 64 + data->player.left_before.coo_y;
-	ray.bx = data->player.right_before.case_x * 64 + data->player.right_before.coo_x;
-	ray.by = data->player.right_before.case_y * 64 + data->player.right_before.coo_y;
-	ray.cx = data->player.left.case_x * 64 + data->player.left.coo_x;
-	ray.cy = data->player.left.case_y * 64 + data->player.left.coo_y;
-	if (is_align(&ray))
-	{
-		
+		data->player.left_before.coo_y += mini->sdy;
 	}
 	if (mini->nx != data->player.coo.coo_x)
 	{
 		data->player.coo.coo_x = mini->nx;
 		data->player.coo.case_x += mini->cx;
+		data->player.left_before.coo_x += mini->sdx;
 	}
+	calc_left_point_player(data);
+	calc_right_point_player(data);
 	try_hit_player(data);
 	// move_x(data, map, mini);
 	// move_y(data, map, mini);

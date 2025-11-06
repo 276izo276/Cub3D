@@ -1836,7 +1836,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 	{
 		t_lst	*lst;
 		t_enemy	*elem;
-		t_enemy *keep_elem;
+		// t_enemy *keep_elem;
 		// double	dist;
 		double	dist_min = -1;
 		t_fcoo	coo;
@@ -1941,7 +1941,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 				{
 					if (enemy->dist_target < dist_min || dist_min == -1)
 					{
-						keep_elem = elem;
+						// keep_elem = elem;
 						dist_min = enemy->dist_target;
 						coo.case_x = elem->center.case_x;
 						coo.case_y = elem->center.case_y;
@@ -2246,7 +2246,7 @@ int	see_player(t_data *data, t_enemy *enemy)
 		t_enemy *keep_elem;
 		// double	dist;
 		double	dist_min = -1;
-		t_fcoo	coo;
+		// t_fcoo	coo;
 
 		lst = get_first_elem_lst(data->enemy);
 		while (lst)
@@ -2350,10 +2350,10 @@ int	see_player(t_data *data, t_enemy *enemy)
 					{
 						keep_elem = elem;
 						dist_min = enemy->dist_target;
-						coo.case_x = elem->center.case_x;
-						coo.case_y = elem->center.case_y;
-						coo.coo_y = elem->center.coo_y;
-						coo.coo_x = elem->center.coo_x;
+						// coo.case_x = elem->center.case_x;
+						// coo.case_y = elem->center.case_y;
+						// coo.coo_y = elem->center.coo_y;
+						// coo.coo_x = elem->center.coo_x;
 					}
 					
 				}
@@ -2458,10 +2458,10 @@ int	see_player(t_data *data, t_enemy *enemy)
 						if (dist_min_player < dist_min || dist_min == -1)
 						{
 							dist_min = dist_min_player;
-							coo.case_x = data->player.coo.case_x;
-							coo.case_y = data->player.coo.case_y;
-							coo.coo_y = data->player.coo.coo_y;
-							coo.coo_x = data->player.coo.coo_x;
+							// coo.case_x = data->player.coo.case_x;
+							// coo.case_y = data->player.coo.case_y;
+							// coo.coo_y = data->player.coo.coo_y;
+							// coo.coo_x = data->player.coo.coo_x;
 						}
 						
 					}

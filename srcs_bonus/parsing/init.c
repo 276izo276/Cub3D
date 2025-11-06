@@ -703,7 +703,7 @@ void	init_data(t_data *data, int ac, char **av)
 
 	data->player.life = 100;
 	data->player.shield = 0;
-	data->player.xp = 1.0;
+	data->player.xp = 15.0;
 	data->player.damage.damage_do = 1;
 	data->player.invisible = 255;
 
