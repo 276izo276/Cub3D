@@ -115,7 +115,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		enemy->side_front_img = &data->img[ZIPPY_FRONT_45];
 		data->sorcerer[1].nb_spawn++;
 		data->sorcerer[1].is_alive = true;
-		enemy->life = 200 + (data->sorcerer[2].nb_spawn * 100);
+		enemy->life = 200 + (data->sorcerer[1].nb_spawn * 100);
 		enemy->color_coa = FIRE_COLOR;
 		printf("in ??? \n");
 	}
@@ -125,7 +125,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		enemy->side_front_img = &data->img[KUNFANDI_FRONT_45];
 		data->sorcerer[2].nb_spawn++;
 		data->sorcerer[2].is_alive = true;
-		enemy->life = 150 + (data->sorcerer[3].nb_spawn * 100);
+		enemy->life = 150 + (data->sorcerer[2].nb_spawn * 100);
 		enemy->color_coa = AIR_COLOR;
 	}
 	else if (c == PILO)
@@ -134,7 +134,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		enemy->side_front_img = &data->img[PILO_FRONT_45];
 		data->sorcerer[3].nb_spawn++;
 		data->sorcerer[3].is_alive = true;
-		enemy->life = 150 + (data->sorcerer[1].nb_spawn * 100);
+		enemy->life = 150 + (data->sorcerer[3].nb_spawn * 100);
 		enemy->color_coa = EARTH_COLOR;
 	}
 	else if (c == CAMEO)
@@ -143,7 +143,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		enemy->side_front_img = &data->img[CAMEO_FRONT_45];
 		data->sorcerer[4].nb_spawn++;
 		data->sorcerer[4].is_alive = true;
-		enemy->life = 150 + (data->sorcerer[1].nb_spawn * 100);
+		enemy->life = 150 + (data->sorcerer[4].nb_spawn * 100);
 		enemy->color_coa = AIR_COLOR;
 	}
 	else if (c == ANAIS)
@@ -152,7 +152,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		enemy->side_front_img = &data->img[ANAIS_FRONT_45];
 		data->sorcerer[5].nb_spawn++;
 		data->sorcerer[5].is_alive = true;
-		enemy->life = 150 + (data->sorcerer[1].nb_spawn * 100);
+		enemy->life = 150 + (data->sorcerer[5].nb_spawn * 100);
 		enemy->color_coa = AIR_COLOR;
 	}
 	else if (c == DIRLO)
@@ -161,7 +161,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		enemy->side_front_img = &data->img[DIRLO_FRONT_45];
 		data->sorcerer[6].nb_spawn++;
 		data->sorcerer[6].is_alive = true;
-		enemy->life = 150 + (data->sorcerer[1].nb_spawn * 100);
+		enemy->life = 150 + (data->sorcerer[6].nb_spawn * 100);
 		enemy->color_coa = EARTH_COLOR;
 	}
 	else if (c == STEF)
@@ -170,7 +170,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		enemy->side_front_img = &data->img[STEF_FRONT_45];
 		data->sorcerer[7].nb_spawn++;
 		data->sorcerer[7].is_alive = true;
-		enemy->life = 200 + (data->sorcerer[1].nb_spawn * 100);
+		enemy->life = 200 + (data->sorcerer[7].nb_spawn * 100);
 		enemy->color_coa = FIRE_COLOR;
 	}
 	else if (c == MARINA)
@@ -179,7 +179,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		enemy->side_front_img = &data->img[MARINA_FRONT_45];
 		data->sorcerer[8].nb_spawn++;
 		data->sorcerer[8].is_alive = true;
-		enemy->life = 150 + (data->sorcerer[1].nb_spawn * 100);
+		enemy->life = 150 + (data->sorcerer[8].nb_spawn * 100);
 		enemy->color_coa = EARTH_COLOR;
 	}
 	enemy->back_img = &data->img[SORCERER_BACK];
