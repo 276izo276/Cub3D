@@ -254,7 +254,6 @@ typedef enum e_imgs
 	ARANIA_EXUMAI_IMG,
 	AGUAMENTI_IMG,
 	TIG_IMG,
-	BH_IMG,
 
 	LUMOS_ICN,
 	INCENDIO_ICN,

@@ -142,7 +142,6 @@ static void	set_path_texture(t_data *data)
 	data->img[ARANIA_EXUMAI_IMG].path = "./texture/spell/arania_exumai.xpm";
 	data->img[AGUAMENTI_IMG].path = "./texture/spell/aguamenti.xpm";
 	data->img[TIG_IMG].path = "./texture/spell/TIG.xpm";
-	data->img[BH_IMG].path = "./texture/spell/arania_exumai.xpm";
 
 
 	data->img[AGUAMENTI_ICN].path = "./texture/spell/aguamenti_icn.xpm";
