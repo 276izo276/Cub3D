@@ -60,6 +60,7 @@ typedef struct s_spell		t_spell;
 typedef struct s_wand		t_wand;
 typedef struct s_popo		t_popo;
 typedef struct s_sorcerer	t_sorcerer;
+typedef struct s_cooldown	t_cooldown;
 
 typedef	enum e_dir
 {
@@ -111,9 +112,9 @@ typedef enum e_enemy_info
 	DIRLO = '8',
 	STEF = '9',
 	MARINA = 'm'
-
 }	t_enemy_info;
-# define NB_TYPE_ENEMY 10
+# define NB_TYPE_ENEMY 15
+# define NB_SORCERER 9
 
 typedef enum e_imgs
 {
@@ -368,7 +369,7 @@ typedef enum e_spells
 	SECTUMSEMPRA,
 	ENDOLORIS,	
 	AVADA_KEDAVRA,
-	
+
 	TIG,
 	BH,
 
@@ -507,14 +508,6 @@ struct	s_enemy
 	int				drop_floo;
 	int				drop_cloak;
 	unsigned int	color_coa;
-};
-
-struct s_sorcerer
-{
-	bool	is_alive;
-	char	type;
-	int		nb_spawn;
-	unsigned int color;
 };
 
 struct s_item
@@ -915,13 +908,13 @@ struct s_spell
 	t_img				*icn_name;
 	t_damage			damage;
 	t_item				item;
-	t_spells			type;
+	int					type;
 	double				necessary_lvl;
 	double				base_cooldown;
 	double				base_timer;
 	long long int		launch_time;
 	long long int		end_time;
-	void				(*call)(t_data *data, t_spells info);
+	void				(*call)(t_data *data, int info);
 	t_enum_class_spell	class;
 };
 
@@ -969,6 +962,27 @@ struct s_popo
 	int		active;
 };
 
+struct s_cooldown
+{
+	long long	spell;
+	long long	incendio;
+	long long	aguamenti;
+	long long	expecto_patronum;
+	long long	arania_exumai;
+	long long	stupefix;
+	long long	tig;
+	long long	bh;
+};
+
+struct s_sorcerer
+{
+	bool	is_alive;
+	char	type;
+	int		nb_spawn;
+	unsigned int color;
+	t_damage	damage;
+	t_cooldown	cooldown;
+};
 
 struct s_data
 {
@@ -1052,7 +1066,7 @@ struct s_data
 	int			index_life;
 	int			index_xp;
 	t_popo		popo[4];
-	t_sorcerer	sorcerer[10];
+	t_sorcerer	sorcerer[NB_SORCERER + 1];
 };
 
 t_coo	*init_t_coo(int y, int x);

@@ -58,7 +58,7 @@ void	lumos_loop(t_data *data, int start_x, int start_y)
 
 #include <stdio.h>
 
-void	cast_lumos(t_data *data, t_spells info)
+void	cast_lumos(t_data *data, int info)
 {
 	(void)info;
 	data->cast_spell = -1;
@@ -106,7 +106,7 @@ void	spell_protego(t_data *data)
 	}
 }
 
-void	cast_protego(t_data *data, t_spells info)
+void	cast_protego(t_data *data, int info)
 {
 	long	save_time;
 
@@ -152,7 +152,7 @@ void	spell_heal(t_data *data)
 		data->player.life = 100;
 }
 
-void	cast_episkey(t_data *data, t_spells info)
+void	cast_episkey(t_data *data, int info)
 {
 	long	save_time;
 
@@ -177,7 +177,7 @@ void	cast_episkey(t_data *data, t_spells info)
 
 #include <unistd.h>
 
-void	cast_opugno(t_data *data, t_spells info)
+void	cast_opugno(t_data *data, int info)
 {
 	t_fcoo	coo;
 	long	save_time;
@@ -206,7 +206,7 @@ void	cast_opugno(t_data *data, t_spells info)
 	}
 }
 
-void	cast_serpensortia(t_data *data, t_spells info)
+void	cast_serpensortia(t_data *data, int info)
 {
 	t_fcoo	coo;
 	long	save_time;
@@ -231,7 +231,7 @@ void	cast_serpensortia(t_data *data, t_spells info)
 	}
 }
 
-void	cast_vulnera_sanentur(t_data *data, t_spells info)
+void	cast_vulnera_sanentur(t_data *data, int info)
 {
 	long	save_time;
 
@@ -256,7 +256,7 @@ void	cast_vulnera_sanentur(t_data *data, t_spells info)
 	}
 }
 
-void	cast_spell(t_data *data, t_spells info)
+void	cast_spell(t_data *data, int info)
 {
 	data->cast_spell = -1;
 	if (data->active_spell == -1 && get_mtime() > data->spell[info].end_time + data->spell[info].base_cooldown * 1000)

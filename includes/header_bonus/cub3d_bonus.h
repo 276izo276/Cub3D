@@ -14,7 +14,7 @@
 # define M_PI 3.14159265358979323846
 #endif
 
-void	init_sorcerer(t_data *data);
+
 void	apply_transparancy(t_data *data, int x, int y, unsigned int color);
 bool	handle_floo_open(t_data *data);
 void	cast_popo_invi(t_data *data);
@@ -22,7 +22,7 @@ void	cast_popo_floo(t_data *data);
 void	cast_popo_shield(t_data *data);
 void	init_popo(t_data *data);
 void	cast_popo_heal(t_data *data);
-void	cast_opugno(t_data *data, t_spells info);
+void	cast_opugno(t_data *data, int info);
 void	init_item(t_data *data);
 t_item	*create_item(t_data *data, t_items info, t_fcoo *coo, double deg);
 int		get_right_white(t_data *data, int color, double distance);
@@ -30,13 +30,13 @@ void	start(int ac, char **av);
 void	restart(t_data *data);
 void	take_damage(t_data *data);
 void	calc_left_and_right_point(t_enemy *enemy, t_data *data);
-void	cast_vulnera_sanentur(t_data *data, t_spells info);
+void	cast_vulnera_sanentur(t_data *data, int info);
 void	f_way(t_enemy *enemy);
-void	cast_episkey(t_data *data, t_spells info);
+void	cast_episkey(t_data *data, int info);
 void	spell_heal(t_data *data);
 void	apply_damage(t_damage *take, t_damage *apply);
 void	spell_protego(t_data *data);
-void	cast_protego(t_data *data, t_spells info);
+void	cast_protego(t_data *data, int info);
 int		calc_start_text(char *str, int x, t_data *data, int height);
 void	aff_text(char *str, int height, t_coo coo, t_data *data);
 void	calc_left_point_player(t_data *data);
@@ -50,7 +50,7 @@ void	calc_end_point(t_hitray *ray);
 void	try_hit_item(t_data *data, int i, double x);
 void	move_item(t_data *data);
 void	f_item(void *elem);
-t_item	*init_spell_item(t_data *data, t_spells info);
+t_item	*init_spell_item(t_data *data, int info);
 
 void	set_spell_take(t_data *data);
 void	init_spell(t_data *data);
@@ -161,9 +161,9 @@ int		get_right_color(int color, double distance);
 
 //spell.c
 void	spell_lumos(t_data *data);
-void	cast_lumos(t_data *data, t_spells info);
-void	cast_spell(t_data *data, t_spells info);
-void	cast_serpensortia(t_data *data, t_spells info);
+void	cast_lumos(t_data *data, int info);
+void	cast_spell(t_data *data, int info);
+void	cast_serpensortia(t_data *data, int info);
 
 //handle_door.c
 void	handle_door(t_data *data);

@@ -6,7 +6,7 @@
 #include <strings.h>
 #include <stdio.h>
 
-t_item	*init_spell_item(t_data *data, t_spells info)
+t_item	*init_spell_item(t_data *data, int info)
 {
 	t_item	*item;
 

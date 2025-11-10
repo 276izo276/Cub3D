@@ -85,7 +85,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 			}
 			else if (data->keycode[i] == KEY_6)
 			{
-				data->cast_spell = TIG;
+				data->cast_spell = BH;
 				data->keycode[i] = 0;
 			}
 			else if (data->keycode[i] == KEY_7)

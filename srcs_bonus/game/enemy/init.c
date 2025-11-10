@@ -117,7 +117,6 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		data->sorcerer[1].is_alive = true;
 		enemy->life = 200 + (data->sorcerer[1].nb_spawn * 100);
 		enemy->color_coa = FIRE_COLOR;
-		printf("in ??? \n");
 	}
 	else if (c == KUNFANDI)
 	{

@@ -827,7 +827,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS)
+			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS && item->type != BH)
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -848,7 +848,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS)
+			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS && item->type != BH)
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -869,7 +869,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS)
+			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS && item->type != BH)
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -898,7 +898,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS)
+			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS && item->type != BH)
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -921,7 +921,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS)
+			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS && item->type != BH)
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -1583,7 +1583,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 		diff_y = (enemy->damage.hit.case_y * 64 + enemy->damage.hit.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
 		enemy->damage.dist = sqrt(diff_x * diff_x + diff_y * diff_y);
 		// printf("dist>%lf\n",enemy->damage.dist);
-		double	decal = -(1000 / (enemy->damage.dist + 30) + enemy->damage.repulso_force_take) / 4;
+		double	decal = -(1000 / (enemy->damage.dist + 35) + enemy->damage.repulso_force_take) / 4 - 1;
 		if (decal > 0)
 			return;
 		if (enemy->damage.dist >= fabs(decal))
@@ -2710,7 +2710,7 @@ void	move_enemy(t_data *data)
 			}
 			else if (enemy->type == CAMEO)
 			{
-				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
+				data->player.xp +=  3 / (0.8 + (data->player.xp * 0.1));
 				data->sorcerer[4].is_alive = false;
 			}
 			f_elem_lst(lst);

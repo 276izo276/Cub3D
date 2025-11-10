@@ -190,7 +190,7 @@ static void	init_ventus(t_data *data)
 	data->spell[VENTUS].base_cooldown = 0;
 	data->spell[VENTUS].call = cast_spell;
 	data->spell[VENTUS].type = VENTUS;
-	data->spell[VENTUS].damage.damage_do = 5;
+	data->spell[VENTUS].damage.damage_do = .5;
 	data->spell[VENTUS].damage.repulso_force_do = -10.0;
 	data->spell[VENTUS].damage.repulso_frame_do = 1;
 	data->spell[VENTUS].item.speed = 1.0;
@@ -387,12 +387,10 @@ static void	init_bh(t_data *data)
 	data->spell[BH].damage.damage_do = .1;
 	data->spell[BH].damage.curse_force_do = .05;
 	data->spell[BH].damage.curse_frame_do = 120;
-	data->spell[BH].damage.repulso_force_do = -12.0;
+	data->spell[BH].damage.repulso_force_do = -6.0;
 	data->spell[BH].damage.repulso_frame_do = 1;
-	data->spell[BH].item.speed = 40;
+	data->spell[BH].item.speed = 3;
 	data->spell[BH].item.radius = 5;
-	data->spell[BH].item.front_img = &data->img[BH_IMG];
-	data->spell[BH].item.back_img = &data->img[BH_IMG];
 }
 
 void	init_spell(t_data *data)
@@ -422,6 +420,7 @@ void	init_spell(t_data *data)
 	init_confundo(data);
 	init_endoloris(data);
 	init_avada_kedavra(data);
+
 	init_tig(data);
 	init_bh(data);
 }
