@@ -393,7 +393,7 @@ static void	init_bh(t_data *data)
 	data->spell[BH].item.radius = 5;
 }
 
-static void	init_tig(t_data *data)
+static void	init_pizza(t_data *data)
 {
 	data->spell[PIZZA].base_cooldown = 0;
 	data->spell[PIZZA].call = cast_spell;
@@ -405,8 +405,8 @@ static void	init_tig(t_data *data)
 	data->spell[PIZZA].damage.repulso_frame_do = 5;
 	data->spell[PIZZA].item.speed = 10;
 	data->spell[PIZZA].item.radius = 5;
-	data->spell[PIZZA].item.front_img = &data->img[PIZZA_IMG];
-	data->spell[PIZZA].item.back_img = &data->img[PIZZA_IMG];
+	data->spell[PIZZA].item.front_img = &data->img[LOGO_42_IMG];
+	data->spell[PIZZA].item.back_img = &data->img[LOGO_42_IMG];
 }
 
 void	init_spell(t_data *data)
@@ -439,4 +439,5 @@ void	init_spell(t_data *data)
 
 	init_tig(data);
 	init_bh(data);
+	init_pizza(data);
 }
