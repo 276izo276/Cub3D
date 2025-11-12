@@ -2114,7 +2114,8 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 			
 			if (enemy->recalc_path <= 50 || !enemy->way)
 				enemy->recalc_path = 100;
-			enemy->calc_path = 30;
+			if (dist_min_player == dist_min)
+				enemy->calc_path = 30;
 		}
 		if (enemy->dist_target < enemy->dist_damage && 
 			get_mtime() > enemy->time_attack_cac + enemy->cooldown_cac * 1000)

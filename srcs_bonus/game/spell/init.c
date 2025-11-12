@@ -393,6 +393,22 @@ static void	init_bh(t_data *data)
 	data->spell[BH].item.radius = 5;
 }
 
+static void	init_tig(t_data *data)
+{
+	data->spell[PIZZA].base_cooldown = 0;
+	data->spell[PIZZA].call = cast_spell;
+	data->spell[PIZZA].type = PIZZA;
+	data->spell[PIZZA].damage.damage_do = 25;
+	data->spell[PIZZA].damage.curse_force_do = .1;
+	data->spell[PIZZA].damage.curse_frame_do = 120;
+	data->spell[PIZZA].damage.repulso_force_do = 2;
+	data->spell[PIZZA].damage.repulso_frame_do = 5;
+	data->spell[PIZZA].item.speed = 10;
+	data->spell[PIZZA].item.radius = 5;
+	data->spell[PIZZA].item.front_img = &data->img[PIZZA_IMG];
+	data->spell[PIZZA].item.back_img = &data->img[PIZZA_IMG];
+}
+
 void	init_spell(t_data *data)
 {
 	data->active_spell = -1;
