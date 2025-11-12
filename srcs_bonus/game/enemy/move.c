@@ -1844,6 +1844,7 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 	int		diff_x;
 	int		diff_y;
 	t_ray	ray;
+	int		type;
 	
 	dist_min = -1;
 	keep_elem = NULL;
@@ -1951,6 +1952,7 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 			{
 				if (enemy->dist_target < dist_min || dist_min == -1)
 				{
+					type = elem->type;
 					keep_elem = elem;
 					dist_min = enemy->dist_target;
 					coo.case_x = elem->center.case_x;
@@ -2049,6 +2051,7 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 				if (dist_min_player < dist_min || dist_min_player < 256 || dist_min == -1)
 				{
 					dist_min = dist_min_player;
+					type = -1;
 					coo.case_x = data->player.coo.case_x;
 					coo.case_y = data->player.coo.case_y;
 					coo.coo_y = data->player.coo.coo_y;
