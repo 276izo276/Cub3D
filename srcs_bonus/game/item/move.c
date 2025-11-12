@@ -176,7 +176,7 @@ void	move_more_hit_pos_item(t_item *item)
 	// 	dx = -dx;
 	dx *= 2000;
 	dy *= 2000;
-	printf("change hit pos dy>%lf   dx>%lf\n",dy,dx);
+	// printf("change hit pos dy>%lf   dx>%lf\n",dy,dx);
 	item->damage.hit.coo_x += dx;
 	item->damage.hit.coo_y += dy;
 }

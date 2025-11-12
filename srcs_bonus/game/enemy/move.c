@@ -1865,6 +1865,8 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 			continue;
 		else if (enemy->type == SNAKE && elem->type == SNAKE)
 			continue ;
+		else if (is_sorcerer(enemy->type) == false && is_sorcerer(elem->type) == false && enemy->type != SNAKE)
+			continue;
 		diff_x = elem->center.case_x * 64 + elem->center.coo_x
 			- enemy->center.case_x * 64 - enemy->center.coo_x;
 		diff_y = elem->center.case_y * 64 + elem->center.coo_y
@@ -1959,6 +1961,7 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 			}
 		}
 	}
+	// printf("move >>> %d, type >> %d\n", enemy->nb_move, enemy->type);
 	if (enemy->type != BIRD && enemy->nb_move >= 10 && data->player.invisible == 255)
 	{
 		int	diff_player_x = data->player.coo.case_x * 64 + data->player.coo.coo_x
@@ -2082,7 +2085,7 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 		deg = 180;
 	// printf("\ndeg angle to player>>>%lf     base>>%lf\n",deg,enemy->deg);
 	// printf("\ndeg angle to player>>>%lf     %lf     %lf\n",enemy->deg - 90 + 360, deg + 360, enemy->deg + 90 + 360);
-	enemy->deg = fmod(enemy->deg, 360);
+	deg = fmod(deg, 360);
 	if (dist_min != -1)
 	{
 		enemy->dist_target = dist_min;
@@ -2094,7 +2097,7 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 			{
 				enemy->time_attack_dist = get_mtime();
 				data->item = add_end_lst(create_item(data, FIREBALL_ELEM, 
-					&enemy->center, enemy->deg + 180), data->item, f_item);
+					&enemy->center, deg + 180), data->item, f_item);
 			}
 			else if (rand() % 1000 < 50 && 
 				get_mtime() > enemy->time_attack_dist + enemy->cooldown_dist * 1000)
@@ -2103,12 +2106,12 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 				if (enemy->type == SPIDER)
 				{
 					data->item = add_end_lst(create_item(data, WEB_SPIDER, 
-						&enemy->center, enemy->deg + 180), data->item, f_item);
+						&enemy->center, deg + 180), data->item, f_item);
 				}
 				else if (enemy->type == ELEM)
 				{
 					data->item = add_end_lst(create_item(data, FIREBALL_ELEM, 
-						&enemy->center, enemy->deg + 180), data->item, f_item);
+						&enemy->center, deg + 180), data->item, f_item);
 				}
 			}
 			
