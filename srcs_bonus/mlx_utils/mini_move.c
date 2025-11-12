@@ -543,7 +543,7 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	mini->dy *= SPEED;
 	mini->sdx *= SPEED;
 	mini->sdy *= SPEED;
-	printf("\ndx>%lf   dy>%lf         sdx>%lf   sdy>%lf\n",mini->dx,mini->dy,mini->sdx,mini->sdy);
+	// printf("\ndx>%lf   dy>%lf         sdx>%lf   sdy>%lf\n",mini->dx,mini->dy,mini->sdx,mini->sdy);
 	if (data->player.damage.slow_frame_take > 0 || data->player.damage.slow_force_take > 0)
 	{
 		if (data->player.damage.slow_force_take > 100)
