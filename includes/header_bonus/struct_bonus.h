@@ -373,15 +373,6 @@ typedef enum e_spells
 	ENDOLORIS,	
 	AVADA_KEDAVRA,
 
-	TIG,
-	BH,
-	PIZZA,
-	KEYBOARD,
-	FOLDER,
-	WORMS,
-	TAYLOR_SWIFT,
-	COMPANY,
-	LOGO_42,
 
 	END_SPELL
 }	t_spells;
@@ -397,6 +388,15 @@ typedef enum e_items
 	FLOO_POPO,
 	INVI_POPO,
 	ANIM_DEATH,
+	TIG,
+	BH,
+	PIZZA,
+	KEYBOARD,
+	FOLDER,
+	WORMS,
+	TAYLOR_SWIFT,
+	COMPANY,
+	LOGO_42,
 
 	END_ITEM
 }	t_items;
