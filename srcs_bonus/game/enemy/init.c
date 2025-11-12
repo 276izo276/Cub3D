@@ -187,7 +187,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 }
 void	fill_sorcerer(t_data *data, t_enemy *enemy, char c)
 {
-	enemy->dist_stop = 20;
+	enemy->dist_stop = 40;
 	enemy->dist_damage = 32;
 	enemy->dist_visu = 640;
 	enemy->speed = 2.5;

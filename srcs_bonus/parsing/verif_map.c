@@ -8,13 +8,13 @@
 
 static void	is_valid_char_map(char c, int y, int x, t_data *data)
 {
-	const char	tab[] = {'0', '1', 'D', 'F', ' ', '.', ',', '<', '>', ';','z','x','c','v', 'N', 'S', 'W', 'E', 0};
+	const char	tab[] = {'0', '1', 'D', 'F', ' ', '.', ',', '<', '>', ';', '2', '3', '4', '5', '6', '7', '8', '9', 'm','z','x','c','v', 'N', 'S', 'W', 'E', 0};
 	int			i;
 
 	i = -1;
 	while (tab[++i])
 	{
-		if (tab[i] == c && i >= 14)
+		if (tab[i] == c && i >= 23)
 		{
 			if (data->player.coo.case_x != 0 && data->player.coo.case_y != 0)
 			{
@@ -26,7 +26,7 @@ static void	is_valid_char_map(char c, int y, int x, t_data *data)
 			data->player.coo.case_x = x;
 			return ;
 		}
-		else if (tab[i] == c && i <= 13)
+		else if (tab[i] == c && i <= 22)
 			return ;
 	}
 	ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE "Map >>> '"
