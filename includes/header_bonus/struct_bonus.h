@@ -254,6 +254,10 @@ typedef enum e_imgs
 	ARANIA_EXUMAI_IMG,
 	AGUAMENTI_IMG,
 	TIG_IMG,
+	COMPANY_IMG,
+	TAYLOR_SWIFT_IMG,
+	LOGO_42_IMG,
+
 
 	LUMOS_ICN,
 	INCENDIO_ICN,
@@ -371,6 +375,13 @@ typedef enum e_spells
 
 	TIG,
 	BH,
+	PIZZA,
+	KEYBOARD,
+	FOLDER,
+	WORMS,
+	TAYLOR_SWIFT,
+	COMPANY,
+	LOGO_42,
 
 	END_SPELL
 }	t_spells;

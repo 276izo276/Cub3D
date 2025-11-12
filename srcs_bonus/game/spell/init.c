@@ -372,10 +372,10 @@ static void	init_tig(t_data *data)
 	data->spell[TIG].damage.curse_frame_do = 120;
 	data->spell[TIG].damage.repulso_force_do = 2;
 	data->spell[TIG].damage.repulso_frame_do = 5;
-	data->spell[TIG].item.speed = 40;
+	data->spell[TIG].item.speed = 10;
 	data->spell[TIG].item.radius = 5;
-	data->spell[TIG].item.front_img = &data->img[TIG_IMG];
-	data->spell[TIG].item.back_img = &data->img[TIG_IMG];
+	data->spell[TIG].item.front_img = &data->img[LOGO_42_IMG];
+	data->spell[TIG].item.back_img = &data->img[LOGO_42_IMG];
 }
 
 
