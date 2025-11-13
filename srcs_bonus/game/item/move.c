@@ -442,18 +442,18 @@ void	move_item(t_data *data)
 		//DBG1printf("3\n");
 		item->deg += item->deg_rotate;
 		item->rad = item->deg * (M_PI / 180);
-		if (item->type == BH)
+		if (item->type == BH && item->categ)
 			item->radius += .1;
-		if (item->type == EXPECTO_PATRONUM)
+		if (item->type == EXPECTO_PATRONUM && !item->categ)
 			item->radius += .3;
-		else if (item->type == ANIM_DEATH)
+		else if (item->type == ANIM_DEATH && !item->categ)
 			item->radius += 1.5;
-		if (item->type == VENTUS)
+		if (item->type == VENTUS && !item->categ)
 		{
 			// printf("expecto patronum uo radius\n");
 			item->radius += .1;
 		}
-		if (item->type == VENTUS || item->type == BH)
+		if ((item->type == VENTUS && !item->categ) || (item->type == BH && item->categ))
 			apply_attraction(item, data);
 		calc_left_point_item(item);
 		calc_right_point_item(item);
@@ -473,7 +473,7 @@ void	move_item(t_data *data)
 		if (item->nb_move >= 1)
 			make_move_item(item, item->speed);
 		// printf("after move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
-		if ((try_hit_items(item, data) && item->type != BH && item->type != VENTUS && item->type != EXPECTO_PATRONUM && item->type != ANIM_DEATH)
+		if ((try_hit_items(item, data) && (item->type != BH && item->categ ) && (item->type != VENTUS && item->type != EXPECTO_PATRONUM && item->type != ANIM_DEATH && !item->categ))
 			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1')
 		{
 			//DBG1printf("remove elem lst\n");
@@ -483,7 +483,7 @@ void	move_item(t_data *data)
 			lst = next;
 			continue;
 		}
-		if ((item->type == VENTUS && item->nb_move >= 400) || (item->type == ANIM_DEATH && item->nb_move >= 10) || ( item->type == EXPECTO_PATRONUM && item->nb_move >= 300) || (item->type == BH && item->nb_move >= 200))
+		if ((item->type == VENTUS && !item->categ && item->nb_move >= 400) || (item->type == ANIM_DEATH && item->categ && item->nb_move >= 10) || (item->type == EXPECTO_PATRONUM && !item->categ && item->nb_move >= 300) || (item->type == BH && item->categ && item->nb_move >= 200))
 		{
 			t_lst	*next = lst->next;
 
