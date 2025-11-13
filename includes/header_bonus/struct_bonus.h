@@ -403,6 +403,7 @@ typedef enum e_items
 	TAYLOR_SWIFT,
 	COMPANY,
 	LOGO_42,
+	MARVIN,
 
 	END_ITEM
 }	t_items;

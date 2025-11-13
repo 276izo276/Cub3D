@@ -308,4 +308,9 @@ void	init_item(t_data *data)
 	init_bh(data);
 	init_pizza(data);
 	init_taylor_swift(data);
+	init_keyboard(data);
+	init_folder(data);
+	init_worms(data);
+	init_company(data);
+	init_logo_42(data);
 }
