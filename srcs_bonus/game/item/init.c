@@ -212,18 +212,18 @@ static void	init_pizza(t_data *data)
 	data->items[PIZZA].back_img = &data->img[PIZZA_IMG];
 }
 
-// static void	init_keyboard(t_data *data)
-// {
-// 	data->items[MAC].categ = ITEM;
-// 	data->items[MAC].type = MAC;
-// 	data->items[MAC].damage.damage_do = 25;
-// 	data->items[MAC].damage.curse_force_do = .1;
-// 	data->items[MAC].damage.curse_frame_do = 120;
-// 	data->items[MAC].speed = 10;
-// 	data->items[MAC].radius = 5;
-// 	data->items[MAC].front_img = &data->img[MAC_IMG];
-// 	data->items[MAC].back_img = &data->img[MAC_IMG];
-// }
+static void	init_mac(t_data *data)
+{
+	data->items[MAC].categ = ITEM;
+	data->items[MAC].type = MAC;
+	data->items[MAC].damage.damage_do = 25;
+	data->items[MAC].damage.curse_force_do = .1;
+	data->items[MAC].damage.curse_frame_do = 120;
+	data->items[MAC].speed = 10;
+	data->items[MAC].radius = 5;
+	data->items[MAC].front_img = &data->img[MAC_IMG];
+	data->items[MAC].back_img = &data->img[MAC_IMG];
+}
 
 
 static void	init_folder(t_data *data)
@@ -312,4 +312,5 @@ void	init_item(t_data *data)
 	init_logo_42(data);
 	init_company(data);
 	init_folder(data);
+	init_mac(data);
 }
