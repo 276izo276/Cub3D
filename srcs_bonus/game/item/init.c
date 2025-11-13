@@ -65,6 +65,7 @@ t_item	*create_item(t_data *data, t_items info, t_fcoo *coo, double deg)
 	item->speed = data->items[info].speed;
 	item->type = data->items[info].type;
 	item->deg_rotate = data->items[info].deg_rotate;
+	item->categ = data->items[info].categ;
 
 	item->damage.damage_do = data->items[info].damage.damage_do;
 	item->damage.damage_spider_do = data->items[info].damage.damage_spider_do;
@@ -169,6 +170,51 @@ void	init_popo_invi(t_data *data)
 	data->items[INVI_POPO].back_img = &data->img[POPO_INVI_IMG];
 }
 
+static void	init_tig(t_data *data)
+{
+	data->items[TIG].categ = ITEM;
+	data->items[TIG].type = TIG;
+	data->items[TIG].damage.damage_do = 25;
+	data->items[TIG].damage.curse_force_do = .1;
+	data->items[TIG].damage.curse_frame_do = 120;
+	data->items[TIG].damage.repulso_force_do = 2;
+	data->items[TIG].damage.repulso_frame_do = 5;
+	data->items[TIG].speed = 10;
+	data->items[TIG].radius = 5;
+	data->items[TIG].front_img = &data->img[LOGO_42_IMG];
+	data->items[TIG].back_img = &data->img[LOGO_42_IMG];
+}
+
+
+static void	init_bh(t_data *data)
+{
+	data->items[BH].categ = ITEM;
+	data->items[BH].type = BH;
+	data->items[BH].damage.damage_do = .1;
+	data->items[BH].damage.curse_force_do = .05;
+	data->items[BH].damage.curse_frame_do = 120;
+	data->items[BH].damage.repulso_force_do = -6.0;
+	data->items[BH].damage.repulso_frame_do = 1;
+	data->items[BH].speed = 3;
+	data->items[BH].radius = 5;
+}
+
+static void	init_pizza(t_data *data)
+{
+	data->items[PIZZA].categ = ITEM;
+	data->items[PIZZA].type = PIZZA;
+	data->items[PIZZA].damage.damage_do = 25;
+	data->items[PIZZA].damage.curse_force_do = .1;
+	data->items[PIZZA].damage.curse_frame_do = 120;
+	data->items[PIZZA].damage.repulso_force_do = 2;
+	data->items[PIZZA].damage.repulso_frame_do = 5;
+	data->items[PIZZA].speed = 10;
+	data->items[PIZZA].radius = 5;
+	data->items[PIZZA].front_img = &data->img[LOGO_42_IMG];
+	data->items[PIZZA].back_img = &data->img[LOGO_42_IMG];
+}
+
+
 void	init_item(t_data *data)
 {
 	init_poison_spider(data);
@@ -179,4 +225,8 @@ void	init_item(t_data *data)
 	init_popo_floo(data);
 	init_popo_invi(data);
 	init_death_anim(data);
+
+	init_tig(data);
+	init_bh(data);
+	init_pizza(data);
 }

@@ -190,8 +190,9 @@ void	display_item(t_data *data, int i)
 				data->ray[i].pix_y++;
 			}
 		}    
-		if (data->ray[i].items[j]->type == EXPECTO_PATRONUM)
+		if (data->ray[i].items[j]->type == EXPECTO_PATRONUM && data->ray[i].items[j]->categ != ITEM)
 		{
+			printf("here %d\n",data->ray[i].items[j]->categ);
 			data->ray[i].items[j]->htop = data->mlx.height / 2 - (2 * data->ray[i].items[j]->item->radius) * data->ray[i].d_proj / data->ray[i].items[j]->dist;
 			data->ray[i].pix_y = data->ray[i].items[j]->htop;
 			if (data->ray[i].pix_y < 0)

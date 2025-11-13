@@ -388,6 +388,7 @@ typedef enum e_items
 	FLOO_POPO,
 	INVI_POPO,
 	ANIM_DEATH,
+
 	TIG,
 	BH,
 	PIZZA,
@@ -609,6 +610,7 @@ struct s_hit_item
 	t_item		*item;
 	t_enemy		*enemy;
 	t_door		*door;
+	int			categ;
 	int			type;
 	int			status;
 	int			side;

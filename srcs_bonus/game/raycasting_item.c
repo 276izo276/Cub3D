@@ -72,6 +72,7 @@ void	try_hit_item(t_data *data, int i, double x)
 				if (data->ray[i].items[ray.j]->use == false)
 					break ;
 			data->ray[i].items[ray.j]->type = ITEM;
+			data->ray[i].items[ray.j]->categ = item->categ;
 			if (item->type == EXPECTO_PATRONUM || item->type == ANIM_DEATH || item->type == BH)
 				data->ray[i].items[ray.j]->type = item->type;
 			if (item->type == VENTUS)
