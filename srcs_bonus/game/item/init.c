@@ -220,7 +220,7 @@ static void	init_mac(t_data *data)
 	data->items[MAC].damage.curse_force_do = .1;
 	data->items[MAC].damage.curse_frame_do = 120;
 	data->items[MAC].speed = 10;
-	data->items[MAC].radius = 5;
+	data->items[MAC].radius = 3;
 	data->items[MAC].front_img = &data->img[MAC_IMG];
 	data->items[MAC].back_img = &data->img[MAC_IMG];
 }

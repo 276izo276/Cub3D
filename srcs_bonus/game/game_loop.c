@@ -87,7 +87,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 			}
 			else if (data->keycode[i] == KEY_6)
 			{
-				data->item = add_end_lst(create_item(data, BH, 
+				data->item = add_end_lst(create_item(data, LOGO_42, 
 					&data->player.coo, data->map.mini.deg), data->item, f_item);
 				make_move_item(data->item->dt, 10);
 				data->keycode[i] = 0;
