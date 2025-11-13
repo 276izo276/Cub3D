@@ -1894,7 +1894,7 @@ void	earth_spell(t_data *data, t_enemy *enemy, double deg, int type)
 		data->item = add_end_lst(create_item(data, LOGO_42, 
 			&enemy->center, deg + 180), data->item, f_item);
 	// else if (enemy->type == PILO)
-	// 	data->item = add_end_lst(create_item(data, KEYBOARD, 
+	// 	data->item = add_end_lst(create_item(data, MAC, 
 	// 		&enemy->center, deg + 180), data->item, f_item);
 	else if (enemy->type == DIRLO)
 		data->item = add_end_lst(create_item(data, TIG, 

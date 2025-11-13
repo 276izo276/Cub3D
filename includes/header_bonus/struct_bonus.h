@@ -259,7 +259,7 @@ typedef enum e_imgs
 	LOGO_42_IMG,
 	MARVIN_IMG,
 	PIZZA_IMG,
-	KEYBOARD_IMG,
+	MAC_IMG,
 	FOLDER_IMG,
 	WORMS_IMG,
 
@@ -397,7 +397,7 @@ typedef enum e_items
 	TIG,
 	BH,
 	PIZZA,
-	KEYBOARD,
+	MAC,
 	FOLDER,
 	MARVIN,
 	TAYLOR_SWIFT,

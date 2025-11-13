@@ -144,7 +144,7 @@ static void	set_path_texture(t_data *data)
 
 	data->img[TIG_IMG].path = "./texture/spell/TIG.xpm";
 	data->img[PIZZA_IMG].path = "./texture/spell/pizza.xpm";
-	data->img[KEYBOARD_IMG].path = "./texture/spell/keyboard.xpm";
+	data->img[MAC_IMG].path = "./texture/spell/keyboard.xpm";
 	data->img[FOLDER_IMG].path = "./texture/spell/folder.xpm";
 	data->img[MARVIN_IMG].path = "./texture/spell/marvin.xpm";
 	data->img[TAYLOR_SWIFT_IMG].path = "./texture/spell/taylor_swift.xpm";

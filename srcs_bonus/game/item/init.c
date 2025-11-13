@@ -214,30 +214,30 @@ static void	init_pizza(t_data *data)
 
 // static void	init_keyboard(t_data *data)
 // {
-// 	data->items[KEYBOARD].categ = ITEM;
-// 	data->items[KEYBOARD].type = KEYBOARD;
-// 	data->items[KEYBOARD].damage.damage_do = 25;
-// 	data->items[KEYBOARD].damage.curse_force_do = .1;
-// 	data->items[KEYBOARD].damage.curse_frame_do = 120;
-// 	data->items[KEYBOARD].speed = 10;
-// 	data->items[KEYBOARD].radius = 5;
-// 	data->items[KEYBOARD].front_img = &data->img[KEYBOARD_IMG];
-// 	data->items[KEYBOARD].back_img = &data->img[KEYBOARD_IMG];
+// 	data->items[MAC].categ = ITEM;
+// 	data->items[MAC].type = MAC;
+// 	data->items[MAC].damage.damage_do = 25;
+// 	data->items[MAC].damage.curse_force_do = .1;
+// 	data->items[MAC].damage.curse_frame_do = 120;
+// 	data->items[MAC].speed = 10;
+// 	data->items[MAC].radius = 5;
+// 	data->items[MAC].front_img = &data->img[MAC_IMG];
+// 	data->items[MAC].back_img = &data->img[MAC_IMG];
 // }
 
 
-// static void	init_folder(t_data *data)
-// {
-// 	data->items[FOLDER].categ = ITEM;
-// 	data->items[FOLDER].type = FOLDER;
-// 	data->items[FOLDER].damage.damage_do = 25;
-// 	data->items[FOLDER].damage.curse_force_do = .1;
-// 	data->items[FOLDER].damage.curse_frame_do = 120;
-// 	data->items[FOLDER].speed = 10;
-// 	data->items[FOLDER].radius = 5;
-// 	data->items[FOLDER].front_img = &data->img[FOLDER_IMG];
-// 	data->items[FOLDER].back_img = &data->img[FOLDER_IMG];
-// }
+static void	init_folder(t_data *data)
+{
+	data->items[FOLDER].categ = ITEM;
+	data->items[FOLDER].type = FOLDER;
+	data->items[FOLDER].damage.damage_do = 25;
+	data->items[FOLDER].damage.curse_force_do = .1;
+	data->items[FOLDER].damage.curse_frame_do = 120;
+	data->items[FOLDER].speed = 10;
+	data->items[FOLDER].radius = 5;
+	data->items[FOLDER].front_img = &data->img[FOLDER_IMG];
+	data->items[FOLDER].back_img = &data->img[FOLDER_IMG];
+}
 
 
 static void	init_marvin(t_data *data)
@@ -311,4 +311,5 @@ void	init_item(t_data *data)
 	init_marvin(data);
 	init_logo_42(data);
 	init_company(data);
+	init_folder(data);
 }
