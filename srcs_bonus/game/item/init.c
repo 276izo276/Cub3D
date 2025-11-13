@@ -48,7 +48,7 @@ t_item	*init_spell_item(t_data *data, int info)
 	return (item);
 }
 
-t_item	*create_item(t_data *data, t_items info, t_fcoo *coo, double deg)
+t_item	*create_item(t_data *data, int info, t_fcoo *coo, double deg)
 {
 	t_item	*item;
 
