@@ -263,7 +263,6 @@ typedef enum e_imgs
 	MAC_IMG,
 	FOLDER_IMG,
 
-
 	LUMOS_ICN,
 	INCENDIO_ICN,
 	GLACIUS_ICN,
