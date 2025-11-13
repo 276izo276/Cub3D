@@ -804,7 +804,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 	{
 		
 		item = lst->dt;
-		if (item->type == POPO_HEAL || item->type == POPO_SHIELD || item->type == POPO_FLOO || item->type == POPO_INVI || (elem->type != DEMENTOR && item->type == EXPECTO_PATRONUM))
+		if (item->type == POPO_HEAL || item->type == POPO_SHIELD || item->type == POPO_FLOO || item->type == POPO_INVI || (elem->type != DEMENTOR && item->type == EXPECTO_PATRONUM && !item->categ))
 		{
 			lst = lst->next;
 			continue;
@@ -828,7 +828,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS && item->type != BH)
+			if ((!item->categ && item->type != EXPECTO_PATRONUM && item->type != VENTUS) && (item->type != BH && item->categ))
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -849,7 +849,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS && item->type != BH)
+			if ((!item->categ && item->type != EXPECTO_PATRONUM && item->type != VENTUS) && (item->type != BH && item->categ))
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -870,7 +870,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS && item->type != BH)
+			if ((!item->categ && item->type != EXPECTO_PATRONUM && item->type != VENTUS) && (item->type != BH && item->categ))
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -899,7 +899,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS && item->type != BH)
+			if ((!item->categ && item->type != EXPECTO_PATRONUM && item->type != VENTUS) && (item->type != BH && item->categ))
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -922,7 +922,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if (item->type != EXPECTO_PATRONUM && item->type != VENTUS && item->type != BH)
+			if ((!item->categ && item->type != EXPECTO_PATRONUM && item->type != VENTUS) && (item->type != BH && item->categ))
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
