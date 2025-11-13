@@ -150,6 +150,7 @@ static void	set_path_texture(t_data *data)
 	data->img[TAYLOR_SWIFT_IMG].path = "./texture/spell/taylor_swift.xpm";
 	data->img[COMPANY_IMG].path = "./texture/spell/company.xpm";
 	data->img[LOGO_42_IMG].path = "./texture/spell/42.xpm";
+	data->img[MARVIN_IMG].path = "./texture/spell/marvin.xpm";
 
 	data->img[AGUAMENTI_ICN].path = "./texture/spell/aguamenti_icn.xpm";
 	data->img[INCENDIO_ICN].path = "./texture/spell/incendio_icn.xpm";

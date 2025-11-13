@@ -1822,84 +1822,84 @@ bool	is_sorcerer(int type)
 	return (false);
 }
 
-// void	air_spell(t_data *data, t_enemy *enemy, double deg, int type)
-// {
-// 	if (type == DEMENTOR)
-// 		data->item = add_end_lst(create_item(data, EXPECTO_PATRONUM, 
-// 					&enemy->center, deg + 180), data->item, f_item);
-// 	else if (type == SPIDER)
-// 		data->item = add_end_lst(create_item(data, ARANIA_EXUMAI, 
-// 					&enemy->center, deg + 180), data->item, f_item);
-// 	else if (rand() % 2 == 2)
-// 		data->item = add_end_lst(create_item(data, VENTUS, 
-// 					&enemy->center, deg + 180), data->item, f_item);
-// 	else if (enemy->type == KUNFANDI)
-// 		data->item = add_end_lst(create_item(data, BH, 
-// 			&enemy->center, deg + 180), data->item, f_item);
-// 	// else if (enemy->type == CAMEO)
-// 	// 	data->item = add_end_lst(create_item(data, MARVIN, 
-// 	// 		&enemy->center, deg + 180), data->item, f_item);
-// 	else if (enemy->type == ANAIS)
-// 		data->item = add_end_lst(create_item(data, TAYLOR_SWIFT, 
-// 			&enemy->center, deg + 180), data->item, f_item);
-// }
+void	air_spell(t_data *data, t_enemy *enemy, double deg, int type)
+{
+	if (type == DEMENTOR)
+		data->item = add_end_lst(create_item(data, EXPECTO_PATRONUM, 
+					&enemy->center, deg + 180), data->item, f_item);
+	else if (type == SPIDER)
+		data->item = add_end_lst(create_item(data, ARANIA_EXUMAI, 
+					&enemy->center, deg + 180), data->item, f_item);
+	else if (rand() % 2 == 1)
+		data->item = add_end_lst(create_item(data, VENTUS, 
+					&enemy->center, deg + 180), data->item, f_item);
+	else if (enemy->type == KUNFANDI)
+		data->item = add_end_lst(create_item(data, BH, 
+			&enemy->center, deg + 180), data->item, f_item);
+	// else if (enemy->type == CAMEO)
+	// 	data->item = add_end_lst(create_item(data, MARVIN, 
+	// 		&enemy->center, deg + 180), data->item, f_item);
+	else if (enemy->type == ANAIS)
+		data->item = add_end_lst(create_item(data, TAYLOR_SWIFT, 
+			&enemy->center, deg + 180), data->item, f_item);
+}
 
-// void	water_spell(t_data *data, t_enemy *enemy, double deg, int type)
-// {
-// 	if (type == DEMENTOR)
-// 		data->item = add_end_lst(create_item(data, EXPECTO_PATRONUM, 
-// 					&enemy->center, deg + 180), data->item, f_item);
-// 	else if (type == SPIDER)
-// 		data->item = add_end_lst(create_item(data, ARANIA_EXUMAI, 
-// 					&enemy->center, deg + 180), data->item, f_item);
-// 	else if (rand() % 2 == 2)
-// 		data->item = add_end_lst(create_item(data, AGUAMENTI, 
-// 					&enemy->center, deg + 180), data->item, f_item);
-// 	// else
-// 	// 	data->item = add_end_lst(create_item(data, FOLDER, 
-// 	// 		&enemy->center, deg + 180), data->item, f_item);
-// }
+void	water_spell(t_data *data, t_enemy *enemy, double deg, int type)
+{
+	if (type == DEMENTOR)
+		data->item = add_end_lst(create_item(data, EXPECTO_PATRONUM, 
+					&enemy->center, deg + 180), data->item, f_item);
+	else if (type == SPIDER)
+		data->item = add_end_lst(create_item(data, ARANIA_EXUMAI, 
+					&enemy->center, deg + 180), data->item, f_item);
+	else if (rand() % 2 == 1)
+		data->item = add_end_lst(create_item(data, AGUAMENTI, 
+					&enemy->center, deg + 180), data->item, f_item);
+	// else
+	// 	data->item = add_end_lst(create_item(data, FOLDER, 
+	// 		&enemy->center, deg + 180), data->item, f_item);
+}
 
-// void	fire_spell(t_data *data, t_enemy *enemy, double deg, int type)
-// {
-// 	if (type == DEMENTOR)
-// 		data->item = add_end_lst(create_item(data, EXPECTO_PATRONUM, 
-// 					&enemy->center, deg + 180), data->item, f_item);
-// 	else if (type == SPIDER)
-// 		data->item = add_end_lst(create_item(data, ARANIA_EXUMAI, 
-// 					&enemy->center, deg + 180), data->item, f_item);
-// 	else if (rand() % 2 == 2)
-// 		data->item = add_end_lst(create_item(data, INCENDIO, 
-// 					&enemy->center, deg + 180), data->item, f_item);
-// 	else if (enemy->type == STEF)
-// 		data->item = add_end_lst(create_item(data, COMPANY, 
-// 			&enemy->center, deg + 180), data->item, f_item);
-// 	// else if (enemy->type == ZIPPY)
-// 	// 	data->item = add_end_lst(create_item(data, PIZZA, 
-// 	// 		&enemy->center, deg + 180), data->item, f_item);
-// }
+void	fire_spell(t_data *data, t_enemy *enemy, double deg, int type)
+{
+	if (type == DEMENTOR)
+		data->item = add_end_lst(create_item(data, EXPECTO_PATRONUM, 
+					&enemy->center, deg + 180), data->item, f_item);
+	else if (type == SPIDER)
+		data->item = add_end_lst(create_item(data, ARANIA_EXUMAI, 
+					&enemy->center, deg + 180), data->item, f_item);
+	else if (rand() % 2 == 1)
+		data->item = add_end_lst(create_item(data, INCENDIO, 
+					&enemy->center, deg + 180), data->item, f_item);
+	else if (enemy->type == STEF)
+		data->item = add_end_lst(create_item(data, COMPANY, 
+			&enemy->center, deg + 180), data->item, f_item);
+	// else if (enemy->type == ZIPPY)
+	// 	data->item = add_end_lst(create_item(data, PIZZA, 
+	// 		&enemy->center, deg + 180), data->item, f_item);
+}
 
-// void	earth_spell(t_data *data, t_enemy *enemy, double deg, int type)
-// {
-// 	if (type == DEMENTOR)
-// 		data->item = add_end_lst(create_item(data, EXPECTO_PATRONUM, 
-// 					&enemy->center, deg + 180), data->item, f_item);
-// 	else if (type == SPIDER)
-// 		data->item = add_end_lst(create_item(data, ARANIA_EXUMAI, 
-// 					&enemy->center, deg + 180), data->item, f_item);
-// 	else if (rand() % 2 == 2)
-// 		data->item = add_end_lst(create_item(data, ENDOLORIS, 
-// 					&enemy->center, deg + 180), data->item, f_item);
-// 	else if (enemy->type == MARINA)
-// 		data->item = add_end_lst(create_item(data, LOGO_42, 
-// 			&enemy->center, deg + 180), data->item, f_item);
-// 	// else if (enemy->type == PILO)
-// 	// 	data->item = add_end_lst(create_item(data, KEYBOARD, 
-// 	// 		&enemy->center, deg + 180), data->item, f_item);
-// 	// else if (enemy->type == DIRLO)
-// 	// 	data->item = add_end_lst(create_item(data, TIG, 
-// 	// 		&enemy->center, deg + 180), data->item, f_item);
-// }
+void	earth_spell(t_data *data, t_enemy *enemy, double deg, int type)
+{
+	if (type == DEMENTOR)
+		data->item = add_end_lst(create_item(data, EXPECTO_PATRONUM, 
+					&enemy->center, deg + 180), data->item, f_item);
+	else if (type == SPIDER)
+		data->item = add_end_lst(create_item(data, ARANIA_EXUMAI, 
+					&enemy->center, deg + 180), data->item, f_item);
+	else if (rand() % 2 == 1)
+		data->item = add_end_lst(create_item(data, ENDOLORIS, 
+					&enemy->center, deg + 180), data->item, f_item);
+	else if (enemy->type == MARINA)
+		data->item = add_end_lst(create_item(data, LOGO_42, 
+			&enemy->center, deg + 180), data->item, f_item);
+	// else if (enemy->type == PILO)
+	// 	data->item = add_end_lst(create_item(data, KEYBOARD, 
+	// 		&enemy->center, deg + 180), data->item, f_item);
+	else if (enemy->type == DIRLO)
+		data->item = add_end_lst(create_item(data, TIG, 
+			&enemy->center, deg + 180), data->item, f_item);
+}
 
 int	enemy_vision(t_data *data, t_enemy *enemy)
 {
@@ -2168,14 +2168,14 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 				get_mtime() > enemy->time_attack_dist + enemy->cooldown_dist * 1000)
 			{
 				enemy->time_attack_dist = get_mtime();
-				// if (enemy->color_coa == AIR_COLOR)
-				// 	air_spell(data, enemy, deg, type);
-				// else if (enemy->color_coa == EARTH_COLOR)
-				// 	earth_spell(data, enemy, deg, type);
-				// else if (enemy->color_coa == WATER_COLOR)
-				// 	water_spell(data, enemy, deg, type);
-				// else if (enemy->color_coa == FIRE_COLOR)
-				// 	fire_spell(data, enemy, deg, type);
+				if (enemy->color_coa == AIR_COLOR)
+					air_spell(data, enemy, deg, type);
+				else if (enemy->color_coa == EARTH_COLOR)
+					earth_spell(data, enemy, deg, type);
+				else if (enemy->color_coa == WATER_COLOR)
+					water_spell(data, enemy, deg, type);
+				else if (enemy->color_coa == FIRE_COLOR)
+					fire_spell(data, enemy, deg, type);
 			}
 			else if (rand() % 1000 < 50 && 
 				get_mtime() > enemy->time_attack_dist + enemy->cooldown_dist * 1000)
