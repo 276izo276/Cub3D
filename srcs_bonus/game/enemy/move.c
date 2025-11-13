@@ -1836,9 +1836,9 @@ void	air_spell(t_data *data, t_enemy *enemy, double deg, int type)
 	else if (enemy->type == KUNFANDI)
 		data->item = add_end_lst(create_item(data, BH, 
 			&enemy->center, deg + 180), data->item, f_item);
-	// else if (enemy->type == CAMEO)
-	// 	data->item = add_end_lst(create_item(data, MARVIN, 
-	// 		&enemy->center, deg + 180), data->item, f_item);
+	else if (enemy->type == CAMEO)
+		data->item = add_end_lst(create_item(data, MARVIN, 
+			&enemy->center, deg + 180), data->item, f_item);
 	else if (enemy->type == ANAIS)
 		data->item = add_end_lst(create_item(data, TAYLOR_SWIFT, 
 			&enemy->center, deg + 180), data->item, f_item);

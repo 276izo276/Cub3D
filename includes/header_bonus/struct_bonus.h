@@ -399,7 +399,7 @@ typedef enum e_items
 	PIZZA,
 	KEYBOARD,
 	FOLDER,
-	WORMS,
+	MARVIN,
 	TAYLOR_SWIFT,
 	COMPANY,
 	LOGO_42,

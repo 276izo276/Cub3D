@@ -212,45 +212,45 @@ static void	init_pizza(t_data *data)
 	data->items[PIZZA].back_img = &data->img[PIZZA_IMG];
 }
 
-static void	init_keyboard(t_data *data)
+// static void	init_keyboard(t_data *data)
+// {
+// 	data->items[KEYBOARD].categ = ITEM;
+// 	data->items[KEYBOARD].type = KEYBOARD;
+// 	data->items[KEYBOARD].damage.damage_do = 25;
+// 	data->items[KEYBOARD].damage.curse_force_do = .1;
+// 	data->items[KEYBOARD].damage.curse_frame_do = 120;
+// 	data->items[KEYBOARD].speed = 10;
+// 	data->items[KEYBOARD].radius = 5;
+// 	data->items[KEYBOARD].front_img = &data->img[KEYBOARD_IMG];
+// 	data->items[KEYBOARD].back_img = &data->img[KEYBOARD_IMG];
+// }
+
+
+// static void	init_folder(t_data *data)
+// {
+// 	data->items[FOLDER].categ = ITEM;
+// 	data->items[FOLDER].type = FOLDER;
+// 	data->items[FOLDER].damage.damage_do = 25;
+// 	data->items[FOLDER].damage.curse_force_do = .1;
+// 	data->items[FOLDER].damage.curse_frame_do = 120;
+// 	data->items[FOLDER].speed = 10;
+// 	data->items[FOLDER].radius = 5;
+// 	data->items[FOLDER].front_img = &data->img[FOLDER_IMG];
+// 	data->items[FOLDER].back_img = &data->img[FOLDER_IMG];
+// }
+
+
+static void	init_marvin(t_data *data)
 {
-	data->items[KEYBOARD].categ = ITEM;
-	data->items[KEYBOARD].type = KEYBOARD;
-	data->items[KEYBOARD].damage.damage_do = 25;
-	data->items[KEYBOARD].damage.curse_force_do = .1;
-	data->items[KEYBOARD].damage.curse_frame_do = 120;
-	data->items[KEYBOARD].speed = 10;
-	data->items[KEYBOARD].radius = 5;
-	data->items[KEYBOARD].front_img = &data->img[KEYBOARD_IMG];
-	data->items[KEYBOARD].back_img = &data->img[KEYBOARD_IMG];
-}
-
-
-static void	init_folder(t_data *data)
-{
-	data->items[FOLDER].categ = ITEM;
-	data->items[FOLDER].type = FOLDER;
-	data->items[FOLDER].damage.damage_do = 25;
-	data->items[FOLDER].damage.curse_force_do = .1;
-	data->items[FOLDER].damage.curse_frame_do = 120;
-	data->items[FOLDER].speed = 10;
-	data->items[FOLDER].radius = 5;
-	data->items[FOLDER].front_img = &data->img[FOLDER_IMG];
-	data->items[FOLDER].back_img = &data->img[FOLDER_IMG];
-}
-
-
-static void	init_worms(t_data *data)
-{
-	data->items[WORMS].categ = ITEM;
-	data->items[WORMS].type = WORMS;
-	data->items[WORMS].damage.damage_do = 25;
-	data->items[WORMS].damage.curse_force_do = .1;
-	data->items[WORMS].damage.curse_frame_do = 120;
-	data->items[WORMS].speed = 10;
-	data->items[WORMS].radius = 5;
-	data->items[WORMS].front_img = &data->img[WORMS_IMG];
-	data->items[WORMS].back_img = &data->img[WORMS_IMG];
+	data->items[MARVIN].categ = ITEM;
+	data->items[MARVIN].type = MARVIN;
+	data->items[MARVIN].damage.damage_do = 25;
+	data->items[MARVIN].damage.curse_force_do = .1;
+	data->items[MARVIN].damage.curse_frame_do = 120;
+	data->items[MARVIN].speed = 10;
+	data->items[MARVIN].radius = 5;
+	data->items[MARVIN].front_img = &data->img[MARVIN_IMG];
+	data->items[MARVIN].back_img = &data->img[MARVIN_IMG];
 }
 
 static void	init_taylor_swift(t_data *data)
@@ -308,4 +308,7 @@ void	init_item(t_data *data)
 	init_bh(data);
 	init_pizza(data);
 	init_taylor_swift(data);
+	init_marvin(data);
+	init_logo_42(data);
+	init_company(data);
 }
