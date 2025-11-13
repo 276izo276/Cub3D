@@ -261,7 +261,6 @@ typedef enum e_imgs
 	PIZZA_IMG,
 	MAC_IMG,
 	FOLDER_IMG,
-	WORMS_IMG,
 
 
 	LUMOS_ICN,
