@@ -80,7 +80,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 				data->popo[3].call(data);
 			else if (data->keycode[i] == KEY_5)
 			{
-				data->item = add_end_lst(create_item(data, TIG, 
+				data->item = add_end_lst(create_item(data, FOLDER, 
 					&data->player.coo, data->map.mini.deg), data->item, f_item);
 				make_move_item(data->item->dt, 10);
 				data->keycode[i] = 0;

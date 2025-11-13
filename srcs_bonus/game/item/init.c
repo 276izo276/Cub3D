@@ -234,7 +234,7 @@ static void	init_folder(t_data *data)
 	data->items[FOLDER].damage.curse_force_do = .1;
 	data->items[FOLDER].damage.curse_frame_do = 120;
 	data->items[FOLDER].speed = 10;
-	data->items[FOLDER].radius = 5;
+	data->items[FOLDER].radius = 3;
 	data->items[FOLDER].front_img = &data->img[FOLDER_IMG];
 	data->items[FOLDER].back_img = &data->img[FOLDER_IMG];
 }
@@ -248,7 +248,7 @@ static void	init_marvin(t_data *data)
 	data->items[MARVIN].damage.curse_force_do = .1;
 	data->items[MARVIN].damage.curse_frame_do = 120;
 	data->items[MARVIN].speed = 10;
-	data->items[MARVIN].radius = 5;
+	data->items[MARVIN].radius = 3;
 	data->items[MARVIN].front_img = &data->img[MARVIN_IMG];
 	data->items[MARVIN].back_img = &data->img[MARVIN_IMG];
 }

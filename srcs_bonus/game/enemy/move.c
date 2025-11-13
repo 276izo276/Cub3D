@@ -1855,9 +1855,9 @@ void	water_spell(t_data *data, t_enemy *enemy, double deg, int type)
 	else if (rand() % 2 == 1)
 		data->item = add_end_lst(create_item(data, AGUAMENTI, 
 					&enemy->center, deg + 180), data->item, f_item);
-	// else
-	// 	data->item = add_end_lst(create_item(data, FOLDER, 
-	// 		&enemy->center, deg + 180), data->item, f_item);
+	else
+		data->item = add_end_lst(create_item(data, FOLDER, 
+			&enemy->center, deg + 180), data->item, f_item);
 }
 
 void	fire_spell(t_data *data, t_enemy *enemy, double deg, int type)
@@ -1874,9 +1874,9 @@ void	fire_spell(t_data *data, t_enemy *enemy, double deg, int type)
 	else if (enemy->type == STEF)
 		data->item = add_end_lst(create_item(data, COMPANY, 
 			&enemy->center, deg + 180), data->item, f_item);
-	// else if (enemy->type == ZIPPY)
-	// 	data->item = add_end_lst(create_item(data, PIZZA, 
-	// 		&enemy->center, deg + 180), data->item, f_item);
+	else if (enemy->type == ZIPPY)
+		data->item = add_end_lst(create_item(data, PIZZA, 
+			&enemy->center, deg + 180), data->item, f_item);
 }
 
 void	earth_spell(t_data *data, t_enemy *enemy, double deg, int type)
@@ -1893,9 +1893,9 @@ void	earth_spell(t_data *data, t_enemy *enemy, double deg, int type)
 	else if (enemy->type == MARINA)
 		data->item = add_end_lst(create_item(data, LOGO_42, 
 			&enemy->center, deg + 180), data->item, f_item);
-	// else if (enemy->type == PILO)
-	// 	data->item = add_end_lst(create_item(data, MAC, 
-	// 		&enemy->center, deg + 180), data->item, f_item);
+	else if (enemy->type == PILO)
+		data->item = add_end_lst(create_item(data, MAC, 
+			&enemy->center, deg + 180), data->item, f_item);
 	else if (enemy->type == DIRLO)
 		data->item = add_end_lst(create_item(data, TIG, 
 			&enemy->center, deg + 180), data->item, f_item);
