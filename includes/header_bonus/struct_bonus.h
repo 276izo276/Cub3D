@@ -412,7 +412,8 @@ typedef enum e_coas
 	FIRE,
 	WATER,
 	EARTH,
-	AIR
+	AIR,
+	OTHERS
 }	t_coas;
 
 struct s_coo
@@ -479,6 +480,8 @@ struct s_damage
 	double		confundo_force_take;
 	double		repulso_frame_take;
 	double		repulso_force_take;
+	int			which_coa_do;
+	int			which_coa_take;
 };
 
 struct	s_enemy
@@ -544,6 +547,7 @@ struct s_item
 	t_damage		damage;
 	unsigned int	nb_move;
 	double			deg_rotate;
+	int				coa;
 };
 
 struct s_door
@@ -874,6 +878,7 @@ struct s_coa
 	char	*name;
 	t_img	*img_coa;
 	t_img 	*border;
+	double	xp;
 };
 
 struct	s_hitray
@@ -956,6 +961,8 @@ struct	s_player
 	int				invisible;
 	long long int	timer_invi;
 	long long int	timer_invi_short;
+	int				coa;
+	unsigned int	color;
 };
 
 struct s_wand

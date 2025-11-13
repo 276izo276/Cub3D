@@ -41,7 +41,7 @@ void	draw_player(t_data *data, int pos_x, int pos_y)
 					* data->map.mini.img[MINI_CURS].height);
 			if (color != 0)
 				pixel_put(data, pixel_x + pos_x + (data->map.zoom / 4), pixel_y
-					+ pos_y + (data->map.zoom / 4), data->color);
+					+ pos_y + (data->map.zoom / 4), data->player.color);
 			++pixel_x;
 		}
 		++pixel_y;
@@ -69,7 +69,7 @@ void	draw_cursor(t_data *data)
 			if (color != WHITE)
 				pixel_put(data, pixel_x + data->mlx.width / 2 - (data->map.zoom
 						/ 2), pixel_y + (data->mlx.height - MARGIN) / 2
-					- (data->map.zoom / 2), data->color);
+					- (data->map.zoom / 2), data->player.color);
 			++pixel_x;
 		}
 		++pixel_y;
@@ -120,7 +120,7 @@ void	draw_texture(t_data *data, int pos_x, int pos_y, char c)
 			text_y = (pixel_y * 256) / data->map.zoom;
 			color = get_color(data, text_x, text_y, c);
 			if (get_texture_pixel(data->screen, pixel_x + pos_x, pos_y
-					+ pixel_y) != data->color)
+					+ pixel_y) != data->player.color)
 				pixel_put(data, pos_x + pixel_x, pos_y + pixel_y, color);
 			++pixel_x;
 		}

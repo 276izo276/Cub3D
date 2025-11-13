@@ -233,12 +233,13 @@ static void	key_select_coa(int keycode, t_data *data)
 	}
 	else if (keycode == KEY_ENTER)
 	{
-		data->color = data->coa[data->selected].color;
+		data->player.color = data->coa[data->selected].color;
+		data->player.coa = data->selected;
 		data->selected = 0;
 		int i = 0;
 		while (i < 9)
 		{
-			if (data->sorcerer[i].color != data->color)
+			if (data->sorcerer[i].color != data->player.color)
 				data->sorcerer[i].is_alive = false;
 			++i;
 		}
@@ -306,7 +307,7 @@ void handle_death_menu_keys(int keycode, t_data *data)
 
 static void	handle_menu_keys(int keycode, t_data *data)
 {
-	if (data->color == 0)
+	if (data->player.color == 0)
 		key_select_coa(keycode, data);
 	else if (data->is_right_handed == 0)
 		key_select_hand(keycode, data);

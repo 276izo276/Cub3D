@@ -66,7 +66,7 @@ static void	draw_texture_menu(t_data *data, t_img *texture, int final_x,
 			{
 				if ((data->selected  == 0 && x < data->mlx.width / 2)
 					|| (data->selected == 1 && x > data->mlx.width / 2))
-					color = data->color;
+					color = data->player.color;
 				else
 					color = 0;
 			}
@@ -107,9 +107,9 @@ static void select_your_coa(t_data *data)
 // 		j = 0;
 // 		while (j < 4)
 // 		{
-// 			pixel_put(data, x + j, y + i, data->color);
+// 			pixel_put(data, x + j, y + i, data->player.color);
 // 			pixel_put(data, x + 230 - j, y
-// 				+ i, data->color);
+// 				+ i, data->player.color);
 // 			++j;
 // 		}
 // 		++i;
@@ -126,10 +126,10 @@ static void select_your_coa(t_data *data)
 // 		j = 0;
 // 		while (j < 4)
 // 		{
-// 			pixel_put(data, x + i, y + j, data->color);
+// 			pixel_put(data, x + i, y + j, data->player.color);
 // 			pixel_put(data, x + i, y
 // 				+ 100 - j,
-// 				data->color);
+// 				data->player.color);
 // 			++j;
 // 		}
 // 		++i;
@@ -163,7 +163,7 @@ void	draw_gradient(t_data *data, int start_x, int start_y)
 	double			distance;
 
 	y = -40;
-	color = data->color;
+	color = data->player.color;
 	while (y < 40)
 	{
 		x = -40;
@@ -172,7 +172,7 @@ void	draw_gradient(t_data *data, int start_x, int start_y)
 			distance = sqrt(y * y + x * x);
 			if (distance < 40)
 			{
-				color = get_right_color(data->color, distance);
+				color = get_right_color(data->player.color, distance);
 				apply_transparancy(data, x + start_x, y + start_y, color);
 			}
 			++x;
@@ -238,7 +238,7 @@ static void select_your_hand(t_data *data)
 
 void	display_menu(t_data *data)
 {
-	if (data->color == 0)
+	if (data->player.color == 0)
 		select_your_coa(data);
 	else if (data->is_right_handed == 0)
 		select_your_hand(data);

@@ -28,12 +28,12 @@ static void	set_pix_player(t_data *data, t_utils_mini *u, int start_y, int start
 				+ start_y) * u->mmap.size_line
 			+ ((int)ceil(u->xfloat) + start_x)
 			* (u->mmap.bits_per_pixel / 8));
-		*(unsigned int *)u->pixel_addr = data->color;
+		*(unsigned int *)u->pixel_addr = data->player.color;
 		u->pixel_addr = u->mmap.data_addr + (((int)floor(u->yfloat)
 		+ start_y) * u->mmap.size_line
 		+ ((int)floor(u->xfloat) + start_x)
 		* (u->mmap.bits_per_pixel / 8));
-		*(unsigned int *)u->pixel_addr = data->color;
+		*(unsigned int *)u->pixel_addr = data->player.color;
 	}
 }
 

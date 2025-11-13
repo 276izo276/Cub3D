@@ -172,7 +172,7 @@ void	set_foot_in_mini_map(t_data *data, int i, t_utils_mini *u, t_img img, doubl
 			if (u->color != 0x00000000)
 			{
 				//DBG1printf("a3\n");
-				color = get_right_color(data->color, distance);
+				color = get_right_color(data->player.color, distance);
 				//DBG1printf("a4\n");
 				set_pix_old_player(u, u->start_y + gap_y, u->start_x + gap_x, color);
 			}

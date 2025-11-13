@@ -236,7 +236,7 @@ t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)
 	enemy->dist_target = -1;
 	enemy->rad = enemy->deg * (M_PI / 180);
 	enemy->calc = true;
-	enemy->cooldown_dist = 2;
+	enemy->cooldown_dist = 6;
 	enemy->cooldown_cac = 1;
 	enemy->deg = deg;
 	if (c == DEMENTOR)

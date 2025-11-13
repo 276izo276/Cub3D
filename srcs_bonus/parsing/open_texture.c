@@ -122,7 +122,7 @@ void select_right_hand(t_data *data)
 			pixel_addr = data->img[PLAYER_HAND].data_addr + (y * data->img[PLAYER_HAND].size_line + x
 				* (data->img[PLAYER_HAND].bits_per_pixel / 8));
 			if (*(unsigned int *)pixel_addr == YELLOW)
-				*(unsigned int *)pixel_addr = data->color;
+				*(unsigned int *)pixel_addr = data->player.color;
 			++x;
 		}
 		++y;

@@ -1825,13 +1825,13 @@ bool	is_sorcerer(int type)
 void	air_spell(t_data *data, t_enemy *enemy, double deg, int type)
 {
 	if (type == DEMENTOR)
-		data->item = add_end_lst(create_item(data, EXPECTO_PATRONUM, 
+		data->item = add_end_lst(create_spell_item_sorcerer(data, EXPECTO_PATRONUM, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else if (type == SPIDER)
-		data->item = add_end_lst(create_item(data, ARANIA_EXUMAI, 
+		data->item = add_end_lst(create_spell_item_sorcerer(data, ARANIA_EXUMAI, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else if (rand() % 2 == 1)
-		data->item = add_end_lst(create_item(data, VENTUS, 
+		data->item = add_end_lst(create_spell_item_sorcerer(data, VENTUS, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else if (enemy->type == KUNFANDI)
 		data->item = add_end_lst(create_item(data, BH, 
@@ -1842,34 +1842,36 @@ void	air_spell(t_data *data, t_enemy *enemy, double deg, int type)
 	else if (enemy->type == ANAIS)
 		data->item = add_end_lst(create_item(data, TAYLOR_SWIFT, 
 			&enemy->center, deg + 180), data->item, f_item);
+	((t_item *)data->item->dt)->damage.which_coa_do = AIR;
 }
 
 void	water_spell(t_data *data, t_enemy *enemy, double deg, int type)
 {
 	if (type == DEMENTOR)
-		data->item = add_end_lst(create_item(data, EXPECTO_PATRONUM, 
+		data->item = add_end_lst(create_spell_item_sorcerer(data, EXPECTO_PATRONUM, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else if (type == SPIDER)
-		data->item = add_end_lst(create_item(data, ARANIA_EXUMAI, 
+		data->item = add_end_lst(create_spell_item_sorcerer(data, ARANIA_EXUMAI, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else if (rand() % 2 == 1)
-		data->item = add_end_lst(create_item(data, AGUAMENTI, 
+		data->item = add_end_lst(create_spell_item_sorcerer(data, AGUAMENTI, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else
 		data->item = add_end_lst(create_item(data, FOLDER, 
 			&enemy->center, deg + 180), data->item, f_item);
+	((t_item *)data->item->dt)->damage.which_coa_do = WATER;
 }
 
 void	fire_spell(t_data *data, t_enemy *enemy, double deg, int type)
 {
 	if (type == DEMENTOR)
-		data->item = add_end_lst(create_item(data, EXPECTO_PATRONUM, 
-					&enemy->center, deg + 180), data->item, f_item);
+		data->item = add_end_lst(create_spell_item_sorcerer(data, EXPECTO_PATRONUM, 
+			&enemy->center, deg + 180), data->item, f_item);
 	else if (type == SPIDER)
-		data->item = add_end_lst(create_item(data, ARANIA_EXUMAI, 
+		data->item = add_end_lst(create_spell_item_sorcerer(data, ARANIA_EXUMAI, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else if (rand() % 2 == 1)
-		data->item = add_end_lst(create_item(data, INCENDIO, 
+		data->item = add_end_lst(create_spell_item_sorcerer(data, INCENDIO, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else if (enemy->type == STEF)
 		data->item = add_end_lst(create_item(data, COMPANY, 
@@ -1877,18 +1879,19 @@ void	fire_spell(t_data *data, t_enemy *enemy, double deg, int type)
 	else if (enemy->type == ZIPPY)
 		data->item = add_end_lst(create_item(data, PIZZA, 
 			&enemy->center, deg + 180), data->item, f_item);
+	((t_item *)data->item->dt)->damage.which_coa_do = FIRE;
 }
 
 void	earth_spell(t_data *data, t_enemy *enemy, double deg, int type)
 {
 	if (type == DEMENTOR)
-		data->item = add_end_lst(create_item(data, EXPECTO_PATRONUM, 
+		data->item = add_end_lst(create_spell_item_sorcerer(data, EXPECTO_PATRONUM, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else if (type == SPIDER)
-		data->item = add_end_lst(create_item(data, ARANIA_EXUMAI, 
+		data->item = add_end_lst(create_spell_item_sorcerer(data, ARANIA_EXUMAI, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else if (rand() % 2 == 1)
-		data->item = add_end_lst(create_item(data, ENDOLORIS, 
+		data->item = add_end_lst(create_spell_item_sorcerer(data, ENDOLORIS, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else if (enemy->type == MARINA)
 		data->item = add_end_lst(create_item(data, LOGO_42, 
@@ -1899,6 +1902,7 @@ void	earth_spell(t_data *data, t_enemy *enemy, double deg, int type)
 	else if (enemy->type == DIRLO)
 		data->item = add_end_lst(create_item(data, TIG, 
 			&enemy->center, deg + 180), data->item, f_item);
+	((t_item *)data->item->dt)->damage.which_coa_do = EARTH;
 }
 
 int	enemy_vision(t_data *data, t_enemy *enemy)
@@ -2191,6 +2195,7 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 					data->item = add_end_lst(create_item(data, FIREBALL_ELEM, 
 						&enemy->center, deg + 180), data->item, f_item);
 				}
+				((t_item *)data->item->dt)->damage.which_coa_do = OTHERS;
 			}
 			
 			if (enemy->recalc_path <= 50 || !enemy->way)
@@ -3039,7 +3044,19 @@ void	spawn_item(t_data *data, t_enemy *enemy)
 		make_move_item(data->item->dt, 5);
 	}
 }
-
+void	win_xp(t_data *data, int type, double *xp)
+{
+	if (type == DEMENTOR)
+		*xp +=  0.42/ (0.8 + (data->player.xp * 0.1));
+	else if (type == SPIDER)
+		*xp += 0.23/ (0.8 + (data->player.xp * 0.1));
+	else if (type == ELEM)
+		*xp += 0.35/ (0.8 + (data->player.xp * 0.1));
+	else if (type == WOLF)
+		*xp +=  0.5/ (0.8 + (data->player.xp * 0.1));
+	else
+		*xp +=  3/ (0.8 + (data->player.xp * 0.1));
+}
 void	move_enemy(t_data *data)
 {
 	t_lst	*lst;
@@ -3064,65 +3081,42 @@ void	move_enemy(t_data *data)
 				data->item = add_end_lst(create_item(data, ANIM_DEATH, &(t_fcoo){.case_x=enemy->center.case_x, .case_y=enemy->center.case_y, .coo_y= enemy->center.coo_y, .coo_x= enemy->center.coo_x}, data->map.mini.deg), data->item, f_item);
 				spawn_item(data, enemy);
 			}
-			data->enemy = remove_elem_lst(lst);
-			if (enemy->type == DEMENTOR)
-				data->player.xp +=  0.42/ (0.8 + (data->player.xp * 0.1));
-			else if (enemy->type == SPIDER)
-				data->player.xp += 0.23/ (0.8 + (data->player.xp * 0.1));
-			else if (enemy->type == ELEM)
-				data->player.xp += 0.35/ (0.8 + (data->player.xp * 0.1));
-			else if (enemy->type == WOLF)
-				data->player.xp +=  0.5/ (0.8 + (data->player.xp * 0.1));
-			else if (enemy->type == NANCY)
-			{
-				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
+			if (enemy->damage.which_coa_take == data->player.coa)
+				win_xp(data, enemy->type, &data->player.xp);
+			else if (enemy->damage.which_coa_take == EARTH)
+				win_xp(data, enemy->type, &data->coa[EARTH].xp);
+			else if (enemy->damage.which_coa_take == AIR)
+				win_xp(data, enemy->type, &data->coa[AIR].xp);
+			else if (enemy->damage.which_coa_take == WATER)
+				win_xp(data, enemy->type, &data->coa[WATER].xp);
+			else if (enemy->damage.which_coa_take == FIRE)
+				win_xp(data, enemy->type, &data->coa[FIRE].xp);
+			
+			if (enemy->type == NANCY)
 				data->sorcerer[0].is_alive = false;
-			}
 			else if (enemy->type == PILO)
-			{
-				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
 				data->sorcerer[3].is_alive = false;
-			}
 			else if (enemy->type == ZIPPY)
-			{
-				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
 				data->sorcerer[1].is_alive = false;
-			}
 			else if (enemy->type == KUNFANDI)
-			{
-				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
 				data->sorcerer[2].is_alive = false;
-			}
-				else if (enemy->type == DIRLO)
-			{
-				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
+			else if (enemy->type == DIRLO)
 				data->sorcerer[6].is_alive = false;
-			}
 			else if (enemy->type == STEF)
-			{
-				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
 				data->sorcerer[7].is_alive = false;
-			}
 			else if (enemy->type == MARINA)
-			{
-				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
 				data->sorcerer[8].is_alive = false;
-			}
 			else if (enemy->type == ANAIS)
-			{
-				data->player.xp +=  3/ (0.8 + (data->player.xp * 0.1));
 				data->sorcerer[5].is_alive = false;
-			}
 			else if (enemy->type == CAMEO)
-			{
-				data->player.xp +=  3 / (0.8 + (data->player.xp * 0.1));
 				data->sorcerer[4].is_alive = false;
-			}
+			data->enemy = remove_elem_lst(lst);
 			f_elem_lst(lst);
 			return ;
 		}
 		enemy->nb_move++;
 		lst = next;
 	}
+	printf ("fire xp >> %f\nwater xp >> %f\nair xp >> %f\nearth xp >> %f\nplayer xp >> %f\n", data->coa[FIRE].xp, data->coa[WATER].xp, data->coa[AIR].xp, data->coa[EARTH].xp, data->player.xp);
 }
 

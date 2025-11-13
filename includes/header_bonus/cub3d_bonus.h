@@ -25,6 +25,7 @@ void	cast_popo_heal(t_data *data);
 void	cast_opugno(t_data *data, int info);
 void	init_item(t_data *data);
 t_item	*create_item(t_data *data, int info, t_fcoo *coo, double deg);
+t_item	*create_spell_item_sorcerer(t_data *data, int info, t_fcoo *coo, double deg);
 int		get_right_white(t_data *data, int color, double distance);
 void	start(int ac, char **av);
 void	restart(t_data *data);

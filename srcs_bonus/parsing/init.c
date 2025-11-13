@@ -483,6 +483,9 @@ static void	init_ray(t_data *data)
 
 static void	init_coa(t_data *data)
 {
+	int	i;
+
+	i = 0;
 	data->coa = malloc(sizeof(t_coa) * data->nb_coalition);
 	if (data->coa == NULL)
 		f_exit(data, 1); //error msg
@@ -542,9 +545,12 @@ static void	init_coa(t_data *data)
 	data->coa[AIR].color = AIR_COLOR;
 	data->coa[AIR].img_coa->path = "texture/menu/air.xpm";
 	data->coa[AIR].border->path = "texture/menu/border_air.xpm";
-
+	while (i < 4)
+	{
+		data->coa[i].xp = 0;
+		++i;
+	}
 	data->selected = 0;
-
 	// data->select = malloc(sizeof(t_img));
 	// if (!data->select)
 	// 	f_exit(data, 1);
@@ -595,13 +601,13 @@ void	init_img_msg(t_data *data)
 		f_exit(data, 1);
 	ft_bzero(data->map.msg_img[3], sizeof(t_img));
 	data->map.msg_img[3]->mlx = data->mlx.mlx;
-	if (data->color == FIRE_COLOR)
+	if (data->player.color == FIRE_COLOR)
 		data->map.msg_img[3]->path = "texture/fire_msg.xpm";
-	else if (data->color == WATER_COLOR)
+	else if (data->player.color == WATER_COLOR)
 		data->map.msg_img[3]->path = "texture/water_msg.xpm";
-	else if (data->color == EARTH_COLOR)
+	else if (data->player.color == EARTH_COLOR)
 		data->map.msg_img[3]->path = "texture/earth_msg.xpm";
-	else if (data->color == AIR_COLOR)
+	else if (data->player.color == AIR_COLOR)
 		data->map.msg_img[3]->path = "texture/air_msg.xpm";
 	data->map.msg_img[4] = malloc(sizeof(t_img));
 	if (!data->map.msg_img[4])

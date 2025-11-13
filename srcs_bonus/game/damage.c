@@ -4,6 +4,7 @@
 
 void	apply_damage(t_damage *take, t_damage *apply)
 {
+	take->which_coa_take = apply->which_coa_do;
 	take->damage_take += apply->damage_do;
 	take->damage_spider_take += apply->damage_spider_do;
 	take->damage_dementor_take += apply->damage_dementor_do;

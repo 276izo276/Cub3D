@@ -111,7 +111,6 @@ void	cast_protego(t_data *data, int info)
 	long	save_time;
 
 	save_time = 0;
-	(void)data;
 	(void)info;
 	data->cast_spell = -1;
 	if (data->active_spell == -1 && get_mtime() > data->spell[PROTEGO].end_time
@@ -157,7 +156,6 @@ void	cast_episkey(t_data *data, int info)
 	long	save_time;
 
 	save_time = 0;
-	(void)data;
 	(void)info;
 	data->cast_spell = -1;
 	if (data->active_spell == -1 && get_mtime() > data->spell[EPISKEY].end_time
@@ -236,7 +234,6 @@ void	cast_vulnera_sanentur(t_data *data, int info)
 	long	save_time;
 
 	save_time = 0;
-	(void)data;
 	(void)info;
 	data->cast_spell = -1;
 	if (data->active_spell == -1 && get_mtime() > data->spell[VULNERA_SANENTUR].end_time

@@ -82,10 +82,10 @@ static void	display_resume(t_data *data, int start_x, int start_y)
 		{
 			color = get_texture_pixel(data->pause_menu.resume, x, y);
 			if (color == 0xafaaa6 && data->pause_menu.selected == 0)
-				color = data->color;
+				color = data->player.color;
 			if (color != WHITE && color != YELLOW)
 			{
-				color = data->color;
+				color = data->player.color;
 				if (data->pause_menu.selected != 0)
 					color = darken_the_color(color);
 				pixel_put(data, x + start_x, y + start_y, color);
@@ -110,10 +110,10 @@ static void	display_exit(t_data *data, int start_x, int start_y)
 		{
 			color = get_texture_pixel(data->pause_menu.exit, x, y);
 			if (color == 0xafaaa6 && data->pause_menu.selected == 1)
-				color = data->color;
+				color = data->player.color;
 			if (color != WHITE && color != YELLOW)
 			{
-				color = data->color;
+				color = data->player.color;
 				if (data->pause_menu.selected != 1)
 					color = darken_the_color(color);
 				pixel_put(data, x + start_x, y + start_y, color);
@@ -149,7 +149,7 @@ static void	display_sensitivity(t_data *data, int start_x, int start_y)
 			}
 			if (x + start_x > 728 && x + start_x < max_x && y + start_y > 625 && start_y + y < 670  && color == YELLOW)
 			{
-				color = data->color;
+				color = data->player.color;
 				if (data->pause_menu.selected != 2)
 					color = darken_the_color(color);
 				pixel_put(data, x + start_x, y + start_y, color);
