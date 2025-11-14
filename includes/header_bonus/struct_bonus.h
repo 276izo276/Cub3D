@@ -883,6 +883,7 @@ struct s_coa
 	t_img	*img_coa;
 	t_img 	*border;
 	double	xp;
+	double		max_y;
 };
 
 struct	s_hitray

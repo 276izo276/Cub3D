@@ -416,6 +416,35 @@ void	calc_right_point_player(t_data *data)
 	}
 }
 
+void	get_order_xp(t_data *data)
+{
+	int	i;
+	int	index_max_xp;
+
+	index_max_xp = 0;
+	i = 0;
+	while (i < 4)
+	{
+		if (data->coa[i].xp > index_max_xp)
+			index_max_xp = i;
+		++i;
+	}
+	data->coa[index_max_xp].max_y = 196 ;
+	i = 0;
+	while (i < 4)
+	{
+		if (index_max_xp == i)
+		{
+			++i;
+			continue ;
+		}
+		// data->coa[i].xp += (i + 1) *3;
+		data->coa[i].max_y = 674 - (data->coa[i].xp / data->coa[index_max_xp].xp) * (674 - 196);
+		// printf ("i >> %d  |||| xp >>> %f\n", i, data->coa[i].max_y);
+		++i;
+	}
+}
+
 void	try_hit_player(t_data *data)
 {
 	t_hitray	ray;
@@ -452,7 +481,10 @@ void	try_hit_player(t_data *data)
 			if (item->type == POPO_INVI)
 				data->popo[3].nb++;
 			if (item->type == PORTKEY)
+			{
 				data->status = MENU_END;
+				get_order_xp(data);
+			}
 			apply_damage(&data->player.damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
@@ -474,7 +506,10 @@ void	try_hit_player(t_data *data)
 			if (item->type == POPO_INVI)
 				data->popo[3].nb++;
 			if (item->type == PORTKEY)
+			{
 				data->status = MENU_END;
+				get_order_xp(data);
+			}
 			apply_damage(&data->player.damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
@@ -496,7 +531,10 @@ void	try_hit_player(t_data *data)
 			if (item->type == POPO_INVI)
 				data->popo[3].nb++;
 			if (item->type == PORTKEY)
+			{
 				data->status = MENU_END;
+				get_order_xp(data);
+			}
 			apply_damage(&data->player.damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);

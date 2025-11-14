@@ -551,6 +551,7 @@ static void	init_coa(t_data *data)
 	while (i < 4)
 	{
 		data->coa[i].xp = 0;
+		data->coa[i].max_y = 0;
 		++i;
 	}
 	data->selected = 0;
