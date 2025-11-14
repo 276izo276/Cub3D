@@ -31,7 +31,7 @@ static void	init_incendio(t_data *data)
 	data->spell[INCENDIO].damage.fire_frame_do = 60;
 	data->spell[INCENDIO].damage.fire_force_do = .1;
 	data->spell[INCENDIO].damage.damage_elem_do = -10;
-	data->spell[INCENDIO].item.speed = 20;
+	data->spell[INCENDIO].item.speed = 0;
 	data->spell[INCENDIO].item.radius = 3;
 	data->spell[INCENDIO].item.front_img = &data->img[INCENDIO_IMG];
 	data->spell[INCENDIO].item.back_img = &data->img[INCENDIO_IMG];
@@ -49,7 +49,7 @@ static void	init_glacius(t_data *data)
 	data->spell[GLACIUS].damage.damage_do = 5;
 	data->spell[GLACIUS].damage.slow_force_do = 30;
 	data->spell[GLACIUS].damage.slow_frame_do = 35;
-	data->spell[GLACIUS].item.speed = 50;
+	data->spell[GLACIUS].item.speed = 0;
 	data->spell[GLACIUS].item.radius = 3;
 	data->spell[GLACIUS].item.front_img = &data->img[GLACIUS_IMG];
 	data->spell[GLACIUS].item.back_img = &data->img[GLACIUS_IMG];
@@ -67,7 +67,7 @@ static void	init_repulso(t_data *data)
 	data->spell[REPULSO].damage.damage_do = 5;
 	data->spell[REPULSO].damage.repulso_force_do = 1.2;
 	data->spell[REPULSO].damage.repulso_frame_do = 15;
-	data->spell[REPULSO].item.speed = 25;
+	data->spell[REPULSO].item.speed = 0;
 	data->spell[REPULSO].item.radius = 3;
 	data->spell[REPULSO].item.front_img = &data->img[REPULSO_IMG];
 	data->spell[REPULSO].item.back_img = &data->img[REPULSO_IMG];
@@ -84,7 +84,7 @@ static void	init_aguamenti(t_data *data)
 	data->spell[AGUAMENTI].type = AGUAMENTI;
 	data->spell[AGUAMENTI].damage.damage_do = 5;
 	data->spell[AGUAMENTI].damage.damage_elem_do = 35;
-	data->spell[AGUAMENTI].item.speed = 40;
+	data->spell[AGUAMENTI].item.speed = 0;
 	data->spell[AGUAMENTI].item.radius = 3;
 	data->spell[AGUAMENTI].item.front_img = &data->img[AGUAMENTI_IMG];
 	data->spell[AGUAMENTI].item.back_img = &data->img[AGUAMENTI_IMG];
@@ -96,7 +96,7 @@ static void	init_aguamenti(t_data *data)
 
 static void	init_arania_exumai(t_data *data)
 {
-	data->spell[ARANIA_EXUMAI].base_cooldown = 0;
+	data->spell[ARANIA_EXUMAI].base_cooldown = 5;
 	data->spell[ARANIA_EXUMAI].call = cast_spell;
 	data->spell[ARANIA_EXUMAI].type = ARANIA_EXUMAI;
 	data->spell[ARANIA_EXUMAI].damage.damage_do = 5;
@@ -113,7 +113,7 @@ static void	init_arania_exumai(t_data *data)
 
 static void	init_protego(t_data *data)
 {
-	data->spell[PROTEGO].base_cooldown = 0;
+	data->spell[PROTEGO].base_cooldown = 15;
 	data->spell[PROTEGO].base_timer = 5;
 	data->spell[PROTEGO].call = cast_protego;
 	data->spell[PROTEGO].type = PROTEGO;
@@ -125,7 +125,7 @@ static void	init_protego(t_data *data)
 
 static void	init_expelliarmus(t_data *data)
 {
-	data->spell[EXPELLIARMUS].base_cooldown = 0;
+	data->spell[EXPELLIARMUS].base_cooldown = 10;
 	data->spell[EXPELLIARMUS].call = cast_spell;
 	data->spell[EXPELLIARMUS].type = EXPELLIARMUS;
 	data->spell[EXPELLIARMUS].damage.damage_do = 25;
@@ -141,7 +141,7 @@ static void	init_expelliarmus(t_data *data)
 
 static void	init_expecto_patronum(t_data *data)
 {
-	data->spell[EXPECTO_PATRONUM].base_cooldown = 0;
+	data->spell[EXPECTO_PATRONUM].base_cooldown = 20;
 	data->spell[EXPECTO_PATRONUM].call = cast_spell;
 	data->spell[EXPECTO_PATRONUM].type = EXPECTO_PATRONUM;
 	data->spell[EXPECTO_PATRONUM].damage.damage_dementor_do = 5;
@@ -157,17 +157,17 @@ static void	init_expecto_patronum(t_data *data)
 	data->spell[EXPECTO_PATRONUM].necessary_lvl = 5.0;
 }
 
-static void	init_vipera_evanesca(t_data *data) // PAS FINI
+static void	init_vipera_evanesca(t_data *data)
 {
-	data->spell[VIPERA_EVANESCA].base_cooldown = 0;
+	data->spell[VIPERA_EVANESCA].base_cooldown = 10;
 	data->spell[VIPERA_EVANESCA].call = cast_spell;
 	data->spell[VIPERA_EVANESCA].type = VIPERA_EVANESCA;
-	data->spell[VIPERA_EVANESCA].damage.damage_snake_do = 30;
-	data->spell[VIPERA_EVANESCA].damage.damage_do = 30;
-	data->spell[VIPERA_EVANESCA].item.speed = 60.0;
-	data->spell[VIPERA_EVANESCA].item.radius = 6;
-	data->spell[VIPERA_EVANESCA].item.front_img = &data->img[BOMBARDA_IMG];
-	data->spell[VIPERA_EVANESCA].item.back_img = &data->img[BOMBARDA_IMG];
+	data->spell[VIPERA_EVANESCA].damage.damage_snake_do = 25;
+	data->spell[VIPERA_EVANESCA].damage.damage_do = 5;
+	data->spell[VIPERA_EVANESCA].item.speed = 0;
+	data->spell[VIPERA_EVANESCA].item.radius = 3;
+	data->spell[VIPERA_EVANESCA].item.front_img = &data->img[ARANIA_EXUMAI_IMG];
+	data->spell[VIPERA_EVANESCA].item.back_img = &data->img[ARANIA_EXUMAI_IMG];
 	data->spell[VIPERA_EVANESCA].class = OFFENSIVE_SPELL;
 	data->spell[VIPERA_EVANESCA].icn = &data->img[VIPERA_EVANESCA_ICN];
 	data->spell[VIPERA_EVANESCA].icn_name = &data->img[VIPERA_EVANESCA_NAME];
@@ -176,7 +176,7 @@ static void	init_vipera_evanesca(t_data *data) // PAS FINI
 
 static void	init_serpensortia(t_data *data)
 {
-	data->spell[SERPENSORTIA].base_cooldown = 0;
+	data->spell[SERPENSORTIA].base_cooldown = 25;
 	data->spell[SERPENSORTIA].call = cast_serpensortia;
 	data->spell[SERPENSORTIA].type = SERPENSORTIA;
 	data->spell[SERPENSORTIA].class = OFFENSIVE_SPELL;
@@ -187,7 +187,7 @@ static void	init_serpensortia(t_data *data)
 
 static void	init_ventus(t_data *data)
 {
-	data->spell[VENTUS].base_cooldown = 0;
+	data->spell[VENTUS].base_cooldown = 30;
 	data->spell[VENTUS].call = cast_spell;
 	data->spell[VENTUS].type = VENTUS;
 	data->spell[VENTUS].damage.damage_do = .5;
@@ -205,10 +205,10 @@ static void	init_ventus(t_data *data)
 
 static void	init_bombarda(t_data *data)
 {
-	data->spell[BOMBARDA].base_cooldown = 0;
+	data->spell[BOMBARDA].base_cooldown = 10;
 	data->spell[BOMBARDA].call = cast_spell;
 	data->spell[BOMBARDA].type = BOMBARDA;
-	data->spell[BOMBARDA].damage.damage_do = 25;
+	data->spell[BOMBARDA].damage.damage_do = 30;
 	data->spell[BOMBARDA].damage.fire_force_do = .5;
 	data->spell[BOMBARDA].damage.fire_frame_do = 10;
 	data->spell[BOMBARDA].item.speed = 0;
@@ -223,7 +223,7 @@ static void	init_bombarda(t_data *data)
 
 static void	init_episkey(t_data *data)
 {
-	data->spell[EPISKEY].base_cooldown = 0;
+	data->spell[EPISKEY].base_cooldown = 15;
 	data->spell[EPISKEY].call = cast_episkey;
 	data->spell[EPISKEY].type = EPISKEY;
 	data->spell[EPISKEY].class = CLASIC_SPELL;
@@ -234,10 +234,10 @@ static void	init_episkey(t_data *data)
 
 static void	init_stupefix(t_data *data)
 {
-	data->spell[STUPEFIX].base_cooldown = 0;
+	data->spell[STUPEFIX].base_cooldown = 25;
 	data->spell[STUPEFIX].call = cast_spell;
 	data->spell[STUPEFIX].type = STUPEFIX;
-	data->spell[STUPEFIX].damage.damage_do = 25;
+	data->spell[STUPEFIX].damage.damage_do = 40;
 	data->spell[STUPEFIX].damage.slow_force_do = 80;
 	data->spell[STUPEFIX].damage.slow_frame_do = 60;
 	data->spell[STUPEFIX].item.speed = 0;
@@ -291,7 +291,7 @@ static void	init_petrificus_totalus(t_data *data)
 
 static void	init_sectumsempra(t_data *data)
 {
-	data->spell[SECTUMSEMPRA].base_cooldown = 5;
+	data->spell[SECTUMSEMPRA].base_cooldown = 20;
 	data->spell[SECTUMSEMPRA].call = cast_spell;
 	data->spell[SECTUMSEMPRA].type = SECTUMSEMPRA;
 	data->spell[SECTUMSEMPRA].damage.damage_do = 21;
@@ -309,10 +309,10 @@ static void	init_sectumsempra(t_data *data)
 
 static void	init_confundo(t_data *data)
 {
-	data->spell[CONFUNDO].base_cooldown = 0;
+	data->spell[CONFUNDO].base_cooldown = 25;
 	data->spell[CONFUNDO].call = cast_spell;
 	data->spell[CONFUNDO].type = CONFUNDO;
-	data->spell[CONFUNDO].damage.confundo_frame_do = 1500;
+	data->spell[CONFUNDO].damage.confundo_frame_do = 300;
 	data->spell[CONFUNDO].damage.confundo_force_do = 1;
 	data->spell[CONFUNDO].damage.slow_force_do = 25;
 	data->spell[CONFUNDO].damage.slow_frame_do = 150;
@@ -328,7 +328,7 @@ static void	init_confundo(t_data *data)
 
 static void	init_endoloris(t_data *data)
 {
-	data->spell[ENDOLORIS].base_cooldown = 0;
+	data->spell[ENDOLORIS].base_cooldown = 45;
 	data->spell[ENDOLORIS].call = cast_spell;
 	data->spell[ENDOLORIS].type = ENDOLORIS;
 	data->spell[ENDOLORIS].damage.damage_do = 10;
@@ -346,13 +346,13 @@ static void	init_endoloris(t_data *data)
 
 static void	init_avada_kedavra(t_data *data)
 {
-	data->spell[AVADA_KEDAVRA].base_cooldown = 0;
+	data->spell[AVADA_KEDAVRA].base_cooldown = 45;
 	data->spell[AVADA_KEDAVRA].call = cast_spell;
 	data->spell[AVADA_KEDAVRA].type = AVADA_KEDAVRA;
-	data->spell[AVADA_KEDAVRA].damage.damage_do = 20;
-	data->spell[AVADA_KEDAVRA].damage.curse_force_do = 50;
-	data->spell[AVADA_KEDAVRA].damage.curse_frame_do = 3;
-	data->spell[AVADA_KEDAVRA].item.speed = 40;
+	data->spell[AVADA_KEDAVRA].damage.damage_do = 25;
+	data->spell[AVADA_KEDAVRA].damage.curse_force_do = 45;
+	data->spell[AVADA_KEDAVRA].damage.curse_frame_do = 4;
+	data->spell[AVADA_KEDAVRA].item.speed = 0;
 	data->spell[AVADA_KEDAVRA].item.radius = 1;
 	data->spell[AVADA_KEDAVRA].item.front_img = &data->img[AVADA_KEDAVRA_IMG];
 	data->spell[AVADA_KEDAVRA].item.back_img = &data->img[AVADA_KEDAVRA_IMG];
