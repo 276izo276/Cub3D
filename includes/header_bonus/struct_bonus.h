@@ -325,6 +325,7 @@ typedef enum e_imgs
 	END_MENU,
 	RETRY_BUTTON,
 	QUIT_BUTTON,
+	END_BACKGROUND,
 
 	POPO_SHIELD,
 	POPO_HEAL,
@@ -402,6 +403,7 @@ typedef enum e_items
 	TAYLOR_SWIFT,
 	COMPANY,
 	LOGO_42,
+	PORTKEY,
 
 	END_ITEM
 }	t_items;
@@ -1088,6 +1090,7 @@ struct s_data
 	char		*cheat_code_life;
 	int			index_life;
 	int			index_xp;
+	bool		portkey_is_active;
 	t_popo		popo[4];
 	t_sorcerer	sorcerer[NB_SORCERER + 1];
 };

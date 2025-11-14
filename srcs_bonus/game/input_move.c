@@ -465,7 +465,7 @@ int	key_press(int keycode, t_data *data)
 		handle_menu_spell_keys(keycode, data);
 		return (0);
 	}
-	else if (data->status == MENU_DEATH)
+	else if (data->status == MENU_DEATH || data->status == MENU_END)
 	{
 		handle_death_menu_keys(keycode, data);
 		return (0);

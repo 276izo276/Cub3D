@@ -262,6 +262,7 @@ void	restart(t_data *data)
 	f_all_lst(data->item);
 	data->enemy = NULL;
 	data->item = NULL;
+	data->portkey_is_active = false;
 	data->wand.count_egg = 0;
 	data->wand.nb_wand = 0;
 	data->wand.count_sword = 0;
@@ -280,7 +281,7 @@ void	restart(t_data *data)
 		data->wand.wand_status[i] = false;
 		++i;
 	}
-	// ADD reset nb collectible a 0 (popo poudre etc..)
+	// ADD reset nb collectible a 0 (popo poudre etc..) (faudrait reparse la map en faite sa serait + simple)
 	data->status = GAME;
 }
 

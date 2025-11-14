@@ -8,13 +8,13 @@
 
 static void	is_valid_char_map(char c, int y, int x, t_data *data)
 {
-	const char	tab[] = {'0', '1', 'D', 'F', ' ', '.', ',', '<', '>', ';', '2', '3', '4', '5', '6', '7', '8', '9', 'm','z','x','c','v', 'N', 'S', 'W', 'E', 0};
+	const char	tab[] = {'0', '1', 'D', 'F', ' ', '.', ',', '<', '>', ';', 'f', '2', '3', '4', '5', '6', '7', '8', '9', 'm','z','x','c','v', 'N', 'S', 'W', 'E', 0};
 	int			i;
 
 	i = -1;
 	while (tab[++i])
 	{
-		if (tab[i] == c && i >= 23)
+		if (tab[i] == c && i >= 24)
 		{
 			if (data->player.coo.case_x != 0 && data->player.coo.case_y != 0)
 			{
@@ -26,7 +26,7 @@ static void	is_valid_char_map(char c, int y, int x, t_data *data)
 			data->player.coo.case_x = x;
 			return ;
 		}
-		else if (tab[i] == c && i <= 22)
+		else if (tab[i] == c && i <= 23)
 			return ;
 	}
 	ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE "Map >>> '"
@@ -190,7 +190,7 @@ static void	is_enemy(char c, int y, int x, t_data *data)
 static void	is_item(char c, int y, int x, t_data *data)
 {
 	int			i;
-	const char	tab[] = {'z', 'x', 'c', 'v', 0};
+	const char	tab[] = {'z', 'x', 'c', 'v', 'f', 0};
 	int			info;
 
 	i = 0;
@@ -206,6 +206,8 @@ static void	is_item(char c, int y, int x, t_data *data)
 				info = FLOO_POPO;
 			if (c == 'v')
 				info = INVI_POPO;
+			if (c == 'f')
+				info = PORTKEY;
 			data->item = add_end_lst(create_item(data, info, &(t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data->map.mini.deg), data->item, f_item);
 			if (!data->item)
 				f_exit(data, 1);

@@ -245,6 +245,8 @@ static void	set_path_texture(t_data *data)
 	data->img[END_MENU].path = "./texture/menu/death_background.xpm";
 	data->img[RETRY_BUTTON].path = "./texture/menu/retry_button.xpm";
 	data->img[QUIT_BUTTON].path = "./texture/menu/quit_button.xpm";
+	data->img[END_BACKGROUND].path = "./texture/menu/end_background.xpm";
+
 
 }
 
@@ -696,6 +698,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->lumos.y_wand = 0;
 	data->lumos.count_frame = 0;
 	data->lumos.active = false;
+	data->portkey_is_active = false;
 	// init_texture(data);
 	init_textures(data);
 	init_textures_wand(data);

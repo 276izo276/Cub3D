@@ -746,14 +746,47 @@ void	spawn_sorcerer(t_data *data, char type)
 		random_x = rand() % x;
 		if (data->map.tabmap[random_y][random_x] == '0')
 			break ;
-		attempts++;
+		++attempts;
 	}
+	if (attempts >= 1000)
+		return ;
 	data->enemy = add_end_lst(init_enemy(type, (t_fcoo){.case_x=random_x,.case_y=random_y,.coo_y=32,.coo_x=32}, data, data->map.mini.deg), data->enemy, f_enemy);
 	if (!data->enemy)
 		f_exit(data, 1);
-	data->nb_enemy++;
+	++data->nb_enemy;
 }
 
+void	spawn_portkey(t_data *data)
+{
+	int	y;
+	int	x;
+	int	random_y;
+	int	random_x;
+	int	attempts;
+
+	attempts = 0;
+	random_y = 0;
+	while (attempts < 1000)
+	{
+		y = 0;
+		while (data->map.tabmap[y])
+			++y;
+		random_y = rand() % y;
+		x = 0;
+		while (data->map.tabmap[random_y][x])
+			++x;
+		random_x = rand() % x;
+		if (data->map.tabmap[random_y][random_x] == '0')
+			break ;
+		++attempts;
+	}
+	if (attempts >= 1000)
+		return ;
+	data->item = add_end_lst(create_item(data, PORTKEY, &(t_fcoo){.case_x=random_x,.case_y=random_y,.coo_y=32,.coo_x=32}, data->map.mini.deg), data->item, f_item);
+	if (!data->item)
+		f_exit(data, 1);
+	data->portkey_is_active = true;
+}
 void	update_sorcerer(t_data *data)
 {
 	int	i;
@@ -772,6 +805,8 @@ int	game_loop(t_data *data)
 	
 	cur = get_mtime();
 	update_sorcerer(data);
+	if (data->portkey_is_active == false && data->player.xp >= 16)
+		spawn_portkey(data);
 	if (data->status == MENU)
 		display_menu(data);
 	else if (data->status == PAUSE)
@@ -784,6 +819,8 @@ int	game_loop(t_data *data)
 		handle_spells_menu(data);
 	else if (data->status == MENU_DEATH)
 		handle_death_menu(data);
+	else if (data->status == MENU_END)
+		handle_end_menu(data);
 		// restart(data);
 	else
 	{

@@ -206,6 +206,16 @@ void	init_popo_floo(t_data *data)
 	data->items[FLOO_POPO].back_img = &data->img[POPO_FLOO_IMG];
 }
 
+void	init_portkey(t_data *data)
+{
+	data->items[PORTKEY].categ = ITEM;
+	data->items[PORTKEY].type = PORTKEY;
+	data->items[PORTKEY].radius = 3;
+	data->items[PORTKEY].deg_rotate = 6;
+	data->items[PORTKEY].front_img = &data->img[STUPEFIX_ICN];
+	data->items[PORTKEY].back_img = &data->img[STUPEFIX_ICN];
+}
+
 void	init_popo_invi(t_data *data)
 {
 	data->items[INVI_POPO].categ = ITEM;
@@ -295,8 +305,8 @@ static void	init_marvin(t_data *data)
 	data->items[MARVIN].damage.curse_frame_do = 120;
 	data->items[MARVIN].speed = 10;
 	data->items[MARVIN].radius = 3;
-	data->items[MARVIN].front_img = &data->img[MARVIN_IMG];
-	data->items[MARVIN].back_img = &data->img[MARVIN_IMG];
+	data->items[MARVIN].front_img = &data->img[STUPEFIX_ICN];
+	data->items[MARVIN].back_img = &data->img[STUPEFIX_ICN];
 }
 
 static void	init_taylor_swift(t_data *data)
@@ -349,7 +359,7 @@ void	init_item(t_data *data)
 	init_popo_floo(data);
 	init_popo_invi(data);
 	init_death_anim(data);
-
+	init_portkey(data);
 	init_tig(data);
 	init_bh(data);
 	init_pizza(data);
