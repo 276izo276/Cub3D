@@ -246,7 +246,8 @@ static void	set_path_texture(t_data *data)
 	data->img[RETRY_BUTTON].path = "./texture/menu/retry_button.xpm";
 	data->img[QUIT_BUTTON].path = "./texture/menu/quit_button.xpm";
 	data->img[END_BACKGROUND].path = "./texture/menu/end_background.xpm";
-
+	data->img[PORTKEY_IMG].path = "./texture/portkey.xpm";
+	data->img[SANDGLASS].path = "./texture/menu/sandglass.xpm";
 
 }
 

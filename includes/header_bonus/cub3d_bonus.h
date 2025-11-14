@@ -183,6 +183,8 @@ void	handle_menu_spell_keys(int keycode, t_data *data);
 
 // end menu
 void	handle_end_menu(t_data *data);
+void	display_retry_button(t_data *data, int start_x, int start_y);
+void	display_quit_button(t_data *data, int start_x, int start_y);
 void	handle_death_menu(t_data *data);
 
 int		darken_the_color(int color);

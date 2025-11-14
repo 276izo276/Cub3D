@@ -3093,7 +3093,10 @@ void	move_enemy(t_data *data)
 				spawn_item(data, enemy);
 			}
 			if (enemy->damage.which_coa_take == data->player.coa)
+			{
 				win_xp(data, enemy->type, &data->player.xp);
+				data->coa[data->player.coa].xp = data->player.xp;
+			}
 			else if (enemy->damage.which_coa_take == EARTH)
 				win_xp(data, enemy->type, &data->coa[EARTH].xp);
 			else if (enemy->damage.which_coa_take == AIR)

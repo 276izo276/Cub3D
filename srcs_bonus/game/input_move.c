@@ -235,6 +235,7 @@ static void	key_select_coa(int keycode, t_data *data)
 	{
 		data->player.color = data->coa[data->selected].color;
 		data->player.coa = data->selected;
+		data->coa[data->player.coa].xp = data->player.xp;
 		data->selected = 0;
 		int i = 0;
 		while (i < 9)

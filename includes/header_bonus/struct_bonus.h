@@ -326,6 +326,7 @@ typedef enum e_imgs
 	RETRY_BUTTON,
 	QUIT_BUTTON,
 	END_BACKGROUND,
+	SANDGLASS,
 
 	POPO_SHIELD,
 	POPO_HEAL,
@@ -336,6 +337,7 @@ typedef enum e_imgs
 	POPO_HEAL_IMG,
 	POPO_FLOO_IMG,
 	POPO_INVI_IMG,
+	PORTKEY_IMG,
 
 	END_IMG
 }	t_imgs;

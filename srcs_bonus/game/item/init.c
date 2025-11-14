@@ -212,8 +212,8 @@ void	init_portkey(t_data *data)
 	data->items[PORTKEY].type = PORTKEY;
 	data->items[PORTKEY].radius = 3;
 	data->items[PORTKEY].deg_rotate = 6;
-	data->items[PORTKEY].front_img = &data->img[STUPEFIX_ICN];
-	data->items[PORTKEY].back_img = &data->img[STUPEFIX_ICN];
+	data->items[PORTKEY].front_img = &data->img[PORTKEY_IMG];
+	data->items[PORTKEY].back_img = &data->img[PORTKEY_IMG];
 }
 
 void	init_popo_invi(t_data *data)
