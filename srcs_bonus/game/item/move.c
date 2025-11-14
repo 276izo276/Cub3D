@@ -234,7 +234,7 @@ int	try_hit_items(t_item *elem, t_data *data)
 	while (lst)
 	{
 		enemy = lst->dt;
-		if (enemy->type != DEMENTOR && elem->type == EXPECTO_PATRONUM)
+		if (enemy->type != DEMENTOR && elem->type == EXPECTO_PATRONUM && !elem->categ)
 		{
 			lst =lst->next;
 			continue;

@@ -710,7 +710,7 @@ void	reverse_hit_pos(t_enemy *enemy, t_item *item)
 	// 	dx = -dx;
 	dx *= 2000;
 	dy *= 2000;
-	printf("change hit pos dy>%lf   dx>%lf\n",dy,dx);
+	// printf("change hit pos dy>%lf   dx>%lf\n",dy,dx);
 	item->damage.hit.coo_x += dx;
 	item->damage.hit.coo_y += dy;
 }
@@ -786,7 +786,7 @@ void	move_more_hit_pos(t_enemy *enemy, t_item *item)
 	// 	dx = -dx;
 	dx *= 2000;
 	dy *= 2000;
-	printf("change hit pos dy>%lf   dx>%lf\n",dy,dx);
+	// printf("change hit pos dy>%lf   dx>%lf\n",dy,dx);
 	item->damage.hit.coo_x += dx;
 	item->damage.hit.coo_y += dy;
 }
@@ -804,7 +804,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 	{
 		
 		item = lst->dt;
-		if (item->type == POPO_HEAL || item->type == POPO_SHIELD || item->type == POPO_FLOO || item->type == POPO_INVI || (elem->type != DEMENTOR && item->type == EXPECTO_PATRONUM && !item->categ))
+		if (item->type == POPO_HEAL || item->type == POPO_SHIELD || item->type == POPO_FLOO || item->type == POPO_INVI || (item->type == ANIM_DEATH && item->categ) || (elem->type != DEMENTOR && item->type == EXPECTO_PATRONUM && !item->categ))
 		{
 			lst = lst->next;
 			continue;
@@ -1843,6 +1843,7 @@ void	air_spell(t_data *data, t_enemy *enemy, double deg, int type)
 		data->item = add_end_lst(create_item(data, TAYLOR_SWIFT, 
 			&enemy->center, deg + 180), data->item, f_item);
 	((t_item *)data->item->dt)->damage.which_coa_do = AIR;
+	// printf("AIR  item categ >>> %d\n",((t_item *)data->item->dt)->damage.which_coa_do);
 }
 
 void	water_spell(t_data *data, t_enemy *enemy, double deg, int type)
@@ -1860,10 +1861,12 @@ void	water_spell(t_data *data, t_enemy *enemy, double deg, int type)
 		data->item = add_end_lst(create_item(data, FOLDER, 
 			&enemy->center, deg + 180), data->item, f_item);
 	((t_item *)data->item->dt)->damage.which_coa_do = WATER;
+	// printf("WATER  item categ >>> %d\n",((t_item *)data->item->dt)->damage.which_coa_do);
 }
 
 void	fire_spell(t_data *data, t_enemy *enemy, double deg, int type)
 {
+	printf("FIRE SPELL\n");
 	if (type == DEMENTOR)
 		data->item = add_end_lst(create_spell_item_sorcerer(data, EXPECTO_PATRONUM, 
 			&enemy->center, deg + 180), data->item, f_item);
@@ -1880,6 +1883,7 @@ void	fire_spell(t_data *data, t_enemy *enemy, double deg, int type)
 		data->item = add_end_lst(create_item(data, PIZZA, 
 			&enemy->center, deg + 180), data->item, f_item);
 	((t_item *)data->item->dt)->damage.which_coa_do = FIRE;
+	// printf("FIRE  item categ >>> %d\n",((t_item *)data->item->dt)->damage.which_coa_do);
 }
 
 void	earth_spell(t_data *data, t_enemy *enemy, double deg, int type)
@@ -1903,6 +1907,7 @@ void	earth_spell(t_data *data, t_enemy *enemy, double deg, int type)
 		data->item = add_end_lst(create_item(data, TIG, 
 			&enemy->center, deg + 180), data->item, f_item);
 	((t_item *)data->item->dt)->damage.which_coa_do = EARTH;
+	// printf("EARTH  item categ >>> %d\n",((t_item *)data->item->dt)->damage.which_coa_do);
 }
 
 int	enemy_vision(t_data *data, t_enemy *enemy)
@@ -2134,36 +2139,36 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 			}
 		}
 	}
-	int	diff_player_x = coo.case_x * 64 + coo.coo_x
-	- enemy->center.case_x * 64 - enemy->center.coo_x;
-	int	diff_player_y = coo.case_y * 64 + coo.coo_y
-	- enemy->center.case_y * 64 - enemy->center.coo_y;
-	dist_min_player = sqrt(diff_player_x * diff_player_x + diff_player_y * diff_player_y);
-	// printf("x>>>%d     y>>>%d\n",diff_player_x,diff_player_y);
-	deg = 0;
-	if (diff_player_x != 0 && diff_player_y != 0)
-	{
-		deg = atan(((double)diff_player_x / diff_player_y)) / (M_PI / 180);
-		if (deg < 0)
-			deg = -deg;
-	}
-	if (diff_player_y < 0 && diff_player_x < 0)
-		deg = 180 + deg;
-	else if (diff_player_y < 0 && diff_player_x > 0)
-		deg = 180 - deg;
-	else if (diff_player_y > 0 && diff_player_x < 0)
-		deg = 360 - deg;
-	else if (diff_player_y == 0 && diff_player_x < 0)
-		deg = 270;
-	else if (diff_player_y == 0 && diff_player_x > 0)
-		deg = 90;
-	else if (diff_player_x == 0 && diff_player_y < 0)
-		deg = 180;
-	// printf("\ndeg angle to player>>>%lf     base>>%lf\n",deg,enemy->deg);
-	// printf("\ndeg angle to player>>>%lf     %lf     %lf\n",enemy->deg - 90 + 360, deg + 360, enemy->deg + 90 + 360);
-	deg = fmod(deg, 360);
 	if (dist_min != -1)
 	{
+		int	diff_player_x = coo.case_x * 64 + coo.coo_x
+		- enemy->center.case_x * 64 - enemy->center.coo_x;
+		int	diff_player_y = coo.case_y * 64 + coo.coo_y
+		- enemy->center.case_y * 64 - enemy->center.coo_y;
+		dist_min_player = sqrt(diff_player_x * diff_player_x + diff_player_y * diff_player_y);
+		// printf("x>>>%d     y>>>%d\n",diff_player_x,diff_player_y);
+		deg = 0;
+		if (diff_player_x != 0 && diff_player_y != 0)
+		{
+			deg = atan(((double)diff_player_x / diff_player_y)) / (M_PI / 180);
+			if (deg < 0)
+				deg = -deg;
+		}
+		if (diff_player_y < 0 && diff_player_x < 0)
+			deg = 180 + deg;
+		else if (diff_player_y < 0 && diff_player_x > 0)
+			deg = 180 - deg;
+		else if (diff_player_y > 0 && diff_player_x < 0)
+			deg = 360 - deg;
+		else if (diff_player_y == 0 && diff_player_x < 0)
+			deg = 270;
+		else if (diff_player_y == 0 && diff_player_x > 0)
+			deg = 90;
+		else if (diff_player_x == 0 && diff_player_y < 0)
+			deg = 180;
+		// printf("\ndeg angle to player>>>%lf     base>>%lf\n",deg,enemy->deg);
+		// printf("\ndeg angle to player>>>%lf     %lf     %lf\n",enemy->deg - 90 + 360, deg + 360, enemy->deg + 90 + 360);
+		deg = fmod(deg, 360);
 		enemy->dist_target = dist_min;
 		if (enemy->dist_target < enemy->dist_visu)
 		{
@@ -2180,6 +2185,7 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 					water_spell(data, enemy, deg, type);
 				else if (enemy->color_coa == FIRE_COLOR)
 					fire_spell(data, enemy, deg, type);
+				// printf("____________item categ >>> %d\n",((t_item *)data->item->dt)->damage.which_coa_do);
 			}
 			else if (rand() % 1000 < 50 && 
 				get_mtime() > enemy->time_attack_dist + enemy->cooldown_dist * 1000)
@@ -2196,6 +2202,7 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 						&enemy->center, deg + 180), data->item, f_item);
 				}
 				((t_item *)data->item->dt)->damage.which_coa_do = OTHERS;
+				// printf("____________others item categ >>> %d\n",((t_item *)data->item->dt)->damage.which_coa_do);
 			}
 			
 			if (enemy->recalc_path <= 50 || !enemy->way)
@@ -2995,6 +3002,7 @@ void	spawn_item(t_data *data, t_enemy *enemy)
 		data->item = add_end_lst(create_item(data, HEAL_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=new_x,.coo_y=new_y},new_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
 	}
+	// printf("____________healPOPO item categ >>> %d\n",((t_item *)data->item->dt)->damage.which_coa_do);
 	if (rand() % 100 <= enemy->drop_floo)
 	{
 		new_x = enemy->center.coo_x + (10 - rand() % 20);
@@ -3011,6 +3019,7 @@ void	spawn_item(t_data *data, t_enemy *enemy)
 		data->item = add_end_lst(create_item(data, FLOO_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
 	}
+	// printf("____________flooPOPO item categ >>> %d\n",((t_item *)data->item->dt)->damage.which_coa_do);
 	if (rand() % 100 <= enemy->drop_shield)
 	{
 		new_x = enemy->center.coo_x + (10 - rand() % 20);
@@ -3027,6 +3036,7 @@ void	spawn_item(t_data *data, t_enemy *enemy)
 		data->item = add_end_lst(create_item(data, SHIELD_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
 	}
+	// printf("____________shieldPOPO item categ >>> %d\n",((t_item *)data->item->dt)->damage.which_coa_do);
 	if (rand() % 100 <= enemy->drop_cloak)
 	{
 		new_x = enemy->center.coo_x + (10 - rand() % 20);
@@ -3043,6 +3053,7 @@ void	spawn_item(t_data *data, t_enemy *enemy)
 		data->item = add_end_lst(create_item(data, INVI_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
 	}
+	// printf("____________inviPOPO item categ >>> %d\n",((t_item *)data->item->dt)->damage.which_coa_do);
 }
 void	win_xp(t_data *data, int type, double *xp)
 {
@@ -3117,6 +3128,6 @@ void	move_enemy(t_data *data)
 		enemy->nb_move++;
 		lst = next;
 	}
-	printf ("fire xp >> %f\nwater xp >> %f\nair xp >> %f\nearth xp >> %f\nplayer xp >> %f\n", data->coa[FIRE].xp, data->coa[WATER].xp, data->coa[AIR].xp, data->coa[EARTH].xp, data->player.xp);
+	// printf ("fire xp >> %f\nwater xp >> %f\nair xp >> %f\nearth xp >> %f\nplayer xp >> %f\n", data->coa[FIRE].xp, data->coa[WATER].xp, data->coa[AIR].xp, data->coa[EARTH].xp, data->player.xp);
 }
 

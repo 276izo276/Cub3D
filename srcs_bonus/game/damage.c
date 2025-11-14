@@ -4,6 +4,10 @@
 
 void	apply_damage(t_damage *take, t_damage *apply)
 {
+	// if (apply->which_coa_do == 0)
+	// {
+	// 	printf("\nHIT 0 COA >>%f\n",apply->damage_do);
+	// }
 	take->which_coa_take = apply->which_coa_do;
 	take->damage_take += apply->damage_do;
 	take->damage_spider_take += apply->damage_spider_do;

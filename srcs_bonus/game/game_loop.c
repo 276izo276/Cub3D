@@ -32,7 +32,7 @@ void	player_invisible(t_data *data)
 		{
 			data->player.invisible = 255;
 		}
-		printf("invisible>>%d    \n",data->player.invisible);
+		// printf("invisible>>%d    \n",data->player.invisible);
 	}
 }
 

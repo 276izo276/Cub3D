@@ -108,6 +108,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		data->sorcerer[0].is_alive = true;
 		enemy->life = 250 + (data->sorcerer[0].nb_spawn * 100);
 		enemy->color_coa = WATER_COLOR;
+		enemy->damage.which_coa_do = WATER;
 	}
 	else if (c == ZIPPY)
 	{
@@ -117,6 +118,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		data->sorcerer[1].is_alive = true;
 		enemy->life = 200 + (data->sorcerer[1].nb_spawn * 100);
 		enemy->color_coa = FIRE_COLOR;
+		enemy->damage.which_coa_do = FIRE;
 	}
 	else if (c == KUNFANDI)
 	{
@@ -126,6 +128,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		data->sorcerer[2].is_alive = true;
 		enemy->life = 150 + (data->sorcerer[2].nb_spawn * 100);
 		enemy->color_coa = AIR_COLOR;
+		enemy->damage.which_coa_do = AIR;
 	}
 	else if (c == PILO)
 	{
@@ -135,6 +138,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		data->sorcerer[3].is_alive = true;
 		enemy->life = 150 + (data->sorcerer[3].nb_spawn * 100);
 		enemy->color_coa = EARTH_COLOR;
+		enemy->damage.which_coa_do = EARTH;
 	}
 	else if (c == CAMEO)
 	{
@@ -144,6 +148,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		data->sorcerer[4].is_alive = true;
 		enemy->life = 150 + (data->sorcerer[4].nb_spawn * 100);
 		enemy->color_coa = AIR_COLOR;
+		enemy->damage.which_coa_do = AIR;
 	}
 	else if (c == ANAIS)
 	{
@@ -153,6 +158,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		data->sorcerer[5].is_alive = true;
 		enemy->life = 150 + (data->sorcerer[5].nb_spawn * 100);
 		enemy->color_coa = AIR_COLOR;
+		enemy->damage.which_coa_do = AIR;
 	}
 	else if (c == DIRLO)
 	{
@@ -162,6 +168,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		data->sorcerer[6].is_alive = true;
 		enemy->life = 150 + (data->sorcerer[6].nb_spawn * 100);
 		enemy->color_coa = EARTH_COLOR;
+		enemy->damage.which_coa_do = EARTH;
 	}
 	else if (c == STEF)
 	{
@@ -171,6 +178,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		data->sorcerer[7].is_alive = true;
 		enemy->life = 200 + (data->sorcerer[7].nb_spawn * 100);
 		enemy->color_coa = FIRE_COLOR;
+		enemy->damage.which_coa_do = FIRE;
 	}
 	else if (c == MARINA)
 	{
@@ -180,6 +188,7 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		data->sorcerer[8].is_alive = true;
 		enemy->life = 150 + (data->sorcerer[8].nb_spawn * 100);
 		enemy->color_coa = EARTH_COLOR;
+		enemy->damage.which_coa_do = EARTH;
 	}
 	enemy->back_img = &data->img[SORCERER_BACK];
 	enemy->side_img = &data->img[SORCERER_SIDE_90];
@@ -239,6 +248,7 @@ t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)
 	enemy->cooldown_dist = 6;
 	enemy->cooldown_cac = 1;
 	enemy->deg = deg;
+	enemy->damage.which_coa_do = OTHERS;
 	if (c == DEMENTOR)
 		fill_dementor(data, enemy);
 	else if (c == SPIDER)

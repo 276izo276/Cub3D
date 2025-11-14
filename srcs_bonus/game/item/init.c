@@ -8,6 +8,7 @@
 
 t_item	*init_spell_item(t_data *data, int info)
 {
+	printf("CREATE ITEM PLAYER\n");
 	t_item	*item;
 
 	item = malloc(sizeof(t_item));
@@ -87,6 +88,7 @@ t_item	*create_spell_item_sorcerer(t_data *data, int info, t_fcoo *coo, double d
 	item->radius = data->spell[info].item.radius;
 	item->back_img = data->spell[info].item.back_img;
 	item->front_img = data->spell[info].item.front_img;
+	item->damage.which_coa_do = OTHERS;
 	make_move_item(item, 42);
 	return (item);
 }
@@ -129,6 +131,7 @@ t_item	*create_item(t_data *data, int info, t_fcoo *coo, double deg)
 	item->radius = data->items[info].radius;
 	item->back_img = data->items[info].back_img;
 	item->front_img = data->items[info].front_img;
+	item->damage.which_coa_do = OTHERS;
 	make_move_item(item, 10);
 	return (item);
 }
