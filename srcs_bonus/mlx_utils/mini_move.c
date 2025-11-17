@@ -420,13 +420,19 @@ void	get_order_xp(t_data *data)
 {
 	int	i;
 	int	index_max_xp;
+	double	max_xp;
 
+	max_xp = 1.0;
 	index_max_xp = 0;
 	i = 0;
+	data->coa[data->player.coa].xp = data->player.xp;
 	while (i < 4)
 	{
-		if (data->coa[i].xp > index_max_xp)
+		if (data->coa[i].xp > max_xp)
+		{
 			index_max_xp = i;
+			max_xp = data->coa[i].xp;
+		}
 		++i;
 	}
 	data->coa[index_max_xp].max_y = 196 ;
@@ -435,12 +441,13 @@ void	get_order_xp(t_data *data)
 	{
 		if (index_max_xp == i)
 		{
+			// printf ("i >> %d  |||| xp >> %f || max_y >>> %f\n", i, data->coa[i].xp, data->coa[i].max_y);
 			++i;
 			continue ;
 		}
 		// data->coa[i].xp += (i + 1) *3;
 		data->coa[i].max_y = 674 - (data->coa[i].xp / data->coa[index_max_xp].xp) * (674 - 196);
-		// printf ("i >> %d  |||| xp >>> %f\n", i, data->coa[i].max_y);
+		// printf ("i >> %d  |||| xp >> %f || max_y >>> %f\n", i, data->coa[i].xp, data->coa[i].max_y);
 		++i;
 	}
 }

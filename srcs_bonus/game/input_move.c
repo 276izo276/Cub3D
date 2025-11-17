@@ -438,6 +438,7 @@ void	cheat_code(t_data *data, int keycode)
 		{
 			data->player.life = 100;
 			data->player.shield = 100;
+			data->index_life = 0;
 		}
 	}
 	if(data->wand.wand_status[5] != true || data->wand.wand_status[6] != true)

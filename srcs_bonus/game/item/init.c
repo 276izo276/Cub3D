@@ -239,8 +239,8 @@ static void	init_tig(t_data *data)
 	data->items[TIG].damage.repulso_frame_do = 5;
 	data->items[TIG].speed = 0;
 	data->items[TIG].radius = 5;
-	data->items[TIG].front_img = &data->img[LOGO_42_IMG];
-	data->items[TIG].back_img = &data->img[LOGO_42_IMG];
+	data->items[TIG].front_img = &data->img[TIG_IMG];
+	data->items[TIG].back_img = &data->img[TIG_IMG];
 }
 
 
@@ -303,7 +303,7 @@ static void	init_folder(t_data *data)
 	data->items[TIG].damage.slow_frame_do = 120;
 	data->items[TIG].damage.repulso_force_do = 2;
 	data->items[TIG].damage.repulso_frame_do = 5;
-	data->items[FOLDER].speed = 10;
+	data->items[FOLDER].speed = 0;
 	data->items[FOLDER].radius = 3;
 	data->items[FOLDER].front_img = &data->img[FOLDER_IMG];
 	data->items[FOLDER].back_img = &data->img[FOLDER_IMG];
@@ -323,8 +323,8 @@ static void	init_marvin(t_data *data)
 	data->items[TIG].damage.repulso_frame_do = 5;
 	data->items[MARVIN].speed = 10;
 	data->items[MARVIN].radius = 3;
-	data->items[MARVIN].front_img = &data->img[STUPEFIX_ICN];
-	data->items[MARVIN].back_img = &data->img[STUPEFIX_ICN];
+	data->items[MARVIN].front_img = &data->img[MARVIN_IMG];
+	data->items[MARVIN].back_img = &data->img[MARVIN_IMG];
 }
 
 static void	init_taylor_swift(t_data *data)

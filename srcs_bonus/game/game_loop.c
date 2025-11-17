@@ -794,7 +794,7 @@ void	update_sorcerer(t_data *data)
 	i = 0;
 	while (i < 9)
 	{
-		if (data->sorcerer[i].is_alive == false)
+		if (data->sorcerer[i].is_alive == false && data->player.color != data->sorcerer[i].color)
 			spawn_sorcerer(data, data->sorcerer[i].type);
 		++i;
 	}
@@ -804,7 +804,6 @@ int	game_loop(t_data *data)
 	long long int	cur;
 	
 	cur = get_mtime();
-	update_sorcerer(data);
 	if (data->portkey_is_active == false && data->player.xp >= 16)
 		spawn_portkey(data);
 	if (data->status == MENU)
@@ -826,6 +825,7 @@ int	game_loop(t_data *data)
 	{
 		//DBG1printf("0\n");
 		// data->player.life -= .5;
+		update_sorcerer(data);
 		if (cur - data->last_spawn >= data->spawn_frame)
 		{
 			update_enemy(data);

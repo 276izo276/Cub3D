@@ -18,5 +18,7 @@ void	print_map(t_data *data);
 int		abs_value(int value);
 char	*ft_itoa(int nb);
 int		are_double_close(double nb1, double nb2);
+void	f_tab_char(char **tab);
+void	f_img(t_img *img);
 
 #endif

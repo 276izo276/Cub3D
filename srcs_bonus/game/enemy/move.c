@@ -1830,7 +1830,7 @@ void	air_spell(t_data *data, t_enemy *enemy, double deg, int type)
 	else if (type == SPIDER)
 		data->item = add_end_lst(create_spell_item_sorcerer(data, ARANIA_EXUMAI, 
 					&enemy->center, deg + 180), data->item, f_item);
-	else if (rand() % 2 == 1)
+	else if (rand() % 3 == 0)
 		data->item = add_end_lst(create_spell_item_sorcerer(data, VENTUS, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else if (enemy->type == KUNFANDI)
@@ -1854,7 +1854,7 @@ void	water_spell(t_data *data, t_enemy *enemy, double deg, int type)
 	else if (type == SPIDER)
 		data->item = add_end_lst(create_spell_item_sorcerer(data, ARANIA_EXUMAI, 
 					&enemy->center, deg + 180), data->item, f_item);
-	else if (rand() % 2 == 1)
+	else if (rand() % 3 == 0)
 		data->item = add_end_lst(create_spell_item_sorcerer(data, AGUAMENTI, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else
@@ -1873,7 +1873,7 @@ void	fire_spell(t_data *data, t_enemy *enemy, double deg, int type)
 	else if (type == SPIDER)
 		data->item = add_end_lst(create_spell_item_sorcerer(data, ARANIA_EXUMAI, 
 					&enemy->center, deg + 180), data->item, f_item);
-	else if (rand() % 2 == 1)
+	else if (rand() % 3 == 0)
 		data->item = add_end_lst(create_spell_item_sorcerer(data, INCENDIO, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else if (enemy->type == STEF)
@@ -1894,7 +1894,7 @@ void	earth_spell(t_data *data, t_enemy *enemy, double deg, int type)
 	else if (type == SPIDER)
 		data->item = add_end_lst(create_spell_item_sorcerer(data, ARANIA_EXUMAI, 
 					&enemy->center, deg + 180), data->item, f_item);
-	else if (rand() % 2 == 1)
+	else if (rand() % 3 == 0)
 		data->item = add_end_lst(create_spell_item_sorcerer(data, ENDOLORIS, 
 					&enemy->center, deg + 180), data->item, f_item);
 	else if (enemy->type == MARINA)
@@ -2195,13 +2195,14 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 				{
 					data->item = add_end_lst(create_item(data, WEB_SPIDER, 
 						&enemy->center, deg + 180), data->item, f_item);
+					((t_item *)data->item->dt)->damage.which_coa_do = OTHERS;
 				}
 				else if (enemy->type == ELEM)
 				{
 					data->item = add_end_lst(create_item(data, FIREBALL_ELEM, 
 						&enemy->center, deg + 180), data->item, f_item);
+						((t_item *)data->item->dt)->damage.which_coa_do = OTHERS;
 				}
-				((t_item *)data->item->dt)->damage.which_coa_do = OTHERS;
 				// printf("____________others item categ >>> %d\n",((t_item *)data->item->dt)->damage.which_coa_do);
 			}
 			

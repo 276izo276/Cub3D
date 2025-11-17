@@ -550,7 +550,7 @@ static void	init_coa(t_data *data)
 	data->coa[AIR].border->path = "texture/menu/border_air.xpm";
 	while (i < 4)
 	{
-		data->coa[i].xp = 0;
+		data->coa[i].xp = 1.0;
 		data->coa[i].max_y = 0;
 		++i;
 	}
@@ -737,7 +737,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->wand.wand_status[0] = true;
 	while (i < 6)
 	{
-		data->wand.wand_status[i] = true; // a changer quand on aura le loot
+		data->wand.wand_status[i] = false; // a changer quand on aura le loot
 		++i;
 	}
 	data->cheat_code_xp = "SAMAOUCH";

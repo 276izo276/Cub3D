@@ -3,17 +3,17 @@
 
 void	init_popo(t_data *data)
 {
-	data->popo[0].nb = 5;
+	data->popo[0].nb = 0;
 	data->popo[0].key = "Z";
 	data->popo[0].img = &data->img[POPO_HEAL];
 	data->popo[0].call = cast_popo_heal;
 
-	data->popo[1].nb = 3;
+	data->popo[1].nb = 0;
 	data->popo[1].key = "X";
 	data->popo[1].img = &data->img[POPO_SHIELD];
 	data->popo[1].call = cast_popo_shield;
 
-	data->popo[2].nb = 4;
+	data->popo[2].nb = 0;
 	data->popo[2].key = "C";
 	data->popo[2].img = &data->img[POPO_FLOO];
 	data->popo[2].call = cast_popo_floo;
