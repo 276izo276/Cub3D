@@ -562,6 +562,8 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	mini->sdy = 0;
 	mini->sdx = 0;
 	i = 0;
+	if (data->player.life <= 0)
+		return ;
 	while (i < KEYCODE_NB)
 	{
 		if (is_move_player(data, i))
