@@ -75,7 +75,7 @@ void	try_hit_item(t_data *data, int i, double x)
 			data->ray[i].items[ray.j]->categ = item->categ;
 			if (item->type == EXPECTO_PATRONUM || item->type == ANIM_DEATH || item->type == BH)
 				data->ray[i].items[ray.j]->type = item->type;
-			if (item->type == VENTUS)
+			if (item->type == VENTUS && !item->categ)
 			{
 				data->ray[i].items[ray.j]->type = VENTUS;
 				if (item->nb_move <= 102)
