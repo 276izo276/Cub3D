@@ -54,6 +54,7 @@ void	fill_wolf(t_data *data, t_enemy *enemy)
 	enemy->drop_shield = 10;
 	enemy->drop_floo = 10;
 	enemy->drop_cloak = 10;
+	enemy->drop_wolf_wand = 1;
 }
 
 void	fill_elem(t_data *data, t_enemy *enemy)
@@ -75,6 +76,7 @@ void	fill_elem(t_data *data, t_enemy *enemy)
 	enemy->drop_shield = 10;
 	enemy->drop_floo = 10;
 	enemy->drop_cloak = 10;
+	enemy->drop_elem_wand = 1;
 }
 
 void	fill_spider(t_data *data, t_enemy *enemy)
@@ -96,6 +98,7 @@ void	fill_spider(t_data *data, t_enemy *enemy)
 	enemy->drop_shield = 50;
 	enemy->drop_floo = 50;
 	enemy->drop_cloak = 50;
+	enemy->drop_spider_wand = 1;
 }
 
 void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
@@ -190,6 +193,14 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		enemy->color_coa = EARTH_COLOR;
 		enemy->damage.which_coa_do = EARTH;
 	}
+	if (enemy->color_coa == AIR_COLOR)
+		enemy->drop_spider_wand = 100;
+	else if (enemy->color_coa == EARTH_COLOR)
+		enemy->drop_wolf_wand = 100;
+	else if (enemy->color_coa == WATER_COLOR)
+		enemy->drop_dementor_wand = 100;
+	else if (enemy->color_coa == FIRE_COLOR)
+		enemy->drop_elem_wand = 100;
 	enemy->back_img = &data->img[SORCERER_BACK];
 	enemy->side_img = &data->img[SORCERER_SIDE_90];
 	enemy->side_back_img = &data->img[SORCERER_BACK_45];
@@ -225,7 +236,7 @@ void	fill_dementor(t_data *data, t_enemy *enemy)
 	enemy->damage.curse_frame_do = 10;
 	enemy->damage.slow_force_do = 25;
 	enemy->damage.slow_frame_do = 60;
-
+	enemy->drop_dementor_wand = 1;
 }
 
 t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)

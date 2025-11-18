@@ -4,7 +4,7 @@
 void	set_spell_take(t_data *data)
 {
 	data->cast_spell = -1;
-	data->spell_take[0] = LUMOS;
+	data->spell_take[0] = AVADA_KEDAVRA;
 	data->spell_take[1] = INCENDIO;
 	data->spell_take[2] = GLACIUS;
 	data->spell_take[3] = REPULSO;
@@ -352,7 +352,7 @@ static void	init_avada_kedavra(t_data *data)
 	data->spell[AVADA_KEDAVRA].damage.damage_do = 25;
 	data->spell[AVADA_KEDAVRA].damage.curse_force_do = 45;
 	data->spell[AVADA_KEDAVRA].damage.curse_frame_do = 4;
-	data->spell[AVADA_KEDAVRA].item.speed = 5;
+	data->spell[AVADA_KEDAVRA].item.speed = 10;
 	data->spell[AVADA_KEDAVRA].item.radius = 1;
 	data->spell[AVADA_KEDAVRA].item.front_img = &data->img[AVADA_KEDAVRA_IMG];
 	data->spell[AVADA_KEDAVRA].item.back_img = &data->img[AVADA_KEDAVRA_IMG];

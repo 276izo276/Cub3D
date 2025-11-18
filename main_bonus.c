@@ -276,6 +276,7 @@ void	restart(t_data *data)
 	while (i <= 6)
 	{
 		data->wand.wand_status[i] = false;
+		data->wand.is_drop[i] = false;
 		++i;
 	}
 	f_all_lst(data->map.map);

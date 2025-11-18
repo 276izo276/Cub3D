@@ -207,7 +207,16 @@ static void	is_item(char c, int y, int x, t_data *data)
 			if (c == 'v')
 				info = INVI_POPO;
 			if (c == 'f')
+			{
+				if (data->portkey_is_active == true)
+				{
+					ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
+					"Map >>> ""2 exit found\n"_END);
+					f_exit(data, 1);
+				}
+				data->portkey_is_active = true;
 				info = PORTKEY;
+			}
 			data->item = add_end_lst(create_item(data, info, &(t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data->map.mini.deg), data->item, f_item);
 			if (!data->item)
 				f_exit(data, 1);

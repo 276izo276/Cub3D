@@ -406,6 +406,10 @@ typedef enum e_items
 	COMPANY,
 	LOGO_42,
 	PORTKEY,
+	WOLF_WAND,
+	SPIDER_WAND,
+	ELEM_WAND,
+	DEMENTOR_WAND,
 
 	END_ITEM
 }	t_items;
@@ -529,6 +533,10 @@ struct	s_enemy
 	int				drop_shield;
 	int				drop_floo;
 	int				drop_cloak;
+	int				drop_spider_wand;
+	int				drop_wolf_wand;
+	int				drop_dementor_wand;
+	int				drop_elem_wand;
 	unsigned int	color_coa;
 };
 
@@ -976,6 +984,7 @@ struct s_wand
 	int		count_egg;
 	char	*secret_wand;
 	bool	wand_status[7];
+	bool	is_drop[7];
 	char	*secret_sword;
 	int		count_sword;
 };

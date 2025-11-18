@@ -492,6 +492,14 @@ void	try_hit_player(t_data *data)
 				data->status = MENU_END;
 				get_order_xp(data);
 			}
+			if (item->type == WOLF_WAND)
+				data->wand.wand_status[2] = true;
+			if (item->type == ELEM_WAND)
+				data->wand.wand_status[3] = true;
+			if (item->type == DEMENTOR_WAND)
+				data->wand.wand_status[4] = true;
+			if (item->type == SPIDER_WAND)
+				data->wand.wand_status[1] = true;
 			apply_damage(&data->player.damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
@@ -517,6 +525,14 @@ void	try_hit_player(t_data *data)
 				data->status = MENU_END;
 				get_order_xp(data);
 			}
+			if (item->type == WOLF_WAND)
+				data->wand.wand_status[2] = true;
+			if (item->type == ELEM_WAND)
+				data->wand.wand_status[3] = true;
+			if (item->type == DEMENTOR_WAND)
+				data->wand.wand_status[4] = true;
+			if (item->type == SPIDER_WAND)
+				data->wand.wand_status[1] = true;
 			apply_damage(&data->player.damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
@@ -542,6 +558,14 @@ void	try_hit_player(t_data *data)
 				data->status = MENU_END;
 				get_order_xp(data);
 			}
+			if (item->type == WOLF_WAND)
+				data->wand.wand_status[2] = true;
+			if (item->type == ELEM_WAND)
+				data->wand.wand_status[3] = true;
+			if (item->type == DEMENTOR_WAND)
+				data->wand.wand_status[4] = true;
+			if (item->type == SPIDER_WAND)
+				data->wand.wand_status[1] = true;
 			apply_damage(&data->player.damage, &item->damage);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);

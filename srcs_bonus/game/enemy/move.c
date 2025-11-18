@@ -3054,6 +3054,78 @@ void	spawn_item(t_data *data, t_enemy *enemy)
 		data->item = add_end_lst(create_item(data, INVI_POPO, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
 	}
+
+	if (data->wand.is_drop[1] != true && rand() % 100 <= enemy->drop_spider_wand)
+	{
+		new_x = enemy->center.coo_x + (10 - rand() % 20);
+		new_y = enemy->center.coo_y + (10 - rand() % 20);
+		if (new_x >= 64)
+			new_x = 63.5;
+		if (new_y >= 64)
+			new_y = 63.5;
+		if (new_x < 0)
+			new_x = .5;
+		if (new_y < 0)
+			new_y = .5;
+		new_deg = enemy->aff_deg + (60 - rand() % 120);
+		data->item = add_end_lst(create_item(data, SPIDER_WAND, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
+		make_move_item(data->item->dt, 5);
+		data->wand.is_drop[1] = true;
+	}
+
+	if (data->wand.is_drop[4] != true && rand() % 100 <= enemy->drop_dementor_wand)
+	{
+		new_x = enemy->center.coo_x + (10 - rand() % 20);
+		new_y = enemy->center.coo_y + (10 - rand() % 20);
+		if (new_x >= 64)
+			new_x = 63.5;
+		if (new_y >= 64)
+			new_y = 63.5;
+		if (new_x < 0)
+			new_x = .5;
+		if (new_y < 0)
+			new_y = .5;
+		new_deg = enemy->aff_deg + (60 - rand() % 120);
+		data->item = add_end_lst(create_item(data, DEMENTOR_WAND, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
+		make_move_item(data->item->dt, 5);
+		data->wand.is_drop[4] = true;
+	}
+
+	if (data->wand.is_drop[3] != true && rand() % 100 <= enemy->drop_elem_wand)
+	{
+		new_x = enemy->center.coo_x + (10 - rand() % 20);
+		new_y = enemy->center.coo_y + (10 - rand() % 20);
+		if (new_x >= 64)
+			new_x = 63.5;
+		if (new_y >= 64)
+			new_y = 63.5;
+		if (new_x < 0)
+			new_x = .5;
+		if (new_y < 0)
+			new_y = .5;
+		new_deg = enemy->aff_deg + (60 - rand() % 120);
+		data->item = add_end_lst(create_item(data, ELEM_WAND, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
+		make_move_item(data->item->dt, 5);
+		data->wand.is_drop[3] = true;
+	}
+	if (data->wand.is_drop[2] != true &&  rand() % 100 <= enemy->drop_wolf_wand)
+	{
+		new_x = enemy->center.coo_x + (10 - rand() % 20);
+		new_y = enemy->center.coo_y + (10 - rand() % 20);
+		if (new_x >= 64)
+			new_x = 63.5;
+		if (new_y >= 64)
+			new_y = 63.5;
+		if (new_x < 0)
+			new_x = .5;
+		if (new_y < 0)
+			new_y = .5;
+		new_deg = enemy->aff_deg + (60 - rand() % 120);
+		data->item = add_end_lst(create_item(data, WOLF_WAND, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
+		make_move_item(data->item->dt, 5);
+		data->wand.is_drop[2] = true;
+		data->wand.is_drop[2] = true;
+	}
 	// printf("____________inviPOPO item categ >>> %d\n",((t_item *)data->item->dt)->damage.which_coa_do);
 }
 void	win_xp(t_data *data, int type, double *xp)
@@ -3091,7 +3163,8 @@ void	move_enemy(t_data *data)
 			if (enemy->type != SNAKE && enemy->type != BIRD)
 			{
 				data->item = add_end_lst(create_item(data, ANIM_DEATH, &(t_fcoo){.case_x=enemy->center.case_x, .case_y=enemy->center.case_y, .coo_y= enemy->center.coo_y, .coo_x= enemy->center.coo_x}, data->map.mini.deg), data->item, f_item);
-				spawn_item(data, enemy);
+				if (enemy->damage.which_coa_take == data->player.coa)
+					spawn_item(data, enemy);
 			}
 			if (enemy->damage.which_coa_take == data->player.coa)
 			{

@@ -99,6 +99,7 @@ void select_right_hand(t_data *data)
 	char			*pixel_addr;
 	
 	y = 0;
+	// DESTROY L ANCIENNE TEXTURE DE PLAYER_HAND
 	if (data->is_right_handed == true)
 		data->img[PLAYER_HAND].path = "./texture/player_hand/right_hand.xpm";
 	else

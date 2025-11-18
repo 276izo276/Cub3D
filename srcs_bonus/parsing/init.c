@@ -20,10 +20,10 @@ static void	set_path_texture(t_data *data)
 	data->img[PLAYER_WAND_7].path = "./texture/player_hand/wand_7.xpm";
 
 
-	data->img[WAND_SPIDER_IMG].path = "./texture/player_hand/wand_2.xpm";
-	data->img[WAND_WOLF_IMG].path = "./texture/player_hand/wand_3.xpm";
-	data->img[WAND_ELEM_IMG].path = "./texture/player_hand/wand_4.xpm";
-	data->img[WAND_DEMENTOR_IMG].path = "./texture/player_hand/wand_5.xpm";
+	data->img[WAND_SPIDER_IMG].path = "./texture/player_hand/spider_wand.xpm";
+	data->img[WAND_WOLF_IMG].path = "./texture/player_hand/wolf_wand.xpm";
+	data->img[WAND_ELEM_IMG].path = "./texture/player_hand/elem_wand.xpm";
+	data->img[WAND_DEMENTOR_IMG].path = "./texture/player_hand/dementor_wand.xpm";
 
 	data->img[SELECT].path = "./texture/menu/select.xpm";
 	data->img[SELECT_HAND].path = "./texture/menu/select_hand.xpm";
@@ -740,9 +740,11 @@ void	init_data(t_data *data, int ac, char **av)
 	data->wand.secret_sword = "SWORD";
 	int	i = 1;
 	data->wand.wand_status[0] = true;
+	data->wand.is_drop[0] = true;
 	while (i < 6)
 	{
-		data->wand.wand_status[i] = false; // a changer quand on aura le loot
+		data->wand.wand_status[i] = false;
+		data->wand.is_drop[i] = false;
 		++i;
 	}
 	data->cheat_code_xp = "SAMAOUCH";
