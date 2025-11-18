@@ -7,6 +7,8 @@
 # include <pthread.h>
 # include <semaphore.h>
 
+#define FICHIER_MP3 "mp3.mp3"
+
 # define SIZE_MAP (5 * 64)
 # define FPS 30.0
 # define V_FOV 90.0

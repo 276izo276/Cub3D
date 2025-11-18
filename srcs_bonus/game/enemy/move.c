@@ -3088,6 +3088,7 @@ void	move_enemy(t_data *data)
 		take_damage_enemy(enemy);
 		if (enemy->life <= 0)
 		{
+			// system("cvlc --play-and-exit " FICHIER_MP3 " &");
 			if (enemy->type != SNAKE && enemy->type != BIRD)
 			{
 				data->item = add_end_lst(create_item(data, ANIM_DEATH, &(t_fcoo){.case_x=enemy->center.case_x, .case_y=enemy->center.case_y, .coo_y= enemy->center.coo_y, .coo_x= enemy->center.coo_x}, data->map.mini.deg), data->item, f_item);
