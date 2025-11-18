@@ -90,7 +90,7 @@ void	spell_lumos(t_data *data)
 		data->lumos.active = false;
 		data->active_spell = -1;
 	}
-	start_x = data->lumos.x_wand + (data->wand.img[PLAYER_WAND].width / 2) - 2;
+	start_x = data->lumos.x_wand + (data->img[PLAYER_WAND].width / 2) - 2;
 	start_y = data->lumos.y_wand + 5;
 	lumos_loop(data, start_x, start_y);
 	if (data->lumos.active == false)

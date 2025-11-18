@@ -7,18 +7,24 @@
 #include <color_bonus.h>
 #include "ft_printf.h"
 
-static void	set_path_wand(t_data *data)
-{
-	data->wand.img[PLAYER_WAND].path = "./texture/player_hand/wand_sureau.xpm";
-	data->wand.img[PLAYER_WAND_2].path = "./texture/player_hand/wand_2.xpm";
-	data->wand.img[PLAYER_WAND_3].path = "./texture/player_hand/wand_3.xpm";
-	data->wand.img[PLAYER_WAND_4].path = "./texture/player_hand/wand_4.xpm";
-	data->wand.img[PLAYER_WAND_5].path = "./texture/player_hand/wand_5.xpm";
-	data->wand.img[PLAYER_WAND_6].path = "./texture/player_hand/wand_6.xpm";
-	data->wand.img[PLAYER_WAND_7].path = "./texture/player_hand/wand_7.xpm";
-}
 static void	set_path_texture(t_data *data)
 {
+
+
+	data->img[PLAYER_WAND].path = "./texture/player_hand/wand_sureau.xpm";
+	data->img[PLAYER_WAND_2].path = "./texture/player_hand/wand_2.xpm";
+	data->img[PLAYER_WAND_3].path = "./texture/player_hand/wand_3.xpm";
+	data->img[PLAYER_WAND_4].path = "./texture/player_hand/wand_4.xpm";
+	data->img[PLAYER_WAND_5].path = "./texture/player_hand/wand_5.xpm";
+	data->img[PLAYER_WAND_6].path = "./texture/player_hand/wand_6.xpm";
+	data->img[PLAYER_WAND_7].path = "./texture/player_hand/wand_7.xpm";
+
+
+	data->img[WAND_SPIDER_IMG].path = "./texture/player_hand/wand_2.xpm";
+	data->img[WAND_WOLF_IMG].path = "./texture/player_hand/wand_3.xpm";
+	data->img[WAND_ELEM_IMG].path = "./texture/player_hand/wand_4.xpm";
+	data->img[WAND_DEMENTOR_IMG].path = "./texture/player_hand/wand_5.xpm";
+
 	data->img[SELECT].path = "./texture/menu/select.xpm";
 	data->img[SELECT_HAND].path = "./texture/menu/select_hand.xpm";
 	data->img[PLAYER_HAND].path = "./texture/player_hand/wand_sureau.xpm";
@@ -281,35 +287,35 @@ void	init_textures(t_data *data)
 	}
 }
 
-void	init_textures_wand(t_data *data)
-{
-	int	i;
+// void	init_textures_wand(t_data *data)
+// {
+// 	int	i;
 
-	set_path_wand(data);
-	i = 0;
-	while (i < NB_WAND)
-	{
-		data->wand.img[i].img = mlx_xpm_file_to_image(data->mlx.mlx,
-				data->wand.img[i].path, &data->wand.img[i].width,
-				&data->wand.img[i].height);
-		if (!data->wand.img[i].img)
-		{
-			ft_printf_fd(2, _BOLD _PURPLE "Image >>> '"
-			_RED _ITALIC "%s"_END _PURPLE _BOLD "' is not a valid path\n"_END,
-			data->wand.img[i].path);
-			while (--i >= 0)
-			{
-				mlx_destroy_image(data->mlx.mlx, data->wand.img[i].img);
-				data->wand.img[i].img = NULL;
-			}
-			f_exit(data, 1);
-		}
-		data->wand.img[i].data_addr = mlx_get_data_addr(data->wand.img[i].img,
-				&data->wand.img[i].bits_per_pixel, &data->wand.img[i].size_line,
-				&data->wand.img[i].endian);
-		++i;
-	}
-}
+// 	set_path_wand(data);
+// 	i = 0;
+// 	while (i < NB_WAND)
+// 	{
+// 		data->wand.img[i].img = mlx_xpm_file_to_image(data->mlx.mlx,
+// 				data->wand.img[i].path, &data->wand.img[i].width,
+// 				&data->wand.img[i].height);
+// 		if (!data->wand.img[i].img)
+// 		{
+// 			ft_printf_fd(2, _BOLD _PURPLE "Image >>> '"
+// 			_RED _ITALIC "%s"_END _PURPLE _BOLD "' is not a valid path\n"_END,
+// 			data->wand.img[i].path);
+// 			while (--i >= 0)
+// 			{
+// 				mlx_destroy_image(data->mlx.mlx, data->wand.img[i].img);
+// 				data->wand.img[i].img = NULL;
+// 			}
+// 			f_exit(data, 1);
+// 		}
+// 		data->wand.img[i].data_addr = mlx_get_data_addr(data->wand.img[i].img,
+// 				&data->wand.img[i].bits_per_pixel, &data->wand.img[i].size_line,
+// 				&data->wand.img[i].endian);
+// 		++i;
+// 	}
+// }
 
 // static void	init_texture(t_data *data)
 // {
@@ -703,7 +709,6 @@ void	init_data(t_data *data, int ac, char **av)
 	data->portkey_is_active = false;
 	// init_texture(data);
 	init_textures(data);
-	init_textures_wand(data);
 	init_coa(data);
 	init_pause_menu(data);
 	init_spell_menu(data);

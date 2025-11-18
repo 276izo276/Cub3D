@@ -32,12 +32,12 @@ static void display_wand(t_data *data, int pos_x, int pos_y)
 		pos_y -= 250;
 		pos_x += 10;
 	}
-	while (y < data->wand.img[data->wand.nb_wand].height && pos_y + y < data->mlx.height)
+	while (y < data->img[data->wand.nb_wand + PLAYER_WAND].height && pos_y + y < data->mlx.height)
 	{
 		x = 0;
-		while (x < data->wand.img[data->wand.nb_wand].width)
+		while (x < data->img[data->wand.nb_wand + PLAYER_WAND].width)
 		{
-			color = get_texture_pixel(&data->wand.img[data->wand.nb_wand], x, y);
+			color = get_texture_pixel(&data->img[data->wand.nb_wand + PLAYER_WAND], x, y);
 			if (color != WHITE)
 			{
 				alpha_color = (data->player.invisible << 24) | (color & 0x00FFFFFF);
