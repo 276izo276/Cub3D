@@ -125,11 +125,11 @@ void	put_text_pix_img_item(t_data *data, int i, int j, int fixed)
 	data->ray[i].items[j]->color = *(unsigned int *)data->ray[i].items[j]->text_pix;
 	if (data->ray[i].items[j]->color != WHITE && data->ray[i].items[j]->color != RED)
 	{
-		if (data->ray[i].items[j]->color == YELLOW)
+		if (data->ray[i].items[j]->color == YELLOW && data->ray[i].items[j]->type != DOOR)
 		{
 			*(unsigned int *)data->ray[i].items[j]->pixel_addr = data->ray[i].items[j]->enemy->color_coa;
 		}
-		else
+		else if (data->ray[i].items[j]->color != YELLOW)
 			*(unsigned int *)data->ray[i].items[j]->pixel_addr = data->ray[i].items[j]->color;
 	}
 }
