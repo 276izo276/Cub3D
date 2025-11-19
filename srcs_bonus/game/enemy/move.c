@@ -3070,6 +3070,8 @@ void	spawn_item(t_data *data, t_enemy *enemy)
 		new_deg = enemy->aff_deg + (60 - rand() % 120);
 		data->item = add_end_lst(create_item(data, SPIDER_WAND, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
+		data->item = add_end_lst(create_item(data, PILLAR, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
+		make_move_item(data->item->dt, 5);
 		data->wand.is_drop[1] = true;
 	}
 
@@ -3087,6 +3089,8 @@ void	spawn_item(t_data *data, t_enemy *enemy)
 			new_y = .5;
 		new_deg = enemy->aff_deg + (60 - rand() % 120);
 		data->item = add_end_lst(create_item(data, DEMENTOR_WAND, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
+		make_move_item(data->item->dt, 5);
+		data->item = add_end_lst(create_item(data, PILLAR, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
 		data->wand.is_drop[4] = true;
 	}
@@ -3106,6 +3110,8 @@ void	spawn_item(t_data *data, t_enemy *enemy)
 		new_deg = enemy->aff_deg + (60 - rand() % 120);
 		data->item = add_end_lst(create_item(data, ELEM_WAND, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
+		data->item = add_end_lst(create_item(data, PILLAR, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
+		make_move_item(data->item->dt, 5);
 		data->wand.is_drop[3] = true;
 	}
 	if (data->wand.is_drop[2] != true &&  rand() % 100 <= enemy->drop_wolf_wand)
@@ -3122,6 +3128,8 @@ void	spawn_item(t_data *data, t_enemy *enemy)
 			new_y = .5;
 		new_deg = enemy->aff_deg + (60 - rand() % 120);
 		data->item = add_end_lst(create_item(data, WOLF_WAND, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
+		make_move_item(data->item->dt, 5);
+		data->item = add_end_lst(create_item(data, PILLAR, &(t_fcoo){.case_x=enemy->center.case_x,.case_y=enemy->center.case_y,.coo_x=enemy->center.coo_x,.coo_y=enemy->center.coo_y},new_deg),data->item,f_item);
 		make_move_item(data->item->dt, 5);
 		data->wand.is_drop[2] = true;
 		data->wand.is_drop[2] = true;

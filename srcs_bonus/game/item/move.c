@@ -453,6 +453,30 @@ void	move_item(t_data *data)
 			// printf("expecto patronum uo radius\n");
 			item->radius += .1;
 		}
+		else if (item->type == PILLAR && item->categ)
+		{
+			double diff_x = (data->player.coo.case_x * 64 + data->player.coo.coo_x) - (item->center.case_x * 64 + item->center.coo_x);
+			double diff_y = (data->player.coo.case_y * 64 + data->player.coo.coo_y) - (item->center.case_y * 64 + item->center.coo_y);
+			if (diff_y != 0)
+			{
+				item->deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
+				if (item->deg < 0)
+					item->deg = -item->deg;
+			}
+			if (diff_y < 0 && diff_x < 0)
+				item->deg = 180 + item->deg;
+			else if (diff_y < 0 && diff_x > 0)
+				item->deg = 180 - item->deg;
+			else if (diff_y > 0 && diff_x < 0)
+				item->deg = 360 - item->deg;
+			else if (diff_y == 0 && diff_x < 0)
+				item->deg = 270;
+			else if (diff_y == 0 && diff_x > 0)
+				item->deg = 90;
+			else if (diff_x == 0 && diff_y < 0)
+				item->deg = 180;
+			printf("rotate >>> %f\n", item->deg);
+		}
 		if ((item->type == VENTUS && !item->categ) || (item->type == BH && item->categ))
 			apply_attraction(item, data);
 		calc_left_point_item(item);
