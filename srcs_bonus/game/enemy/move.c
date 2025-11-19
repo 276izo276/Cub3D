@@ -3177,6 +3177,7 @@ void	move_enemy(t_data *data)
 			}
 			if (enemy->damage.which_coa_take == data->player.coa)
 			{
+				data->sound = add_end_lst(create_sound(data, 2), data->sound, free_sound);
 				win_xp(data, enemy->type, &data->player.xp);
 				data->coa[data->player.coa].xp = data->player.xp;
 			}

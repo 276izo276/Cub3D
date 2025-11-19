@@ -6,6 +6,8 @@
 #include "color_bonus.h"
 #include "enemy_bonus.h"
 #include <math.h>
+#include <sys/wait.h>
+#include <signal.h>
 
 #include <stdio.h>
 
@@ -40,16 +42,25 @@ static void	handle_sound(t_data *data)
 {
 	t_sound	*sound;
 	t_lst	*lst;
+	t_lst	*next;
 
 	lst = get_first_elem_lst(data->sound);
 	while (lst)
 	{
 		sound = lst->dt;
-		lst = lst->next;
+		next = lst->next;
 		if (get_mtime() > sound->start + sound->duration * 1000)
 		{
-			
+			if (waitpid(sound->pid, NULL, WNOHANG) == 0)
+			{
+				kill(sound->pid, SIGTERM);
+				printf("KILL sound after duration\n");
+				data->sound = remove_f_elem_lst(lst);
+			}
+			else
+				data->sound = remove_f_elem_lst(lst);
 		}
+		lst = next;
 	}
 }
 
