@@ -54,9 +54,6 @@ void	f_tab_char(char **tab)
 	free(tab);
 }
 
-
-#include <stdio.h>
-
 void	f_exit(t_data *data, int code)
 {
 	if (data->mlx.mlx)

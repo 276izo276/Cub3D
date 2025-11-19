@@ -92,16 +92,23 @@ UTILS_BONUS =								\
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/utils/,$(UTILS_BONUS))
 
-PARSING_BONUS	=							\
-				read_content.c				\
-				start_parsing.c				\
-				fill_texture.c				\
-				fill_texture_wall.c			\
-				fill_texture_utils.c		\
-				check_map_is_closed.c		\
-				open_texture.c				\
-				verif_map.c					\
-				init.c						\
+PARSING_BONUS	=								\
+				read_content.c					\
+				start_parsing.c					\
+				fill_texture.c					\
+				fill_texture_wall.c				\
+				fill_texture_utils.c			\
+				check_map_is_closed.c			\
+				open_texture.c					\
+				verif_map.c						\
+				init.c							\
+				which_type.c 					\
+				parse_item.c 					\
+				set_path_texture/char.c			\
+				set_path_texture/enemy_text.c	\
+				set_path_texture/others.c		\
+				set_path_texture/player_spell.c \
+
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/parsing/,$(PARSING_BONUS))
 
@@ -122,39 +129,39 @@ MLX_UTILS_BONUS	=							\
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/mlx_utils/,$(MLX_UTILS_BONUS))
 
-GAME_BONUS		=									\
-				raycasting.c						\
-				raycasting_utils.c					\
-				raycasting_item.c					\
-				intersection_segment.c				\
-				display/display.c 					\
-				display/display_hand.c				\
-				display/display_door.c				\
-				display/display_msg.c				\
-				display/display_item.c				\
-				display/display_map.c 				\
-				display/display_map_utils.c 		\
-				display/display_blood_border.c		\
-				environment/handle_door.c 			\
-				input_move.c						\
-				game_loop.c							\
-				display/display_floor.c				\
-				display/display_sky.c				\
-				menu/start_menu/display_menu.c		\
-				menu/start_menu/draw_border.c		\
-				menu/pause_menu/handle_pause_menu.c \
-				menu/spells_menu/handle_spells_menu.c \
-				menu/death_menu/handle_death_menu.c	\
-				menu/end_menu/handle_end_menu.c	\
-				spell/spell.c						\
-				spell/init.c						\
-				item/free.c							\
-				item/init.c							\
-				item/move.c							\
-				damage.c							\
-				popo/init.c							\
-				popo/launch.c						\
-				sound/init.c						\
+GAME_BONUS		=										\
+				raycasting.c							\
+				raycasting_utils.c						\
+				raycasting_item.c						\
+				intersection_segment.c					\
+				display/display.c 						\
+				display/display_hand.c					\
+				display/display_door.c					\
+				display/display_msg.c					\
+				display/display_item.c					\
+				display/display_map.c 					\
+				display/display_map_utils.c 			\
+				display/display_blood_border.c			\
+				environment/handle_door.c 				\
+				input_move.c							\
+				game_loop.c								\
+				display/display_floor.c					\
+				display/display_sky.c					\
+				menu/start_menu/display_menu.c			\
+				menu/start_menu/draw_border.c			\
+				menu/pause_menu/handle_pause_menu.c 	\
+				menu/spells_menu/handle_spells_menu.c	\
+				menu/death_menu/handle_death_menu.c		\
+				menu/end_menu/handle_end_menu.c			\
+				spell/spell.c							\
+				spell/init.c							\
+				item/free.c								\
+				item/init.c								\
+				item/move.c								\
+				damage.c								\
+				popo/init.c								\
+				popo/launch.c							\
+				sound/init.c							\
 				sound/free.c						
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))

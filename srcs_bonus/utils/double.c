@@ -1,4 +1,3 @@
-
 int	are_double_close(double nb1, double nb2)
 {
 	double	eq;

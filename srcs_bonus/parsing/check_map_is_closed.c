@@ -52,7 +52,7 @@ static t_lst	*add_case_near(t_lst *open, t_lst *closed, t_lst *node,
 			error_map_not_closed(closed, open, data);
 		if (!is_case_in_lst(new_y, new_x, closed)
 			&& (data->map.tabmap[new_y][new_x] != '1'
-			&&  data->map.tabmap[new_y][new_x] != 'D'))
+			&& data->map.tabmap[new_y][new_x] != 'D'))
 		{
 			open = add_start_lst(init_t_coo(new_y, new_x), open, f_elem);
 			error_occured(data, open, closed);

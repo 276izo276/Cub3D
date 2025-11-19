@@ -6,255 +6,14 @@
 #include "time_bonus.h"
 #include <color_bonus.h>
 #include "ft_printf.h"
+#include "parsing_bonus.h"
 
 static void	set_path_texture(t_data *data)
 {
-
-
-	data->img[PLAYER_WAND].path = "./texture/player_hand/wand_sureau.xpm";
-	data->img[PLAYER_WAND_2].path = "./texture/player_hand/wand_2.xpm";
-	data->img[PLAYER_WAND_3].path = "./texture/player_hand/wand_3.xpm";
-	data->img[PLAYER_WAND_4].path = "./texture/player_hand/wand_4.xpm";
-	data->img[PLAYER_WAND_5].path = "./texture/player_hand/wand_5.xpm";
-	data->img[PLAYER_WAND_6].path = "./texture/player_hand/wand_6.xpm";
-	data->img[PLAYER_WAND_7].path = "./texture/player_hand/wand_7.xpm";
-
-
-	data->img[WAND_SPIDER_IMG].path = "./texture/player_hand/spider_wand.xpm";
-	data->img[WAND_WOLF_IMG].path = "./texture/player_hand/wolf_wand.xpm";
-	data->img[WAND_ELEM_IMG].path = "./texture/player_hand/elem_wand.xpm";
-	data->img[WAND_DEMENTOR_IMG].path = "./texture/player_hand/dementor_wand.xpm";
-	data->img[PILLAR_IMG].path = "./texture/player_hand/pillar.xpm";
-	data->img[SELECT].path = "./texture/menu/select.xpm";
-	data->img[SELECT_HAND].path = "./texture/menu/select_hand.xpm";
-	data->img[PLAYER_HAND].path = "./texture/player_hand/wand_sureau.xpm";
-	data->img[LEFT_SELECT].path = "./texture/menu/left_select.xpm";
-
-
-	data->img[DEMENTOR_FRONT].path = "./texture/dementor_front.xpm";
-	data->img[DEMENTOR_BACK].path = "./texture/dementor_back.xpm";
-	data->img[DEMENTOR_SIDE_90].path = "./texture/dementor_90.xpm";
-	data->img[DEMENTOR_FRONT_45].path = "./texture/dementor_front_45.xpm";
-	data->img[DEMENTOR_BACK_45].path = "./texture/dementor_back_45.xpm";
-
-	data->img[KUNFANDI_FRONT].path = "./texture/kunfandi_front.xpm";
-	data->img[KUNFANDI_FRONT_45].path = "./texture/kunfandi_front_45.xpm";
-	data->img[NANCY_FRONT].path = "./texture/nancy_front.xpm";
-	data->img[NANCY_FRONT_45].path = "./texture/nancy_front_45.xpm";
-	data->img[PILO_FRONT].path = "./texture/pilo_front.xpm";
-	data->img[PILO_FRONT_45].path = "./texture/pilo_front_45.xpm";
-	data->img[ZIPPY_FRONT].path = "./texture/zippy_front.xpm";
-	data->img[ZIPPY_FRONT_45].path = "./texture/zippy_front_45.xpm";
-
-	data->img[STEF_FRONT].path = "./texture/stef_front.xpm";
-	data->img[STEF_FRONT_45].path = "./texture/stef_front_45.xpm";
-	data->img[DIRLO_FRONT].path = "./texture/dirlo_front.xpm";
-	data->img[DIRLO_FRONT_45].path = "./texture/dirlo_front_45.xpm";
-	data->img[CAMEO_FRONT].path = "./texture/cameo_front.xpm";
-	data->img[CAMEO_FRONT_45].path = "./texture/cameo_front_45.xpm";
-	data->img[ANAIS_FRONT].path = "./texture/anais_front.xpm";
-	data->img[ANAIS_FRONT_45].path = "./texture/anais_front_45.xpm";
-	data->img[MARINA_FRONT].path = "./texture/marina_front.xpm";
-	data->img[MARINA_FRONT_45].path = "./texture/marina_front_45.xpm";
-
-
-	data->img[SORCERER_BACK].path = "./texture/sorcerer_back.xpm";
-	data->img[SORCERER_SIDE_90].path = "./texture/sorcerer_90.xpm";
-	data->img[SORCERER_BACK_45].path = "./texture/sorcerer_back_45.xpm";
-
-	data->img[SNAKE_FRONT].path = "./texture/snake_front.xpm";
-	data->img[SNAKE_BACK].path = "./texture/snake_back.xpm";
-	data->img[SNAKE_SIDE_90].path = "./texture/snake_90.xpm";
-	data->img[SNAKE_FRONT_45].path = "./texture/snake_front_45.xpm";
-	data->img[SNAKE_BACK_45].path = "./texture/snake_back_45.xpm";
-
-	data->img[SPIDER_FRONT].path = "./texture/spider_front.xpm";
-	data->img[SPIDER_BACK].path = "./texture/spider_back.xpm";
-	data->img[SPIDER_SIDE_90].path = "./texture/spider_90.xpm";
-	data->img[SPIDER_FRONT_45].path = "./texture/spider_front_45.xpm";
-	data->img[SPIDER_BACK_45].path = "./texture/spider_back_45.xpm";
-
-
-	data->img[WOLF_FRONT].path = "./texture/wolf_front.xpm";
-	data->img[WOLF_BACK].path = "./texture/wolf_back.xpm";
-	data->img[WOLF_SIDE_90].path = "./texture/wolf_90.xpm";
-	data->img[WOLF_FRONT_45].path = "./texture/wolf_front_45.xpm";
-	data->img[WOLF_BACK_45].path = "./texture/wolf_back_45.xpm";
-
-
-	data->img[ELEM_FRONT].path = "./texture/elem_front.xpm";
-	data->img[ELEM_BACK].path = "./texture/elem_back.xpm";
-	data->img[ELEM_SIDE_90].path = "./texture/elem_90.xpm";	
-	data->img[ELEM_FRONT_45].path = "./texture/elem_front_45.xpm";
-	data->img[ELEM_BACK_45].path = "./texture/elem_back_45.xpm";
-
-
-	data->img[BIRD_FRONT].path = "./texture/bird_front.xpm";
-	data->img[BIRD_BACK].path = "./texture/bird_back.xpm";
-	data->img[BIRD_SIDE_90].path = "./texture/bird_90.xpm";	
-	data->img[BIRD_FRONT_45].path = "./texture/bird_front_45.xpm";
-	data->img[BIRD_BACK_45].path = "./texture/bird_back_45.xpm";
-
-
-	data->img[DOOR_MOVE].path = "./texture/door_close.xpm";
-	data->img[DOOR_FIXED].path = "./texture/door_open.xpm";
-	data->img[FLOO_CLOSE].path = "./texture/floo_close.xpm";
-	data->img[FLOO_OPEN].path = "./texture/floo_open.xpm";
-	data->img[HEART].path = "./texture/heart.xpm";
-	data->img[SHIELD].path = "./texture/shield.xpm";
-	data->img[XP].path = "./texture/xp.xpm";
-	data->img[FLAME].path = "./texture/flame.xpm";
-	data->img[POISON].path = "./texture/poison.xpm";
-	data->img[SLOW].path = "./texture/slow.xpm";
-	data->img[CURSE].path = "./texture/curse.xpm";
-	data->img[SHIELD_1].path = "./texture/shield_1.xpm";
-	data->img[SHIELD_2].path = "./texture/shield_2.xpm";
-	data->img[SHIELD_3].path = "./texture/shield_3.xpm";
-	data->img[SHIELD_4].path = "./texture/shield_4.xpm";
-	data->img[SHIELD_5].path = "./texture/shield_5.xpm";
-	data->img[SHIELD_6].path = "./texture/shield_6.xpm";
-	data->img[WEB_SPIDER_IMG].path = "./texture/web.xpm";
-	data->img[POISON_SPIDER_IMG].path = "./texture/web.xpm";
-
-	data->img[POPO_HEAL].path = "./texture/popo_heal.xpm";
-	data->img[POPO_SHIELD].path = "./texture/popo_shield.xpm";
-	data->img[POPO_FLOO].path = "./texture/popo_floo.xpm";
-	data->img[POPO_INVI].path = "./texture/invisibility_cloth.xpm";
-
-	data->img[POPO_HEAL_IMG].path = "./texture/popo_heal_img.xpm";
-	data->img[POPO_SHIELD_IMG].path = "./texture/popo_shield_img.xpm";
-	data->img[POPO_FLOO_IMG].path = "./texture/popo_floo_img.xpm";
-	data->img[POPO_INVI_IMG].path = "./texture/invisibility_cloth_img.xpm";
-
-	data->img[INCENDIO_IMG].path = "./texture/spell/incendio.xpm";
-	data->img[GLACIUS_IMG].path = "./texture/spell/glacius.xpm";
-	data->img[AVADA_KEDAVRA_IMG].path = "./texture/spell/curse_spell.xpm";
-	data->img[PETRIFICUS_TOTALUS_IMG].path = "./texture/spell/petrificus_totalus.xpm";
-	data->img[PROTEGO_IMG].path = "./texture/spell/glacius.xpm";
-	data->img[BOMBARDA_IMG].path = "./texture/spell/bombarda.xpm";
-	data->img[CONFUNDO_IMG].path = "./texture/spell/confundo.xpm";
-	data->img[ENDOLORIS_IMG].path = "./texture/spell/curse_spell.xpm";
-	data->img[EPISKEY_IMG].path = "./texture/spell/glacius.xpm";
-	data->img[EXPECTO_PATRONUM_IMG].path = "./texture/spell/glacius.xpm";
-	data->img[EXPELLIARMUS_IMG].path = "./texture/spell/expelliarmus.xpm";
-	data->img[REPULSO_IMG].path = "./texture/spell/repulso.xpm";
-	data->img[STUPEFIX_IMG].path = "./texture/spell/stupefix.xpm";
-	data->img[OPPUGNO_IMG].path = "./texture/spell/glacius.xpm";
-	data->img[SECTUMSEMPRA_IMG].path = "./texture/spell/sectumsempra.xpm";
-	data->img[SERPENSORTIA_IMG].path = "./texture/spell/glacius.xpm";
-	data->img[VENTUS_IMG].path = "./texture/spell/ventus.xpm";
-	data->img[VIPERA_EVANESCA_IMG].path = "./texture/spell/glacius.xpm";
-	data->img[VULNERA_SANENTUR_IMG].path = "./texture/spell/glacius.xpm";
-	data->img[ARANIA_EXUMAI_IMG].path = "./texture/spell/arania_exumai.xpm";
-	data->img[AGUAMENTI_IMG].path = "./texture/spell/aguamenti.xpm";
-
-	data->img[TIG_IMG].path = "./texture/spell/TIG.xpm";
-	data->img[PIZZA_IMG].path = "./texture/spell/pizza.xpm";
-	data->img[MAC_IMG].path = "./texture/spell/mac.xpm";
-	data->img[FOLDER_IMG].path = "./texture/spell/folder.xpm";
-	data->img[MARVIN_IMG].path = "./texture/spell/marvin.xpm";
-	data->img[TAYLOR_SWIFT_IMG].path = "./texture/spell/taylor_swift.xpm";
-	data->img[COMPANY_IMG].path = "./texture/spell/company.xpm";
-	data->img[LOGO_42_IMG].path = "./texture/spell/42.xpm";
-
-	data->img[AGUAMENTI_ICN].path = "./texture/spell/aguamenti_icn.xpm";
-	data->img[INCENDIO_ICN].path = "./texture/spell/incendio_icn.xpm";
-	data->img[ARANIA_EXUMAI_ICN].path = "./texture/spell/arania_exumai_icn.xpm";
-	data->img[GLACIUS_ICN].path = "./texture/spell/glacius_icn.xpm";
-	data->img[LUMOS_ICN].path = "./texture/spell/lumos_icn.xpm";
-	data->img[AVADA_KEDAVRA_ICN].path = "./texture/spell/avada_kedavra_icn.xpm";
-	data->img[PETRIFICUS_TOTALUS_ICN].path = "./texture/spell/petrificus_totalus_icn.xpm";
-	data->img[PROTEGO_ICN].path = "./texture/spell/protego_icn.xpm";
-	data->img[BOMBARDA_ICN].path = "./texture/spell/bombarda_icn.xpm";
-
-
-	data->img[CONFUNDO_ICN].path = "./texture/spell/confundo_icn.xpm";
-	data->img[ENDOLORIS_ICN].path = "./texture/spell/endoloris_icn.xpm";
-	data->img[EPISKEY_ICN].path = "./texture/spell/episkey_icn.xpm";
-	data->img[EXPECTO_PATRONUM_ICN].path = "./texture/spell/expecto_patronum_icn.xpm";
-	data->img[EXPELLIARMUS_ICN].path = "./texture/spell/expelliarmus_icn.xpm";
-	data->img[REPULSO_ICN].path = "./texture/spell/repulso_icn.xpm";
-	data->img[STUPEFIX_ICN].path = "./texture/spell/stupefix_icn.xpm";
-	data->img[OPPUGNO_ICN].path = "./texture/spell/oppugno_icn.xpm";
-	data->img[SECTUMSEMPRA_ICN].path = "./texture/spell/sectumsempra_icn.xpm";
-	data->img[SERPENSORTIA_ICN].path = "./texture/spell/serpensortia_icn.xpm";
-	data->img[VENTUS_ICN].path = "./texture/spell/ventus_icn.xpm";
-	data->img[VIPERA_EVANESCA_ICN].path = "./texture/spell/vipera_evanesca_icn.xpm";
-	data->img[VULNERA_SANENTUR_ICN].path = "./texture/spell/vulnera_sanentur_icn.xpm";
-
-
-	data->img[SPELL_LOCK].path = "./texture/menu/spell_lock.xpm";
-	data->img[AGUAMENTI_NAME].path = "./texture/menu/aguamenti_name.xpm";
-	data->img[INCENDIO_NAME].path = "./texture/menu/incendio_name.xpm";
-	data->img[ARANIA_EXUMAI_NAME].path = "./texture/menu/arania_exumai_name.xpm";
-	data->img[GLACIUS_NAME].path = "./texture/menu/glacius_name.xpm";
-	data->img[LUMOS_NAME].path = "./texture/menu/lumos_name.xpm";
-	data->img[AVADA_KEDAVRA_NAME].path = "./texture/menu/avada_kedavra_name.xpm";
-	data->img[PETRIFICUS_TOTALUS_NAME].path = "./texture/menu/petrificus_totalus_name.xpm";
-	data->img[PROTEGO_NAME].path = "./texture/menu/protego_name.xpm";
-	data->img[BOMBARDA_NAME].path = "./texture/menu/bombarda_name.xpm";
-	data->img[EPISKEY_NAME].path = "./texture/menu/episkey_name.xpm";
-	data->img[EXPECTO_PATRONUM_NAME].path = "./texture/menu/expecto_patronum_name.xpm";
-	data->img[EXPELLIARMUS_NAME].path = "./texture/menu/expelliarmus_name.xpm";
-	data->img[REPULSO_NAME].path = "./texture/menu/repulso_name.xpm";
-	data->img[STUPEFIX_NAME].path = "./texture/menu/stupefix_name.xpm";
-	data->img[SECTUMSEMPRA_NAME].path = "./texture/menu/sectumsempra_name.xpm";
-	data->img[VENTUS_NAME].path = "./texture/menu/ventus_name.xpm";
-	data->img[VULNERA_SANENTUR_NAME].path = "./texture/menu/vulnera_sanentur_name.xpm";
-	data->img[VIPERA_EVANESCA_NAME].path = "./texture/menu/vipera_evanesca_name.xpm";
-	data->img[OPPUGNO_NAME].path = "./texture/menu/oppugno_name.xpm";
-	data->img[SERPENSORTIA_NAME].path = "./texture/menu/serpensortia_name.xpm";
-	
-	
-	
-	data->img[CONFUNDO_NAME].path = "./texture/menu/confundo_name.xpm";
-	data->img[ENDOLORIS_NAME].path = "./texture/menu/endoloris_name.xpm";
-
-	data->img[SPACE].path = "./texture/Letters/space.xpm";
-	data->img[CHAR_A].path = "./texture/Letters/A.xpm";
-	data->img[CHAR_B].path = "./texture/Letters/B.xpm";
-	data->img[CHAR_C].path = "./texture/Letters/C.xpm";
-	data->img[CHAR_D].path = "./texture/Letters/D.xpm";
-	data->img[CHAR_E].path = "./texture/Letters/E.xpm";
-	data->img[CHAR_F].path = "./texture/Letters/F.xpm";
-	data->img[CHAR_G].path = "./texture/Letters/G.xpm";
-	data->img[CHAR_H].path = "./texture/Letters/H.xpm";
-	data->img[CHAR_I].path = "./texture/Letters/I.xpm";
-	data->img[CHAR_J].path = "./texture/Letters/J.xpm";
-	data->img[CHAR_K].path = "./texture/Letters/K.xpm";
-	data->img[CHAR_L].path = "./texture/Letters/L.xpm";
-	data->img[CHAR_M].path = "./texture/Letters/M.xpm";
-	data->img[CHAR_N].path = "./texture/Letters/N.xpm";
-	data->img[CHAR_O].path = "./texture/Letters/O.xpm";
-	data->img[CHAR_P].path = "./texture/Letters/P.xpm";
-	data->img[CHAR_Q].path = "./texture/Letters/Q.xpm";
-	data->img[CHAR_R].path = "./texture/Letters/R.xpm";
-	data->img[CHAR_S].path = "./texture/Letters/S.xpm";
-	data->img[CHAR_T].path = "./texture/Letters/T.xpm";
-	data->img[CHAR_U].path = "./texture/Letters/U.xpm";
-	data->img[CHAR_V].path = "./texture/Letters/V.xpm";
-	data->img[CHAR_W].path = "./texture/Letters/W.xpm";
-	data->img[CHAR_X].path = "./texture/Letters/X.xpm";
-	data->img[CHAR_Y].path = "./texture/Letters/Y.xpm";
-	data->img[CHAR_Z].path = "./texture/Letters/Z.xpm";
-	data->img[NB_0].path = "./texture/Numbers/0.xpm";
-	data->img[NB_1].path = "./texture/Numbers/1.xpm";
-	data->img[NB_2].path = "./texture/Numbers/2.xpm";
-	data->img[NB_3].path = "./texture/Numbers/3.xpm";
-	data->img[NB_4].path = "./texture/Numbers/4.xpm";
-	data->img[NB_5].path = "./texture/Numbers/5.xpm";
-	data->img[NB_6].path = "./texture/Numbers/6.xpm";
-	data->img[NB_7].path = "./texture/Numbers/7.xpm";
-	data->img[NB_8].path = "./texture/Numbers/8.xpm";
-	data->img[NB_9].path = "./texture/Numbers/9.xpm";
-
-	data->img[END_MENU].path = "./texture/menu/death_background.xpm";
-	data->img[RETRY_BUTTON].path = "./texture/menu/retry_button.xpm";
-	data->img[QUIT_BUTTON].path = "./texture/menu/quit_button.xpm";
-	data->img[END_BACKGROUND].path = "./texture/menu/end_background.xpm";
-	data->img[PORTKEY_IMG].path = "./texture/portkey.xpm";
-	data->img[SANDGLASS].path = "./texture/menu/sandglass.xpm";
-
+	set_path_player_spell(data);
+	set_path_char_texture(data);
+	set_path_enemy_texture(data);
+	set_path_others_texture(data);
 }
 
 void	init_textures(t_data *data)
@@ -561,26 +320,26 @@ static void	init_coa(t_data *data)
 		++i;
 	}
 	data->selected = 0;
-	// data->select = malloc(sizeof(t_img));
-	// if (!data->select)
-	// 	f_exit(data, 1);
-	// ft_bzero(data->select, sizeof(t_img));
-	// data->select->mlx = data->mlx.mlx;
-	// data->select->path = "texture/menu/select.xpm";
+	data->select = malloc(sizeof(t_img));
+	if (!data->select)
+		f_exit(data, 1);
+	ft_bzero(data->select, sizeof(t_img));
+	data->select->mlx = data->mlx.mlx;
+	data->select->path = "texture/menu/select.xpm";
 
-	// data->left_select = malloc(sizeof(t_img));
-	// if (!data->left_select)
-	// 	f_exit(data, 1);
-	// ft_bzero(data->left_select, sizeof(t_img));
-	// data->left_select->mlx = data->mlx.mlx;
-	// data->left_select->path = "texture/menu/left_select.xpm";
+	data->left_select = malloc(sizeof(t_img));
+	if (!data->left_select)
+		f_exit(data, 1);
+	ft_bzero(data->left_select, sizeof(t_img));
+	data->left_select->mlx = data->mlx.mlx;
+	data->left_select->path = "texture/menu/left_select.xpm";
 
-	// data->select_hand = malloc(sizeof(t_img));
-	// if (!data->select_hand)
-	// 	f_exit(data, 1);
-	// ft_bzero(data->select_hand, sizeof(t_img));
-	// data->select_hand->mlx = data->mlx.mlx;
-	// data->select_hand->path = "texture/menu/select_hand.xpm";
+	data->select_hand = malloc(sizeof(t_img));
+	if (!data->select_hand)
+		f_exit(data, 1);
+	ft_bzero(data->select_hand, sizeof(t_img));
+	data->select_hand->mlx = data->mlx.mlx;
+	data->select_hand->path = "texture/menu/select_hand.xpm";
 }
 
 void	init_img_msg(t_data *data)
@@ -710,8 +469,8 @@ void	init_data(t_data *data, int ac, char **av)
 	// init_texture(data);
 	init_textures(data);
 	init_coa(data);
-	init_pause_menu(data);
-	init_spell_menu(data);
+	// init_pause_menu(data);
+	// init_spell_menu(data);
 	init_sorcerer(data);
 	data->nb_msg = 7;
 	data->display.time_remove = 10000;

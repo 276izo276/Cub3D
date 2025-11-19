@@ -10,11 +10,12 @@ void	open_img(t_img *img, t_data *data)
 	if (!img)
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_END);
-		ft_printf_fd(2, _BOLD _PURPLE "Image >>> Missing some informations!!\n"_END);
+		ft_printf_fd(2, _BOLD _PURPLE
+			"Image >>> Missing some informations!!\n"_END);
 		f_exit(data, 1);
 	}
 	img->img = mlx_xpm_file_to_image(data->mlx.mlx, img->path, &img->width,
-		&img->height);
+			&img->height);
 	if (!img->img)
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_END);
@@ -33,19 +34,8 @@ void	open_textures(t_data *data)
 	open_img(data->map.south, data);
 	open_img(data->map.west, data);
 	open_img(data->map.east, data);
-
 	open_img(data->map.floor, data);
 	open_img(data->map.ceiling, data);
-	// open_img(data->map.dementor_front, data);
-	// open_img(data->map.dementor_back, data);
-
-	// open_img(data->map.text_floor, data);
-	// open_img(data->map.text_sky, data);
-	// open_img(data->map.door, data);
-	// open_img(data->map.floo, data);
-	// open_img(data->map.floo_open, data);
-
-	// open_img(data->map.fixed_door, data);
 	open_img(data->coa[FIRE].img_coa, data);
 	open_img(data->coa[WATER].img_coa, data);
 	open_img(data->coa[EARTH].img_coa, data);
@@ -54,26 +44,12 @@ void	open_textures(t_data *data)
 	open_img(data->coa[WATER].border, data);
 	open_img(data->coa[EARTH].border, data);
 	open_img(data->coa[AIR].border, data);
-	// open_img(data->left_select, data);
-	// open_img(data->select, data);
-
-
-	// open_img(data->select_hand, data);
-	// open_img(data->player_wand, data);
-	// open_img(data->lumos.img, data);
-	
-
-
 	open_img(data->pause_menu.background, data);
 	open_img(data->pause_menu.sensitivity, data);
 	open_img(data->pause_menu.exit, data);
 	open_img(data->pause_menu.resume, data);
 	open_img(data->pause_menu.selector, data);
-
-
 	open_img(data->spell_menu.background, data);
-
-
 	if (!data->map.ceiling || !data->map.floor)
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
@@ -84,7 +60,9 @@ void	open_textures(t_data *data)
 
 void	open_img_msg(t_data *data)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (i < 7)
 	{
 		open_img(data->map.msg_img[i], data);
@@ -92,12 +70,30 @@ void	open_img_msg(t_data *data)
 	}
 }
 
-void select_right_hand(t_data *data)
+static void	get_hand_pos(t_data *data)
+{
+	if (data->is_right_handed == true)
+	{
+		data->display.pos_x_hand = (data->mlx.width / 2)
+			- data->img[PLAYER_HAND].width / 2 + 10;
+		data->display.pos_y_hand = (data->mlx.height
+				- data->img[PLAYER_HAND].height - 100);
+	}
+	else
+	{
+		data->display.pos_x_hand = (data->mlx.width / 2)
+			- data->img[PLAYER_HAND].width / 2 - 10;
+		data->display.pos_y_hand = (data->mlx.height
+				- data->img[PLAYER_HAND].height - 100);
+	}
+}
+
+void	select_right_hand(t_data *data)
 {
 	int				x;
 	int				y;
 	char			*pixel_addr;
-	
+
 	y = 0;
 	// DESTROY L ANCIENNE TEXTURE DE PLAYER_HAND
 	if (data->is_right_handed == true)
@@ -105,23 +101,15 @@ void select_right_hand(t_data *data)
 	else
 		data->img[PLAYER_HAND].path = "./texture/player_hand/left_hand.xpm";
 	open_img(&data->img[PLAYER_HAND], data);
-	if (data->is_right_handed == true) // hand_pos
-	{
-		data->display.pos_x_hand = (data->mlx.width / 2) - data->img[PLAYER_HAND].width / 2 + 10;
-		data->display.pos_y_hand = (data->mlx.height - data->img[PLAYER_HAND].height - 100);
-	}
-	else
-	{
-		data->display.pos_x_hand = (data->mlx.width / 2) - data->img[PLAYER_HAND].width / 2 - 10;
-		data->display.pos_y_hand = (data->mlx.height - data->img[PLAYER_HAND].height - 100);
-	}
+	get_hand_pos(data);
 	while (y < data->img[PLAYER_HAND].height)
 	{
 		x = 0;
 		while (x < data->img[PLAYER_HAND].width)
 		{
-			pixel_addr = data->img[PLAYER_HAND].data_addr + (y * data->img[PLAYER_HAND].size_line + x
-				* (data->img[PLAYER_HAND].bits_per_pixel / 8));
+			pixel_addr = data->img[PLAYER_HAND].data_addr
+				+ (y * data->img[PLAYER_HAND].size_line + x
+					* (data->img[PLAYER_HAND].bits_per_pixel / 8));
 			if (*(unsigned int *)pixel_addr == YELLOW)
 				*(unsigned int *)pixel_addr = data->player.color;
 			++x;

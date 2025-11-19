@@ -66,6 +66,7 @@ typedef struct s_popo		t_popo;
 typedef struct s_sorcerer	t_sorcerer;
 typedef struct s_cooldown	t_cooldown;
 typedef struct s_sound		t_sound;
+typedef struct s_aff		t_aff;
 
 typedef	enum e_dir
 {
@@ -123,6 +124,20 @@ typedef enum e_enemy_info
 
 typedef enum e_imgs
 {
+	// PAUSE_BACKGROUND,
+	// PAUSE_SENSITIVITY,
+	// PAUSE_RESUME,
+	// PAUSE_EXIT,
+	// PAUSE_SELECTOR,
+	// SPELL_BACKGROUND,
+	// BORDER_FIRE,
+	// BORDER_WATER,
+	// BORDER_EARTH,
+	// BORDER_AIR,
+	// MENU_AIR,
+	// MENU_FIRE,
+	// MENU_WATER,
+	// MENU_EARTH,
 	SPACE,
 	CHAR_A,
 	CHAR_B,
@@ -1034,6 +1049,17 @@ struct s_sound
 	long long int	duration;
 };
 
+struct s_aff
+{
+	unsigned int color;
+	t_img		img;
+	t_coo		new;
+	t_coo		cur;
+	unsigned int a;
+	unsigned int b;
+
+};
+
 struct s_data
 {
 	t_img			img[NB_TEXTURES];
@@ -1050,6 +1076,7 @@ struct s_data
 	t_mlx			mlx;
 	t_ray			*ray;
 	t_display		display;
+	t_aff			aff;
 	t_lumos			lumos;
 	int				keycode[100];
 	pthread_mutex_t	m_data_ray;
