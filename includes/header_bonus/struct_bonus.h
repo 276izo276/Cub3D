@@ -8,6 +8,7 @@
 # include <semaphore.h>
 
 #define FICHIER_MP3 "mp3.mp3"
+# define SHOOT_MP3 "sound/shoot.mp3"
 
 # define SIZE_MAP (5 * 64)
 # define FPS 30.0
@@ -63,6 +64,7 @@ typedef struct s_wand		t_wand;
 typedef struct s_popo		t_popo;
 typedef struct s_sorcerer	t_sorcerer;
 typedef struct s_cooldown	t_cooldown;
+typedef struct s_sound		t_sound;
 
 typedef	enum e_dir
 {
@@ -1022,6 +1024,13 @@ struct s_sorcerer
 	t_cooldown	cooldown;
 };
 
+struct s_sound
+{
+	int				pid;
+	long long int	start;
+	long long int	duration;
+};
+
 struct s_data
 {
 	t_img			img[NB_TEXTURES];
@@ -1106,6 +1115,7 @@ struct s_data
 	bool		portkey_is_active;
 	t_popo		popo[4];
 	t_sorcerer	sorcerer[NB_SORCERER + 1];
+	t_lst		*sound;
 };
 
 t_coo	*init_t_coo(int y, int x);
