@@ -49,8 +49,8 @@ static void	init_doors(t_data *data, t_door **doors, t_door *door)
 
 void	add_door(t_data *data, int y, int x, char c)
 {
-	t_door *door;
-	t_door **doors;
+	t_door	*door;
+	t_door	**doors;
 
 	door = NULL;
 	doors = NULL;
@@ -65,7 +65,7 @@ void	add_door(t_data *data, int y, int x, char c)
 
 void	save_wall(char c, int y, int x, t_data *data)
 {
-	t_wall_msg *wall_msg;
+	t_wall_msg	*wall_msg;
 
 	if (c != '1')
 		return ;
@@ -80,4 +80,3 @@ void	save_wall(char c, int y, int x, t_data *data)
 	wall_msg->is_active = false;
 	data->map.wall_map[y][x] = wall_msg;
 }
-

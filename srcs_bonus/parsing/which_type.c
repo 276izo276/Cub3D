@@ -6,6 +6,29 @@
 #include "cub3d_bonus.h"
 #include "enemy_bonus.h"
 
+static void	set_item_type(t_data *data, char c, int *info)
+{
+	if (c == 'z')
+		*info = HEAL_POPO;
+	if (c == 'x')
+		*info = SHIELD_POPO;
+	if (c == 'c')
+		*info = FLOO_POPO;
+	if (c == 'v')
+		*info = INVI_POPO;
+	if (c == 'f')
+	{
+		if (data->portkey_is_active == true)
+		{
+			ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
+				"Map >>> ""2 exit found\n"_END);
+			f_exit(data, 1);
+		}
+		data->portkey_is_active = true;
+		*info = PORTKEY;
+	}
+}
+
 void	is_item(char c, int y, int x, t_data *data)
 {
 	int			i;
@@ -17,26 +40,11 @@ void	is_item(char c, int y, int x, t_data *data)
 	{
 		if (tab[i] == c)
 		{
-			if (c == 'z')
-				info = HEAL_POPO;
-			if (c == 'x')
-				info = SHIELD_POPO;
-			if (c == 'c')
-				info = FLOO_POPO;
-			if (c == 'v')
-				info = INVI_POPO;
-			if (c == 'f')
-			{
-				if (data->portkey_is_active == true)
-				{
-					ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
-					"Map >>> ""2 exit found\n"_END);
-					f_exit(data, 1);
-				}
-				data->portkey_is_active = true;
-				info = PORTKEY;
-			}
-			data->item = add_end_lst(create_item(data, info, &(t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data->map.mini.deg), data->item, f_item);
+			set_item_type(data, c, &info);
+			data->item = add_end_lst(create_item(data, info,
+						&(t_fcoo){.case_x = x, .case_y = y,
+						.coo_y = 32, .coo_x = 32}, data->map.mini.deg),
+					data->item, f_item);
 			if (!data->item)
 				f_exit(data, 1);
 			data->map.tabmap[y][x] = '0';
@@ -51,37 +59,7 @@ void	is_door(char c, int y, int x, t_data *data)
 
 	if (c != 'D' && c != 'F')
 		return ;
-	if (!((data->map.tabmap[y][x - 1] == '1' && data->map.tabmap[y][x + 1] == '1')
-		|| (data->map.tabmap[y + 1][x] == '1' && data->map.tabmap[y - 1][x] == '1')))
-	{
-		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
-			"Map >>> " "door found without wall around\n"_END);
-		f_exit(data, 1);
-	}
-	if (c == 'D')
-		data->nb_door++;
-	if (data->map.tabmap[y][x + 1] == '1' && data->map.tabmap[y][x - 1] == '1')
-		is_verti = false;
-	else
-		is_verti = true;
-	if (c == 'F')
-	{
-		if ((is_verti == false && data->map.tabmap[y - 1][x] == '1' && data->map.tabmap[y + 1][x] == '1')
-		 || (is_verti == true && data->map.tabmap[y][x + 1] == '1' && data->map.tabmap[y][x - 1] == '1'))
-		{
-			ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
-			"Map >>> " "floo found surrounded by wall\n"_END);
-			f_exit(data, 1);
-		}
-		else if ((is_verti == false && data->map.tabmap[y - 1][x] != '1' && data->map.tabmap[y + 1][x] != '1')
-			|| (is_verti == true && data->map.tabmap[y][x + 1] != '1' && data->map.tabmap[y][x - 1] != '1'))
-		{
-			ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
-			"Map >>> " "floo found without wall behind\n"_END);
-			f_exit(data, 1);
-		}
-		data->map.nb_floo++;
-	}
+	is_verti = door_is_verti(data, y, x, c);
 	add_door(data, y, x, c);
 	if (is_verti == false)
 	{
@@ -104,14 +82,18 @@ void	is_door(char c, int y, int x, t_data *data)
 void	is_enemy(char c, int y, int x, t_data *data)
 {
 	int			i;
-	const char	tab[] = {'.', ',', '<', '>', ';', '2', '3', '4', '5', '6', '7', '8', '9', 'm', 0};
+	const char	tab[] = {'.', ',', '<', '>', ';', '2', '3',
+		'4', '5', '6', '7', '8', '9', 'm', 0};
 
 	i = 0;
 	while (tab[i])
 	{
 		if (tab[i] == c)
 		{
-			data->enemy = add_end_lst(init_enemy(c, (t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data, data->map.mini.deg), data->enemy, f_enemy);
+			data->enemy = add_end_lst(init_enemy(c,
+						(t_fcoo){.case_x = x, .case_y = y, .coo_y = 32,
+						.coo_x = 32}, data, data->map.mini.deg),
+					data->enemy, f_enemy);
 			if (!data->enemy)
 				f_exit(data, 1);
 			data->map.tabmap[y][x] = '0';

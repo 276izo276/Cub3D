@@ -36,20 +36,6 @@ void	open_textures(t_data *data)
 	open_img(data->map.east, data);
 	open_img(data->map.floor, data);
 	open_img(data->map.ceiling, data);
-	// open_img(data->coa[FIRE].img_coa, data);
-	// open_img(data->coa[WATER].img_coa, data);
-	// open_img(data->coa[EARTH].img_coa, data);
-	// open_img(data->coa[AIR].img_coa, data);
-	// open_img(data->coa[FIRE].border, data);
-	// open_img(data->coa[WATER].border, data);
-	// open_img(data->coa[EARTH].border, data);
-	// open_img(data->coa[AIR].border, data);
-	// open_img(data->pause_menu.background, data);
-	// open_img(data->pause_menu.sensitivity, data);
-	// open_img(data->pause_menu.exit, data);
-	// open_img(data->pause_menu.resume, data);
-	// open_img(data->pause_menu.selector, data);
-	// open_img(data->spell_menu.background, data);
 	if (!data->map.ceiling || !data->map.floor)
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
@@ -57,18 +43,6 @@ void	open_textures(t_data *data)
 		f_exit(data, 1);
 	}
 }
-
-// void	open_img_msg(t_data *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < 7)
-// 	{
-// 		open_img(data->map.msg_img[i], data);
-// 		++i;
-// 	}
-// }
 
 static void	get_hand_pos(t_data *data)
 {

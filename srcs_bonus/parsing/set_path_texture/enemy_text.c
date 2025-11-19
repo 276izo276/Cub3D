@@ -13,7 +13,7 @@ static void	set_path_spell(t_data *data)
 	data->img[COMPANY_IMG].path = "./texture/spell/company.xpm";
 	data->img[LOGO_42_IMG].path = "./texture/spell/42.xpm";
 	data->img[WEB_SPIDER_IMG].path = "./texture/web.xpm";
-	data->img[POISON_SPIDER_IMG].path = "./texture/web.xpm"; // il manque la texture + le spell ?!
+	data->img[POISON_SPIDER_IMG].path = "./texture/web.xpm";// il manque la texture + le spell ?!
 }
 
 static void	set_path_front(t_data *data)
@@ -32,7 +32,6 @@ static void	set_path_front(t_data *data)
 	data->img[CAMEO_FRONT].path = "./texture/cameo_front.xpm";
 	data->img[ANAIS_FRONT].path = "./texture/anais_front.xpm";
 	data->img[MARINA_FRONT].path = "./texture/marina_front.xpm";
-
 }
 
 static void	set_path_back(t_data *data)
@@ -51,13 +50,12 @@ static void	set_path_back(t_data *data)
 	data->img[DEMENTOR_BACK].path = "./texture/dementor_back.xpm";
 	data->img[SORCERER_BACK].path = "./texture/sorcerer_back.xpm";
 	data->img[SORCERER_BACK_45].path = "./texture/sorcerer_back_45.xpm";
-
 }
 
 static void	set_path_side(t_data *data)
 {
 	data->img[BIRD_SIDE_90].path = "./texture/bird_90.xpm";
-	data->img[ELEM_SIDE_90].path = "./texture/elem_90.xpm";	
+	data->img[ELEM_SIDE_90].path = "./texture/elem_90.xpm";
 	data->img[WOLF_SIDE_90].path = "./texture/wolf_90.xpm";
 	data->img[SPIDER_SIDE_90].path = "./texture/spider_90.xpm";
 	data->img[SNAKE_SIDE_90].path = "./texture/snake_90.xpm";

@@ -101,8 +101,12 @@ PARSING_BONUS	=								\
 				check_map_is_closed.c			\
 				open_texture.c					\
 				verif_map.c						\
-				init.c							\
+				init/init.c		 				\
+				init/coa.c 						\
+				init/utils.c 					\
+				init/texture.c	 				\
 				which_type.c 					\
+				check_pos_door.c 				\
 				parse_item.c 					\
 				set_path_texture/char.c			\
 				set_path_texture/enemy_text.c	\

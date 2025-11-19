@@ -190,9 +190,6 @@ void	handle_death_menu(t_data *data);
 
 int		darken_the_color(int color);
 
-//wand
-void	init_textures_wand(t_data *data);
-void	init_sorcerer(t_data *data);
 
 typedef enum e_key_down
 {

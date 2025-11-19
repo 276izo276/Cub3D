@@ -7,6 +7,12 @@ typedef void	(*t_txt_set)(char *, t_data *data);
 
 //init.c
 void	init_data(t_data *data, int ac, char **av);
+void	init_coa(t_data *data);
+void	init_sorcerer(t_data *data);
+void	init_utils(t_data *data);
+void	init_textures(t_data *data);
+void	init_textures_wand(t_data *data);
+void	init_sorcerer(t_data *data);
 
 // check_map_is_closed
 void	check_map_is_closed(t_data *data);
@@ -42,6 +48,7 @@ void	verif_map(t_data *data);
 //which_type
 void	is_item(char c, int y, int x, t_data *data);
 void	is_door(char c, int y, int x, t_data *data);
+bool	door_is_verti(t_data *data, int y, int x, char c);
 void	is_enemy(char c, int y, int x, t_data *data);
 
 // parse_item

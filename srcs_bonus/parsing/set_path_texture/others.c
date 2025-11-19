@@ -33,7 +33,8 @@ static void	set_path_item(t_data *data)
 	data->img[WAND_SPIDER_IMG].path = "./texture/player_hand/spider_wand.xpm";
 	data->img[WAND_WOLF_IMG].path = "./texture/player_hand/wolf_wand.xpm";
 	data->img[WAND_ELEM_IMG].path = "./texture/player_hand/elem_wand.xpm";
-	data->img[WAND_DEMENTOR_IMG].path = "./texture/player_hand/dementor_wand.xpm";
+	data->img[WAND_DEMENTOR_IMG]
+		.path = "./texture/player_hand/dementor_wand.xpm";
 	data->img[PILLAR_IMG].path = "./texture/player_hand/pillar.xpm";
 	data->img[DOOR_MOVE].path = "./texture/door_close.xpm";
 	data->img[DOOR_FIXED].path = "./texture/door_open.xpm";
@@ -86,7 +87,6 @@ static void	set_path_wall_msg(t_data *data)
 
 void	set_path_others_texture(t_data *data)
 {
-
 	set_path_menu(data);
 	set_path_item(data);
 	set_path_status(data);
