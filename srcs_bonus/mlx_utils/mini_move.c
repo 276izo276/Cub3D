@@ -469,7 +469,7 @@ void	try_hit_player(t_data *data)
 	while (lst)
 	{
 		item = lst->dt;
-		if (item->type == CONFUNDO || item->type == VENTUS || item->type == EXPECTO_PATRONUM || item->type == REPULSO)
+		if ((item->type == CONFUNDO || item->type == VENTUS || item->type == EXPECTO_PATRONUM || item->type == REPULSO) && !item->categ)
 		{
 			lst = lst->next;
 			continue;

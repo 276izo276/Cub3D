@@ -153,7 +153,9 @@ GAME_BONUS		=									\
 				item/move.c							\
 				damage.c							\
 				popo/init.c							\
-				popo/launch.c						
+				popo/launch.c						\
+				sound/init.c						\
+				sound/free.c						
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 

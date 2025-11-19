@@ -36,6 +36,11 @@ void	player_invisible(t_data *data)
 	}
 }
 
+static void	handle_sound(t_data *data)
+{
+	(void)data;
+}
+
 static void	handle_input_move(t_data *data, long long int cur)
 {
 	int i;
@@ -48,6 +53,7 @@ static void	handle_input_move(t_data *data, long long int cur)
 		player_invisible(data);
 		move_item(data);
 		move_enemy(data);
+		handle_sound(data);
 		// printf("fpm >>>%lld     \n",1000 / (cur - data->time_move));
 		// data->frame_move = 1000 / (cur - data->time_move);
 		data->time_move = cur;
