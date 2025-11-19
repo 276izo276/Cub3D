@@ -273,7 +273,7 @@ static void key_select_hand(int keycode, t_data *data)
 			data->is_right_handed = false;
 		select_right_hand(data);
 		data->status = GAME;
-		init_img_msg(data);
+		// init_img_msg(data);
 	}
 	else if (keycode == KEY_ESCAPE)
 		f_exit(data, 1);

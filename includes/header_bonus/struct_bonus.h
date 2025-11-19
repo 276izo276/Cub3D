@@ -124,20 +124,27 @@ typedef enum e_enemy_info
 
 typedef enum e_imgs
 {
-	// PAUSE_BACKGROUND,
-	// PAUSE_SENSITIVITY,
-	// PAUSE_RESUME,
-	// PAUSE_EXIT,
-	// PAUSE_SELECTOR,
-	// SPELL_BACKGROUND,
-	// BORDER_FIRE,
-	// BORDER_WATER,
-	// BORDER_EARTH,
-	// BORDER_AIR,
-	// MENU_AIR,
-	// MENU_FIRE,
-	// MENU_WATER,
-	// MENU_EARTH,
+	PAUSE_BACKGROUND,
+	PAUSE_SENSITIVITY,
+	PAUSE_RESUME,
+	PAUSE_EXIT,
+	PAUSE_SELECTOR,
+	SPELL_BACKGROUND,
+	BORDER_FIRE,
+	BORDER_WATER,
+	BORDER_EARTH,
+	BORDER_AIR,
+	MENU_AIR,
+	MENU_FIRE,
+	MENU_WATER,
+	MENU_EARTH,
+	WALL_MSG_1,
+	WALL_MSG_2,
+	WALL_MSG_3,
+	WALL_MSG_COA,
+	WALL_MSG_4,
+	WALL_MSG_5,
+	WALL_MSG_6,
 	SPACE,
 	CHAR_A,
 	CHAR_B,
@@ -1099,7 +1106,7 @@ struct s_data
 	pthread_t		thread_last_part;
 	pthread_barrier_t		barrier_background;
 	pthread_barrier_t		barrier_display;
-	t_coa			*coa;
+	t_coa			coa[4];
 	unsigned int	color;
 	int				selected;
 	// t_img			*select;

@@ -51,5 +51,4 @@ void	set_path_char_texture(t_data *data)
 	set_path_numbers(data);
 	data->img[SPACE].path = "./texture/Letters/space.xpm";
 	data->img[CHAR_Z].path = "./texture/Letters/Z.xpm";
-
 }
