@@ -353,6 +353,7 @@ typedef enum e_imgs
 	WAND_DEMENTOR_IMG,
 	WAND_WOLF_IMG,
 	WAND_ELEM_IMG,
+	PILLAR_IMG,
 
 	END_IMG
 }	t_imgs;
@@ -412,6 +413,7 @@ typedef enum e_items
 	SPIDER_WAND,
 	ELEM_WAND,
 	DEMENTOR_WAND,
+	PILLAR,
 
 	END_ITEM
 }	t_items;

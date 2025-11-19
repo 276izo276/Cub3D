@@ -24,7 +24,7 @@ static void	set_path_texture(t_data *data)
 	data->img[WAND_WOLF_IMG].path = "./texture/player_hand/wolf_wand.xpm";
 	data->img[WAND_ELEM_IMG].path = "./texture/player_hand/elem_wand.xpm";
 	data->img[WAND_DEMENTOR_IMG].path = "./texture/player_hand/dementor_wand.xpm";
-
+	data->img[PILLAR_IMG].path = "./texture/player_hand/pillar.xpm";
 	data->img[SELECT].path = "./texture/menu/select.xpm";
 	data->img[SELECT_HAND].path = "./texture/menu/select_hand.xpm";
 	data->img[PLAYER_HAND].path = "./texture/player_hand/wand_sureau.xpm";
