@@ -38,7 +38,19 @@ void	player_invisible(t_data *data)
 
 static void	handle_sound(t_data *data)
 {
-	(void)data;
+	t_sound	*sound;
+	t_lst	*lst;
+
+	lst = get_first_elem_lst(data->sound);
+	while (lst)
+	{
+		sound = lst->dt;
+		lst = lst->next;
+		if (get_mtime() > sound->start + sound->duration * 1000)
+		{
+			
+		}
+	}
 }
 
 static void	handle_input_move(t_data *data, long long int cur)

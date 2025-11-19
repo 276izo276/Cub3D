@@ -15,7 +15,7 @@ t_sound	*create_sound(t_data *data, int info)
 	sound->pid = fork();
 	if (sound->pid == 0)
 	{
-		execlp("cvlc", "cvlc", "--play-and-exit", SHOOT_MP3, (char *)NULL);
+		execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", SHOOT_MP3, (char *)NULL);
 		exit(EXIT_FAILURE);
 	}
 	sound->start = get_mtime();
