@@ -256,7 +256,7 @@ void	cast_vulnera_sanentur(t_data *data, int info)
 void	cast_spell(t_data *data, int info)
 {
 	data->cast_spell = -1;
-	if (data->active_spell == -1 && get_mtime() > data->spell[info].end_time + data->spell[info].base_cooldown * 1000)
+	if (data->player.life > 0 && data->active_spell == -1 && get_mtime() > data->spell[info].end_time + data->spell[info].base_cooldown * 1000)
 	{
 		printf("CAST SPELL\n");
 		data->spell[info].launch_time = get_mtime();
