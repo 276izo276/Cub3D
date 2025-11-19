@@ -18,7 +18,6 @@ static void	set_path_texture_mini_map(t_mini *mini)
 	mini->img[MAP_FLOO].path = "texture/map/map_floo.xpm";
 	mini->img[MAP_WALL].path = "texture/map/map_wall.xpm";
 	mini->img[MAP_CURSOR].path = "texture/mini_map/cursor.xpm";
-
 }
 
 void	init_img_mini(t_data *data, t_mini *mini)
@@ -47,4 +46,3 @@ void	init_img_mini(t_data *data, t_mini *mini)
 		++i;
 	}
 }
-
