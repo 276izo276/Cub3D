@@ -168,6 +168,7 @@ GAME_BONUS		=										\
 				item/init.c								\
 				item/move.c								\
 				damage.c								\
+				get_ranking_xp.c 						\
 				popo/init.c								\
 				popo/launch.c							\
 				sound/init.c							\

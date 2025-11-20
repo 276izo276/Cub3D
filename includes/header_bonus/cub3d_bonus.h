@@ -202,6 +202,10 @@ void	recalc_x(t_data *data, t_mini *mini, t_map *map);
 void	recalc_y(t_data *data, t_mini *mini, t_map *map);
 void	movey(t_map *map, t_mini *mini, t_data *data);
 void	movex(t_map *map, t_mini *mini, t_data *data);
+void	save_pos_before_floo(t_data *data);
+
+//ranking
+void	get_ranking_xp(t_data *data);
 
 typedef enum e_key_down
 {

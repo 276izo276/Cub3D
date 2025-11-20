@@ -3,8 +3,6 @@
 #include <math.h>
 #include "texture_bonus.h"
 
-
-
 void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 {
 	if (data->status == FLOO_MAP)
@@ -25,48 +23,34 @@ void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 					&& mini->ny > 32.0) || (data->player.coo.coo_y >= 32.0
 					&& mini->ny < 32.0)))
 			data->status = FLOO_MAP;
-		if (data->status == FLOO_MAP)
-		{
-			data->player.coo.coo_x = 32;
-			data->player.coo.coo_y = 32;
-			data->map.last_pos_x = data->player.coo.case_x;
-			data->map.last_pos_y = data->player.coo.case_y;
-		}
+		save_pos_before_floo(data);
 	}
 }
 
-void	get_order_xp(t_data *data)
+static void	pick_up_items(t_data *data, t_item *item)
 {
-	int	i;
-	int	index_max_xp;
-	double	max_xp;
-
-	max_xp = 1.0;
-	index_max_xp = 0;
-	i = 0;
-	data->coa[data->player.coa].xp = data->player.xp;
-	while (i < 4)
+	if (item->type == POPO_HEAL)
+		data->popo[0].nb ++;
+	if (item->type == POPO_SHIELD)
+		data->popo[1].nb ++;
+	if (item->type == POPO_FLOO)
+		data->popo[2].nb ++;
+	if (item->type == POPO_INVI)
+		data->popo[3].nb++;
+	if (item->type == PORTKEY)
 	{
-		if (data->coa[i].xp > max_xp)
-		{
-			index_max_xp = i;
-			max_xp = data->coa[i].xp;
-		}
-		++i;
+		data->status = MENU_END;
+		get_ranking_xp(data);
 	}
-	data->coa[index_max_xp].max_y = 196 ;
-	i = 0;
-	while (i < 4)
-	{
-		if (index_max_xp == i)
-		{
-			++i;
-			continue ;
-		}
-		data->coa[i].max_y = 674
-			- (data->coa[i].xp / data->coa[index_max_xp].xp) * (674 - 196);
-		++i;
-	}
+	if (item->type == WOLF_WAND)
+		data->wand.wand_status[2] = true;
+	if (item->type == ELEM_WAND)
+		data->wand.wand_status[3] = true;
+	if (item->type == DEMENTOR_WAND)
+		data->wand.wand_status[4] = true;
+	if (item->type == SPIDER_WAND)
+		data->wand.wand_status[1] = true;
+	apply_damage(&data->player.damage, &item->damage);
 }
 
 void	try_hit_player(t_data *data)
@@ -88,7 +72,10 @@ void	try_hit_player(t_data *data)
 	while (lst)
 	{
 		item = lst->dt;
-		if (((item->type == CONFUNDO || item->type == VENTUS || item->type == EXPECTO_PATRONUM || item->type == REPULSO) && !item->categ) || (item->nb_move <= 5 && item->damage.which_coa_do == data->player.coa))
+		if (((item->type == CONFUNDO || item->type == VENTUS
+					|| item->type == EXPECTO_PATRONUM || item->type == REPULSO)
+				&& !item->categ) || (item->nb_move <= 5
+				&& item->damage.which_coa_do == data->player.coa))
 		{
 			lst = lst->next;
 			continue ;
@@ -98,28 +85,7 @@ void	try_hit_player(t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			if (item->type == POPO_HEAL)
-				data->popo[0].nb ++;
-			if (item->type == POPO_SHIELD)
-				data->popo[1].nb ++;
-			if (item->type == POPO_FLOO)
-				data->popo[2].nb ++;
-			if (item->type == POPO_INVI)
-				data->popo[3].nb++;
-			if (item->type == PORTKEY)
-			{
-				data->status = MENU_END;
-				get_order_xp(data);
-			}
-			if (item->type == WOLF_WAND)
-				data->wand.wand_status[2] = true;
-			if (item->type == ELEM_WAND)
-				data->wand.wand_status[3] = true;
-			if (item->type == DEMENTOR_WAND)
-				data->wand.wand_status[4] = true;
-			if (item->type == SPIDER_WAND)
-				data->wand.wand_status[1] = true;
-			apply_damage(&data->player.damage, &item->damage);
+			pick_up_items(data, item);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
@@ -131,28 +97,7 @@ void	try_hit_player(t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			if (item->type == POPO_HEAL)
-				data->popo[0].nb ++;
-			if (item->type == POPO_SHIELD)
-				data->popo[1].nb ++;
-			if (item->type == POPO_FLOO)
-				data->popo[2].nb ++;
-			if (item->type == POPO_INVI)
-				data->popo[3].nb++;
-			if (item->type == PORTKEY)
-			{
-				data->status = MENU_END;
-				get_order_xp(data);
-			}
-			if (item->type == WOLF_WAND)
-				data->wand.wand_status[2] = true;
-			if (item->type == ELEM_WAND)
-				data->wand.wand_status[3] = true;
-			if (item->type == DEMENTOR_WAND)
-				data->wand.wand_status[4] = true;
-			if (item->type == SPIDER_WAND)
-				data->wand.wand_status[1] = true;
-			apply_damage(&data->player.damage, &item->damage);
+			pick_up_items(data, item);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
@@ -164,28 +109,7 @@ void	try_hit_player(t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			if (item->type == POPO_HEAL)
-				data->popo[0].nb ++;
-			if (item->type == POPO_SHIELD)
-				data->popo[1].nb ++;
-			if (item->type == POPO_FLOO)
-				data->popo[2].nb ++;
-			if (item->type == POPO_INVI)
-				data->popo[3].nb++;
-			if (item->type == PORTKEY)
-			{
-				data->status = MENU_END;
-				get_order_xp(data);
-			}
-			if (item->type == WOLF_WAND)
-				data->wand.wand_status[2] = true;
-			if (item->type == ELEM_WAND)
-				data->wand.wand_status[3] = true;
-			if (item->type == DEMENTOR_WAND)
-				data->wand.wand_status[4] = true;
-			if (item->type == SPIDER_WAND)
-				data->wand.wand_status[1] = true;
-			apply_damage(&data->player.damage, &item->damage);
+			pick_up_items(data, item);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);

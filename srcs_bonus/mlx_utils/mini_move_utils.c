@@ -79,3 +79,14 @@ void	calc_right_point_player(t_data *data)
 	data->player.right.case_y = data->player.coo.case_y;
 	change_case(&data->player.right);
 }
+
+void	save_pos_before_floo(t_data *data)
+{
+	if (data->status == FLOO_MAP)
+	{
+		data->player.coo.coo_x = 32;
+		data->player.coo.coo_y = 32;
+		data->map.last_pos_x = data->player.coo.case_x;
+		data->map.last_pos_y = data->player.coo.case_y;
+	}
+}
