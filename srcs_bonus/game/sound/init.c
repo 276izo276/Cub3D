@@ -37,6 +37,6 @@ t_sound	*create_sound(t_data *data, int info)
 		exit(EXIT_FAILURE);
 	}
 	sound->start = get_mtime();
-	sound->duration = 5;
+	sound->duration = -1;
 	return (sound);
 }

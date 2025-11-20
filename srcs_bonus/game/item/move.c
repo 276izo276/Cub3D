@@ -190,44 +190,47 @@ int	try_hit_items(t_item *elem, t_data *data)
 	bool		hit;
 
 	hit = false;
+	if ((elem->nb_move >= 5 && elem->damage.which_coa_do == data->player.coa) || elem->damage.which_coa_do != data->player.coa)
+	{
 	//DBG1printf("a\n");
-	ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
-	ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
-	ray.bx = elem->right.case_x * 64 + elem->right.coo_x;
-	ray.by = elem->right.case_y * 64 + elem->right.coo_y;
-	ray.cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
-	ray.cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
-	if (hit == false)
-	{
-		ray.dx = data->player.coo.case_x * 64 + data->player.coo.coo_x;
-		ray.dy = data->player.coo.case_y * 64 + data->player.coo.coo_y;
-		calc_scal(&ray);
-		if (ray.hit == true)
+		ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
+		ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
+		ray.bx = elem->right.case_x * 64 + elem->right.coo_x;
+		ray.by = elem->right.case_y * 64 + elem->right.coo_y;
+		ray.cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
+		ray.cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
+		if (hit == false)
 		{
-			apply_damage(&data->player.damage, &elem->damage);
-			hit = true;
+			ray.dx = data->player.coo.case_x * 64 + data->player.coo.coo_x;
+			ray.dy = data->player.coo.case_y * 64 + data->player.coo.coo_y;
+			calc_scal(&ray);
+			if (ray.hit == true)
+			{
+				apply_damage(&data->player.damage, &elem->damage);
+				hit = true;
+			}
 		}
-	}
-	if (hit == false)
-	{
-		ray.dx = data->player.left.case_x * 64 + data->player.left.coo_x;
-		ray.dy = data->player.left.case_y * 64 + data->player.left.coo_y;
-		calc_scal(&ray);
-		if (ray.hit == true)
+		if (hit == false)
 		{
-			apply_damage(&data->player.damage, &elem->damage);
-			hit = true;
+			ray.dx = data->player.left.case_x * 64 + data->player.left.coo_x;
+			ray.dy = data->player.left.case_y * 64 + data->player.left.coo_y;
+			calc_scal(&ray);
+			if (ray.hit == true)
+			{
+				apply_damage(&data->player.damage, &elem->damage);
+				hit = true;
+			}
 		}
-	}
-	if (hit == false)
-	{
-		ray.dx = data->player.right.case_x * 64 + data->player.right.coo_x;
-		ray.dy = data->player.right.case_y * 64 + data->player.right.coo_y;
-		calc_scal(&ray);
-		if (ray.hit == true)
+		if (hit == false)
 		{
-			apply_damage(&data->player.damage, &elem->damage);
-			hit = true;
+			ray.dx = data->player.right.case_x * 64 + data->player.right.coo_x;
+			ray.dy = data->player.right.case_y * 64 + data->player.right.coo_y;
+			calc_scal(&ray);
+			if (ray.hit == true)
+			{
+				apply_damage(&data->player.damage, &elem->damage);
+				hit = true;
+			}
 		}
 	}
 	lst = get_first_elem_lst(data->enemy);

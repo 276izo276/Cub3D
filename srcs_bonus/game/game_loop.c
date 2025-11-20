@@ -43,6 +43,7 @@ static void	handle_sound(t_data *data)
 	t_sound	*sound;
 	t_lst	*lst;
 	t_lst	*next;
+	int		result;
 
 	lst = get_first_elem_lst(data->sound);
 	while (lst)
@@ -51,13 +52,14 @@ static void	handle_sound(t_data *data)
 		next = lst->next;
 		if (get_mtime() > sound->start + sound->duration * 1000)
 		{
-			if (waitpid(sound->pid, NULL, WNOHANG) == 0)
+			result = waitpid(sound->pid, NULL, WNOHANG);
+			if (result == 0 && sound->duration != -1)
 			{
 				kill(sound->pid, SIGTERM);
 				printf("KILL sound after duration\n");
 				data->sound = remove_f_elem_lst(lst);
 			}
-			else
+			else if (sound->duration != -1)
 				data->sound = remove_f_elem_lst(lst);
 		}
 		lst = next;
@@ -762,6 +764,7 @@ void	spawn_sorcerer(t_data *data, char type)
 
 	attempts = 0;
 	random_y = 0;
+	return;
 	printf("type > %c\n", type);
 	while (attempts < 1000)
 	{
