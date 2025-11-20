@@ -164,6 +164,11 @@ GAME_BONUS		=										\
 				menu/end_menu/handle_end_menu.c			\
 				spell/spell.c							\
 				spell/init.c							\
+				spell/init_first.c 						\
+				spell/init_snd.c 						\
+				spell/init_third.c 						\
+				spell/init_fourth.c 					\
+				spell/init_sorcerer_spell.c 				\
 				item/free.c								\
 				item/init.c								\
 				item/move.c								\

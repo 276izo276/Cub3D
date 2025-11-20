@@ -207,6 +207,29 @@ void	save_pos_before_floo(t_data *data);
 //ranking
 void	get_ranking_xp(t_data *data);
 
+//init spell
+void	init_lumos(t_data *data);
+void	init_incendio(t_data *data);
+void	init_glacius(t_data *data);
+void	init_repulso(t_data *data);
+void	init_aguamenti(t_data *data);
+void	init_arania_exumai(t_data *data);
+void	init_protego(t_data *data);
+void	init_expelliarmus(t_data *data);
+void	init_expecto_patronum(t_data *data);
+void	init_vipera_evanesca(t_data *data);
+void	init_serpensortia(t_data *data);
+void	init_ventus(t_data *data);
+void	init_bombarda(t_data *data);
+void	init_episkey(t_data *data);
+void	init_stupefix(t_data *data);
+void	init_confundo(t_data *data);
+void	init_sectumsempra(t_data *data);
+void	init_petrificus_totalus(t_data *data);
+void	init_vulnera_sanentur(t_data *data);
+void	init_oppugno(t_data *data);
+
+
 typedef enum e_key_down
 {
 	ON_KEYDOWN = 2,
