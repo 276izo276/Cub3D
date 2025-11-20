@@ -13,7 +13,6 @@ static void	set_path_spell(t_data *data)
 	data->img[COMPANY_IMG].path = "./texture/spell/company.xpm";
 	data->img[LOGO_42_IMG].path = "./texture/spell/42.xpm";
 	data->img[WEB_SPIDER_IMG].path = "./texture/web.xpm";
-	data->img[POISON_SPIDER_IMG].path = "./texture/web.xpm";// il manque la texture + le spell ?!
 }
 
 static void	set_path_front(t_data *data)

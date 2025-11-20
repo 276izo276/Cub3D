@@ -497,8 +497,8 @@ void	move_item(t_data *data)
 		item->center_before.case_x = item->center.case_x;
 		item->center_before.case_y = item->center.case_y;
 		// printf("before move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
-		if (item->nb_move >= 1)
-			make_move_item(item, item->speed);
+		// if (item->nb_move >= 1)
+		make_move_item(item, item->speed);
 		// printf("after move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
 		if ((try_hit_items(item, data) && (item->type != BH && item->categ) && (item->type != VENTUS && item->type != EXPECTO_PATRONUM && item->type != ANIM_DEATH && !item->categ))
 			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1')

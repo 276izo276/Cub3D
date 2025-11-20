@@ -519,6 +519,50 @@ norm: change_name_full clear_console
 		echo -e "    ${_RED}❯❯❯❯  ${_PURPLE}$$file${_END}";\
 	done;
 
+.PHONY:norm_bonus
+norm_bonus: change_name_full clear_console
+	@echo -e "\n	${_BOLD}${_RED}Do you want to ignore INVALID_HEADER error?${_END} ${_ORANGE}(y/n)${_END}";\
+	echo -n ">>> ";\
+	read -n 1 response;\
+	echo -e "\n⚙️ ⚙️ ${_BOLD}${_BLUE}${_UNDER}Executing norminette${_END} ⚙️ ⚙️ ";\
+	L_OK="";\
+	L_KO="";\
+	STATE=0;\
+	tmp_tab=(" ." " .." " ..." " ...." " .....");\
+	lib="";\
+	for l in ${STATIC_LIB}; do\
+		lib="$$lib $(call GET_ALL_FOLDER,$$l)";\
+	done;\
+	for file in ${FILES_BONUS} ${HEADER_BONUS} $$lib ; do\
+		STATE=$$(((STATE + 1) % 5));\
+		echo -e -n "${_ERASE}\r $${tmp_tab[$$STATE]}\r";\
+		if [ "${FULL_NAME}" = "1" ]; then\
+			tmp_name="$$file";\
+		else \
+			tmp_name="$(call GET_FILE,$$file)";\
+		fi;\
+		temp=$$(norminette $$file);\
+		if [ "$$response" = "y" ]; then\
+			gp=$$(echo "$$temp" | grep "Error: " | grep -v "INVALID_HEADER");\
+		else \
+			gp=$$(echo "$$temp" | grep "Error: ");\
+		fi;\
+		if [ "$$gp" = "" ]; then\
+			L_OK="$$L_OK $$tmp_name";\
+		else \
+			L_KO="$$L_KO $$tmp_name";\
+		fi;\
+	done;\
+	echo -e -n "${_ERASE}\r";\
+	echo -e "${_BOLD}${_LIME}NORM OK :${_END}";\
+	for file in $$L_OK; do\
+		echo -e "    ${_GREEN}❯❯❯❯  ${_PURPLE}$$file${_END}";\
+	done;\
+	echo -e "${_BOLD}${_RED}NORM KO :${_END}";\
+	for file in $$L_KO; do\
+		echo -e "    ${_RED}❯❯❯❯  ${_PURPLE}$$file${_END}";\
+	done;
+
 #
 #
 #

@@ -35,7 +35,6 @@ void	apply_transparancy(t_data *data, int x, int y, unsigned int color)
 		r_old = (old_color >> 16) & 255;
 		g_old = (old_color >> 8) & 255;
 		b_old = old_color & 255;
-
 		a_new = (color >> 24) & 255;
 		r_new = (color >> 16) & 255;
 		g_new = (color >> 8) & 255;

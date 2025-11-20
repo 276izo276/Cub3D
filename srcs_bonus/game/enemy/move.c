@@ -804,7 +804,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 	{
 		
 		item = lst->dt;
-		if (item->type == POPO_HEAL || item->type == POPO_SHIELD || item->type == POPO_FLOO || item->type == POPO_INVI || (item->type == ANIM_DEATH && item->categ) || (elem->type != DEMENTOR && item->type == EXPECTO_PATRONUM && !item->categ))
+		if (((item->type == POPO_HEAL || item->type == POPO_SHIELD || item->type == POPO_FLOO || item->type == POPO_INVI || item->type == ANIM_DEATH || item->type == WOLF_WAND || item->type == ELEM_WAND || item->type == SPIDER_WAND || item->type == DEMENTOR_WAND) && item->categ) || (elem->type != DEMENTOR && item->type == EXPECTO_PATRONUM && !item->categ))
 		{
 			lst = lst->next;
 			continue;

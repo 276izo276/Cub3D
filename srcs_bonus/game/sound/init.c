@@ -1,4 +1,5 @@
 #include "struct_bonus.h"
+#include "utils_bonus.h"
 #include "time_bonus.h"
 #include <stdlib.h>
 #include <strings.h>
@@ -14,6 +15,11 @@ t_sound	*create_sound(t_data *data, int info)
 	sound = malloc(sizeof(t_sound));
 	bzero(sound, sizeof(t_sound));
 	sound->pid = fork();
+	if (sound->pid == -1)
+	{
+		free(sound);
+		return (NULL);
+	}
 	if (sound->pid == 0)
 	{
 		int null_fd = open("/dev/null", O_WRONLY);
@@ -26,15 +32,16 @@ t_sound	*create_sound(t_data *data, int info)
         if (dup2(null_fd, STDERR_FILENO) == -1) {
             exit(EXIT_FAILURE);
         }
-		// if (info == 0)
-		// 	execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", FICHIER_MP3, (char *)NULL);
-		// else if (info == 1)
-		// 	execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", SHOOT_MP3, (char *)NULL);
-		// else if (info == 2)
-		// 	execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", CRY_MP3, (char *)NULL);
-		// else if (info == 3)
-		// 	execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", FICHIER_MP3, (char *)NULL);
-		exit(EXIT_FAILURE);
+		if (info == 0)
+			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", FICHIER_MP3, (char *)NULL);
+		else if (info == 1)
+			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", SHOOT_MP3, (char *)NULL);
+		else if (info == 2)
+			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", CRY_MP3, (char *)NULL);
+		else if (info == 3)
+			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", FICHIER_MP3, (char *)NULL);
+		// exit(EXIT_FAILURE);
+		f_exit(data, 1);
 	}
 	sound->start = get_mtime();
 	sound->duration = -1;

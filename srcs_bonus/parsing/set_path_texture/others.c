@@ -99,6 +99,6 @@ void	set_path_others_texture(t_data *data)
 	data->img[PLAYER_WAND_6].path = "./texture/player_hand/wand_6.xpm";
 	data->img[PLAYER_WAND_7].path = "./texture/player_hand/wand_7.xpm";
 	data->img[SELECT_HAND].path = "./texture/menu/select_hand.xpm";
-	data->img[PLAYER_HAND].path = "./texture/player_hand/wand_sureau.xpm";
+	data->img[PLAYER_HAND].path = "./texture/player_hand/left_hand.xpm";
 	data->img[LEFT_SELECT].path = "./texture/menu/left_select.xpm";
 }

@@ -38,6 +38,7 @@ int	handle_ray_y_top(t_data *data, int i)
 			if (random == data->random_value && data->current_msg < data->nb_msg)
 			{
 				// printf("rand >> %d\n", random);
+				data->sound = add_end_lst(create_sound(data, 1), data->sound, free_sound);
 				pthread_mutex_lock(&data->m_data_ray);
 				data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->is_active = true;
 				data->map.wall_map[data->ray[i].case_y - 1][data->ray[i].case_x]->coo.x = data->ray[i].case_x;

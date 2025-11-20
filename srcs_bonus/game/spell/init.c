@@ -36,7 +36,7 @@ static void	init_avada_kedavra(t_data *data)
 	data->spell[AVADA_KEDAVRA].damage.damage_do = 25;
 	data->spell[AVADA_KEDAVRA].damage.curse_force_do = 45;
 	data->spell[AVADA_KEDAVRA].damage.curse_frame_do = 4;
-	data->spell[AVADA_KEDAVRA].item.speed = 10;
+	data->spell[AVADA_KEDAVRA].item.speed = 60;
 	data->spell[AVADA_KEDAVRA].item.radius = 1;
 	data->spell[AVADA_KEDAVRA].item.front_img = &data->img[AVADA_KEDAVRA_IMG];
 	data->spell[AVADA_KEDAVRA].item.back_img = &data->img[AVADA_KEDAVRA_IMG];

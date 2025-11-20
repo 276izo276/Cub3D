@@ -69,12 +69,12 @@ void	select_right_hand(t_data *data)
 	char			*pixel_addr;
 
 	y = 0;
-	// DESTROY L ANCIENNE TEXTURE DE PLAYER_HAND
 	if (data->is_right_handed == true)
+	{
+		mlx_destroy_image(data->mlx.mlx, &data->img[PLAYER_HAND].img);
 		data->img[PLAYER_HAND].path = "./texture/player_hand/right_hand.xpm";
-	else
-		data->img[PLAYER_HAND].path = "./texture/player_hand/left_hand.xpm";
-	open_img(&data->img[PLAYER_HAND], data);
+		open_img(&data->img[PLAYER_HAND], data);
+	}
 	get_hand_pos(data);
 	while (y < data->img[PLAYER_HAND].height)
 	{

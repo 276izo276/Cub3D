@@ -47,7 +47,7 @@ t_item	*init_spell_item(t_data *data, int info)
 	item->front_img = data->spell[info].item.front_img;
 	item->damage.which_coa_do = data->player.coa;
 	data->sound = add_end_lst(create_sound(data, 1), data->sound, free_sound);
-	make_move_item(item, 1);
+	// make_move_item(item, 1);
 	return (item);
 }
 
@@ -135,17 +135,6 @@ t_item	*create_item(t_data *data, int info, t_fcoo *coo, double deg)
 	item->damage.which_coa_do = OTHERS;
 	make_move_item(item, 10);
 	return (item);
-}
-
-void	init_poison_spider(t_data *data)
-{
-	data->items[POISON_SPIDER].categ = ITEM;
-	data->items[POISON_SPIDER].damage.poison_force_do = .1;
-	data->items[POISON_SPIDER].damage.poison_frame_do = 120;
-	data->items[POISON_SPIDER].speed = 1;
-	data->items[POISON_SPIDER].radius = 3;
-	data->items[POISON_SPIDER].front_img = &data->img[POISON_SPIDER_IMG];
-	data->items[POISON_SPIDER].back_img = &data->img[POISON_SPIDER_IMG];
 }
 
 void	init_web_spider(t_data *data)
@@ -428,7 +417,6 @@ void	init_pillar(t_data *data)
 
 void	init_item(t_data *data)
 {
-	init_poison_spider(data);
 	init_web_spider(data);
 	init_fireball_elem(data);
 	init_popo_heal(data);

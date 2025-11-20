@@ -260,7 +260,6 @@ typedef enum e_imgs
 	XP,
 
 	WEB_SPIDER_IMG,
-	POISON_SPIDER_IMG,
 	
 	INCENDIO_IMG,
 	GLACIUS_IMG,
