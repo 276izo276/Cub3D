@@ -88,9 +88,7 @@ void	try_hit_player(t_data *data)
 	while (lst)
 	{
 		item = lst->dt;
-		if ((item->type == CONFUNDO || item->type == VENTUS
-				|| item->type == EXPECTO_PATRONUM || item->type == REPULSO)
-			&& !item->categ)
+		if (((item->type == CONFUNDO || item->type == VENTUS || item->type == EXPECTO_PATRONUM || item->type == REPULSO) && !item->categ) || (item->nb_move <= 5 && item->damage.which_coa_do == data->player.coa))
 		{
 			lst = lst->next;
 			continue ;

@@ -828,7 +828,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if ((!item->categ && item->type != EXPECTO_PATRONUM && item->type != VENTUS) && (item->type != BH && item->categ))
+			if (!((!item->categ && (item->type == EXPECTO_PATRONUM || item->type == VENTUS)) || (item->type == BH && item->categ)))
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -849,7 +849,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if ((!item->categ && item->type != EXPECTO_PATRONUM && item->type != VENTUS) && (item->type != BH && item->categ))
+			if (!((!item->categ && (item->type == EXPECTO_PATRONUM || item->type == VENTUS)) || (item->type == BH && item->categ)))
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -870,7 +870,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if ((!item->categ && item->type != EXPECTO_PATRONUM && item->type != VENTUS) && (item->type != BH && item->categ))
+			if (!((!item->categ && (item->type == EXPECTO_PATRONUM || item->type == VENTUS)) || (item->type == BH && item->categ)))
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -899,7 +899,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if ((!item->categ && item->type != EXPECTO_PATRONUM && item->type != VENTUS) && (item->type != BH && item->categ))
+			if (!((!item->categ && (item->type == EXPECTO_PATRONUM || item->type == VENTUS)) || (item->type == BH && item->categ)))
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -922,7 +922,7 @@ void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 				move_more_hit_pos(elem, item);
 			apply_damage(&elem->damage, &item->damage);
 			next = lst->next;
-			if ((!item->categ && item->type != EXPECTO_PATRONUM && item->type != VENTUS) && (item->type != BH && item->categ))
+			if (!((!item->categ && (item->type == EXPECTO_PATRONUM || item->type == VENTUS)) || (item->type == BH && item->categ)))
 			{
 				data->item = remove_elem_lst(lst);
 				f_elem_lst(lst);
@@ -1444,7 +1444,6 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 				enemy->calc_path--;
 			// printf("calc_path >>%d\n",enemy->calc_path);
 			//DBG1printf("m5\n");
-			try_hit_enemys(enemy, data, 0);
 			// enemy->center.coo_x = round(enemy->center.coo_x);
 			// enemy->center.coo_y = round(enemy->center.coo_y);
 			// printf("CURRENT   y>>>%d    x>>%d\n",enemy->center.case_x,enemy->center.case_y);
@@ -1499,6 +1498,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 				}
 			}
 			calc_left_and_right_point(enemy, data);
+			try_hit_enemys(enemy, data, 0);
 		}
 	}
 	// printf("\ncoo before        case   y>%d    x>%d       coo   y>%lf      x>%lf\n",enemy->center.case_y,enemy->center.case_x,enemy->center.coo_y,enemy->center.coo_x);

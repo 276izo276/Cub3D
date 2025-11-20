@@ -75,6 +75,7 @@ static void	run_all_init(t_data *data)
 void	init_data(t_data *data, int ac, char **av)
 {
 	ft_bzero(data, sizeof(t_data));
+	data->sound = add_end_lst(create_sound(data, 0), data->sound, free_sound);
 	data->time_fps = get_mtime();
 	data->time_move = get_mtime();
 	fill_need_print(data);

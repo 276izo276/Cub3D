@@ -7,7 +7,7 @@
 # include <pthread.h>
 # include <semaphore.h>
 
-# define FICHIER_MP3 "sound/mp3.mp3"
+# define FICHIER_MP3 "sound/back_sound.mp3"
 # define SHOOT_MP3 "sound/shoot.mp3"
 # define CRY_MP3 "sound/cry.mp3"
 

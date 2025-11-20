@@ -56,6 +56,7 @@ void	f_tab_char(char **tab)
 
 void	f_exit(t_data *data, int code)
 {
+	f_all_lst(data->sound);
 	if (data->mlx.mlx)
 		mlx_do_key_autorepeaton(data->mlx.mlx);
 	f_imgs(data);
