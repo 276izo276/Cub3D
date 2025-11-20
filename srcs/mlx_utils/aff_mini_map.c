@@ -82,9 +82,7 @@ void	aff_mini_map(t_data *data)
 				|| data->u.new_x >= ft_strlen(data->map.tabmap[data->u.new_y])
 				|| data->u.new_x < 0
 				|| data->map.tabmap[data->u.new_y][data->u.new_x] == ' ')
-			{
 				aff_pix_in_img(&data->u, &data->map.mini, data);
-			}
 			else
 			{
 				aff_color_in_img(&data->u, &data->map.mini, data);

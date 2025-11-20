@@ -45,9 +45,8 @@ void	cast_popo_floo(t_data *data)
 void	cast_popo_invi(t_data *data)
 {
 	if (data->popo[3].active || data->popo[3].nb < 4 || data->player.life <= 0)
-		return;
+		return ;
 	data->popo[3].active = 1;
 	data->player.invisible = 32;
 	data->player.timer_invi = get_mtime();
 }
-

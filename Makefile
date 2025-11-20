@@ -125,8 +125,13 @@ MLX_UTILS_BONUS	=							\
 				handle_window.c				\
 				mini_map.c					\
 				mini_move.c					\
+				hitbox_y.c 					\
+				hitbox_x.c 					\
+				mini_move_utils.c 			\
+				calc_move.c 				\
 				mini_rotate.c				\
 				handle_foot_mini.c 			\
+				handle_foot_utils.c       	\
 				aff_mini_map.c				\
 				utils_aff_mini_map.c		\
 				aff_player_mini_map.c		\
@@ -159,10 +164,16 @@ GAME_BONUS		=										\
 				menu/end_menu/handle_end_menu.c			\
 				spell/spell.c							\
 				spell/init.c							\
+				spell/init_first.c 						\
+				spell/init_snd.c 						\
+				spell/init_third.c 						\
+				spell/init_fourth.c 					\
+				spell/init_sorcerer_spell.c 				\
 				item/free.c								\
 				item/init.c								\
 				item/move.c								\
 				damage.c								\
+				get_ranking_xp.c 						\
 				popo/init.c								\
 				popo/launch.c							\
 				sound/init.c							\

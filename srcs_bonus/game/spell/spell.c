@@ -8,20 +8,23 @@
 
 int	get_right_white(t_data *data, int color, double distance)
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 
 	b = (color & 255);
-	b = (int)(b + (255 - b) * ((1 - distance / 350 )) * data->lumos.count_frame / 100);
+	b = (int)(b + (255 - b) * ((1 - distance / 350))
+			* data->lumos.count_frame / 100);
 	if (b > 255)
 		b = 255;
 	g = (color >> 8 & 255);
-	g = (int)(g + ( 255 - g) * ((1 - distance / 350 )) * data->lumos.count_frame / 100);
+	g = (int)(g + (255 - g) * ((1 - distance / 350))
+			* data->lumos.count_frame / 100);
 	if (g > 255)
 		g = 255;
 	r = (color >> 16 & 255);
-	r = (int)(r + ( 255 - r) * ((1 - distance / 350 )) * data->lumos.count_frame / 100);
+	r = (int)(r + (255 - r) * ((1 - distance / 350))
+			* data->lumos.count_frame / 100);
 	if (r > 255)
 		r = 255;
 	color = (r << 16) + (g << 8) + b;
@@ -42,11 +45,11 @@ void	lumos_loop(t_data *data, int start_x, int start_y)
 		x = -350;
 		while (x < 350)
 		{
-			distance = sqrt(y * y + x *x);
+			distance = sqrt(y * y + x * x);
 			if (distance < 350)
 			{
 				color = get_texture_pixel(data->screen, x + start_x, y
-					+ start_y);
+						+ start_y);
 				color = get_right_white(data, color, distance);
 				pixel_put(data, x + start_x, y + start_y, color);
 			}
@@ -56,13 +59,12 @@ void	lumos_loop(t_data *data, int start_x, int start_y)
 	}
 }
 
-#include <stdio.h>
-
 void	cast_lumos(t_data *data, int info)
 {
 	(void)info;
 	data->cast_spell = -1;
-	if (data->active_spell == -1 && !data->lumos.active && get_mtime() > data->spell[LUMOS].end_time
+	if (data->active_spell == -1
+		&& !data->lumos.active && get_mtime() > data->spell[LUMOS].end_time
 		+ data->spell[LUMOS].base_cooldown * 1000)
 	{
 		data->lumos.active = true;
@@ -99,7 +101,8 @@ void	spell_lumos(t_data *data)
 
 void	spell_protego(t_data *data)
 {
-	if (data->player.protego > 0 && get_mtime() > data->spell[PROTEGO].launch_time
+	if (data->player.protego > 0
+		&& get_mtime() > data->spell[PROTEGO].launch_time
 		+ data->spell[PROTEGO].base_timer * 1000)
 	{
 		data->player.protego = 0;
@@ -173,17 +176,17 @@ void	cast_episkey(t_data *data, int info)
 	}
 }
 
-#include <unistd.h>
-
 void	cast_opugno(t_data *data, int info)
 {
 	t_fcoo	coo;
 	long	save_time;
+	int		i;
 
 	save_time = 0;
 	(void)info;
 	data->cast_spell = -1;
-	if (data->active_spell == -1 && get_mtime() > data->spell[OPPUGNO].end_time + data->spell[OPPUGNO].base_cooldown * 1000)
+	if (data->active_spell == -1 && get_mtime() > data->spell[OPPUGNO].end_time
+		+ data->spell[OPPUGNO].base_cooldown * 1000)
 	{
 		data->spell[OPPUGNO].launch_time = get_mtime();
 		data->spell[OPPUGNO].end_time = get_mtime();
@@ -191,11 +194,9 @@ void	cast_opugno(t_data *data, int info)
 		coo.case_y = data->player.coo.case_y;
 		coo.coo_x = data->player.coo.coo_x;
 		coo.coo_y = data->player.coo.coo_y;
-		data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
-		data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
-		data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
-		data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
-		data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
+		i = -1;
+		while (++i < 4)
+			data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
 		data->lumos.active = true;
 		data->lumos.count_frame = 50;
 		save_time = data->spell[LUMOS].end_time;
@@ -253,6 +254,7 @@ void	cast_vulnera_sanentur(t_data *data, int info)
 	}
 }
 
+#include <stdio.h>
 void	cast_spell(t_data *data, int info)
 {
 	data->cast_spell = -1;

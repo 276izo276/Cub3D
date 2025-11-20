@@ -1,455 +1,56 @@
 #include "cub3d_bonus.h"
 #include "utils_bonus.h"
 #include <math.h>
-# include "texture_bonus.h"
-#include <stdio.h>
-
-static int	check_x_value(t_data *data, t_mini *mini, int y, int x)
-{
-	if ((y == -1 && x == -1 && data->player.coo.coo_y < 8 && data->player.coo.coo_x + mini->dx < 8)
-	|| (y == 0 && x == -1 && data->player.coo.coo_x + mini->dx < 8)
-	|| (y == 1 && x == -1 && data->player.coo.coo_x + mini->dx < 8 && data->player.coo.coo_y > 56)
-	|| (y == -1 && x == 0 && data->player.coo.coo_y < 8)
-	|| (y == 1 && x == 0 && data->player.coo.coo_y > 56)
-	|| (y == -1 && x == 1 && data->player.coo.coo_y < 8 && data->player.coo.coo_x + mini->dx > 56)
-	|| (y == 0 && x == 1 && data->player.coo.coo_x + mini->dx > 56)
-	|| (y == 1 && x == 1 && data->player.coo.coo_x + mini->dx > 56 && data->player.coo.coo_y > 56))
-		return (1);
-	return (0);
-}
-
-static int	check_y_value(t_data *data, t_mini *mini, int y, int x)
-{
-	if ((y == -1 && x == -1 && data->player.coo.coo_y + mini->dy < 8 && data->player.coo.coo_x < 8)
-	|| (y == 0 && x == -1 && data->player.coo.coo_x < 8)
-	|| (y == 1 && x == -1 && data->player.coo.coo_x < 8 && data->player.coo.coo_y + mini->dy > 56)
-	|| (y == -1 && x == 0 && data->player.coo.coo_y + mini->dy < 8)
-	|| (y == 1 && x == 0 && data->player.coo.coo_y + mini->dy > 56)
-	|| (y == -1 && x == 1 && data->player.coo.coo_y + mini->dy < 8 && data->player.coo.coo_x > 56)
-	|| (y == 0 && x == 1 && data->player.coo.coo_x > 56)
-	|| (y == 1 && x == 1 && data->player.coo.coo_x > 56 && data->player.coo.coo_y + mini->dy > 56))
-		return (1);
-	return (0);
-}
-
-int	hit_box_x_wall(t_data *data, t_map *map, t_mini *mini)
-{
-	int	x;
-	int	y;
-
-	y = -1;
-	while (y <= 1)
-	{
-		x = -1;
-		while (x <= 1)
-		{
-			if (map->tabmap[data->player.coo.case_y + y][data->player.coo.case_x + x] == '1')
-				if (check_x_value(data, mini, y, x))
-					return (1);
-			x++;
-		}
-		y++;
-	}
-	return (0);
-}
-
-int	hit_box_y_wall(t_data *data, t_map *map, t_mini *mini)
-{
-	int	x;
-	int	y;
-
-	y = -1;
-	while (y <= 1)
-	{
-		x = -1;
-		while (x <= 1)
-		{
-			if (map->tabmap[data->player.coo.case_y + y][data->player.coo.case_x + x] == '1')
-				if (check_y_value(data, mini, y, x))
-					return (1);
-			x++;
-		}
-		y++;
-	}
-	return (0);
-}
-
-void	v_norm_d(t_mini *mini, t_data *data)
-{
-	double	v_normalize;
-	int		i;
-
-	v_normalize = sqrt(mini->dx * mini->dx + mini->dy * mini->dy);
-	mini->dy = mini->dy / v_normalize;
-	mini->dx = mini->dx / v_normalize;
-	i = -1;
-	while (++i < KEYCODE_NB)
-	{
-		if (data->keycode[i] == KEY_S)
-		{
-			mini->dy *= .6;
-			mini->dx *= .6;
-		}
-		else if (data->keycode[i] == KEY_A || data->keycode[i] == KEY_D)
-		{
-			mini->dy *= .9;
-			mini->dx *= .9;
-		}
-		if (data->keycode[i] == KEY_SHIFT)
-		{
-			mini->dy *= 1.6;
-			mini->dx *= 1.6;
-		}
-	}
-}
-
-
-void	v_norm_sd(t_mini *mini, t_data *data)
-{
-	double	v_normalize;
-	int		i;
-
-	v_normalize = sqrt(mini->dx * mini->dx + mini->dy * mini->dy);
-	mini->sdy = mini->sdy / v_normalize;
-	mini->sdx = mini->sdx / v_normalize;
-	i = -1;
-	while (++i < KEYCODE_NB)
-	{
-		if (data->keycode[i] == KEY_S)
-		{
-			mini->sdy *= .6;
-			mini->sdx *= .6;
-		}
-		else if (data->keycode[i] == KEY_A || data->keycode[i] == KEY_D)
-		{
-			mini->sdy *= .9;
-			mini->sdx *= .9;
-		}
-		if (data->keycode[i] == KEY_SHIFT)
-		{
-			mini->sdy *= 1.6;
-			mini->sdx *= 1.6;
-		}
-	}
-}
-
-static void	calc_dx_dy(t_data *data, int keycode, t_mini *mini)
-{
-	int	angle;
-	(void)data;
-
-	angle = 0;
-	if (keycode == KEY_W || keycode == KEY_UP)
-	{
-		data->player.is_front = true;
-		angle = 180;
-	}
-	else if (keycode == KEY_S || keycode == KEY_DOWN)
-	{
-		angle = 0;
-		data->player.is_front = false;
-	}
-	else if (keycode == KEY_D || keycode == KEY_RIGHT)
-		angle = 90;
-	else if (keycode == KEY_A || keycode == KEY_LEFT)
-		angle = 270;
-	if (angle % 180 != 0)
-	{
-		mini->sdx += sin(mini->rad + angle * (M_PI / 180.0));
-		mini->sdy += cos(mini->rad + angle * (M_PI / 180.0));
-	}
-	mini->dx += sin(mini->rad + angle * (M_PI / 180.0));
-	mini->dy += cos(mini->rad + angle * (M_PI / 180.0));
-}
-
-void	recalc_x(t_data *data, t_mini *mini, t_map *map)
-{
-	mini->nx = data->player.coo.coo_x + mini->dx;
-	mini->cx = 0;
-	if (mini->nx < 0)
-	{
-		if (map->tabmap[data->player.coo.case_y][data->player.coo.case_x - 1] != '1')
-		{
-			mini->cx = -1;
-			mini->nx = 64 + mini->nx;
-		}
-	}
-	else if (mini->nx >= 64)
-	{
-		if (map->tabmap[data->player.coo.case_y][data->player.coo.case_x + 1] != '1')
-		{
-			mini->cx = 1;
-			mini->nx = mini->nx - 64;
-		}
-	}
-}
-
-void	recalc_y(t_data *data, t_mini *mini, t_map *map)
-{
-	mini->ny = data->player.coo.coo_y + mini->dy;
-	mini->cy = 0;
-	if (mini->ny < 0)
-	{
-		if (map->tabmap[data->player.coo.case_y - 1][data->player.coo.case_x] != '1')
-		{
-			mini->cy = -1;
-			mini->ny = 64 + mini->ny;
-		}
-	}
-	else if (mini->ny >= 64)
-	{
-		if (map->tabmap[data->player.coo.case_y + 1][data->player.coo.case_x] != '1')
-		{
-			mini->cy = 1;
-			mini->ny = mini->ny - 64;
-		}
-	}
-}
-
-void	hit_box_x_floo(t_mini *mini, t_data *data)
-{
-	if ((mini->cx == 0 && mini->nx >= 22 && mini->nx <= 42)
-		|| (mini->cx == 0 && mini->nx > 32 && data->player.coo.coo_x < 32) || (mini->cx == 0 && mini->nx < 32 && data->player.coo.coo_x > 32))
-		{
-			if (data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open == false && abs_value(32 - data->player.coo.coo_x) > abs_value(32 - mini->nx))
-				mini->nx = data->player.coo.coo_x;
-			else if ((data->player.coo.coo_x < 22 || data->player.coo.coo_x > 42) && (mini->ny < 16 || mini->ny > 48))
-				mini->nx = data->player.coo.coo_x;
-			else if (data->player.coo.coo_x >= 22 && data->player.coo.coo_x <= 42 && (mini->ny < 16 || mini->ny > 48))
-				mini->ny = data->player.coo.coo_y;
-		}
-}
-
-void	movex(t_map *map, t_mini *mini, t_data *data)
-{
-	if (hit_box_x_wall(data, map, mini))
-	{
-		// printf("STOP HIT X\n");
-		mini->nx = data->player.coo.coo_x;
-	}
-	if (data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x] == 'D'
-		&& data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_verti == true)
-		{
-			if ((mini->cx == 0 && mini->nx >= 22 && mini->nx <= 42)
-			|| (mini->cx == 0 && mini->nx > 32 && data->player.coo.coo_x < 32) || (mini->cx == 0 && mini->nx < 32 && data->player.coo.coo_x > 32))
-			{
-				// printf("HIT DOOOR   xold=%lf    x=%lf\n",data->player.coo.coo_x, mini->nx);
-				if (data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->pos <= 50 && abs_value(32 - data->player.coo.coo_x) > abs_value(32 - mini->nx))
-					mini->nx = data->player.coo.coo_x;
-				else if ((data->player.coo.coo_x < 22 || data->player.coo.coo_x > 42) && (mini->ny < 16 || mini->ny > 48))
-					mini->nx = data->player.coo.coo_x;
-				else if (data->player.coo.coo_x >= 22 && data->player.coo.coo_x <= 42 && (mini->ny < 16 || mini->ny > 48))
-					mini->ny = data->player.coo.coo_y;
-			}
-		}
-	if (data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x] == 'F'
-		&& data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_verti == true)
-			hit_box_x_floo(mini, data);
-	// printf("xold=%lf    x=%lf\n",data->player.coo.coo_x, mini->nx);
-}
-
-void	hit_box_y_floo(t_mini *mini, t_data *data)
-{
-	if ((mini->cy == 0 && mini->ny >= 22 && mini->ny <= 42)
-		|| (mini->cy == 0 && mini->ny > 32 && data->player.coo.coo_y < 32) || (mini->cy == 0 && mini->ny < 32 && data->player.coo.coo_y > 32))
-		{
-			if (data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open == false && abs_value(32 - data->player.coo.coo_y) > abs_value(32 - mini->ny))
-				mini->ny = data->player.coo.coo_y;
-			else if ((data->player.coo.coo_y < 22 || data->player.coo.coo_y > 42) && (mini->nx < 16 || mini->nx > 48))
-				mini->ny = data->player.coo.coo_y;
-			else if (data->player.coo.coo_y >= 22 && data->player.coo.coo_y <= 42 && (mini->nx < 16 || mini->nx > 48))
-				mini->nx = data->player.coo.coo_x;
-		}
-}
-
-void	movey(t_map *map, t_mini *mini, t_data *data)
-{
-	if (hit_box_y_wall(data, map, mini))
-	{
-		// printf("STOP HIT Y\n");
-		mini->ny = data->player.coo.coo_y;
-	}
-	if (data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x] == 'D'
-		&& data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_verti == false)
-		{
-			if ((mini->cy == 0 && mini->ny >= 22 && mini->ny <= 42)
-			|| (mini->cy == 0 && mini->ny > 32 && data->player.coo.coo_y < 32) || (mini->cy == 0 && mini->ny < 32 && data->player.coo.coo_y > 32))
-			{
-				// printf("HIT DOOOR   yold=%lf    y=%lf\n",data->player.coo.coo_y, mini->ny);
-				if (data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->pos <= 50 && abs_value(32 - data->player.coo.coo_y) > abs_value(32 - mini->ny))
-					mini->ny = data->player.coo.coo_y;
-				else if ((data->player.coo.coo_y < 22 || data->player.coo.coo_y > 42) && (mini->nx < 16 || mini->nx > 48))
-					mini->ny = data->player.coo.coo_y;
-				else if (data->player.coo.coo_y >= 22 && data->player.coo.coo_y <= 42 && (mini->nx < 16 || mini->nx > 48))
-					mini->nx = data->player.coo.coo_x;
-			}
-		}
-	if (data->map.tabmap[data->player.coo.case_y][data->player.coo.case_x] == 'F'
-		&& data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_verti == false)
-		hit_box_y_floo(mini, data);
-	// printf(" yold=%lf    y=%lf\n",data->player.coo.coo_y, mini->ny);
-}
+#include "texture_bonus.h"
 
 void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 {
 	if (data->status == FLOO_MAP)
 		return ;
-	if (map->tabmap[data->player.coo.case_y][data->player.coo.case_x] == 'F' && (map->door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open == true))
+	if (map->tabmap[data->player.coo.case_y][data->player.coo.case_x] == 'F'
+		&& (map->door_map[data->player.coo.case_y]
+			[data->player.coo.case_x]->is_floo_open == true))
 	{
-		if (map->door_map[data->player.coo.case_y][data->player.coo.case_x]->is_verti == true
-			&& mini->cx == 0 && ((data->player.coo.coo_x <= 32.0 && mini->nx > 32.0) || (data->player.coo.coo_x >= 32.0 && mini->nx < 32.0)))
-		{
+		if (map->door_map[data->player.coo.case_y]
+			[data->player.coo.case_x]->is_verti == true
+			&& mini->cx == 0 && ((data->player.coo.coo_x <= 32.0
+					&& mini->nx > 32.0) || (data->player.coo.coo_x >= 32.0
+					&& mini->nx < 32.0)))
 			data->status = FLOO_MAP;
-		}
-		else if (map->door_map[data->player.coo.case_y][data->player.coo.case_x]->is_verti == false &&
-			mini->cy == 0 && ((data->player.coo.coo_y <= 32.0 && mini->ny > 32.0) || (data->player.coo.coo_y >= 32.0 && mini->ny < 32.0)))
-		{
+		else if (map->door_map[data->player.coo.case_y]
+			[data->player.coo.case_x]->is_verti == false
+			&& mini->cy == 0 && ((data->player.coo.coo_y <= 32.0
+					&& mini->ny > 32.0) || (data->player.coo.coo_y >= 32.0
+					&& mini->ny < 32.0)))
 			data->status = FLOO_MAP;
-		}
-		if (data->status == FLOO_MAP)
-		{
-			data->player.coo.coo_x = 32;
-			data->player.coo.coo_y = 32;
-			data->map.last_pos_x = data->player.coo.case_x;
-			data->map.last_pos_y = data->player.coo.case_y;
-		}
+		save_pos_before_floo(data);
 	}
 }
 
-void	calc_left_point_player(t_data *data)
+static void	pick_up_items(t_data *data, t_item *item)
 {
-	double	rad;
-	double	dy;
-	double	dx;
-	double	v_normalize;
-
-	rad = data->map.mini.rad + (90 * (M_PI / 180));
-	dx = sin(rad);
-	dy = cos(rad);
-	// printf("dx>>%lf     dy>>%lf\n",dx,dy);
-	if (round(dy) == 0.0 && round(dx) == 0.0)
+	if (item->type == POPO_HEAL)
+		data->popo[0].nb ++;
+	if (item->type == POPO_SHIELD)
+		data->popo[1].nb ++;
+	if (item->type == POPO_FLOO)
+		data->popo[2].nb ++;
+	if (item->type == POPO_INVI)
+		data->popo[3].nb++;
+	if (item->type == PORTKEY)
 	{
-		dy = 0;
-		dx = 0;
+		data->status = MENU_END;
+		get_ranking_xp(data);
 	}
-	else
-	{
-		v_normalize = sqrt(dx * dx + dy * dy);
-		dy = dy / v_normalize;
-		dx = dx / v_normalize;
-	}
-	dy *= data->player.radius;
-	dx *= data->player.radius;
-	data->player.left.coo_x = data->player.coo.coo_x + dx;
-	data->player.left.coo_y = data->player.coo.coo_y + dy;
-	data->player.left.case_x = data->player.coo.case_x;
-	data->player.left.case_y = data->player.coo.case_y;
-	if (data->player.left.coo_x < 0)
-	{
-		data->player.left.case_x--;
-		data->player.left.coo_x += 64;
-	}
-	else if (data->player.left.coo_x > 64)
-	{
-		data->player.left.case_x++;
-		data->player.left.coo_x = fmod(data->player.left.coo_x, 64);
-	}
-	if (data->player.left.coo_y < 0)
-	{
-		data->player.left.case_y--;
-		data->player.left.coo_y += 64;
-	}
-	else if (data->player.left.coo_y > 64)
-	{
-		data->player.left.case_y++;
-		data->player.left.coo_y = fmod(data->player.left.coo_y, 64);
-	}
-}
-
-void	calc_right_point_player(t_data *data)
-{
-	double	rad;
-	double	dy;
-	double	dx;
-	double	v_normalize;
-
-	rad = data->map.mini.rad - (90 * (M_PI / 180));
-	dx = sin(rad);
-	dy = cos(rad);
-	// printf("dx>>%lf     dy>>%lf\n",dx,dy);
-	if (round(dy) == 0.0 && round(dx) == 0.0)
-	{
-		dy = 0;
-		dx = 0;
-	}
-	else
-	{
-		v_normalize = sqrt(dx * dx + dy * dy);
-		dy = dy / v_normalize;
-		dx = dx / v_normalize;
-	}
-	dy *= data->player.radius;
-	dx *= data->player.radius;
-	data->player.right.coo_x = data->player.coo.coo_x + dx;
-	data->player.right.coo_y = data->player.coo.coo_y + dy;
-	data->player.right.case_x = data->player.coo.case_x;
-	data->player.right.case_y = data->player.coo.case_y;
-	if (data->player.right.coo_x < 0)
-	{
-		data->player.right.case_x--;
-		data->player.right.coo_x += 64;
-	}
-	else if (data->player.right.coo_x > 64)
-	{
-		data->player.right.case_x++;
-		data->player.right.coo_x = fmod(data->player.right.coo_x, 64);
-	}
-	if (data->player.right.coo_y < 0)
-	{
-		data->player.right.case_y--;
-		data->player.right.coo_y += 64;
-	}
-	else if (data->player.right.coo_y > 64)
-	{
-		data->player.right.case_y++;
-		data->player.right.coo_y = fmod(data->player.right.coo_y, 64);
-	}
-}
-
-void	get_order_xp(t_data *data)
-{
-	int	i;
-	int	index_max_xp;
-	double	max_xp;
-
-	max_xp = 1.0;
-	index_max_xp = 0;
-	i = 0;
-	data->coa[data->player.coa].xp = data->player.xp;
-	while (i < 4)
-	{
-		if (data->coa[i].xp > max_xp)
-		{
-			index_max_xp = i;
-			max_xp = data->coa[i].xp;
-		}
-		++i;
-	}
-	data->coa[index_max_xp].max_y = 196 ;
-	i = 0;
-	while (i < 4)
-	{
-		if (index_max_xp == i)
-		{
-			// printf ("i >> %d  |||| xp >> %f || max_y >>> %f\n", i, data->coa[i].xp, data->coa[i].max_y);
-			++i;
-			continue ;
-		}
-		// data->coa[i].xp += (i + 1) *3;
-		data->coa[i].max_y = 674 - (data->coa[i].xp / data->coa[index_max_xp].xp) * (674 - 196);
-		// printf ("i >> %d  |||| xp >> %f || max_y >>> %f\n", i, data->coa[i].xp, data->coa[i].max_y);
-		++i;
-	}
+	if (item->type == WOLF_WAND)
+		data->wand.wand_status[2] = true;
+	if (item->type == ELEM_WAND)
+		data->wand.wand_status[3] = true;
+	if (item->type == DEMENTOR_WAND)
+		data->wand.wand_status[4] = true;
+	if (item->type == SPIDER_WAND)
+		data->wand.wand_status[1] = true;
+	apply_damage(&data->player.damage, &item->damage);
 }
 
 void	try_hit_player(t_data *data)
@@ -463,115 +64,57 @@ void	try_hit_player(t_data *data)
 	ray.ay = data->player.left.case_y * 64 + data->player.left.coo_y;
 	ray.bx = data->player.right.case_x * 64 + data->player.right.coo_x;
 	ray.by = data->player.right.case_y * 64 + data->player.right.coo_y;
-	ray.cx = data->player.left_before.case_x * 64 + data->player.left_before.coo_x;
-	ray.cy = data->player.left_before.case_y * 64 + data->player.left_before.coo_y;
+	ray.cx = data->player.left_before.case_x * 64
+		+ data->player.left_before.coo_x;
+	ray.cy = data->player.left_before.case_y * 64
+		+ data->player.left_before.coo_y;
 	lst = get_first_elem_lst(data->item);
 	while (lst)
 	{
 		item = lst->dt;
-		if (((item->type == CONFUNDO || item->type == VENTUS || item->type == EXPECTO_PATRONUM || item->type == REPULSO) && !item->categ) || (item->nb_move <= 5 && item->damage.which_coa_do == data->player.coa))
+		if (((item->type == CONFUNDO || item->type == VENTUS
+					|| item->type == EXPECTO_PATRONUM || item->type == REPULSO)
+				&& !item->categ) || (item->nb_move <= 5
+				&& item->damage.which_coa_do == data->player.coa))
 		{
 			lst = lst->next;
-			continue;
+			continue ;
 		}
 		ray.dx = item->left.case_x * 64 + item->left.coo_x;
 		ray.dy = item->left.case_y * 64 + item->left.coo_y;
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			if (item->type == POPO_HEAL)
-				data->popo[0].nb ++;
-			if (item->type == POPO_SHIELD)
-				data->popo[1].nb ++;
-			if (item->type == POPO_FLOO)
-				data->popo[2].nb ++;
-			if (item->type == POPO_INVI)
-				data->popo[3].nb++;
-			if (item->type == PORTKEY)
-			{
-				data->status = MENU_END;
-				get_order_xp(data);
-			}
-			if (item->type == WOLF_WAND)
-				data->wand.wand_status[2] = true;
-			if (item->type == ELEM_WAND)
-				data->wand.wand_status[3] = true;
-			if (item->type == DEMENTOR_WAND)
-				data->wand.wand_status[4] = true;
-			if (item->type == SPIDER_WAND)
-				data->wand.wand_status[1] = true;
-			apply_damage(&data->player.damage, &item->damage);
+			pick_up_items(data, item);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
 			lst = next;
-			continue;
+			continue ;
 		}
 		ray.dx = item->center.case_x * 64 + item->center.coo_x;
 		ray.dy = item->center.case_y * 64 + item->center.coo_y;
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			if (item->type == POPO_HEAL)
-				data->popo[0].nb ++;
-			if (item->type == POPO_SHIELD)
-				data->popo[1].nb ++;
-			if (item->type == POPO_FLOO)
-				data->popo[2].nb ++;
-			if (item->type == POPO_INVI)
-				data->popo[3].nb++;
-			if (item->type == PORTKEY)
-			{
-				data->status = MENU_END;
-				get_order_xp(data);
-			}
-			if (item->type == WOLF_WAND)
-				data->wand.wand_status[2] = true;
-			if (item->type == ELEM_WAND)
-				data->wand.wand_status[3] = true;
-			if (item->type == DEMENTOR_WAND)
-				data->wand.wand_status[4] = true;
-			if (item->type == SPIDER_WAND)
-				data->wand.wand_status[1] = true;
-			apply_damage(&data->player.damage, &item->damage);
+			pick_up_items(data, item);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
 			lst = next;
-			continue;
+			continue ;
 		}
 		ray.dx = item->right.case_x * 64 + item->right.coo_x;
 		ray.dy = item->right.case_y * 64 + item->right.coo_y;
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			if (item->type == POPO_HEAL)
-				data->popo[0].nb ++;
-			if (item->type == POPO_SHIELD)
-				data->popo[1].nb ++;
-			if (item->type == POPO_FLOO)
-				data->popo[2].nb ++;
-			if (item->type == POPO_INVI)
-				data->popo[3].nb++;
-			if (item->type == PORTKEY)
-			{
-				data->status = MENU_END;
-				get_order_xp(data);
-			}
-			if (item->type == WOLF_WAND)
-				data->wand.wand_status[2] = true;
-			if (item->type == ELEM_WAND)
-				data->wand.wand_status[3] = true;
-			if (item->type == DEMENTOR_WAND)
-				data->wand.wand_status[4] = true;
-			if (item->type == SPIDER_WAND)
-				data->wand.wand_status[1] = true;
-			apply_damage(&data->player.damage, &item->damage);
+			pick_up_items(data, item);
 			next = lst->next;
 			data->item = remove_elem_lst(lst);
 			f_elem_lst(lst);
 			lst = next;
-			continue;
+			continue ;
 		}
 		lst = lst->next;
 	}
@@ -601,7 +144,6 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 		}
 		i++;
 	}
-	
 	if (round(mini->sdy) == 0.0 && round(mini->sdx) == 0.0)
 	{
 		mini->sdy = 0;
@@ -620,8 +162,8 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	mini->dy *= SPEED;
 	mini->sdx *= SPEED;
 	mini->sdy *= SPEED;
-	// printf("\ndx>%lf   dy>%lf         sdx>%lf   sdy>%lf\n",mini->dx,mini->dy,mini->sdx,mini->sdy);
-	if (data->player.damage.slow_frame_take > 0 || data->player.damage.slow_force_take > 0)
+	if (data->player.damage.slow_frame_take > 0
+		|| data->player.damage.slow_force_take > 0)
 	{
 		if (data->player.damage.slow_force_take > 100)
 			data->player.damage.slow_force_take = 100;
@@ -664,7 +206,4 @@ void	handle_move(t_map *map, t_mini *mini, t_data *data)
 	calc_left_point_player(data);
 	calc_right_point_player(data);
 	try_hit_player(data);
-	// move_x(data, map, mini);
-	// move_y(data, map, mini);
 }
-
