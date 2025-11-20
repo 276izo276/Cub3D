@@ -10,6 +10,9 @@
 # define FICHIER_MP3 "sound/back_sound.mp3"
 # define SHOOT_MP3 "sound/shoot.mp3"
 # define CRY_MP3 "sound/cry.mp3"
+# define EXPECTO_PATRONUM_MP3 "sound/expecto_patronum.mp3"
+# define AVADA_KEDAVRA_MP3 "sound/avedecadebee.mp3"
+# define EXPELLIARMUS_MP3 "sound/expelliarmus.mp3"
 
 # define SIZE_MAP (5 * 64)
 # define FPS 30.0

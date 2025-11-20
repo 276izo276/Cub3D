@@ -26,14 +26,14 @@ t_sound	*create_sound(t_data *data, int info)
         if (dup2(null_fd, STDERR_FILENO) == -1) {
             exit(EXIT_FAILURE);
         }
-		if (info == 0)
-			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", FICHIER_MP3, (char *)NULL);
-		else if (info == 1)
-			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", SHOOT_MP3, (char *)NULL);
-		else if (info == 2)
-			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", CRY_MP3, (char *)NULL);
-		else if (info == 3)
-			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", FICHIER_MP3, (char *)NULL);
+		// if (info == 0)
+		// 	execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", FICHIER_MP3, (char *)NULL);
+		// else if (info == 1)
+		// 	execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", SHOOT_MP3, (char *)NULL);
+		// else if (info == 2)
+		// 	execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", CRY_MP3, (char *)NULL);
+		// else if (info == 3)
+		// 	execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", FICHIER_MP3, (char *)NULL);
 		exit(EXIT_FAILURE);
 	}
 	sound->start = get_mtime();

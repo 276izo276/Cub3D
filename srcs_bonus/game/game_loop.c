@@ -764,7 +764,7 @@ void	spawn_sorcerer(t_data *data, char type)
 
 	attempts = 0;
 	random_y = 0;
-	return;
+	// return;
 	printf("type > %c\n", type);
 	while (attempts < 1000)
 	{
