@@ -75,12 +75,12 @@ static void	display_resume(t_data *data, int start_x, int start_y)
 	int				x;
 
 	y = 0;
-	while (y < data->pause_menu.resume->height)
+	while (y < data->img[PAUSE_RESUME].height)
 	{
 		x = 0;
-		while (x < data->pause_menu.resume->width)
+		while (x < data->img[PAUSE_RESUME].width)
 		{
-			color = get_texture_pixel(data->pause_menu.resume, x, y);
+			color = get_texture_pixel(&data->img[PAUSE_RESUME], x, y);
 			if (color == 0xafaaa6 && data->pause_menu.selected == 0)
 				color = data->player.color;
 			if (color != WHITE && color != YELLOW)
@@ -103,12 +103,12 @@ static void	display_exit(t_data *data, int start_x, int start_y)
 	int				x;
 
 	y = 0;
-	while (y < data->pause_menu.exit->height)
+	while (y < data->img[PAUSE_EXIT].height)
 	{
 		x = 0;
-		while (x < data->pause_menu.exit->width)
+		while (x < data->img[PAUSE_EXIT].width)
 		{
-			color = get_texture_pixel(data->pause_menu.exit, x, y);
+			color = get_texture_pixel(&data->img[PAUSE_EXIT], x, y);
 			if (color == 0xafaaa6 && data->pause_menu.selected == 1)
 				color = data->player.color;
 			if (color != WHITE && color != YELLOW)
@@ -135,12 +135,12 @@ static void	display_sensitivity(t_data *data, int start_x, int start_y)
 	if (data->sensitivity == 20)
 		max_x = 1138;
 	y = 0;
-	while (y < data->pause_menu.sensitivity->height)
+	while (y < data->img[PAUSE_SENSITIVITY].height)
 	{
 		x = 0;
-		while (x < data->pause_menu.sensitivity->width)
+		while (x < data->img[PAUSE_SENSITIVITY].width)
 		{
-			color = get_texture_pixel(data->pause_menu.sensitivity, x, y);
+			color = get_texture_pixel(&data->img[PAUSE_SENSITIVITY], x, y);
 			if (color != WHITE && color != YELLOW)
 			{
 				if (data->pause_menu.selected != 2)
@@ -167,12 +167,12 @@ static void	display_selector(t_data *data, int start_x, int start_y)
 	int				x;
 
 	y = 0;
-	while (y < data->pause_menu.selector->height)
+	while (y < data->img[PAUSE_SELECTOR].height)
 	{
 		x = 0;
-		while (x < data->pause_menu.selector->width)
+		while (x < data->img[PAUSE_SELECTOR].width)
 		{
-			color = get_texture_pixel(data->pause_menu.selector, x, y);
+			color = get_texture_pixel(&data->img[PAUSE_SELECTOR], x, y);
 			if (color != WHITE)
 				pixel_put(data, x + start_x, y + start_y, color);
 			++x;
@@ -212,9 +212,7 @@ static void	handle_pause_menu_keys(t_data *data)
 
 void	handle_pause_menu(t_data *data, long long int cur)
 {
-	display_menu_background(data, data->pause_menu.background, 448, 5);
-	// display_params(data);
-	// display_pause_menu(data, data->pause_menu.background, 448, 5);
+	display_menu_background(data, &data->img[PAUSE_BACKGROUND], 448, 5);
 	display_resume(data, 650, 320);
 	display_exit(data, 600, 420);
 	display_sensitivity(data, 580, 570);

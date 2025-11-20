@@ -6,32 +6,6 @@
 #include "struct_bonus.h"
 #include "utils_bonus.h"
 
-static int	fill_texture_color_data(t_lst *line, t_data *data)
-{
-	const char		*identifiers[] = {"NO", "SO", "WE", "EA", "FL", "CE", NULL};
-	const t_txt_set	func_set_texture[] = {set_north, set_south, set_west,
-		set_east, set_floor, set_ceiling};
-	int				i;
-
-	i = 0;
-	while (identifiers[i])
-	{
-		if (ft_strncmp(identifiers[i], line->dt,
-				ft_strlen(identifiers[i])) == 0)
-		{
-			func_set_texture[i](line->dt, data);
-			return (0);
-		}
-		i++;
-	}
-	i = 0;
-	while (((char *)line->dt)[i] && ((char *)line->dt)[i] == ' ')
-		i++;
-	if (((char *)line->dt)[i] == 0)
-		return (0);
-	return (1);
-}
-
 void	get_texture(t_data *data)
 {
 	t_lst	*map;
@@ -56,7 +30,7 @@ void	get_texture(t_data *data)
 	}
 }
 
-static	void create_door_map(t_data *data, int size)
+static void	create_door_map(t_data *data, int size)
 {
 	int	y;
 	int	size_line;
@@ -77,7 +51,7 @@ static	void create_door_map(t_data *data, int size)
 	}
 }
 
-static	void create_wall_map(t_data *data, int size)
+static void	create_wall_map(t_data *data, int size)
 {
 	int	y;
 	int	size_line;
@@ -123,7 +97,6 @@ void	create_tabmap(t_data *data)
 	data->map.tabmap_height = i;
 	create_door_map(data, size);
 	create_wall_map(data, size);
-
 }
 
 void	parsing(t_data *data)

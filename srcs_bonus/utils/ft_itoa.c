@@ -13,7 +13,7 @@ int	fill_itoa(char **str, int index, long long int nb)
 
 char	*ft_itoa(int nb)
 {
-	char		 *str;
+	char			*str;
 	int				i;
 	unsigned int	nnb;
 

@@ -85,12 +85,12 @@ static void select_your_coa(t_data *data)
 	start_x = 250; //(data->mlx.width - (2 * data->coa[FIRE].img_coa->width)) / 2;
 	start_y = data->mlx.height / 2;
 	draw_texture_menu(data, &data->img[SELECT], 0, 0);
-	draw_texture_menu(data, data->coa[FIRE].img_coa, start_x, start_y);
-	draw_texture_menu(data, data->coa[WATER].img_coa, start_x
-		+ data->coa[FIRE].img_coa->width + 200, start_y);
-	draw_texture_menu(data, data->coa[EARTH].img_coa, start_x + 2 * data->coa[FIRE].img_coa->width + 400, start_y);
-	draw_texture_menu(data, data->coa[AIR].img_coa, start_x
-		+ 3 * data->coa[FIRE].img_coa->width + 600, start_y);
+	draw_texture_menu(data, &data->img[MENU_FIRE], start_x, start_y);
+	draw_texture_menu(data, &data->img[MENU_WATER], start_x
+		+ data->img[MENU_FIRE].width + 200, start_y);
+	draw_texture_menu(data, &data->img[MENU_EARTH], start_x + 2 * data->img[MENU_FIRE].width + 400, start_y);
+	draw_texture_menu(data, &data->img[MENU_AIR], start_x
+		+ 3 * data->img[MENU_FIRE].width + 600, start_y);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0,
 		0);
 	draw_select_border(data, start_x, start_y);
@@ -232,8 +232,6 @@ static void select_your_hand(t_data *data)
 	x = 530;
 	if (data->selected == 1)
 		x += 625;
-	// draw_y_border(data, x, y);
-	// draw_x_border(data, x, y);
 }
 
 void	display_menu(t_data *data)
@@ -243,54 +241,3 @@ void	display_menu(t_data *data)
 	else if (data->is_right_handed == 0)
 		select_your_hand(data);
 }
-
-
-// void display_hand(t_data *data)
-// {
-//     int             x;
-//     int             y;
-//     unsigned int    color;
-//     int             pos_x;
-//     int             pos_y;
-//     unsigned int    alpha_color;
-
-//     pos_x = data->display.pos_x_hand;
-//     pos_y = data->display.pos_y_hand;
-    
-//     // ... ton code d'animation ...
-    
-//     if (data->display.player_height == 18)
-//         pos_y += 80;
-//     display_wand(data, pos_x, pos_y + data->display.move_hand);
-    
-//     y = 0;
-//     while (y < data->img[PLAYER_HAND].height && pos_y + y < data->mlx.height)
-//     {
-//         x = 0;
-//         while (x < data->img[PLAYER_HAND].width)
-//         {
-//             color = get_texture_pixel(&data->img[PLAYER_HAND], x, y);
-//             if (color != 0xFFFFFF)
-//             {
-//                 if (data->player.invisible == 0)
-//                 {
-//                     // Ajoute l'alpha (128 = 50% transparent)
-//                     alpha_color = (128 << 24) | (color & 0x00FFFFFF);
-//                     apply_transparancy(data, x + pos_x, 
-//                                       pos_y + y + data->display.move_hand, 
-//                                       alpha_color);
-//                 }
-//                 else
-//                 {
-//                     // Mode invisible : totalement opaque ou plus transparent ?
-//                     pixel_put(data, x + pos_x, 
-//                              pos_y + y + data->display.move_hand, color);
-//                 }
-//             }
-//             ++x;
-//         }
-//         ++y;
-//     }
-//     if (data->lumos.count_frame > 0)
-//         spell_lumos(data);
-// }

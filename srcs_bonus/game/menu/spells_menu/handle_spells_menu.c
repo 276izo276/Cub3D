@@ -335,7 +335,7 @@ void	handle_menu_spell_keys(int keycode, t_data *data)
 }
 void	handle_spells_menu(t_data *data)
 {
-	display_menu_background(data, data->spell_menu.background, 384, 57);
+	display_menu_background(data, &data->img[SPELL_BACKGROUND], 384, 57);
 	display_spell_take(data);
 	display_spell_list(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img, 0, 0);

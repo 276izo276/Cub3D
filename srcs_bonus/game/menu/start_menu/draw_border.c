@@ -47,12 +47,12 @@
 void	draw_select_border(t_data *data, int start_x, int start_y)
 {
 	if (data->selected == 1)
-		start_x += data->coa[data->selected].img_coa->width + 200;
+		start_x += data->img[data->selected + MENU_FIRE].width + 200;
 	else if (data->selected == 2)
-		start_x += (2 * data->coa[FIRE].img_coa->width + 400);
+		start_x += (2 * data->img[MENU_FIRE].width + 400);
 	else if (data->selected == 3)
 	{
-		start_x += 3 * data->coa[FIRE].img_coa->width + 600;
+		start_x += 3 * data->img[MENU_FIRE].width + 600;
 	}
 	// mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->coa[data->selected].border, start_x,
 	// 	start_y);
@@ -61,12 +61,12 @@ void	draw_select_border(t_data *data, int start_x, int start_y)
 	int x;
 	int y = 0;
 	unsigned int color = 0;
-	while (y < data->coa[data->selected].border->height)
+	while (y < data->img[data->selected + BORDER_FIRE].height)
 	{
 		x = 0;
-		while (x < data->coa[data->selected].border->width)
+		while (x < data->img[data->selected + BORDER_FIRE].width)
 		{
-			color = get_texture_pixel(data->coa[data->selected].border, x, y);
+			color = get_texture_pixel(&data->img[data->selected + BORDER_FIRE], x, y);
 			if (color != WHITE)
 			{
 				pixel_put(data, x + start_x -45, y + start_y - 45, color);
