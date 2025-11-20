@@ -1064,7 +1064,14 @@ struct s_aff
 	t_coo		cur;
 	unsigned int a;
 	unsigned int b;
-
+	int			a_new;
+	int			r_new;
+	int			g_new;
+	int			b_new;
+	int			r_old;
+	int			g_old;
+	int			b_old;
+	unsigned int	old_color;
 };
 
 struct s_data

@@ -125,8 +125,13 @@ MLX_UTILS_BONUS	=							\
 				handle_window.c				\
 				mini_map.c					\
 				mini_move.c					\
+				hitbox_y.c 					\
+				hitbox_x.c 					\
+				mini_move_utils.c 			\
+				calc_move.c 				\
 				mini_rotate.c				\
 				handle_foot_mini.c 			\
+				handle_foot_utils.c       	\
 				aff_mini_map.c				\
 				utils_aff_mini_map.c		\
 				aff_player_mini_map.c		\

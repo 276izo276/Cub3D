@@ -78,6 +78,10 @@ void	aff_mini_map(t_data *data);
 void	set_player_in_mini_map(t_data *data, t_utils_mini *u, double rad);
 void	save_and_move_foot(t_data *data, double rad);
 void	set_trail_foot(t_data *data, t_utils_mini *u);
+void	calc_gap(t_data *data, int i, int *gap_x, int *gap_y);
+void	get_good_offset_y(t_data *data, int angle_deg, int *start_y, int i);
+void	get_good_offset_x(t_data *data, int angle_deg, int *start_x, int i);
+void	set_pix_old_player(t_utils_mini *u, int start_y, int start_x, t_data *data);
 void	calc_value_player_mini_map_aff(t_utils_mini *u, t_img *img,
 	double rad);
 
@@ -122,7 +126,6 @@ void	calc_sqrt(t_data *data, int i);
 //display game
 void    display_game(t_data *data);
 
-//TODO display_hand (a move dans un utils ?)
 unsigned int		get_texture_pixel(t_img *texture, int x, int y);
 
 //input_move.c
@@ -190,6 +193,15 @@ void	handle_death_menu(t_data *data);
 
 int		darken_the_color(int color);
 
+// mini_move
+void	movex(t_map *map, t_mini *mini, t_data *data);
+void	calc_dx_dy(t_data *data, int keycode, t_mini *mini);
+void	v_norm_sd(t_mini *mini, t_data *data);
+void	v_norm_d(t_mini *mini, t_data *data);
+void	recalc_x(t_data *data, t_mini *mini, t_map *map);
+void	recalc_y(t_data *data, t_mini *mini, t_map *map);
+void	movey(t_map *map, t_mini *mini, t_data *data);
+void	movex(t_map *map, t_mini *mini, t_data *data);
 
 typedef enum e_key_down
 {
