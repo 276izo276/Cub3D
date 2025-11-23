@@ -650,10 +650,13 @@ void	take_damage(t_data *data)
 		if (data->player.damage.curse_frame_take <= 0)
 			data->player.damage.curse_force_take = 0;
 	}
-	if (data->player.life <= 0 && data->player.life >= -114) // Lock le heal
+	if (data->player.life <= 0 && data->player.life >= -114)
 		data->player.life -= 1;
 	if (data->player.life <= -115)
 	{
+		f_all_lst(data->sound);
+		data->sound = NULL;
+		data->sound = add_end_lst(create_sound(data, 27), data->sound, free_sound);
 		data->status = MENU_DEATH;
 		data->selected = 0;
 	}

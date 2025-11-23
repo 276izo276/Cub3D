@@ -32,15 +32,15 @@ t_sound	*create_sound(t_data *data, int info)
         if (dup2(null_fd, STDERR_FILENO) == -1) {
             exit(EXIT_FAILURE);
         }
-		if (info == 0)
-			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", FICHIER_MP3, (char *)NULL);
-		else if (info == 1)
-			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", SHOOT_MP3, (char *)NULL);
-		else if (info == 2)
-			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", CRY_MP3, (char *)NULL);
-		else if (info == 3)
-			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", FICHIER_MP3, (char *)NULL);
-		// exit(EXIT_FAILURE);
+
+		// if (info == 0)
+		// 	execlp("cvlc", "cvlc", "--play-and-exit","--volume","128", "--quiet", FICHIER_MP3, (char *)NULL);
+		const char *tab[] = {LUMOS_MP3,ARANIA_EXUMAI_MP3,PROTEGO_MP3,INCENDIO_MP3,GLACIUS_MP3,REPULSO_MP3,AGUAMENTI_MP3,EXPELLIARMUS_MP3,EPISKEY_MP3,EXPECTO_PATRONUM_MP3,PETRIFICUS_TOTALUS_MP3,SERPENSORTIA_MP3,VENTUS_MP3,BOMBARDA_MP3,STUPEFIX_MP3,OPPUGNO_MP3,VULNERA_SANENTUR_MP3,VIPERA_EVANESCA_MP3,CONFUNDO_MP3,SECTUMSEMPRA_MP3,ENDOLORIS_MP3,AVADA_KEDAVRA_MP3,BACK_SOUND_MP3,THEME_HP_MP3,SHOOT_MP3,CRY_MP3,TP_MP3,DIE};
+		if (info == 27)
+			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", "--loop", DIE, (char *)NULL);
+		else
+			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", tab[info], (char *)NULL);
+		exit(EXIT_FAILURE);
 		f_exit(data, 1);
 	}
 	sound->start = get_mtime();

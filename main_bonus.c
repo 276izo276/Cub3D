@@ -262,9 +262,11 @@ void	restart(t_data *data)
 	f_all_lst(data->enemy);
 	f_all_lst(data->item);
 	f_all_lst(data->door);
+	f_all_lst(data->sound);
 	data->door = NULL;
 	data->enemy = NULL;
 	data->item = NULL;
+	data->sound = NULL;
 	data->portkey_is_active = false;
 	data->wand.count_egg = 0;
 	data->wand.nb_wand = 0;

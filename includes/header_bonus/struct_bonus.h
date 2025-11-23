@@ -7,12 +7,35 @@
 # include <pthread.h>
 # include <semaphore.h>
 
-# define FICHIER_MP3 "sound/back_sound.mp3"
+# define BACK_SOUND_MP3 "sound/back_sound.mp3"
+# define THEME_HP_MP3 "sound/theme_harry_potter.mp3"
 # define SHOOT_MP3 "sound/shoot.mp3"
 # define CRY_MP3 "sound/cry.mp3"
-# define EXPECTO_PATRONUM_MP3 "sound/expecto_patronum.mp3"
-# define AVADA_KEDAVRA_MP3 "sound/avedecadebee.mp3"
-# define EXPELLIARMUS_MP3 "sound/expelliarmus.mp3"
+# define TP_MP3 "sound/teleportation.mp3"
+# define DIE "sound/die.mp3"
+
+# define	LUMOS_MP3				"sound/spell/lumos.mp3"
+# define	ARANIA_EXUMAI_MP3		"sound/spell/arania_exumai.mp3"
+# define	PROTEGO_MP3				"sound/spell/protego.mp3"
+# define	INCENDIO_MP3			"sound/spell/incendio.mp3"
+# define	GLACIUS_MP3				"sound/spell/glacius.mp3"
+# define	REPULSO_MP3				"sound/spell/repulso.mp3"
+# define	AGUAMENTI_MP3			"sound/spell/aguamenti.mp3"
+# define	EXPELLIARMUS_MP3		"sound/spell/expelliarmus.mp3"
+# define	EPISKEY_MP3				"sound/spell/episkey.mp3"
+# define	EXPECTO_PATRONUM_MP3	"sound/spell/expecto_patronum.mp3"
+# define	PETRIFICUS_TOTALUS_MP3	"sound/spell/petrificus_totalus.mp3"
+# define	SERPENSORTIA_MP3		"sound/spell/serpensortia.mp3"
+# define	VENTUS_MP3				"sound/spell/ventus.mp3"
+# define	BOMBARDA_MP3			"sound/spell/bombarda.mp3"
+# define	STUPEFIX_MP3			"sound/spell/stupefix.mp3"
+# define	OPPUGNO_MP3				"sound/spell/oppugno.mp3"
+# define	VULNERA_SANENTUR_MP3	"sound/spell/vulnera_sanentur.mp3"
+# define	VIPERA_EVANESCA_MP3		"sound/spell/vipera_evanesca.mp3"
+# define	CONFUNDO_MP3			"sound/spell/confundo.mp3"
+# define	SECTUMSEMPRA_MP3		"sound/spell/sectumsempra.mp3"
+# define	ENDOLORIS_MP3			"sound/spell/endoloris.mp3"
+# define	AVADA_KEDAVRA_MP3		"sound/spell/avada_kedavra.mp3"
 
 # define SIZE_MAP (5 * 64)
 # define FPS 30.0
