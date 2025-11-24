@@ -167,6 +167,7 @@ GAME_BONUS		=										\
 				menu/start_menu/display_menu.c			\
 				menu/start_menu/draw_border.c			\
 				menu/pause_menu/handle_pause_menu.c 	\
+				menu/pause_menu/pause_menu_utils.c 		\
 				menu/spells_menu/handle_spells_menu.c	\
 				menu/death_menu/handle_death_menu.c		\
 				menu/end_menu/handle_end_menu.c			\

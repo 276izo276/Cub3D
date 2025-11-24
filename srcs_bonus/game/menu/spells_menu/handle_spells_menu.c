@@ -5,7 +5,6 @@
 #include <math.h>
 #include "time_bonus.h"
 
-
 static int	menu_border_case_spell(double x, double y, double base_x, double base_y)
 {
 	double	dist_x;

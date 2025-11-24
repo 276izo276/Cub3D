@@ -1,13 +1,23 @@
 #include "struct_bonus.h"
 
-#include <stdio.h>
+static void	apply_slow_frame(t_damage **take, t_damage **apply)
+{
+	if ((*take)->slow_frame_take < (*apply)->slow_frame_do)
+		(*take)->slow_frame_take = (*apply)->slow_frame_do;
+	if ((*take)->poison_frame_take < (*apply)->poison_frame_do)
+		(*take)->poison_frame_take = (*apply)->poison_frame_do;
+	if ((*take)->fire_frame_take < (*apply)->fire_frame_do)
+		(*take)->fire_frame_take = (*apply)->fire_frame_do;
+	if ((*take)->curse_frame_take < (*apply)->curse_frame_do)
+		(*take)->curse_frame_take = (*apply)->curse_frame_do;
+	if ((*take)->confundo_frame_take < (*apply)->confundo_frame_do)
+		(*take)->confundo_frame_take = (*apply)->confundo_frame_do;
+	if ((*take)->repulso_frame_take < (*apply)->repulso_frame_do)
+		(*take)->repulso_frame_take = (*apply)->repulso_frame_do;
+}
 
 void	apply_damage(t_damage *take, t_damage *apply)
 {
-	// if (apply->which_coa_do == 0)
-	// {
-	// 	printf("\nHIT 0 COA >>%f\n",apply->damage_do);
-	// }
 	take->which_coa_take = apply->which_coa_do;
 	take->damage_take += apply->damage_do;
 	take->damage_spider_take += apply->damage_spider_do;
@@ -32,17 +42,5 @@ void	apply_damage(t_damage *take, t_damage *apply)
 		take->hit.coo_x = apply->hit.coo_x;
 		take->hit.coo_y = apply->hit.coo_y;
 	}
-
-	if (take->slow_frame_take < apply->slow_frame_do)
-		take->slow_frame_take = apply->slow_frame_do;
-	if (take->poison_frame_take < apply->poison_frame_do)
-		take->poison_frame_take = apply->poison_frame_do;
-	if (take->fire_frame_take < apply->fire_frame_do)
-		take->fire_frame_take = apply->fire_frame_do;
-	if (take->curse_frame_take < apply->curse_frame_do)
-		take->curse_frame_take = apply->curse_frame_do;
-	if (take->confundo_frame_take < apply->confundo_frame_do)
-		take->confundo_frame_take = apply->confundo_frame_do;
-	if (take->repulso_frame_take < apply->repulso_frame_do)
-		take->repulso_frame_take = apply->repulso_frame_do;
+	apply_slow_frame(&take, &apply);
 }
