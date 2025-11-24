@@ -20,6 +20,9 @@ void			error_occured(t_data *data, t_lst *open, t_lst *closed);
 void			check_enemy_can_escape(t_data *data, t_lst *lst);
 int				verif_enemy_is_closed(t_data *data, int y, int x);
 void			verif_map_is_closed(t_data *data, int y, int x);
+void			try_hit_player(t_data *data);
+bool			is_skip_type(t_item *item, t_data *data);
+void			pick_up_items(t_data *data, t_item *item, t_lst **lst);
 void			free_sound(void *elem);
 t_sound			*create_sound(t_data *data, int info);
 void			apply_transparancy(t_data *data, int x, int y,
