@@ -28,14 +28,6 @@ void	f_imgs(t_data *data)
 	f_img(data->map.east);
 	f_img(data->map.floor);
 	f_img(data->map.ceiling);
-	// if (data->map.text_sky->img)
-	// 	mlx_destroy_image(data->mlx.mlx, data->map.text_sky->img);
-	// if (data->map.text_floor->img)
-	// 	mlx_destroy_image(data->mlx.mlx, data->map.text_floor->img);
-	// free(data->map.text_sky);
-	// free(data->map.text_floor);
-	// free(data->map.floor);
-	// free(data->map.ceiling);
 	i = -1;
 	while (++i <= 5 && data->map.mini.img[i].img)
 		mlx_destroy_image(data->mlx.mlx, data->map.mini.img[i].img);

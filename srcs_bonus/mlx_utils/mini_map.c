@@ -9,7 +9,7 @@ static void	set_path_texture_mini_map(t_mini *mini)
 	mini->img[MINI_PLAYER].path = "texture/mini_map/cursor.xpm";
 	mini->img[MINI_DOOR].path = "texture/mini_map/mini_door.xpm";
 	mini->img[MINI_MOB].path = "texture/mini_map/mob.xpm";
-	mini->img[MINI_CURS].path = "texture/mini_map/curs.xpm"; // a retirer ? en mandatory aussi
+	mini->img[MINI_CURS].path = "texture/mini_map/curs.xpm";
 	mini->img[MINI_LEFT].path = "texture/mini_map/left_foot.xpm";
 	mini->img[MINI_RIGHT].path = "texture/mini_map/right_foot.xpm";
 	mini->img[MINI_FLOO].path = "texture/mini_map/mini_floo.xpm";

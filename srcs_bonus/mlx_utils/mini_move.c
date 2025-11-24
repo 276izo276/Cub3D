@@ -27,7 +27,31 @@ void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 	}
 }
 
-static void	pick_up_items(t_data *data, t_item *item)
+static void	pick_up_wand(t_data *data, t_item *item)
+{
+	if (item->type == WOLF_WAND)
+	{
+		data->wand.wand_status[2] = true;
+		data->wand.nb_wand = 2;
+	}
+	if (item->type == ELEM_WAND)
+	{
+		data->wand.wand_status[3] = true;
+		data->wand.nb_wand = 3;
+	}
+	if (item->type == DEMENTOR_WAND)
+	{
+		data->wand.wand_status[4] = true;
+		data->wand.nb_wand = 4;
+	}
+	if (item->type == SPIDER_WAND)
+	{
+		data->wand.wand_status[1] = true;
+		data->wand.nb_wand = 1;
+	}
+}
+
+static void	pick_up_items(t_data *data, t_item *item, t_lst **next, t_lst **lst)
 {
 	if (item->type == POPO_HEAL)
 		data->popo[0].nb ++;
@@ -42,15 +66,12 @@ static void	pick_up_items(t_data *data, t_item *item)
 		data->status = MENU_END;
 		get_ranking_xp(data);
 	}
-	if (item->type == WOLF_WAND)
-		data->wand.wand_status[2] = true;
-	if (item->type == ELEM_WAND)
-		data->wand.wand_status[3] = true;
-	if (item->type == DEMENTOR_WAND)
-		data->wand.wand_status[4] = true;
-	if (item->type == SPIDER_WAND)
-		data->wand.wand_status[1] = true;
+	pick_up_wand(data, item);
 	apply_damage(&data->player.damage, &item->damage);
+	*next = (*lst)->next;
+	data->item = remove_elem_lst(*lst);
+	f_elem_lst(*lst);
+	*lst = *next;
 }
 
 void	try_hit_player(t_data *data)
@@ -85,11 +106,11 @@ void	try_hit_player(t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			pick_up_items(data, item);
-			next = lst->next;
-			data->item = remove_elem_lst(lst);
-			f_elem_lst(lst);
-			lst = next;
+			pick_up_items(data, item, &next, &lst);
+			// next = lst->next;
+			// data->item = remove_elem_lst(lst);
+			// f_elem_lst(lst);
+			// lst = next;
 			continue ;
 		}
 		ray.dx = item->center.case_x * 64 + item->center.coo_x;
@@ -97,11 +118,11 @@ void	try_hit_player(t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			pick_up_items(data, item);
-			next = lst->next;
-			data->item = remove_elem_lst(lst);
-			f_elem_lst(lst);
-			lst = next;
+			pick_up_items(data, item, &next, &lst);
+			// next = lst->next;
+			// data->item = remove_elem_lst(lst);
+			// f_elem_lst(lst);
+			// lst = next;
 			continue ;
 		}
 		ray.dx = item->right.case_x * 64 + item->right.coo_x;
@@ -109,11 +130,11 @@ void	try_hit_player(t_data *data)
 		calc_scal(&ray);
 		if (ray.hit == true)
 		{
-			pick_up_items(data, item);
-			next = lst->next;
-			data->item = remove_elem_lst(lst);
-			f_elem_lst(lst);
-			lst = next;
+			pick_up_items(data, item, &next, &lst);
+			// next = lst->next;
+			// data->item = remove_elem_lst(lst);
+			// f_elem_lst(lst);
+			// lst = next;
 			continue ;
 		}
 		lst = lst->next;

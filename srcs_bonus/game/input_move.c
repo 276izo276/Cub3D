@@ -416,12 +416,18 @@ void	is_easter_egg(int keycode, t_data *data)
 {
 	if (keycode == data->wand.secret_wand[data->wand.count_egg] + 32)
 		data->wand.count_egg++;
-	if (data->wand.count_egg == 7)
+	if (data->wand.count_egg == 7 && data->wand.wand_status[5] == false)
+	{
 		data->wand.wand_status[5] = true;
+		data->wand.nb_wand = 5;
+	}
 	else if (keycode == data->wand.secret_sword[data->wand.count_sword] + 32)
 		data->wand.count_sword++;
-	if (data->wand.count_sword == 5)
+	if (data->wand.count_sword == 5 && data->wand.wand_status[6] == false)
+	{
 		data->wand.wand_status[6] = true;
+		data->wand.nb_wand = 6;
+	}
 }
 
 void	cheat_code(t_data *data, int keycode)
