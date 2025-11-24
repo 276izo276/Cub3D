@@ -68,7 +68,7 @@ void	select_right_hand(t_data *data)
 	int				y;
 	char			*pixel_addr;
 
-	y = 0;
+	y = -1;
 	if (data->is_right_handed == true)
 	{
 		mlx_destroy_image(data->mlx.mlx, &data->img[PLAYER_HAND].img);
@@ -76,7 +76,7 @@ void	select_right_hand(t_data *data)
 		open_img(&data->img[PLAYER_HAND], data);
 	}
 	get_hand_pos(data);
-	while (y < data->img[PLAYER_HAND].height)
+	while (++y < data->img[PLAYER_HAND].height)
 	{
 		x = 0;
 		while (x < data->img[PLAYER_HAND].width)
@@ -88,6 +88,5 @@ void	select_right_hand(t_data *data)
 				*(unsigned int *)pixel_addr = data->player.color;
 			++x;
 		}
-		++y;
 	}
 }
