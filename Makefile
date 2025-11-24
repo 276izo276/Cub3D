@@ -99,6 +99,7 @@ PARSING_BONUS	=								\
 				fill_texture_wall.c				\
 				fill_texture_utils.c			\
 				check_map_is_closed.c			\
+				utils_map_closed.c				\
 				open_texture.c					\
 				verif_map.c						\
 				init/init.c		 				\
@@ -185,6 +186,7 @@ ENEMY			=							\
 				init.c						\
 				free.c						\
 				move.c						\
+				verif_closed.c				
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/enemy/,$(ENEMY))
 

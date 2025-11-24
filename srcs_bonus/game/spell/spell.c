@@ -196,7 +196,12 @@ void	cast_opugno(t_data *data, int info)
 		coo.coo_y = data->player.coo.coo_y;
 		i = -1;
 		while (++i < 4)
+		{
 			data->enemy = add_end_lst(init_enemy(BIRD, coo, data, data->map.mini.deg),data->enemy,f_enemy);
+			if (!data->enemy)
+				f_exit(data, 1);
+			check_enemy_can_escape(data, data->enemy);
+		}
 		data->lumos.active = true;
 		data->lumos.count_frame = 50;
 		save_time = data->spell[LUMOS].end_time;
@@ -222,6 +227,9 @@ void	cast_serpensortia(t_data *data, int info)
 		coo.coo_x = data->player.coo.coo_x;
 		coo.coo_y = data->player.coo.coo_y;
 		data->enemy = add_end_lst(init_enemy(SNAKE, coo, data, data->map.mini.deg),data->enemy,f_enemy);
+		if (!data->enemy)
+			f_exit(data, 1);
+		check_enemy_can_escape(data, data->enemy);
 		data->lumos.active = true;
 		data->lumos.count_frame = 50;
 		save_time = data->spell[LUMOS].end_time;

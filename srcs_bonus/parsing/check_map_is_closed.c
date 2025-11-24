@@ -1,37 +1,7 @@
-#include "color_bonus.h"
 #include "ft_printf.h"
 #include "struct_bonus.h"
 #include "utils_bonus.h"
-
-static int	is_case_in_lst(int y, int x, t_lst *lst)
-{
-	lst = get_first_elem_lst(lst);
-	while (lst)
-	{
-		if (((t_coo *)lst->dt)->y == y && ((t_coo *)lst->dt)->x == x)
-			return (1);
-		lst = lst->next;
-	}
-	return (0);
-}
-
-static void	error_map_not_closed(t_lst *closed, t_lst *open, t_data *data)
-{
-	ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
-		"Map >>> ""map is not closed\n"_END);
-	f_all_lst(closed);
-	f_all_lst(open);
-	f_exit(data, 1);
-}
-
-static void	error_occured(t_data *data, t_lst *open, t_lst *closed)
-{
-	if (!open)
-	{
-		f_all_lst(closed);
-		f_exit(data, 1);
-	}
-}
+#include "cub3d_bonus.h"
 
 static t_lst	*add_case_near(t_lst *open, t_lst *closed, t_lst *node,
 		t_data *data)
@@ -61,15 +31,14 @@ static t_lst	*add_case_near(t_lst *open, t_lst *closed, t_lst *node,
 	return (open);
 }
 
-void	check_map_is_closed(t_data *data)
+void	verif_map_is_closed(t_data *data, int y, int x)
 {
 	t_lst	*closed;
 	t_lst	*open;
 	t_lst	*node;
 
 	closed = NULL;
-	open = add_end_lst(init_t_coo(data->player.coo.case_y,
-				data->player.coo.case_x), NULL, f_elem);
+	open = add_end_lst(init_t_coo(y, x), NULL, f_elem);
 	if (!open)
 		f_exit(data, 1);
 	while (open)
@@ -80,4 +49,27 @@ void	check_map_is_closed(t_data *data)
 		open = add_case_near(open, closed, node, data);
 	}
 	f_all_lst(closed);
+}
+
+void	check_map_is_closed(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < data->map.tabmap_height)
+	{
+		x = 0;
+		while (x < ft_strlen(data->map.tabmap[y]))
+		{
+			if (data->map.tabmap[y][x] == 'F')
+			{
+				verif_map_is_closed(data, y, x);
+			}
+			x++;
+		}
+		y++;
+	}
+	verif_map_is_closed(data, data->player.coo.case_y,
+		data->player.coo.case_x);
 }

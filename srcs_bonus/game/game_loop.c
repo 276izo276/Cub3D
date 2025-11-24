@@ -707,7 +707,7 @@ void	update_enemy(t_data *data)
 						data->enemy = add_end_lst(init_enemy(',', (t_fcoo){.case_x=x,.case_y=y,.coo_y=32,.coo_x=32}, data, data->map.mini.deg), data->enemy, f_enemy);
 						if (!data->enemy)
 							f_exit(data, 1);
-						data->nb_enemy++;
+						check_enemy_can_escape(data, data->enemy);
 					}
 					else
 					{
@@ -719,6 +719,7 @@ void	update_enemy(t_data *data)
 							if (!data->enemy)
 								f_exit(data, 1);
 							// printf("add elem\n");
+							check_enemy_can_escape(data, data->enemy);
 						}
 						else
 						{
@@ -730,6 +731,7 @@ void	update_enemy(t_data *data)
 								if (!data->enemy)
 									f_exit(data, 1);
 								// printf("add dementor\n");
+								check_enemy_can_escape(data, data->enemy);
 							}
 							else
 							{
@@ -741,6 +743,7 @@ void	update_enemy(t_data *data)
 									if (!data->enemy)
 										f_exit(data, 1);
 									// printf("add wolf\n");
+									check_enemy_can_escape(data, data->enemy);
 								}
 							}
 						}
@@ -764,7 +767,6 @@ void	spawn_sorcerer(t_data *data, char type)
 	attempts = 0;
 	random_y = 0;
 	// return;
-	printf("type > %c\n", type);
 	while (attempts < 1000)
 	{
 		y = 0;
@@ -784,7 +786,7 @@ void	spawn_sorcerer(t_data *data, char type)
 	data->enemy = add_end_lst(init_enemy(type, (t_fcoo){.case_x=random_x,.case_y=random_y,.coo_y=32,.coo_x=32}, data, data->map.mini.deg), data->enemy, f_enemy);
 	if (!data->enemy)
 		f_exit(data, 1);
-	++data->nb_enemy;
+	check_enemy_can_escape(data, data->enemy);
 }
 
 void	spawn_portkey(t_data *data)

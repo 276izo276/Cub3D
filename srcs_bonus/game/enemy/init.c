@@ -243,6 +243,7 @@ t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)
 {
 	t_enemy	*enemy;
 
+	data->nb_enemy++;
 	enemy = malloc(sizeof(t_enemy));
 	if (!enemy)
 		return (NULL);
@@ -283,10 +284,10 @@ t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)
 	enemy->right_before.coo_y = enemy->right.coo_y;
 	enemy->right_before.case_x = enemy->right.case_x;
 	enemy->right_before.case_y = enemy->right.case_y;
-	enemy->center_before.coo_x = enemy->right.coo_x;
-	enemy->center_before.coo_y = enemy->right.coo_y;
-	enemy->center_before.case_x = enemy->right.case_x;
-	enemy->center_before.case_y = enemy->right.case_y;
+	enemy->center_before.coo_x = enemy->center.coo_x;
+	enemy->center_before.coo_y = enemy->center.coo_y;
+	enemy->center_before.case_x = enemy->center.case_x;
+	enemy->center_before.case_y = enemy->center.case_y;
 	return (enemy);
 }
 
