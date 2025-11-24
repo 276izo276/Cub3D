@@ -41,6 +41,19 @@ void	aff_pix_in_img(t_utils_mini *u, t_data *data)
 	}
 }
 
+static void	get_right_texture_color(t_data *data, t_utils_mini *u)
+{
+	if (data->map.tabmap[u->new_y][u->new_x] == '1')
+		get_pixel_color(data, MINI_WALL);
+	else if (data->map.tabmap[u->new_y][u->new_x] == 'D')
+		get_pixel_color(data, MINI_DOOR);
+	else if (data->map.tabmap[u->new_y][u->new_x] == 'F')
+		get_pixel_color(data, MINI_FLOO);
+	else
+		get_pixel_color(data, MINI_FLOOR);
+	*(unsigned int *)u->pixel_addr = u->color;
+}
+
 void	aff_color_in_img(t_utils_mini *u, t_data *data)
 {
 	u->s.y = 1 * 64 + 32 + (u->y * 64 + 64 - data->player.coo.coo_y);
@@ -56,15 +69,7 @@ void	aff_color_in_img(t_utils_mini *u, t_data *data)
 				u->pixel_addr = u->mmap.data_addr + ((u->s.y + u->i.y)
 						* u->mmap.size_line + (u->s.x + u->i.x)
 						* (u->mmap.bits_per_pixel / 8));
-				if (data->map.tabmap[u->new_y][u->new_x] == '1')
-					get_pixel_color(data, MINI_WALL);
-				else if (data->map.tabmap[u->new_y][u->new_x] == 'D')
-					get_pixel_color(data, MINI_DOOR);
-				else if (data->map.tabmap[u->new_y][u->new_x] == 'F')
-					get_pixel_color(data, MINI_FLOO);
-				else
-					get_pixel_color(data, MINI_FLOOR);
-				*(unsigned int *)u->pixel_addr = u->color;
+				get_right_texture_color(data, u);
 			}
 			u->i.x++;
 		}
@@ -72,11 +77,8 @@ void	aff_color_in_img(t_utils_mini *u, t_data *data)
 	}
 }
 
-#include <stdio.h>
-
 void	aff_mini_map(t_data *data)
 {
-	//DBG1printf("n1\n");
 	data->u.y = -4;
 	while (++data->u.y < 4)
 	{
@@ -96,8 +98,6 @@ void	aff_mini_map(t_data *data)
 			}
 		}
 	}
-	//DBG1printf("n2\n");
 	set_player_in_mini_map(data, &data->u, data->map.mini.rad);
 	print_mini_map(data);
-	//DBG1printf("n3\n");
 }

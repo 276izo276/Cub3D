@@ -135,6 +135,8 @@ MLX_UTILS_BONUS	=							\
 				aff_mini_map.c				\
 				utils_aff_mini_map.c		\
 				aff_player_mini_map.c		\
+				try_hit_player.c 			\
+				pick_up_items.c 			\
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/mlx_utils/,$(MLX_UTILS_BONUS))
 

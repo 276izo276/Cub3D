@@ -14,6 +14,9 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
+void			try_hit_player(t_data *data);
+bool			is_skip_type(t_item *item, t_data *data);
+void			pick_up_items(t_data *data, t_item *item, t_lst **lst);
 void			free_sound(void *elem);
 t_sound			*create_sound(t_data *data, int info);
 void			apply_transparancy(t_data *data, int x, int y,
