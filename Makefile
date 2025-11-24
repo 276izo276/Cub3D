@@ -141,9 +141,14 @@ MLX_UTILS_BONUS	=							\
 FILES_BONUS	+=	$(addprefix srcs_bonus/mlx_utils/,$(MLX_UTILS_BONUS))
 
 GAME_BONUS		=										\
-				raycasting.c							\
-				raycasting_utils.c						\
-				raycasting_item.c						\
+				raycasting/raycasting.c					\
+				raycasting/thread_loop.c 				\
+				raycasting/raycasting_utils.c			\
+				raycasting/raycasting_item.c			\
+				raycasting/raycasting_item_utils.c 		\
+				raycasting/raycasting_enemy.c  			\
+				raycasting/raycasting_door.c 			\
+				raycasting/spawn_wall_msg.c 			\
 				intersection_segment.c					\
 				display/display.c 						\
 				display/display_hand.c					\
@@ -170,7 +175,9 @@ GAME_BONUS		=										\
 				spell/init_snd.c 						\
 				spell/init_third.c 						\
 				spell/init_fourth.c 					\
-				spell/init_sorcerer_spell.c 				\
+				spell/init_sorcerer_spell.c 			\
+				spell/lumos.c 							\
+				spell/cast_spell.c 						\
 				item/free.c								\
 				item/init.c								\
 				item/move.c								\

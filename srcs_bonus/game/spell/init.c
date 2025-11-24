@@ -48,9 +48,6 @@ static void	init_avada_kedavra(t_data *data)
 
 static void	init_sorcerer_spell(t_data *data)
 {
-	// init_tig(data);
-	// init_bh(data);
-	// init_pizza(data);
 	init_endoloris(data);
 	init_aguamenti(data);
 }

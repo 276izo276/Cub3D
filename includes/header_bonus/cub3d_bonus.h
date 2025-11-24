@@ -16,6 +16,13 @@
 
 void			try_hit_player(t_data *data);
 bool			is_skip_type(t_item *item, t_data *data);
+bool			is_compatible_wall(t_data *data, int y, int x);
+void			spawn_wall_msg(t_data *data, int i, int y, int x);
+void			raycast_loop(t_data *data, int i, double x);
+void			save_data_ray(t_data *data, int i, double x);
+void			ray_try_hit_enemy(t_data *data, int i, double x, t_lst *lst);
+void			ray_try_hit_door(t_data *data, int i, double x, t_lst *lst);
+void			calc_item_value(t_data *data, t_hitray *ray, double x);
 void			pick_up_items(t_data *data, t_item *item, t_lst **lst);
 void			free_sound(void *elem);
 t_sound			*create_sound(t_data *data, int info);
