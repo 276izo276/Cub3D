@@ -47,6 +47,13 @@ void	is_item(char c, int y, int x, t_data *data)
 					data->item, f_item);
 			if (!data->item)
 				f_exit(data, 1);
+			if (c == 'f')
+				data->item = add_end_lst(create_item(data, PILLAR,
+						&(t_fcoo){.case_x = x, .case_y = y,
+						.coo_y = 32, .coo_x = 32}, data->map.mini.deg),
+					data->item, f_item);
+			if (!data->item)
+				f_exit(data, 1);
 			data->map.tabmap[y][x] = '0';
 		}
 		i++;

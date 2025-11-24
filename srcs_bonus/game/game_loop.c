@@ -818,6 +818,9 @@ void	spawn_portkey(t_data *data)
 	data->item = add_end_lst(create_item(data, PORTKEY, &(t_fcoo){.case_x=random_x,.case_y=random_y,.coo_y=32,.coo_x=32}, data->map.mini.deg), data->item, f_item);
 	if (!data->item)
 		f_exit(data, 1);
+	data->item = add_end_lst(create_item(data, PILLAR, &(t_fcoo){.case_x=random_x,.case_y=random_y,.coo_y=32,.coo_x=32}, data->map.mini.deg), data->item, f_item);
+	if (!data->item)
+		f_exit(data, 1);
 	data->portkey_is_active = true;
 }
 void	update_sorcerer(t_data *data)
