@@ -15,7 +15,6 @@ void	player_invisible(t_data *data)
 {
 	if (data->player.invisible < 255)
 	{
-		// data->player.timer_invi = get_mtime();
 		if (get_mtime() > data->player.timer_invi_short + 100)
 		{
 			data->player.timer_invi_short = get_mtime();
@@ -25,7 +24,6 @@ void	player_invisible(t_data *data)
 		{
 			data->player.timer_invi = get_mtime();
 			data->popo[3].nb--;
-			printf("time>>>%lld\n",(get_mtime() - data->player.timer_invi) / 1000);
 			data->player.invisible = 255 - data->popo[3].nb * 55;
 			if (data->player.invisible < 32)
 				data->player.invisible = 32;
@@ -34,7 +32,6 @@ void	player_invisible(t_data *data)
 		{
 			data->player.invisible = 255;
 		}
-		// printf("invisible>>%d    \n",data->player.invisible);
 	}
 }
 
@@ -56,7 +53,6 @@ static void	handle_sound(t_data *data)
 			if (result == 0 && sound->duration != -1)
 			{
 				kill(sound->pid, SIGTERM);
-				printf("KILL sound after duration\n");
 				data->sound = remove_f_elem_lst(lst);
 			}
 			else if (sound->duration != -1)

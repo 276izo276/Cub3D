@@ -12,7 +12,8 @@
 # define SHOOT_MP3 "sound/shoot.mp3"
 # define CRY_MP3 "sound/cry.mp3"
 # define TP_MP3 "sound/teleportation.mp3"
-# define DIE "sound/die.mp3"
+# define DIE_MP3 "sound/die.mp3"
+# define PAPER_MP3 "sound/paper.mp3"
 
 # define	LUMOS_MP3				"sound/spell/lumos.mp3"
 # define	ARANIA_EXUMAI_MP3		"sound/spell/arania_exumai.mp3"

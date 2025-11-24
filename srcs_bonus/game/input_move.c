@@ -129,6 +129,7 @@ int	mouse_key(int key, int x, int y, t_data *data)
 	}
 	if (key == 1 && data->map.floo_active == true && data->status == FLOO_MAP)
 	{
+		data->sound = add_end_lst(create_sound(data, 28), data->sound, free_sound);
 		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open = false;
 		data->player.coo.case_x = data->map.pos_active_floo->x;
 		data->player.coo.case_y = data->map.pos_active_floo->y;
@@ -142,6 +143,7 @@ int	mouse_key(int key, int x, int y, t_data *data)
 		data->map.zoom /= 2;
 	else if (key == 9)
 	{
+		data->sound = add_end_lst(create_sound(data, 28), data->sound, free_sound);
 		if (data->status == GAME)
 		{
 			data->status = MAP;
@@ -149,10 +151,13 @@ int	mouse_key(int key, int x, int y, t_data *data)
 			data->map.last_pos_y = data->player.coo.case_y;
 		}
 		else if (data->status == MAP)
+		{
 			data->status = GAME;
+		}
 	}
 	else if (key == 8)
 	{
+		data->sound = add_end_lst(create_sound(data, 28), data->sound, free_sound);
 		if (data->status == GAME)
 		{
 			data->status = MENU_SPELL;
@@ -486,6 +491,7 @@ int	key_press(int keycode, t_data *data)
 	}
 	else if (keycode == KEY_TAB)
 	{
+		data->sound = add_end_lst(create_sound(data, 28), data->sound, free_sound);
 		if (data->status == GAME)
 			data->status = PAUSE;
 		else
@@ -493,6 +499,7 @@ int	key_press(int keycode, t_data *data)
 	}
 	else if (keycode == KEY_N)
 	{
+		data->sound = add_end_lst(create_sound(data, 28), data->sound, free_sound);
 		if (data->status == GAME)
 		{
 			data->status = MENU_SPELL;
@@ -502,6 +509,7 @@ int	key_press(int keycode, t_data *data)
 	}
 	else if (keycode == KEY_M)
 	{
+		data->sound = add_end_lst(create_sound(data, 28), data->sound, free_sound);
 		data->status = MAP;
 		data->map.last_pos_x = data->player.coo.case_x;
 		data->map.last_pos_y = data->player.coo.case_y;
