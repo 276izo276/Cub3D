@@ -193,9 +193,15 @@ GAME_BONUS		=										\
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 
 ENEMY			=							\
-				init.c						\
+				calc_point.c				\
+				def_coo_case.c				\
 				free.c						\
+				gen_way.c					\
+				init_basic_enemy.c			\
+				init_sorcerer.c				\
+				init.c						\
 				move.c						\
+				pathfinder.c				\
 				verif_closed.c				
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/enemy/,$(ENEMY))

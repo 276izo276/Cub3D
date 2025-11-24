@@ -8,7 +8,6 @@
 
 t_item	*init_spell_item(t_data *data, int info)
 {
-	printf("CREATE ITEM PLAYER\n");
 	t_item	*item;
 
 	item = malloc(sizeof(t_item));
