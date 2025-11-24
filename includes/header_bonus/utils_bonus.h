@@ -1,8 +1,8 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-#include "struct_bonus.h"
-#include <stdlib.h>
+# include "struct_bonus.h"
+# include <stdlib.h>
 
 char	*ft_strdup(char *s);
 char	*ft_strndup(char *s, int size);

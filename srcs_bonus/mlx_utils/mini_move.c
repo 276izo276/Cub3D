@@ -27,6 +27,30 @@ void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 	}
 }
 
+static void	pick_up_wand(t_data *data, t_item *item)
+{
+	if (item->type == WOLF_WAND)
+	{
+		data->wand.wand_status[2] = true;
+		data->wand.nb_wand = 2;
+	}
+	if (item->type == ELEM_WAND)
+	{
+		data->wand.wand_status[3] = true;
+		data->wand.nb_wand = 3;	
+	}
+	if (item->type == DEMENTOR_WAND)
+	{
+		data->wand.wand_status[4] = true;
+		data->wand.nb_wand = 4;	
+	}
+	if (item->type == SPIDER_WAND)
+	{
+		data->wand.wand_status[1] = true;
+		data->wand.nb_wand = 1;	
+	}
+}
+
 static void	pick_up_items(t_data *data, t_item *item)
 {
 	if (item->type == POPO_HEAL)
@@ -42,14 +66,7 @@ static void	pick_up_items(t_data *data, t_item *item)
 		data->status = MENU_END;
 		get_ranking_xp(data);
 	}
-	if (item->type == WOLF_WAND)
-		data->wand.wand_status[2] = true;
-	if (item->type == ELEM_WAND)
-		data->wand.wand_status[3] = true;
-	if (item->type == DEMENTOR_WAND)
-		data->wand.wand_status[4] = true;
-	if (item->type == SPIDER_WAND)
-		data->wand.wand_status[1] = true;
+	pick_up_wand(data, item);
 	apply_damage(&data->player.damage, &item->damage);
 }
 
