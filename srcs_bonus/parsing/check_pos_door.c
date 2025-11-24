@@ -38,7 +38,7 @@ bool	door_is_verti(t_data *data, int y, int x, char c)
 			&& data->map.tabmap[y - 1][x] == '1')))
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
-			"Map >>> " "door found without wall around\n"_END);
+			"Map >>> " "door or floo found without wall around\n"_END);
 		f_exit(data, 1);
 	}
 	if (c == 'D')

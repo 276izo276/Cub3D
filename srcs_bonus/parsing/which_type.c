@@ -96,8 +96,8 @@ void	is_enemy(char c, int y, int x, t_data *data)
 					data->enemy, f_enemy);
 			if (!data->enemy)
 				f_exit(data, 1);
+			check_enemy_can_escape(data, data->enemy);
 			data->map.tabmap[y][x] = '0';
-			data->nb_enemy++;
 		}
 		i++;
 	}

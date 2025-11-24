@@ -314,7 +314,7 @@ void	restart(t_data *data)
 	ft_bzero(&data->player.damage, sizeof(t_damage));
 	data->popo[0].nb = 0;
 	data->popo[1].nb = 0;
-	data->popo[2].nb = 0;
+	data->popo[2].nb = 1;
 	data->popo[3].nb = 0;
 	i = 0;
 	// // init_sorcerer(data);
