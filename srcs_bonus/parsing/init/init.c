@@ -54,7 +54,7 @@ static void	init_player(t_data *data)
 {
 	data->player.life = 100;
 	data->player.shield = 0;
-	data->player.xp = 15.0;
+	data->player.xp = 1.0;
 	data->player.damage.damage_do = 1;
 	data->player.invisible = 255;
 }

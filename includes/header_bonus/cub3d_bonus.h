@@ -179,6 +179,14 @@ void			draw_select_border(t_data *data, int start_x, int start_y);
 void			pixel_put(t_data *data, int x, int y, unsigned int color);
 void			select_right_hand(t_data *data);
 int				get_right_color(int color, double distance);
+void			select_your_hand(t_data *data);
+void			draw_texture_menu(t_data *data, t_img *texture, int final_x,
+					int final_y);
+// menu spell
+void			display_spell_take(t_data *data);
+void			display_spell_list(t_data *data);
+void			update_spell_cooldown(t_data *data);
+int				menu_border_case_spell(t_data *data, double x, double y);
 
 // spell.c
 void			spell_lumos(t_data *data);
@@ -198,9 +206,9 @@ void			handle_pause_menu(t_data *data, long long int cur);
 void			draw_gradient(t_data *data, int start_x, int start_y);
 void			display_menu_background(t_data *data, t_img *img, int start_x,
 					int start_y);
-void	display_exit(t_data *data, int start_x, int start_y);
-void	display_resume(t_data *data, int start_x, int start_y);
-void	display_selector(t_data *data, int start_x, int start_y);
+void			display_exit(t_data *data, int start_x, int start_y);
+void			display_resume(t_data *data, int start_x, int start_y);
+void			display_selector(t_data *data, int start_x, int start_y);
 // spells menu
 void			handle_spells_menu(t_data *data);
 void			handle_menu_spell_keys(int keycode, t_data *data);

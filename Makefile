@@ -166,9 +166,13 @@ GAME_BONUS		=										\
 				display/display_sky.c					\
 				menu/start_menu/display_menu.c			\
 				menu/start_menu/draw_border.c			\
+				menu/start_menu/aff_hand_selection.c 	\
 				menu/pause_menu/handle_pause_menu.c 	\
 				menu/pause_menu/pause_menu_utils.c 		\
 				menu/spells_menu/handle_spells_menu.c	\
+				menu/spells_menu/display_spell_list.c 	\
+				menu/spells_menu/display_spell_take.c 	\
+				menu/spells_menu/handle_keys.c 			\
 				menu/death_menu/handle_death_menu.c		\
 				menu/end_menu/handle_end_menu.c			\
 				spell/spell.c							\
