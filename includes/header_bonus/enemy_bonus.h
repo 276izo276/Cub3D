@@ -10,6 +10,7 @@ void	move_enemy(t_data *data);
 t_case	*init_case(int h_cost, int r_cost, int dir[2], t_case *parent);
 void	f_list_final_path(t_lst *open, t_lst *closed);
 void	calc_left_point(t_enemy *enemy);
+void	calc_deg(t_fcoo *start, t_fcoo *end, double *rad, double *deg);
 void	calc_right_point(t_enemy *enemy);
 
 #endif

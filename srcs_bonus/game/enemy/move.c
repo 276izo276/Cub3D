@@ -8,116 +8,6 @@
 
 #include <stdio.h>
 
-
-
-
-void	calc_left_and_right_point(t_enemy *enemy, t_data *data)
-{
-	double	diff_x;
-	double	diff_y;
-	int		cy;
-	int		cx;
-	int		new_x;
-	int		new_y;
-
-	enemy->aff_deg = 0;
-	enemy->aff_rad = 0;
-	diff_x = (data->player.coo.case_x * 64 + data->player.coo.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
-	diff_y = (data->player.coo.case_y * 64 + data->player.coo.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
-	if (diff_y != 0)
-	{
-		enemy->aff_deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
-		if (enemy->aff_deg < 0)
-			enemy->aff_deg = -enemy->aff_deg;
-	}
-	if (diff_y < 0 && diff_x < 0)
-		enemy->aff_deg = 180 + enemy->aff_deg;
-	else if (diff_y < 0 && diff_x > 0)
-		enemy->aff_deg = 180 - enemy->aff_deg;
-	else if (diff_y > 0 && diff_x < 0)
-		enemy->aff_deg = 360 - enemy->aff_deg;
-	else if (diff_y == 0 && diff_x < 0)
-		enemy->aff_deg = 270;
-	else if (diff_y == 0 && diff_x > 0)
-		enemy->aff_deg = 90;
-	else if (diff_x == 0 && diff_y < 0)
-		enemy->aff_deg = 180;
-	enemy->aff_deg = enemy->aff_deg;
-	enemy->aff_rad = enemy->aff_deg * (M_PI / 180);
-	calc_left_point(enemy);
-	calc_right_point(enemy);
-
-	if (enemy->left.case_y < 0 || enemy->left.case_y > data->map.tabmap_height || enemy->left.case_x < 0 || enemy->left.case_x >= ft_strlen(data->map.tabmap[enemy->left.case_y]) || data->map.tabmap[enemy->left.case_y][enemy->left.case_x] == '1')
-	{
-		cx = enemy->center.case_x - enemy->left.case_x;
-		cy = enemy->center.case_y - enemy->left.case_y;
-		new_x = enemy->left.case_x + cx;
-		new_y = enemy->left.case_y + cy;
-		if (cy != 0 && !(new_y < 0 || new_y > data->map.tabmap_height || enemy->left.case_x < 0 || enemy->left.case_x >= ft_strlen(data->map.tabmap[new_y])) && data->map.tabmap[new_y][enemy->left.case_x] != '1')
-		{
-			double	diff;
-			diff = 0;
-			if (cy > 0)
-				diff = 64 - enemy->left.coo_y;
-			else if (cy < 0)
-				diff = -enemy->left.coo_y - 0.001;
-			enemy->right.coo_y += diff;
-			enemy->center.coo_y += diff;
-			enemy->left.coo_y = fmod(enemy->left.coo_y + diff + 64, 64);
-			enemy->left.case_y += cy;
-		}
-		else if (cx != 0 && !(enemy->left.case_y < 0 || enemy->left.case_y > data->map.tabmap_height || new_x < 0 || new_x >= ft_strlen(data->map.tabmap[enemy->left.case_y])) && data->map.tabmap[enemy->left.case_y][new_x] != '1')
-		{
-			double	diff;
-
-			diff = 0;
-			if (cx > 0)
-				diff = 64 - enemy->left.coo_x;
-			else if (cx < 0)
-				diff = -enemy->left.coo_x - 0.001;
-			enemy->right.coo_x += diff;
-			enemy->center.coo_x += diff;
-			enemy->left.coo_x = fmod(enemy->left.coo_x + diff + 64, 64);
-			enemy->left.case_x += cx;
-		}
-	}
-	if (enemy->right.case_y < 0 || enemy->right.case_y > data->map.tabmap_height || enemy->right.case_x < 0 || enemy->right.case_x >= ft_strlen(data->map.tabmap[enemy->right.case_y]) || data->map.tabmap[enemy->right.case_y][enemy->right.case_x] == '1')
-	{
-		cx = enemy->center.case_x - enemy->right.case_x;
-		cy = enemy->center.case_y - enemy->right.case_y;
-		new_x = enemy->right.case_x + cx;
-		new_y = enemy->right.case_y + cy;
-		if (cy != 0 && !(new_y < 0 || new_y > data->map.tabmap_height || enemy->right.case_x < 0 || enemy->right.case_x >= ft_strlen(data->map.tabmap[new_y])) && data->map.tabmap[new_y][enemy->right.case_x] != '1')
-		{
-			double	diff;
-
-			diff = 0;
-			if (cy > 0)
-				diff = 64 - enemy->right.coo_y;
-			else if (cy < 0)
-				diff = -enemy->right.coo_y - 0.001;
-			enemy->left.coo_y += diff;
-			enemy->center.coo_y += diff;
-			enemy->right.coo_y = fmod(enemy->right.coo_y + diff + 64, 64);
-			enemy->right.case_y += cy;
-		}
-		else if (cx != 0 && !(enemy->right.case_y < 0 || enemy->right.case_y > data->map.tabmap_height || new_x < 0 || new_x >= ft_strlen(data->map.tabmap[enemy->right.case_y])) && data->map.tabmap[enemy->right.case_y][new_x] != '1')
-		{
-			double	diff;
-
-			diff = 0;
-			if (cx > 0)
-				diff = 64 - enemy->right.coo_x;
-			else if (cx < 0)
-				diff = -enemy->right.coo_x - 0.001;
-			enemy->left.coo_x += diff;
-			enemy->center.coo_x += diff;
-			enemy->right.coo_x = fmod(enemy->right.coo_x + diff + 64, 64);
-			enemy->right.case_x += cx;
-		}
-	}
-}
-
 void	reverse_hit_pos(t_enemy *enemy, t_item *item)
 {
 	double	deg;
@@ -126,30 +16,8 @@ void	reverse_hit_pos(t_enemy *enemy, t_item *item)
 	double	dy;
 	double	v_normalize;
 
-	deg = 0;
-	rad = 0;
-	double	diff_x = (enemy->center_before.case_x * 64 + enemy->center_before.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
-	double	diff_y = (enemy->center_before.case_y * 64 + enemy->center_before.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
-	if (diff_y != 0)
-	{
-		deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
-		if (deg < 0)
-			deg = -deg;
-	}
-	if (diff_y < 0 && diff_x < 0)
-		deg = 180 + deg;
-	else if (diff_y < 0 && diff_x > 0)
-		deg = 180 - deg;
-	else if (diff_y > 0 && diff_x < 0)
-		deg = 360 - deg;
-	else if (diff_y == 0 && diff_x < 0)
-		deg = 270;
-	else if (diff_y == 0 && diff_x > 0)
-		deg = 90;
-	else if (diff_x == 0 && diff_y < 0)
-		deg = 180;
-	deg += 180;
-	rad = deg * (M_PI / 180);
+	calc_deg(&enemy->center_before, &enemy->center, &rad, &deg);
+	rad = (deg + 180) * (M_PI / 180);
 	dx = sin(rad);
 	dy = cos(rad);
 	if (round(dy) == 0.0 && round(dx) == 0.0)
@@ -168,7 +36,6 @@ void	reverse_hit_pos(t_enemy *enemy, t_item *item)
 	item->damage.hit.coo_x += dx;
 	item->damage.hit.coo_y += dy;
 }
-
 
 void	move_more_hit_pos(t_enemy *enemy, t_item *item)
 {
@@ -178,29 +45,7 @@ void	move_more_hit_pos(t_enemy *enemy, t_item *item)
 	double	dy;
 	double	v_normalize;
 
-	deg = 0;
-	rad = 0;
-	double	diff_x = (enemy->center_before.case_x * 64 + enemy->center_before.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
-	double	diff_y = (enemy->center_before.case_y * 64 + enemy->center_before.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
-	if (diff_y != 0)
-	{
-		deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
-		if (deg < 0)
-			deg = -deg;
-	}
-	if (diff_y < 0 && diff_x < 0)
-		deg = 180 + deg;
-	else if (diff_y < 0 && diff_x > 0)
-		deg = 180 - deg;
-	else if (diff_y > 0 && diff_x < 0)
-		deg = 360 - deg;
-	else if (diff_y == 0 && diff_x < 0)
-		deg = 270;
-	else if (diff_y == 0 && diff_x > 0)
-		deg = 90;
-	else if (diff_x == 0 && diff_y < 0)
-		deg = 180;
-	rad = deg * (M_PI / 180);
+	calc_deg(&enemy->center_before, &enemy->center, &rad, &deg);
 	dx = sin(rad);
 	dy = cos(rad);
 	if (round(dy) == 0.0 && round(dx) == 0.0)
@@ -220,144 +65,119 @@ void	move_more_hit_pos(t_enemy *enemy, t_item *item)
 	item->damage.hit.coo_y += dy;
 }
 
+int	calc_if_hit(t_hitray *ray, t_lst **lst, t_item *item, t_enemy *elem)
+{
+	t_lst	*next;
+
+	if (ray->hit == true)
+	{
+		if (item->damage.repulso_force_do > 0 && !ray->type)
+		{
+			reverse_hit_pos(elem, item);
+		}
+		else
+			move_more_hit_pos(elem, item);
+		apply_damage(&elem->damage, &item->damage);
+		next = (*lst)->next;
+		if (!((!item->categ && (item->type == EXPECTO_PATRONUM
+			|| item->type == VENTUS))|| (item->type == BH && item->categ)))
+		{
+			ray->data->item = remove_elem_lst(*lst);
+			f_elem_lst(*lst);
+		}
+		*lst = next;
+		return (1);
+	}
+	return (0);
+}
+
+int	calc_scal_hit_case(t_hitray *ray, t_lst **lst, t_enemy *elem, t_item *item)
+{
+	ray->ax = elem->left.case_x * 64 + elem->left.coo_x;
+	ray->ay = elem->left.case_y * 64 + elem->left.coo_y;
+	ray->bx = elem->right.case_x * 64 + elem->right.coo_x;
+	ray->by = elem->right.case_y * 64 + elem->right.coo_y;
+	ray->cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
+	ray->cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
+	ray->dx = item->left.case_x * 64 + item->left.coo_x;
+	ray->dy = item->left.case_y * 64 + item->left.coo_y;
+	calc_scal(ray);
+	if (calc_if_hit(ray, lst, item, elem))
+		return (1);
+	ray->dx = item->center.case_x * 64 + item->center.coo_x;
+	ray->dy = item->center.case_y * 64 + item->center.coo_y;
+	calc_scal(ray);
+	if (calc_if_hit(ray, lst, item, elem))
+		return (1);
+	ray->dx = item->right.case_x * 64 + item->right.coo_x;
+	ray->dy = item->right.case_y * 64 + item->right.coo_y;
+	calc_scal(ray);
+	if (calc_if_hit(ray, lst, item, elem))
+		return (1);
+	return (0);
+}
+
+int	calc_delta_hit_seg(t_hitray *ray, t_lst **lst, t_enemy *elem, t_item *item)
+{
+	ray->ax = elem->center.case_x * 64 + elem->center.coo_x;
+	ray->ay = elem->center.case_y * 64 + elem->center.coo_y;
+	ray->bx = elem->center_before.case_x * 64 + elem->center_before.coo_x;
+	ray->by = elem->center_before.case_y * 64 + elem->center_before.coo_y;
+
+	ray->cx = item->left.case_x * 64 + item->left.coo_x;
+	ray->cy = item->left.case_y * 64 + item->left.coo_y;
+	ray->dx = item->center.case_x * 64 + item->center.coo_x;
+	ray->dy = item->center.case_y * 64 + item->center.coo_y;
+	calc_delta(ray);
+	if (calc_if_hit(ray, lst, item, elem))
+		return (1);
+	ray->cx = item->center.case_x * 64 + item->center.coo_x;
+	ray->cy = item->center.case_y * 64 + item->center.coo_y;
+	ray->dx = item->right.case_x * 64 + item->right.coo_x;
+	ray->dy = item->right.case_y * 64 + item->right.coo_y;
+	calc_delta(ray);
+	if (calc_if_hit(ray, lst, item, elem))
+		return (1);
+	return (0);
+}
+
+int	need_skip_enenmy_hit(t_item *item, t_enemy *elem)
+{
+	if (((item->type == POPO_HEAL || item->type == POPO_SHIELD
+			|| item->type == POPO_FLOO || item->type == POPO_INVI
+			|| item->type == ANIM_DEATH || item->type == WOLF_WAND
+			|| item->type == ELEM_WAND || item->type == SPIDER_WAND
+			|| item->type == DEMENTOR_WAND || item->type == PILLAR
+			|| item->type == PORTKEY)
+			&& item->categ) || (elem->type != DEMENTOR
+				&& item->type == EXPECTO_PATRONUM && !item->categ))
+	{
+		return (1);
+	}
+	return (0);
+}
+
 void	try_hit_enemys(t_enemy *elem, t_data *data, int type)
 {
 	t_item		*item;
 	t_lst		*lst;
 	t_hitray	ray;
-	t_lst		*next;
 
+	ray.data = data;
+	ray.type = type;
 	lst = get_first_elem_lst(data->item);
 	while (lst)
 	{
-		
 		item = lst->dt;
-		if (((item->type == POPO_HEAL || item->type == POPO_SHIELD || item->type == POPO_FLOO || item->type == POPO_INVI || item->type == ANIM_DEATH || item->type == WOLF_WAND || item->type == ELEM_WAND || item->type == SPIDER_WAND || item->type == DEMENTOR_WAND || item->type == PILLAR) && item->categ) || (elem->type != DEMENTOR && item->type == EXPECTO_PATRONUM && !item->categ))
+		if (need_skip_enenmy_hit(item, elem))
 		{
 			lst = lst->next;
 			continue;
 		}
-		ray.ax = elem->left.case_x * 64 + elem->left.coo_x;
-		ray.ay = elem->left.case_y * 64 + elem->left.coo_y;
-		ray.bx = elem->right.case_x * 64 + elem->right.coo_x;
-		ray.by = elem->right.case_y * 64 + elem->right.coo_y;
-		ray.cx = elem->left_before.case_x * 64 + elem->left_before.coo_x;
-		ray.cy = elem->left_before.case_y * 64 + elem->left_before.coo_y;
-		ray.dx = item->left.case_x * 64 + item->left.coo_x;
-		ray.dy = item->left.case_y * 64 + item->left.coo_y;
-		calc_scal(&ray);
-		if (ray.hit == true)
-		{
-			if (item->damage.repulso_force_do > 0 && !type)
-			{
-				reverse_hit_pos(elem, item);
-			}
-			else
-				move_more_hit_pos(elem, item);
-			apply_damage(&elem->damage, &item->damage);
-			next = lst->next;
-			if (!((!item->categ && (item->type == EXPECTO_PATRONUM || item->type == VENTUS)) || (item->type == BH && item->categ)))
-			{
-				data->item = remove_elem_lst(lst);
-				f_elem_lst(lst);
-			}
-			lst = next;
+		if (calc_scal_hit_case(&ray, &lst, elem, item))
 			continue;
-		}
-		ray.dx = item->center.case_x * 64 + item->center.coo_x;
-		ray.dy = item->center.case_y * 64 + item->center.coo_y;
-		calc_scal(&ray);
-		if (ray.hit == true)
-		{
-			if (item->damage.repulso_force_do > 0 && !type)
-			{
-				reverse_hit_pos(elem, item);
-			}
-			else
-				move_more_hit_pos(elem, item);
-			apply_damage(&elem->damage, &item->damage);
-			next = lst->next;
-			if (!((!item->categ && (item->type == EXPECTO_PATRONUM || item->type == VENTUS)) || (item->type == BH && item->categ)))
-			{
-				data->item = remove_elem_lst(lst);
-				f_elem_lst(lst);
-			}
-			lst = next;
+		if (calc_delta_hit_seg(&ray, &lst, elem, item))
 			continue;
-		}
-		ray.dx = item->right.case_x * 64 + item->right.coo_x;
-		ray.dy = item->right.case_y * 64 + item->right.coo_y;
-		calc_scal(&ray);
-		if (ray.hit == true)
-		{
-			if (item->damage.repulso_force_do > 0 && !type)
-			{
-				reverse_hit_pos(elem, item);
-			}
-			else
-				move_more_hit_pos(elem, item);
-			apply_damage(&elem->damage, &item->damage);
-			next = lst->next;
-			if (!((!item->categ && (item->type == EXPECTO_PATRONUM || item->type == VENTUS)) || (item->type == BH && item->categ)))
-			{
-				data->item = remove_elem_lst(lst);
-				f_elem_lst(lst);
-			}
-			lst = next;
-			continue;
-		}
-
-		ray.ax = elem->center.case_x * 64 + elem->center.coo_x;
-		ray.ay = elem->center.case_y * 64 + elem->center.coo_y;
-		ray.bx = elem->center_before.case_x * 64 + elem->center_before.coo_x;
-		ray.by = elem->center_before.case_y * 64 + elem->center_before.coo_y;
-
-		ray.cx = item->left.case_x * 64 + item->left.coo_x;
-		ray.cy = item->left.case_y * 64 + item->left.coo_y;
-		ray.dx = item->center.case_x * 64 + item->center.coo_x;
-		ray.dy = item->center.case_y * 64 + item->center.coo_y;
-		calc_delta(&ray);
-		if (ray.hit == true)
-		{
-			if (item->damage.repulso_force_do > 0 && !type)
-			{
-				reverse_hit_pos(elem, item);
-			}
-			else
-				move_more_hit_pos(elem, item);
-			apply_damage(&elem->damage, &item->damage);
-			next = lst->next;
-			if (!((!item->categ && (item->type == EXPECTO_PATRONUM || item->type == VENTUS)) || (item->type == BH && item->categ)))
-			{
-				data->item = remove_elem_lst(lst);
-				f_elem_lst(lst);
-			}
-			lst = next;
-			continue;
-		}
-		ray.cx = item->center.case_x * 64 + item->center.coo_x;
-		ray.cy = item->center.case_y * 64 + item->center.coo_y;
-		ray.dx = item->right.case_x * 64 + item->right.coo_x;
-		ray.dy = item->right.case_y * 64 + item->right.coo_y;
-		calc_delta(&ray);
-		if (ray.hit == true)
-		{
-			if (item->damage.repulso_force_do > 0 && !type)
-			{
-				reverse_hit_pos(elem, item);
-			}
-			else
-				move_more_hit_pos(elem, item);
-			apply_damage(&elem->damage, &item->damage);
-			next = lst->next;
-			if (!((!item->categ && (item->type == EXPECTO_PATRONUM || item->type == VENTUS)) || (item->type == BH && item->categ)))
-			{
-				data->item = remove_elem_lst(lst);
-				f_elem_lst(lst);
-			}
-			lst = next;
-			continue;
-		}
 		lst = lst->next;
 	}
 }
@@ -383,29 +203,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	int		new_right_y;
 	if (enemy->damage.repulso_force_take > 0)
 	{
-		deg = 0;
-		rad = 0;
-		double	diff_x = (enemy->center.case_x * 64 + enemy->center.coo_x) - (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x);
-		double	diff_y = (enemy->center.case_y * 64 + enemy->center.coo_y) - (enemy->damage.hit.case_y * 64 + enemy->damage.hit.coo_y);
-		if (diff_y != 0)
-		{
-			deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
-			if (deg < 0)
-				deg = -deg;
-		}
-		if (diff_y < 0 && diff_x < 0)
-			deg = 180 + deg;
-		else if (diff_y < 0 && diff_x > 0)
-			deg = 180 - deg;
-		else if (diff_y > 0 && diff_x < 0)
-			deg = 360 - deg;
-		else if (diff_y == 0 && diff_x < 0)
-			deg = 270;
-		else if (diff_y == 0 && diff_x > 0)
-			deg = 90;
-		else if (diff_x == 0 && diff_y < 0)
-			deg = 180;
-		rad = deg * (M_PI / 180);
+		calc_deg(&enemy->center, &enemy->damage.hit, &rad, &deg);
 		dx = sin(rad);
 		dy = cos(rad);
 		if (round(dy) == 0.0 && round(dx) == 0.0)
@@ -523,30 +321,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	}
 	if (enemy->damage.confundo_force_take > 0)
 	{
-		deg = 0;
-		enemy->rad = 0;
-		double	diff_x = (enemy->center.case_x * 64 + enemy->center.coo_x) - (data->player.coo.case_x * 64 + data->player.coo.coo_x);
-		double	diff_y = (enemy->center.case_y * 64 + enemy->center.coo_y) - (data->player.coo.case_y * 64 + data->player.coo.coo_y);
-		if (diff_y != 0)
-		{
-			deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
-			if (deg < 0)
-				deg = -deg;
-		}
-		if (diff_y < 0 && diff_x < 0)
-			deg = 180 + deg;
-		else if (diff_y < 0 && diff_x > 0)
-			deg = 180 - deg;
-		else if (diff_y > 0 && diff_x < 0)
-			deg = 360 - deg;
-		else if (diff_y == 0 && diff_x < 0)
-			deg = 270;
-		else if (diff_y == 0 && diff_x > 0)
-			deg = 90;
-		else if (diff_x == 0 && diff_y < 0)
-			deg = 180;
-		enemy->deg = deg;
-		enemy->rad = deg * (M_PI / 180);
+		calc_deg(&enemy->center, &data->player.coo, &enemy->rad, &enemy->deg);
 		dx = sin(enemy->rad);
 		dy = cos(enemy->rad);
 		if (round(dy) == 0.0 && round(dx) == 0.0)
@@ -698,30 +473,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	if (enemy->calc == true)
 	{
 		enemy->calc = false;
-		deg = 0;
-		enemy->rad = 0;
-		double	diff_x = enemy->way->coo_x - enemy->center.coo_x;
-		double	diff_y = enemy->way->coo_y - enemy->center.coo_y;
-		if (diff_y != 0)
-		{
-			deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
-			if (deg < 0)
-				deg = -deg;
-		}
-		if (diff_y < 0 && diff_x < 0)
-			deg = 180 + deg;
-		else if (diff_y < 0 && diff_x > 0)
-			deg = 180 - deg;
-		else if (diff_y > 0 && diff_x < 0)
-			deg = 360 - deg;
-		else if (diff_y == 0 && diff_x < 0)
-			deg = 270;
-		else if (diff_y == 0 && diff_x > 0)
-			deg = 90;
-		else if (diff_x == 0 && diff_y < 0)
-			deg = 180;
-		enemy->deg = deg;
-		enemy->rad = deg * (M_PI / 180);
+		calc_deg(&enemy->way->coo, &enemy->center, &enemy->rad, &enemy->deg);
 	}
 	calc_left_and_right_point(enemy, data);
 	enemy->center_before.coo_x = enemy->center.coo_x;
@@ -799,8 +551,8 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 					enemy->way->child->parent = NULL;
 					t_case	*tmp = enemy->way;
 					enemy->way = enemy->way->child;
-					enemy->center.case_x = enemy->way->case_x;
-					enemy->center.case_y = enemy->way->case_y;
+					enemy->center.case_x = enemy->way->coo.case_x;
+					enemy->center.case_y = enemy->way->coo.case_y;
 					f_case(tmp);
 					enemy->calc = true;
 				}
@@ -818,29 +570,7 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 	}
 	if (enemy->damage.repulso_force_take < 0)
 	{
-		deg = 0;
-		rad = 0;
-		double	diff_x = (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
-		double	diff_y = (enemy->damage.hit.case_y * 64 + enemy->damage.hit.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
-		if (diff_y != 0)
-		{
-			deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
-			if (deg < 0)
-				deg = -deg;
-		}
-		if (diff_y < 0 && diff_x < 0)
-			deg = 180 + deg;
-		else if (diff_y < 0 && diff_x > 0)
-			deg = 180 - deg;
-		else if (diff_y > 0 && diff_x < 0)
-			deg = 360 - deg;
-		else if (diff_y == 0 && diff_x < 0)
-			deg = 270;
-		else if (diff_y == 0 && diff_x > 0)
-			deg = 90;
-		else if (diff_x == 0 && diff_y < 0)
-			deg = 180;
-		rad = deg * (M_PI / 180);
+		calc_deg(&enemy->damage.hit, &enemy->center, &rad, &deg);
 		dx = sin(rad);
 		dy = cos(rad);
 		if (round(dy) == 0.0 && round(dx) == 0.0)
@@ -855,8 +585,8 @@ static void	make_move_enemy(t_data *data, t_enemy *enemy)
 			dx = dx / v_normalize;
 		}
 
-		diff_x = (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
-		diff_y = (enemy->damage.hit.case_y * 64 + enemy->damage.hit.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
+		double diff_x = (enemy->damage.hit.case_x * 64 + enemy->damage.hit.coo_x) - (enemy->center.case_x * 64 + enemy->center.coo_x);
+		double diff_y = (enemy->damage.hit.case_y * 64 + enemy->damage.hit.coo_y) - (enemy->center.case_y * 64 + enemy->center.coo_y);
 		enemy->damage.dist = sqrt(diff_x * diff_x + diff_y * diff_y);
 		double	decal = -(1000 / (enemy->damage.dist + 35) + enemy->damage.repulso_force_take) / 4 - 1;
 		if (decal > 0)
@@ -1181,14 +911,13 @@ void	earth_spell(t_data *data, t_enemy *enemy, double deg, int type)
 int	enemy_vision(t_data *data, t_enemy *enemy)
 {
 	double	deg;
+	double	rad;
 	double	dist_min_player;
 	t_lst	*lst;
 	t_enemy	*elem;
 	t_enemy *keep_elem;
 	double	dist_min;
 	t_fcoo	coo;
-	int		diff_x;
-	int		diff_y;
 	t_ray	ray;
 	int		type;
 	
@@ -1214,33 +943,8 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 			continue ;
 		else if (is_sorcerer(enemy->type) == false && is_sorcerer(elem->type) == false && enemy->type != SNAKE)
 			continue;
-		diff_x = elem->center.case_x * 64 + elem->center.coo_x
-			- enemy->center.case_x * 64 - enemy->center.coo_x;
-		diff_y = elem->center.case_y * 64 + elem->center.coo_y
-			- enemy->center.case_y * 64 - enemy->center.coo_y;
-		
-		if (diff_x == 0 && diff_y == 0)
-			return (0);
-			
-		if (diff_x != 0 && diff_y != 0)
-		{
-			deg = atan(((double)diff_x / diff_y)) / (M_PI / 180);
-			if (deg < 0)
-				deg = -deg;
-		}
-		if (diff_y < 0 && diff_x < 0)
-			deg = 180 + deg;
-		else if (diff_y < 0 && diff_x > 0)
-			deg = 180 - deg;
-		else if (diff_y > 0 && diff_x < 0)
-			deg = 360 - deg;
-		else if (diff_y == 0 && diff_x < 0)
-			deg = 270;
-		else if (diff_y == 0 && diff_x > 0)
-			deg = 90;
-		else if (diff_x == 0 && diff_y < 0)
-			deg = 180;
-			
+
+		calc_deg(&elem->center, &enemy->center, &rad, &deg);
 		if ((deg + 360 >= elem->deg - 90 + 360
 			&& deg + 360 <= elem->deg + 90 + 360)
 		|| enemy->calc_path > 0)
@@ -1311,31 +1015,13 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 	}
 	if (enemy->type != BIRD && enemy->nb_move >= 10 && data->player.invisible == 255)
 	{
+
+		calc_deg(&data->player.coo, &enemy->center, &rad, &deg);
 		int	diff_player_x = data->player.coo.case_x * 64 + data->player.coo.coo_x
 		- enemy->center.case_x * 64 - enemy->center.coo_x;
 		int	diff_player_y = data->player.coo.case_y * 64 + data->player.coo.coo_y
 		- enemy->center.case_y * 64 - enemy->center.coo_y;
 		dist_min_player = sqrt(diff_player_x * diff_player_x + diff_player_y * diff_player_y);
-		deg = 0;
-		if (diff_player_x != 0 && diff_player_y != 0)
-		{
-			deg = atan(((double)diff_player_x / diff_player_y)) / (M_PI / 180);
-			if (deg < 0)
-				deg = -deg;
-		}
-		if (diff_player_y < 0 && diff_player_x < 0)
-			deg = 180 + deg;
-		else if (diff_player_y < 0 && diff_player_x > 0)
-			deg = 180 - deg;
-		else if (diff_player_y > 0 && diff_player_x < 0)
-			deg = 360 - deg;
-		else if (diff_player_y == 0 && diff_player_x < 0)
-			deg = 270;
-		else if (diff_player_y == 0 && diff_player_x > 0)
-			deg = 90;
-		else if (diff_player_x == 0 && diff_player_y < 0)
-			deg = 180;
-		enemy->deg = fmod(enemy->deg, 360);
 		if ((deg + 360 >= enemy->deg - 90 + 360
 			&& deg + 360 <= enemy->deg + 90 + 360)
 		||
@@ -1402,31 +1088,12 @@ int	enemy_vision(t_data *data, t_enemy *enemy)
 	}
 	if (dist_min != -1)
 	{
+		calc_deg(&coo, &enemy->center, &rad, &deg);
 		int	diff_player_x = coo.case_x * 64 + coo.coo_x
 		- enemy->center.case_x * 64 - enemy->center.coo_x;
 		int	diff_player_y = coo.case_y * 64 + coo.coo_y
 		- enemy->center.case_y * 64 - enemy->center.coo_y;
 		dist_min_player = sqrt(diff_player_x * diff_player_x + diff_player_y * diff_player_y);
-		deg = 0;
-		if (diff_player_x != 0 && diff_player_y != 0)
-		{
-			deg = atan(((double)diff_player_x / diff_player_y)) / (M_PI / 180);
-			if (deg < 0)
-				deg = -deg;
-		}
-		if (diff_player_y < 0 && diff_player_x < 0)
-			deg = 180 + deg;
-		else if (diff_player_y < 0 && diff_player_x > 0)
-			deg = 180 - deg;
-		else if (diff_player_y > 0 && diff_player_x < 0)
-			deg = 360 - deg;
-		else if (diff_player_y == 0 && diff_player_x < 0)
-			deg = 270;
-		else if (diff_player_y == 0 && diff_player_x > 0)
-			deg = 90;
-		else if (diff_player_x == 0 && diff_player_y < 0)
-			deg = 180;
-		deg = fmod(deg, 360);
 		enemy->dist_target = dist_min;
 		if (enemy->dist_target < enemy->dist_visu)
 		{

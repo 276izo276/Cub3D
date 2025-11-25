@@ -101,8 +101,8 @@ t_case	*init_case(int h_cost, int r_cost, int dir[2], t_case *parent)
 		return (cel);
 	ft_bzero(cel, (sizeof(t_case)));
 	cel->parent = parent;
-	cel->case_x = dir[1];
-	cel->case_y = dir[0];
+	cel->coo.case_x = dir[1];
+	cel->coo.case_y = dir[0];
 	cel->h_cost = h_cost;
 	cel->r_cost = r_cost;
 	cel->t_cost = r_cost + h_cost;

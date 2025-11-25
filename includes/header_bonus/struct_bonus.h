@@ -973,16 +973,15 @@ struct						s_hitray
 	double					ry;
 	double					delta_x;
 	double					delta_y;
+	int						type;
+	t_data					*data;
 };
 
 struct						s_case
 {
 	t_case					*parent;
 	t_case					*child;
-	int						case_x;
-	int						case_y;
-	int						coo_x;
-	int						coo_y;
+	t_fcoo					coo;
 	int						r_cost;
 	int						h_cost;
 	int						t_cost;
@@ -1184,6 +1183,7 @@ struct						s_data
 	t_popo					popo[4];
 	t_sorcerer				sorcerer[NB_SORCERER + 1];
 	t_lst					*sound;
+	int						count_frame;
 };
 
 t_coo						*init_t_coo(int y, int x);

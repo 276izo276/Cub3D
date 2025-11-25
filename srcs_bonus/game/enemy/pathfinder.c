@@ -21,16 +21,16 @@ static int	is_a_wall(t_case *cur, const int dir[2], t_data *data)
 			++x;
 		++y;
 	}
-	if (cur->case_y + dir[0] >= y || cur->case_x + dir[1] >= x
-		|| cur->case_y + dir[0] < 0 || cur->case_x + dir[1] < 0)
+	if (cur->coo.case_y + dir[0] >= y || cur->coo.case_x + dir[1] >= x
+		|| cur->coo.case_y + dir[0] < 0 || cur->coo.case_x + dir[1] < 0)
 		return (1);
-	if (!(cur->case_y + dir[0] >= data->map.tabmap_height
-		|| cur->case_y + dir[0] < 0
-		|| cur->case_x + dir[1] >= ft_strlen(data->map.tabmap[cur->case_y
-			+ dir[0]]) || cur->case_x + dir[1] < 0
-		|| data->map.tabmap[cur->case_y + dir[0]][cur->case_x
-			+ dir[1]] == ' ') && data->map.tabmap[cur->case_y
-				+ dir[0]][cur->case_x + dir[1]] == '1')
+	if (!(cur->coo.case_y + dir[0] >= data->map.tabmap_height
+		|| cur->coo.case_y + dir[0] < 0
+		|| cur->coo.case_x + dir[1] >= ft_strlen(data->map.tabmap[cur->coo.case_y
+			+ dir[0]]) || cur->coo.case_x + dir[1] < 0
+		|| data->map.tabmap[cur->coo.case_y + dir[0]][cur->coo.case_x
+			+ dir[1]] == ' ') && data->map.tabmap[cur->coo.case_y
+				+ dir[0]][cur->coo.case_x + dir[1]] == '1')
 		return (1);
 	return (0);
 }
@@ -44,7 +44,7 @@ static int	is_in_lst(t_case *cur, const int dir[2], t_lst *lst, t_enemy *enemy)
 	while (lst)
 	{
 		cel = lst->dt;
-		if (cel->case_x == cur->case_x + dir[1] && cel->case_y == cur->case_y + dir[0])
+		if (cel->coo.case_x == cur->coo.case_x + dir[1] && cel->coo.case_y == cur->coo.case_y + dir[0])
 		{
 			return (1);
 		}
@@ -62,7 +62,7 @@ static t_lst	*update_node(t_case *cur, const int dir[2], t_lst *lst)
 	while (lst)
 	{
 		cel = lst->dt;
-		if (cel->case_x == cur->case_x + dir[1] && cel->case_y == cur->case_y + dir[0])
+		if (cel->coo.case_x == cur->coo.case_x + dir[1] && cel->coo.case_y == cur->coo.case_y + dir[0])
 		{
 			if (cur->t_cost + 1 < cel->t_cost)
 			{
@@ -104,10 +104,10 @@ static t_lst	*update_node(t_case *cur, const int dir[2], t_lst *lst)
 static t_lst	*add_node(t_case *cur, const int dir[2], t_lst *lst, t_enemy *enemy)
 {
 	t_case	*cel;
-	const int	direc[2] = {cur->case_y + dir[0], cur->case_x + dir[1]};
+	const int	direc[2] = {cur->coo.case_y + dir[0], cur->coo.case_x + dir[1]};
 
-	cel = init_case(man_dist(cur->case_y + dir[0],
-		cur->case_x + dir[1], enemy->goal.case_y,enemy->goal.case_x),cur->r_cost + 1,
+	cel = init_case(man_dist(cur->coo.case_y + dir[0],
+		cur->coo.case_x + dir[1], enemy->goal.case_y,enemy->goal.case_x),cur->r_cost + 1,
 		(int *)direc, cur);
 	if (!lst)
 	{
@@ -170,8 +170,8 @@ static	t_lst	*add_case_open(t_lst *open, t_lst **closed, t_enemy *enemy, t_data 
 static int	is_end_path(t_lst *open, t_enemy *enemy)
 {
 	open = get_first_elem_lst(open);
-	if (((t_case *)open->dt)->case_x == enemy->goal.case_x
-		&& ((t_case *)open->dt)->case_y == enemy->goal.case_y)
+	if (((t_case *)open->dt)->coo.case_x == enemy->goal.case_x
+		&& ((t_case *)open->dt)->coo.case_y == enemy->goal.case_y)
 		return (1);
 	return (0);
 }
@@ -195,8 +195,8 @@ static void	set_final_path(t_lst *lst, t_enemy *enemy)
 	{
 		cel = cel->child;
 	}
-	enemy->goal.case_x = cel->case_x;
-	enemy->goal.case_y = cel->case_y;
+	enemy->goal.case_x = cel->coo.case_x;
+	enemy->goal.case_y = cel->coo.case_y;
 }
 
 void	pathfinder(t_data *data, t_enemy *enemy)

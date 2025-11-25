@@ -193,6 +193,7 @@ GAME_BONUS		=										\
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 
 ENEMY			=							\
+				calc_point_utils.c			\
 				calc_point.c				\
 				def_coo_case.c				\
 				free.c						\

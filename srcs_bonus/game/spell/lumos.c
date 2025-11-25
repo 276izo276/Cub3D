@@ -12,19 +12,21 @@ int	get_right_white(t_data *data, int color, double distance)
 	int	g;
 	int	b;
 
+	if (data->count_frame < 0)
+		data->count_frame = 0;
 	b = (color & 255);
 	b = (int)(b + (255 - b) * ((1 - distance / 350))
-			* data->lumos.count_frame / 100);
+			* data->count_frame / 100);
 	if (b > 255)
 		b = 255;
 	g = (color >> 8 & 255);
 	g = (int)(g + (255 - g) * ((1 - distance / 350))
-			* data->lumos.count_frame / 100);
+			* data->count_frame / 100);
 	if (g > 255)
 		g = 255;
 	r = (color >> 16 & 255);
 	r = (int)(r + (255 - r) * ((1 - distance / 350))
-			* data->lumos.count_frame / 100);
+			* data->count_frame / 100);
 	if (r > 255)
 		r = 255;
 	color = (r << 16) + (g << 8) + b;
@@ -73,9 +75,17 @@ void	spell_lumos(t_data *data)
 	}
 	start_x = data->lumos.x_wand + (data->img[PLAYER_WAND].width / 2) - 2;
 	start_y = data->lumos.y_wand + 5;
+	if (data->count_frame > 0)
+		data->count_frame -= 2;
+	if (data->count_frame < 0)
+		data->count_frame = 0;
+	if (data->lumos.active)
+		data->count_frame = data->lumos.count_frame;
 	lumos_loop(data, start_x, start_y);
 	if (data->lumos.active == false)
 		data->lumos.count_frame -= 3;
+	if (data->lumos.count_frame < 0)
+		data->lumos.count_frame = 0;
 }
 
 void	cast_lumos(t_data *data, int info)

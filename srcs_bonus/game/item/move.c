@@ -502,11 +502,11 @@ void	move_item(t_data *data)
 		make_move_item(item, item->speed);
 		// printf("after move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
 		if (((try_hit_items(item, data) && (item->type != BH && item->categ) && (item->type != VENTUS && item->type != EXPECTO_PATRONUM && item->type != ANIM_DEATH && !item->categ)) ||
-			item->center.case_y >= data->map.tabmap_height
+			(item->center.case_y >= data->map.tabmap_height
 			|| item->center.case_y < 0
 			|| item->center.case_x >= ft_strlen(data->map.tabmap[item->center.case_y])
-			|| item->center.case_x < 0
-			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '0'
+			|| item->center.case_x < 0)
+			|| data->map.tabmap[item->center.case_y][item->center.case_x] == ' '
 			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1')
 			)
 		{

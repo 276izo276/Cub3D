@@ -19,11 +19,11 @@ void	cast_protego(t_data *data, int info)
 		data->spell[PROTEGO].launch_time = get_mtime();
 		data->player.protego = 6;
 		data->spell[PROTEGO].end_time = get_mtime();
-		data->lumos.active = true;
-		data->lumos.count_frame = 50;
-		save_time = data->spell[LUMOS].end_time;
-		spell_lumos(data);
-		data->spell[LUMOS].end_time = save_time;
+		// data->lumos.active = true;
+		data->count_frame = 50;
+		// save_time = data->spell[LUMOS].end_time;
+		// spell_lumos(data);
+		// data->spell[LUMOS].end_time = save_time;
 	}
 }
 
@@ -48,11 +48,11 @@ void	cast_opugno(t_data *data, int info)
 						.coo_x = data->player.coo.coo_x,
 						.coo_y = data->player.coo.coo_y},
 						data, data->map.mini.deg), data->enemy, f_enemy);
-		data->lumos.active = true;
-		data->lumos.count_frame = 50;
-		save_time = data->spell[LUMOS].end_time;
-		spell_lumos(data);
-		data->spell[LUMOS].end_time = save_time;
+		// data->lumos.active = true;
+		data->count_frame = 50;
+		// save_time = data->spell[LUMOS].end_time;
+		// spell_lumos(data);
+		// data->spell[LUMOS].end_time = save_time;
 	}
 }
 
@@ -76,11 +76,11 @@ void	cast_serpensortia(t_data *data, int info)
 		coo.coo_y = data->player.coo.coo_y;
 		data->enemy = add_end_lst(init_enemy(SNAKE, coo, data,
 					data->map.mini.deg), data->enemy, f_enemy);
-		data->lumos.active = true;
-		data->lumos.count_frame = 50;
-		save_time = data->spell[LUMOS].end_time;
-		spell_lumos(data);
-		data->spell[LUMOS].end_time = save_time;
+		// data->lumos.active = true;
+		data->count_frame = 50;
+		// save_time = data->spell[LUMOS].end_time;
+		// spell_lumos(data);
+		// data->spell[LUMOS].end_time = save_time;
 	}
 }
 
@@ -101,10 +101,10 @@ void	cast_vulnera_sanentur(t_data *data, int info)
 		data->player.damage.curse_force_take = 0;
 		data->player.damage.curse_frame_take = 0;
 		data->spell[VULNERA_SANENTUR].end_time = get_mtime();
-		data->lumos.active = true;
-		data->lumos.count_frame = 50;
-		save_time = data->spell[LUMOS].end_time;
-		spell_lumos(data);
-		data->spell[LUMOS].end_time = save_time;
+		// data->lumos.active = true;
+		data->count_frame = 50;
+		// save_time = data->spell[LUMOS].end_time;
+		// spell_lumos(data);
+		// data->spell[LUMOS].end_time = save_time;
 	}
 }

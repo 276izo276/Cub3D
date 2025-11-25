@@ -15,7 +15,7 @@
 # endif
 
 
-void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c);
+void			fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c);
 void			fill_bird(t_data *data, t_enemy *enemy);
 void			fill_snake(t_data *data, t_enemy *enemy);
 void			fill_wolf(t_data *data, t_enemy *enemy);

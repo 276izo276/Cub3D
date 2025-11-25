@@ -101,6 +101,5 @@ void	display_hand(t_data *data)
 		}
 		++y;
 	}
-	if (data->lumos.count_frame > 0)
-		spell_lumos(data);
+	spell_lumos(data);
 }

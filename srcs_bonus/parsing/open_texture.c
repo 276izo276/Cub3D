@@ -71,7 +71,7 @@ void	select_right_hand(t_data *data)
 	y = -1;
 	if (data->is_right_handed == true)
 	{
-		mlx_destroy_image(data->mlx.mlx, &data->img[PLAYER_HAND].img);
+		mlx_destroy_image(data->mlx.mlx, data->img[PLAYER_HAND].img);
 		data->img[PLAYER_HAND].path = "./texture/player_hand/right_hand.xpm";
 		open_img(&data->img[PLAYER_HAND], data);
 	}
