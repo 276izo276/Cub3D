@@ -28,6 +28,13 @@ bool	item_destruction(t_item *item, t_data *data);
 void	define_item_radius(t_item *item, t_data *data);
 void	save_item_last_pos(t_item *item);
 
+// mouse key
+void	mouse_key_ig(t_data *data, int key);
+void	mouse_key_spell_menu(t_data *data);
+int		mouse_move(int x, int y, t_data *data);
+void	mouse_move_map(t_data *data, int y, int x);
+void	mouse_key_map(t_data *data, int key);
+
 void			fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c);
 void			fill_bird(t_data *data, t_enemy *enemy);
 void			fill_snake(t_data *data, t_enemy *enemy);

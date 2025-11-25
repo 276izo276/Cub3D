@@ -160,7 +160,10 @@ GAME_BONUS		=										\
 				display/display_map_utils.c 			\
 				display/display_blood_border.c			\
 				environment/handle_door.c 				\
-				input_move.c							\
+				player_input/input_move.c				\
+				player_input/mouse_input/mouse_key.c 	\
+				player_input/mouse_input/key_map.c 		\
+				player_input/mouse_input/key_ig.c 		\
 				game_loop.c								\
 				display/display_floor.c					\
 				display/display_sky.c					\

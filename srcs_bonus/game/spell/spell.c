@@ -54,11 +54,7 @@ void	cast_episkey(t_data *data, int info)
 		data->player.episkey_frame = 150;
 		data->player.episkey_heal = .1;
 		data->spell[EPISKEY].end_time = get_mtime();
-		// data->lumos.active = true;
 		data->count_frame = 50;
-		// save_time = data->spell[LUMOS].end_time;
-		// spell_lumos(data);
-		// data->spell[LUMOS].end_time = save_time;
 	}
 }
 
