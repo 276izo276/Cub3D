@@ -2,7 +2,7 @@
 #include "cub3d_bonus.h"
 #include <math.h>
 
-void	recalc_fcoo(t_fcoo *coo, t_fcoo *center, int dy, int dx)
+void	recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx)
 {
 	coo->coo_x = center->coo_x + dx;
 	coo->coo_y = center->coo_y + dy;

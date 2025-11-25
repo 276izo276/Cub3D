@@ -14,7 +14,7 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
-
+void	recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx);
 void			fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c);
 void			fill_bird(t_data *data, t_enemy *enemy);
 void			fill_snake(t_data *data, t_enemy *enemy);
@@ -266,6 +266,30 @@ void			init_sectumsempra(t_data *data);
 void			init_petrificus_totalus(t_data *data);
 void			init_vulnera_sanentur(t_data *data);
 void			init_oppugno(t_data *data);
+
+//init_item
+void	init_tig(t_data *data);
+void	init_mac(t_data *data);
+void	init_bh(t_data *data);
+void	init_pizza(t_data *data);
+void	init_fireball_elem(t_data *data);
+void	init_death_anim(t_data *data);
+void	init_web_spider(t_data *data);
+void	init_folder(t_data *data);
+void	init_marvin(t_data *data);
+void	init_taylor_swift(t_data *data);
+void	init_company(t_data *data);
+void	init_logo_42(t_data *data);
+void	init_popo_shield(t_data *data);
+void	init_popo_floo(t_data *data);
+void	init_portkey(t_data *data);
+void	init_popo_invi(t_data *data);
+void	init_popo_heal(t_data *data);
+void	init_pillar(t_data *data);
+void	init_spider_wand(t_data *data);
+void	init_dementor_wand(t_data *data);
+void	init_elem_wand(t_data *data);
+void	init_wolf_wand(t_data *data);
 
 typedef enum e_key_down
 {
