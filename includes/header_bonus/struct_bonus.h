@@ -1095,6 +1095,11 @@ struct						s_aff
 	int						g_old;
 	int						b_old;
 	unsigned int			old_color;
+	char					*tmp_addr;
+	int						x_max;
+	int						y_max;
+	double					dist_x;
+	double					dist_y;
 };
 
 struct						s_data
