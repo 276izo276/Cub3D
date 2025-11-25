@@ -185,7 +185,12 @@ GAME_BONUS		=										\
 				spell/lumos.c 							\
 				spell/cast_spell.c 						\
 				item/free.c								\
-				item/init.c								\
+				item/init_item/init.c					\
+				item/init_item/init_collectible_item.c 	\
+				item/init_item/init_enemy_attack.c 		\
+				item/init_item/init_sorcerer_item_bis.c \
+				item/init_item/init_sorcerer_item.c 	\
+				item/init_item/init_wand_item.c 		\
 				item/move.c								\
 				damage.c								\
 				get_ranking_xp.c 						\

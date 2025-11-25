@@ -22,7 +22,7 @@ void	init_incendio(t_data *data)
 	data->spell[INCENDIO].damage.fire_frame_do = 60;
 	data->spell[INCENDIO].damage.fire_force_do = .1;
 	data->spell[INCENDIO].damage.damage_elem_do = -10;
-	data->spell[INCENDIO].item.speed = 0;
+	data->spell[INCENDIO].item.speed = 10;
 	data->spell[INCENDIO].item.radius = 3;
 	data->spell[INCENDIO].item.front_img = &data->img[INCENDIO_IMG];
 	data->spell[INCENDIO].item.back_img = &data->img[INCENDIO_IMG];
