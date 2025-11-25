@@ -47,7 +47,8 @@ t_item	*init_spell_item(t_data *data, int info)
 	item->back_img = data->spell[info].item.back_img;
 	item->front_img = data->spell[info].item.front_img;
 	item->damage.which_coa_do = data->player.coa;
-	data->sound = add_end_lst(create_sound(data, info), data->sound, free_sound);
+	data->sound = add_end_lst(create_sound(data, info),
+			data->sound, free_sound);
 	return (item);
 }
 

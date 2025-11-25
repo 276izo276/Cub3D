@@ -191,7 +191,10 @@ GAME_BONUS		=										\
 				item/init_item/init_sorcerer_item_bis.c \
 				item/init_item/init_sorcerer_item.c 	\
 				item/init_item/init_wand_item.c 		\
+				item/try_hit_items.c 					\
+				item/try_hit_items_utils.c  			\
 				item/move.c								\
+				item/move_utils.c 						\
 				damage.c								\
 				get_ranking_xp.c 						\
 				popo/init.c								\

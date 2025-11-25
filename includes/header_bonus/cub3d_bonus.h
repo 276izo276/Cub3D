@@ -15,6 +15,19 @@
 # endif
 
 void	recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx);
+// hit item
+int	try_hit_items(t_item *elem, t_data *data);
+bool	hit_calc_scal_enemy(t_enemy *enemy, t_item *elem, t_hitray *ray,
+		t_lst **lst);
+void	hit_calc_scal_player(bool *hit, t_fcoo *coo, t_item *elem,
+		t_hitray *ray);
+
+// move item
+double	calc_dist_attraction(t_item *attract, t_enemy *enemy);
+bool	item_destruction(t_item *item, t_data *data);
+void	define_item_radius(t_item *item, t_data *data);
+void	save_item_last_pos(t_item *item);
+
 void			fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c);
 void			fill_bird(t_data *data, t_enemy *enemy);
 void			fill_snake(t_data *data, t_enemy *enemy);
