@@ -14,6 +14,16 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
+
+void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c);
+void			fill_bird(t_data *data, t_enemy *enemy);
+void			fill_snake(t_data *data, t_enemy *enemy);
+void			fill_wolf(t_data *data, t_enemy *enemy);
+void			fill_elem(t_data *data, t_enemy *enemy);
+void			fill_spider(t_data *data, t_enemy *enemy);
+void			pathfinder(t_data *data, t_enemy *enemy);
+void			calc_in_cell_path(t_data *data, t_enemy *enemy);
+void			gen_enemy_way(t_data *data, t_enemy *enemy);
 int				is_case_in_lst(int y, int x, t_lst *lst);
 void			error_map_not_closed(t_lst *closed, t_lst *open, t_data *data);
 void			error_occured(t_data *data, t_lst *open, t_lst *closed);

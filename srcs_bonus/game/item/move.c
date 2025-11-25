@@ -2,6 +2,7 @@
 #include "cub3d_bonus.h"
 #include <math.h>
 #include <string.h>
+#include "utils_bonus.h"
 
 void	calc_left_point_item(t_item *item)
 {
@@ -478,7 +479,7 @@ void	move_item(t_data *data)
 				item->deg = 90;
 			else if (diff_x == 0 && diff_y < 0)
 				item->deg = 180;
-			printf("rotate >>> %f\n", item->deg);
+			// printf("rotate >>> %f\n", item->deg);
 		}
 		if ((item->type == VENTUS && !item->categ) || (item->type == BH && item->categ))
 			apply_attraction(item, data);
@@ -500,8 +501,14 @@ void	move_item(t_data *data)
 		// if (item->nb_move >= 1)
 		make_move_item(item, item->speed);
 		// printf("after move item after start coo y>%lf, x>%lf\n",item->center.coo_y,item->center.coo_x);
-		if ((try_hit_items(item, data) && (item->type != BH && item->categ) && (item->type != VENTUS && item->type != EXPECTO_PATRONUM && item->type != ANIM_DEATH && !item->categ))
+		if (((try_hit_items(item, data) && (item->type != BH && item->categ) && (item->type != VENTUS && item->type != EXPECTO_PATRONUM && item->type != ANIM_DEATH && !item->categ)) ||
+			item->center.case_y >= data->map.tabmap_height
+			|| item->center.case_y < 0
+			|| item->center.case_x >= ft_strlen(data->map.tabmap[item->center.case_y])
+			|| item->center.case_x < 0
+			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '0'
 			|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1')
+			)
 		{
 			//DBG1printf("remove elem lst\n");
 			t_lst	*next = lst->next;

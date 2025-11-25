@@ -129,6 +129,7 @@ int	mouse_key(int key, int x, int y, t_data *data)
 	}
 	if (key == 1 && data->map.floo_active == true && data->status == FLOO_MAP)
 	{
+		data->sound = add_end_lst(create_sound(data, 26), data->sound, free_sound);
 		data->sound = add_end_lst(create_sound(data, 28), data->sound, free_sound);
 		data->map.door_map[data->player.coo.case_y][data->player.coo.case_x]->is_floo_open = false;
 		data->player.coo.case_x = data->map.pos_active_floo->x;
@@ -326,6 +327,8 @@ void	handle_exit_map(int keycode, t_data *data)
 	angle_deg = data->map.mini.deg;
 	if (keycode == KEY_ESCAPE && data->status == FLOO_MAP)
 	{
+		data->sound = add_end_lst(create_sound(data, 26), data->sound, free_sound);
+		data->sound = add_end_lst(create_sound(data, 28), data->sound, free_sound);
 		data->status = GAME;
 		if (angle_deg >= 315 || angle_deg <= 45)
 			data->player.coo.coo_y = 42;
