@@ -42,7 +42,7 @@
 # define FPS 30.0
 # define V_FOV 90.0
 # define H_FOV 90.0
-# define FPM 40.0
+# define FPM 30.0
 # define MENU 0
 # define GAME 1
 # define PAUSE 2
@@ -94,6 +94,7 @@ typedef struct s_sorcerer	t_sorcerer;
 typedef struct s_cooldown	t_cooldown;
 typedef struct s_sound		t_sound;
 typedef struct s_aff		t_aff;
+typedef struct s_mv_enemy	t_mv_enemy;
 
 typedef enum e_dir
 {
@@ -1100,6 +1101,22 @@ struct						s_aff
 	int						y_max;
 	double					dist_x;
 	double					dist_y;
+};
+
+struct						s_mv_enemy
+{
+	int	cy;
+	int	cx;
+	int	right_cy;
+	int	right_cx;
+	int	left_cy;
+	int	left_cx;
+	int	new_x;
+	int	new_y;
+	int	new_left_x;
+	int	new_left_y;
+	int	new_right_x;
+	int	new_right_y;
 };
 
 struct						s_data
