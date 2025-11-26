@@ -156,8 +156,8 @@ GAME_BONUS		=											\
 				display/display_hand/display_wand.c 		\
 				display/display_msg.c						\
 				display/display_item.c						\
-				display/display_map.c 						\
-				display/display_map_utils.c 				\
+				display/display_map/display_map.c 			\
+				display/display_map/display_map_utils.c 	\
 				display/display_blood_border.c				\
 				environment/handle_door.c 					\
 				player_input/input_move.c					\
