@@ -260,7 +260,6 @@ void			calc_value_player_mini_map_aff(t_utils_mini *u, t_img *img,
 
 void			calc_door(t_data *data, int i);
 
-void			display_door(t_data *data, int i);
 void			*display_fst_part(void *ptr);
 void			*display_snd_part(void *ptr);
 void			*display_third_part(void *ptr);
