@@ -1,5 +1,5 @@
-#ifndef COLOR_H
-# define COLOR_H
+#ifndef COLOR_BONUS_H
+# define COLOR_BONUS_H
 
 # define _END "\033[0m"
 # define _BOLD "\033[1m"

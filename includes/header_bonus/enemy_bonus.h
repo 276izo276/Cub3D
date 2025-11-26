@@ -1,5 +1,5 @@
-#ifndef ENEMY_BONUS
-# define ENEMY_BONUS
+#ifndef ENEMY_BONUS_H
+# define ENEMY_BONUS_H
 
 # include "struct_bonus.h"
 

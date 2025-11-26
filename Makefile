@@ -284,7 +284,6 @@ includes/debug.h	\
 includes/parsing.h	\
 includes/player.h	\
 includes/color.h	\
-includes/libmlx.h	\
 includes/struct.h	\
 includes/texture.h	\
 includes/time.h		\
@@ -297,7 +296,6 @@ includes/header_bonus/debug_bonus.h	\
 includes/header_bonus/parsing_bonus.h	\
 includes/header_bonus/player_bonus.h	\
 includes/header_bonus/color_bonus.h	\
-includes/header_bonus/libmlx_bonus.h	\
 includes/header_bonus/struct_bonus.h	\
 includes/header_bonus/texture_bonus.h	\
 includes/header_bonus/time_bonus.h	\

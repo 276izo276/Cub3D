@@ -1,5 +1,5 @@
-#ifndef TIME_H
-# define TIME_H
+#ifndef TIME_BONUS_H
+# define TIME_BONUS_H
 
 # include <sys/time.h>
 

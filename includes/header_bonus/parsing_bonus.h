@@ -1,5 +1,5 @@
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef PARSING_BONUS_H
+# define PARSING_BONUS_H
 
 # include "struct_bonus.h"
 
