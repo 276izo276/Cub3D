@@ -14,6 +14,21 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
+
+// player_input
+void	handle_menu_keys(int keycode, t_data *data);
+void	handle_death_menu_keys(int keycode, t_data *data);
+void	handle_map_keys(int keycode, t_data *data);
+void	cheat_code(t_data *data, int keycode);
+bool	change_game_status(t_data *data, int keycode);
+void	handle_exit_map(int keycode, t_data *data);
+bool			is_move_player(t_data *data, int i);
+int				mouse_move(int x, int y, t_data *data);
+int				mouse_key(int key, int x, int y, t_data *data);
+int				key_release(int keycode, t_data *data);
+int				key_press(int keycode, t_data *data);
+int				is_key_pressed(t_data *data, int keycode);
+
 void	recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx);
 // hit item
 int	try_hit_items(t_item *elem, t_data *data);
@@ -175,14 +190,6 @@ void			calc_sqrt(t_data *data, int i);
 void			display_game(t_data *data);
 
 unsigned int	get_texture_pixel(t_img *texture, int x, int y);
-
-// input_move.c
-bool			is_move_player(t_data *data, int i);
-int				mouse_move(int x, int y, t_data *data);
-int				mouse_key(int key, int x, int y, t_data *data);
-int				key_release(int keycode, t_data *data);
-int				key_press(int keycode, t_data *data);
-int				is_key_pressed(t_data *data, int keycode);
 
 // game_loop.c
 int				game_loop(t_data *data);
