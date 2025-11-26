@@ -310,6 +310,7 @@ void			get_coo_text_sky(t_data *data, t_display *display);
 void			get_coo_world_sky(t_data *data, t_display *display, int x);
 // display_hand.c
 void			display_hand(t_data *data);
+void display_wand(t_data *data, int pos_x, int pos_y);
 
 // coa
 void			display_menu(t_data *data);

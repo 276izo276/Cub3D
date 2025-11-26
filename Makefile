@@ -152,7 +152,8 @@ GAME_BONUS		=											\
 				raycasting/spawn_wall_msg.c 				\
 				intersection_segment.c						\
 				display/display.c 							\
-				display/display_hand.c						\
+				display/display_hand/display_hand.c			\
+				display/display_hand/display_wand.c 		\
 				display/display_msg.c						\
 				display/display_item.c						\
 				display/display_map.c 						\
