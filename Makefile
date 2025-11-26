@@ -106,6 +106,8 @@ PARSING_BONUS	=								\
 				init/coa.c 						\
 				init/utils.c 					\
 				init/texture.c	 				\
+				init/init_others.c 				\
+				init/create_thread.c 			\
 				which_type.c 					\
 				check_pos_door.c 				\
 				parse_item.c 					\
@@ -215,6 +217,7 @@ GAME_BONUS		=											\
 				get_ranking_xp.c 							\
 				popo/init.c									\
 				popo/launch.c								\
+				restart.c 									\
 				sound/init.c								\
 				sound/free.c							
 

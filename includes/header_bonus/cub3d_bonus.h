@@ -448,6 +448,10 @@ void			init_spider_wand(t_data *data);
 void			init_dementor_wand(t_data *data);
 void			init_elem_wand(t_data *data);
 void			init_wolf_wand(t_data *data);
+void			init_mutex(t_data *data);
+void	create_thread(t_data *data);
+void	init_struct_item(t_data *data);
+void	init_foot_tab(t_data *data);
 
 typedef enum e_key_down
 {
