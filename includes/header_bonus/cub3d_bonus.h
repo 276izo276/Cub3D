@@ -216,7 +216,17 @@ void			make_move_item(t_item *item, double speed);
 void			calc_scal(t_hitray *ray);
 void			calc_left_point_item(t_item *item);
 void			calc_right_point_item(t_item *item);
+// display_item
 void			display_item(t_data *data, int i);
+void			display_door(t_data *data, int i, int j);
+void			display_patronum(t_data *data, int i, int j);
+void			display_anim_death(t_data *data, int i, int j);
+void			display_bh(t_data *data, int i, int j);
+void			display_others(t_data *data, int i, int j);
+void			define_posx_texture(t_data *data, int i, int j);
+void			put_text_pix_img_item(t_data *data, int i, int j, int fixed);
+void			set_texture(t_data *data, int i, int j);
+
 void			calc_end_point(t_hitray *ray);
 void			try_hit_item(t_data *data, int i, double x);
 void			move_item(t_data *data);
@@ -226,7 +236,7 @@ t_item			*init_spell_item(t_data *data, int info);
 void			set_spell_take(t_data *data);
 void			init_spell(t_data *data);
 
-void			display_item_old(t_data *data, int i);
+// void			display_item_old(t_data *data, int i);
 void			calc_delta(t_hitray *ray);
 // void			try_hit_enemy(t_data *data, int i);
 

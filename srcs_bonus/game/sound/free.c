@@ -1,8 +1,7 @@
 #include "struct_bonus.h"
-#include <stdlib.h>
 #include <signal.h>
+#include <stdlib.h>
 #include <sys/wait.h>
-#include <stdio.h>
 
 void	free_sound(void *elem)
 {

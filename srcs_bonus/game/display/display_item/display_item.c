@@ -1,0 +1,83 @@
+#include "color_bonus.h"
+#include "cub3d_bonus.h"
+#include "struct_bonus.h"
+#include "utils_bonus.h"
+#include <math.h>
+#include <string.h>
+
+void	display_redir_item_type(t_data *data, int i, int j)
+{
+	if (data->ray[i].items[j]->type == DOOR)
+		display_door(data, i, j);
+	if (data->ray[i].items[j]->type == EXPECTO_PATRONUM
+		&& !data->ray[i].items[j]->categ)
+		display_patronum(data, i, j);
+	else if (data->ray[i].items[j]->type == ANIM_DEATH)
+		display_anim_death(data, i, j);
+	else if (data->ray[i].items[j]->type == BH)
+		display_bh(data, i, j);
+	else
+		display_others(data, i, j);
+	bzero(data->ray[i].items[j], sizeof(t_hit_item));
+}
+
+void	reset_data_display(t_data *data, int i)
+{
+	int	j;
+
+	j = 0;
+	while (j < MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door
+		+ data->map.nb_floo)
+	{
+		if (data->ray[i].items[j]->use)
+			bzero(data->ray[i].items[j], sizeof(t_hit_item));
+		j++;
+	}
+}
+
+bool	display_item_loop(t_data *data, int i, int *j, double *dist_max)
+{
+	*dist_max = 0;
+	*j = 0;
+	while (*j < MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door
+		+ data->map.nb_floo)
+	{
+		if (*dist_max < data->ray[i].items[*j]->dist
+			&& data->ray[i].items[*j]->print == true)
+			*dist_max = data->ray[i].items[*j]->dist;
+		(*j)++;
+	}
+	if (*dist_max == 0)
+		return (true);
+	*j = -1;
+	while (++(*j) < MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door
+		+ data->map.nb_floo)
+		if (data->ray[i].items[*j]->dist == *dist_max)
+			break ;
+	display_redir_item_type(data, i, *j);
+	return (false);
+}
+
+void	display_item(t_data *data, int i)
+{
+	double	dist_max;
+	int		j;
+
+	dist_max = -1;
+	j = 0;
+	while (j < MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door
+		+ data->map.nb_floo)
+	{
+		if (data->ray[i].items[j]->dist < data->ray[i].dist_wall
+			&& data->ray[i].items[j]->use == true)
+			data->ray[i].items[j]->print = true;
+		j++;
+	}
+	while (dist_max != 0)
+	{
+		if (display_item_loop(data, i, &j, &dist_max) == true)
+			break ;
+		bzero(data->ray[i].items[j], sizeof(t_hit_item));
+	}
+	reset_data_display(data, i);
+}

@@ -156,7 +156,12 @@ GAME_BONUS		=											\
 				display/display_hand/display_hand.c			\
 				display/display_hand/display_wand.c 		\
 				display/display_msg.c						\
-				display/display_item.c						\
+				display/display_item/display_item.c			\
+				display/display_item/define_texture.c 		\
+				display/display_item/put_text_img.c 		\
+				display/display_item/display_patronum.c 	\
+				display/display_item/display_type.c 		\
+				display/display_item/spell_whithout_text.c 	\
 				display/display_map/display_map.c 			\
 				display/display_map/display_map_utils.c 	\
 				display/display_blood_border.c				\
