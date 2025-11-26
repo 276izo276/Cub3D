@@ -202,17 +202,36 @@ GAME_BONUS		=										\
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 
 ENEMY			=							\
+				attack.c					\
+				calc_move.c					\
 				calc_point_utils.c			\
 				calc_point.c				\
+				calc_utils.c				\
+				cancel_move.c				\
+				confundo.c					\
+				damage.c					\
 				def_coo_case.c				\
 				free.c						\
 				gen_way.c					\
+				hit_enemy_utils.c			\
+				hit_enemy.c					\
 				init_basic_enemy.c			\
 				init_sorcerer.c				\
 				init.c						\
+				item.c						\
 				move.c						\
 				pathfinder.c				\
-				verif_closed.c				
+				ray_visu_side.c				\
+				ray_visu.c					\
+				repulso.c					\
+				spawn_utils.c				\
+				spell.c						\
+				utils_move.c				\
+				valid_visu.c				\
+				verif_closed.c				\
+				visu.c						\
+				wand.c						\
+				xp.c						
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/enemy/,$(ENEMY))
 
