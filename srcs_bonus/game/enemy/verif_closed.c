@@ -40,7 +40,7 @@ static int	add_case_near(t_lst **open, t_lst *closed, t_lst *node,
 		if (new_y >= data->map.tabmap_height || new_y < 0
 			|| new_x >= ft_strlen(data->map.tabmap[new_y]) || new_x < 0
 			|| data->map.tabmap[new_y][new_x] == ' ')
-				return (1);
+			return (1);
 		if (!is_case_in_lst(new_y, new_x, closed)
 			&& (data->map.tabmap[new_y][new_x] != '1'
 			&& data->map.tabmap[new_y][new_x] != 'D'))

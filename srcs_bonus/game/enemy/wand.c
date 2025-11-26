@@ -116,4 +116,3 @@ void	spawn_wolf_wand(t_enemy *enemy, t_data *data)
 		data->wand.is_drop[2] = true;
 	}
 }
-

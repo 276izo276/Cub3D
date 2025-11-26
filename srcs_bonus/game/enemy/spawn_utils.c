@@ -1,4 +1,3 @@
-
 void	set_valid_spawn(double *new_x, double *new_y)
 {
 	if (*new_x >= 64)

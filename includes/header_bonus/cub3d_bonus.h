@@ -16,9 +16,10 @@
 
 
 
-void	visu_enemy_valid(t_data *data, t_enemy_vision *visu, t_enemy *enemy);
-void	launch_ray_enemy(t_ray *ray, t_data *data);
-void	fill_ray_enemy(t_enemy *enemy, t_ray *ray, double deg);
+void			right_case_replace(t_enemy *enemy, t_data *data);
+void			visu_enemy_valid(t_data *data, t_enemy_vision *visu, t_enemy *enemy);
+void			launch_ray_enemy(t_ray *ray, t_data *data);
+void			fill_ray_enemy(t_enemy *enemy, t_ray *ray, double deg);
 bool			is_sorcerer(int type);
 int				handle_ray_x_right_gen(t_data *data, t_ray *ray);
 int				handle_ray_x_left_gen(t_data *data, t_ray *ray);

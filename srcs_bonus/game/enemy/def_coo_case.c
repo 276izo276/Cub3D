@@ -31,8 +31,8 @@ static void	calc_cel_x_y_child(t_case *cel)
 		}
 		else
 			cel->coo.coo_y = 32;
-		cel->coo.coo_y = (cel->coo.coo_y + 32 +
-					(cel->child->child->coo.case_y
+		cel->coo.coo_y = (cel->coo.coo_y + 32
+				+ (cel->child->child->coo.case_y
 					- cel->child->coo.case_y) * 32) / 2;
 	}
 }
@@ -73,9 +73,9 @@ void	calc_in_cell_path(t_data *data, t_enemy *enemy)
 		if (cel->child)
 		{
 			cel->coo.coo_x = 32 + (cel->child->coo.case_x
-							- cel->coo.case_x) * 32;
+					- cel->coo.case_x) * 32;
 			cel->coo.coo_y = 32 + (cel->child->coo.case_y
-							- cel->coo.case_y) * 32;
+					- cel->coo.case_y) * 32;
 			if (cel->child->child)
 				calc_cel_x_y_child(cel);
 			else

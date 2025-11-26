@@ -236,7 +236,6 @@ ENEMY			=							\
 				repulso.c					\
 				spawn_utils.c				\
 				spell.c						\
-				utils_move.c				\
 				valid_visu.c				\
 				verif_closed.c				\
 				visu.c						\

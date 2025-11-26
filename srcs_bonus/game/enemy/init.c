@@ -40,15 +40,8 @@ void	fill_dementor(t_data *data, t_enemy *enemy)
 	enemy->drop_dementor_wand = 1;
 }
 
-t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)
+void	utils_init_enemy(t_enemy *enemy, char c, t_fcoo coo, double deg)
 {
-	t_enemy	*enemy;
-
-	data->nb_enemy++;
-	enemy = malloc(sizeof(t_enemy));
-	if (!enemy)
-		return (NULL);
-	ft_bzero(enemy, sizeof(t_enemy));
 	enemy->type = c;
 	enemy->center.case_x = coo.case_x;
 	enemy->center.case_y = coo.case_y;
@@ -62,6 +55,18 @@ t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)
 	enemy->cooldown_cac = 1;
 	enemy->deg = deg;
 	enemy->damage.which_coa_do = OTHERS;
+}
+
+t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)
+{
+	t_enemy	*enemy;
+
+	data->nb_enemy++;
+	enemy = malloc(sizeof(t_enemy));
+	if (!enemy)
+		return (NULL);
+	ft_bzero(enemy, sizeof(t_enemy));
+	utils_init_enemy(enemy, c, coo, deg);
 	if (c == DEMENTOR)
 		fill_dementor(data, enemy);
 	else if (c == SPIDER)
@@ -76,19 +81,7 @@ t_enemy	*init_enemy(char c, t_fcoo coo, t_data *data, double deg)
 		fill_snake(data, enemy);
 	else
 		fill_sorcerer(data, enemy, c);
-	calc_left_and_right_point(enemy, data);
-	enemy->left_before.coo_x = enemy->left.coo_x;
-	enemy->left_before.coo_y = enemy->left.coo_y;
-	enemy->left_before.case_x = enemy->left.case_x;
-	enemy->left_before.case_y = enemy->left.case_y;
-	enemy->right_before.coo_x = enemy->right.coo_x;
-	enemy->right_before.coo_y = enemy->right.coo_y;
-	enemy->right_before.case_x = enemy->right.case_x;
-	enemy->right_before.case_y = enemy->right.case_y;
-	enemy->center_before.coo_x = enemy->center.coo_x;
-	enemy->center_before.coo_y = enemy->center.coo_y;
-	enemy->center_before.case_x = enemy->center.case_x;
-	enemy->center_before.case_y = enemy->center.case_y;
+	set_before_point_enemy(enemy, data);
 	return (enemy);
 }
 

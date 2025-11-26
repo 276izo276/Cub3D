@@ -14,7 +14,6 @@ void	calc_dist_wall(t_ray *ray)
 					- ray->start_coo_x)));
 }
 
-
 void	calc_dist_target(t_enemy *enemy, t_enemy *elem, t_ray *ray)
 {
 	enemy->dist_target = sqrt(((elem->center.case_y - ray->start_case_y) * 64.0
