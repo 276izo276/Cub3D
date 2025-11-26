@@ -59,42 +59,43 @@
 # define ENEMY 2
 # define DOOR 3
 
-typedef struct s_data		t_data;
-typedef struct s_map		t_map;
-typedef struct s_img		t_img;
-typedef struct s_ray		t_ray;
-typedef struct s_color		t_color;
-typedef struct s_mlx		t_mlx;
-typedef struct s_coo		t_coo;
-typedef struct s_coo_mini	t_coo_mini;
-typedef struct s_mini		t_mini;
-typedef struct s_utils_mini	t_utils_mini;
-typedef struct s_display	t_display;
-typedef struct s_coa		t_coa;
-typedef struct s_lumos		t_lumos;
-typedef struct s_hit_door	t_hit_door;
-typedef struct s_door		t_door;
-typedef struct s_hitray		t_hitray;
-typedef struct s_wall_msg	t_wall_msg;
-typedef struct s_pause_menu	t_pause_menu;
-typedef struct s_spell_menu	t_spell_menu;
-typedef struct s_enemy		t_enemy;
-typedef struct s_fcoo		t_fcoo;
-typedef struct s_case		t_case;
-typedef struct s_hit_enemy	t_hit_enemy;
-typedef struct s_hit_item	t_hit_item;
-typedef struct s_foot		t_foot;
-typedef struct s_player		t_player;
-typedef struct s_damage		t_damage;
-typedef struct s_item		t_item;
-typedef struct s_spell		t_spell;
-typedef struct s_wand		t_wand;
-typedef struct s_popo		t_popo;
-typedef struct s_sorcerer	t_sorcerer;
-typedef struct s_cooldown	t_cooldown;
-typedef struct s_sound		t_sound;
-typedef struct s_aff		t_aff;
-typedef struct s_mv_enemy	t_mv_enemy;
+typedef struct s_data			t_data;
+typedef struct s_map			t_map;
+typedef struct s_img			t_img;
+typedef struct s_ray			t_ray;
+typedef struct s_color			t_color;
+typedef struct s_mlx			t_mlx;
+typedef struct s_coo			t_coo;
+typedef struct s_coo_mini		t_coo_mini;
+typedef struct s_mini			t_mini;
+typedef struct s_utils_mini		t_utils_mini;
+typedef struct s_display		t_display;
+typedef struct s_coa			t_coa;
+typedef struct s_lumos			t_lumos;
+typedef struct s_hit_door		t_hit_door;
+typedef struct s_door			t_door;
+typedef struct s_hitray			t_hitray;
+typedef struct s_wall_msg		t_wall_msg;
+typedef struct s_pause_menu		t_pause_menu;
+typedef struct s_spell_menu		t_spell_menu;
+typedef struct s_enemy			t_enemy;
+typedef struct s_fcoo			t_fcoo;
+typedef struct s_case			t_case;
+typedef struct s_hit_enemy		t_hit_enemy;
+typedef struct s_hit_item		t_hit_item;
+typedef struct s_foot			t_foot;
+typedef struct s_player			t_player;
+typedef struct s_damage			t_damage;
+typedef struct s_item			t_item;
+typedef struct s_spell			t_spell;
+typedef struct s_wand			t_wand;
+typedef struct s_popo			t_popo;
+typedef struct s_sorcerer		t_sorcerer;
+typedef struct s_cooldown		t_cooldown;
+typedef struct s_sound			t_sound;
+typedef struct s_aff			t_aff;
+typedef struct s_mv_enemy		t_mv_enemy;
+typedef struct s_enemy_vision	t_enemy_vision;
 
 typedef enum e_dir
 {
@@ -1117,6 +1118,18 @@ struct						s_mv_enemy
 	int						new_left_y;
 	int						new_right_x;
 	int						new_right_y;
+};
+
+struct						s_enemy_vision
+{
+	int			type;
+	t_enemy		*keep_elem;
+	double		dist_min;
+	double		dist_min_player;
+	t_fcoo		coo;
+	t_ray		ray;
+	double		deg;
+	double		rad;
 };
 
 struct						s_data

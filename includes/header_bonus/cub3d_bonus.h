@@ -14,6 +14,50 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
+void	visu_enemy_valid(t_data *data, t_enemy_vision *visu, t_enemy *enemy);
+void	launch_ray_enemy(t_ray *ray, t_data *data);
+void	fill_ray_enemy(t_enemy *enemy, t_ray *ray, double deg);
+bool			is_sorcerer(int type);
+int				handle_ray_x_right_gen(t_data *data, t_ray *ray);
+int				handle_ray_x_left_gen(t_data *data, t_ray *ray);
+int				handle_ray_y_down_gen(t_data *data, t_ray *ray);
+int				handle_ray_y_top_gen(t_data *data, t_ray *ray);
+void			spawn_elem_wand(t_enemy *enemy, t_data *data);
+void			spawn_wolf_wand(t_enemy *enemy, t_data *data);
+void			spawn_dementor_wand(t_enemy *enemy, t_data *data);
+void			spawn_spider_wand(t_enemy *enemy, t_data *data);
+void			set_valid_spawn(double *new_x, double *new_y);
+void			move_more_hit_pos(t_enemy *enemy, t_item *item);
+void			reverse_hit_pos(t_enemy *enemy, t_item *item);
+void			add_sound_xp(t_enemy *enemy, t_data *data);
+void			cancel_move(t_data *data, t_enemy *enemy, int dy, int dx);
+void			left_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
+void			right_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
+void			center_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
+void			move_center_point(t_data *data, t_enemy *enemy, double *dy, double *dx);
+int				are_double_close(double nb1, double nb2);
+void			apply_slow_enemy(t_enemy *enemy, double *dx, double *dy);
+void			calc_dx_dy_enemy(double *dy, double *dx, double rad);
+void			earth_spell(t_data *data, t_enemy *enemy, double deg, int type);
+void			fire_spell(t_data *data, t_enemy *enemy, double deg, int type);
+void			water_spell(t_data *data, t_enemy *enemy, double deg, int type);
+void			air_spell(t_data *data, t_enemy *enemy, double deg, int type);
+void			low_life_enemy(t_enemy *enemy, t_data *data, t_lst **lst);
+void			take_damage_enemy(t_enemy *enemy);
+int				enemy_vision(t_data *data, t_enemy *enemy);
+int				repulso_neg_enemy(t_enemy *enemy, t_data *data);
+void			set_before_point_enemy(t_enemy *enemy, t_data *data);
+int				confundo_move_enemy(t_enemy *enemy, t_data *data);
+int				repulso_move_enemy(t_enemy *enemy, t_data *data);
+void			try_hit_enemys(t_enemy *elem, t_data *data, int type);
+void			spawn_item(t_data *data, t_enemy *enemy);
+int				attack_dist(t_enemy *enemy, t_data *data, t_enemy_vision *visu);
+void			recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx);
+void			remove_child_path(t_enemy *enemy);
+void			path_move_enemy(t_enemy *enemy, t_data *data, double *dx, double *dy);
+void			calc_dist_target(t_enemy *enemy, t_enemy *elem, t_ray *ray);
+void			calc_dist_wall(t_ray *ray);
+void			recalc_path(t_enemy *enemy, t_enemy_vision *visu, t_data *data);
 // player_input
 void			handle_menu_keys(int keycode, t_data *data);
 void			handle_death_menu_keys(int keycode, t_data *data);
@@ -28,6 +72,52 @@ int				key_release(int keycode, t_data *data);
 int				key_press(int keycode, t_data *data);
 int				is_key_pressed(t_data *data, int keycode);
 
+
+
+void	visu_enemy_valid(t_data *data, t_enemy_vision *visu, t_enemy *enemy);
+void	launch_ray_enemy(t_ray *ray, t_data *data);
+void	fill_ray_enemy(t_enemy *enemy, t_ray *ray, double deg);
+bool			is_sorcerer(int type);
+int				handle_ray_x_right_gen(t_data *data, t_ray *ray);
+int				handle_ray_x_left_gen(t_data *data, t_ray *ray);
+int				handle_ray_y_down_gen(t_data *data, t_ray *ray);
+int				handle_ray_y_top_gen(t_data *data, t_ray *ray);
+void			spawn_elem_wand(t_enemy *enemy, t_data *data);
+void			spawn_wolf_wand(t_enemy *enemy, t_data *data);
+void			spawn_dementor_wand(t_enemy *enemy, t_data *data);
+void			spawn_spider_wand(t_enemy *enemy, t_data *data);
+void			set_valid_spawn(double *new_x, double *new_y);
+void			move_more_hit_pos(t_enemy *enemy, t_item *item);
+void			reverse_hit_pos(t_enemy *enemy, t_item *item);
+void			add_sound_xp(t_enemy *enemy, t_data *data);
+void			cancel_move(t_data *data, t_enemy *enemy, int dy, int dx);
+void			left_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
+void			right_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
+void			center_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
+void			move_center_point(t_data *data, t_enemy *enemy, double *dy, double *dx);
+int				are_double_close(double nb1, double nb2);
+void			apply_slow_enemy(t_enemy *enemy, double *dx, double *dy);
+void			calc_dx_dy_enemy(double *dy, double *dx, double rad);
+void			earth_spell(t_data *data, t_enemy *enemy, double deg, int type);
+void			fire_spell(t_data *data, t_enemy *enemy, double deg, int type);
+void			water_spell(t_data *data, t_enemy *enemy, double deg, int type);
+void			air_spell(t_data *data, t_enemy *enemy, double deg, int type);
+void			low_life_enemy(t_enemy *enemy, t_data *data, t_lst **lst);
+void			take_damage_enemy(t_enemy *enemy);
+int				enemy_vision(t_data *data, t_enemy *enemy);
+int				repulso_neg_enemy(t_enemy *enemy, t_data *data);
+void			set_before_point_enemy(t_enemy *enemy, t_data *data);
+int				confundo_move_enemy(t_enemy *enemy, t_data *data);
+int				repulso_move_enemy(t_enemy *enemy, t_data *data);
+void			try_hit_enemys(t_enemy *elem, t_data *data, int type);
+void			spawn_item(t_data *data, t_enemy *enemy);
+int				attack_dist(t_enemy *enemy, t_data *data, t_enemy_vision *visu);
+void			recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx);
+void			remove_child_path(t_enemy *enemy);
+void			path_move_enemy(t_enemy *enemy, t_data *data, double *dx, double *dy);
+void			calc_dist_target(t_enemy *enemy, t_enemy *elem, t_ray *ray);
+void			calc_dist_wall(t_ray *ray);
+void			recalc_path(t_enemy *enemy, t_enemy_vision *visu, t_data *data);
 void			recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx);
 // hit item
 int				try_hit_items(t_item *elem, t_data *data);
@@ -121,7 +211,7 @@ void			init_spell(t_data *data);
 
 void			display_item_old(t_data *data, int i);
 void			calc_delta(t_hitray *ray);
-void			try_hit_enemy(t_data *data, int i);
+// void			try_hit_enemy(t_data *data, int i);
 
 // open_window
 void			open_window(t_data *data, t_mlx *mlx);
