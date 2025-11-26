@@ -1102,6 +1102,11 @@ struct						s_aff
 	int						y_max;
 	double					dist_x;
 	double					dist_y;
+	double					base_x;
+	double					base_y;
+	double					ray;
+	double					dx;
+	double					dy;
 	int						x;
 	int						y;
 };

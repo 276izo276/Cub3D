@@ -63,8 +63,10 @@ void	death_sorcerer(t_enemy *enemy, t_data *data)
 		data->sorcerer[4].is_alive = false;
 }
 
-void	low_life_enemy(t_enemy *enemy, t_data *data, t_lst **lst)
+int	low_life_enemy(t_enemy *enemy, t_data *data, t_lst **lst)
 {
+	t_lst	*next;
+
 	if (enemy->life <= 0)
 	{
 		if (enemy->type != SNAKE && enemy->type != BIRD)
@@ -80,8 +82,11 @@ void	low_life_enemy(t_enemy *enemy, t_data *data, t_lst **lst)
 		}
 		add_sound_xp(enemy, data);
 		death_sorcerer(enemy, data);
+		next = (*lst)->next;
 		data->enemy = remove_elem_lst(*lst);
 		f_elem_lst(*lst);
-		return ;
+		*lst = next;
+		return (1);
 	}
+	return (0);
 }

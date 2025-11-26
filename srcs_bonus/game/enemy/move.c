@@ -100,7 +100,8 @@ void	move_enemy(t_data *data)
 		else
 			gen_enemy_way(data, enemy);
 		take_damage_enemy(enemy);
-		low_life_enemy(enemy, data, &lst);
+		if (low_life_enemy(enemy, data, &lst))
+			continue;
 		enemy->nb_move++;
 		lst = next;
 	}

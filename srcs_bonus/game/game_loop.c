@@ -62,6 +62,32 @@ static void	handle_sound(t_data *data)
 	}
 }
 
+void	handle_input_cond(t_data *data, int i, int *move)
+{
+	if (data->keycode[i] >= KEY_1 && data->keycode[i] <= KEY_4)
+	{
+		if (data->spell[data->spell_take[data->keycode[i] - KEY_1]].necessary_lvl <= data->player.xp)
+		{
+			data->cast_spell = data->spell_take[data->keycode[i] - KEY_1];
+			data->keycode[i] = 0;
+		}
+	}
+	else if (is_move_player(data, i))
+		*move = 1;
+	else if (data->keycode[i] == KEY_E)
+		rotate_right(data);
+	else if (data->keycode[i] == KEY_Q)
+		rotate_left(data);
+	else if (data->keycode[i] == KEY_Z)
+		data->popo[0].call(data);
+	else if (data->keycode[i] == KEY_X)
+		data->popo[1].call(data);
+	else if (data->keycode[i] == KEY_C)
+		data->popo[2].call(data);
+	else if (data->keycode[i] == KEY_V)
+		data->popo[3].call(data);
+}
+
 static void	handle_input_move(t_data *data, long long int cur)
 {
 	int i;
@@ -75,64 +101,13 @@ static void	handle_input_move(t_data *data, long long int cur)
 		move_item(data);
 		move_enemy(data);
 		handle_sound(data);
-		// printf("fpm >>>%lld     \n",1000 / (cur - data->time_move));
-		// data->frame_move = 1000 / (cur - data->time_move);
 		data->time_move = cur;
 		data->player_moved = false;
 		while (i < KEYCODE_NB)
 		{
 			if (data->keycode[i] == KEY_ESCAPE)
 				f_exit(data, 0);
-			else if (data->keycode[i] >= KEY_1 && data->keycode[i] <= KEY_4)
-			{
-				if (data->spell[data->spell_take[data->keycode[i] - KEY_1]].necessary_lvl <= data->player.xp)
-				{
-					data->cast_spell = data->spell_take[data->keycode[i] - KEY_1];
-					data->keycode[i] = 0;
-				}
-			}
-			else if (is_move_player(data, i))
-				move = 1;
-			else if (data->keycode[i] == KEY_E)
-				rotate_right(data);
-			else if (data->keycode[i] == KEY_Q)
-				rotate_left(data);
-			else if (data->keycode[i] == KEY_Z)
-				data->popo[0].call(data);
-			else if (data->keycode[i] == KEY_X)
-				data->popo[1].call(data);
-			else if (data->keycode[i] == KEY_C)
-				data->popo[2].call(data);
-			else if (data->keycode[i] == KEY_V)
-				data->popo[3].call(data);
-			else if (data->keycode[i] == KEY_5)
-			{
-				data->item = add_end_lst(create_item(data, FOLDER, 
-					&data->player.coo, data->map.mini.deg), data->item, f_item);
-				make_move_item(data->item->dt, 10);
-				data->keycode[i] = 0;
-			}
-			else if (data->keycode[i] == KEY_6)
-			{
-				data->item = add_end_lst(create_item(data, LOGO_42, 
-					&data->player.coo, data->map.mini.deg), data->item, f_item);
-				make_move_item(data->item->dt, 10);
-				data->keycode[i] = 0;
-			}
-			else if (data->keycode[i] == KEY_7)
-			{
-				data->item = add_end_lst(create_item(data, TIG, 
-					&data->player.coo, data->map.mini.deg), data->item, f_item);
-				make_move_item(data->item->dt, 10);
-				data->keycode[i] = 0;
-			}
-			else if (data->keycode[i] == KEY_8)
-			{
-				data->item = add_end_lst(create_item(data, TIG, 
-					&data->player.coo, data->map.mini.deg), data->item, f_item);
-				make_move_item(data->item->dt, 10);
-				data->keycode[i] = 0;
-			}
+			handle_input_cond(data, i, &move);
 			i++;
 		}
 		if (move)
@@ -162,6 +137,7 @@ void	remove_wall_msg(t_data *data)
 		++y;
 	}
 }
+
 void	handle_wall_msg(t_data *data, long long int cur)
 {
 	if (data->current_msg == 4 && data->display.elapsed_time == 0 && data->display.is_first_msg == true)
@@ -191,13 +167,38 @@ void	handle_wall_msg(t_data *data, long long int cur)
 	}
 }
 
-#include <stdio.h>
+void	aff_xp_color(t_data *data, double *y, double *x)
+{
+	unsigned int	color;
+	unsigned int	a;
+	unsigned int	b;
+
+	*x = data->mlx.width - 40;
+	while (*x < data->mlx.width - 10)
+	{
+		*y = data->mlx.height - 38;
+		while (*y < data->mlx.height - 8)
+		{
+			a = ((unsigned int)((*y - (data->mlx.height - 38)) / 30
+			* data->img[XP].height)) * data->img[XP].size_line;
+			b = ((unsigned int)((*x - (data->mlx.width - 40)) / 30
+			* data->img[XP].width)) * (data->img[XP].bits_per_pixel >> 3);
+			color = *(unsigned int *)(data->img[XP].data_addr + a + b);
+			if (color != WHITE)
+				*(unsigned int *)(data->screen->data_addr + (int)(*y - MARGIN)
+				* data->screen->size_line + (int)(*x) * (
+					data->screen->bits_per_pixel >> 3)) = color;
+			(*y)++;
+		}
+		(*x)++;
+	}
+}
 
 void	aff_xp(t_data *data)
 {
 	double			x;
 	double			y;
-	unsigned int	color;
+	char			*str;
 
 	x = data->mlx.width - 350;
 	while (x < data->mlx.width - 350 + fmod(data->player.xp * 300, 300))
@@ -206,37 +207,68 @@ void	aff_xp(t_data *data)
 		while (y < data->mlx.height - 15)
 		{
 			
-			*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = 0xFFFF00;
+			*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN)
+			* data->screen->size_line + (int)(x) * (
+				data->screen->bits_per_pixel / 8)) = 0xFFFF00;
 			y++;
 		}
 		x++;
 	}
-	x = data->mlx.width - 40;
-	while (x < data->mlx.width - 10)
-	{
-		y = data->mlx.height - 38;
-		while (y < data->mlx.height - 8)
-		{
-			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 38)) / 30 * data->img[XP].height)) * data->img[XP].size_line;
-			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 40)) / 30 * data->img[XP].width)) * (data->img[XP].bits_per_pixel >> 3);
-			color = *(unsigned int *)(data->img[XP].data_addr + a + b);
-			if (color != WHITE)
-				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel >> 3)) = color;
-			y++;
-		}
-		x++;
-	}
-	char *str;
+	aff_xp_color(data, &y, &x);
 	str = ft_itoa((int)data->player.xp);
-	aff_text(str, 20, (t_coo){.x = calc_start_text(str, data->mlx.width - 365, data, 20), .y = data->mlx.height - 32}, data);
+	aff_text(str, 20, (t_coo){.x = calc_start_text(str, data->mlx.width - 365
+		, data, 20), .y = data->mlx.height - 32}, data);
 	free(str);
+}
+
+void	aff_life_heart(t_data *data)
+{
+	double			x;
+	double			y;
+	unsigned int	color;
+
+	x = data->mlx.width - 40;
+	while (x < data->mlx.width - 20)
+	{
+		y = data->mlx.height - 57;
+		while (y < data->mlx.height - 37)
+		{
+			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 57))
+			/ 20 * data->img[HEART].height)) * data->img[HEART].size_line;
+			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 40))
+			/ 20 * data->img[HEART].width)) * (data->img[HEART].bits_per_pixel >> 3);
+			color = *(unsigned int *)(data->img[HEART].data_addr + a + b);
+			if (color != WHITE)
+				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN)
+				* data->screen->size_line + (int)(x) * (
+					data->screen->bits_per_pixel >> 3)) = color;
+			y++;
+		}
+		x++; 
+	}
+}
+
+void	aff_life_red(t_data *data, double *x, double *y)
+{
+	while (*x < data->mlx.width - 50)
+	{
+		*y = data->mlx.height - 55;
+		while (*y < data->mlx.height - 40)
+		{
+			
+			*(unsigned int *)(data->screen->data_addr + (int)(*y - MARGIN)
+			* data->screen->size_line + (int)(*x) * (
+				data->screen->bits_per_pixel >> 3)) = 0xFF0000;
+			(*y)++;
+		}
+		(*x)++;
+	}
 }
 
 void	aff_life(t_data *data)
 {
 	double			x;
 	double			y;
-	unsigned int	color;
 
 	x = data->mlx.width - 350;
 	while (x < data->mlx.width - 350 + ((double)data->player.life / 100 * 300))
@@ -245,36 +277,40 @@ void	aff_life(t_data *data)
 		while (y < data->mlx.height - 40)
 		{
 			
-			*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel >> 3)) = 0x00FF00;
+			*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN)
+			* data->screen->size_line + (int)(x) * (
+				data->screen->bits_per_pixel >> 3)) = 0x00FF00;
 			y++;
 		}
 		x++;
 	}
-	while (x < data->mlx.width - 50)
+	aff_life_red(data, &x, &y);
+	aff_life_heart(data);
+}
+
+void	aff_shield_color(t_data *data, double *x, double *y)
+{
+	unsigned int	color;
+
+	*x = data->mlx.width - 40;
+	while (*x < data->mlx.width - 20)
 	{
-		y = data->mlx.height - 55;
-		while (y < data->mlx.height - 40)
+		*y = data->mlx.height - 82;
+		while (*y < data->mlx.height - 62)
 		{
-			
-			*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel >> 3)) = 0xFF0000;
-			y++;
-		}
-		x++;
-	}
-	x = data->mlx.width - 40;
-	while (x < data->mlx.width - 20)
-	{
-		y = data->mlx.height - 57;
-		while (y < data->mlx.height - 37)
-		{
-			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 57)) / 20 * data->img[HEART].height)) * data->img[HEART].size_line;
-			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 40)) / 20 * data->img[HEART].width)) * (data->img[HEART].bits_per_pixel >> 3);
-			color = *(unsigned int *)(data->img[HEART].data_addr + a + b);
+			unsigned int	a = ((unsigned int)((*y - (data->mlx.height - 82))
+			/ 20 * data->img[SHIELD].height)) * data->img[SHIELD].size_line;
+			unsigned int	b = ((unsigned int)((*x - (data->mlx.width - 40))
+			/ 20 * data->img[SHIELD].width)) * (
+				data->img[SHIELD].bits_per_pixel >> 3);
+			color = *(unsigned int *)(data->img[SHIELD].data_addr + a + b);
 			if (color != WHITE)
-				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel >> 3)) = color;
-			y++;
+				*(unsigned int *)(data->screen->data_addr + (int)(*y - MARGIN)
+				* data->screen->size_line + (int)(*x) * (
+					data->screen->bits_per_pixel >> 3)) = color;
+			(*y)++;
 		}
-		x++;
+		(*x)++;
 	}
 }
 
@@ -282,7 +318,6 @@ void	aff_shield(t_data *data)
 {
 	double			x;
 	double			y;
-	unsigned int	color;
 
 	x = data->mlx.width - 350;
 	while (x < data->mlx.width - 350 + ((double)data->player.shield / 100 * 300))
@@ -291,26 +326,14 @@ void	aff_shield(t_data *data)
 		while (y < data->mlx.height - 65)
 		{
 			
-			*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = 0x0000FF;
+			*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN)
+			* data->screen->size_line + (int)(x) * (
+				data->screen->bits_per_pixel / 8)) = 0x0000FF;
 			y++;
 		}
 		x++;
 	}
-	x = data->mlx.width - 40;
-	while (x < data->mlx.width - 20)
-	{
-		y = data->mlx.height - 82;
-		while (y < data->mlx.height - 62)
-		{
-			unsigned int	a = ((unsigned int)((y - (data->mlx.height - 82)) / 20 * data->img[SHIELD].height)) * data->img[SHIELD].size_line;
-			unsigned int	b = ((unsigned int)((x - (data->mlx.width - 40)) / 20 * data->img[SHIELD].width)) * (data->img[SHIELD].bits_per_pixel >> 3);
-			color = *(unsigned int *)(data->img[SHIELD].data_addr + a + b);
-			if (color != WHITE)
-				*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel >> 3)) = color;
-			y++;
-		}
-		x++;
-	}
+	aff_shield_color(data, &x, &y);
 }
 
 void	define_spell_color(t_data *data, unsigned int *color, int i)
@@ -330,58 +353,112 @@ void	define_spell_color(t_data *data, unsigned int *color, int i)
 		*color = 0xFFFFFF;
 }
 
+int	border_case_top(t_aff *aff)
+{
+	if (aff->dx < aff->base_x - (32 - aff->ray))
+	{
+		aff->dist_x = abs_value(aff->base_x - (32 - aff->ray) - aff->dx);
+		aff->dist_y = abs_value(aff->base_y - (32 - aff->ray) - aff->dy);
+	}
+	else if (aff->dx > aff->base_x + (32 - aff->ray))
+	{
+		aff->dist_x = abs_value(aff->base_x + (32 - aff->ray) - aff->dx);
+		aff->dist_y = abs_value(aff->base_y - (32 - aff->ray) - aff->dy);
+	}
+	else
+		return (1);
+	return (0);
+}
+
+int	border_case_bottom(t_aff *aff)
+{
+	if (aff->dx < aff->base_x - (32 - aff->ray))
+	{
+		aff->dist_x = abs_value(aff->base_x - (32 - aff->ray) - aff->dx);
+		aff->dist_y = abs_value(aff->base_y + (32 - aff->ray) - aff->dy);
+	}
+	else if (aff->dx > aff->base_x + (32 - aff->ray))
+	{
+		aff->dist_x = abs_value(aff->base_x + (32 - aff->ray) - aff->dx);
+		aff->dist_y = abs_value(aff->base_y + (32 - aff->ray) - aff->dy);
+	}
+	else
+		return (1);
+	return (0);
+}
+
 int	border_case_spell(double x, double y, double base_x, double base_y)
 {
-	double	dist_x;
-	double	dist_y;
-	double	ray;
+	t_aff	aff;
 
-	// dist_x = abs_value(base_x - x);
-	// dist_y = abs_value(base_y - y);
-	ray = 10;
-	if (y < base_y - (32 - ray))
+	aff.dist_x = abs_value(base_x - x);
+	aff.dist_y = abs_value(base_y - y);
+	aff.ray = 10;
+	aff.base_x = base_x;
+	aff.base_y = base_y;
+	aff.dy = y;
+	aff.dx = x;
+	if (aff.dy < aff.base_y - (32 - aff.ray))
 	{
-		if (x < base_x - (32 - ray))
-		{
-			dist_x = abs_value(base_x - (32 - ray) - x);
-			dist_y = abs_value(base_y - (32 - ray) - y);
-		}
-		else if (x > base_x + (32 - ray))
-		{
-			dist_x = abs_value(base_x + (32 - ray) - x);
-			dist_y = abs_value(base_y - (32 - ray) - y);
-		}
-		else
+		if (border_case_top(&aff))
 			return (1);
 	}
-	else if (y > base_y + (32 - ray))
+	else if (aff.dy > base_y + (32 - aff.ray))
 	{
-		if (x < base_x - (32 - ray))
-		{
-			dist_x = abs_value(base_x - (32 - ray) - x);
-			dist_y = abs_value(base_y + (32 - ray) - y);
-		}
-		else if (x > base_x + (32 - ray))
-		{
-			dist_x = abs_value(base_x + (32 - ray) - x);
-			dist_y = abs_value(base_y + (32 - ray) - y);
-		}
-		else
+		if (border_case_bottom(&aff))
 			return (1);
 	}
 	else
 		return (1);
-	if (sqrt(dist_x * dist_x + dist_y * dist_y) > ray)
+	if (sqrt(aff.dist_x * aff.dist_x + aff.dist_y * aff.dist_y) > aff.ray)
 		return (0);
 	return (1);
 }
 
-void	aff_popo(t_data *data)
+int	cond_back_color(t_data *data, double x, double y, double i)
 {
+	if ((x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2)
+	&& y <= data->mlx.height - 105 - 96 && data->popo[3].nb < 4)
+		|| (x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2)
+		&& data->popo[3].nb < 3)
+		|| (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2)
+		&& y >= data->mlx.height - 105 - 96 && data->popo[3].nb < 2)
+		|| (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2)
+		&& y <= data->mlx.height - 105 - 96 && data->popo[3].nb < 1))
+		return (1);
+	return (0);
+		
+}
+
+void	set_back_color(t_data *data, double *y, double x, int i)
+{
+	unsigned int	color;
+
+	*y = data->mlx.height - 105 - 128;
+	while (*y < data->mlx.height - 105 - 64)
+	{
+		if (i == 0)
+			color = 0xFF5555;
+		else if (i == 1)
+			color = 0x00BFFF;
+		else
+			color = 0x888888;
+		if (i == 3)
+		{
+			if (cond_back_color(data, x, *y, i))
+				color = darken_the_color(color);
+		}
+		if (color != 0x000000 && border_case_spell(x, *y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 105 - 128))
+			*(unsigned int *)(data->screen->data_addr + (int)(*y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
+		(*y)++;
+	}
+}
+
+void	popo_back_color(t_data *data)
+{
+	int				i;
 	double			x;
 	double			y;
-	int				i;
-	unsigned int	color;
 	
 	i = 0;
 	while (i < 4)
@@ -389,31 +466,49 @@ void	aff_popo(t_data *data)
 		x = data->mlx.width - 350 + 64 * i + 13 * (i);
 		while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
 		{
-			y = data->mlx.height - 105 - 128;
-			while (y < data->mlx.height - 105 - 64)
-			{
-				if (i == 0)
-					color = 0xFF5555;
-				else if (i == 1)
-					color = 0x00BFFF;
-				else
-					color = 0x888888;
-				if (i == 3)
-				{
-					if ((x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y <= data->mlx.height - 105 - 96 && data->popo[3].nb < 4)
-					|| (x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && data->popo[3].nb < 3)
-					|| (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y >= data->mlx.height - 105 - 96 && data->popo[3].nb < 2)
-					|| (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y <= data->mlx.height - 105 - 96 && data->popo[3].nb < 1))
-						color = darken_the_color(color);
-				}
-				if (color != 0x000000 && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 105 - 128))
-					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
-				y++;
-			}
+			set_back_color(data, &y, x, i);
 			x++;
 		}
 		i++;
 	}
+}
+
+void	popo_img(t_data *data, double *y, double *x, int i)
+{
+	t_aff	aff;
+
+	while (*y < data->mlx.height - 115 - 64)
+	{
+		aff.a = ((unsigned int)((*y - (data->mlx.height - 115 - 128)) / 64 * data->popo[i].img->height)) * data->popo[i].img->size_line;
+		aff.b = ((unsigned int)((*x - (data->mlx.width - 350 + 64 * i + 13 * (i))) / 64 * data->popo[i].img->width)) * ( data->popo[i].img->bits_per_pixel >> 3);
+		aff.color = *(unsigned int *)(data->popo[i].img->data_addr + aff.a + aff.b);
+		
+		if (aff.color != WHITE && border_case_spell(*x, *y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 105 - 128))
+		{
+
+			if (i == 3)
+			{
+				if ((*x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && *y <= data->mlx.height - 105 - 96 && data->popo[3].nb < 4)
+				|| (*x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && data->popo[3].nb < 3)
+				|| (*x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && *y >= data->mlx.height - 105 - 96 && data->popo[3].nb < 1)
+				|| (*x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && *y > data->mlx.height - 105 - 96 && data->popo[3].nb < 2)
+				|| (*x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && *y <= data->mlx.height - 105 - 96 && data->popo[3].nb < 1))
+					aff.color = darken_the_color(aff.color);	
+			}
+			*(unsigned int *)(data->screen->data_addr + (int)(*y - MARGIN) * data->screen->size_line + (int)(*x) * (data->screen->bits_per_pixel / 8)) = aff.color;
+		}
+		(*y)++;
+	}
+	(*x)++;
+}
+
+void	aff_popo(t_data *data)
+{
+	double			x;
+	double			y;
+	int				i;
+
+	popo_back_color(data);
 	i = 0;
 	while (i < 4)
 	{
@@ -421,29 +516,7 @@ void	aff_popo(t_data *data)
 		while (x < data->mlx.width - 350 + 64 * (i + 1) + 13 * (i))
 		{
 			y = data->mlx.height - 115 - 128;
-			while (y < data->mlx.height - 115 - 64)
-			{
-				unsigned int	a = ((unsigned int)((y - (data->mlx.height - 115 - 128)) / 64 * data->popo[i].img->height)) * data->popo[i].img->size_line;
-				unsigned int	b = ((unsigned int)((x - (data->mlx.width - 350 + 64 * i + 13 * (i))) / 64 * data->popo[i].img->width)) * ( data->popo[i].img->bits_per_pixel >> 3);
-				unsigned int	color = *(unsigned int *)(data->popo[i].img->data_addr + a + b);
-				
-				if (color != WHITE && border_case_spell(x, y, 32 + data->mlx.width - 350 + 64 * i + 13 * (i), 32 + data->mlx.height - 105 - 128))
-				{
-
-					if (i == 3)
-					{
-						if ((x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y <= data->mlx.height - 105 - 96 && data->popo[3].nb < 4)
-						|| (x <= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && data->popo[3].nb < 3)
-						|| (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y >= data->mlx.height - 105 - 96 && data->popo[3].nb < 1)
-						|| (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y > data->mlx.height - 105 - 96 && data->popo[3].nb < 2)
-						|| (x >= data->mlx.width - 350 + 64 * (i) + 13 * (i) + (64 / 2) && y <= data->mlx.height - 105 - 96 && data->popo[3].nb < 1))
-							color = darken_the_color(color);	
-					}
-					*(unsigned int *)(data->screen->data_addr + (int)(y - MARGIN) * data->screen->size_line + (int)(x) * (data->screen->bits_per_pixel / 8)) = color;
-				}
-				y++;
-			}
-			x++;
+			popo_img(data, &y, &x, i);
 		}
 		char *str;
 		str = ft_itoa(data->popo[i].nb);
