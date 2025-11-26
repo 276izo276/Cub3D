@@ -6,37 +6,13 @@
 static void	get_right_text(t_data *data, int i)
 {
 	if (data->ray[i].dir == NORTH)
-	{
-		// if (data->map.tabmap[data->ray[i].case_y
-		// 	+ 1][data->ray[i].case_x] == 'F')
-		// 	data->ray[i].img = data->map.floo;
-		// else
 		data->ray[i].img = data->map.north;
-	}
 	else if (data->ray[i].dir == SOUTH)
-	{
-		// if (data->map.tabmap[data->ray[i].case_y
-		// 	- 1][data->ray[i].case_x] == 'F')
-		// 	data->ray[i].img = data->map.floo;
-		// else
 		data->ray[i].img = data->map.south;
-	}
 	else if (data->ray[i].dir == EAST)
-	{
-		// if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x
-		// 	- 1] == 'F')
-		// 	data->ray[i].img = data->map.floo;
-		// else
 		data->ray[i].img = data->map.east;
-	}
 	else if (data->ray[i].dir == WEST)
-	{
-		// if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x
-		// 	+ 1] == 'F')
-		// 	data->ray[i].img = data->map.floo;
-		// else
 		data->ray[i].img = data->map.west;
-	}
 }
 
 static void	check_dir(t_data *data, int i)
@@ -73,7 +49,7 @@ static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x)
 	unsigned int	color;
 
 	text_y = (data->ray[i].pix_y - data->ray[i].htop_wall) / dist_heigh
-		* data->ray[i].img->height ;
+		* data->ray[i].img->height;
 	pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
 			* data->screen->size_line);
 	text_pix = data->ray[i].img->data_addr + (text_y
@@ -82,7 +58,33 @@ static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x)
 	*(unsigned int *)pixel_addr = color;
 }
 
-static void	display_game_loop(t_data *data, int i)
+static void	check_msg_wall_pos(t_data *data, int i)
+{
+	if (data->ray[i].dir == SOUTH && data->map.wall_map[data->ray[i].case_y
+			- 1][data->ray[i].case_x]->is_active
+		&& data->map.wall_map[data->ray[i].case_y
+		- 1][data->ray[i].case_x]->dir == data->ray[i].dir)
+		display_msg(data, i, data->ray[i].case_y - 1, data->ray[i].case_x);
+	else if (data->ray[i].dir == NORTH && data->map.wall_map[data->ray[i].case_y
+			+ 1][data->ray[i].case_x]->is_active
+		&& data->map.wall_map[data->ray[i].case_y
+		+ 1][data->ray[i].case_x]->dir == data->ray[i].dir)
+		display_msg(data, i, data->ray[i].case_y + 1, data->ray[i].case_x);
+	else if (data->ray[i].dir == WEST
+		&& data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x
+		+ 1]->is_active
+		&& data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x
+		+ 1]->dir == data->ray[i].dir)
+		display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x + 1);
+	else if (data->ray[i].dir == EAST
+		&& data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x
+		- 1]->is_active
+		&& data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x
+		- 1]->dir == data->ray[i].dir)
+		display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x - 1);
+}
+
+void	display_game_loop(t_data *data, int i)
 {
 	int	text_x;
 	int	dist_heigh;
@@ -102,137 +104,5 @@ static void	display_game_loop(t_data *data, int i)
 		put_text_pix_img(data, i, dist_heigh, text_x);
 		data->ray[i].pix_y++;
 	}
-	if (data->ray[i].dir == SOUTH  && data->map.wall_map[data->ray[i].case_y
-		- 1][data->ray[i].case_x]->is_active && data->map.wall_map[data->ray[i].case_y
-		- 1][data->ray[i].case_x]->dir == data->ray[i].dir)
-			display_msg(data, i, data->ray[i].case_y - 1, data->ray[i].case_x);
-	else if (data->ray[i].dir == NORTH && data->map.wall_map[data->ray[i].case_y + 1][data->ray[i].case_x]->is_active && data->map.wall_map[data->ray[i].case_y
-			+ 1][data->ray[i].case_x]->dir == data->ray[i].dir)
-			display_msg(data, i, data->ray[i].case_y + 1, data->ray[i].case_x);
-	else if (data->ray[i].dir == WEST && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->is_active && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x + 1]->dir == data->ray[i].dir)
-		display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x + 1);
-	else if (data->ray[i].dir == EAST && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->is_active && data->map.wall_map[data->ray[i].case_y][data->ray[i].case_x - 1]->dir == data->ray[i].dir)
-			display_msg(data, i, data->ray[i].case_y, data->ray[i].case_x - 1);
-}
-
-#include <unistd.h>
-
-void	*display_fst_part(void *ptr)
-{
-	int		i;
-	t_data	*data;
-
-	data = (t_data *)ptr;
-	while (1)
-	{
-		i = 0;
-		// sem_wait(data->sem_display);
-		pthread_barrier_wait(&data->barrier_display);
-		while (i < data->mlx.width / 4)
-		{
-			display_game_loop(data, i);
-			display_item(data, i);
-			// //write(1,"18\n",3);
-			// display_door(data, i);
-			// display_msg(data, i);
-			++i;
-		}
-		// //write(1,"19\n",3);
-		display_blood_border(data, 0, data->mlx.width / 4);
-		pthread_barrier_wait(&data->barrier_display);
-	}
-	return (NULL);
-	// aff_mini_map(data);
-	// display_hand(data);
-}
-
-void	*display_snd_part(void *ptr)
-{
-	int		i;
-	t_data	*data;
-	int		max_pix;
-
-	data = (t_data *)ptr;
-	max_pix = 2 * (data->mlx.width / 4);
-	while (1)
-	{
-		i = data->mlx.width / 4;
-		// sem_wait(data->sem_display);
-		pthread_barrier_wait(&data->barrier_display);
-		while (i < max_pix)
-		{
-			display_game_loop(data, i);
-			display_item(data, i);
-			// //write(1,"15\n",3);
-			// display_door(data, i);
-			// display_msg(data, i);
-			++i;
-		}
-		// //write(1,"16\n",3);
-		display_blood_border(data, data->mlx.width / 4, max_pix);
-		pthread_barrier_wait(&data->barrier_display);
-	}
-	return (NULL);
-	// aff_mini_map(data);
-	// display_hand(data);
-}
-
-void	*display_third_part(void *ptr)
-{
-	int		i;
-	int		max_pix;
-	t_data	*data;
-
-	data = (t_data *)ptr;
-	max_pix = 3 * (data->mlx.width / 4);
-	while (1)
-	{
-		i = 2 * (data->mlx.width / 4);
-		// sem_wait(data->sem_display);
-		pthread_barrier_wait(&data->barrier_display);
-		while (i < max_pix)
-		{
-			display_game_loop(data, i);
-			display_item(data, i);
-			// //write(1,"12\n",3);
-			// display_door(data, i);
-			// display_msg(data, i);
-			++i;
-		}
-		// //write(1,"13\n",3);
-		display_blood_border(data, 2 * (data->mlx.width / 4), max_pix);
-		pthread_barrier_wait(&data->barrier_display);
-	}
-	return (NULL);
-	// aff_mini_map(data);
-	// display_hand(data);
-}
-
-void	*display_last_part(void *ptr)
-{
-	int		i;
-	t_data	*data;
-
-	data = (t_data *)ptr;
-	while (1)
-	{
-		i = 3 * (data->mlx.width / 4);
-		// sem_wait(data->sem_display);
-		pthread_barrier_wait(&data->barrier_display);
-		while (i < data->mlx.width)
-		{
-			display_game_loop(data, i);
-			display_item(data, i);
-			// //write(1,"09\n",3);
-			// display_door(data, i);
-			// display_msg(data, i);
-			++i;
-		}
-		// //write(1,"11\n",3);
-		display_blood_border(data, 3 * (data->mlx.width / 4), data->mlx.width);
-		pthread_barrier_wait(&data->barrier_display);
-	}
-	return (NULL);
-	// aff_mini_map(data);
-	// display_hand(data);
+	check_msg_wall_pos(data, i);
 }

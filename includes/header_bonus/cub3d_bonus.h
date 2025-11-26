@@ -284,6 +284,7 @@ unsigned int	get_texture_pixel(t_img *texture, int x, int y);
 int				game_loop(t_data *data);
 int				close_win(t_data *data);
 
+void	display_game_loop(t_data *data, int i);
 // display_background
 void	display_background_loop_sky(t_data *data, t_display display, int y, int max_height);
 void	display_background_loop_floor(t_data *data, t_display display, int y, int max_height);
