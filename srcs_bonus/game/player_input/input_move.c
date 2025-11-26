@@ -62,8 +62,6 @@ void	cheat_code(t_data *data, int keycode)
 		is_easter_egg(keycode, data);
 }
 
-
-
 bool	change_game_status(t_data *data, int keycode)
 {
 	if (keycode == KEY_TAB)
