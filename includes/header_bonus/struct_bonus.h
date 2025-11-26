@@ -1102,6 +1102,8 @@ struct						s_aff
 	int						y_max;
 	double					dist_x;
 	double					dist_y;
+	int						x;
+	int						y;
 };
 
 struct						s_mv_enemy

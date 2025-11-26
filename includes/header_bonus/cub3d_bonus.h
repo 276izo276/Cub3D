@@ -62,12 +62,12 @@ void			calc_dist_target(t_enemy *enemy, t_enemy *elem, t_ray *ray);
 void			calc_dist_wall(t_ray *ray);
 void			recalc_path(t_enemy *enemy, t_enemy_vision *visu, t_data *data);
 // player_input
-void	handle_menu_keys(int keycode, t_data *data);
-void	handle_death_menu_keys(int keycode, t_data *data);
-void	handle_map_keys(int keycode, t_data *data);
-void	cheat_code(t_data *data, int keycode);
-bool	change_game_status(t_data *data, int keycode);
-void	handle_exit_map(int keycode, t_data *data);
+void			handle_menu_keys(int keycode, t_data *data);
+void			handle_death_menu_keys(int keycode, t_data *data);
+void			handle_map_keys(int keycode, t_data *data);
+void			cheat_code(t_data *data, int keycode);
+bool			change_game_status(t_data *data, int keycode);
+void			handle_exit_map(int keycode, t_data *data);
 bool			is_move_player(t_data *data, int i);
 int				mouse_move(int x, int y, t_data *data);
 int				mouse_key(int key, int x, int y, t_data *data);
@@ -121,25 +121,26 @@ void			path_move_enemy(t_enemy *enemy, t_data *data, double *dx, double *dy);
 void			calc_dist_target(t_enemy *enemy, t_enemy *elem, t_ray *ray);
 void			calc_dist_wall(t_ray *ray);
 void			recalc_path(t_enemy *enemy, t_enemy_vision *visu, t_data *data);
+void			recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx);
 // hit item
-int	try_hit_items(t_item *elem, t_data *data);
-bool	hit_calc_scal_enemy(t_enemy *enemy, t_item *elem, t_hitray *ray,
-		t_lst **lst);
-void	hit_calc_scal_player(bool *hit, t_fcoo *coo, t_item *elem,
-		t_hitray *ray);
+int				try_hit_items(t_item *elem, t_data *data);
+bool			hit_calc_scal_enemy(t_enemy *enemy, t_item *elem, t_hitray *ray,
+					t_lst **lst);
+void			hit_calc_scal_player(bool *hit, t_fcoo *coo, t_item *elem,
+					t_hitray *ray);
 
 // move item
-double	calc_dist_attraction(t_item *attract, t_enemy *enemy);
-bool	item_destruction(t_item *item, t_data *data);
-void	define_item_radius(t_item *item, t_data *data);
-void	save_item_last_pos(t_item *item);
+double			calc_dist_attraction(t_item *attract, t_enemy *enemy);
+bool			item_destruction(t_item *item, t_data *data);
+void			define_item_radius(t_item *item, t_data *data);
+void			save_item_last_pos(t_item *item);
 
 // mouse key
-void	mouse_key_ig(t_data *data, int key);
-void	mouse_key_spell_menu(t_data *data);
-int		mouse_move(int x, int y, t_data *data);
-void	mouse_move_map(t_data *data, int y, int x);
-void	mouse_key_map(t_data *data, int key);
+void			mouse_key_ig(t_data *data, int key);
+void			mouse_key_spell_menu(t_data *data);
+int				mouse_move(int x, int y, t_data *data);
+void			mouse_move_map(t_data *data, int y, int x);
+void			mouse_key_map(t_data *data, int key);
 
 void			fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c);
 void			fill_bird(t_data *data, t_enemy *enemy);
@@ -286,20 +287,34 @@ unsigned int	get_texture_pixel(t_img *texture, int x, int y);
 int				game_loop(t_data *data);
 int				close_win(t_data *data);
 
+void	display_game_loop(t_data *data, int i);
+// display_background
+void	display_background_loop_sky(t_data *data, t_display display, int y, int max_height);
+void	display_background_loop_floor(t_data *data, t_display display, int y, int max_height);
+void	get_world_size(t_data *data, t_display *display, int y);
+
 // display_floor.c
 void			*display_floor_first(void *ptr);
 void			*display_floor_snd(void *ptr);
 void			*display_floor_third(void *ptr);
 void			*display_floor_last(void *ptr);
+void			get_coo_world_floor(t_data *data, t_display *display, int x);
+void			get_coo_text_floor(t_data *data, t_display *display);
+void			put_text_pix_img_floor(t_data *data, t_display *display, int x,
+					int y);
 
 // display_sky.c
 void			*display_sky_first(void *ptr);
 void			*display_sky_snd(void *ptr);
 void			*display_sky_third(void *ptr);
 void			*display_sky_last(void *ptr);
-
+void			put_text_pix_img_sky(t_data *data, t_display *display, int x,
+					int y);
+void			get_coo_text_sky(t_data *data, t_display *display);
+void			get_coo_world_sky(t_data *data, t_display *display, int x);
 // display_hand.c
 void			display_hand(t_data *data);
+void display_wand(t_data *data, int pos_x, int pos_y);
 
 // coa
 void			display_menu(t_data *data);
@@ -385,29 +400,29 @@ void			init_petrificus_totalus(t_data *data);
 void			init_vulnera_sanentur(t_data *data);
 void			init_oppugno(t_data *data);
 
-//init_item
-void	init_tig(t_data *data);
-void	init_mac(t_data *data);
-void	init_bh(t_data *data);
-void	init_pizza(t_data *data);
-void	init_fireball_elem(t_data *data);
-void	init_death_anim(t_data *data);
-void	init_web_spider(t_data *data);
-void	init_folder(t_data *data);
-void	init_marvin(t_data *data);
-void	init_taylor_swift(t_data *data);
-void	init_company(t_data *data);
-void	init_logo_42(t_data *data);
-void	init_popo_shield(t_data *data);
-void	init_popo_floo(t_data *data);
-void	init_portkey(t_data *data);
-void	init_popo_invi(t_data *data);
-void	init_popo_heal(t_data *data);
-void	init_pillar(t_data *data);
-void	init_spider_wand(t_data *data);
-void	init_dementor_wand(t_data *data);
-void	init_elem_wand(t_data *data);
-void	init_wolf_wand(t_data *data);
+// init_item
+void			init_tig(t_data *data);
+void			init_mac(t_data *data);
+void			init_bh(t_data *data);
+void			init_pizza(t_data *data);
+void			init_fireball_elem(t_data *data);
+void			init_death_anim(t_data *data);
+void			init_web_spider(t_data *data);
+void			init_folder(t_data *data);
+void			init_marvin(t_data *data);
+void			init_taylor_swift(t_data *data);
+void			init_company(t_data *data);
+void			init_logo_42(t_data *data);
+void			init_popo_shield(t_data *data);
+void			init_popo_floo(t_data *data);
+void			init_portkey(t_data *data);
+void			init_popo_invi(t_data *data);
+void			init_popo_heal(t_data *data);
+void			init_pillar(t_data *data);
+void			init_spider_wand(t_data *data);
+void			init_dementor_wand(t_data *data);
+void			init_elem_wand(t_data *data);
+void			init_wolf_wand(t_data *data);
 
 typedef enum e_key_down
 {
