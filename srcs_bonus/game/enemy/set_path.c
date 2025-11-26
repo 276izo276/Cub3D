@@ -1,7 +1,9 @@
 #include "enemy_bonus.h"
 #include "struct_bonus.h"
+#include <stdlib.h>
+#include "cub3d_bonus.h"
 
-static void	set_final_path(t_lst *lst, t_enemy *enemy)
+void	set_final_path(t_lst *lst, t_enemy *enemy)
 {
 	t_case	*cel;
 

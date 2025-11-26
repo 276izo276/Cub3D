@@ -1,4 +1,6 @@
 #include "struct_bonus.h"
+#include "utils_bonus.h"
+#include <math.h>
 
 void	right_y_replace(int *cy, int *new_y, t_data *data, t_enemy *enemy)
 {

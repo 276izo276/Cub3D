@@ -218,6 +218,7 @@ FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 ENEMY			=							\
 				attack.c					\
 				calc_move.c					\
+				calc_point_right.c			\
 				calc_point_utils.c			\
 				calc_point.c				\
 				calc_utils.c				\
@@ -234,10 +235,12 @@ ENEMY			=							\
 				init.c						\
 				item.c						\
 				move.c						\
+				pathfinder_utils.c			\
 				pathfinder.c				\
 				ray_visu_side.c				\
 				ray_visu.c					\
 				repulso.c					\
+				set_path.c					\
 				spawn_utils.c				\
 				spell.c						\
 				valid_visu.c				\

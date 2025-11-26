@@ -1,13 +1,14 @@
 #include "enemy_bonus.h"
 #include "struct_bonus.h"
 #include "utils_bonus.h"
+#include "cub3d_bonus.h"
 
 int	man_dist(int startY, int startX, int endY, int endX)
 {
 	return (abs_value(startY - endY) + abs_value(startX - endX));
 }
 
-static int	is_a_wall(t_case *cur, const int dir[2], t_data *data)
+int	is_a_wall(t_case *cur, const int dir[2], t_data *data)
 {
 	int	x;
 	int	y;
@@ -34,7 +35,7 @@ static int	is_a_wall(t_case *cur, const int dir[2], t_data *data)
 	return (0);
 }
 
-static int	is_in_lst(t_case *cur, const int dir[2], t_lst *lst, t_enemy *enemy)
+int	is_in_lst(t_case *cur, const int dir[2], t_lst *lst, t_enemy *enemy)
 {
 	t_case	*cel;
 

@@ -4,20 +4,26 @@
 # include "struct_bonus.h"
 # include <stdbool.h>
 # define MARGIN 100
-// # define SEM_BACKGROUND "/sem_background"
-// # define SEM_DOOR "/sem_door"
-// # define SEM_DISPLAY "/sem_display"
-
-// # define SEM_START "/sem_start"
 
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846
 # endif
 
-
-
+int				open_loop(t_enemy *enemy, t_lst **open, t_lst **closed,
+					t_data *data);
+int				man_dist(int startY, int startX, int endY, int endX);
+t_lst			*need_update_node(t_case *cel, t_case *cur, t_lst *save,
+					t_lst **lst);
+int				is_in_lst(t_case *cur, const int dir[2], t_lst *lst,
+					t_enemy *enemy);
+int				is_a_wall(t_case *cur, const int dir[2], t_data *data);
+void			set_final_path(t_lst *lst, t_enemy *enemy);
+int				is_end_path(t_lst *open, t_enemy *enemy);
+t_lst			*add_case_open(t_lst *open, t_lst **closed, t_enemy *enemy,
+					t_data *data);
 void			right_case_replace(t_enemy *enemy, t_data *data);
-void			visu_enemy_valid(t_data *data, t_enemy_vision *visu, t_enemy *enemy);
+void			visu_enemy_valid(t_data *data, t_enemy_vision *visu,
+					t_enemy *enemy);
 void			launch_ray_enemy(t_ray *ray, t_data *data);
 void			fill_ray_enemy(t_enemy *enemy, t_ray *ray, double deg);
 bool			is_sorcerer(int type);
@@ -34,10 +40,14 @@ void			move_more_hit_pos(t_enemy *enemy, t_item *item);
 void			reverse_hit_pos(t_enemy *enemy, t_item *item);
 void			add_sound_xp(t_enemy *enemy, t_data *data);
 void			cancel_move(t_data *data, t_enemy *enemy, int dy, int dx);
-void			left_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
-void			right_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
-void			center_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
-void			move_center_point(t_data *data, t_enemy *enemy, double *dy, double *dx);
+void			left_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx,
+					int dy);
+void			right_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx,
+					int dy);
+void			center_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx,
+					int dy);
+void			move_center_point(t_data *data, t_enemy *enemy, double *dy,
+					double *dx);
 int				are_double_close(double nb1, double nb2);
 void			apply_slow_enemy(t_enemy *enemy, double *dx, double *dy);
 void			calc_dx_dy_enemy(double *dy, double *dx, double rad);
@@ -57,7 +67,8 @@ void			spawn_item(t_data *data, t_enemy *enemy);
 int				attack_dist(t_enemy *enemy, t_data *data, t_enemy_vision *visu);
 void			recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx);
 void			remove_child_path(t_enemy *enemy);
-void			path_move_enemy(t_enemy *enemy, t_data *data, double *dx, double *dy);
+void			path_move_enemy(t_enemy *enemy, t_data *data, double *dx,
+					double *dy);
 void			calc_dist_target(t_enemy *enemy, t_enemy *elem, t_ray *ray);
 void			calc_dist_wall(t_ray *ray);
 void			recalc_path(t_enemy *enemy, t_enemy_vision *visu, t_data *data);
@@ -75,11 +86,10 @@ int				key_release(int keycode, t_data *data);
 int				key_press(int keycode, t_data *data);
 int				is_key_pressed(t_data *data, int keycode);
 
-
-
-void	visu_enemy_valid(t_data *data, t_enemy_vision *visu, t_enemy *enemy);
-void	launch_ray_enemy(t_ray *ray, t_data *data);
-void	fill_ray_enemy(t_enemy *enemy, t_ray *ray, double deg);
+void			visu_enemy_valid(t_data *data, t_enemy_vision *visu,
+					t_enemy *enemy);
+void			launch_ray_enemy(t_ray *ray, t_data *data);
+void			fill_ray_enemy(t_enemy *enemy, t_ray *ray, double deg);
 bool			is_sorcerer(int type);
 int				handle_ray_x_right_gen(t_data *data, t_ray *ray);
 int				handle_ray_x_left_gen(t_data *data, t_ray *ray);
@@ -94,10 +104,14 @@ void			move_more_hit_pos(t_enemy *enemy, t_item *item);
 void			reverse_hit_pos(t_enemy *enemy, t_item *item);
 void			add_sound_xp(t_enemy *enemy, t_data *data);
 void			cancel_move(t_data *data, t_enemy *enemy, int dy, int dx);
-void			left_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
-void			right_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
-void			center_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
-void			move_center_point(t_data *data, t_enemy *enemy, double *dy, double *dx);
+void			left_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx,
+					int dy);
+void			right_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx,
+					int dy);
+void			center_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx,
+					int dy);
+void			move_center_point(t_data *data, t_enemy *enemy, double *dy,
+					double *dx);
 int				are_double_close(double nb1, double nb2);
 void			apply_slow_enemy(t_enemy *enemy, double *dx, double *dy);
 void			calc_dx_dy_enemy(double *dy, double *dx, double rad);
@@ -117,7 +131,8 @@ void			spawn_item(t_data *data, t_enemy *enemy);
 int				attack_dist(t_enemy *enemy, t_data *data, t_enemy_vision *visu);
 void			recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx);
 void			remove_child_path(t_enemy *enemy);
-void			path_move_enemy(t_enemy *enemy, t_data *data, double *dx, double *dy);
+void			path_move_enemy(t_enemy *enemy, t_data *data, double *dx,
+					double *dy);
 void			calc_dist_target(t_enemy *enemy, t_enemy *elem, t_ray *ray);
 void			calc_dist_wall(t_ray *ray);
 void			recalc_path(t_enemy *enemy, t_enemy_vision *visu, t_data *data);
@@ -287,11 +302,13 @@ unsigned int	get_texture_pixel(t_img *texture, int x, int y);
 int				game_loop(t_data *data);
 int				close_win(t_data *data);
 
-void	display_game_loop(t_data *data, int i);
+void			display_game_loop(t_data *data, int i);
 // display_background
-void	display_background_loop_sky(t_data *data, t_display display, int y, int max_height);
-void	display_background_loop_floor(t_data *data, t_display display, int y, int max_height);
-void	get_world_size(t_data *data, t_display *display, int y);
+void			display_background_loop_sky(t_data *data, t_display display,
+					int y, int max_height);
+void			display_background_loop_floor(t_data *data, t_display display,
+					int y, int max_height);
+void			get_world_size(t_data *data, t_display *display, int y);
 
 // display_floor.c
 void			*display_floor_first(void *ptr);
@@ -314,7 +331,7 @@ void			get_coo_text_sky(t_data *data, t_display *display);
 void			get_coo_world_sky(t_data *data, t_display *display, int x);
 // display_hand.c
 void			display_hand(t_data *data);
-void display_wand(t_data *data, int pos_x, int pos_y);
+void			display_wand(t_data *data, int pos_x, int pos_y);
 
 // coa
 void			display_menu(t_data *data);

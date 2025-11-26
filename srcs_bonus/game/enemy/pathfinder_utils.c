@@ -1,8 +1,10 @@
 #include "cub3d_bonus.h"
 #include "enemy_bonus.h"
 #include "struct_bonus.h"
+#include "utils_bonus.h"
+#include <stdlib.h>
 
-static int	is_end_path(t_lst *open, t_enemy *enemy)
+int	is_end_path(t_lst *open, t_enemy *enemy)
 {
 	open = get_first_elem_lst(open);
 	if (((t_case *)open->dt)->coo.case_x == enemy->goal.case_x
@@ -11,7 +13,7 @@ static int	is_end_path(t_lst *open, t_enemy *enemy)
 	return (0);
 }
 
-static t_lst	*update_node(t_case *cur, const int dir[2], t_lst *lst)
+t_lst	*update_node(t_case *cur, const int dir[2], t_lst *lst)
 {
 	t_case	*cel;
 	t_lst	*save;
@@ -73,7 +75,7 @@ static void	exit_path_finder(t_data *data)
 	f_exit(data, 1);
 }
 
-static t_lst	*add_case_open(t_lst *open, t_lst **closed, t_enemy *enemy,
+t_lst	*add_case_open(t_lst *open, t_lst **closed, t_enemy *enemy,
 		t_data *data)
 {
 	const int	dir[4][2] = {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
