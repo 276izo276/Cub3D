@@ -60,6 +60,86 @@ void			path_move_enemy(t_enemy *enemy, t_data *data, double *dx, double *dy);
 void			calc_dist_target(t_enemy *enemy, t_enemy *elem, t_ray *ray);
 void			calc_dist_wall(t_ray *ray);
 void			recalc_path(t_enemy *enemy, t_enemy_vision *visu, t_data *data);
+// player_input
+void	handle_menu_keys(int keycode, t_data *data);
+void	handle_death_menu_keys(int keycode, t_data *data);
+void	handle_map_keys(int keycode, t_data *data);
+void	cheat_code(t_data *data, int keycode);
+bool	change_game_status(t_data *data, int keycode);
+void	handle_exit_map(int keycode, t_data *data);
+bool			is_move_player(t_data *data, int i);
+int				mouse_move(int x, int y, t_data *data);
+int				mouse_key(int key, int x, int y, t_data *data);
+int				key_release(int keycode, t_data *data);
+int				key_press(int keycode, t_data *data);
+int				is_key_pressed(t_data *data, int keycode);
+
+
+
+void	visu_enemy_valid(t_data *data, t_enemy_vision *visu, t_enemy *enemy);
+void	launch_ray_enemy(t_ray *ray, t_data *data);
+void	fill_ray_enemy(t_enemy *enemy, t_ray *ray, double deg);
+bool			is_sorcerer(int type);
+int				handle_ray_x_right_gen(t_data *data, t_ray *ray);
+int				handle_ray_x_left_gen(t_data *data, t_ray *ray);
+int				handle_ray_y_down_gen(t_data *data, t_ray *ray);
+int				handle_ray_y_top_gen(t_data *data, t_ray *ray);
+void			spawn_elem_wand(t_enemy *enemy, t_data *data);
+void			spawn_wolf_wand(t_enemy *enemy, t_data *data);
+void			spawn_dementor_wand(t_enemy *enemy, t_data *data);
+void			spawn_spider_wand(t_enemy *enemy, t_data *data);
+void			set_valid_spawn(double *new_x, double *new_y);
+void			move_more_hit_pos(t_enemy *enemy, t_item *item);
+void			reverse_hit_pos(t_enemy *enemy, t_item *item);
+void			add_sound_xp(t_enemy *enemy, t_data *data);
+void			cancel_move(t_data *data, t_enemy *enemy, int dy, int dx);
+void			left_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
+void			right_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
+void			center_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx, int dy);
+void			move_center_point(t_data *data, t_enemy *enemy, double *dy, double *dx);
+int				are_double_close(double nb1, double nb2);
+void			apply_slow_enemy(t_enemy *enemy, double *dx, double *dy);
+void			calc_dx_dy_enemy(double *dy, double *dx, double rad);
+void			earth_spell(t_data *data, t_enemy *enemy, double deg, int type);
+void			fire_spell(t_data *data, t_enemy *enemy, double deg, int type);
+void			water_spell(t_data *data, t_enemy *enemy, double deg, int type);
+void			air_spell(t_data *data, t_enemy *enemy, double deg, int type);
+void			low_life_enemy(t_enemy *enemy, t_data *data, t_lst **lst);
+void			take_damage_enemy(t_enemy *enemy);
+int				enemy_vision(t_data *data, t_enemy *enemy);
+int				repulso_neg_enemy(t_enemy *enemy, t_data *data);
+void			set_before_point_enemy(t_enemy *enemy, t_data *data);
+int				confundo_move_enemy(t_enemy *enemy, t_data *data);
+int				repulso_move_enemy(t_enemy *enemy, t_data *data);
+void			try_hit_enemys(t_enemy *elem, t_data *data, int type);
+void			spawn_item(t_data *data, t_enemy *enemy);
+int				attack_dist(t_enemy *enemy, t_data *data, t_enemy_vision *visu);
+void			recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx);
+void			remove_child_path(t_enemy *enemy);
+void			path_move_enemy(t_enemy *enemy, t_data *data, double *dx, double *dy);
+void			calc_dist_target(t_enemy *enemy, t_enemy *elem, t_ray *ray);
+void			calc_dist_wall(t_ray *ray);
+void			recalc_path(t_enemy *enemy, t_enemy_vision *visu, t_data *data);
+// hit item
+int	try_hit_items(t_item *elem, t_data *data);
+bool	hit_calc_scal_enemy(t_enemy *enemy, t_item *elem, t_hitray *ray,
+		t_lst **lst);
+void	hit_calc_scal_player(bool *hit, t_fcoo *coo, t_item *elem,
+		t_hitray *ray);
+
+// move item
+double	calc_dist_attraction(t_item *attract, t_enemy *enemy);
+bool	item_destruction(t_item *item, t_data *data);
+void	define_item_radius(t_item *item, t_data *data);
+void	save_item_last_pos(t_item *item);
+
+// mouse key
+void	mouse_key_ig(t_data *data, int key);
+void	mouse_key_spell_menu(t_data *data);
+int		mouse_move(int x, int y, t_data *data);
+void	mouse_move_map(t_data *data, int y, int x);
+void	mouse_key_map(t_data *data, int key);
+
 void			fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c);
 void			fill_bird(t_data *data, t_enemy *enemy);
 void			fill_snake(t_data *data, t_enemy *enemy);
@@ -200,14 +280,6 @@ void			calc_sqrt(t_data *data, int i);
 void			display_game(t_data *data);
 
 unsigned int	get_texture_pixel(t_img *texture, int x, int y);
-
-// input_move.c
-bool			is_move_player(t_data *data, int i);
-int				mouse_move(int x, int y, t_data *data);
-int				mouse_key(int key, int x, int y, t_data *data);
-int				key_release(int keycode, t_data *data);
-int				key_press(int keycode, t_data *data);
-int				is_key_pressed(t_data *data, int keycode);
 
 // game_loop.c
 int				game_loop(t_data *data);

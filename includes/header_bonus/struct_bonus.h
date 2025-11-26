@@ -1106,18 +1106,18 @@ struct						s_aff
 
 struct						s_mv_enemy
 {
-	int	cy;
-	int	cx;
-	int	right_cy;
-	int	right_cx;
-	int	left_cy;
-	int	left_cx;
-	int	new_x;
-	int	new_y;
-	int	new_left_x;
-	int	new_left_y;
-	int	new_right_x;
-	int	new_right_y;
+	int						cy;
+	int						cx;
+	int						right_cy;
+	int						right_cx;
+	int						left_cy;
+	int						left_cx;
+	int						new_x;
+	int						new_y;
+	int						new_left_x;
+	int						new_left_y;
+	int						new_right_x;
+	int						new_right_y;
 };
 
 struct						s_enemy_vision

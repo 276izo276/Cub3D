@@ -160,7 +160,14 @@ GAME_BONUS		=										\
 				display/display_map_utils.c 			\
 				display/display_blood_border.c			\
 				environment/handle_door.c 				\
-				input_move.c							\
+				player_input/input_move.c				\
+				player_input/key_menu.c 				\
+				player_input/key_press.c 				\
+				player_input/key_map.c 					\
+				player_input/key_map_utils.c 					\
+				player_input/mouse_input/mouse_key.c 	\
+				player_input/mouse_input/key_map.c 		\
+				player_input/mouse_input/key_ig.c 		\
 				game_loop.c								\
 				display/display_floor.c					\
 				display/display_sky.c					\
@@ -191,7 +198,10 @@ GAME_BONUS		=										\
 				item/init_item/init_sorcerer_item_bis.c \
 				item/init_item/init_sorcerer_item.c 	\
 				item/init_item/init_wand_item.c 		\
+				item/try_hit_items.c 					\
+				item/try_hit_items_utils.c  			\
 				item/move.c								\
+				item/move_utils.c 						\
 				damage.c								\
 				get_ranking_xp.c 						\
 				popo/init.c								\
