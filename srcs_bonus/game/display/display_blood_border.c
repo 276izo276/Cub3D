@@ -1,6 +1,4 @@
 #include "cub3d_bonus.h"
-#include "mlx.h"
-#include "struct_bonus.h"
 #include <math.h>
 
 int	get_right_red(int color, double distance, int max_dist, int life)

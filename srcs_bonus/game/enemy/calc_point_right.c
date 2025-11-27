@@ -1,4 +1,3 @@
-#include "struct_bonus.h"
 #include "utils_bonus.h"
 #include <math.h>
 

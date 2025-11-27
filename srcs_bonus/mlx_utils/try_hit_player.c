@@ -1,7 +1,4 @@
 #include "cub3d_bonus.h"
-#include "texture_bonus.h"
-#include "utils_bonus.h"
-#include <math.h>
 
 static void	calc_ray_value(t_hitray *ray, t_data *data)
 {

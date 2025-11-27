@@ -1,9 +1,6 @@
-#include "struct_bonus.h"
 #include "color_bonus.h"
-#include "texture_bonus.h"
 #include "cub3d_bonus.h"
 #include <math.h>
-#include <stdlib.h>
 
 static void	get_new_color_comp(t_data *data, t_utils_mini *u)
 {

@@ -1,8 +1,4 @@
-#include "color_bonus.h"
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
-#include "utils_bonus.h"
-#include <math.h>
 #include <string.h>
 
 void	display_redir_item_type(t_data *data, int i, int j)

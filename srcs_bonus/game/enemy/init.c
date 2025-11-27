@@ -1,10 +1,6 @@
-#include "struct_bonus.h"
 #include "utils_bonus.h"
 #include "enemy_bonus.h"
 #include "cub3d_bonus.h"
-#include "color_bonus.h"
-
-#include <stdio.h>
 
 void	fill_sorcerer(t_data *data, t_enemy *enemy, char c)
 {

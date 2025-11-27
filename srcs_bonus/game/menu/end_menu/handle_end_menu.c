@@ -1,8 +1,6 @@
 #include "color_bonus.h"
 #include "cub3d_bonus.h"
 #include "mlx.h"
-#include "utils_bonus.h"
-#include <unistd.h>
 
 void	put_top_color(t_data *data, int x, int y, unsigned int *color)
 {

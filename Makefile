@@ -199,7 +199,6 @@ GAME_BONUS		=											\
 				spell/init_snd.c 							\
 				spell/init_third.c 							\
 				spell/init_fourth.c 						\
-				spell/init_sorcerer_spell.c 				\
 				spell/lumos.c 								\
 				spell/cast_spell.c 							\
 				item/free.c									\

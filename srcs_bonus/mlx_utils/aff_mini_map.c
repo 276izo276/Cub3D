@@ -1,8 +1,6 @@
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
 #include "texture_bonus.h"
 #include "utils_bonus.h"
-#include <math.h>
 
 static void	set_pix_img(t_utils_mini *u, t_data *data)
 {

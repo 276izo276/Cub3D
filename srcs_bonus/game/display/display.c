@@ -1,6 +1,4 @@
 #include "cub3d_bonus.h"
-#include "mlx.h"
-#include "struct_bonus.h"
 #include <math.h>
 
 static void	get_right_text(t_data *data, int i)

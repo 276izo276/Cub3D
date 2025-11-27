@@ -1,4 +1,3 @@
-#include "struct_bonus.h"
 #include "color_bonus.h"
 #include <stdlib.h>
 #include "time_bonus.h"

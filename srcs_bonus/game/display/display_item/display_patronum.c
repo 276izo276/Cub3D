@@ -1,9 +1,5 @@
-#include "color_bonus.h"
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
-#include "utils_bonus.h"
 #include <math.h>
-#include <string.h>
 
 static void	get_patronum_color(t_data *data, int i, double dist, double factor)
 {

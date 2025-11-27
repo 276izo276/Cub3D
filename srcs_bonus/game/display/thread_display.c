@@ -1,7 +1,4 @@
 #include "cub3d_bonus.h"
-#include "mlx.h"
-#include "struct_bonus.h"
-#include <math.h>
 
 void	*display_fst_part(void *ptr)
 {

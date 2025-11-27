@@ -1,6 +1,5 @@
 #include "cub3d_bonus.h"
 #include "enemy_bonus.h"
-#include "struct_bonus.h"
 #include "utils_bonus.h"
 #include <stdlib.h>
 

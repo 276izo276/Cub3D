@@ -1,10 +1,8 @@
 #include "color_bonus.h"
 #include "ft_printf.h"
 #include "parsing_bonus.h"
-#include "struct_bonus.h"
 #include "utils_bonus.h"
 #include "cub3d_bonus.h"
-#include "enemy_bonus.h"
 
 static void	print_is_not_char(char c)
 {

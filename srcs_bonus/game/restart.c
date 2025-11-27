@@ -1,9 +1,7 @@
 #include "cub3d_bonus.h"
-#include "mlx.h"
 #include "parsing_bonus.h"
 #include "time_bonus.h"
 #include "utils_bonus.h"
-#include <fcntl.h>
 
 static void	reset_data_value(t_data *data)
 {

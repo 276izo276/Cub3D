@@ -1,8 +1,6 @@
 #include "struct_bonus.h"
-#include "color_bonus.h"
 #include "texture_bonus.h"
 #include "cub3d_bonus.h"
-#include <math.h>
 #include <stdlib.h>
 
 static bool	check_gap(t_data *data)

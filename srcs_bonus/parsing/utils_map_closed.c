@@ -1,5 +1,4 @@
 #include "color_bonus.h"
-#include "struct_bonus.h"
 #include "utils_bonus.h"
 #include "ft_printf.h"
 

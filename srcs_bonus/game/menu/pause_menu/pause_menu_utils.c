@@ -1,8 +1,5 @@
 #include "color_bonus.h"
 #include "cub3d_bonus.h"
-#include "mlx.h"
-#include "utils_bonus.h"
-#include <unistd.h>
 
 void	display_menu_background(t_data *data, t_img *img, int start_x,
 		int start_y)

@@ -1,6 +1,5 @@
 #include "color_bonus.h"
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
 
 static void	display_wand_loop(t_data *data, int pos_x, int pos_y)
 {

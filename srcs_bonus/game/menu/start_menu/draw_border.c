@@ -1,7 +1,5 @@
 #include "color_bonus.h"
 #include "cub3d_bonus.h"
-#include "mlx.h"
-#include "utils_bonus.h"
 
 void	draw_select_border(t_data *data, int start_x, int start_y)
 {

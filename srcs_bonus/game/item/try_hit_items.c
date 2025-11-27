@@ -1,9 +1,4 @@
 #include "cub3d_bonus.h"
-#include "enemy_bonus.h"
-#include "struct_bonus.h"
-#include "utils_bonus.h"
-#include <math.h>
-#include <string.h>
 
 static void	item_try_hit_player(t_data *data, t_item *elem, t_hitray *ray,
 		bool *hit)

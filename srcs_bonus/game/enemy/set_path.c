@@ -1,5 +1,4 @@
 #include "enemy_bonus.h"
-#include "struct_bonus.h"
 #include <stdlib.h>
 #include "cub3d_bonus.h"
 

@@ -1,9 +1,4 @@
-#include "color_bonus.h"
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
-#include "utils_bonus.h"
-#include <math.h>
-#include <string.h>
 
 static void	which_texture_enemy(t_data *data, int i, int j)
 {

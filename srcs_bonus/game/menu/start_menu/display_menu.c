@@ -1,8 +1,6 @@
 #include "cub3d_bonus.h"
 #include "mlx.h"
-#include "utils_bonus.h"
 #include <color_bonus.h>
-#include <math.h>
 
 void	pixel_put(t_data *data, int x, int y, unsigned int color)
 {

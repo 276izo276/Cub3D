@@ -9,26 +9,20 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
-// hit item
 int				try_hit_items(t_item *elem, t_data *data);
 bool			hit_calc_scal_enemy(t_enemy *enemy, t_item *elem, t_hitray *ray,
 					t_lst **lst);
 void			hit_calc_scal_player(bool *hit, t_fcoo *coo, t_item *elem,
 					t_hitray *ray);
-
-// move item
 double			calc_dist_attraction(t_item *attract, t_enemy *enemy);
 bool			item_destruction(t_item *item, t_data *data);
 void			define_item_radius(t_item *item, t_data *data);
 void			save_item_last_pos(t_item *item);
-
-// mouse key
 void			mouse_key_ig(t_data *data, int key);
 void			mouse_key_spell_menu(t_data *data);
 int				mouse_move(int x, int y, t_data *data);
 void			mouse_move_map(t_data *data, int y, int x);
 void			mouse_key_map(t_data *data, int key);
-
 void			fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c);
 void			fill_bird(t_data *data, t_enemy *enemy);
 void			fill_snake(t_data *data, t_enemy *enemy);
@@ -89,7 +83,6 @@ void			make_move_item(t_item *item, double speed);
 void			calc_scal(t_hitray *ray);
 void			calc_left_point_item(t_item *item);
 void			calc_right_point_item(t_item *item);
-// display_item
 void			display_item(t_data *data, int i);
 void			display_door(t_data *data, int i, int j);
 void			display_patronum(t_data *data, int i, int j);
@@ -99,27 +92,16 @@ void			display_others(t_data *data, int i, int j);
 void			define_posx_texture(t_data *data, int i, int j);
 void			put_text_pix_img_item(t_data *data, int i, int j, int fixed);
 void			set_texture(t_data *data, int i, int j);
-
 void			calc_end_point(t_hitray *ray);
 void			try_hit_item(t_data *data, int i, double x);
 void			move_item(t_data *data);
 void			f_item(void *elem);
-
-
-// void			display_item_old(t_data *data, int i);
 void			calc_delta(t_hitray *ray);
-// void			try_hit_enemy(t_data *data, int i);
-
-// open_window
 void			open_window(t_data *data, t_mlx *mlx);
-
-// mini_map
 void			display_mini_map(t_data *data, t_map *map);
 t_coo_mini		*init_t_coo_mini(double y, double x);
-// bool	load_img_mini_map(t_mlx *mlx, t_mini *mini);
 void			init_img_mini(t_data *data, t_mini *mini);
 void			print_mini_map(t_data *data);
-// void	init_utils_mini(t_utils_mini *u,t_data *data);
 void			init_utils_mini(t_data *data);
 void			get_pixel_color(t_data *data, int type);
 void			aff_mini_map(t_data *data);
@@ -136,9 +118,7 @@ void			set_pix_old_player(t_utils_mini *u, int start_y, int start_x,
 					t_data *data);
 void			calc_value_player_mini_map_aff(t_utils_mini *u, t_img *img,
 					double rad);
-
 void			calc_door(t_data *data, int i);
-
 void			*display_fst_part(void *ptr);
 void			*display_snd_part(void *ptr);
 void			*display_third_part(void *ptr);
@@ -149,40 +129,27 @@ bool			is_center_floo(t_data *data, int pos_x, int pos_y);
 void			draw_player(t_data *data, int pos_x, int pos_y);
 void			draw_cursor(t_data *data);
 void			draw_texture(t_data *data, int pos_x, int pos_y, char c);
-
 void			*ray_launch_first(void *ptr);
 void			*ray_launch_snd(void *ptr);
 void			*ray_launch_third(void *ptr);
 void			*ray_launch_last(void *ptr);
-
 void			display_msg(t_data *data, int i, int y, int x);
-
-// raycasting
 void			ray_launch(t_data *data);
 int				handle_ray_y_down(t_data *data, int i);
 int				handle_ray_y_top(t_data *data, int i);
 int				handle_ray_x_right(t_data *data, int i);
 int				handle_ray_x_left(t_data *data, int i);
 void			calc_sqrt(t_data *data, int i);
-
-// display game
 void			display_game(t_data *data);
-
 unsigned int	get_texture_pixel(t_img *texture, int x, int y);
-
-// game_loop.c
 int				game_loop(t_data *data);
 int				close_win(t_data *data);
-
 void			display_game_loop(t_data *data, int i);
-// display_background
 void			display_background_loop_sky(t_data *data, t_display display,
 					int y, int max_height);
 void			display_background_loop_floor(t_data *data, t_display display,
 					int y, int max_height);
 void			get_world_size(t_data *data, t_display *display, int y);
-
-// display_floor.c
 void			*display_floor_first(void *ptr);
 void			*display_floor_snd(void *ptr);
 void			*display_floor_third(void *ptr);
@@ -191,8 +158,6 @@ void			get_coo_world_floor(t_data *data, t_display *display, int x);
 void			get_coo_text_floor(t_data *data, t_display *display);
 void			put_text_pix_img_floor(t_data *data, t_display *display, int x,
 					int y);
-
-// display_sky.c
 void			*display_sky_first(void *ptr);
 void			*display_sky_snd(void *ptr);
 void			*display_sky_third(void *ptr);
@@ -201,11 +166,8 @@ void			put_text_pix_img_sky(t_data *data, t_display *display, int x,
 					int y);
 void			get_coo_text_sky(t_data *data, t_display *display);
 void			get_coo_world_sky(t_data *data, t_display *display, int x);
-// display_hand.c
 void			display_hand(t_data *data);
 void			display_wand(t_data *data, int pos_x, int pos_y);
-
-// coa
 void			display_menu(t_data *data);
 void			draw_select_border(t_data *data, int start_x, int start_y);
 void			pixel_put(t_data *data, int x, int y, unsigned int color);
@@ -214,26 +176,18 @@ int				get_right_color(int color, double distance);
 void			select_your_hand(t_data *data);
 void			draw_texture_menu(t_data *data, t_img *texture, int final_x,
 					int final_y);
-// menu spell
 void			display_spell_take(t_data *data);
 void			display_spell_list(t_data *data);
 void			update_spell_cooldown(t_data *data);
 int				menu_border_case_spell(t_data *data, double x, double y);
-
-// spell.c
 void			spell_lumos(t_data *data);
 void			cast_lumos(t_data *data, int info);
 void			cast_spell(t_data *data, int info);
 void			cast_serpensortia(t_data *data, int info);
-
-// handle_door.c
 void			handle_door(t_data *data);
-
 int				border_case_spell(double x, double y, double base_x,
 					double base_y);
 void			define_spell_color(t_data *data, unsigned int *color, int i);
-
-// break_menu
 void			handle_pause_menu(t_data *data, long long int cur);
 void			draw_gradient(t_data *data, int start_x, int start_y);
 void			display_menu_background(t_data *data, t_img *img, int start_x,
@@ -241,19 +195,13 @@ void			display_menu_background(t_data *data, t_img *img, int start_x,
 void			display_exit(t_data *data, int start_x, int start_y);
 void			display_resume(t_data *data, int start_x, int start_y);
 void			display_selector(t_data *data, int start_x, int start_y);
-// spells menu
 void			handle_spells_menu(t_data *data);
 void			handle_menu_spell_keys(int keycode, t_data *data);
-
-// end menu
 void			handle_end_menu(t_data *data);
 void			display_retry_button(t_data *data, int start_x, int start_y);
 void			display_quit_button(t_data *data, int start_x, int start_y);
 void			handle_death_menu(t_data *data);
-
 int				darken_the_color(int color);
-
-// ranking
 void			get_ranking_xp(t_data *data);
 
 typedef enum e_key_down

@@ -1,10 +1,7 @@
 #include "cub3d_bonus.h"
 #include "mlx.h"
-#include "texture_bonus.h"
 #include "utils_bonus.h"
 #include <math.h>
-#include <color_bonus.h>
-#include "ft_printf.h"
 #include "time_bonus.h"
 #include "parsing_bonus.h"
 

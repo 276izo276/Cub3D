@@ -1,7 +1,5 @@
-#include "struct_bonus.h"
 #include "cub3d_bonus.h"
 #include "time_bonus.h"
-#include <stdio.h>
 
 void	cast_popo_heal(t_data *data)
 {

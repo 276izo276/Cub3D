@@ -1,9 +1,5 @@
 #include "cub3d_bonus.h"
-#include "mlx.h"
-#include "parsing_bonus.h"
-#include "time_bonus.h"
 #include "utils_bonus.h"
-#include <fcntl.h>
 
 void	init_struct_item(t_data *data)
 {

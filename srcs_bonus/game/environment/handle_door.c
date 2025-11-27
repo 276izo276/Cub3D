@@ -1,5 +1,4 @@
 #include "cub3d_bonus.h"
-#include "mlx.h"
 
 static void	open_door_condition(t_data *data, int y, int x)
 {

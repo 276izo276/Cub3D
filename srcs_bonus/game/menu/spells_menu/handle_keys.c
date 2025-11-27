@@ -1,9 +1,4 @@
 #include "cub3d_bonus.h"
-#include "mlx.h"
-#include "time_bonus.h"
-#include "utils_bonus.h"
-#include <color_bonus.h>
-#include <math.h>
 
 static void	handle_lateral_move(t_data *data, int keycode)
 {

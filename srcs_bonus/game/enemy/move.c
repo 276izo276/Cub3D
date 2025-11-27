@@ -1,11 +1,7 @@
 #include "color_bonus.h"
 #include "cub3d_bonus.h"
 #include "enemy_bonus.h"
-#include "struct_bonus.h"
-#include "time_bonus.h"
-#include "utils_bonus.h"
 #include <math.h>
-#include <stdio.h>
 
 void	calc_dx_dy_enemy(double *dy, double *dx, double rad)
 {

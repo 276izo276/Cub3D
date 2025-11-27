@@ -1,5 +1,4 @@
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
 #include <math.h>
 
 void	get_coo_world_floor(t_data *data, t_display *display, int x)

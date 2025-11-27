@@ -1,11 +1,6 @@
 #include "cub3d_bonus.h"
 #include "mlx.h"
 #include "player_bonus.h"
-#include "struct_bonus.h"
-#include "utils_bonus.h"
-#include <color_bonus.h>
-#include <math.h>
-#include "time_bonus.h"
 
 int	is_key_pressed(t_data *data, int keycode)
 {

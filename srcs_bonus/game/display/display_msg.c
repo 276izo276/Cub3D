@@ -1,6 +1,5 @@
 #include "color_bonus.h"
 #include "cub3d_bonus.h"
-#include "utils_bonus.h"
 #include <math.h>
 
 static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x)

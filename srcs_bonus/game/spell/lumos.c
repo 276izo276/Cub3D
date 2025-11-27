@@ -1,10 +1,7 @@
-#include "color_bonus.h"
 #include "cub3d_bonus.h"
 #include "mlx.h"
-#include "utils_bonus.h"
 #include <math.h>
 #include "time_bonus.h"
-#include "enemy_bonus.h"
 
 int	get_right_white(t_data *data, int color, double distance)
 {

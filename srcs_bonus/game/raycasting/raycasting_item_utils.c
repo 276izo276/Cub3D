@@ -1,6 +1,4 @@
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
-#include "utils_bonus.h"
 #include <math.h>
 
 static void	calc_sqrt_item(t_data *data, t_hitray *ray)

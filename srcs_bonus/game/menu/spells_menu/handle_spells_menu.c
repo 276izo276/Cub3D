@@ -2,7 +2,6 @@
 #include "mlx.h"
 #include "time_bonus.h"
 #include "utils_bonus.h"
-#include <color_bonus.h>
 #include <math.h>
 
 static int	calc_dist_top(t_data *data, double ray, double x, double y)
