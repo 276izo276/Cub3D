@@ -1069,6 +1069,7 @@ struct						s_aff
 	int						b_old;
 	int						b_new;
 	int						a_new;
+	int						dist_heigh;
 	double					ray;
 	double					dy;
 	double					dx;

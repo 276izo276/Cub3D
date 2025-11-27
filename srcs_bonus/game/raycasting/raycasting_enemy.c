@@ -38,16 +38,12 @@ static void	set_orientation(t_enemy *enemy, t_data *data, int i, t_hitray *ray)
 		data->ray[i].items[ray->j]->side = BACK;
 }
 
-#include <stdio.h>
-
 static void	define_value_hit(t_data *data, t_hitray *ray, t_enemy *enemy, int i)
 {
 	ray->j = -1;
-	printf("i >> %d\n", i);
 	while (++ray->j < MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door + data->map.nb_floo)
 		if (data->ray[i].items[ray->j]->use == false)
 			break ;
-	printf("j >> %d\n", ray->j);
 	data->ray[i].items[ray->j]->type = ENEMY;
 	data->ray[i].items[ray->j]->use = true;
 	data->ray[i].items[ray->j]->enemy = enemy;
@@ -57,7 +53,6 @@ static void	define_value_hit(t_data *data, t_hitray *ray, t_enemy *enemy, int i)
 	data->ray[i].items[ray->j]->coo_x = fmod(ray->hx, 64);
 	data->ray[i].items[ray->j]->posx = ray->t;
 	data->ray[i].items[ray->j]->side = FRONT;
-	enemy->aff_deg = fmod(enemy->aff_deg, 360);
 	ray->deg = fmod(enemy->aff_deg + 67.5, 360);
 	set_orientation(enemy, data, i, ray);
 }

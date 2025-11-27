@@ -9,14 +9,14 @@ void	init_struct_item(t_data *data)
 	i = 0;
 	while (i < data->mlx.width)
 	{
-		data->ray[i].items = malloc(sizeof(t_hit_item *) * (MAX_CREATE_ITEM
+		data->ray[i].items = malloc(sizeof(t_hit_item *) * (1 + MAX_CREATE_ITEM
 					+ MAX_CREATE_ENEMY + data->nb_door + data->map.nb_floo));
 		if (!data->ray[i].items)
 			f_exit(data, 1);
-		ft_bzero(data->ray[i].items, sizeof(t_hit_item *) * (MAX_CREATE_ITEM
+		ft_bzero(data->ray[i].items, sizeof(t_hit_item *) * (1 + MAX_CREATE_ITEM
 				+ MAX_CREATE_ENEMY + data->nb_door + data->map.nb_floo));
 		j = 0;
-		while (j < MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door
+		while (j <= MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door
 			+ data->map.nb_floo)
 		{
 			data->ray[i].items[j] = malloc(sizeof(t_hit_item));

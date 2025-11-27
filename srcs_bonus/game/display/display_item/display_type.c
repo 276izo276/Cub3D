@@ -2,6 +2,8 @@
 
 void	display_door(t_data *data, int i, int j)
 {
+	// if (i < data->mlx.width / 4)
+    	//write(1,"x1\n",3);
 	data->ray[i].items[j]->texture = &data->img[DOOR_MOVE];
 	define_posx_texture(data, i, j);
 	data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
@@ -21,10 +23,14 @@ void	display_door(t_data *data, int i, int j)
 			put_text_pix_img_item(data, i, j, 0);
 		data->ray[i].pix_y++;
 	}
+	// if (i < data->mlx.width / 4)
+    	//write(1,"x2\n",3);
 }
 
 void	display_others(t_data *data, int i, int j)
 {
+	// if (i < data->mlx.width / 4)
+    	//write(1,"r1\n",3);
 	set_texture(data, i, j);
 	define_posx_texture(data, i, j);
 	data->ray[i].img_addr = data->screen->data_addr + data->ray[i].pix_x
@@ -42,4 +48,6 @@ void	display_others(t_data *data, int i, int j)
 		put_text_pix_img_item(data, i, j, 1);
 		data->ray[i].pix_y++;
 	}
+	// if (i < data->mlx.width / 4)
+    	//write(1,"r2\n",3);
 }

@@ -3,6 +3,7 @@
 
 # include "struct_bonus.h"
 # include <stdbool.h>
+# include <unistd.h>
 # define MARGIN 100
 
 # ifndef M_PI

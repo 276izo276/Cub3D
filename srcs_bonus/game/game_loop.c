@@ -1097,7 +1097,6 @@ int	game_loop(t_data *data)
 		handle_end_menu(data);
 	else
 	{
-		data->player.life = 100;
 		update_sorcerer(data);
 		if (cur - data->last_spawn >= data->spawn_frame)
 		{
@@ -1116,8 +1115,10 @@ int	game_loop(t_data *data)
 			pthread_barrier_wait(&data->barrier_background);
 			pthread_barrier_wait(&data->barrier_display);
 			pthread_barrier_wait(&data->barrier_display);
+			//write(1,".\n",2);
 			mlx_put_image_to_window(data->mlx.mlx, data->mlx.win,
 				data->screen->img, 0, 0);
+			//write(1,",\n",2);
 			aff_xp(data);
 			aff_life(data);
 			aff_shield(data);
@@ -1127,7 +1128,7 @@ int	game_loop(t_data *data)
 			spell_protego(data);
 			spell_heal(data);
 			aff_protego(data);
-			display_hand(data);
+			// display_hand(data);
 			aff_mini_map(data);
 			handle_door(data);
 		}

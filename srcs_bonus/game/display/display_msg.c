@@ -2,7 +2,7 @@
 #include "cub3d_bonus.h"
 #include <math.h>
 
-static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x)
+static void	put_text_pix_img(t_data *data, int i, t_aff aff, int text_x)
 {
 	char			*text_pix;
 	int				text_y;
@@ -10,13 +10,13 @@ static void	put_text_pix_img(t_data *data, int i, int dist_heigh, int text_x)
 	unsigned int	color;
 
 	text_y = (data->ray[i].pix_y - data->ray[i].htop_wall)
-		* data->img[data->map.wall_map[data->aff.y][data->aff.x]->msg_nb
-		+ WALL_MSG_1].height / dist_heigh;
+		* data->img[data->map.wall_map[aff.y][aff.x]->msg_nb
+		+ WALL_MSG_1].height / aff.dist_heigh;
 	pixel_addr = data->ray[i].img_addr + (data->ray[i].pix_y
 			* data->screen->size_line);
-	text_pix = data->img[data->map.wall_map[data->aff.y][data->aff.x]->msg_nb
+	text_pix = data->img[data->map.wall_map[aff.y][aff.x]->msg_nb
 		+ WALL_MSG_1].data_addr + (text_y
-			* data->img[data->map.wall_map[data->aff.y][data->aff.x]->msg_nb
+			* data->img[data->map.wall_map[aff.y][aff.x]->msg_nb
 			+ WALL_MSG_1].size_line + text_x);
 	color = *(unsigned int *)text_pix;
 	if (color != WHITE && color != 0)
@@ -53,8 +53,8 @@ static void	check_dir(t_data *data, int i, int y, int x)
 
 void	display_msg(t_data *data, int i, int y, int x)
 {
-	int	text_x;
-	int	dist_heigh;
+	int		text_x;
+	t_aff	aff;
 
 	check_dir(data, i, y, x);
 	text_x = data->ray[i].texture_coo.x
@@ -66,13 +66,14 @@ void	display_msg(t_data *data, int i, int y, int x)
 	data->ray[i].pix_y = data->ray[i].htop_wall;
 	if (data->ray[i].pix_y < 0)
 		data->ray[i].pix_y = 0;
-	dist_heigh = data->ray[i].hbot_wall - data->ray[i].htop_wall;
+	aff.dist_heigh = data->ray[i].hbot_wall - data->ray[i].htop_wall;
 	while (data->ray[i].pix_y < data->ray[i].hbot_wall
 		&& data->ray[i].pix_y < data->mlx.height)
 	{
-		data->aff.x = x;
-		data->aff.y = y;
-		put_text_pix_img(data, i, dist_heigh, text_x);
+		aff.x = x;
+		aff.y = y;
+		aff.dist_heigh = aff.dist_heigh;
+		put_text_pix_img(data, i, aff, text_x);
 		++data->ray[i].pix_y;
 	}
 }

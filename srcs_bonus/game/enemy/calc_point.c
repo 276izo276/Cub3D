@@ -99,6 +99,7 @@ void	calc_left_and_right_point(t_enemy *enemy, t_data *data)
 {
 	calc_deg(&data->player.coo, &enemy->center, &enemy->aff_rad,
 		&enemy->aff_deg);
+	enemy->aff_deg = fmod(enemy->aff_deg, 360);
 	calc_left_point(enemy);
 	calc_right_point(enemy);
 	left_case_replace(enemy, data);
