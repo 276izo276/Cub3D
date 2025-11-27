@@ -1,9 +1,5 @@
 #include "cub3d_bonus.h"
-#include "mlx.h"
-#include "time_bonus.h"
-#include "utils_bonus.h"
 #include <color_bonus.h>
-#include <math.h>
 
 void	display_name(t_data *data, int i, int pos_x)
 {

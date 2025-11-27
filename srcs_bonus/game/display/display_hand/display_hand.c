@@ -1,6 +1,4 @@
-#include "color_bonus.h"
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
 
 unsigned int	get_texture_pixel(t_img *texture, int x, int y)
 {

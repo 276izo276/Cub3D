@@ -1,7 +1,7 @@
 #include "cub3d_bonus.h"
-#include "utils_bonus.h"
 #include <math.h>
 #include "texture_bonus.h"
+#include "player_bonus.h"
 
 void	handle_map_status(t_map *map, t_data *data, t_mini *mini)
 {

@@ -1,5 +1,4 @@
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
 
 void	init_lumos(t_data *data)
 {

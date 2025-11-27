@@ -106,6 +106,8 @@ PARSING_BONUS	=								\
 				init/coa.c 						\
 				init/utils.c 					\
 				init/texture.c	 				\
+				init/init_others.c 				\
+				init/create_thread.c 			\
 				which_type.c 					\
 				check_pos_door.c 				\
 				parse_item.c 					\
@@ -156,7 +158,12 @@ GAME_BONUS		=											\
 				display/display_hand/display_hand.c			\
 				display/display_hand/display_wand.c 		\
 				display/display_msg.c						\
-				display/display_item.c						\
+				display/display_item/display_item.c			\
+				display/display_item/define_texture.c 		\
+				display/display_item/put_text_img.c 		\
+				display/display_item/display_patronum.c 	\
+				display/display_item/display_type.c 		\
+				display/display_item/spell_whithout_text.c 	\
 				display/display_map/display_map.c 			\
 				display/display_map/display_map_utils.c 	\
 				display/display_blood_border.c				\
@@ -192,7 +199,6 @@ GAME_BONUS		=											\
 				spell/init_snd.c 							\
 				spell/init_third.c 							\
 				spell/init_fourth.c 						\
-				spell/init_sorcerer_spell.c 				\
 				spell/lumos.c 								\
 				spell/cast_spell.c 							\
 				item/free.c									\
@@ -210,6 +216,7 @@ GAME_BONUS		=											\
 				get_ranking_xp.c 							\
 				popo/init.c									\
 				popo/launch.c								\
+				restart.c 									\
 				sound/init.c								\
 				sound/free.c							
 
@@ -276,7 +283,6 @@ includes/debug.h	\
 includes/parsing.h	\
 includes/player.h	\
 includes/color.h	\
-includes/libmlx.h	\
 includes/struct.h	\
 includes/texture.h	\
 includes/time.h		\
@@ -289,7 +295,6 @@ includes/header_bonus/debug_bonus.h	\
 includes/header_bonus/parsing_bonus.h	\
 includes/header_bonus/player_bonus.h	\
 includes/header_bonus/color_bonus.h	\
-includes/header_bonus/libmlx_bonus.h	\
 includes/header_bonus/struct_bonus.h	\
 includes/header_bonus/texture_bonus.h	\
 includes/header_bonus/time_bonus.h	\

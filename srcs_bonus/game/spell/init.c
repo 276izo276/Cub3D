@@ -1,11 +1,11 @@
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
+#include "parsing_bonus.h"
 
 void	set_spell_take(t_data *data)
 {
 	data->cast_spell = -1;
 	data->spell_take[0] = AVADA_KEDAVRA;
-	data->spell_take[1] = INCENDIO;
+	data->spell_take[1] = EXPECTO_PATRONUM;
 	data->spell_take[2] = GLACIUS;
 	data->spell_take[3] = REPULSO;
 }

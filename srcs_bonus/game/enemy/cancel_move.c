@@ -1,6 +1,6 @@
-#include "struct_bonus.h"
 #include "utils_bonus.h"
 #include "cub3d_bonus.h"
+#include "enemy_bonus.h"
 #include <math.h>
 
 int	cond_cancel_move_x(t_enemy *enemy, t_data *data, int dx, t_mv_enemy coo)

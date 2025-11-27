@@ -1,5 +1,4 @@
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
 #include <math.h>
 
 void	*display_sky_first(void *ptr)

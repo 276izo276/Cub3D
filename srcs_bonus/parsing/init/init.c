@@ -1,10 +1,7 @@
 #include "cub3d_bonus.h"
 #include "mlx.h"
-#include "texture_bonus.h"
 #include "utils_bonus.h"
 #include <math.h>
-#include <color_bonus.h>
-#include "ft_printf.h"
 #include "time_bonus.h"
 #include "parsing_bonus.h"
 
@@ -76,7 +73,6 @@ void	init_data(t_data *data, int ac, char **av)
 {
 	ft_bzero(data, sizeof(t_data));
 	data->sound = add_end_lst(create_sound(data, 22), data->sound, free_sound);
-	// data->sound = add_end_lst(create_sound(data, 23), data->sound, free_sound);
 	data->time_fps = get_mtime();
 	data->time_move = get_mtime();
 	fill_need_print(data);

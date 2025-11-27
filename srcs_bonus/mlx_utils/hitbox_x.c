@@ -1,7 +1,5 @@
 #include "cub3d_bonus.h"
 #include "utils_bonus.h"
-#include <math.h>
-#include "texture_bonus.h"
 
 static int	check_x_value(t_data *data, t_mini *mini, int y, int x)
 {

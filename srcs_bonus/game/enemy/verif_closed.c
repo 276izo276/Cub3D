@@ -1,7 +1,4 @@
-#include "struct_bonus.h"
 #include "utils_bonus.h"
-#include "color_bonus.h"
-#include "ft_printf.h"
 
 static void	error_occured(t_data *data, t_lst *open, t_lst *closed)
 {

@@ -1,10 +1,7 @@
-#include "color_bonus.h"
 #include "cub3d_bonus.h"
-#include "mlx.h"
-#include "utils_bonus.h"
-#include <math.h>
 #include "time_bonus.h"
 #include "enemy_bonus.h"
+#include "parsing_bonus.h"
 
 void	spell_protego(t_data *data)
 {

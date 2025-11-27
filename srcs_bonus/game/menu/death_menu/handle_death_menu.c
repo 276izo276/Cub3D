@@ -1,6 +1,5 @@
 #include "cub3d_bonus.h"
 #include "mlx.h"
-#include "utils_bonus.h"
 #include <color_bonus.h>
 
 void	display_retry_button(t_data *data, int start_x, int start_y)

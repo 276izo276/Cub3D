@@ -1,6 +1,5 @@
 #include "cub3d_bonus.h"
 #include <math.h>
-#include <stdlib.h>
 
 int	handle_ray_y_top(t_data *data, int i)
 {

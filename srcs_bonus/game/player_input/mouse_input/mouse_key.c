@@ -1,10 +1,6 @@
 #include "cub3d_bonus.h"
 #include "mlx.h"
 #include "player_bonus.h"
-#include "struct_bonus.h"
-#include "time_bonus.h"
-#include "utils_bonus.h"
-#include <color_bonus.h>
 #include <math.h>
 
 int	mouse_move(int x, int y, t_data *data)

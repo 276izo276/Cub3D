@@ -1,5 +1,4 @@
 #include "struct_bonus.h"
-#include <math.h>
 
 void	get_world_size(t_data *data, t_display *display, int y)
 {

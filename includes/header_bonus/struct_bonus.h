@@ -14,7 +14,6 @@
 # define TP_MP3 "sound/teleportation.mp3"
 # define DIE_MP3 "sound/die.mp3"
 # define PAPER_MP3 "sound/paper.mp3"
-
 # define LUMOS_MP3 "sound/spell/lumos.mp3"
 # define ARANIA_EXUMAI_MP3 "sound/spell/arania_exumai.mp3"
 # define PROTEGO_MP3 "sound/spell/protego.mp3"
@@ -38,7 +37,7 @@
 # define ENDOLORIS_MP3 "sound/spell/endoloris.mp3"
 # define AVADA_KEDAVRA_MP3 "sound/spell/avada_kedavra.mp3"
 
-# define SIZE_MAP (5 * 64)
+# define SIZE_MAP 320
 # define FPS 30.0
 # define V_FOV 90.0
 # define H_FOV 90.0
@@ -59,43 +58,43 @@
 # define ENEMY 2
 # define DOOR 3
 
-typedef struct s_data			t_data;
-typedef struct s_map			t_map;
-typedef struct s_img			t_img;
-typedef struct s_ray			t_ray;
-typedef struct s_color			t_color;
-typedef struct s_mlx			t_mlx;
-typedef struct s_coo			t_coo;
-typedef struct s_coo_mini		t_coo_mini;
-typedef struct s_mini			t_mini;
-typedef struct s_utils_mini		t_utils_mini;
-typedef struct s_display		t_display;
-typedef struct s_coa			t_coa;
-typedef struct s_lumos			t_lumos;
-typedef struct s_hit_door		t_hit_door;
-typedef struct s_door			t_door;
-typedef struct s_hitray			t_hitray;
-typedef struct s_wall_msg		t_wall_msg;
-typedef struct s_pause_menu		t_pause_menu;
-typedef struct s_spell_menu		t_spell_menu;
-typedef struct s_enemy			t_enemy;
-typedef struct s_fcoo			t_fcoo;
-typedef struct s_case			t_case;
-typedef struct s_hit_enemy		t_hit_enemy;
-typedef struct s_hit_item		t_hit_item;
-typedef struct s_foot			t_foot;
-typedef struct s_player			t_player;
-typedef struct s_damage			t_damage;
-typedef struct s_item			t_item;
-typedef struct s_spell			t_spell;
 typedef struct s_wand			t_wand;
-typedef struct s_popo			t_popo;
-typedef struct s_sorcerer		t_sorcerer;
-typedef struct s_cooldown		t_cooldown;
+typedef struct s_wall_msg		t_wall_msg;
+typedef struct s_utils_mini		t_utils_mini;
+typedef struct s_spell_menu		t_spell_menu;
+typedef struct s_spell			t_spell;
 typedef struct s_sound			t_sound;
-typedef struct s_aff			t_aff;
+typedef struct s_sorcerer		t_sorcerer;
+typedef struct s_ray			t_ray;
+typedef struct s_popo			t_popo;
+typedef struct s_player			t_player;
+typedef struct s_pause_menu		t_pause_menu;
 typedef struct s_mv_enemy		t_mv_enemy;
+typedef struct s_mlx			t_mlx;
+typedef struct s_mini			t_mini;
+typedef struct s_map			t_map;
+typedef struct s_lumos			t_lumos;
+typedef struct s_item			t_item;
+typedef struct s_img			t_img;
+typedef struct s_hitray			t_hitray;
+typedef struct s_hit_item		t_hit_item;
+typedef struct s_hit_enemy		t_hit_enemy;
+typedef struct s_hit_door		t_hit_door;
+typedef struct s_foot			t_foot;
+typedef struct s_fcoo			t_fcoo;
 typedef struct s_enemy_vision	t_enemy_vision;
+typedef struct s_enemy			t_enemy;
+typedef struct s_door			t_door;
+typedef struct s_display		t_display;
+typedef struct s_data			t_data;
+typedef struct s_damage			t_damage;
+typedef struct s_cooldown		t_cooldown;
+typedef struct s_coo_mini		t_coo_mini;
+typedef struct s_coo			t_coo;
+typedef struct s_color			t_color;
+typedef struct s_coa			t_coa;
+typedef struct s_case			t_case;
+typedef struct s_aff			t_aff;
 
 typedef enum e_dir
 {
@@ -210,18 +209,15 @@ typedef enum e_imgs
 	NB_7,
 	NB_8,
 	NB_9,
-
 	SELECT,
 	SELECT_HAND,
 	PLAYER_HAND,
 	LEFT_SELECT,
-
 	DEMENTOR_FRONT,
 	DEMENTOR_SIDE_90,
 	DEMENTOR_BACK,
 	DEMENTOR_FRONT_45,
 	DEMENTOR_BACK_45,
-
 	KUNFANDI_FRONT,
 	NANCY_FRONT,
 	PILO_FRONT,
@@ -231,7 +227,6 @@ typedef enum e_imgs
 	DIRLO_FRONT,
 	MARINA_FRONT,
 	STEF_FRONT,
-
 	KUNFANDI_FRONT_45,
 	NANCY_FRONT_45,
 	PILO_FRONT_45,
@@ -241,41 +236,34 @@ typedef enum e_imgs
 	DIRLO_FRONT_45,
 	MARINA_FRONT_45,
 	STEF_FRONT_45,
-
 	SORCERER_SIDE_90,
 	SORCERER_BACK,
 	SORCERER_BACK_45,
-
 	SNAKE_FRONT,
 	SNAKE_SIDE_90,
 	SNAKE_BACK,
 	SNAKE_FRONT_45,
 	SNAKE_BACK_45,
-
 	SPIDER_FRONT,
 	SPIDER_SIDE_90,
 	SPIDER_BACK,
 	SPIDER_FRONT_45,
 	SPIDER_BACK_45,
-
 	ELEM_FRONT,
 	ELEM_SIDE_90,
 	ELEM_BACK,
 	ELEM_FRONT_45,
 	ELEM_BACK_45,
-
 	WOLF_FRONT,
 	WOLF_SIDE_90,
 	WOLF_BACK,
 	WOLF_FRONT_45,
 	WOLF_BACK_45,
-
 	BIRD_FRONT,
 	BIRD_SIDE_90,
 	BIRD_BACK,
 	BIRD_FRONT_45,
 	BIRD_BACK_45,
-
 	DOOR_MOVE,
 	DOOR_FIXED,
 	FLOO_CLOSE,
@@ -283,9 +271,7 @@ typedef enum e_imgs
 	HEART,
 	SHIELD,
 	XP,
-
 	WEB_SPIDER_IMG,
-
 	INCENDIO_IMG,
 	GLACIUS_IMG,
 	AVADA_KEDAVRA_IMG,
@@ -307,7 +293,6 @@ typedef enum e_imgs
 	VULNERA_SANENTUR_IMG,
 	ARANIA_EXUMAI_IMG,
 	AGUAMENTI_IMG,
-
 	TIG_IMG,
 	COMPANY_IMG,
 	TAYLOR_SWIFT_IMG,
@@ -316,7 +301,6 @@ typedef enum e_imgs
 	PIZZA_IMG,
 	MAC_IMG,
 	FOLDER_IMG,
-
 	LUMOS_ICN,
 	INCENDIO_ICN,
 	GLACIUS_ICN,
@@ -339,9 +323,7 @@ typedef enum e_imgs
 	VULNERA_SANENTUR_ICN,
 	ARANIA_EXUMAI_ICN,
 	AGUAMENTI_ICN,
-
 	SPELL_LOCK,
-
 	LUMOS_NAME,
 	INCENDIO_NAME,
 	GLACIUS_NAME,
@@ -364,12 +346,10 @@ typedef enum e_imgs
 	VULNERA_SANENTUR_NAME,
 	ARANIA_EXUMAI_NAME,
 	AGUAMENTI_NAME,
-
 	FLAME,
 	POISON,
 	SLOW,
 	CURSE,
-
 	SHIELD_1,
 	SHIELD_2,
 	SHIELD_3,
@@ -381,18 +361,15 @@ typedef enum e_imgs
 	QUIT_BUTTON,
 	END_BACKGROUND,
 	SANDGLASS,
-
 	POPO_SHIELD,
 	POPO_HEAL,
 	POPO_FLOO,
 	POPO_INVI,
-
 	POPO_SHIELD_IMG,
 	POPO_HEAL_IMG,
 	POPO_FLOO_IMG,
 	POPO_INVI_IMG,
 	PORTKEY_IMG,
-
 	PLAYER_WAND,
 	PLAYER_WAND_2,
 	PLAYER_WAND_3,
@@ -400,13 +377,11 @@ typedef enum e_imgs
 	PLAYER_WAND_5,
 	PLAYER_WAND_6,
 	PLAYER_WAND_7,
-
 	WAND_SPIDER_IMG,
 	WAND_DEMENTOR_IMG,
 	WAND_WOLF_IMG,
 	WAND_ELEM_IMG,
 	PILLAR_IMG,
-
 	END_IMG
 }							t_imgs;
 # define NB_TEXTURES END_IMG
@@ -435,7 +410,6 @@ typedef enum e_spells
 	SECTUMSEMPRA,
 	ENDOLORIS,
 	AVADA_KEDAVRA,
-
 	END_SPELL
 }							t_spells;
 # define NB_SPELL END_SPELL
@@ -450,7 +424,6 @@ typedef enum e_items
 	FLOO_POPO,
 	INVI_POPO,
 	ANIM_DEATH,
-
 	TIG,
 	BH,
 	PIZZA,
@@ -466,7 +439,6 @@ typedef enum e_items
 	ELEM_WAND,
 	DEMENTOR_WAND,
 	PILLAR,
-
 	END_ITEM
 }							t_items;
 # define NB_TYPE_ITEM END_ITEM
@@ -488,296 +460,293 @@ struct						s_coo
 
 struct						s_fcoo
 {
-	double					coo_x;
-	double					coo_y;
 	int						case_y;
 	int						case_x;
+	double					coo_y;
+	double					coo_x;
 };
 
 struct						s_wall_msg
 {
-	t_coo					coo;
 	t_coo					texture_coo;
-	bool					is_active;
+	t_coo					coo;
 	int						pix_y;
 	int						msg_nb;
-	char					*img_addr;
 	int						dir;
+	char					*img_addr;
+	bool					is_active;
 };
 
 struct						s_damage
 {
-	double					dist;
 	t_fcoo					hit;
-	double					damage_do;
-	double					damage_spider_do;
-	double					damage_dementor_do;
-	double					damage_snake_do;
-	double					damage_elem_do;
-	double					slow_force_do;
+	int						which_coa_take;
+	int						which_coa_do;
+	double					slow_frame_take;
 	double					slow_frame_do;
-	double					poison_force_do;
-	double					poison_frame_do;
-	double					fire_force_do;
-	double					fire_frame_do;
-	double					curse_force_do;
-	double					curse_frame_do;
-	double					confundo_frame_do;
-	double					confundo_force_do;
+	double					slow_force_take;
+	double					slow_force_do;
+	double					repulso_frame_take;
 	double					repulso_frame_do;
+	double					repulso_force_take;
 	double					repulso_force_do;
-
+	double					poison_frame_take;
+	double					poison_frame_do;
+	double					poison_force_take;
+	double					poison_force_do;
+	double					fire_frame_take;
+	double					fire_frame_do;
+	double					fire_force_take;
+	double					fire_force_do;
+	double					dist;
 	double					damage_take;
 	double					damage_spider_take;
-	double					damage_dementor_take;
+	double					damage_spider_do;
 	double					damage_snake_take;
+	double					damage_snake_do;
 	double					damage_elem_take;
-	double					slow_force_take;
-	double					slow_frame_take;
-	double					poison_force_take;
-	double					poison_frame_take;
-	double					fire_force_take;
-	double					fire_frame_take;
-	double					curse_force_take;
+	double					damage_elem_do;
+	double					damage_do;
+	double					damage_dementor_take;
+	double					damage_dementor_do;
 	double					curse_frame_take;
+	double					curse_frame_do;
+	double					curse_force_take;
+	double					curse_force_do;
 	double					confundo_frame_take;
+	double					confundo_frame_do;
 	double					confundo_force_take;
-	double					repulso_frame_take;
-	double					repulso_force_take;
-	int						which_coa_do;
-	int						which_coa_take;
+	double					confundo_force_do;
+
 };
 
 struct						s_enemy
 {
-	t_img					*front_img;
-	t_img					*back_img;
+	unsigned int			color_coa;
 	t_img					*side_img;
 	t_img					*side_front_img;
 	t_img					*side_back_img;
-	t_enemy_info			type;
-	t_fcoo					center;
-	t_fcoo					left;
+	t_img					*front_img;
+	t_img					*back_img;
 	t_fcoo					right;
-	t_fcoo					center_before;
-	t_fcoo					left_before;
 	t_fcoo					right_before;
-	double					aff_deg;
-	double					aff_rad;
-	double					deg;
-	double					rad;
-	double					radius;
-	double					speed;
-	double					life;
-	t_damage				damage;
+	t_fcoo					left;
+	t_fcoo					left_before;
 	t_fcoo					goal;
+	t_fcoo					center;
+	t_fcoo					center_before;
+	t_enemy_info			type;
+	t_damage				damage;
 	t_case					*way;
-	int						wait;
-	bool					calc;
-	int						calc_path;
-	int						recalc_path;
-	double					dist_target;
 	long long int			time_attack_dist;
 	long long int			time_attack_cac;
-	int						cooldown_dist;
-	double					cooldown_cac;
+	int						wait;
+	int						recalc_path;
+	int						nb_move;
+	int						drop_wolf_wand;
+	int						drop_spider_wand;
+	int						drop_shield;
+	int						drop_heal;
+	int						drop_floo;
+	int						drop_elem_wand;
+	int						drop_dementor_wand;
+	int						drop_cloak;
+	int						dist_visu;
 	int						dist_stop;
 	int						dist_damage;
-	int						dist_visu;
-	int						nb_move;
-	int						drop_heal;
-	int						drop_shield;
-	int						drop_floo;
-	int						drop_cloak;
-	int						drop_spider_wand;
-	int						drop_wolf_wand;
-	int						drop_dementor_wand;
-	int						drop_elem_wand;
-	unsigned int			color_coa;
+	int						cooldown_dist;
+	int						calc_path;
+	double					speed;
+	double					radius;
+	double					rad;
+	double					life;
+	double					dist_target;
+	double					deg;
+	double					cooldown_cac;
+	double					aff_rad;
+	double					aff_deg;
+	bool					calc;
 };
 
 struct						s_item
 {
+	unsigned int			nb_move;
 	t_img					*front_img;
 	t_img					*back_img;
-	t_fcoo					center;
-	t_fcoo					left;
 	t_fcoo					right;
-	t_fcoo					center_before;
-	t_fcoo					left_before;
 	t_fcoo					right_before;
-	double					deg;
-	double					rad;
-	double					radius;
-	double					speed;
-	int						type;
-	int						categ;
+	t_fcoo					left;
+	t_fcoo					left_before;
+	t_fcoo					center;
+	t_fcoo					center_before;
 	t_damage				damage;
-	unsigned int			nb_move;
-	double					deg_rotate;
+	int						type;
 	int						coa;
+	int						categ;
+	double					speed;
+	double					radius;
+	double					rad;
+	double					deg;
+	double					deg_rotate;
 };
 
 struct						s_door
 {
-	t_coo					coo;
-	t_coo					first_p;
 	t_coo					second_p;
+	t_coo					first_p;
+	t_coo					coo;
 	double					pos;
-	bool					is_open;
 	bool					is_verti;
-	bool					is_floo_open;
+	bool					is_open;
 	bool					is_floo;
+	bool					is_floo_open;
 };
 
 struct						s_hit_door
 {
 	t_door					*door;
-	double					coo_y;
-	double					coo_x;
+	t_coo					texture_coo;
+	int						dir;
 	int						case_y;
 	int						case_x;
-	bool					use;
-	bool					print;
-	double					dist_door;
+	double					start_y;
+	double					start_x;
 	double					size_door;
+	double					ry;
+	double					rx;
 	double					max_size_door;
 	double					htop_door;
 	double					hbot_door;
-	int						dir;
-	t_coo					texture_coo;
-	double					ry;
-	double					rx;
 	double					end_y;
 	double					end_x;
-	double					start_y;
-	double					start_x;
+	double					dist_door;
+	double					coo_y;
+	double					coo_x;
+	bool					use;
+	bool					print;
 	bool					is_floo;
 };
 
 struct						s_hit_enemy
 {
 	t_enemy					*enemy;
-	double					coo_y;
-	double					coo_x;
+	t_coo					texture_coo;
+	int						dir;
 	int						case_y;
 	int						case_x;
-	bool					use;
-	bool					print;
-	double					dist_enemy;
+	double					start_y;
+	double					start_x;
 	double					size_enemy;
+	double					ry;
+	double					rx;
+	double					posx;
 	double					max_size_enemy;
 	double					htop_enemy;
 	double					hbot_enemy;
-	int						dir;
-	t_coo					texture_coo;
-	double					ry;
-	double					rx;
 	double					end_y;
 	double					end_x;
-	double					start_y;
-	double					start_x;
-	double					posx;
+	double					dist_enemy;
+	double					coo_y;
+	double					coo_x;
+	bool					use;
+	bool					print;
 };
 
 struct						s_hit_item
 {
-	t_img					*texture;
+	unsigned int			color;
 	t_item					*item;
+	t_img					*texture;
 	t_enemy					*enemy;
 	t_door					*door;
-	int						categ;
+	t_coo					texture_coo;
 	int						type;
 	int						status;
 	int						side;
 	int						dist_height;
-	double					door_status;
-	char					*pixel_addr;
-	char					*text_pix;
-	unsigned int			color;
-	double					coo_y;
-	double					coo_x;
+	int						dir;
+	int						categ;
 	int						case_y;
 	int						case_x;
-	bool					use;
-	bool					print;
-	double					dist;
+	double					start_y;
+	double					start_x;
 	double					size;
+	double					ry;
+	double					rx;
+	double					posx;
 	double					max_size;
 	double					htop;
 	double					hbot;
-	int						dir;
-	t_coo					texture_coo;
-	double					ry;
-	double					rx;
 	double					end_y;
 	double					end_x;
-	double					start_y;
-	double					start_x;
-	double					posx;
+	double					door_status;
+	double					dist;
+	double					coo_y;
+	double					coo_x;
+	char					*text_pix;
+	char					*pixel_addr;
+	bool					use;
+	bool					print;
 };
 
 struct						s_pause_menu
 {
-	// int		pix_y;
-	// char	*img_addr;
-	// char	*data_addr;
 	t_img					*sensitivity;
-	t_img					*background;
-	t_img					*exit;
-	t_img					*resume;
 	t_img					*selector;
-	int						selected;
-	long long int			elapsed;
+	t_img					*resume;
+	t_img					*exit;
+	t_img					*background;
 	long long int			time;
+	long long int			elapsed;
+	int						selected;
 };
 
 struct						s_spell_menu
 {
 	t_img					*background;
+	long long int			start_time;
+	long long int			end_time;
 	int						selected;
 	int						name_pos_y;
-	long long int			end_time;
-	long long int			start_time;
 };
 
 struct						s_ray
 {
-	double					d_proj;
-	double					deg;
-	double					coo_y;
-	double					coo_x;
-	int						case_y;
-	int						case_x;
-	double					rad;
-	double					delta_x;
-	double					delta_y;
-	double					rx;
-	double					ry;
-	double					dist_wall;
-	double					size_wall;
+	t_img					*img;
+	t_hit_item				**items;
+	t_hit_enemy				**enemys;
+	t_hit_door				**doors;
+	t_coo					texture_coo;
 	int						pix_y;
 	int						pix_x;
-	char					*pixel_addr;
 	int						dir;
-	char					*img_addr;
-	double					max_height;
+	int						case_y;
+	int						case_x;
+	int						calc_bits;
+	double					start_coo_y;
+	double					start_coo_x;
+	double					start_case_y;
+	double					start_case_x;
+	double					size_wall;
+	double					save_x;
+	double					ry;
+	double					rx;
+	double					rad;
 	double					max_size_wall;
+	double					max_height;
+	double					max_dist_wall;
 	double					htop_wall;
 	double					hbot_wall;
+	double					dist_wall;
+	double					delta_y;
+	double					delta_x;
+	double					deg;
+	double					d_proj;
+	double					coo_y;
+	double					coo_x;
+	char					*pixel_addr;
+	char					*img_addr;
 	char					*data_addr;
-	int						calc_bits;
-	double					save_x;
-	t_coo					texture_coo;
-	t_img					*img;
-	t_hit_door				**doors;
-	t_hit_enemy				**enemys;
-	t_hit_item				**items;
-	double					max_dist_wall;
-	double					start_case_x;
-	double					start_case_y;
-	double					start_coo_x;
-	double					start_coo_y;
 };
 
 struct						s_coo_mini
@@ -789,14 +758,14 @@ struct						s_coo_mini
 struct						s_img
 {
 	void					*mlx;
-	char					*path;
-	char					*data_addr;
 	void					*img;
 	int						width;
-	int						height;
-	int						bits_per_pixel;
 	int						size_line;
+	int						height;
 	int						endian;
+	int						bits_per_pixel;
+	char					*path;
+	char					*data_addr;
 };
 
 struct						s_color
@@ -808,239 +777,238 @@ struct						s_color
 
 struct						s_mlx
 {
-	void					*mlx;
 	void					*win;
-	int						height;
+	void					*mlx;
 	int						width;
+	int						height;
 };
 
 struct						s_utils_mini
 {
-	int						new_y;
-	int						new_x;
-	int						y;
-	int						x;
-	t_coo					s;
-	t_coo					i;
-	int						size;
-	char					*pixel_addr;
 	unsigned int			color;
 	t_img					mmap;
-	double					cos_val;
-	double					sin_val;
-	double					xdest;
-	double					ydest;
-	double					xfloat;
-	double					yfloat;
+	t_coo					s;
+	t_coo					i;
+	int						y;
+	int						x;
 	int						start_y;
 	int						start_x;
+	int						size;
+	int						new_y;
+	int						new_x;
+	double					yfloat;
+	double					ydest;
+	double					xfloat;
+	double					xdest;
+	double					sin_val;
+	double					cos_val;
+	char					*pixel_addr;
 };
 
 struct						s_foot
 {
 	t_fcoo					coo;
-	bool					is_left;
-	bool					is_save;
-	int						foot_x;
 	int						foot_y;
+	int						foot_x;
 	double					rad;
+	bool					is_save;
+	bool					is_left;
 };
 
 struct						s_mini
 {
-	int						need_print[SIZE_MAP][SIZE_MAP];
-	t_foot					foot_tab[9];
 	t_img					img[14];
-	int						last_foot;
+	t_foot					foot_tab[9];
 	long long int			time_foot;
-	int						height;
 	int						width;
-	double					deg;
-	double					rad;
+	int						need_print[SIZE_MAP][SIZE_MAP];
+	int						last_foot;
+	int						height;
+	int						cy;
+	int						cx;
 	double					speed;
 	double					sdy;
 	double					sdx;
-	double					dy;
-	double					dx;
+	double					rad;
 	double					ny;
 	double					nx;
-	int						cy;
-	int						cx;
+	double					dy;
+	double					dx;
+	double					deg;
 };
 
 struct						s_map
 {
-	int						fd;
-	int						tabmap_height;
-	int						nb_floo;
-	char					**tabmap;
-	int						zoom;
-	double					last_pos_x;
-	double					last_pos_y;
-	bool					is_center;
-	bool					floo_active;
-	int						last_mouse_x;
-	int						last_mouse_y;
-	t_coo					*pos_active_floo;
-	t_door					***door_map;
 	t_wall_msg				***wall_map;
-	t_img					**msg_img;
-	t_lst					*lines;
+	t_mini					mini;
 	t_lst					*map;
-	t_img					*north;
-	t_img					*south;
+	t_lst					*lines;
 	t_img					*west;
+	t_img					*south;
+	t_img					*north;
+	t_img					*floor;
+	t_img					*fixed_door;
 	t_img					*east;
 	t_img					*door;
-	t_img					*fixed_door;
-	t_mini					mini;
-	t_img					*floor;
-	t_img					*ceiling;
 	t_img					*dementor_front;
 	t_img					*dementor_back;
+	t_img					*ceiling;
+	t_img					**msg_img;
+	t_door					***door_map;
+	t_coo					*pos_active_floo;
+	int						zoom;
+	int						tabmap_height;
+	int						nb_floo;
+	int						last_mouse_y;
+	int						last_mouse_x;
+	int						fd;
+	double					last_pos_y;
+	double					last_pos_x;
+	char					**tabmap;
+	bool					is_center;
+	bool					floo_active;
 };
 
 struct						s_display
 {
-	char					*pixel_addr;
-	double					cos_angle;
-	double					sin_angle;
-	int						screen_bbp_frac;
-	int						text_bpp_frac;
-	double					dist_center;
-	double					screen_y;
-	double					dist_texture;
-	double					screen_x;
-	double					world_x;
-	double					world_y;
-	double					pos_cellx;
-	double					pos_celly;
-	int						text_x;
-	int						text_y;
-	char					*texture_pixel;
-	unsigned int			color;
-	int						player_height;
-	int						pos_x_hand;
-	int						pos_y_hand;
-	int						move_hand;
-	bool					is_up_move_hand;
+	unsigned long long		time_remove;
 	unsigned long long		elapsed_time;
+	unsigned int			color;
+	int						text_y;
+	int						text_x;
+	int						text_bpp_frac;
+	int						screen_bbp_frac;
+	int						pos_y_hand;
+	int						pos_x_hand;
+	int						player_height;
+	int						move_hand;
+	double					world_y;
+	double					world_x;
+	double					sin_angle;
+	double					screen_y;
+	double					screen_x;
+	double					pos_celly;
+	double					pos_cellx;
+	double					dist_texture;
+	double					dist_center;
+	double					cos_angle;
+	char					*texture_pixel;
+	char					*pixel_addr;
+	bool					is_up_move_hand;
 	bool					is_msg_active;
 	bool					is_first_msg;
-	unsigned long long		time_remove;
 };
 
 struct						s_lumos
 {
-	// t_img	*img;
-	int						x_wand;
 	int						y_wand;
-	bool					active;
+	int						x_wand;
 	int						count_frame;
+	bool					active;
 };
 
 struct						s_coa
 {
 	unsigned int			color;
-	char					*name;
 	t_img					*img_coa;
 	t_img					*border;
 	double					xp;
 	double					max_y;
+	char					*name;
 };
 
 struct						s_hitray
 {
-	int						i;
-	int						j;
-	int						deg;
-	bool					hit;
-	double					radius;
-	double					delta;
-	double					delta_t;
-	double					delta_u;
-	double					t;
-	double					u;
-	double					ax;
-	double					ay;
-	double					bx;
-	double					by;
-	double					cx;
-	double					cy;
-	double					dx;
-	double					dy;
-	double					hx;
-	double					hy;
-	double					rx;
-	double					ry;
-	double					delta_x;
-	double					delta_y;
-	int						type;
 	t_data					*data;
+	int						type;
+	int						j;
+	int						i;
+	int						deg;
+	double					u;
+	double					t;
+	double					ry;
+	double					rx;
+	double					radius;
+	double					hy;
+	double					hx;
+	double					dy;
+	double					dx;
+	double					delta;
+	double					delta_y;
+	double					delta_x;
+	double					delta_u;
+	double					delta_t;
+	double					cy;
+	double					cx;
+	double					by;
+	double					bx;
+	double					ay;
+	double					ax;
+	bool					hit;
 };
 
 struct						s_case
 {
+	t_fcoo					coo;
 	t_case					*parent;
 	t_case					*child;
-	t_fcoo					coo;
-	int						r_cost;
-	int						h_cost;
 	int						t_cost;
+	int						r_cost;
 	int						is_path;
+	int						h_cost;
 };
 
 struct						s_spell
 {
+	void					(*call)(t_data *data, int info);
+	t_item					item;
 	t_img					*icn;
 	t_img					*icn_name;
+	t_enum_class_spell		class;
 	t_damage				damage;
-	t_item					item;
-	int						type;
-	double					necessary_lvl;
-	double					base_cooldown;
-	double					base_timer;
 	long long int			launch_time;
 	long long int			end_time;
-	void					(*call)(t_data *data, int info);
-	t_enum_class_spell		class;
+	int						type;
+	double					necessary_lvl;
+	double					base_timer;
+	double					base_cooldown;
 };
 
 struct						s_player
 {
-	double					life;
-	double					shield;
-	double					xp;
-	t_damage				damage;
-	t_fcoo					coo;
-	t_fcoo					left;
+	unsigned int			color;
 	t_fcoo					right;
-	t_fcoo					left_before;
 	t_fcoo					right_before;
+	t_fcoo					left;
+	t_fcoo					left_before;
+	t_fcoo					coo;
+	t_damage				damage;
 	t_coo					save;
-	double					radius;
-	int						protego;
-	double					episkey_frame;
-	double					episkey_heal;
-	double					vul_sanen_frame;
-	double					vul_sanen_heal;
-	bool					is_front;
-	int						invisible;
 	long long int			timer_invi;
 	long long int			timer_invi_short;
+	int						protego;
+	int						invisible;
 	int						coa;
-	unsigned int			color;
+	double					xp;
+	double					vul_sanen_heal;
+	double					vul_sanen_frame;
+	double					shield;
+	double					radius;
+	double					life;
+	double					episkey_heal;
+	double					episkey_frame;
+	bool					is_front;
 };
 
 struct						s_wand
 {
 	int						nb_wand;
+	int						count_sword;
 	int						count_egg;
 	char					*secret_wand;
+	char					*secret_sword;
 	bool					wand_status[7];
 	bool					is_drop[7];
-	char					*secret_sword;
-	int						count_sword;
 };
 
 struct						s_popo
@@ -1048,67 +1016,67 @@ struct						s_popo
 	void					(*call)(t_data *data);
 	t_img					*img;
 	int						nb;
-	char					*key;
 	int						active;
+	char					*key;
 };
 
 struct						s_cooldown
 {
+	long long				tig;
+	long long				stupefix;
 	long long				spell;
 	long long				incendio;
-	long long				aguamenti;
 	long long				expecto_patronum;
-	long long				arania_exumai;
-	long long				stupefix;
-	long long				tig;
 	long long				bh;
+	long long				arania_exumai;
+	long long				aguamenti;
 };
 
 struct						s_sorcerer
 {
-	bool					is_alive;
-	char					type;
-	int						nb_spawn;
 	unsigned int			color;
 	t_damage				damage;
 	t_cooldown				cooldown;
+	int						nb_spawn;
+	char					type;
+	bool					is_alive;
 };
 
 struct						s_sound
 {
-	int						pid;
 	long long int			start;
 	long long int			duration;
+	int						pid;
 };
 
 struct						s_aff
 {
+	unsigned int			old_color;
 	unsigned int			color;
+	unsigned int			b;
+	unsigned int			a;
 	t_img					img;
 	t_coo					new;
 	t_coo					cur;
-	unsigned int			a;
-	unsigned int			b;
-	int						a_new;
-	int						r_new;
-	int						g_new;
-	int						b_new;
-	int						r_old;
-	int						g_old;
-	int						b_old;
-	unsigned int			old_color;
-	char					*tmp_addr;
-	int						x_max;
-	int						y_max;
-	double					dist_x;
-	double					dist_y;
-	double					base_x;
-	double					base_y;
-	double					ray;
-	double					dx;
-	double					dy;
-	int						x;
 	int						y;
+	int						y_max;
+	int						x;
+	int						x_max;
+	int						r_old;
+	int						r_new;
+	int						g_old;
+	int						g_new;
+	int						b_old;
+	int						b_new;
+	int						a_new;
+	double					ray;
+	double					dy;
+	double					dx;
+	double					dist_y;
+	double					dist_x;
+	double					base_y;
+	double					base_x;
+	char					*tmp_addr;
 };
 
 struct						s_mv_enemy
@@ -1129,103 +1097,96 @@ struct						s_mv_enemy
 
 struct						s_enemy_vision
 {
-	int			type;
+	t_ray		ray;
+	t_fcoo		coo;
 	t_enemy		*keep_elem;
+	int			type;
+	double		rad;
 	double		dist_min;
 	double		dist_min_player;
-	t_fcoo		coo;
-	t_ray		ray;
 	double		deg;
-	double		rad;
 };
 
 struct						s_data
 {
-	t_img					img[NB_TEXTURES];
-	t_utils_mini			u;
-	t_img					*screen;
-	long long int			time_fps;
-	long long int			time_move;
-	int						frame_move;
-	int						ac;
-	char					**av;
-	int						status;
-	int						nb_coalition;
-	t_map					map;
-	t_mlx					mlx;
-	t_ray					*ray;
-	t_display				display;
-	t_aff					aff;
-	t_lumos					lumos;
-	int						keycode[100];
-	pthread_mutex_t			m_data_ray;
-	pthread_t				thread_wall;
-	pthread_t				thread_sky_first;
-	pthread_t				thread_sky_snd;
-	pthread_t				thread_sky_third;
-	pthread_t				thread_sky_last;
-	pthread_t				thread_floor_first;
-	pthread_t				thread_floor_snd;
-	pthread_t				thread_floor_third;
-	pthread_t				thread_floor_last;
-	pthread_t				thread_ray_first;
-	pthread_t				thread_ray_snd;
-	pthread_t				thread_ray_third;
-	pthread_t				thread_ray_last;
-	pthread_t				thread_fst_part;
-	pthread_t				thread_snd_part;
-	pthread_t				thread_third_part;
-	pthread_t				thread_last_part;
-	pthread_barrier_t		barrier_background;
-	pthread_barrier_t		barrier_display;
-	t_coa					coa[4];
 	unsigned int			color;
-	int						selected;
-	// t_img			*select;
-	// t_img			*select_hand;
-	// t_img			*player_hand;
-	// t_img			*player_wand;
-	// t_img			*left_select;
-	bool					is_right_handed;
-	int						nb_door;
-	t_door					**doors;
-	bool					player_moved;
-	int						current_msg;
-	int						nb_msg;
-	int						random_value;
-	t_pause_menu			pause_menu;
+	t_wand					wand;
+	t_utils_mini			u;
 	t_spell_menu			spell_menu;
-	double					sensitivity;
-	// t_img	*wh;
-	// t_img	*bl;
-	int						nb_enemy;
-	int						nb_create_enemy;
-	double					spider_factor;
-	double					elem_factor;
-	double					dementor_factor;
-	double					wolf_factor;
-	t_player				player;
 	t_spell					spell[NB_SPELL];
-	t_item					items[NB_TYPE_ITEM];
-	int						spell_take[4];
-	int						cast_spell;
-	int						active_spell;
-	t_lst					*enemy;
+	t_sorcerer				sorcerer[NB_SORCERER + 1];
+	t_ray					*ray;
+	t_popo					popo[4];
+	t_player				player;
+	t_pause_menu			pause_menu;
+	t_mlx					mlx;
+	t_map					map;
+	t_lumos					lumos;
+	t_lst					*sound;
 	t_lst					*item;
+	t_lst					*enemy;
 	t_lst					*door;
-	int						frame_floo;
+	t_item					items[NB_TYPE_ITEM];
+	t_img					img[NB_TEXTURES];
+	t_img					*screen;
+	t_door					**doors;
+	t_display				display;
+	t_coa					coa[4];
+	t_aff					aff;
+	pthread_t				thread_wall;
+	pthread_t				thread_third_part;
+	pthread_t				thread_snd_part;
+	pthread_t				thread_sky_third;
+	pthread_t				thread_sky_snd;
+	pthread_t				thread_sky_last;
+	pthread_t				thread_sky_first;
+	pthread_t				thread_ray_third;
+	pthread_t				thread_ray_snd;
+	pthread_t				thread_ray_last;
+	pthread_t				thread_ray_first;
+	pthread_t				thread_last_part;
+	pthread_t				thread_fst_part;
+	pthread_t				thread_floor_third;
+	pthread_t				thread_floor_snd;
+	pthread_t				thread_floor_last;
+	pthread_t				thread_floor_first;
+	pthread_mutex_t			m_data_ray;
+	pthread_barrier_t		barrier_display;
+	pthread_barrier_t		barrier_background;
+	long long int			time_move;
+	long long int			time_fps;
 	long long int			spawn_frame;
 	long long int			last_spawn;
-	t_wand					wand;
+	int						status;
+	int						spell_take[4];
+	int						selected;
+	int						random_value;
+	int						nb_msg;
+	int						nb_enemy;
+	int						nb_door;
+	int						nb_create_enemy;
+	int						nb_coalition;
+	int						keycode[100];
+	int						index_xp;
+	int						index_life;
+	int						frame_move;
+	int						frame_floo;
+	int						current_msg;
+	int						count_frame;
+	int						cast_spell;
+	int						active_spell;
+	int						ac;
+	double					wolf_factor;
+	double					spider_factor;
+	double					sensitivity;
+	double					elem_factor;
+	double					dementor_factor;
 	char					*cheat_code_xp;
 	char					*cheat_code_life;
-	int						index_life;
-	int						index_xp;
+	char					**av;
 	bool					portkey_is_active;
-	t_popo					popo[4];
-	t_sorcerer				sorcerer[NB_SORCERER + 1];
-	t_lst					*sound;
-	int						count_frame;
+	bool					player_moved;
+	bool					is_right_handed;
 };
 
 t_coo						*init_t_coo(int y, int x);

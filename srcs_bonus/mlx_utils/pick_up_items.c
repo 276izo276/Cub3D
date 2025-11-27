@@ -1,7 +1,4 @@
 #include "cub3d_bonus.h"
-#include "utils_bonus.h"
-#include <math.h>
-#include "texture_bonus.h"
 
 static void	pick_up_wand(t_data *data, t_item *item)
 {

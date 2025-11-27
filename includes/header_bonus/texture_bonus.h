@@ -1,5 +1,5 @@
-#ifndef IMAGE_H
-# define IMAGE_H
+#ifndef TEXTURE_BONUS_H
+# define TEXTURE_BONUS_H
 
 # define MINI_FLOOR 0
 # define MINI_WALL 1

@@ -1,6 +1,4 @@
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
-#include "utils_bonus.h"
 #include <math.h>
 
 static void	define_value_hit(t_data *data, t_hitray *ray, t_door *door, int i)

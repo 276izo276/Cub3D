@@ -1,4 +1,3 @@
-#include "struct_bonus.h"
 #include "cub3d_bonus.h"
 
 void	win_xp(t_data *data, int type, double *xp)

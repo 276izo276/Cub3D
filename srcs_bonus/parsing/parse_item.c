@@ -1,10 +1,6 @@
-#include "color_bonus.h"
-#include "ft_printf.h"
 #include "parsing_bonus.h"
-#include "struct_bonus.h"
 #include "utils_bonus.h"
 #include "cub3d_bonus.h"
-#include "enemy_bonus.h"
 
 static void	set_door_pos(t_door *door, int y, int x, char c)
 {

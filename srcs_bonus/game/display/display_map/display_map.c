@@ -1,9 +1,6 @@
-#include "color_bonus.h"
 #include "cub3d_bonus.h"
 #include "mlx.h"
-#include "struct_bonus.h"
 #include "texture_bonus.h"
-#include "utils_bonus.h"
 #include <math.h>
 
 static void	calc_dist_center(t_data *data, int x, int y)

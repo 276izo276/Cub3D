@@ -1,5 +1,5 @@
-#include "struct_bonus.h"
 #include "cub3d_bonus.h"
+#include "enemy_bonus.h"
 
 void	damage_poison_fire(t_enemy *enemy)
 {

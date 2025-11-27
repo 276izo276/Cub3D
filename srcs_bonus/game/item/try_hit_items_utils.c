@@ -1,9 +1,6 @@
 #include "cub3d_bonus.h"
 #include "enemy_bonus.h"
-#include "struct_bonus.h"
-#include "utils_bonus.h"
 #include <math.h>
-#include <string.h>
 
 void	calc_left_point_item(t_item *item)
 {

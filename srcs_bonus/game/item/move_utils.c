@@ -1,9 +1,7 @@
 #include "cub3d_bonus.h"
 #include "enemy_bonus.h"
-#include "struct_bonus.h"
 #include "utils_bonus.h"
 #include <math.h>
-#include <string.h>
 
 double	calc_dist_attraction(t_item *attract, t_enemy *enemy)
 {

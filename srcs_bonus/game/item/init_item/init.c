@@ -1,9 +1,8 @@
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
-#include "time_bonus.h"
 #include <math.h>
 #include <stdlib.h>
 #include <strings.h>
+#include "parsing_bonus.h"
 
 static void	init_damage(t_damage *damage_take, t_damage *damage_do)
 {

@@ -1,5 +1,5 @@
-#include "struct_bonus.h"
 #include "cub3d_bonus.h"
+#include "enemy_bonus.h"
 
 int	calc_if_hit(t_hitray *ray, t_lst **lst, t_item *item, t_enemy *elem)
 {

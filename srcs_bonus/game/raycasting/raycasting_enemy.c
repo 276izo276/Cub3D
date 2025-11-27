@@ -1,6 +1,4 @@
 #include "cub3d_bonus.h"
-#include "struct_bonus.h"
-#include "utils_bonus.h"
 #include <math.h>
 
 static void	set_orientation_right(t_enemy *enemy, t_data *data, int i,

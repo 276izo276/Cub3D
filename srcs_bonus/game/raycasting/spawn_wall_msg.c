@@ -1,5 +1,4 @@
 #include "cub3d_bonus.h"
-#include <math.h>
 #include <stdlib.h>
 
 void	spawn_wall_msg(t_data *data, int i, int y, int x)

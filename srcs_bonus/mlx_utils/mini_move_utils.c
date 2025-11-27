@@ -1,7 +1,5 @@
 #include "cub3d_bonus.h"
-#include "utils_bonus.h"
 #include <math.h>
-#include "texture_bonus.h"
 
 static void	norm_move(t_data *data, double *dx, double *dy)
 {

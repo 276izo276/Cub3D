@@ -1,6 +1,6 @@
-#include "struct_bonus.h"
 #include "cub3d_bonus.h"
 #include <math.h>
+#include "enemy_bonus.h"
 
 static int	handle_ray_x_gen(t_data *data, t_ray *ray)
 {

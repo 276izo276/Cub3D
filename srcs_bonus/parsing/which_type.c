@@ -29,6 +29,16 @@ static void	set_item_type(t_data *data, char c, int *info)
 	}
 }
 
+void	create_pillar(t_data *data, int y, int x)
+{
+	data->item = add_end_lst(create_item(data, PILLAR,
+				&(t_fcoo){.case_x = x, .case_y = y,
+				.coo_y = 32, .coo_x = 32}, data->map.mini.deg),
+			data->item, f_item);
+	if (!data->item)
+		f_exit(data, 1);
+}
+
 void	is_item(char c, int y, int x, t_data *data)
 {
 	int			i;
@@ -48,12 +58,7 @@ void	is_item(char c, int y, int x, t_data *data)
 			if (!data->item)
 				f_exit(data, 1);
 			if (c == 'f')
-				data->item = add_end_lst(create_item(data, PILLAR,
-						&(t_fcoo){.case_x = x, .case_y = y,
-						.coo_y = 32, .coo_x = 32}, data->map.mini.deg),
-					data->item, f_item);
-			if (!data->item)
-				f_exit(data, 1);
+				create_pillar(data, y, x);
 			data->map.tabmap[y][x] = '0';
 		}
 		i++;
