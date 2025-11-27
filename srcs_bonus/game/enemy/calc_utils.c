@@ -60,7 +60,7 @@ void	path_move_enemy(t_enemy *enemy, t_data *data, double *dx, double *dy)
 			f_case(enemy->way);
 			enemy->way = NULL;
 			enemy->wait = 0;
-			// enemy->calc = true;
+			enemy->calc = true;
 		}
 		else
 			move_center_point(data, enemy, dy, dx);
