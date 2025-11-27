@@ -25,6 +25,7 @@ void	get_ranking_xp(t_data *data)
 
 	max_xp = 1.0;
 	index_max_xp = 0;
+	data->sound = add_end_lst(create_sound(data, 30), data->sound, free_sound);
 	get_max_xp(data, &max_xp, &index_max_xp);
 	data->coa[index_max_xp].max_y = 196 ;
 	i = 0;

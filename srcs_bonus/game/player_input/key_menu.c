@@ -102,4 +102,10 @@ void	handle_menu_keys(int keycode, t_data *data)
 		key_select_coa(keycode, data);
 	else if (data->is_right_handed == 0)
 		key_select_hand(keycode, data);
+	if (data->status == GAME)
+	{
+		remove_sound(data, 23);
+		data->sound = add_end_lst(create_sound(data, 22), data->sound,
+				free_sound);
+	}
 }

@@ -1,7 +1,7 @@
 #include "cub3d_bonus.h"
-#include "time_bonus.h"
 #include "enemy_bonus.h"
 #include "parsing_bonus.h"
+#include "time_bonus.h"
 
 void	spell_protego(t_data *data)
 {
@@ -52,6 +52,8 @@ void	cast_episkey(t_data *data, int info)
 		data->player.episkey_heal = .1;
 		data->spell[EPISKEY].end_time = get_mtime();
 		data->count_frame = 50;
+		data->sound = add_end_lst(create_sound(data, 8), data->sound,
+				free_sound);
 	}
 }
 
@@ -63,8 +65,8 @@ void	cast_spell(t_data *data, int info)
 		+ data->spell[info].base_cooldown * 1000)
 	{
 		data->spell[info].launch_time = get_mtime();
-		data->item = add_end_lst(init_spell_item(data, info),
-				data->item, f_item);
+		data->item = add_end_lst(init_spell_item(data, info), data->item,
+				f_item);
 		data->spell[info].end_time = get_mtime();
 	}
 }

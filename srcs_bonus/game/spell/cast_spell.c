@@ -1,6 +1,6 @@
 #include "cub3d_bonus.h"
-#include "time_bonus.h"
 #include "enemy_bonus.h"
+#include "time_bonus.h"
 
 void	cast_protego(t_data *data, int info)
 {
@@ -16,6 +16,8 @@ void	cast_protego(t_data *data, int info)
 		data->player.protego = 6;
 		data->spell[PROTEGO].end_time = get_mtime();
 		data->count_frame = 50;
+		data->sound = add_end_lst(create_sound(data, 2), data->sound,
+				free_sound);
 	}
 }
 
@@ -38,9 +40,11 @@ void	cast_opugno(t_data *data, int info)
 						(t_fcoo){.case_x = data->player.coo.case_x,
 						.case_y = data->player.coo.case_y,
 						.coo_x = data->player.coo.coo_x,
-						.coo_y = data->player.coo.coo_y},
-						data, data->map.mini.deg), data->enemy, f_enemy);
+						.coo_y = data->player.coo.coo_y}, data,
+						data->map.mini.deg), data->enemy, f_enemy);
 		data->count_frame = 50;
+		data->sound = add_end_lst(create_sound(data, 15), data->sound,
+				free_sound);
 	}
 }
 
@@ -65,6 +69,8 @@ void	cast_serpensortia(t_data *data, int info)
 		data->enemy = add_end_lst(init_enemy(SNAKE, coo, data,
 					data->map.mini.deg), data->enemy, f_enemy);
 		data->count_frame = 50;
+		data->sound = add_end_lst(create_sound(data, 11), data->sound,
+				free_sound);
 	}
 }
 
@@ -86,5 +92,7 @@ void	cast_vulnera_sanentur(t_data *data, int info)
 		data->player.damage.curse_frame_take = 0;
 		data->spell[VULNERA_SANENTUR].end_time = get_mtime();
 		data->count_frame = 50;
+		data->sound = add_end_lst(create_sound(data, 16), data->sound,
+				free_sound);
 	}
 }

@@ -43,11 +43,11 @@ static void	set_orientation(t_enemy *enemy, t_data *data, int i, t_hitray *ray)
 static void	define_value_hit(t_data *data, t_hitray *ray, t_enemy *enemy, int i)
 {
 	ray->j = -1;
-	printf("i >> %d\n", i);
+	// printf("i >> %d\n", i);
 	while (++ray->j < MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door + data->map.nb_floo)
 		if (data->ray[i].items[ray->j]->use == false)
 			break ;
-	printf("j >> %d\n", ray->j);
+	// printf("j >> %d\n", ray->j);
 	data->ray[i].items[ray->j]->type = ENEMY;
 	data->ray[i].items[ray->j]->use = true;
 	data->ray[i].items[ray->j]->enemy = enemy;

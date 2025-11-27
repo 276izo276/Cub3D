@@ -21,15 +21,15 @@ void	handle_exit_map(int keycode, t_data *data)
 	int	angle_deg;
 
 	angle_deg = data->map.mini.deg;
-	if (keycode == KEY_ESCAPE)
+	if (keycode == KEY_ESCAPE || (keycode == KEY_M && data->status == MAP))
 	{
 		data->status = GAME;
 		data->map.zoom = 128;
-		data->sound = add_end_lst(create_sound(data, 26), data->sound,
+		data->sound = add_end_lst(create_sound(data, 28), data->sound,
 				free_sound);
 		if (data->status != FLOO_MAP)
 			return ;
-		data->sound = add_end_lst(create_sound(data, 28), data->sound,
+		data->sound = add_end_lst(create_sound(data, 26), data->sound,
 				free_sound);
 		change_player_deg(data, angle_deg);
 		data->map.door_map[data->player.coo.case_y]

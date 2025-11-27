@@ -203,6 +203,7 @@ void			display_quit_button(t_data *data, int start_x, int start_y);
 void			handle_death_menu(t_data *data);
 int				darken_the_color(int color);
 void			get_ranking_xp(t_data *data);
+void			remove_sound(t_data *data, int info);
 
 typedef enum e_key_down
 {
