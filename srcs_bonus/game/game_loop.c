@@ -61,6 +61,34 @@ static void	handle_sound(t_data *data)
 	}
 }
 
+#include <stdio.h>
+void	remove_sound(t_data *data, int info)
+{
+	t_sound	*sound;
+	t_lst	*lst;
+	t_lst	*next;
+	int		result;
+
+	lst = get_first_elem_lst(data->sound);
+	while (lst)
+	{
+		sound = lst->dt;
+		next = lst->next;
+		if (info == sound->id)
+		{
+			result = waitpid(sound->pid, NULL, WNOHANG);
+			if (result == 0 && sound->duration != -1)
+			{
+				kill(sound->pid, SIGTERM);
+				data->sound = remove_f_elem_lst(lst);
+			}
+			else
+				data->sound = remove_f_elem_lst(lst);
+		}
+		lst = next;
+	}
+}
+
 void	handle_input_cond(t_data *data, int i, int *move)
 {
 	if (data->keycode[i] >= KEY_1 && data->keycode[i] <= KEY_4)

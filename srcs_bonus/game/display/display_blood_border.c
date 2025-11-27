@@ -1,4 +1,5 @@
 #include "cub3d_bonus.h"
+#include "time_bonus.h"
 #include <math.h>
 
 int	get_right_red(int color, double distance, int max_dist, int life)
@@ -67,12 +68,20 @@ static void	draw_border(t_data *data, int radius, int start_x, int max_x)
 
 void	display_blood_border(t_data *data, int start_x, int max_x)
 {
-	int		radius;
-	double	life_factor;
+	int				radius;
+	double			life_factor;
+	long long int	cur;
 
+	cur = get_mtime();
 	if (data->player.life >= 50)
 		return ;
 	life_factor = data->player.life / 50.0;
+	if (cur > data->sound_frame * life_factor * 1000)
+	{
+		data->sound = add_end_lst(create_sound(data, 33), data->sound,
+				free_sound);
+		data->sound_frame = get_mtime();
+	}
 	radius = (int)(life_factor * (data->mlx.width) / 2.5);
 	draw_border(data, radius, start_x, max_x);
 }

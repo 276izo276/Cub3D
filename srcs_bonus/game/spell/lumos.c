@@ -1,7 +1,7 @@
 #include "cub3d_bonus.h"
 #include "mlx.h"
-#include <math.h>
 #include "time_bonus.h"
+#include <math.h>
 
 int	get_right_white(t_data *data, int color, double distance)
 {
@@ -12,18 +12,15 @@ int	get_right_white(t_data *data, int color, double distance)
 	if (data->count_frame < 0)
 		data->count_frame = 0;
 	b = (color & 255);
-	b = (int)(b + (255 - b) * ((1 - distance / 350))
-			* data->count_frame / 100);
+	b = (int)(b + (255 - b) * ((1 - distance / 350)) * data->count_frame / 100);
 	if (b > 255)
 		b = 255;
 	g = (color >> 8 & 255);
-	g = (int)(g + (255 - g) * ((1 - distance / 350))
-			* data->count_frame / 100);
+	g = (int)(g + (255 - g) * ((1 - distance / 350)) * data->count_frame / 100);
 	if (g > 255)
 		g = 255;
 	r = (color >> 16 & 255);
-	r = (int)(r + (255 - r) * ((1 - distance / 350))
-			* data->count_frame / 100);
+	r = (int)(r + (255 - r) * ((1 - distance / 350)) * data->count_frame / 100);
 	if (r > 255)
 		r = 255;
 	color = (r << 16) + (g << 8) + b;
@@ -60,8 +57,8 @@ void	lumos_loop(t_data *data, int start_x, int start_y)
 
 void	spell_lumos(t_data *data)
 {
-	int				start_x;
-	int				start_y;
+	int	start_x;
+	int	start_y;
 
 	if (data->lumos.active && get_mtime() > data->spell[LUMOS].launch_time
 		+ data->spell[LUMOS].base_timer * 1000)
@@ -89,8 +86,8 @@ void	cast_lumos(t_data *data, int info)
 {
 	(void)info;
 	data->cast_spell = -1;
-	if (data->active_spell == -1
-		&& !data->lumos.active && get_mtime() > data->spell[LUMOS].end_time
+	if (data->active_spell == -1 && !data->lumos.active
+		&& get_mtime() > data->spell[LUMOS].end_time
 		+ data->spell[LUMOS].base_cooldown * 1000)
 	{
 		data->lumos.active = true;
@@ -104,4 +101,7 @@ void	cast_lumos(t_data *data, int info)
 		data->active_spell = -1;
 		data->spell[LUMOS].end_time = get_mtime();
 	}
+	if (data->lumos.active == true)
+		data->sound = add_end_lst(create_sound(data, 0), data->sound,
+				free_sound);
 }

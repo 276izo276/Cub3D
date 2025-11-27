@@ -1,26 +1,39 @@
 #include "cub3d_bonus.h"
 
-static void	pick_up_wand(t_data *data, t_item *item)
+static void	pick_wand(t_data *data, t_item *item)
 {
 	if (item->type == WOLF_WAND)
 	{
 		data->wand.wand_status[2] = true;
 		data->wand.nb_wand = 2;
+		data->sound = add_end_lst(create_sound(data, 29), data->sound,
+				free_sound);
 	}
 	if (item->type == ELEM_WAND)
 	{
 		data->wand.wand_status[3] = true;
 		data->wand.nb_wand = 3;
+		data->sound = add_end_lst(create_sound(data, 29), data->sound,
+				free_sound);
 	}
+}
+
+static void	pick_up_wand(t_data *data, t_item *item)
+{
+	pick_wand(data, item);
 	if (item->type == DEMENTOR_WAND)
 	{
 		data->wand.wand_status[4] = true;
 		data->wand.nb_wand = 4;
+		data->sound = add_end_lst(create_sound(data, 29), data->sound,
+				free_sound);
 	}
 	if (item->type == SPIDER_WAND)
 	{
 		data->wand.wand_status[1] = true;
 		data->wand.nb_wand = 1;
+		data->sound = add_end_lst(create_sound(data, 31), data->sound,
+				free_sound);
 	}
 }
 
@@ -28,15 +41,15 @@ void	pick_up_items(t_data *data, t_item *item, t_lst **lst)
 {
 	t_lst	*next;
 
-	if (item->type == POPO_HEAL)
-		data->popo[0].nb ++;
-	if (item->type == POPO_SHIELD)
-		data->popo[1].nb ++;
-	if (item->type == POPO_FLOO)
-		data->popo[2].nb ++;
-	if (item->type == POPO_INVI)
+	if (item->type == POPO_HEAL && item->categ)
+		data->popo[0].nb++;
+	if (item->type == POPO_SHIELD && item->categ)
+		data->popo[1].nb++;
+	if (item->type == POPO_FLOO && item->categ)
+		data->popo[2].nb++;
+	if (item->type == POPO_INVI && item->categ)
 		data->popo[3].nb++;
-	if (item->type == PORTKEY)
+	if (item->type == PORTKEY && item->categ)
 	{
 		data->status = MENU_END;
 		get_ranking_xp(data);

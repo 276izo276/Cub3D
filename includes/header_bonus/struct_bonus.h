@@ -36,6 +36,11 @@
 # define SECTUMSEMPRA_MP3 "sound/spell/sectumsempra.mp3"
 # define ENDOLORIS_MP3 "sound/spell/endoloris.mp3"
 # define AVADA_KEDAVRA_MP3 "sound/spell/avada_kedavra.mp3"
+# define COLLECT_WAND_MP3 "sound/collect_wand.mp3"
+# define POPO_MP3 "sound/popo.mp3"
+# define FREEDOM_MP3 "sound/freedom.mp3"
+# define FLOO_MP3 "sound/floo.mp3"
+# define HEART_MP3 "sound/heart.mp3"
 
 # define SIZE_MAP 320
 # define FPS 30.0
@@ -1047,6 +1052,7 @@ struct						s_sound
 	long long int			start;
 	long long int			duration;
 	int						pid;
+	int						id;
 };
 
 struct						s_aff
@@ -1158,6 +1164,7 @@ struct						s_data
 	long long int			time_fps;
 	long long int			spawn_frame;
 	long long int			last_spawn;
+	long long int			sound_frame;
 	int						status;
 	int						spell_take[4];
 	int						selected;
