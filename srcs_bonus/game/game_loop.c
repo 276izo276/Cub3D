@@ -1156,7 +1156,7 @@ int	game_loop(t_data *data)
 			spell_protego(data);
 			spell_heal(data);
 			aff_protego(data);
-			// display_hand(data);
+			display_hand(data);
 			aff_mini_map(data);
 			handle_door(data);
 		}

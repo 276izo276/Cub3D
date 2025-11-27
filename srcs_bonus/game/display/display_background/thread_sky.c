@@ -10,13 +10,13 @@ void	*display_sky_first(void *ptr)
 
 	data = (t_data *)ptr;
 	max_height = data->screen->height / 8;
-	display = data->display;
-	display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
-	display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
 	y = 0;
 	while (1)
 	{
 		pthread_barrier_wait(&data->barrier_background);
+		display = data->display;
+		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
+		display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
 		display.cos_angle = cos(data->map.mini.rad);
 		display.sin_angle = sin(data->map.mini.rad);
 		display_background_loop_sky(data, display, y, max_height);
@@ -34,13 +34,13 @@ void	*display_sky_snd(void *ptr)
 
 	data = (t_data *)ptr;
 	max_height = data->screen->height / 8 * 2;
-	display = data->display;
-	display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
-	display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
 	y = data->screen->height / 8;
 	while (1)
 	{
 		pthread_barrier_wait(&data->barrier_background);
+		display = data->display;
+		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
+		display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
 		display.cos_angle = cos(data->map.mini.rad);
 		display.sin_angle = sin(data->map.mini.rad);
 		display_background_loop_sky(data, display, y, max_height);
@@ -58,13 +58,13 @@ void	*display_sky_third(void *ptr)
 
 	data = (t_data *)ptr;
 	max_height = data->screen->height / 8 * 3;
-	display = data->display;
-	display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
-	display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
 	y = data->screen->height / 8 * 2;
 	while (1)
 	{
 		pthread_barrier_wait(&data->barrier_background);
+		display = data->display;
+		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
+		display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
 		display.cos_angle = cos(data->map.mini.rad);
 		display.sin_angle = sin(data->map.mini.rad);
 		display_background_loop_sky(data, display, y, max_height);
@@ -82,13 +82,13 @@ void	*display_sky_last(void *ptr)
 
 	data = (t_data *)ptr;
 	max_height = data->screen->height / 8 * 4;
-	display = data->display;
-	display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
-	display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
 	y = data->screen->height / 8 * 3;
 	while (1)
 	{
 		pthread_barrier_wait(&data->barrier_background);
+		display = data->display;
+		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
+		display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
 		display.cos_angle = cos(data->map.mini.rad);
 		display.sin_angle = sin(data->map.mini.rad);
 		display_background_loop_sky(data, display, y, max_height);
