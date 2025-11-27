@@ -9,6 +9,7 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
+void	reset_data_display(t_data *data, int i);
 int				try_hit_items(t_item *elem, t_data *data);
 bool			hit_calc_scal_enemy(t_enemy *enemy, t_item *elem, t_hitray *ray,
 					t_lst **lst);

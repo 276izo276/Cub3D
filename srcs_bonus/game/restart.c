@@ -90,4 +90,11 @@ void	restart(t_data *data)
 	parsing(data);
 	init_foot_tab(data);
 	reset_data_value(data);
+	int	i;
+	i = 0;
+	while (i < data->mlx.width)
+	{
+		reset_data_display(data, i);
+		++i;
+	}
 }
