@@ -4,6 +4,7 @@
 #include "utils_bonus.h"
 #include <fcntl.h>
 #include "time_bonus.h"
+#include "player_bonus.h"
 
 void	run_init(t_data *data)
 {

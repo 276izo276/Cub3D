@@ -3,6 +3,7 @@
 #include "mlx.h"
 #include "utils_bonus.h"
 #include <unistd.h>
+#include "player_bonus.h"
 
 static void	sensitivity_loop_x(unsigned int color, t_data *data, int x, int y)
 {

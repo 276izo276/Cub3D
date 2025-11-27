@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "time_bonus.h"
 #include "cub3d_bonus.h"
+#include "enemy_bonus.h"
 
 bool	is_sorcerer(int type)
 {

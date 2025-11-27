@@ -9,133 +9,6 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
-int				open_loop(t_enemy *enemy, t_lst **open, t_lst **closed,
-					t_data *data);
-int				man_dist(int startY, int startX, int endY, int endX);
-t_lst			*need_update_node(t_case *cel, t_case *cur, t_lst *save,
-					t_lst **lst);
-int				is_in_lst(t_case *cur, const int dir[2], t_lst *lst,
-					t_enemy *enemy);
-int				is_a_wall(t_case *cur, const int dir[2], t_data *data);
-void			set_final_path(t_lst *lst, t_enemy *enemy);
-int				is_end_path(t_lst *open, t_enemy *enemy);
-t_lst			*add_case_open(t_lst *open, t_lst **closed, t_enemy *enemy,
-					t_data *data);
-void			right_case_replace(t_enemy *enemy, t_data *data);
-void			visu_enemy_valid(t_data *data, t_enemy_vision *visu,
-					t_enemy *enemy);
-void			launch_ray_enemy(t_ray *ray, t_data *data);
-void			fill_ray_enemy(t_enemy *enemy, t_ray *ray, double deg);
-bool			is_sorcerer(int type);
-int				handle_ray_x_right_gen(t_data *data, t_ray *ray);
-int				handle_ray_x_left_gen(t_data *data, t_ray *ray);
-int				handle_ray_y_down_gen(t_data *data, t_ray *ray);
-int				handle_ray_y_top_gen(t_data *data, t_ray *ray);
-void			spawn_elem_wand(t_enemy *enemy, t_data *data);
-void			spawn_wolf_wand(t_enemy *enemy, t_data *data);
-void			spawn_dementor_wand(t_enemy *enemy, t_data *data);
-void			spawn_spider_wand(t_enemy *enemy, t_data *data);
-void			set_valid_spawn(double *new_x, double *new_y);
-void			move_more_hit_pos(t_enemy *enemy, t_item *item);
-void			reverse_hit_pos(t_enemy *enemy, t_item *item);
-void			add_sound_xp(t_enemy *enemy, t_data *data);
-void			cancel_move(t_data *data, t_enemy *enemy, int dy, int dx);
-void			left_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx,
-					int dy);
-void			right_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx,
-					int dy);
-void			center_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx,
-					int dy);
-void			move_center_point(t_data *data, t_enemy *enemy, double *dy,
-					double *dx);
-int				are_double_close(double nb1, double nb2);
-void			apply_slow_enemy(t_enemy *enemy, double *dx, double *dy);
-void			calc_dx_dy_enemy(double *dy, double *dx, double rad);
-void			earth_spell(t_data *data, t_enemy *enemy, double deg, int type);
-void			fire_spell(t_data *data, t_enemy *enemy, double deg, int type);
-void			water_spell(t_data *data, t_enemy *enemy, double deg, int type);
-void			air_spell(t_data *data, t_enemy *enemy, double deg, int type);
-void			take_damage_enemy(t_enemy *enemy);
-int				enemy_vision(t_data *data, t_enemy *enemy);
-int				repulso_neg_enemy(t_enemy *enemy, t_data *data);
-void			set_before_point_enemy(t_enemy *enemy, t_data *data);
-int				confundo_move_enemy(t_enemy *enemy, t_data *data);
-int				repulso_move_enemy(t_enemy *enemy, t_data *data);
-void			try_hit_enemys(t_enemy *elem, t_data *data, int type);
-void			spawn_item(t_data *data, t_enemy *enemy);
-int				attack_dist(t_enemy *enemy, t_data *data, t_enemy_vision *visu);
-void			recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx);
-void			remove_child_path(t_enemy *enemy);
-void			path_move_enemy(t_enemy *enemy, t_data *data, double *dx,
-					double *dy);
-void			calc_dist_target(t_enemy *enemy, t_enemy *elem, t_ray *ray);
-void			calc_dist_wall(t_ray *ray);
-void			recalc_path(t_enemy *enemy, t_enemy_vision *visu, t_data *data);
-// player_input
-void			handle_menu_keys(int keycode, t_data *data);
-void			handle_death_menu_keys(int keycode, t_data *data);
-void			handle_map_keys(int keycode, t_data *data);
-void			cheat_code(t_data *data, int keycode);
-bool			change_game_status(t_data *data, int keycode);
-void			handle_exit_map(int keycode, t_data *data);
-bool			is_move_player(t_data *data, int i);
-int				mouse_move(int x, int y, t_data *data);
-int				mouse_key(int key, int x, int y, t_data *data);
-int				key_release(int keycode, t_data *data);
-int				key_press(int keycode, t_data *data);
-int				is_key_pressed(t_data *data, int keycode);
-
-void			visu_enemy_valid(t_data *data, t_enemy_vision *visu,
-					t_enemy *enemy);
-void			launch_ray_enemy(t_ray *ray, t_data *data);
-void			fill_ray_enemy(t_enemy *enemy, t_ray *ray, double deg);
-bool			is_sorcerer(int type);
-int				handle_ray_x_right_gen(t_data *data, t_ray *ray);
-int				handle_ray_x_left_gen(t_data *data, t_ray *ray);
-int				handle_ray_y_down_gen(t_data *data, t_ray *ray);
-int				handle_ray_y_top_gen(t_data *data, t_ray *ray);
-void			spawn_elem_wand(t_enemy *enemy, t_data *data);
-void			spawn_wolf_wand(t_enemy *enemy, t_data *data);
-void			spawn_dementor_wand(t_enemy *enemy, t_data *data);
-void			spawn_spider_wand(t_enemy *enemy, t_data *data);
-void			set_valid_spawn(double *new_x, double *new_y);
-void			move_more_hit_pos(t_enemy *enemy, t_item *item);
-void			reverse_hit_pos(t_enemy *enemy, t_item *item);
-void			add_sound_xp(t_enemy *enemy, t_data *data);
-void			cancel_move(t_data *data, t_enemy *enemy, int dy, int dx);
-void			left_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx,
-					int dy);
-void			right_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx,
-					int dy);
-void			center_move_calc_case(t_mv_enemy *coo, t_fcoo enemy, int dx,
-					int dy);
-void			move_center_point(t_data *data, t_enemy *enemy, double *dy,
-					double *dx);
-int				are_double_close(double nb1, double nb2);
-void			apply_slow_enemy(t_enemy *enemy, double *dx, double *dy);
-void			calc_dx_dy_enemy(double *dy, double *dx, double rad);
-void			earth_spell(t_data *data, t_enemy *enemy, double deg, int type);
-void			fire_spell(t_data *data, t_enemy *enemy, double deg, int type);
-void			water_spell(t_data *data, t_enemy *enemy, double deg, int type);
-void			air_spell(t_data *data, t_enemy *enemy, double deg, int type);
-int				low_life_enemy(t_enemy *enemy, t_data *data, t_lst **lst);
-void			take_damage_enemy(t_enemy *enemy);
-int				enemy_vision(t_data *data, t_enemy *enemy);
-int				repulso_neg_enemy(t_enemy *enemy, t_data *data);
-void			set_before_point_enemy(t_enemy *enemy, t_data *data);
-int				confundo_move_enemy(t_enemy *enemy, t_data *data);
-int				repulso_move_enemy(t_enemy *enemy, t_data *data);
-void			try_hit_enemys(t_enemy *elem, t_data *data, int type);
-void			spawn_item(t_data *data, t_enemy *enemy);
-int				attack_dist(t_enemy *enemy, t_data *data, t_enemy_vision *visu);
-void			recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx);
-void			remove_child_path(t_enemy *enemy);
-void			path_move_enemy(t_enemy *enemy, t_data *data, double *dx,
-					double *dy);
-void			calc_dist_target(t_enemy *enemy, t_enemy *elem, t_ray *ray);
-void			calc_dist_wall(t_ray *ray);
-void			recalc_path(t_enemy *enemy, t_enemy_vision *visu, t_data *data);
-void			recalc_fcoo(t_fcoo *coo, t_fcoo *center, double dy, double dx);
 // hit item
 int				try_hit_items(t_item *elem, t_data *data);
 bool			hit_calc_scal_enemy(t_enemy *enemy, t_item *elem, t_hitray *ray,
@@ -231,10 +104,7 @@ void			calc_end_point(t_hitray *ray);
 void			try_hit_item(t_data *data, int i, double x);
 void			move_item(t_data *data);
 void			f_item(void *elem);
-t_item			*init_spell_item(t_data *data, int info);
 
-void			set_spell_take(t_data *data);
-void			init_spell(t_data *data);
 
 // void			display_item_old(t_data *data, int i);
 void			calc_delta(t_hitray *ray);
@@ -286,12 +156,6 @@ void			*ray_launch_third(void *ptr);
 void			*ray_launch_last(void *ptr);
 
 void			display_msg(t_data *data, int i, int y, int x);
-
-// init
-void			init_img_msg(t_data *data);
-void			open_img_msg(t_data *data);
-
-void			open_img(t_img *img, t_data *data);
 
 // raycasting
 void			ray_launch(t_data *data);
@@ -389,69 +253,8 @@ void			handle_death_menu(t_data *data);
 
 int				darken_the_color(int color);
 
-// mini_move
-void			movex(t_map *map, t_mini *mini, t_data *data);
-void			calc_dx_dy(t_data *data, int keycode, t_mini *mini);
-void			v_norm_sd(t_mini *mini, t_data *data);
-void			v_norm_d(t_mini *mini, t_data *data);
-void			recalc_x(t_data *data, t_mini *mini, t_map *map);
-void			recalc_y(t_data *data, t_mini *mini, t_map *map);
-void			movey(t_map *map, t_mini *mini, t_data *data);
-void			movex(t_map *map, t_mini *mini, t_data *data);
-void			save_pos_before_floo(t_data *data);
-
 // ranking
 void			get_ranking_xp(t_data *data);
-
-// init spell
-void			init_lumos(t_data *data);
-void			init_incendio(t_data *data);
-void			init_glacius(t_data *data);
-void			init_repulso(t_data *data);
-void			init_aguamenti(t_data *data);
-void			init_arania_exumai(t_data *data);
-void			init_protego(t_data *data);
-void			init_expelliarmus(t_data *data);
-void			init_expecto_patronum(t_data *data);
-void			init_vipera_evanesca(t_data *data);
-void			init_serpensortia(t_data *data);
-void			init_ventus(t_data *data);
-void			init_bombarda(t_data *data);
-void			init_episkey(t_data *data);
-void			init_stupefix(t_data *data);
-void			init_confundo(t_data *data);
-void			init_sectumsempra(t_data *data);
-void			init_petrificus_totalus(t_data *data);
-void			init_vulnera_sanentur(t_data *data);
-void			init_oppugno(t_data *data);
-
-// init_item
-void			init_tig(t_data *data);
-void			init_mac(t_data *data);
-void			init_bh(t_data *data);
-void			init_pizza(t_data *data);
-void			init_fireball_elem(t_data *data);
-void			init_death_anim(t_data *data);
-void			init_web_spider(t_data *data);
-void			init_folder(t_data *data);
-void			init_marvin(t_data *data);
-void			init_taylor_swift(t_data *data);
-void			init_company(t_data *data);
-void			init_logo_42(t_data *data);
-void			init_popo_shield(t_data *data);
-void			init_popo_floo(t_data *data);
-void			init_portkey(t_data *data);
-void			init_popo_invi(t_data *data);
-void			init_popo_heal(t_data *data);
-void			init_pillar(t_data *data);
-void			init_spider_wand(t_data *data);
-void			init_dementor_wand(t_data *data);
-void			init_elem_wand(t_data *data);
-void			init_wolf_wand(t_data *data);
-void			init_mutex(t_data *data);
-void			create_thread(t_data *data);
-void			init_struct_item(t_data *data);
-void			init_foot_tab(t_data *data);
 
 typedef enum e_key_down
 {

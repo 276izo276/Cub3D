@@ -1,6 +1,7 @@
 #include "struct_bonus.h"
 #include "cub3d_bonus.h"
 #include <stdlib.h>
+#include "enemy_bonus.h"
 
 void	spawn_heal(t_enemy *enemy, t_data *data)
 {

@@ -1,5 +1,6 @@
 #include "cub3d_bonus.h"
 #include "struct_bonus.h"
+#include "parsing_bonus.h"
 
 void	set_spell_take(t_data *data)
 {

@@ -5,6 +5,7 @@
 #include <math.h>
 #include "time_bonus.h"
 #include "enemy_bonus.h"
+#include "parsing_bonus.h"
 
 void	spell_protego(t_data *data)
 {
