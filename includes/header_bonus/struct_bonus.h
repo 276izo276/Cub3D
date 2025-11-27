@@ -1187,6 +1187,7 @@ struct						s_data
 	bool					portkey_is_active;
 	bool					player_moved;
 	bool					is_right_handed;
+	bool					god_mod;
 };
 
 t_coo						*init_t_coo(int y, int x);

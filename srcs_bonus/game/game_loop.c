@@ -1073,6 +1073,12 @@ int	game_loop(t_data *data)
 	long long int	cur;
 
 	cur = get_mtime();
+	if (data->god_mod == true)
+	{
+		data->player.life = 100;
+		data->player.shield = 100;
+		data->player.damage.slow_force_take = 0;
+	}
 	if (data->portkey_is_active == false && data->player.xp >= 16)
 		spawn_portkey(data);
 	if (data->status == MENU)

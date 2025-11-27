@@ -47,9 +47,11 @@ void	cheat_code(t_data *data, int keycode)
 		data->index_life++;
 		if (data->index_life == 8)
 		{
-			data->player.life = 100;
-			data->player.shield = 100;
 			data->index_life = 0;
+			if (data->god_mod == false)
+				data->god_mod = true;
+			else
+				data->god_mod = false;
 		}
 	}
 	if (data->wand.wand_status[5] != true || data->wand.wand_status[6] != true)
