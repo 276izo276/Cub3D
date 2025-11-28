@@ -43,6 +43,7 @@ void	*ray_launch_first(void *ptr)
 		}
 		pthread_barrier_wait(&data->barrier_background);
 	}
+	pthread_mutex_unlock(&data->m_end);
 	return (NULL);
 }
 
@@ -70,6 +71,7 @@ void	*ray_launch_snd(void *ptr)
 		}
 		pthread_barrier_wait(&data->barrier_background);
 	}
+	pthread_mutex_unlock(&data->m_end);
 	return (NULL);
 }
 
@@ -98,6 +100,7 @@ void	*ray_launch_third(void *ptr)
 		}
 		pthread_barrier_wait(&data->barrier_background);
 	}
+	pthread_mutex_unlock(&data->m_end);
 	return (NULL);
 }
 
@@ -126,5 +129,6 @@ void	*ray_launch_last(void *ptr)
 		}
 		pthread_barrier_wait(&data->barrier_background);
 	}
+	pthread_mutex_unlock(&data->m_end);
 	return (NULL);
 }

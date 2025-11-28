@@ -25,6 +25,7 @@ void	*display_fst_part(void *ptr)
 		display_blood_border(data, 0, data->mlx.width / 4);
 		pthread_barrier_wait(&data->barrier_display);
 	}
+	pthread_mutex_unlock(&data->m_end);
 	return (NULL);
 }
 
@@ -53,6 +54,7 @@ void	*display_snd_part(void *ptr)
 		display_blood_border(data, data->mlx.width / 4, max_pix);
 		pthread_barrier_wait(&data->barrier_display);
 	}
+	pthread_mutex_unlock(&data->m_end);
 	return (NULL);
 }
 
@@ -81,6 +83,7 @@ void	*display_third_part(void *ptr)
 		display_blood_border(data, 2 * (data->mlx.width / 4), max_pix);
 		pthread_barrier_wait(&data->barrier_display);
 	}
+	pthread_mutex_unlock(&data->m_end);
 	return (NULL);
 }
 
@@ -107,5 +110,6 @@ void	*display_last_part(void *ptr)
 		display_blood_border(data, 3 * (data->mlx.width / 4), data->mlx.width);
 		pthread_barrier_wait(&data->barrier_display);
 	}
+	pthread_mutex_unlock(&data->m_end);
 	return (NULL);
 }

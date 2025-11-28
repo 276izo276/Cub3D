@@ -29,7 +29,7 @@ void	f_imgs(t_data *data)
 	f_img(data->map.floor);
 	f_img(data->map.ceiling);
 	i = -1;
-	while (++i <= 5 && data->map.mini.img[i].img)
+	while (++i <= 13 && data->map.mini.img[i].img)
 		mlx_destroy_image(data->mlx.mlx, data->map.mini.img[i].img);
 	i = -1;
 	while (++i < NB_TEXTURES)
@@ -72,6 +72,14 @@ void	join_thread(t_data *data)
 
 void	f_exit(t_data *data, int code)
 {
+	pthread_mutex_lock(&data->m_end);
+	data->should_end = true;
+	pthread_mutex_unlock(&data->m_end);
+	pthread_barrier_wait(&data->barrier_background);
+	pthread_barrier_wait(&data->barrier_display);
+	#include <stdio.h> 
+	printf("oui oui\n");
+	join_thread(data);
 	f_all_lst(data->sound);
 	if (data->mlx.mlx)
 		mlx_do_key_autorepeaton(data->mlx.mlx);

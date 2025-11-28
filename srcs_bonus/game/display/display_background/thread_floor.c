@@ -26,6 +26,8 @@ void	*display_floor_first(void *ptr)
 		display_background_loop_floor(data, display, y, max_height);
 		pthread_barrier_wait(&data->barrier_background);
 	}
+	pthread_mutex_unlock(&data->m_end);
+	return (NULL);
 }
 
 void	*display_floor_snd(void *ptr)
@@ -53,6 +55,8 @@ void	*display_floor_snd(void *ptr)
 		display_background_loop_floor(data, display, y, max_height);
 		pthread_barrier_wait(&data->barrier_background);
 	}
+	pthread_mutex_unlock(&data->m_end);
+	return (NULL);
 }
 
 void	*display_floor_third(void *ptr)
@@ -80,6 +84,8 @@ void	*display_floor_third(void *ptr)
 		display_background_loop_floor(data, display, y, max_height);
 		pthread_barrier_wait(&data->barrier_background);
 	}
+	pthread_mutex_unlock(&data->m_end);
+	return (NULL);
 }
 
 void	*display_floor_last(void *ptr)
@@ -107,4 +113,6 @@ void	*display_floor_last(void *ptr)
 		display_background_loop_floor(data, display, y, max_height);
 		pthread_barrier_wait(&data->barrier_background);
 	}
+	pthread_mutex_unlock(&data->m_end);
+	return (NULL);
 }
