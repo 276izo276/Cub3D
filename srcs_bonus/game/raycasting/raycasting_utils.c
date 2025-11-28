@@ -22,7 +22,10 @@ int	handle_ray_y_top(t_data *data, int i)
 			if (data->map.tabmap[data->ray[i].case_y]
 				[data->ray[i].case_x] == 'D' || data->map.tabmap
 				[data->ray[i].case_y][data->ray[i].case_x] == 'F')
+			{
+				pthread_mutex_unlock(&data->m_data_ray);
 				return (1);
+			}
 			spawn_wall_msg(data, i, data->ray[i].case_y - 1,
 				data->ray[i].case_x);
 		}
@@ -53,7 +56,10 @@ int	handle_ray_y_down(t_data *data, int i)
 			if (data->map.tabmap[data->ray[i].case_y]
 				[data->ray[i].case_x] == 'D' || data->map.tabmap
 				[data->ray[i].case_y][data->ray[i].case_x] == 'F')
+			{
+				pthread_mutex_unlock(&data->m_data_ray);
 				return (1);
+			}
 			spawn_wall_msg(data, i, data->ray[i].case_y + 1,
 				data->ray[i].case_x);
 		}
@@ -84,7 +90,10 @@ int	handle_ray_x_left(t_data *data, int i)
 			if (data->map.tabmap[data->ray[i].case_y]
 				[data->ray[i].case_x] == 'D' || data->map.tabmap
 				[data->ray[i].case_y][data->ray[i].case_x] == 'F')
+			{
+				pthread_mutex_unlock(&data->m_data_ray);
 				return (1);
+			}
 			spawn_wall_msg(data, i, data->ray[i].case_y, data->ray[i].case_x
 				- 1);
 		}
@@ -115,7 +124,10 @@ int	handle_ray_x_right(t_data *data, int i)
 			if (data->map.tabmap[data->ray[i].case_y]
 				[data->ray[i].case_x] == 'D' || data->map.tabmap
 				[data->ray[i].case_y][data->ray[i].case_x] == 'F')
+			{
+				pthread_mutex_lock(&data->m_data_ray);
 				return (1);
+			}
 			spawn_wall_msg(data, i, data->ray[i].case_y, data->ray[i].case_x
 				+ 1);
 		}
