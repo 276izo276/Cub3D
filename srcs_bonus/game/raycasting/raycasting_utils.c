@@ -125,7 +125,7 @@ int	handle_ray_x_right(t_data *data, int i)
 				[data->ray[i].case_x] == 'D' || data->map.tabmap
 				[data->ray[i].case_y][data->ray[i].case_x] == 'F')
 			{
-				pthread_mutex_lock(&data->m_data_ray);
+				pthread_mutex_unlock(&data->m_data_ray);
 				return (1);
 			}
 			spawn_wall_msg(data, i, data->ray[i].case_y, data->ray[i].case_x
