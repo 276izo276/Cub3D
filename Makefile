@@ -10,6 +10,8 @@
 
 DEBUG_VALUE ?= 0
 DBG ?= 1
+DEBUG_VALUE_BONUS ?= 0
+DBG_BONUS ?= 1
 FULL_NAME ?= 1
 
 CC = cc
@@ -408,7 +410,7 @@ ${MY_NAME}:  $(STATIC_LIB) $(EXTERN_LIB) $(OBJS)
 
 
 .PHONY:bonus
-bonus: change_name_full clear_console $(STATIC_LIB) $(EXTERN_LIB) start_build_aff_bonus $(BONUS_NAME)
+bonus: change_name_full clear_console reset_debug_bonus $(STATIC_LIB) $(EXTERN_LIB) start_build_aff_bonus $(BONUS_NAME)
 
 $(BONUS_NAME): CURRENT_HEADERS = $(ALL_I_DIR_HEADER_BONUS)
 $(BONUS_NAME): $(STATIC_LIB) $(EXTERN_LIB) $(OBJS_BONUS)
@@ -425,10 +427,6 @@ $(BONUS_NAME): $(STATIC_LIB) $(EXTERN_LIB) $(OBJS_BONUS)
 	fi;
 	@$(CC) $(CURRENT_HEADERS) $(CFLAGS) -c $< -o $@
 
-$(UNIT_TEST_BONUS_NAME): CURRENT_HEADERS = $(ALL_I_DIR_HEADER_BONUS)
-$(UNIT_TEST_BONUS_NAME): $(STATIC_LIB) $(EXTERN_LIB) $(OBJS_UNIT_TEST_BONUS)
-	@echo -e "    ${_BOLD}${_GREEN}💿  ◀◀◀ ${_LIME}Creating Executable 📑🗂️   ${_YELLOW}$(UNIT_TEST_BONUS_NAME)${_END}"
-	@$(CC) $(OBJS_UNIT_TEST_BONUS) $(STATIC_LIB) $(EXTERN_LIB) -o $(UNIT_TEST_BONUS_NAME) $(EXECFLAGS)
 
 
 #	  ▜
@@ -677,7 +675,7 @@ debug: clear_console
 	old_val="$$(cat Makefile | grep -oP '^DEBUG_VALUE \?= \K\d+')";\
 	if [ "$$old_val" != "$$dbg" ]; then\
 		$(call MODIF_DEBUG_VALUE,$$dbg)\
-		touch ${HEADER_DIR}/debug.h;\
+		touch ${HEADER_DIR}/header_mandatory/debug.h;\
 	fi;\
 	make DBG=0
 
@@ -685,7 +683,31 @@ debug: clear_console
 reset_debug:
 	@if [ "${DBG}" = "2" ]; then\
 		$(call MODIF_DEBUG_VALUE,0)\
-		touch ${HEADER_DIR}/debug.h;\
+		touch ${HEADER_DIR}/header_mandatory/debug.h;\
+	fi;
+
+.PHONY:debug_bonus
+debug_bonus: clear_console
+	@$(call PRINT_GET_DBG)\
+	read -s -n 1 dbg;\
+	while ! echo $$dbg | grep -Eq "[01]"; do\
+		clear;\
+		$(call BAD_VALUE_GET,$$dbg)\
+		$(call PRINT_GET_DBG)\
+		read -s -n 1 dbg;\
+	done;\
+	old_val="$$(cat Makefile | grep -oP '^DEBUG_VALUE_BONUS \?= \K\d+')";\
+	if [ "$$old_val" != "$$dbg" ]; then\
+		$(call MODIF_DEBUG_VALUE_BONUS,$$dbg)\
+		touch ${HEADER_DIR}/header_bonus/debug.h;\
+	fi;\
+	make DBG_BONUS=0
+
+.PHONY:reset_debug_bonus
+reset_debug_bonus:
+	@if [ "${DBG}" = "2" ]; then\
+		$(call MODIF_DEBUG_VALUE_BONUS,0)\
+		touch ${HEADER_DIR}/header_bonus/debug.h;\
 	fi;
 
 #
@@ -853,6 +875,11 @@ endef
 
 define	MODIF_DEBUG_VALUE
 content="$$(cat Makefile | sed -E "s/DEBUG_VALUE \?= [0-9]/DEBUG_VALUE \?= $(1)/g")";\
+echo "$$content" > Makefile;
+endef
+
+define	MODIF_DEBUG_VALUE_BONUS
+content="$$(cat Makefile | sed -E "s/DEBUG_VALUE_BONUS \?= [0-9]/DEBUG_VALUE_BONUS \?= $(1)/g")";\
 echo "$$content" > Makefile;
 endef
 

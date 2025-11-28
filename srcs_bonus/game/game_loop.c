@@ -571,6 +571,7 @@ void	aff_popo(t_data *data)
 		aff_text(data->popo[i].key, 25, (t_coo){.y = data->mlx.height - 115
 			- 80, .x = calc_start_text(data->popo[i].key, 50 + data->mlx.width
 				- 350 + 64 * i + 13 * (i), data, 25)}, data);
+		free(str);
 		i++;
 	}
 }

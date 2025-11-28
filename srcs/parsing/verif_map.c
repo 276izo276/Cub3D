@@ -46,6 +46,8 @@ static void	check_map_valid_char(t_data *data)
 		while (data->map.tabmap[y][x])
 		{
 			is_valid_char_map(data->map.tabmap[y][x], y, x, data);
+			if (data->map.tabmap[y][x] == '0')
+				data->map.tabmap[y][x] = '-';
 			x++;
 		}
 		if (x == 0)
