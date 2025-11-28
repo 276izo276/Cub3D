@@ -30,6 +30,10 @@ void	*ray_launch_first(void *ptr)
 	{
 		i = 0;
 		pthread_barrier_wait(&data->barrier_background);
+		pthread_mutex_lock(&data->m_end);
+		if (data->should_end)
+			break ;
+		pthread_mutex_unlock(&data->m_end);
 		while (i < data->mlx.width / 4)
 		{
 			x = (double)i / (double)data->mlx.width;
@@ -53,6 +57,10 @@ void	*ray_launch_snd(void *ptr)
 	{
 		i = data->mlx.width / 4;
 		pthread_barrier_wait(&data->barrier_background);
+		pthread_mutex_lock(&data->m_end);
+		if (data->should_end)
+			break ;
+		pthread_mutex_unlock(&data->m_end);
 		while (i < 2 * data->mlx.width / 4)
 		{
 			x = (double)i / (double)data->mlx.width;
@@ -76,6 +84,10 @@ void	*ray_launch_third(void *ptr)
 	{
 		i = 2 * data->mlx.width / 4;
 		pthread_barrier_wait(&data->barrier_background);
+		pthread_mutex_lock(&data->m_end);
+		if (data->should_end)
+			break ;
+		pthread_mutex_unlock(&data->m_end);
 		while (i < 3 * data->mlx.width / 4)
 		{
 			x = (double)i / (double)data->mlx.width;
@@ -100,6 +112,10 @@ void	*ray_launch_last(void *ptr)
 	{
 		i = 3 * data->mlx.width / 4;
 		pthread_barrier_wait(&data->barrier_background);
+		pthread_mutex_lock(&data->m_end);
+		if (data->should_end)
+			break ;
+		pthread_mutex_unlock(&data->m_end);
 		while (i < data->mlx.width)
 		{
 			x = (double)i / (double)data->mlx.width;
