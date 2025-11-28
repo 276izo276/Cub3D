@@ -13,11 +13,10 @@ DBG ?= 1
 FULL_NAME ?= 1
 
 CC = cc
-#-Wall -Werror -Wextra
-CFLAGS =  -MMD -DDEBUG_VALUE=${DEBUG_VALUE} -g3
+CFLAGS = -Wall -Werror -Wextra -MMD -DDEBUG_VALUE=${DEBUG_VALUE} -g3
 SHELL = /bin/bash
 
-EXECFLAGS = -lXext -lX11 -lm
+EXECFLAGS = -lXext -lX11 -lXfixes -lm
 
 FILES	=									\
 				main.c						\
