@@ -23,8 +23,8 @@ void	mouse_move_map(t_data *data, int y, int x)
 
 static void	change_dir_verti(t_data *data)
 {
-	if (data->map.tabmap[data->map.pos_active_floo->y]
-		[data->map.pos_active_floo->x + 1] != '1')
+	if (data->map.tabmap[data->map.pos_active_floo.y]
+		[data->map.pos_active_floo.x + 1] != '1')
 	{
 		data->player.coo.coo_x = 42.0;
 		data->map.mini.deg = 270;
@@ -40,8 +40,8 @@ static void	change_dir_verti(t_data *data)
 
 static void	change_dir_not_verti(t_data *data)
 {
-	if (data->map.tabmap[data->map.pos_active_floo->y
-			+ 1][data->map.pos_active_floo->x] != '1')
+	if (data->map.tabmap[data->map.pos_active_floo.y
+			+ 1][data->map.pos_active_floo.x] != '1')
 	{
 		data->player.coo.coo_y = 42.0;
 		data->map.mini.deg = 180;
@@ -57,8 +57,8 @@ static void	change_dir_not_verti(t_data *data)
 
 static void	handle_mouse_click(t_data *data)
 {
-	if (data->map.door_map[data->map.pos_active_floo->y]
-		[data->map.pos_active_floo->x]->is_verti == true)
+	if (data->map.door_map[data->map.pos_active_floo.y]
+		[data->map.pos_active_floo.x]->is_verti == true)
 	{
 		data->player.coo.coo_y = 32;
 		change_dir_verti(data);
@@ -80,8 +80,8 @@ void	mouse_key_map(t_data *data, int key)
 				free_sound);
 		data->map.door_map[data->player.coo.case_y]
 		[data->player.coo.case_x]->is_floo_open = false;
-		data->player.coo.case_x = data->map.pos_active_floo->x;
-		data->player.coo.case_y = data->map.pos_active_floo->y;
+		data->player.coo.case_x = data->map.pos_active_floo.x;
+		data->player.coo.case_y = data->map.pos_active_floo.y;
 		handle_mouse_click(data);
 		data->map.zoom = 128;
 		data->status = GAME;

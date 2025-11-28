@@ -1,0 +1,14 @@
+NO ./texture/wall_y.xpm
+SO ./texture/wall_y.xpm
+WE ./texture/wall_x.xpm
+EA                    ./texture/wall_x.xpm
+FL ./texture/floor.xpm
+CE ./texture/ceiling.xpm
+
+1111111
+1000001
+1000001
+100W001
+1000001
+1000001
+1111111

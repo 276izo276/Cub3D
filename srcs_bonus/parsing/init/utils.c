@@ -40,7 +40,6 @@ void	init_utils(t_data *data)
 	data->map.last_mouse_x = 960;
 	data->map.last_mouse_y = 555;
 	data->map.is_center = false;
-	data->map.pos_active_floo = init_t_coo(0, 0);
 	data->screen->width = data->mlx.width;
 	data->screen->height = data->mlx.height;
 	data->lumos.x_wand = 0;

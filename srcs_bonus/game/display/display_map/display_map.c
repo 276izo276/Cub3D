@@ -23,8 +23,8 @@ static void	calc_dist_center(t_data *data, int x, int y)
 				2);
 		if (small_dist == 0 || dist_center < small_dist)
 		{
-			data->map.pos_active_floo->x = x;
-			data->map.pos_active_floo->y = y;
+			data->map.pos_active_floo.x = x;
+			data->map.pos_active_floo.y = y;
 			small_dist = dist_center;
 		}
 	}
@@ -36,8 +36,8 @@ void	find_closest_floo(t_data *data)
 	int	y;
 
 	y = 0;
-	data->map.pos_active_floo->x = -1;
-	data->map.pos_active_floo->y = -1;
+	data->map.pos_active_floo.x = -1;
+	data->map.pos_active_floo.y = -1;
 	while (data->map.tabmap[y])
 	{
 		x = 0;
@@ -84,8 +84,8 @@ static void	print_map_content(t_data *data, int x, int y)
 	{
 		if (x == data->player.coo.case_x && y == data->player.coo.case_y)
 			draw_player(data, pos_x, pos_y);
-		if (data->status != MAP && x == data->map.pos_active_floo->x
-			&& y == data->map.pos_active_floo->y)
+		if (data->status != MAP && x == data->map.pos_active_floo.x
+			&& y == data->map.pos_active_floo.y)
 			data->map.is_center = true;
 		draw_texture(data, pos_x, pos_y, data->map.tabmap[y][x]);
 		if (data->status != MAP && data->map.is_center == true)

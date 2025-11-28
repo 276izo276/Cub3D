@@ -860,7 +860,7 @@ struct						s_map
 	t_img					*ceiling;
 	t_img					**msg_img;
 	t_door					***door_map;
-	t_coo					*pos_active_floo;
+	t_coo					pos_active_floo;
 	int						zoom;
 	int						tabmap_height;
 	int						nb_floo;
