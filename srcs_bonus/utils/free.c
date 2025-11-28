@@ -111,6 +111,19 @@ void	f_exit(t_data *data, int code)
 	pthread_barrier_wait(&data->barrier_background);
 	pthread_barrier_wait(&data->barrier_display);
 	join_thread(data);
+	int	i = 0;
+	while (i < data->mlx.width)
+	{
+		int j = 0;
+		while (j <= MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door
+			+ data->map.nb_floo)
+		{
+			free(data->ray[i].items[j]);
+			j++;
+		}
+		free(data->ray[i].items);
+		++i;
+	}
 	f_all_lst(data->sound);
 	if (data->mlx.mlx)
 		mlx_do_key_autorepeaton(data->mlx.mlx);
@@ -120,6 +133,8 @@ void	f_exit(t_data *data, int code)
 	free_door_map(data);
 	free_wall_map(data);
 
+	free(data->map.door_map);
+	free(data->map.wall_map);
 	f_all_lst(data->map.map);
 	f_all_lst(data->map.lines);
 	f_all_lst(data->door);

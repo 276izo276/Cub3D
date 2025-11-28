@@ -1,14 +1,6 @@
 #include "struct_bonus.h"
 #include <stdlib.h>
 
-void	f_enemy(void *elem)
-{
-	t_enemy	*enemy;
-
-	enemy = (t_enemy *)elem;
-	free(enemy);
-}
-
 void	f_case(void *elem)
 {
 	t_case	*cel;
@@ -34,6 +26,17 @@ void	f_way(t_enemy *enemy)
 		}
 	}
 }
+
+void	f_enemy(void *elem)
+{
+	t_enemy	*enemy;
+
+	enemy = (t_enemy *)elem;
+	f_way(enemy);
+	free(enemy);
+}
+
+
 
 void	f_list_final_path(t_lst *open, t_lst *closed)
 {
