@@ -71,6 +71,8 @@ void	restart(t_data *data)
 	f_all_lst(data->item);
 	f_all_lst(data->door);
 	f_all_lst(data->sound);
+	free_door_map(data);
+	free_wall_map(data);
 	data->door = NULL;
 	data->enemy = NULL;
 	data->item = NULL;

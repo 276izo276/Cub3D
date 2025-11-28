@@ -70,6 +70,39 @@ void	join_thread(t_data *data)
 	pthread_join(data->thread_last_part, NULL);
 }
 
+void	free_door_map(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->map.door_map[i])
+	{
+		free(data->map.door_map[i]);
+		++i;
+	}
+	free(data->map.door_map);
+}
+
+void	free_wall_map(t_data *data)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (data->map.tabmap[y])
+	{
+		x = 0;
+		while (data->map.tabmap[y][x])
+		{
+			free(data->map.wall_map[y][x]);
+			++x;
+		}
+		free(data->map.wall_map[y]);
+		++y;
+	}
+	free(data->map.wall_map);
+}
+
 void	f_exit(t_data *data, int code)
 {
 	pthread_mutex_lock(&data->m_end);
@@ -77,8 +110,6 @@ void	f_exit(t_data *data, int code)
 	pthread_mutex_unlock(&data->m_end);
 	pthread_barrier_wait(&data->barrier_background);
 	pthread_barrier_wait(&data->barrier_display);
-	#include <stdio.h> 
-	printf("oui oui\n");
 	join_thread(data);
 	f_all_lst(data->sound);
 	if (data->mlx.mlx)
@@ -86,8 +117,8 @@ void	f_exit(t_data *data, int code)
 	f_imgs(data);
 	f_all_lst(data->enemy);
 
-	free(data->map.door_map);
-	free(data->map.wall_map);
+	free_door_map(data);
+	free_wall_map(data);
 
 	f_all_lst(data->map.map);
 	f_all_lst(data->map.lines);
@@ -106,3 +137,4 @@ void	f_exit(t_data *data, int code)
 	free(data->ray);
 	exit(code);
 }
+

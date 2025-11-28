@@ -20,5 +20,7 @@ char	*ft_itoa(int nb);
 int		are_double_close(double nb1, double nb2);
 void	f_tab_char(char **tab);
 void	f_img(t_img *img);
+void	free_wall_map(t_data *data);
+void	free_door_map(t_data *data);
 
 #endif
