@@ -5,6 +5,8 @@ void	init_mutex(t_data *data)
 {
 	if (pthread_mutex_init(&data->m_data_ray, NULL) != 0)
 		f_exit(data, 1);
+	if (pthread_mutex_init(&data->m_end, NULL) != 0)
+		f_exit(data, 1);
 }
 
 static void	create_sky_thread(t_data *data)

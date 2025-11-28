@@ -14,6 +14,10 @@ void	*display_sky_first(void *ptr)
 	while (1)
 	{
 		pthread_barrier_wait(&data->barrier_background);
+		pthread_mutex_lock(&data->m_end);
+		if (data->should_end)
+			break ;
+		pthread_mutex_unlock(&data->m_end);
 		display = data->display;
 		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
 		display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
@@ -38,6 +42,10 @@ void	*display_sky_snd(void *ptr)
 	while (1)
 	{
 		pthread_barrier_wait(&data->barrier_background);
+		pthread_mutex_lock(&data->m_end);
+		if (data->should_end)
+			break ;
+		pthread_mutex_unlock(&data->m_end);
 		display = data->display;
 		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
 		display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
@@ -62,6 +70,10 @@ void	*display_sky_third(void *ptr)
 	while (1)
 	{
 		pthread_barrier_wait(&data->barrier_background);
+		pthread_mutex_lock(&data->m_end);
+		if (data->should_end)
+			break ;
+		pthread_mutex_unlock(&data->m_end);
 		display = data->display;
 		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
 		display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;
@@ -86,6 +98,10 @@ void	*display_sky_last(void *ptr)
 	while (1)
 	{
 		pthread_barrier_wait(&data->barrier_background);
+		pthread_mutex_lock(&data->m_end);
+		if (data->should_end)
+			break ;
+		pthread_mutex_unlock(&data->m_end);
 		display = data->display;
 		display.screen_bbp_frac = data->screen->bits_per_pixel >> 3;
 		display.text_bpp_frac = data->map.ceiling->bits_per_pixel >> 3;

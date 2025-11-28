@@ -18,31 +18,6 @@ static void	init_door(t_data *data, t_door **door)
 	ft_bzero(*door, sizeof(t_door));
 }
 
-static void	init_doors(t_data *data, t_door **doors, t_door *door)
-{
-	int	i;
-
-	i = 0;
-	while (data->doors && data->doors[i])
-		i++;
-	doors = malloc(sizeof(t_door *) * (i + 2));
-	if (!doors)
-	{
-		free(door);
-		f_exit(data, 1);
-	}
-	doors[i + 1] = NULL;
-	i = 0;
-	while (data->doors && data->doors[i])
-	{
-		doors[i] = data->doors[i];
-		i++;
-	}
-	doors[i] = door;
-	free(data->doors);
-	data->doors = doors;
-}
-
 void	add_door(t_data *data, int y, int x, char c)
 {
 	t_door	*door;
@@ -56,7 +31,6 @@ void	add_door(t_data *data, int y, int x, char c)
 	if (!data->door)
 		f_exit(data, 1);
 	data->map.door_map[y][x] = door;
-	init_doors(data, doors, door);
 }
 
 void	save_wall(char c, int y, int x, t_data *data)

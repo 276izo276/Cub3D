@@ -1136,7 +1136,6 @@ struct						s_data
 	t_item					items[NB_TYPE_ITEM];
 	t_img					img[NB_TEXTURES];
 	t_img					*screen;
-	t_door					**doors;
 	t_display				display;
 	t_coa					coa[4];
 	t_aff					aff;
@@ -1158,6 +1157,7 @@ struct						s_data
 	pthread_t				thread_floor_last;
 	pthread_t				thread_floor_first;
 	pthread_mutex_t			m_data_ray;
+	pthread_mutex_t			m_end;
 	pthread_barrier_t		barrier_display;
 	pthread_barrier_t		barrier_background;
 	long long int			time_move;
@@ -1196,6 +1196,7 @@ struct						s_data
 	bool					player_moved;
 	bool					is_right_handed;
 	bool					god_mod;
+	bool					should_end;
 };
 
 t_coo						*init_t_coo(int y, int x);

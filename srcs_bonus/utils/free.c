@@ -52,21 +52,12 @@ void	f_tab_char(char **tab)
 
 void	f_exit(t_data *data, int code)
 {
-	#include <stdio.h>
-	printf("doors > %p\n", data->doors);
 	f_all_lst(data->sound);
 	if (data->mlx.mlx)
 		mlx_do_key_autorepeaton(data->mlx.mlx);
 	f_imgs(data);
 	f_all_lst(data->enemy);
 
-	int i = 0;
-	while (data->doors && data->doors[i])
-	{
-		free(data->doors[i]);
-		i++;
-	}
-	free(data->doors);
 	free(data->map.door_map);
 	free(data->map.wall_map);
 
