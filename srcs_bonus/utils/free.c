@@ -133,8 +133,6 @@ void	f_exit(t_data *data, int code)
 	free_door_map(data);
 	free_wall_map(data);
 
-	free(data->map.door_map);
-	free(data->map.wall_map);
 	f_all_lst(data->map.map);
 	f_all_lst(data->map.lines);
 	f_all_lst(data->door);
