@@ -34,6 +34,10 @@ void	end_pathfinder(t_lst *closed, t_lst *open, t_enemy *enemy)
 	nb_take = rand() % nb_elem_lst;
 	nb_elem_lst = 0;
 	closed = get_first_elem_lst(closed);
+
+	f_all_lst(closed);
+	f_all_lst(open);
+	return ;
 	while (closed->next)
 	{
 		if (nb_elem_lst == nb_take)

@@ -25,6 +25,7 @@ void	f_way(t_enemy *enemy)
 			enemy->way = NULL;
 		}
 	}
+	enemy->way = NULL;
 }
 
 void	f_enemy(void *elem)
