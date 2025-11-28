@@ -42,7 +42,7 @@ t_sound	*create_sound(t_data *data, int info)
 			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", "--loop", FREEDOM_MP3, (char *)NULL);
 		else
 			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", tab[info], (char *)NULL);
-		exit(EXIT_FAILURE);
+		// exit(EXIT_FAILURE);
 		f_exit(data, 1);
 	}
 	sound->start = get_mtime();

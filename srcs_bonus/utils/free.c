@@ -128,7 +128,7 @@ void	f_exit(t_data *data, int code)
 	if (data->mlx.mlx)
 		mlx_do_key_autorepeaton(data->mlx.mlx);
 	f_imgs(data);
-	f_all_lst(data->enemy);
+	// f_all_lst(data->enemy);
 
 	free_door_map(data);
 	free_wall_map(data);
@@ -148,6 +148,8 @@ void	f_exit(t_data *data, int code)
 	mlx_destroy_display(data->mlx.mlx);
 	free(data->mlx.mlx);
 	free(data->ray);
+	#include <stdio.h>
+	printf("F_EXIT\n\n\n\n\n\n\n");
 	exit(code);
 }
 
