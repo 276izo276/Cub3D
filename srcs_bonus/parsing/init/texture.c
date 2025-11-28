@@ -45,3 +45,4 @@ void	init_textures(t_data *data)
 				&data->img[i].endian);
 	}
 }
+

@@ -31,6 +31,10 @@ void	f_imgs(t_data *data)
 	i = -1;
 	while (++i <= 5 && data->map.mini.img[i].img)
 		mlx_destroy_image(data->mlx.mlx, data->map.mini.img[i].img);
+	i = -1;
+	while (++i < NB_TEXTURES)
+		mlx_destroy_image(data->mlx.mlx, data->img[i].img);
+				data->img[i].img = NULL;
 }
 
 void	f_tab_char(char **tab)
@@ -48,12 +52,28 @@ void	f_tab_char(char **tab)
 
 void	f_exit(t_data *data, int code)
 {
+	#include <stdio.h>
+	printf("doors > %p\n", data->doors);
 	f_all_lst(data->sound);
 	if (data->mlx.mlx)
 		mlx_do_key_autorepeaton(data->mlx.mlx);
 	f_imgs(data);
+	f_all_lst(data->enemy);
+
+	int i = 0;
+	while (data->doors && data->doors[i])
+	{
+		free(data->doors[i]);
+		i++;
+	}
+	free(data->doors);
+	free(data->map.door_map);
+	free(data->map.wall_map);
+
 	f_all_lst(data->map.map);
 	f_all_lst(data->map.lines);
+	f_all_lst(data->door);
+	f_all_lst(data->item);
 	f_tab_char(data->map.tabmap);
 	if (data->u.mmap.img)
 		mlx_destroy_image(data->mlx.mlx, data->u.mmap.img);
