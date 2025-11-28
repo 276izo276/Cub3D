@@ -80,6 +80,19 @@ void	f_exit(t_data *data, int code)
 	#include <stdio.h> 
 	printf("oui oui\n");
 	join_thread(data);
+	int	i = 0;
+	while (i < data->mlx.width)
+	{
+		int j = 0;
+		while (j <= MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door
+			+ data->map.nb_floo)
+		{
+			free(data->ray[i].items[j]);
+			j++;
+		}
+		free(data->ray[i].items);
+		++i;
+	}
 	f_all_lst(data->sound);
 	if (data->mlx.mlx)
 		mlx_do_key_autorepeaton(data->mlx.mlx);
@@ -88,7 +101,6 @@ void	f_exit(t_data *data, int code)
 
 	free(data->map.door_map);
 	free(data->map.wall_map);
-
 	f_all_lst(data->map.map);
 	f_all_lst(data->map.lines);
 	f_all_lst(data->door);
