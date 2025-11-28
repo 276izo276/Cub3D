@@ -46,6 +46,26 @@ void	f_tab_char(char **tab)
 	free(tab);
 }
 
+void	join_thread(t_data *data)
+{
+	pthread_join(data->thread_sky_first, NULL);
+	pthread_join(data->thread_sky_snd, NULL);
+	pthread_join(data->thread_sky_third, NULL);
+	pthread_join(data->thread_sky_last, NULL);
+	pthread_join(data->thread_floor_first, NULL);
+	pthread_join(data->thread_floor_snd, NULL);
+	pthread_join(data->thread_floor_third, NULL);
+	pthread_join(data->thread_floor_last, NULL);
+	pthread_join(data->thread_ray_first, NULL);
+	pthread_join(data->thread_ray_snd, NULL);
+	pthread_join(data->thread_ray_third, NULL);
+	pthread_join(data->thread_ray_last, NULL);
+	pthread_join(data->thread_fst_part, NULL);
+	pthread_join(data->thread_snd_part, NULL);
+	pthread_join(data->thread_third_part, NULL);
+	pthread_join(data->thread_last_part, NULL);
+}
+
 void	f_exit(t_data *data, int code)
 {
 	f_all_lst(data->sound);
