@@ -113,6 +113,5 @@ void	spawn_wolf_wand(t_enemy *enemy, t_data *data)
 					new_deg), data->item, f_item);
 		make_move_item(data->item->dt, 5);
 		data->wand.is_drop[2] = true;
-		data->wand.is_drop[2] = true;
 	}
 }

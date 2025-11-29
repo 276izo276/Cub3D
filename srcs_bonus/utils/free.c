@@ -2,6 +2,7 @@
 #include "struct_bonus.h"
 #include "mlx.h"
 #include "cub3d_bonus.h"
+#include "utils_bonus.h"
 
 void	f_elem(void *elem)
 {
@@ -128,11 +129,9 @@ void	f_exit(t_data *data, int code)
 	if (data->mlx.mlx)
 		mlx_do_key_autorepeaton(data->mlx.mlx);
 	f_imgs(data);
-	// f_all_lst(data->enemy);
-
+	f_all_lst(data->enemy);
 	free_door_map(data);
 	free_wall_map(data);
-
 	f_all_lst(data->map.map);
 	f_all_lst(data->map.lines);
 	f_all_lst(data->door);

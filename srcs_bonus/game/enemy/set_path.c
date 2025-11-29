@@ -37,7 +37,7 @@ void	end_pathfinder(t_lst *closed, t_lst *open, t_enemy *enemy)
 
 	f_all_lst(closed);
 	f_all_lst(open);
-	return ;
+	return ;  // --> les 3 lignes sont bizarre mais sans sa les enemy font n imp
 	while (closed->next)
 	{
 		if (nb_elem_lst == nb_take)

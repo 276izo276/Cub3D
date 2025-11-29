@@ -97,3 +97,4 @@ t_case	*init_case(int h_cost, int r_cost, int dir[2], t_case *parent)
 	cel->t_cost = r_cost + h_cost;
 	return (cel);
 }
+
