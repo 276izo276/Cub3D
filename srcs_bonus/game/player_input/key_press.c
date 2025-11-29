@@ -39,12 +39,12 @@ int	key_release(int keycode, t_data *data)
 		data->popo[3].active = 0;
 		if (data->keycode[i] == keycode)
 			data->keycode[i] = 0;
-		if (keycode == KEY_ALT)
-		{
-			mlx_mouse_hide(data->mlx.mlx, data->mlx.win);
-			mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width,
-				data->mlx.height);
-		}
+		// if (keycode == KEY_ALT)
+		// {
+		// 	mlx_mouse_hide(data->mlx.mlx, data->mlx.win);
+		// 	mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width,
+		// 		data->mlx.height);
+		// }
 		else if (keycode == KEY_SHIFT)
 			data->map.mini.speed = 1.5;
 		i++;
@@ -99,9 +99,10 @@ int	key_press(int keycode, t_data *data)
 				data->sound, free_sound);
 	else
 		data->keycode[i] = keycode;
-	if (keycode == KEY_ALT)
-		mlx_mouse_show(data->mlx.mlx, data->mlx.win);
-	else if (keycode == KEY_SHIFT)
+	// if (keycode == KEY_ALT)
+	// 	mlx_mouse_show(data->mlx.mlx, data->mlx.win);
+	// else 
+	if (keycode == KEY_SHIFT)
 		data->map.mini.speed = 3;
 	return (0);
 }
