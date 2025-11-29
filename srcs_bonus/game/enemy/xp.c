@@ -1,4 +1,5 @@
 #include "cub3d_bonus.h"
+#include <math.h>
 
 void	win_xp(t_data *data, int type, double *xp)
 {
@@ -16,6 +17,9 @@ void	win_xp(t_data *data, int type, double *xp)
 
 void	add_sound_xp(t_enemy *enemy, t_data *data)
 {
+	int	tmp_xp;
+
+	tmp_xp = floor(data->player.xp);
 	if (enemy->damage.which_coa_take == data->player.coa)
 	{
 		data->sound = add_end_lst(create_sound(data, 25), data->sound,
@@ -31,4 +35,7 @@ void	add_sound_xp(t_enemy *enemy, t_data *data)
 		win_xp(data, enemy->type, &data->coa[WATER].xp);
 	else if (enemy->damage.which_coa_take == FIRE)
 		win_xp(data, enemy->type, &data->coa[FIRE].xp);
+	if (floor(data->player.xp) > tmp_xp)
+		data->sound = add_end_lst(create_sound(data, 34), data->sound,
+				free_sound);
 }

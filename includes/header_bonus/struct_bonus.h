@@ -41,6 +41,8 @@
 # define FREEDOM_MP3 "sound/freedom.mp3"
 # define FLOO_MP3 "sound/floo.mp3"
 # define HEART_MP3 "sound/heart.mp3"
+# define LVL_UP	"sound/lvl_up.mp3"
+# define WALL_MP3 "sound/wall_msg.mp3"
 
 # define SIZE_MAP 320
 # define FPS 30.0

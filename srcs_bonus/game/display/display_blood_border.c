@@ -76,7 +76,7 @@ void	display_blood_border(t_data *data, int start_x, int max_x)
 	if (data->player.life >= 50)
 		return ;
 	life_factor = data->player.life / 50.0;
-	if (cur > data->sound_frame * life_factor * 1000)
+	if (data->player.life > 0 && cur > data->sound_frame + (300 + (life_factor * 1000)))
 	{
 		data->sound = add_end_lst(create_sound(data, 33), data->sound,
 				free_sound);

@@ -32,7 +32,7 @@ static void	pick_up_wand(t_data *data, t_item *item)
 	{
 		data->wand.wand_status[1] = true;
 		data->wand.nb_wand = 1;
-		data->sound = add_end_lst(create_sound(data, 31), data->sound,
+		data->sound = add_end_lst(create_sound(data, 29), data->sound,
 				free_sound);
 	}
 }
