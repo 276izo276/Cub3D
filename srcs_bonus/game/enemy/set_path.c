@@ -10,6 +10,8 @@ void	set_final_path(t_lst *lst, t_enemy *enemy)
 		return ;
 	cel = lst->dt;
 	cel->is_path = 1;
+	enemy->goal.case_x = cel->coo.case_x;
+	enemy->goal.case_y = cel->coo.case_y;
 	while (cel->parent)
 	{
 		cel->parent->child = cel;
@@ -17,12 +19,6 @@ void	set_final_path(t_lst *lst, t_enemy *enemy)
 		cel = cel->parent;
 	}
 	enemy->way = cel;
-	while (cel->child)
-	{
-		cel = cel->child;
-	}
-	enemy->goal.case_x = cel->coo.case_x;
-	enemy->goal.case_y = cel->coo.case_y;
 }
 
 void	end_pathfinder(t_lst *closed, t_lst *open, t_enemy *enemy)
