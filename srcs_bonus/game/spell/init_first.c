@@ -9,7 +9,7 @@ void	init_lumos(t_data *data)
 	data->spell[LUMOS].class = CLASIC_SPELL;
 	data->spell[LUMOS].icn = &data->img[LUMOS_ICN];
 	data->spell[LUMOS].icn_name = &data->img[LUMOS_NAME];
-	data->spell[LUMOS].necessary_lvl = 0.0;
+	data->spell[LUMOS].necessary_lvl = 1.0;
 }
 
 void	init_incendio(t_data *data)
@@ -28,7 +28,7 @@ void	init_incendio(t_data *data)
 	data->spell[INCENDIO].class = OFFENSIVE_SPELL;
 	data->spell[INCENDIO].icn = &data->img[INCENDIO_ICN];
 	data->spell[INCENDIO].icn_name = &data->img[INCENDIO_NAME];
-	data->spell[INCENDIO].necessary_lvl = 0.0;
+	data->spell[INCENDIO].necessary_lvl = 1.0;
 }
 
 void	init_glacius(t_data *data)
