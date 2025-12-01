@@ -1097,17 +1097,64 @@ void	update_sorcerer(t_data *data)
 		++i;
 	}
 }
-int	game_loop(t_data *data)
-{
-	long long int	cur;
 
-	cur = get_mtime();
+void	god_mod(long long int *cur, t_data *data)
+{
+	*cur = get_mtime();
 	if (data->god_mod == true)
 	{
 		data->player.life = 100;
 		data->player.shield = 100;
 		data->player.damage.slow_force_take = 0;
 	}
+}
+
+void	utils_loop(t_data *data)
+{
+	aff_xp(data);
+	aff_life(data);
+	aff_shield(data);
+	aff_spell(data);
+	aff_popo(data);
+	aff_effect_info(data);
+	spell_protego(data);
+	spell_heal(data);
+	aff_protego(data);
+	display_hand(data);
+	aff_mini_map(data);
+	handle_door(data);
+}
+
+void	main_loop(long long int cur, t_data *data)
+{
+	update_sorcerer(data);
+	if (cur - data->last_spawn >= data->spawn_frame)
+	{
+		update_enemy(data);
+		data->last_spawn = get_mtime();
+	}
+	handle_input_move(data, cur);
+	if (data->cast_spell != -1)
+		data->spell[data->cast_spell].call(data, data->cast_spell);
+	handle_wall_msg(data, cur);
+	if (data->time_fps + 1000 / FPS < cur)
+	{
+		data->time_fps = cur;
+		pthread_barrier_wait(&data->barrier_background);
+		pthread_barrier_wait(&data->barrier_background);
+		pthread_barrier_wait(&data->barrier_display);
+		pthread_barrier_wait(&data->barrier_display);
+		mlx_put_image_to_window(data->mlx.mlx, data->mlx.win,
+			data->screen->img, 0, 0);
+		utils_loop(data);
+	}
+}
+
+int	game_loop(t_data *data)
+{
+	long long int	cur;
+
+	god_mod(&cur, data);
 	if (data->portkey_is_active == false && data->player.xp >= 16)
 		spawn_portkey(data);
 	if (data->status == MENU)
@@ -1125,45 +1172,7 @@ int	game_loop(t_data *data)
 	else if (data->status == MENU_END)
 		handle_end_menu(data);
 	else
-	{
-		update_sorcerer(data);
-		if (cur - data->last_spawn >= data->spawn_frame)
-		{
-			update_enemy(data);
-			data->last_spawn = get_mtime();
-		}
-		handle_input_move(data, cur);
-		if (data->cast_spell != -1)
-			data->spell[data->cast_spell].call(data, data->cast_spell);
-		handle_wall_msg(data, cur);
-		if (data->time_fps + 1000 / FPS < cur)
-		{
-			// printf("fps >>>%lld     \n", 1000 / (cur - data->time_fps));
-			data->time_fps = cur;
-			pthread_barrier_wait(&data->barrier_background);
-			pthread_barrier_wait(&data->barrier_background);
-			pthread_barrier_wait(&data->barrier_display);
-			pthread_barrier_wait(&data->barrier_display);
-			//write(1,".\n",2);
-			mlx_put_image_to_window(data->mlx.mlx, data->mlx.win,
-				data->screen->img, 0, 0);
-			//write(1,",\n",2);
-			aff_xp(data);
-			aff_life(data);
-			aff_shield(data);
-			aff_spell(data);
-			aff_popo(data);
-			aff_effect_info(data);
-			spell_protego(data);
-			spell_heal(data);
-			aff_protego(data);
-			display_hand(data);
-			aff_mini_map(data);
-			handle_door(data);
-		}
-		// DBG1printf("6\n");
-	}
-	// is_new_level(data);
+		main_loop(cur, data);
 	return (0);
 }
 
