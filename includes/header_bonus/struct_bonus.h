@@ -1199,6 +1199,7 @@ struct						s_data
 	bool					is_right_handed;
 	bool					god_mod;
 	bool					should_end;
+	bool					is_thread_create;
 };
 
 t_coo						*init_t_coo(int y, int x);

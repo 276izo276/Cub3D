@@ -109,11 +109,14 @@ void	f_exit(t_data *data, int code)
 	pthread_mutex_lock(&data->m_end);
 	data->should_end = true;
 	pthread_mutex_unlock(&data->m_end);
-	pthread_barrier_wait(&data->barrier_background);
-	pthread_barrier_wait(&data->barrier_display);
+	if (data->is_thread_create)
+	{	
+		pthread_barrier_wait(&data->barrier_background);
+		pthread_barrier_wait(&data->barrier_display);
+	}
 	join_thread(data);
 	int	i = 0;
-	while (i < data->mlx.width)
+	while (i < data->mlx.width && data->ray && data->ray[i].items)
 	{
 		int j = 0;
 		while (j <= MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door

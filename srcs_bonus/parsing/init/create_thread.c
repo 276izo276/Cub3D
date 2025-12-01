@@ -76,4 +76,5 @@ void	create_thread(t_data *data)
 	if (pthread_create(&data->thread_last_part, NULL, display_last_part,
 			data) != 0)
 		f_exit(data, 1);
+	data->is_thread_create = true;
 }
