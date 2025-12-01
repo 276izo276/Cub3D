@@ -30,6 +30,7 @@ void	reset_data_display(t_data *data, int i)
 	j = 0;
 	// if (i < data->mlx.width / 4)
 		//write(1,"q\n",2);
+	#include <stdio.h>
 	while (j <= MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door
 		+ data->map.nb_floo)
 	{

@@ -46,6 +46,8 @@ t_lst	*need_update_node(t_case *cel, t_case *cur, t_lst *save, t_lst **lst)
 	cel->r_cost = cur->r_cost + 1;
 	cel->t_cost = cel->r_cost + cel->h_cost;
 	save = *lst;
+	#include <stdio.h>
+	printf("NEED UPDATE\n");
 	*lst = remove_elem_lst(save);
 	*lst = get_first_elem_lst(*lst);
 	if (!*lst)
@@ -57,15 +59,18 @@ t_lst	*need_update_node(t_case *cel, t_case *cur, t_lst *save, t_lst **lst)
 	{
 		if (((t_case *)(*lst)->dt)->t_cost > cel->t_cost)
 		{
+			printf("move before\n");
 			move_before_lst(save, *lst);
 			return (*lst);
 		}
 		if (!(*lst)->next)
 		{
+			printf("move to end lst\n");
 			return (move_to_end_lst(save, *lst));
 		}
 		*lst = (*lst)->next;
 	}
+	printf("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa\n\n");
 	return (NULL);
 }
 
@@ -76,7 +81,12 @@ int	open_loop(t_enemy *enemy, t_lst **open, t_lst **closed, t_data *data)
 		*open = add_case_open(*open, closed, enemy, data);
 		if (*open && is_end_path(*open, enemy))
 		{
+			#include <stdio.h>
+			printf("FIND PATH\n\n");
 			set_final_path(get_first_elem_lst(*open), enemy);
+			// f_all_lst(*open);
+			// f_all_lst(*closed);
+			// enemy->way = NULL;
 			f_list_final_path(*open, *closed);
 			return (1);
 		}

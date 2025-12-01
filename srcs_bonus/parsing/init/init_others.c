@@ -7,6 +7,9 @@ void	init_struct_item(t_data *data)
 	int	j;
 
 	i = 0;
+	#include <stdio.h>
+	printf("size parsing first>>%d\n",MAX_CREATE_ITEM
+					+ MAX_CREATE_ENEMY + data->nb_door + data->map.nb_floo);
 	while (i < data->mlx.width)
 	{
 		data->ray[i].items = malloc(sizeof(t_hit_item *) * (1 + MAX_CREATE_ITEM

@@ -89,6 +89,8 @@ void	restart(t_data *data)
 	data->player.coo.case_y = 0;
 	data->time_fps = get_mtime();
 	data->time_move = get_mtime();
+	data->nb_door = 0;
+	data->map.nb_floo = 0;
 	parsing(data);
 	init_foot_tab(data);
 	reset_data_value(data);

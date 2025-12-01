@@ -1126,12 +1126,12 @@ int	game_loop(t_data *data)
 		handle_end_menu(data);
 	else
 	{
-		update_sorcerer(data);
-		if (cur - data->last_spawn >= data->spawn_frame)
-		{
-			update_enemy(data);
-			data->last_spawn = get_mtime();
-		}
+		// update_sorcerer(data);
+		// if (cur - data->last_spawn >= data->spawn_frame)
+		// {
+		// 	update_enemy(data);
+		// 	data->last_spawn = get_mtime();
+		// }
 		handle_input_move(data, cur);
 		if (data->cast_spell != -1)
 			data->spell[data->cast_spell].call(data, data->cast_spell);
