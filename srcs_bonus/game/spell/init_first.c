@@ -14,14 +14,14 @@ void	init_lumos(t_data *data)
 
 void	init_incendio(t_data *data)
 {
-	data->spell[INCENDIO].base_cooldown = 0;
+	data->spell[INCENDIO].base_cooldown = 1;
 	data->spell[INCENDIO].call = cast_spell;
 	data->spell[INCENDIO].type = INCENDIO;
 	data->spell[INCENDIO].damage.damage_do = 10;
 	data->spell[INCENDIO].damage.fire_frame_do = 60;
 	data->spell[INCENDIO].damage.fire_force_do = .1;
 	data->spell[INCENDIO].damage.damage_elem_do = -10;
-	data->spell[INCENDIO].item.speed = 10;
+	data->spell[INCENDIO].item.speed = 50;
 	data->spell[INCENDIO].item.radius = 3;
 	data->spell[INCENDIO].item.front_img = &data->img[INCENDIO_IMG];
 	data->spell[INCENDIO].item.back_img = &data->img[INCENDIO_IMG];
@@ -39,7 +39,7 @@ void	init_glacius(t_data *data)
 	data->spell[GLACIUS].damage.damage_do = 5;
 	data->spell[GLACIUS].damage.slow_force_do = 30;
 	data->spell[GLACIUS].damage.slow_frame_do = 35;
-	data->spell[GLACIUS].item.speed = 0;
+	data->spell[GLACIUS].item.speed = 35;
 	data->spell[GLACIUS].item.radius = 3;
 	data->spell[GLACIUS].item.front_img = &data->img[GLACIUS_IMG];
 	data->spell[GLACIUS].item.back_img = &data->img[GLACIUS_IMG];
@@ -57,7 +57,7 @@ void	init_repulso(t_data *data)
 	data->spell[REPULSO].damage.damage_do = 5;
 	data->spell[REPULSO].damage.repulso_force_do = 1.2;
 	data->spell[REPULSO].damage.repulso_frame_do = 15;
-	data->spell[REPULSO].item.speed = 0;
+	data->spell[REPULSO].item.speed = 30;
 	data->spell[REPULSO].item.radius = 3;
 	data->spell[REPULSO].item.front_img = &data->img[REPULSO_IMG];
 	data->spell[REPULSO].item.back_img = &data->img[REPULSO_IMG];
@@ -74,7 +74,7 @@ void	init_aguamenti(t_data *data)
 	data->spell[AGUAMENTI].type = AGUAMENTI;
 	data->spell[AGUAMENTI].damage.damage_do = 5;
 	data->spell[AGUAMENTI].damage.damage_elem_do = 35;
-	data->spell[AGUAMENTI].item.speed = 0;
+	data->spell[AGUAMENTI].item.speed = 45;
 	data->spell[AGUAMENTI].item.radius = 3;
 	data->spell[AGUAMENTI].item.front_img = &data->img[AGUAMENTI_IMG];
 	data->spell[AGUAMENTI].item.back_img = &data->img[AGUAMENTI_IMG];

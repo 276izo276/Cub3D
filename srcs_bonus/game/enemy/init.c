@@ -13,6 +13,7 @@ void	fill_sorcerer(t_data *data, t_enemy *enemy, char c)
 	enemy->damage.curse_frame_do = 10;
 	enemy->damage.slow_force_do = 25;
 	enemy->damage.slow_frame_do = 60;
+	enemy->damage.damage_do = 2;
 	fill_right_img_sorcerer(data, enemy, c);
 }
 
@@ -25,13 +26,14 @@ void	fill_dementor(t_data *data, t_enemy *enemy)
 	enemy->side_back_img = &data->img[DEMENTOR_BACK_45];
 	enemy->life = 100;
 	enemy->dist_stop = 20;
-	enemy->dist_damage = 32;
+	enemy->dist_damage = 64;
 	enemy->dist_visu = 640;
 	enemy->speed = 2.5;
 	enemy->cooldown_cac = .2;
+	enemy->damage.damage_do = 1;
 	enemy->damage.curse_force_do = .2;
-	enemy->damage.curse_frame_do = 10;
-	enemy->damage.slow_force_do = 25;
+	enemy->damage.curse_frame_do = 15;
+	enemy->damage.slow_force_do = 35;
 	enemy->damage.slow_frame_do = 60;
 	enemy->drop_dementor_wand = 1;
 }
@@ -47,7 +49,7 @@ void	utils_init_enemy(t_enemy *enemy, char c, t_fcoo coo, double deg)
 	enemy->dist_target = -1;
 	enemy->rad = enemy->deg * (M_PI / 180);
 	enemy->calc = true;
-	enemy->cooldown_dist = 6;
+	enemy->cooldown_dist = 2;
 	enemy->cooldown_cac = 1;
 	enemy->deg = deg;
 	enemy->damage.which_coa_do = OTHERS;

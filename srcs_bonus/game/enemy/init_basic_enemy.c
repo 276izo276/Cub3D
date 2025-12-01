@@ -42,8 +42,11 @@ void	fill_wolf(t_data *data, t_enemy *enemy)
 	enemy->life = 100;
 	enemy->dist_stop = 15;
 	enemy->dist_damage = 25;
-	enemy->dist_visu = 640;
-	enemy->speed = 3.5;
+	enemy->damage.damage_do = 15;
+	enemy->damage.curse_force_do = 0.5;
+	enemy->damage.curse_frame_do = 10;
+	enemy->dist_visu = 1024;
+	enemy->speed = 4.0;
 	enemy->drop_heal = 10;
 	enemy->drop_shield = 10;
 	enemy->drop_floo = 10;
@@ -61,7 +64,7 @@ void	fill_elem(t_data *data, t_enemy *enemy)
 	enemy->damage.damage_do = 5;
 	enemy->damage.fire_force_do = .1;
 	enemy->damage.fire_frame_do = 60;
-	enemy->life = 40;
+	enemy->life = 45;
 	enemy->dist_stop = 20;
 	enemy->dist_damage = 50;
 	enemy->dist_visu = 640;
@@ -88,9 +91,9 @@ void	fill_spider(t_data *data, t_enemy *enemy)
 	enemy->dist_damage = 32;
 	enemy->dist_visu = 640;
 	enemy->speed = 1.5;
-	enemy->drop_heal = 50;
-	enemy->drop_shield = 50;
-	enemy->drop_floo = 50;
-	enemy->drop_cloak = 50;
+	enemy->drop_heal = 10;
+	enemy->drop_shield = 10;
+	enemy->drop_floo = 10;
+	enemy->drop_cloak = 10;
 	enemy->drop_spider_wand = 1;
 }

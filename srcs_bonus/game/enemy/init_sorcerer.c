@@ -36,6 +36,7 @@ static void	init_sorcerer_p2(t_data *data, t_enemy *enemy, char c)
 		enemy->life = 250 + (data->sorcerer[0].nb_spawn * 100);
 		enemy->color_coa = WATER_COLOR;
 		enemy->damage.which_coa_do = WATER;
+		enemy->cooldown_dist = 1;
 	}
 	if (c == ANAIS)
 	{
@@ -114,13 +115,13 @@ void	fill_right_img_sorcerer(t_data *data, t_enemy *enemy, char c)
 		enemy->damage.which_coa_do = EARTH;
 	}
 	if (enemy->color_coa == AIR_COLOR)
-		enemy->drop_spider_wand = 100;
+		enemy->drop_spider_wand = 10;
 	else if (enemy->color_coa == EARTH_COLOR)
-		enemy->drop_wolf_wand = 100;
+		enemy->drop_wolf_wand = 10;
 	else if (enemy->color_coa == WATER_COLOR)
-		enemy->drop_dementor_wand = 100;
+		enemy->drop_dementor_wand = 10;
 	else if (enemy->color_coa == FIRE_COLOR)
-		enemy->drop_elem_wand = 100;
+		enemy->drop_elem_wand = 10;
 	enemy->back_img = &data->img[SORCERER_BACK];
 	enemy->side_img = &data->img[SORCERER_SIDE_90];
 	enemy->side_back_img = &data->img[SORCERER_BACK_45];
