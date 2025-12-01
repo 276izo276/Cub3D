@@ -55,6 +55,8 @@ static void	check_map_valid_char(t_data *data)
 			is_door(data->map.tabmap[y][x], y, x, data);
 			is_enemy(data->map.tabmap[y][x], y, x, data);
 			is_item(data->map.tabmap[y][x], y, x, data);
+			if (data->map.tabmap[y][x] == '0')
+				data->map.tabmap[y][x] = '-';
 			x++;
 		}
 		if (x == 0)

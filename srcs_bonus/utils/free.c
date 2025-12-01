@@ -76,7 +76,7 @@ void	free_door_map(t_data *data)
 	int	i;
 
 	i = 0;
-	while (data->map.door_map[i])
+	while (data->map.door_map && data->map.door_map[i])
 	{
 		free(data->map.door_map[i]);
 		++i;
@@ -90,7 +90,7 @@ void	free_wall_map(t_data *data)
 	int	x;
 
 	y = 0;
-	while (data->map.tabmap[y])
+	while (data->map.tabmap && data->map.tabmap[y])
 	{
 		x = 0;
 		while (data->map.tabmap[y][x])
