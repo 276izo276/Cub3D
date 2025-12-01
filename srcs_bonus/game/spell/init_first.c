@@ -14,7 +14,7 @@ void	init_lumos(t_data *data)
 
 void	init_incendio(t_data *data)
 {
-	data->spell[INCENDIO].base_cooldown = 1;
+	data->spell[INCENDIO].base_cooldown = 0.25;
 	data->spell[INCENDIO].call = cast_spell;
 	data->spell[INCENDIO].type = INCENDIO;
 	data->spell[INCENDIO].damage.damage_do = 10;

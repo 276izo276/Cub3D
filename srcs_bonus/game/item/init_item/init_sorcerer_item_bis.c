@@ -11,7 +11,7 @@ void	init_tig(t_data *data)
 	data->items[TIG].damage.slow_frame_do = 120;
 	data->items[TIG].damage.repulso_force_do = 2;
 	data->items[TIG].damage.repulso_frame_do = 5;
-	data->items[TIG].speed = 40;
+	data->items[TIG].speed = 20;
 	data->items[TIG].radius = 5;
 	data->items[TIG].front_img = &data->img[TIG_IMG];
 	data->items[TIG].back_img = &data->img[TIG_IMG];
@@ -28,7 +28,7 @@ void	init_mac(t_data *data)
 	data->items[MAC].damage.slow_frame_do = 120;
 	data->items[MAC].damage.repulso_force_do = 2;
 	data->items[MAC].damage.repulso_frame_do = 5;
-	data->items[MAC].speed = 40;
+	data->items[MAC].speed = 20;
 	data->items[MAC].radius = 3;
 	data->items[MAC].front_img = &data->img[MAC_IMG];
 	data->items[MAC].back_img = &data->img[MAC_IMG];
@@ -43,7 +43,7 @@ void	init_bh(t_data *data)
 	data->items[BH].damage.curse_frame_do = 120;
 	data->items[BH].damage.repulso_force_do = -6.0;
 	data->items[BH].damage.repulso_frame_do = 1;
-	data->items[BH].speed = 3;
+	data->items[BH].speed = 6;
 	data->items[BH].radius = 5;
 }
 
@@ -58,7 +58,7 @@ void	init_pizza(t_data *data)
 	data->items[PIZZA].damage.slow_frame_do = 120;
 	data->items[PIZZA].damage.repulso_force_do = 2;
 	data->items[PIZZA].damage.repulso_frame_do = 5;
-	data->items[PIZZA].speed = 40;
+	data->items[PIZZA].speed = 20;
 	data->items[PIZZA].radius = 8;
 	data->items[PIZZA].front_img = &data->img[PIZZA_IMG];
 	data->items[PIZZA].back_img = &data->img[PIZZA_IMG];

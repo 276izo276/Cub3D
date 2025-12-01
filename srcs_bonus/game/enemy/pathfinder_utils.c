@@ -18,8 +18,6 @@ t_lst	*update_node(t_case *cur, const int dir[2], t_lst *lst)
 	t_lst	*save;
 
 	save = NULL;
-	#include <stdio.h>
-	printf("UPDATE\n");
 	lst = get_first_elem_lst(lst);
 	while (lst)
 	{
@@ -65,11 +63,9 @@ static t_lst	*add_node(t_case *cur, const int dir[2], t_lst *lst,
 			return (add_end_lst(cel, lst, f_case));
 		lst = lst->next;
 	}
-	#include <stdio.h>
-	printf("EXIT HERE \n\n\n\n\n\n\n\n\n\n\n\n");
 	return (lst);
 }
-#include <stdio.h>
+
 static void	exit_path_finder(t_data *data)
 {
 	f_exit(data, 1);

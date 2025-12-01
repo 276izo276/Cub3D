@@ -20,16 +20,9 @@ void	set_final_path(t_lst *lst, t_enemy *enemy)
 	}
 	enemy->way = cel;
 }
-#include "utils_bonus.h"
 
 void	end_pathfinder(t_lst *closed, t_lst *open, t_enemy *enemy)
 {
-	// #include <stdio.h>
-	// printf("END PATHFINDER HERE %p\n\n\n\n",open);
-	// f_all_lst(closed);
-	// f_all_lst(open);
-	// return ;  // --> les 3 lignes sont bizarre mais sans sa les enemy font n imp
-
 	int	nb_elem_lst;
 	int	nb_take;
 
@@ -59,15 +52,12 @@ void	pathfinder(t_data *data, t_enemy *enemy)
 	t_lst		*closed;
 	const int	dir[2] = {enemy->center.case_y, enemy->center.case_x};
 
-	#include <stdio.h>
-	printf("start pathfinder  y>%d    x>%d\n\n",enemy->goal.case_y,enemy->goal.case_x);
 	open = add_end_lst(init_case(man_dist(enemy->center.case_y,
 					enemy->center.case_x, enemy->goal.case_y,
 					enemy->goal.case_x), 0, (int *)dir, NULL), NULL, f_case);
 	closed = NULL;
 	if (open && is_end_path(open, enemy))
 	{
-		printf("FIND PATH LLLLLL\n");
 		set_final_path(get_first_elem_lst(open), enemy);
 		f_list_final_path(open, closed);
 		return ;
