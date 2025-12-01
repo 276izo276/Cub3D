@@ -1,11 +1,9 @@
-NO ./texture/north.xpm
-SO ./texture/south.xpm
-WE ./texture/west.xpm
-EA                    ./texture/east.xpm
-
-                  
-F      255,0,     0
-C 0,255,0
+NO ./texture/wall_y.xpm
+SO ./texture/wall_y.xpm
+WE ./texture/wall_x.xpm
+EA                    ./texture/wall_x.xpm
+FL ./texture/floor.xpm
+CE ./texture/ceiling.xpm
 
 11111111111111111111111111111111111111111111111111111
 1       100000000011000000000000000000000000000000001

@@ -1,11 +1,9 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-
-F 220,100,0
-C 225,30,0
-
+NO ./texture/wall_y.xpm
+SO ./texture/wall_y.xpm
+WE ./texture/wall_x.xpm
+EA                    ./texture/wall_x.xpm
+FL ./texture/floor.xpm
+CE ./texture/ceiling.xpm
         1111111111111111111111111
         1000000000110000000000001
         1011000001110000000000001
