@@ -12,7 +12,7 @@ void	verif_file_name(t_data *data)
 		|| ft_strcmp(&data->av[1][ft_strlen(data->av[1]) - 4], ".cub"))
 	{
 		ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
-			"Map >>>" " no map in argument\n"_END);
+			"Map >>>" " invalid map in argument\n"_END);
 		f_exit(data, 1);
 	}
 }

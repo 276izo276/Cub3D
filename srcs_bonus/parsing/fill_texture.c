@@ -38,7 +38,7 @@ void	set_ceiling(char *line, t_data *data)
 	if (data->map.ceiling)
 	{
 		ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"\
-Texture >>> Duplicate entry for ceiling\n");
+Texture >>> Duplicate entry for ceiling\n"_END);
 		f_exit(data, 1);
 	}
 	data->map.ceiling = malloc(sizeof(t_img));
