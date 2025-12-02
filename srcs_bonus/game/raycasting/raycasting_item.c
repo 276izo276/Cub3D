@@ -5,8 +5,8 @@
 static void	set_specific_case_item(t_item *item, t_hitray *ray, int i,
 		t_data *data)
 {
-	if (item->type == EXPECTO_PATRONUM || item->type == ANIM_DEATH
-		|| item->type == BH)
+	if (item->type == EXPECTO_PATRONUM || (item->type == ANIM_DEATH
+			&& item->categ) || item->type == BH)
 		data->ray[i].items[ray->j]->type = item->type;
 	if (item->type == VENTUS && !item->categ)
 	{
