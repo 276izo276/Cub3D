@@ -1,7 +1,7 @@
 #include "cub3d_bonus.h"
 #include "enemy_bonus.h"
-#include "utils_bonus.h"
 #include "time_bonus.h"
+#include "utils_bonus.h"
 
 void	spawn_after_dementor(t_data *data, double total_factor, int random)
 {

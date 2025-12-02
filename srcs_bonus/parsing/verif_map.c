@@ -47,8 +47,8 @@ static void	check_map_valid_char(t_data *data)
 	y = 0;
 	while (data->map.tabmap && data->map.tabmap[y])
 	{
-		x = 0;
-		while (data->map.tabmap[y][x])
+		x = -1;
+		while (data->map.tabmap[y][++x])
 		{
 			is_valid_char_map(data->map.tabmap[y][x], y, x, data);
 			save_wall(data->map.tabmap[y][x], y, x, data);
@@ -57,7 +57,6 @@ static void	check_map_valid_char(t_data *data)
 			is_item(data->map.tabmap[y][x], y, x, data);
 			if (data->map.tabmap[y][x] == '0' || data->map.tabmap[y][x] == ' ')
 				data->map.tabmap[y][x] = '-';
-			x++;
 		}
 		if (x == 0)
 		{
