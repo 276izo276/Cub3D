@@ -1,7 +1,6 @@
 #include "cub3d_bonus.h"
 #include <math.h>
 
-
 static int	handle_ray_x(t_data *data, int i)
 {
 	if (data->ray[i].delta_x < 0)
