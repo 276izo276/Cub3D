@@ -19,7 +19,7 @@ void	play_sound(t_data *data, t_sound *sound, int info, const char **tab)
 			exit(EXIT_FAILURE);
 		if (dup2(null_fd, STDERR_FILENO) == -1)
 			exit(EXIT_FAILURE);
-		if (info == 27)
+		if (info == 26)
 			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", "--loop",
 				DIE_MP3, (char *) NULL);
 		else if (info == 31)
