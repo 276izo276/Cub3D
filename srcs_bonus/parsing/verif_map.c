@@ -102,7 +102,7 @@ void	verif_map(t_data *data)
 	set_deg_start(data);
 	check_map_is_closed(data);
 	reset_value_map(data);
-	lst = data->enemy;
+	lst = get_first_elem_lst(data->enemy);
 	while (lst)
 		lst = check_enemy_can_escape(data, lst);
 }

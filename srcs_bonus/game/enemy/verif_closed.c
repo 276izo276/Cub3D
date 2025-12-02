@@ -39,8 +39,7 @@ static int	add_case_near(t_lst **open, t_lst *closed, t_lst *node,
 			|| data->map.tabmap[new_y][new_x] == ' ')
 			return (1);
 		if (!is_case_in_lst(new_y, new_x, closed)
-			&& (data->map.tabmap[new_y][new_x] != '1'
-			&& data->map.tabmap[new_y][new_x] != 'D'))
+			&& (data->map.tabmap[new_y][new_x] != '1'))
 		{
 			*open = add_start_lst(init_t_coo(new_y, new_x), *open, f_elem);
 			error_occured(data, *open, closed);
@@ -84,6 +83,8 @@ t_lst	*check_enemy_can_escape(t_data *data, t_lst *lst)
 	next = lst->next;
 	if (verif_enemy_is_closed(data, enemy->center.case_y, enemy->center.case_x))
 	{
+		#include <stdio.h>
+		printf("remove enemy\n");
 		data->enemy = remove_f_elem_lst(lst);
 	}
 	return (next);
