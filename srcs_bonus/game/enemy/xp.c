@@ -12,7 +12,7 @@ void	win_xp(t_data *data, int type, double *xp)
 	else if (type == WOLF)
 		*xp += 0.5 / (0.8 + (data->player.xp * 0.1));
 	else
-		*xp += 3 / (0.8 + (data->player.xp * 0.1));
+		*xp += 1.42 / (0.8 + (data->player.xp * 0.1));
 }
 
 void	add_sound_xp(t_enemy *enemy, t_data *data)
