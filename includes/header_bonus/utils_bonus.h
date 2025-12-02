@@ -23,5 +23,6 @@ void	f_img(t_img *img);
 void	free_wall_map(t_data *data);
 void	free_door_map(t_data *data);
 void	f_enemy(void *elem);
+void	f_imgs(t_data *data);
 
 #endif

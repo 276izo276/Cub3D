@@ -10,7 +10,7 @@
 
 DEBUG_VALUE ?= 0
 DBG ?= 1
-DEBUG_VALUE_BONUS ?= 1
+DEBUG_VALUE_BONUS ?= 0
 DBG_BONUS ?= 1
 FULL_NAME ?= 1
 
@@ -91,6 +91,7 @@ UTILS_BONUS =									\
 				ft_strlen.c						\
 				time.c							\
 				double.c						\
+				f_exit.c						\
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/utils/,$(UTILS_BONUS))
 
