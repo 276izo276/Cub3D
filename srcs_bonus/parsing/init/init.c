@@ -82,6 +82,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->mlx.height = 1110;
 	data->mlx.width = 1920;
 	data->nb_coalition = 4;
+	data->info = -1;
 	data->status = MENU;
 	init_utils_mini(data);
 	init_ray(data);

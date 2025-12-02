@@ -2,7 +2,7 @@
 
 void	init_serpensortia(t_data *data)
 {
-	data->spell[SERPENSORTIA].base_cooldown = 7;
+	data->spell[SERPENSORTIA].base_cooldown = 5;
 	data->spell[SERPENSORTIA].call = cast_serpensortia;
 	data->spell[SERPENSORTIA].type = SERPENSORTIA;
 	data->spell[SERPENSORTIA].class = OFFENSIVE_SPELL;
@@ -13,7 +13,7 @@ void	init_serpensortia(t_data *data)
 
 void	init_ventus(t_data *data)
 {
-	data->spell[VENTUS].base_cooldown = 12;
+	data->spell[VENTUS].base_cooldown = 8;
 	data->spell[VENTUS].call = cast_spell;
 	data->spell[VENTUS].type = VENTUS;
 	data->spell[VENTUS].damage.damage_do = 1.0;
@@ -31,13 +31,13 @@ void	init_ventus(t_data *data)
 
 void	init_bombarda(t_data *data)
 {
-	data->spell[BOMBARDA].base_cooldown = 10;
+	data->spell[BOMBARDA].base_cooldown = 7;
 	data->spell[BOMBARDA].call = cast_spell;
 	data->spell[BOMBARDA].type = BOMBARDA;
 	data->spell[BOMBARDA].damage.damage_do = 30;
 	data->spell[BOMBARDA].damage.fire_force_do = .5;
 	data->spell[BOMBARDA].damage.fire_frame_do = 10;
-	data->spell[BOMBARDA].item.speed = 40;
+	data->spell[BOMBARDA].item.speed = 20;
 	data->spell[BOMBARDA].item.radius = 6;
 	data->spell[BOMBARDA].item.front_img = &data->img[BOMBARDA_IMG];
 	data->spell[BOMBARDA].item.back_img = &data->img[BOMBARDA_IMG];
@@ -49,7 +49,7 @@ void	init_bombarda(t_data *data)
 
 void	init_episkey(t_data *data)
 {
-	data->spell[EPISKEY].base_cooldown = 10;
+	data->spell[EPISKEY].base_cooldown = 8;
 	data->spell[EPISKEY].call = cast_episkey;
 	data->spell[EPISKEY].type = EPISKEY;
 	data->spell[EPISKEY].class = CLASIC_SPELL;
@@ -60,13 +60,13 @@ void	init_episkey(t_data *data)
 
 void	init_stupefix(t_data *data)
 {
-	data->spell[STUPEFIX].base_cooldown = 15;
+	data->spell[STUPEFIX].base_cooldown = 10;
 	data->spell[STUPEFIX].call = cast_spell;
 	data->spell[STUPEFIX].type = STUPEFIX;
 	data->spell[STUPEFIX].damage.damage_do = 40;
 	data->spell[STUPEFIX].damage.slow_force_do = 80;
 	data->spell[STUPEFIX].damage.slow_frame_do = 60;
-	data->spell[STUPEFIX].item.speed = 40;
+	data->spell[STUPEFIX].item.speed = 20;
 	data->spell[STUPEFIX].item.radius = 2;
 	data->spell[STUPEFIX].item.front_img = &data->img[STUPEFIX_IMG];
 	data->spell[STUPEFIX].item.back_img = &data->img[STUPEFIX_IMG];

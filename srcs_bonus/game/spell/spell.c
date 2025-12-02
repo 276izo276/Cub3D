@@ -64,6 +64,8 @@ void	cast_spell(t_data *data, int info)
 		&& get_mtime() > data->spell[info].end_time
 		+ data->spell[info].base_cooldown * 1000)
 	{
+		if (info != VENTUS)
+			data->info = info;
 		data->spell[info].launch_time = get_mtime();
 		data->item = add_end_lst(init_spell_item(data, info), data->item,
 				f_item);

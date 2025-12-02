@@ -7,7 +7,7 @@ void	init_arania_exumai(t_data *data)
 	data->spell[ARANIA_EXUMAI].type = ARANIA_EXUMAI;
 	data->spell[ARANIA_EXUMAI].damage.damage_do = 5;
 	data->spell[ARANIA_EXUMAI].damage.damage_spider_do = 30;
-	data->spell[ARANIA_EXUMAI].item.speed = 50;
+	data->spell[ARANIA_EXUMAI].item.speed = 25;
 	data->spell[ARANIA_EXUMAI].item.radius = 3;
 	data->spell[ARANIA_EXUMAI].item.front_img = &data->img[ARANIA_EXUMAI_IMG];
 	data->spell[ARANIA_EXUMAI].item.back_img = &data->img[ARANIA_EXUMAI_IMG];
@@ -19,8 +19,8 @@ void	init_arania_exumai(t_data *data)
 
 void	init_protego(t_data *data)
 {
-	data->spell[PROTEGO].base_cooldown = 15;
-	data->spell[PROTEGO].base_timer = 5;
+	data->spell[PROTEGO].base_cooldown = 6;
+	data->spell[PROTEGO].base_timer = 3;
 	data->spell[PROTEGO].call = cast_protego;
 	data->spell[PROTEGO].type = PROTEGO;
 	data->spell[PROTEGO].class = DEFENSIVE_SPELL;
@@ -31,11 +31,11 @@ void	init_protego(t_data *data)
 
 void	init_expelliarmus(t_data *data)
 {
-	data->spell[EXPELLIARMUS].base_cooldown = 10;
+	data->spell[EXPELLIARMUS].base_cooldown = 6;
 	data->spell[EXPELLIARMUS].call = cast_spell;
 	data->spell[EXPELLIARMUS].type = EXPELLIARMUS;
 	data->spell[EXPELLIARMUS].damage.damage_do = 25;
-	data->spell[EXPELLIARMUS].item.speed = 40;
+	data->spell[EXPELLIARMUS].item.speed = 20;
 	data->spell[EXPELLIARMUS].item.radius = 3;
 	data->spell[EXPELLIARMUS].item.front_img = &data->img[EXPELLIARMUS_IMG];
 	data->spell[EXPELLIARMUS].item.back_img = &data->img[EXPELLIARMUS_IMG];
@@ -47,7 +47,7 @@ void	init_expelliarmus(t_data *data)
 
 void	init_expecto_patronum(t_data *data)
 {
-	data->spell[EXPECTO_PATRONUM].base_cooldown = 10;
+	data->spell[EXPECTO_PATRONUM].base_cooldown = 7;
 	data->spell[EXPECTO_PATRONUM].call = cast_spell;
 	data->spell[EXPECTO_PATRONUM].type = EXPECTO_PATRONUM;
 	data->spell[EXPECTO_PATRONUM].damage.damage_dementor_do = 10;
@@ -73,7 +73,7 @@ void	init_vipera_evanesca(t_data *data)
 	data->spell[VIPERA_EVANESCA].type = VIPERA_EVANESCA;
 	data->spell[VIPERA_EVANESCA].damage.damage_snake_do = 25;
 	data->spell[VIPERA_EVANESCA].damage.damage_do = 2;
-	data->spell[VIPERA_EVANESCA].item.speed = 40;
+	data->spell[VIPERA_EVANESCA].item.speed = 20;
 	data->spell[VIPERA_EVANESCA].item.radius = 3;
 	data->spell[VIPERA_EVANESCA].item.front_img = &data->img[ARANIA_EXUMAI_IMG];
 	data->spell[VIPERA_EVANESCA].item.back_img = &data->img[ARANIA_EXUMAI_IMG];
