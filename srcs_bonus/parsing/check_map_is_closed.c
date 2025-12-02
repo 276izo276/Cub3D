@@ -1,5 +1,5 @@
-#include "utils_bonus.h"
 #include "cub3d_bonus.h"
+#include "utils_bonus.h"
 
 static t_lst	*add_case_near(t_lst *open, t_lst *closed, t_lst *node,
 		t_data *data)
@@ -18,7 +18,9 @@ static t_lst	*add_case_near(t_lst *open, t_lst *closed, t_lst *node,
 			|| new_x >= ft_strlen(data->map.tabmap[new_y]) || new_x < 0
 			|| data->map.tabmap[new_y][new_x] == ' ')
 			error_map_not_closed(closed, open, data);
-		if ((data->map.tabmap[new_y][new_x] == '-' || data->map.tabmap[new_y][new_x] == 'D' || data->map.tabmap[new_y][new_x] == 'F')
+		if ((data->map.tabmap[new_y][new_x] == '-'
+			|| data->map.tabmap[new_y][new_x] == 'D'
+				|| data->map.tabmap[new_y][new_x] == 'F')
 			&& (data->map.tabmap[new_y][new_x] != '1'))
 		{
 			open = add_start_lst(init_t_coo(new_y, new_x), open, f_elem);
@@ -42,8 +44,10 @@ void	verif_map_is_closed(t_data *data, int y, int x)
 	{
 		node = open;
 		open = remove_elem_lst(node);
-		if (data->map.tabmap[((t_coo*)node->dt)->y][((t_coo*)node->dt)->x] == '-')
-			data->map.tabmap[((t_coo*)node->dt)->y][((t_coo*)node->dt)->x] = '0';
+		if (data->map.tabmap[((t_coo *)node->dt)->y]
+			[((t_coo *)node->dt)->x] == '-')
+			data->map.tabmap[((t_coo *)node->dt)->y][
+				((t_coo *)node->dt)->x] = '0';
 		closed = move_to_end_lst(node, closed);
 		open = add_case_near(open, closed, node, data);
 	}
@@ -69,6 +73,5 @@ void	check_map_is_closed(t_data *data)
 		}
 		y++;
 	}
-	verif_map_is_closed(data, data->player.coo.case_y,
-		data->player.coo.case_x);
+	verif_map_is_closed(data, data->player.coo.case_y, data->player.coo.case_x);
 }

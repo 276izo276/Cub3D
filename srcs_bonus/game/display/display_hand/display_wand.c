@@ -19,7 +19,8 @@ static void	display_wand_loop(t_data *data, int pos_x, int pos_y)
 					+ PLAYER_WAND], x, y);
 			if (color != WHITE)
 			{
-				alpha_color = (data->player.invisible << 24) | (color & 0x00FFFFFF);
+				alpha_color = (data->player.invisible << 24)
+					| (color & 0x00FFFFFF);
 				apply_transparancy(data, x + pos_x, y + pos_y, alpha_color);
 			}
 			++x;
@@ -42,7 +43,7 @@ static void	display_spell(t_data *data, double factor_y, double factor_x,
 		while (x < data->mlx.width / 2 + rad / 2)
 		{
 			color = get_texture_pixel(data->spell[data->info].item.front_img,
-					(double)(x - (data->mlx.width / 2 - rad / 2)) * factor_x, y
+					((double)(x - (data->mlx.width / 2 - rad / 2)) *factor_x), y
 					* factor_y);
 			if (color != WHITE)
 				pixel_put(data, x, y + 40, color);

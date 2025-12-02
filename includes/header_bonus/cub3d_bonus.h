@@ -11,7 +11,7 @@
 # endif
 
 
-void		not_a_wall_y_top(t_data *data, int i);
+void			not_a_wall_y_top(t_data *data, int i);
 void			not_a_wall_y_down(t_data *data, int i);
 void			not_a_wall_x_left(t_data *data, int i);
 void			not_a_wall_x_right(t_data *data, int i);
@@ -41,7 +41,8 @@ void			spawn_sorcerer(t_data *data, char type);
 void			aff_spell(t_data *data);
 void			aff_life(t_data *data);
 void			remove_sound(t_data *data, int info);
-void			spawn_enemy(t_data *data, double total_factor, long long int cur);
+void			spawn_enemy(t_data *data, double total_factor,
+					long long int cur);
 void			reset_data_display(t_data *data, int i);
 int				try_hit_items(t_item *elem, t_data *data);
 bool			hit_calc_scal_enemy(t_enemy *enemy, t_item *elem, t_hitray *ray,
