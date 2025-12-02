@@ -154,4 +154,3 @@ void	f_exit(t_data *data, int code)
 	printf("F_EXIT\n\n\n\n\n\n\n");
 	exit(code);
 }
-

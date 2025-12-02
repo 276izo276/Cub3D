@@ -10,7 +10,34 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
-void	reset_data_display(t_data *data, int i);
+
+int				cond_back_color(t_data *data, double x, double y, double i);
+void			set_back_color(t_data *data, double *y, double x, int i);
+double			min(double a, double b);
+double			max(double a, double b);
+void			handle_wall_msg(t_data *data, long long int cur);
+void			update_sorcerer(t_data *data);
+void			aff_protego(t_data *data);
+void			aff_effect_info(t_data *data);
+void			aff_popo(t_data *data);
+void			aff_shield(t_data *data);
+void			handle_input_move(t_data *data, long long int cur);
+void			handle_sound(t_data *data);
+void			move_enemy(t_data *data);
+void			sound_dead(t_data *data);
+void			player_invisible(t_data *data);
+void			spawn_portkey(t_data *data);
+void			update_enemy(t_data *data);
+void			main_loop(long long int cur, t_data *data);
+void			utils_loop(t_data *data);
+void			god_mod(long long int *cur, t_data *data);
+void			aff_xp(t_data *data);
+void			spawn_sorcerer(t_data *data, char type);
+void			aff_spell(t_data *data);
+void			aff_life(t_data *data);
+void			remove_sound(t_data *data, int info);
+void			spawn_enemy(t_data *data, double total_factor);
+void			reset_data_display(t_data *data, int i);
 int				try_hit_items(t_item *elem, t_data *data);
 bool			hit_calc_scal_enemy(t_enemy *enemy, t_item *elem, t_hitray *ray,
 					t_lst **lst);

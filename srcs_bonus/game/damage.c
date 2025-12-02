@@ -1,4 +1,4 @@
-#include "struct_bonus.h"
+#include "cub3d_bonus.h"
 
 static void	apply_slow_frame(t_damage **take, t_damage **apply)
 {
@@ -43,4 +43,59 @@ void	apply_damage(t_damage *take, t_damage *apply)
 		take->hit.coo_y = apply->hit.coo_y;
 	}
 	apply_slow_frame(&take, &apply);
+}
+
+void	damage_effect(t_data *data)
+{
+	data->player.damage.damage_take = 0;
+	if (data->player.damage.poison_frame_take > 0)
+	{
+		data->player.life -= data->player.damage.poison_force_take;
+		data->player.damage.poison_frame_take--;
+		if (data->player.damage.poison_frame_take <= 0)
+			data->player.damage.poison_force_take = 0;
+	}
+	if (data->player.damage.fire_frame_take > 0)
+	{
+		data->player.life -= data->player.damage.fire_force_take;
+		data->player.damage.fire_frame_take--;
+		if (data->player.damage.fire_frame_take <= 0)
+			data->player.damage.fire_force_take = 0;
+	}
+	if (data->player.damage.curse_frame_take > 0)
+	{
+		data->player.life -= data->player.damage.curse_force_take;
+		data->player.damage.curse_frame_take--;
+		if (data->player.damage.curse_frame_take <= 0)
+			data->player.damage.curse_force_take = 0;
+	}
+	if (data->player.life <= 0 && data->player.life >= -114)
+		data->player.life -= 1;
+}
+
+void	take_damage(t_data *data)
+{
+	double	damage;
+
+	damage = data->player.damage.damage_take;
+	while (damage > 0 && data->player.protego > 0)
+	{
+		damage -= 5;
+		data->player.protego--;
+	}
+	if (damage < 0)
+		damage = 0;
+	data->player.shield -= damage;
+	if (data->player.shield < 0)
+	{
+		data->player.life += data->player.shield;
+		data->player.shield = 0;
+	}
+	damage_effect(data);
+	if (data->player.life <= -115)
+	{
+		sound_dead(data);
+		data->status = MENU_DEATH;
+		data->selected = 0;
+	}
 }

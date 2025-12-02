@@ -220,7 +220,24 @@ GAME_BONUS		=											\
 				popo/launch.c								\
 				restart.c 									\
 				sound/init.c								\
-				sound/free.c							
+				sound/free.c								\
+				border_case.c								\
+				color.c										\
+				effect.c									\
+				invisible.c									\
+				life.c										\
+				move.c										\
+				msg.c										\
+				portkey.c									\
+				protego.c									\
+				shield.c									\
+				sorcerer.c									\
+				sound.c										\
+				spawn.c										\
+				spell.c										\
+				utils_loop.c								\
+				xp.c										\
+				popo.c										
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 
