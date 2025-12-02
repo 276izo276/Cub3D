@@ -1,4 +1,3 @@
-
 #include "mlx.h"
 #include "struct.h"
 #include <stdlib.h>

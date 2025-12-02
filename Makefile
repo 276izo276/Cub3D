@@ -12,10 +12,10 @@ DEBUG_VALUE ?= 0
 DBG ?= 1
 DEBUG_VALUE_BONUS ?= 1
 DBG_BONUS ?= 1
-FULL_NAME ?= 1
+FULL_NAME ?= 0
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -MMD -DDEBUG_VALUE=${DEBUG_VALUE} -g3
+CFLAGS = -Wall -Werror -Wextra -MMD -DDEBUG_VALUE=${DEBUG_VALUE} -DDEBUG_VALUE_BONUS=${DEBUG_VALUE_BONUS} -g3
 SHELL = /bin/bash
 
 EXECFLAGS = -lXext -lX11 -lXfixes -lm
@@ -76,47 +76,48 @@ GAME		=								\
 			
 FILES	+=	$(addprefix srcs/game/,$(GAME))
 
-FILES_BONUS =								\
-				main_bonus.c				\
+FILES_BONUS =									\
+				main_bonus.c					\
 
-UTILS_BONUS =								\
-				abs_value.c 				\
-				aff_text.c					\
-				ft_itoa.c					\
-				debug.c						\
-				dup.c						\
-				free.c						\
-				ft_bzero.c					\
-				ft_strcmp.c					\
-				ft_strlen.c					\
-				time.c						\
-				double.c					\
+UTILS_BONUS =									\
+				abs_value.c 					\
+				aff_text.c						\
+				ft_itoa.c						\
+				debug.c							\
+				dup.c							\
+				free.c							\
+				ft_bzero.c						\
+				ft_strcmp.c						\
+				ft_strlen.c						\
+				time.c							\
+				double.c						\
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/utils/,$(UTILS_BONUS))
 
-PARSING_BONUS	=								\
-				read_content.c					\
-				start_parsing.c					\
-				fill_texture.c					\
-				fill_texture_wall.c				\
-				fill_texture_utils.c			\
-				check_map_is_closed.c			\
-				utils_map_closed.c				\
-				open_texture.c					\
-				verif_map.c						\
-				init/init.c		 				\
-				init/coa.c 						\
-				init/utils.c 					\
-				init/texture.c	 				\
-				init/init_others.c 				\
-				init/create_thread.c 			\
-				which_type.c 					\
-				check_pos_door.c 				\
-				parse_item.c 					\
-				set_path_texture/char.c			\
-				set_path_texture/enemy_text.c	\
-				set_path_texture/others.c		\
-				set_path_texture/player_spell.c \
+PARSING_BONUS	=									\
+				read_content.c						\
+				start_parsing.c						\
+				fill_texture.c						\
+				fill_texture_wall.c					\
+				fill_texture_utils.c				\
+				check_map_is_closed.c				\
+				utils_map_closed.c					\
+				open_texture.c						\
+				verif_map.c							\
+				init/init.c		 					\
+				init/coa.c 							\
+				init/utils.c 						\
+				init/texture.c	 					\
+				init/init_others.c 					\
+				init/create_thread.c 				\
+				which_type.c 						\
+				check_pos_door.c 					\
+				parse_item.c 						\
+				set_path_texture/char.c				\
+				set_path_texture/enemy_text.c		\
+				set_path_texture/others.c			\
+				set_path_texture/player_spell.c		\
+				valid_map.c							
 
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/parsing/,$(PARSING_BONUS))
@@ -241,38 +242,38 @@ GAME_BONUS		=											\
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/,$(GAME_BONUS))
 
-ENEMY			=							\
-				attack.c					\
-				calc_move.c					\
-				calc_point_right.c			\
-				calc_point_utils.c			\
-				calc_point.c				\
-				calc_utils.c				\
-				cancel_move.c				\
-				confundo.c					\
-				damage.c					\
-				def_coo_case.c				\
-				free.c						\
-				gen_way.c					\
-				hit_enemy_utils.c			\
-				hit_enemy.c					\
-				init_basic_enemy.c			\
-				init_sorcerer.c				\
-				init.c						\
-				item.c						\
-				move.c						\
-				pathfinder_utils.c			\
-				pathfinder.c				\
-				ray_visu_side.c				\
-				ray_visu.c					\
-				repulso.c					\
-				set_path.c					\
-				spawn_utils.c				\
-				spell.c						\
-				valid_visu.c				\
-				verif_closed.c				\
-				visu.c						\
-				wand.c						\
+ENEMY			=								\
+				attack.c						\
+				calc_move.c						\
+				calc_point_right.c				\
+				calc_point_utils.c				\
+				calc_point.c					\
+				calc_utils.c					\
+				cancel_move.c					\
+				confundo.c						\
+				damage.c						\
+				def_coo_case.c					\
+				free.c							\
+				gen_way.c						\
+				hit_enemy_utils.c				\
+				hit_enemy.c						\
+				init_basic_enemy.c				\
+				init_sorcerer.c					\
+				init.c							\
+				item.c							\
+				move.c							\
+				pathfinder_utils.c				\
+				pathfinder.c					\
+				ray_visu_side.c					\
+				ray_visu.c						\
+				repulso.c						\
+				set_path.c						\
+				spawn_utils.c					\
+				spell.c							\
+				valid_visu.c					\
+				verif_closed.c					\
+				visu.c							\
+				wand.c							\
 				xp.c						
 
 FILES_BONUS	+=	$(addprefix srcs_bonus/game/enemy/,$(ENEMY))
@@ -296,28 +297,28 @@ NORM_LIB = \
 lib/
 
 # path to .h for the main project basic
-MY_HEADER = \
-includes/cub3d.h	\
-includes/debug.h	\
-includes/parsing.h	\
-includes/player.h	\
-includes/color.h	\
-includes/struct.h	\
-includes/texture.h	\
-includes/time.h		\
-includes/utils.h	\
+MY_HEADER =				\
+includes/cub3d.h		\
+includes/debug.h		\
+includes/parsing.h		\
+includes/player.h		\
+includes/color.h		\
+includes/struct.h		\
+includes/texture.h		\
+includes/time.h			\
+includes/utils.h		\
 
 # set the path to the .h main project bonus
-HEADER_BONUS = \
-includes/header_bonus/cub3d_bonus.h	\
-includes/header_bonus/debug_bonus.h	\
+HEADER_BONUS =							 \
+includes/header_bonus/cub3d_bonus.h		\
+includes/header_bonus/debug_bonus.h		\
 includes/header_bonus/parsing_bonus.h	\
 includes/header_bonus/player_bonus.h	\
-includes/header_bonus/color_bonus.h	\
+includes/header_bonus/color_bonus.h		\
 includes/header_bonus/struct_bonus.h	\
 includes/header_bonus/texture_bonus.h	\
-includes/header_bonus/time_bonus.h	\
-includes/header_bonus/utils_bonus.h	\
+includes/header_bonus/time_bonus.h		\
+includes/header_bonus/utils_bonus.h		\
 
 
 # set the main project header dir
@@ -397,6 +398,13 @@ ifeq (${DBG}, 1)
 	ifeq (${DEBUG_VALUE}, 1)
 override DEBUG_VALUE = 0
 override DBG = 2
+	endif
+endif
+
+ifeq (${DBG_BONUS}, 1)
+	ifeq (${DEBUG_VALUE_BONUS}, 1)
+override DEBUG_VALUE_BONUS = 0
+override DBG_BONUS = 2
 	endif
 endif
 
@@ -716,15 +724,15 @@ debug_bonus: clear_console
 	old_val="$$(cat Makefile | grep -oP '^DEBUG_VALUE_BONUS \?= \K\d+')";\
 	if [ "$$old_val" != "$$dbg" ]; then\
 		$(call MODIF_DEBUG_VALUE_BONUS,$$dbg)\
-		touch ${HEADER_DIR}/header_bonus/debug.h;\
+		touch ${HEADER_DIR}/header_bonus/debug_bonus.h;\
 	fi;\
-	make DBG_BONUS=0
+	make bonus DBG_BONUS=0
 
 .PHONY:reset_debug_bonus
 reset_debug_bonus:
-	@if [ "${DBG}" = "2" ]; then\
+	@if [ "${DBG_BONUS}" = "2" ]; then\
 		$(call MODIF_DEBUG_VALUE_BONUS,0)\
-		touch ${HEADER_DIR}/header_bonus/debug.h;\
+		touch ${HEADER_DIR}/header_bonus/debug_bonus.h;\
 	fi;
 
 #

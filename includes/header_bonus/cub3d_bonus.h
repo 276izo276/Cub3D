@@ -11,6 +11,7 @@
 # endif
 
 
+void			reset_value_map(t_data *data);
 int				cond_back_color(t_data *data, double x, double y, double i);
 void			set_back_color(t_data *data, double *y, double x, int i);
 double			min(double a, double b);

@@ -106,7 +106,7 @@ void	parsing(t_data *data)
 	get_texture(data);
 	create_tabmap(data);
 	verif_map(data);
-	if (DEBUG_VALUE)
+	if (DEBUG_VALUE_BONUS)
 	{
 		print_map(data);
 		ft_printf_fd(2, "Player start : \n\tdirection = %c\n\ty = %d\n\tx = "

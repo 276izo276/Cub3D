@@ -55,7 +55,7 @@ static void	check_map_valid_char(t_data *data)
 			is_door(data->map.tabmap[y][x], y, x, data);
 			is_enemy(data->map.tabmap[y][x], y, x, data);
 			is_item(data->map.tabmap[y][x], y, x, data);
-			if (data->map.tabmap[y][x] == '0')
+			if (data->map.tabmap[y][x] == '0' || data->map.tabmap[y][x] == ' ')
 				data->map.tabmap[y][x] = '-';
 			x++;
 		}
@@ -100,4 +100,5 @@ void	verif_map(t_data *data)
 	}
 	set_deg_start(data);
 	check_map_is_closed(data);
+	reset_value_map(data);
 }
