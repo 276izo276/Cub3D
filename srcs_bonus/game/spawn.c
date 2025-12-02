@@ -14,7 +14,6 @@ void	spawn_after_dementor(t_data *data, double total_factor, int random)
 				data->enemy, f_enemy);
 		if (!data->enemy)
 			f_exit(data, 1);
-		check_enemy_can_escape(data, data->enemy);
 		data->last_spawn = get_mtime();
 	}
 }
@@ -30,7 +29,6 @@ void	spawn_after_elem(t_data *data, double total_factor, int random)
 				data->enemy, f_enemy);
 		if (!data->enemy)
 			f_exit(data, 1);
-		check_enemy_can_escape(data, data->enemy);
 		data->last_spawn = get_mtime();
 	}
 	else
@@ -49,7 +47,6 @@ void	spawn_after_spider(t_data *data, double total_factor, int random)
 				data->enemy, f_enemy);
 		if (!data->enemy)
 			f_exit(data, 1);
-		check_enemy_can_escape(data, data->enemy);
 		data->last_spawn = get_mtime();
 	}
 	else
@@ -72,7 +69,6 @@ void	spawn_enemy_utils(t_data *data, double total_factor)
 				data->enemy, f_enemy);
 		if (!data->enemy)
 			f_exit(data, 1);
-		check_enemy_can_escape(data, data->enemy);
 		data->last_spawn = get_mtime();
 	}
 	else

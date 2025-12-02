@@ -49,5 +49,4 @@ void	spawn_sorcerer(t_data *data, char type)
 	data->last_spawn = get_mtime();
 	if (!data->enemy)
 		f_exit(data, 1);
-	check_enemy_can_escape(data, data->enemy);
 }
