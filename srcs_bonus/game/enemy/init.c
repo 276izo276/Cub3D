@@ -7,7 +7,7 @@ void	fill_sorcerer(t_data *data, t_enemy *enemy, char c)
 	enemy->dist_stop = 40;
 	enemy->dist_damage = 32;
 	enemy->dist_visu = 640;
-	enemy->speed = 1.5;
+	enemy->speed = 2.0;
 	enemy->cooldown_cac = .2;
 	enemy->damage.curse_force_do = .2;
 	enemy->damage.curse_frame_do = 10;
@@ -28,7 +28,7 @@ void	fill_dementor(t_data *data, t_enemy *enemy)
 	enemy->dist_stop = 20;
 	enemy->dist_damage = 64;
 	enemy->dist_visu = 640;
-	enemy->speed = 2.5;
+	enemy->speed = 3.0;
 	enemy->cooldown_cac = .2;
 	enemy->damage.damage_do = 1;
 	enemy->damage.curse_force_do = .2;
