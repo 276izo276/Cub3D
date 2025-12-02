@@ -58,8 +58,12 @@ void	spawn_after_spider(t_data *data, double total_factor, int random)
 	}
 }
 
-void	spawn_enemy_utils(t_data *data, double total_factor, int random)
+void	spawn_enemy_utils(t_data *data, double total_factor)
 {
+	int	random;
+
+	random = rand() % 100;
+	total_factor = data->spider_factor;
 	if (random <= total_factor)
 	{
 		data->enemy = add_end_lst(init_enemy(',',
@@ -96,11 +100,9 @@ void	spawn_enemy(t_data *data, double total_factor, long long int cur)
 				random = rand() % 150;
 				if (random <= data->player.xp * 2)
 				{
-					random = rand() % 100;
-					total_factor = data->spider_factor;
 					data->aff.x = x;
 					data->aff.y = y;
-					spawn_enemy_utils(data, total_factor, random);
+					spawn_enemy_utils(data, total_factor);
 				}
 			}
 			if (!(cur >= data->spawn_frame + data->last_spawn))
