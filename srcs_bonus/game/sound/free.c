@@ -5,7 +5,7 @@
 
 void	free_sound(void *elem)
 {
-	t_sound *sound;
+	t_sound	*sound;
 
 	sound = elem;
 	if (waitpid(sound->pid, NULL, WNOHANG) == 0)

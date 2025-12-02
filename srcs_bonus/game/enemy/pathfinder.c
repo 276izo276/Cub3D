@@ -1,6 +1,6 @@
+#include "cub3d_bonus.h"
 #include "enemy_bonus.h"
 #include "utils_bonus.h"
-#include "cub3d_bonus.h"
 
 int	man_dist(int startY, int startX, int endY, int endX)
 {
@@ -9,14 +9,13 @@ int	man_dist(int startY, int startX, int endY, int endX)
 
 int	is_a_wall(t_case *cur, const int dir[2], t_data *data)
 {
-	if (!(cur->coo.case_y + dir[0] >= data->map.tabmap_height
-		|| cur->coo.case_y + dir[0] < 0 || cur->coo.case_x + dir[1]
-		>= ft_strlen(data->map.tabmap[cur->coo.case_y + dir[0]])
+	if (!(cur->coo.case_y + dir[0] >= data->map.tabmap_height || cur->coo.case_y
+			+ dir[0] < 0 || cur->coo.case_x
+			+ dir[1] >= ft_strlen(data->map.tabmap[cur->coo.case_y + dir[0]])
 			|| cur->coo.case_x + dir[1] < 0)
-			&& (data->map.tabmap[cur->coo.case_y
-				+ dir[0]][cur->coo.case_x + dir[1]] == ' '
-		|| data->map.tabmap[cur->coo.case_y + dir[0]][cur->coo.case_x
-		+ dir[1]] == '1'))
+		&& (data->map.tabmap[cur->coo.case_y + dir[0]][cur->coo.case_x
+			+ dir[1]] == ' ' || data->map.tabmap[cur->coo.case_y
+			+ dir[0]][cur->coo.case_x + dir[1]] == '1'))
 		return (1);
 	return (0);
 }

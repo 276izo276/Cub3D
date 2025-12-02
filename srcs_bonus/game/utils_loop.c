@@ -1,7 +1,6 @@
 #include "cub3d_bonus.h"
-#include "time_bonus.h"
 #include "mlx.h"
-
+#include "time_bonus.h"
 
 void	god_mod(long long int *cur, t_data *data)
 {
@@ -48,8 +47,8 @@ void	main_loop(long long int cur, t_data *data)
 		pthread_barrier_wait(&data->barrier_background);
 		pthread_barrier_wait(&data->barrier_display);
 		pthread_barrier_wait(&data->barrier_display);
-		mlx_put_image_to_window(data->mlx.mlx, data->mlx.win,
-			data->screen->img, 0, 0);
+		mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img,
+			0, 0);
 		utils_loop(data);
 	}
 }

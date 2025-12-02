@@ -61,5 +61,5 @@ void	sound_dead(t_data *data)
 {
 	f_all_lst(data->sound);
 	data->sound = NULL;
-	data->sound = add_end_lst(create_sound(data, 27), data->sound, free_sound);
+	data->sound = add_end_lst(create_sound(data, 26), data->sound, free_sound);
 }

@@ -22,7 +22,7 @@ void	add_sound_xp(t_enemy *enemy, t_data *data)
 	tmp_xp = floor(data->player.xp);
 	if (enemy->damage.which_coa_take == data->player.coa)
 	{
-		data->sound = add_end_lst(create_sound(data, 25), data->sound,
+		data->sound = add_end_lst(create_sound(data, 24), data->sound,
 				free_sound);
 		win_xp(data, enemy->type, &data->player.xp);
 		data->coa[data->player.coa].xp = data->player.xp;
@@ -36,6 +36,6 @@ void	add_sound_xp(t_enemy *enemy, t_data *data)
 	else if (enemy->damage.which_coa_take == FIRE)
 		win_xp(data, enemy->type, &data->coa[FIRE].xp);
 	if (floor(data->player.xp) > tmp_xp)
-		data->sound = add_end_lst(create_sound(data, 34), data->sound,
+		data->sound = add_end_lst(create_sound(data, 33), data->sound,
 				free_sound);
 }

@@ -37,8 +37,6 @@ void	f_enemy(void *elem)
 	free(enemy);
 }
 
-
-
 void	f_list_final_path(t_lst *open, t_lst *closed)
 {
 	t_lst	*tmp;

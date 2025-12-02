@@ -3,10 +3,6 @@
 #include "utils_bonus.h"
 #include "time_bonus.h"
 
-
-
-
-#include <stdio.h>
 void	spawn_after_dementor(t_data *data, double total_factor, int random)
 {
 	total_factor += data->wolf_factor;
@@ -19,7 +15,6 @@ void	spawn_after_dementor(t_data *data, double total_factor, int random)
 		if (!data->enemy)
 			f_exit(data, 1);
 		check_enemy_can_escape(data, data->enemy);
-		printf("wolf\n");
 		data->last_spawn = get_mtime();
 	}
 }
@@ -36,7 +31,6 @@ void	spawn_after_elem(t_data *data, double total_factor, int random)
 		if (!data->enemy)
 			f_exit(data, 1);
 		check_enemy_can_escape(data, data->enemy);
-		printf("dementor\n");
 		data->last_spawn = get_mtime();
 	}
 	else
@@ -56,7 +50,6 @@ void	spawn_after_spider(t_data *data, double total_factor, int random)
 		if (!data->enemy)
 			f_exit(data, 1);
 		check_enemy_can_escape(data, data->enemy);
-		printf("elem\n");
 		data->last_spawn = get_mtime();
 	}
 	else
@@ -76,7 +69,6 @@ void	spawn_enemy_utils(t_data *data, double total_factor, int random)
 		if (!data->enemy)
 			f_exit(data, 1);
 		check_enemy_can_escape(data, data->enemy);
-		printf("spider\n");
 		data->last_spawn = get_mtime();
 	}
 	else
@@ -104,7 +96,6 @@ void	spawn_enemy(t_data *data, double total_factor, long long int cur)
 				random = rand() % 150;
 				if (random <= data->player.xp * 2)
 				{
-					printf("before spider\n");
 					random = rand() % 100;
 					total_factor = data->spider_factor;
 					data->aff.x = x;

@@ -74,9 +74,9 @@ void	mouse_key_map(t_data *data, int key)
 {
 	if (key == 1 && data->map.floo_active == true && data->status == FLOO_MAP)
 	{
-		data->sound = add_end_lst(create_sound(data, 26), data->sound,
+		data->sound = add_end_lst(create_sound(data, 25), data->sound,
 				free_sound);
-		data->sound = add_end_lst(create_sound(data, 28), data->sound,
+		data->sound = add_end_lst(create_sound(data, 27), data->sound,
 				free_sound);
 		data->map.door_map[data->player.coo.case_y]
 		[data->player.coo.case_x]->is_floo_open = false;

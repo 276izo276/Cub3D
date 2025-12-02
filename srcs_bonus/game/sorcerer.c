@@ -30,7 +30,6 @@ int	spawn_sorcerer_utils(t_data *data, char type, int y, int x)
 	data->enemy = add_end_lst(init_enemy(type, (t_fcoo){.case_x = random_x,
 				.case_y = random_y, .coo_y = 32, .coo_x = 32}, data,
 				data->map.mini.deg), data->enemy, f_enemy);
-	data->last_spawn = get_mtime();
 	return (0);
 }
 
@@ -45,10 +44,9 @@ void	spawn_sorcerer(t_data *data, char type)
 	random = rand() % 100;
 	if (random > 1 + data->player.xp * 2)
 		return ;
-	#include <stdio.h>
-	printf("sorcerer\n");
 	if (spawn_sorcerer_utils(data, type, y, x))
 		return ;
+	data->last_spawn = get_mtime();
 	if (!data->enemy)
 		f_exit(data, 1);
 	check_enemy_can_escape(data, data->enemy);
