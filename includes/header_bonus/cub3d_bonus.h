@@ -11,6 +11,10 @@
 # endif
 
 
+void		not_a_wall_y_top(t_data *data, int i);
+void			not_a_wall_y_down(t_data *data, int i);
+void			not_a_wall_x_left(t_data *data, int i);
+void			not_a_wall_x_right(t_data *data, int i);
 void			reset_value_map(t_data *data);
 int				cond_back_color(t_data *data, double x, double y, double i);
 void			set_back_color(t_data *data, double *y, double x, int i);

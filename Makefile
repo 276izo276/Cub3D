@@ -10,7 +10,7 @@
 
 DEBUG_VALUE ?= 0
 DBG ?= 1
-DEBUG_VALUE_BONUS ?= 1
+DEBUG_VALUE_BONUS ?= 0
 DBG_BONUS ?= 1
 FULL_NAME ?= 1
 
@@ -155,6 +155,7 @@ GAME_BONUS		=											\
 				raycasting/raycasting_enemy.c  				\
 				raycasting/raycasting_door.c 				\
 				raycasting/spawn_wall_msg.c 				\
+				raycasting/not_a_wall.c						\
 				intersection_segment.c						\
 				display/display.c 							\
 				display/thread_display.c 					\

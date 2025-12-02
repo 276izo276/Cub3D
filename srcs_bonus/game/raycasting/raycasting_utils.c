@@ -4,12 +4,7 @@
 int	handle_ray_y_top(t_data *data, int i)
 {
 	if (data->map.tabmap[data->ray[i].case_y - 1][data->ray[i].case_x] != '1')
-	{
-		data->ray[i].case_y--;
-		data->ray[i].coo_y = 64;
-		data->ray[i].coo_x += data->ray[i].ry * data->ray[i].delta_x;
-		data->ray[i].coo_x = round(data->ray[i].coo_x * 64) / 64.0;
-	}
+		not_a_wall_y_top(data, i);
 	else
 	{
 		data->ray[i].coo_y = 0;
@@ -38,12 +33,7 @@ int	handle_ray_y_top(t_data *data, int i)
 int	handle_ray_y_down(t_data *data, int i)
 {
 	if (data->map.tabmap[data->ray[i].case_y + 1][data->ray[i].case_x] != '1')
-	{
-		data->ray[i].case_y++;
-		data->ray[i].coo_y = 0;
-		data->ray[i].coo_x += data->ray[i].ry * data->ray[i].delta_x;
-		data->ray[i].coo_x = round(data->ray[i].coo_x * 64) / 64.0;
-	}
+		not_a_wall_y_down(data, i);
 	else
 	{
 		data->ray[i].coo_y = 64;
@@ -72,12 +62,7 @@ int	handle_ray_y_down(t_data *data, int i)
 int	handle_ray_x_left(t_data *data, int i)
 {
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x - 1] != '1')
-	{
-		data->ray[i].case_x--;
-		data->ray[i].coo_x = 64;
-		data->ray[i].coo_y += data->ray[i].rx * data->ray[i].delta_y;
-		data->ray[i].coo_y = round(data->ray[i].coo_y * 64) / 64.0;
-	}
+		not_a_wall_x_left(data, i);
 	else
 	{
 		data->ray[i].coo_x = 0;
@@ -106,12 +91,7 @@ int	handle_ray_x_left(t_data *data, int i)
 int	handle_ray_x_right(t_data *data, int i)
 {
 	if (data->map.tabmap[data->ray[i].case_y][data->ray[i].case_x + 1] != '1')
-	{
-		data->ray[i].case_x++;
-		data->ray[i].coo_x = 0;
-		data->ray[i].coo_y += data->ray[i].rx * data->ray[i].delta_y;
-		data->ray[i].coo_y = round(data->ray[i].coo_y * 64) / 64.0;
-	}
+		not_a_wall_x_right(data, i);
 	else
 	{
 		data->ray[i].coo_x = 64;
