@@ -29,6 +29,33 @@ static void	display_wand_loop(t_data *data, int pos_x, int pos_y)
 	}
 }
 
+static void	display_spell(t_data *data)
+{
+	double				x;
+	double				y;
+	unsigned int	color;
+	double			factor_y;
+	double			factor_x;
+	double			rad;
+
+	rad =  60 * data->spell[data->info].item.radius;
+	factor_y = data->spell[data->info].item.front_img->height / (double)data->mlx.height;
+	factor_x = data->spell[data->info].item.front_img->width / rad;
+	y = 0;
+	while (y < data->mlx.height)
+	{
+		x = data->mlx.width / 2 - rad / 2;
+		while (x < data->mlx.width / 2 + rad / 2)
+		{
+			color = get_texture_pixel(data->spell[data->info].item.front_img, (double)(x -  (data->mlx.width / 2 - rad / 2)) * factor_x, y * factor_y);
+			if (color != WHITE)
+				pixel_put(data, x, y + 40, color);
+			++x;
+		}
+		++y;
+	}
+}
+
 void	display_wand(t_data *data, int pos_x, int pos_y)
 {
 	if (data->is_right_handed == false)
@@ -40,6 +67,13 @@ void	display_wand(t_data *data, int pos_x, int pos_y)
 		pos_y -= 250;
 		pos_x += 10;
 	}
+	if (data->info != -1)
+	{
+		
+		display_spell(data);
+	}
+	data->info = -1;
+
 	display_wand_loop(data, pos_x, pos_y);
 	data->lumos.x_wand = pos_x;
 	data->lumos.y_wand = pos_y;

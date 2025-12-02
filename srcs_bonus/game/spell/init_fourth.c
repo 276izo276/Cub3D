@@ -2,7 +2,7 @@
 
 void	init_oppugno(t_data *data)
 {
-	data->spell[OPPUGNO].base_cooldown = 15;
+	data->spell[OPPUGNO].base_cooldown = 8;
 	data->spell[OPPUGNO].call = cast_opugno;
 	data->spell[OPPUGNO].type = OPPUGNO;
 	data->spell[OPPUGNO].class = OFFENSIVE_SPELL;
@@ -13,7 +13,7 @@ void	init_oppugno(t_data *data)
 
 void	init_vulnera_sanentur(t_data *data)
 {
-	data->spell[VULNERA_SANENTUR].base_cooldown = 15;
+	data->spell[VULNERA_SANENTUR].base_cooldown = 10;
 	data->spell[VULNERA_SANENTUR].call = cast_vulnera_sanentur;
 	data->spell[VULNERA_SANENTUR].type = VULNERA_SANENTUR;
 	data->spell[VULNERA_SANENTUR].class = CLASIC_SPELL;
@@ -24,12 +24,12 @@ void	init_vulnera_sanentur(t_data *data)
 
 void	init_petrificus_totalus(t_data *data)
 {
-	data->spell[PETRIFICUS_TOTALUS].base_cooldown = 15;
+	data->spell[PETRIFICUS_TOTALUS].base_cooldown = 10;
 	data->spell[PETRIFICUS_TOTALUS].call = cast_spell;
 	data->spell[PETRIFICUS_TOTALUS].type = PETRIFICUS_TOTALUS;
 	data->spell[PETRIFICUS_TOTALUS].damage.slow_force_do = 90;
 	data->spell[PETRIFICUS_TOTALUS].damage.slow_frame_do = 180;
-	data->spell[PETRIFICUS_TOTALUS].item.speed = 40;
+	data->spell[PETRIFICUS_TOTALUS].item.speed = 20;
 	data->spell[PETRIFICUS_TOTALUS].damage.damage_do = 5;
 	data->spell[PETRIFICUS_TOTALUS].item.radius = 5;
 	data->spell[PETRIFICUS_TOTALUS].item.front_img
@@ -46,7 +46,7 @@ void	init_petrificus_totalus(t_data *data)
 
 void	init_sectumsempra(t_data *data)
 {
-	data->spell[SECTUMSEMPRA].base_cooldown = 21;
+	data->spell[SECTUMSEMPRA].base_cooldown = 10;
 	data->spell[SECTUMSEMPRA].call = cast_spell;
 	data->spell[SECTUMSEMPRA].type = SECTUMSEMPRA;
 	data->spell[SECTUMSEMPRA].damage.damage_do = 21;
@@ -54,7 +54,7 @@ void	init_sectumsempra(t_data *data)
 	data->spell[SECTUMSEMPRA].damage.slow_frame_do = 300;
 	data->spell[SECTUMSEMPRA].damage.curse_frame_do = 210;
 	data->spell[SECTUMSEMPRA].damage.curse_force_do = .1;
-	data->spell[SECTUMSEMPRA].item.speed = 40;
+	data->spell[SECTUMSEMPRA].item.speed = 20;
 	data->spell[SECTUMSEMPRA].item.radius = 3;
 	data->spell[SECTUMSEMPRA].item.front_img = &data->img[SECTUMSEMPRA_IMG];
 	data->spell[SECTUMSEMPRA].item.back_img = &data->img[SECTUMSEMPRA_IMG];
@@ -66,7 +66,7 @@ void	init_sectumsempra(t_data *data)
 
 void	init_confundo(t_data *data)
 {
-	data->spell[CONFUNDO].base_cooldown = 25;
+	data->spell[CONFUNDO].base_cooldown = 10;
 	data->spell[CONFUNDO].call = cast_spell;
 	data->spell[CONFUNDO].type = CONFUNDO;
 	data->spell[CONFUNDO].damage.confundo_frame_do = 300;

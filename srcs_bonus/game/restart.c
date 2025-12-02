@@ -87,6 +87,8 @@ void	restart(t_data *data)
 	clear_parsing_text(data);
 	data->player.coo.case_x = 0;
 	data->player.coo.case_y = 0;
+	data->player.coo.coo_x = 32;
+	data->player.coo.coo_y = 32;
 	data->time_fps = get_mtime();
 	data->time_move = get_mtime();
 	data->nb_door = 0;

@@ -1185,6 +1185,7 @@ struct						s_data
 	int						count_frame;
 	int						cast_spell;
 	int						active_spell;
+	int						info;
 	int						ac;
 	double					wolf_factor;
 	double					spider_factor;
