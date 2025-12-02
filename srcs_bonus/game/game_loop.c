@@ -15,7 +15,7 @@ double	min(double a, double b)
 	return (a);
 }
 
-void	update_sorcerer(t_data *data)
+void	update_sorcerer(t_data *data, long long int cur)
 {
 	int	i;
 
@@ -25,6 +25,8 @@ void	update_sorcerer(t_data *data)
 		if (data->sorcerer[i].is_alive == false
 			&& data->player.color != data->sorcerer[i].color)
 			spawn_sorcerer(data, data->sorcerer[i].type);
+		if (!(cur >= data->spawn_frame + data->last_spawn))
+			return ;
 		++i;
 	}
 }

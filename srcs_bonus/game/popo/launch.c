@@ -12,7 +12,7 @@ void	cast_popo_heal(t_data *data)
 		if (data->player.life > 100)
 			data->player.life = 100;
 		data->popo[0].nb--;
-		data->sound = add_end_lst(create_sound(data, 30), data->sound,
+		data->sound = add_end_lst(create_sound(data, 29), data->sound,
 				free_sound);
 	}
 }
@@ -28,7 +28,7 @@ void	cast_popo_shield(t_data *data)
 		if (data->player.shield > 100)
 			data->player.shield = 100;
 		data->popo[1].nb--;
-		data->sound = add_end_lst(create_sound(data, 30), data->sound,
+		data->sound = add_end_lst(create_sound(data, 29), data->sound,
 				free_sound);
 	}
 }
@@ -43,7 +43,7 @@ void	cast_popo_floo(t_data *data)
 	if (handle_floo_open(data) == true)
 	{
 		data->popo[2].nb--;
-		data->sound = add_end_lst(create_sound(data, 32), data->sound,
+		data->sound = add_end_lst(create_sound(data, 31), data->sound,
 				free_sound);
 	}
 }

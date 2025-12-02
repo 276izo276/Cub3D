@@ -2,6 +2,7 @@
 #include "enemy_bonus.h"
 #include "utils_bonus.h"
 #include <stdlib.h>
+#include "time_bonus.h"
 
 int	spawn_sorcerer_utils(t_data *data, char type, int y, int x)
 {
@@ -36,11 +37,16 @@ void	spawn_sorcerer(t_data *data, char type)
 {
 	int	y;
 	int	x;
+	int	random;
 
 	y = 0;
 	x = 0;
+	random = rand() % 100;
+	if (random > 1 + data->player.xp * 2)
+		return ;
 	if (spawn_sorcerer_utils(data, type, y, x))
 		return ;
+	data->last_spawn = get_mtime();
 	if (!data->enemy)
 		f_exit(data, 1);
 	check_enemy_can_escape(data, data->enemy);

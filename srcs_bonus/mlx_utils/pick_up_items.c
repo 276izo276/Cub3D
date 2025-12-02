@@ -6,14 +6,14 @@ static void	pick_wand(t_data *data, t_item *item)
 	{
 		data->wand.wand_status[2] = true;
 		data->wand.nb_wand = 2;
-		data->sound = add_end_lst(create_sound(data, 29), data->sound,
+		data->sound = add_end_lst(create_sound(data, 28), data->sound,
 				free_sound);
 	}
 	if (item->type == ELEM_WAND)
 	{
 		data->wand.wand_status[3] = true;
 		data->wand.nb_wand = 3;
-		data->sound = add_end_lst(create_sound(data, 29), data->sound,
+		data->sound = add_end_lst(create_sound(data, 28), data->sound,
 				free_sound);
 	}
 }
@@ -25,14 +25,14 @@ static void	pick_up_wand(t_data *data, t_item *item)
 	{
 		data->wand.wand_status[4] = true;
 		data->wand.nb_wand = 4;
-		data->sound = add_end_lst(create_sound(data, 29), data->sound,
+		data->sound = add_end_lst(create_sound(data, 28), data->sound,
 				free_sound);
 	}
 	if (item->type == SPIDER_WAND)
 	{
 		data->wand.wand_status[1] = true;
 		data->wand.nb_wand = 1;
-		data->sound = add_end_lst(create_sound(data, 29), data->sound,
+		data->sound = add_end_lst(create_sound(data, 28), data->sound,
 				free_sound);
 	}
 }

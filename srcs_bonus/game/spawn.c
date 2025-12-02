@@ -1,6 +1,7 @@
 #include "cub3d_bonus.h"
 #include "enemy_bonus.h"
 #include "utils_bonus.h"
+#include "time_bonus.h"
 
 void	spawn_after_dementor(t_data *data, double total_factor, int random)
 {
@@ -14,6 +15,7 @@ void	spawn_after_dementor(t_data *data, double total_factor, int random)
 		if (!data->enemy)
 			f_exit(data, 1);
 		check_enemy_can_escape(data, data->enemy);
+		data->last_spawn = get_mtime();
 	}
 }
 
@@ -29,6 +31,7 @@ void	spawn_after_elem(t_data *data, double total_factor, int random)
 		if (!data->enemy)
 			f_exit(data, 1);
 		check_enemy_can_escape(data, data->enemy);
+		data->last_spawn = get_mtime();
 	}
 	else
 	{
@@ -47,6 +50,7 @@ void	spawn_after_spider(t_data *data, double total_factor, int random)
 		if (!data->enemy)
 			f_exit(data, 1);
 		check_enemy_can_escape(data, data->enemy);
+		data->last_spawn = get_mtime();
 	}
 	else
 	{
@@ -65,6 +69,7 @@ void	spawn_enemy_utils(t_data *data, double total_factor, int random)
 		if (!data->enemy)
 			f_exit(data, 1);
 		check_enemy_can_escape(data, data->enemy);
+		data->last_spawn = get_mtime();
 	}
 	else
 	{
@@ -73,7 +78,7 @@ void	spawn_enemy_utils(t_data *data, double total_factor, int random)
 	}
 }
 
-void	spawn_enemy(t_data *data, double total_factor)
+void	spawn_enemy(t_data *data, double total_factor, long long int cur)
 {
 	int	x;
 	int	y;
@@ -85,10 +90,10 @@ void	spawn_enemy(t_data *data, double total_factor)
 		x = -1;
 		while (data->map.tabmap[y][++x])
 		{
-			if (data->nb_enemy < 5 + data->player.xp * 2
+			if (data->nb_enemy < MAX_CREATE_ENEMY
 				&& data->map.tabmap[y][x] == '0')
 			{
-				random = rand() % 15000;
+				random = rand() % 150;
 				if (random <= data->player.xp * 2)
 				{
 					random = rand() % 100;
@@ -98,6 +103,8 @@ void	spawn_enemy(t_data *data, double total_factor)
 					spawn_enemy_utils(data, total_factor, random);
 				}
 			}
+			if (!(cur >= data->spawn_frame + data->last_spawn))
+				return ;
 		}
 	}
 }

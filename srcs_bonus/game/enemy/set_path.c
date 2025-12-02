@@ -1,6 +1,6 @@
+#include "cub3d_bonus.h"
 #include "enemy_bonus.h"
 #include <stdlib.h>
-#include "cub3d_bonus.h"
 
 void	set_final_path(t_lst *lst, t_enemy *enemy)
 {
@@ -30,7 +30,6 @@ void	end_pathfinder(t_lst *closed, t_lst *open, t_enemy *enemy)
 	nb_take = rand() % nb_elem_lst;
 	nb_elem_lst = 0;
 	closed = get_first_elem_lst(closed);
-
 	while (closed->next)
 	{
 		if (nb_elem_lst == nb_take)

@@ -56,6 +56,10 @@ static void	reset_player_status(t_data *data)
 	data->player.life = 100;
 	data->player.shield = 0;
 	data->player.xp = 1;
+	data->player.coo.case_x = 0;
+	data->player.coo.case_y = 0;
+	data->player.coo.coo_x = 32;
+	data->player.coo.coo_y = 32;
 	i = 1;
 	while (i <= 6)
 	{
@@ -65,7 +69,7 @@ static void	reset_player_status(t_data *data)
 	}
 }
 
-void	restart(t_data *data)
+static void	clear_all_lst(t_data *data)
 {
 	f_all_lst(data->enemy);
 	f_all_lst(data->item);
@@ -77,18 +81,21 @@ void	restart(t_data *data)
 	data->enemy = NULL;
 	data->item = NULL;
 	data->sound = NULL;
-	reset_player_status(data);
 	f_all_lst(data->map.map);
 	f_all_lst(data->map.lines);
 	f_tab_char(data->map.tabmap);
 	data->map.map = NULL;
 	data->map.lines = NULL;
 	data->map.tabmap = NULL;
+}
+
+void	restart(t_data *data)
+{
+	int	i;
+
+	clear_all_lst(data);
+	reset_player_status(data);
 	clear_parsing_text(data);
-	data->player.coo.case_x = 0;
-	data->player.coo.case_y = 0;
-	data->player.coo.coo_x = 32;
-	data->player.coo.coo_y = 32;
 	data->time_fps = get_mtime();
 	data->time_move = get_mtime();
 	data->nb_door = 0;
@@ -96,7 +103,6 @@ void	restart(t_data *data)
 	parsing(data);
 	init_foot_tab(data);
 	reset_data_value(data);
-	int	i;
 	i = 0;
 	while (i < data->mlx.width)
 	{

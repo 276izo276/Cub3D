@@ -23,7 +23,8 @@ static void	set_specific_case_item(t_item *item, t_hitray *ray, int i,
 static void	define_value_hit(t_data *data, t_hitray *ray, t_item *item, int i)
 {
 	ray->j = -1;
-	while (++ray->j < MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door + data->map.nb_floo)
+	while (++ray->j < MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door
+		+ data->map.nb_floo)
 		if (data->ray[i].items[ray->j]->use == false)
 			break ;
 	data->ray[i].items[ray->j]->type = ITEM;

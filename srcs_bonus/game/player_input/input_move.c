@@ -20,7 +20,7 @@ static void	is_easter_egg(int keycode, t_data *data)
 	{
 		data->wand.wand_status[5] = true;
 		data->wand.nb_wand = 5;
-		data->sound = add_end_lst(create_sound(data, 29), data->sound,
+		data->sound = add_end_lst(create_sound(data, 28), data->sound,
 				free_sound);
 	}
 	else if (keycode == data->wand.secret_sword[data->wand.count_sword] + 32)
@@ -29,7 +29,7 @@ static void	is_easter_egg(int keycode, t_data *data)
 	{
 		data->wand.wand_status[6] = true;
 		data->wand.nb_wand = 6;
-		data->sound = add_end_lst(create_sound(data, 29), data->sound,
+		data->sound = add_end_lst(create_sound(data, 28), data->sound,
 				free_sound);
 	}
 }

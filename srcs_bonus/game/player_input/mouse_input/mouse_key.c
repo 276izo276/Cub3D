@@ -33,7 +33,7 @@ int	mouse_key(int key, int x, int y, t_data *data)
 	mouse_key_map(data, key);
 	if (key == 9)
 	{
-		data->sound = add_end_lst(create_sound(data, 28), data->sound,
+		data->sound = add_end_lst(create_sound(data, 27), data->sound,
 				free_sound);
 		if (data->status == GAME)
 		{

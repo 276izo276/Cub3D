@@ -31,7 +31,7 @@ void	mouse_key_ig(t_data *data, int key)
 
 void	mouse_key_spell_menu(t_data *data)
 {
-	data->sound = add_end_lst(create_sound(data, 28), data->sound, free_sound);
+	data->sound = add_end_lst(create_sound(data, 27), data->sound, free_sound);
 	if (data->status == GAME)
 	{
 		data->status = MENU_SPELL;

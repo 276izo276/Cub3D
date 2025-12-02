@@ -22,14 +22,11 @@ void	reset_data_display(t_data *data, int i)
 	int	j;
 
 	j = 0;
-	#include <stdio.h>
 	while (j <= MAX_CREATE_ENEMY + MAX_CREATE_ITEM + data->nb_door
 		+ data->map.nb_floo)
 	{
 		if (data->ray[i].items[j]->use)
-		{
 			bzero(data->ray[i].items[j], sizeof(t_hit_item));
-		}
 		j++;
 	}
 }
@@ -56,8 +53,6 @@ bool	display_item_loop(t_data *data, int i, int *j, double *dist_max)
 	display_redir_item_type(data, i, *j);
 	return (false);
 }
-
-#include <stdio.h>
 
 void	display_item(t_data *data, int i)
 {

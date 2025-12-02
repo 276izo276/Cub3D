@@ -82,7 +82,7 @@ void	save_pos_before_floo(t_data *data)
 {
 	if (data->status == FLOO_MAP)
 	{
-		data->sound = add_end_lst(create_sound(data, 28),
+		data->sound = add_end_lst(create_sound(data, 27),
 				data->sound, free_sound);
 		data->player.coo.coo_x = 32;
 		data->player.coo.coo_y = 32;

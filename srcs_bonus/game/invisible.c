@@ -1,5 +1,6 @@
 #include "cub3d_bonus.h"
 #include "time_bonus.h"
+
 void	player_invisible(t_data *data)
 {
 	if (data->player.invisible < 255)

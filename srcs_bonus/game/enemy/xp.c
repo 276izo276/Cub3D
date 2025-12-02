@@ -12,7 +12,7 @@ void	win_xp(t_data *data, int type, double *xp)
 	else if (type == WOLF)
 		*xp += 0.5 / (0.8 + (data->player.xp * 0.1));
 	else
-		*xp += 3 / (0.8 + (data->player.xp * 0.1));
+		*xp += 1.42 / (0.8 + (data->player.xp * 0.1));
 }
 
 void	add_sound_xp(t_enemy *enemy, t_data *data)
@@ -22,7 +22,7 @@ void	add_sound_xp(t_enemy *enemy, t_data *data)
 	tmp_xp = floor(data->player.xp);
 	if (enemy->damage.which_coa_take == data->player.coa)
 	{
-		data->sound = add_end_lst(create_sound(data, 25), data->sound,
+		data->sound = add_end_lst(create_sound(data, 24), data->sound,
 				free_sound);
 		win_xp(data, enemy->type, &data->player.xp);
 		data->coa[data->player.coa].xp = data->player.xp;
@@ -36,6 +36,6 @@ void	add_sound_xp(t_enemy *enemy, t_data *data)
 	else if (enemy->damage.which_coa_take == FIRE)
 		win_xp(data, enemy->type, &data->coa[FIRE].xp);
 	if (floor(data->player.xp) > tmp_xp)
-		data->sound = add_end_lst(create_sound(data, 34), data->sound,
+		data->sound = add_end_lst(create_sound(data, 33), data->sound,
 				free_sound);
 }

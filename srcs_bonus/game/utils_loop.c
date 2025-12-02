@@ -1,7 +1,6 @@
 #include "cub3d_bonus.h"
-#include "time_bonus.h"
 #include "mlx.h"
-
+#include "time_bonus.h"
 
 void	god_mod(long long int *cur, t_data *data)
 {
@@ -32,11 +31,10 @@ void	utils_loop(t_data *data)
 
 void	main_loop(long long int cur, t_data *data)
 {
-	update_sorcerer(data);
-	if (cur - data->last_spawn >= data->spawn_frame)
+	if (cur >= data->spawn_frame + data->last_spawn)
 	{
-		update_enemy(data);
-		data->last_spawn = get_mtime();
+		update_sorcerer(data, cur);
+		update_enemy(data, cur);
 	}
 	handle_input_move(data, cur);
 	if (data->cast_spell != -1)
@@ -49,13 +47,13 @@ void	main_loop(long long int cur, t_data *data)
 		pthread_barrier_wait(&data->barrier_background);
 		pthread_barrier_wait(&data->barrier_display);
 		pthread_barrier_wait(&data->barrier_display);
-		mlx_put_image_to_window(data->mlx.mlx, data->mlx.win,
-			data->screen->img, 0, 0);
+		mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->screen->img,
+			0, 0);
 		utils_loop(data);
 	}
 }
 
-void	update_enemy(t_data *data)
+void	update_enemy(t_data *data, long long int cur)
 {
 	double	total_factor;
 
@@ -71,5 +69,5 @@ void	update_enemy(t_data *data)
 	data->elem_factor = (data->elem_factor / total_factor) * 100;
 	data->dementor_factor = (data->dementor_factor / total_factor) * 100;
 	data->wolf_factor = (data->wolf_factor / total_factor) * 100;
-	spawn_enemy(data, total_factor);
+	spawn_enemy(data, total_factor, cur);
 }
