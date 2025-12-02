@@ -19,16 +19,18 @@ double	calc_dist_attraction(t_item *attract, t_enemy *enemy)
 
 bool	item_destruction(t_item *item, t_data *data)
 {
-	if (((try_hit_items(item, data) && (item->type != BH && item->type != ANIM_DEATH && item->categ)
-				&& (item->type != VENTUS && item->type != EXPECTO_PATRONUM && !item->categ))
-			|| (item->center.case_y >= data->map.tabmap_height
-				|| item->center.case_y < 0
-				|| item->center.case_x >= ft_strlen(data->map.tabmap
-					[item->center.case_y])
-				|| item->center.case_x < 0)
-			|| data->map.tabmap[item->center.case_y][item->center.case_x] == ' '
-		|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1'))
-			return (true);
+	if ((try_hit_items(item, data) && ((item->type != BH
+					&& item->type != ANIM_DEATH && item->categ)
+				|| (item->type != VENTUS && item->type != EXPECTO_PATRONUM
+					&& !item->categ)))
+		|| (item->center.case_y >= data->map.tabmap_height
+			|| item->center.case_y < 0
+			|| item->center.case_x >= ft_strlen(data->map.tabmap
+				[item->center.case_y])
+			|| item->center.case_x < 0)
+		|| data->map.tabmap[item->center.case_y][item->center.case_x] == ' '
+		|| data->map.tabmap[item->center.case_y][item->center.case_x] == '1')
+		return (true);
 	if ((item->type == VENTUS && !item->categ && item->nb_move >= 400)
 		|| (item->type == ANIM_DEATH && item->categ && item->nb_move >= 10)
 		|| (item->type == EXPECTO_PATRONUM && !item->categ
