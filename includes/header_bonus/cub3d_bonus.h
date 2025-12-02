@@ -46,7 +46,7 @@ void			reset_data_display(t_data *data, int i);
 int				try_hit_items(t_item *elem, t_data *data);
 bool			hit_calc_scal_enemy(t_enemy *enemy, t_item *elem, t_hitray *ray,
 					t_lst **lst);
-void			hit_calc_scal_player(bool *hit, t_fcoo *coo, t_item *elem,
+void			hit_calc_scal_player(int *hit, t_fcoo *coo, t_item *elem,
 					t_hitray *ray);
 double			calc_dist_attraction(t_item *attract, t_enemy *enemy);
 bool			item_destruction(t_item *item, t_data *data);

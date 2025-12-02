@@ -82,10 +82,9 @@ static void	move_more_hit_pos_item(t_item *item)
 	item->damage.hit.coo_y += dy;
 }
 
-void	hit_calc_scal_player(bool *hit, t_fcoo *coo, t_item *elem,
-		t_hitray *ray)
+void	hit_calc_scal_player(int *hit, t_fcoo *coo, t_item *elem, t_hitray *ray)
 {
-	if (*hit == false)
+	if (*hit == 0)
 	{
 		ray->dx = coo->case_x * 64 + coo->coo_x;
 		ray->dy = coo->case_y * 64 + coo->coo_y;

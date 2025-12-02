@@ -1,7 +1,7 @@
 #include "cub3d_bonus.h"
 
 static void	item_try_hit_player(t_data *data, t_item *elem, t_hitray *ray,
-		bool *hit)
+		int *hit)
 {
 	if ((elem->nb_move >= 5 && elem->damage.which_coa_do == data->player.coa)
 		|| elem->damage.which_coa_do != data->player.coa)
@@ -69,8 +69,7 @@ static bool	item_try_hit_enemy_delta(t_hitray *ray, t_item *elem,
 	return (false);
 }
 
-static void	try_hit_items_loop(t_item *elem, t_hitray ray, t_lst *lst,
-		bool *hit)
+static void	try_hit_items_loop(t_item *elem, t_hitray ray, t_lst *lst, int *hit)
 {
 	t_enemy	*enemy;
 
@@ -83,12 +82,18 @@ static void	try_hit_items_loop(t_item *elem, t_hitray ray, t_lst *lst,
 			lst = lst->next;
 			continue ;
 		}
-		*hit = item_try_hit_enemy(&ray, elem, enemy, &lst);
-		if (*hit == true)
+		*hit += item_try_hit_enemy(&ray, elem, enemy, &lst);
+		if (*hit >= 1)
+		{
+			lst = lst->next;
 			continue ;
-		*hit = item_try_hit_enemy_delta(&ray, elem, enemy, &lst);
-		if (*hit == true)
+		}
+		*hit += item_try_hit_enemy_delta(&ray, elem, enemy, &lst);
+		if (*hit >= 1)
+		{
+			lst = lst->next;
 			continue ;
+		}
 		lst = lst->next;
 	}
 }
@@ -97,7 +102,7 @@ int	try_hit_items(t_item *elem, t_data *data)
 {
 	t_lst		*lst;
 	t_hitray	ray;
-	bool		hit;
+	int			hit;
 
 	hit = false;
 	ray.data = data;
@@ -105,7 +110,7 @@ int	try_hit_items(t_item *elem, t_data *data)
 	lst = get_first_elem_lst(data->enemy);
 	try_hit_items_loop(elem, ray, lst, &hit);
 	elem->nb_move++;
-	if (hit == true)
+	if (hit >= 1)
 		return (1);
 	return (0);
 }
