@@ -8,7 +8,8 @@ void	display_redir_item_type(t_data *data, int i, int j)
 	if (data->ray[i].items[j]->type == EXPECTO_PATRONUM
 		&& !data->ray[i].items[j]->categ)
 		display_patronum(data, i, j);
-	else if (data->ray[i].items[j]->type == ANIM_DEATH)
+	else if (data->ray[i].items[j]->type == ANIM_DEATH
+		&& data->ray[i].items[j]->categ)
 		display_anim_death(data, i, j);
 	else if (data->ray[i].items[j]->type == BH)
 		display_bh(data, i, j);
