@@ -63,25 +63,3 @@ void	free_door_map(t_data *data)
 	}
 	free(data->map.door_map);
 }
-
-void	free_wall_map(t_data *data)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (data->map.tabmap && data->map.tabmap[y])
-	{
-		x = 0;
-		while (data->map.tabmap[y][x])
-		{
-			free(data->map.wall_map[y][x]);
-			++x;
-		}
-		free(data->map.wall_map[y]);
-		++y;
-	}
-	free(data->map.wall_map);
-}
-
-

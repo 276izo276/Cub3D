@@ -1,8 +1,27 @@
-
 #include "cub3d_bonus.h"
 #include "mlx.h"
-#include <stdlib.h>
 #include "utils_bonus.h"
+#include <stdlib.h>
+
+void	free_wall_map(t_data *data)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (data->map.tabmap && data->map.tabmap[y])
+	{
+		x = 0;
+		while (data->map.tabmap[y][x])
+		{
+			free(data->map.wall_map[y][x]);
+			++x;
+		}
+		free(data->map.wall_map[y]);
+		++y;
+	}
+	free(data->map.wall_map);
+}
 
 static void	join_thread(t_data *data)
 {
