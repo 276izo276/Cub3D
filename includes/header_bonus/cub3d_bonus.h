@@ -69,7 +69,7 @@ void			gen_enemy_way(t_data *data, t_enemy *enemy);
 int				is_case_in_lst(int y, int x, t_lst *lst);
 void			error_map_not_closed(t_lst *closed, t_lst *open, t_data *data);
 void			error_occured(t_data *data, t_lst *open, t_lst *closed);
-void			check_enemy_can_escape(t_data *data, t_lst *lst);
+t_lst			*check_enemy_can_escape(t_data *data, t_lst *lst);
 int				verif_enemy_is_closed(t_data *data, int y, int x);
 void			verif_map_is_closed(t_data *data, int y, int x);
 void			try_hit_player(t_data *data);

@@ -84,6 +84,8 @@ static void	set_deg_start(t_data *data)
 
 void	verif_map(t_data *data)
 {
+	t_lst	*lst;
+
 	check_map_valid_char(data);
 	if (data->player.coo.case_x == 0 && data->player.coo.case_y == 0)
 	{
@@ -100,4 +102,7 @@ void	verif_map(t_data *data)
 	set_deg_start(data);
 	check_map_is_closed(data);
 	reset_value_map(data);
+	lst = data->enemy;
+	while (lst)
+		lst = check_enemy_can_escape(data, lst);
 }

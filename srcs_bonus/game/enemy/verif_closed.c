@@ -75,11 +75,16 @@ int	verif_enemy_is_closed(t_data *data, int y, int x)
 	return (0);
 }
 
-void	check_enemy_can_escape(t_data *data, t_lst *lst)
+t_lst	*check_enemy_can_escape(t_data *data, t_lst *lst)
 {
 	t_enemy	*enemy;
+	t_lst	*next;
 
 	enemy = lst->dt;
+	next = lst->next;
 	if (verif_enemy_is_closed(data, enemy->center.case_y, enemy->center.case_x))
+	{
 		data->enemy = remove_f_elem_lst(lst);
+	}
+	return (next);
 }
