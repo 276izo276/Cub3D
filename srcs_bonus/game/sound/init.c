@@ -22,7 +22,7 @@ void	play_sound(t_data *data, t_sound *sound, int info, const char **tab)
 		if (info == 26)
 			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", "--loop",
 				DIE_MP3, (char *) NULL);
-		else if (info == 31)
+		else if (info == 30)
 			execlp("cvlc", "cvlc", "--play-and-exit", "--quiet", "--loop",
 				FREEDOM_MP3, (char *) NULL);
 		else if (info == 22)
