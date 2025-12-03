@@ -83,15 +83,13 @@ static void	try_hit_items_loop(t_item *elem, t_hitray ray, t_lst *lst, int *hit)
 			continue ;
 		}
 		*hit += item_try_hit_enemy(&ray, elem, enemy, &lst);
-		if (*hit >= 1)
+		if (ray.hit >= 1)
 		{
-			lst = lst->next;
 			continue ;
 		}
 		*hit += item_try_hit_enemy_delta(&ray, elem, enemy, &lst);
-		if (*hit >= 1)
+		if (ray.hit >= 1)
 		{
-			lst = lst->next;
 			continue ;
 		}
 		lst = lst->next;
