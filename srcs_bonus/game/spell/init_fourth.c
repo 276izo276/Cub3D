@@ -19,7 +19,7 @@ void	init_vulnera_sanentur(t_data *data)
 	data->spell[VULNERA_SANENTUR].class = CLASIC_SPELL;
 	data->spell[VULNERA_SANENTUR].icn = &data->img[VULNERA_SANENTUR_ICN];
 	data->spell[VULNERA_SANENTUR].icn_name = &data->img[VULNERA_SANENTUR_NAME];
-	data->spell[VULNERA_SANENTUR].necessary_lvl = 8.5;
+	data->spell[VULNERA_SANENTUR].necessary_lvl = 7.0;
 }
 
 void	init_petrificus_totalus(t_data *data)

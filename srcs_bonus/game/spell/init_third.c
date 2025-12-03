@@ -55,7 +55,7 @@ void	init_episkey(t_data *data)
 	data->spell[EPISKEY].class = CLASIC_SPELL;
 	data->spell[EPISKEY].icn = &data->img[EPISKEY_ICN];
 	data->spell[EPISKEY].icn_name = &data->img[EPISKEY_NAME];
-	data->spell[EPISKEY].necessary_lvl = 7.0;
+	data->spell[EPISKEY].necessary_lvl = 5.0;
 }
 
 void	init_stupefix(t_data *data)
