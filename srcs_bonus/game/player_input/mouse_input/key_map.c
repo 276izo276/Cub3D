@@ -11,7 +11,7 @@ void	mouse_move_map(t_data *data, int y, int x)
 	dy = y - data->mlx.height / 2;
 	mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width / 2,
 		data->mlx.height / 2);
-	sensitivity = (50 / data->sensitivity) / data->map.zoom;
+	sensitivity = (100 / data->sensitivity) / data->map.zoom;
 	if (dx != 0 || dy != 0)
 	{
 		data->map.last_pos_x += dx * sensitivity;

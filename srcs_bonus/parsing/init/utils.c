@@ -31,7 +31,7 @@ void	init_utils(t_data *data)
 	data->current_msg = 0;
 	data->display.is_msg_active = true;
 	data->display.is_first_msg = true;
-	data->sensitivity = 100;
+	data->sensitivity = 175;
 	data->pause_menu.selected = 0;
 	data->pause_menu.elapsed = 0;
 	data->spawn_frame = 5000;
