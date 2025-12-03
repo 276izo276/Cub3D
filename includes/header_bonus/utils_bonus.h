@@ -4,7 +4,6 @@
 # include "struct_bonus.h"
 # include <stdlib.h>
 
-char	*ft_strdup(char *s);
 char	*ft_strndup(char *s, int size);
 char	*rmbn_dup(char *line);
 void	f_elem(void *elem);

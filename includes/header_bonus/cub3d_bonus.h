@@ -135,7 +135,6 @@ void			f_item(void *elem);
 void			calc_delta(t_hitray *ray);
 void			open_window(t_data *data, t_mlx *mlx);
 void			display_mini_map(t_data *data, t_map *map);
-t_coo_mini		*init_t_coo_mini(double y, double x);
 void			init_img_mini(t_data *data, t_mini *mini);
 void			print_mini_map(t_data *data);
 void			init_utils_mini(t_data *data);

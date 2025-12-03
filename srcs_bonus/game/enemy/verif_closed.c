@@ -81,11 +81,8 @@ t_lst	*check_enemy_can_escape(t_data *data, t_lst *lst)
 
 	enemy = lst->dt;
 	next = lst->next;
-	if (verif_enemy_is_closed(data, enemy->center.case_y, enemy->center.case_x))
-	{
-		#include <stdio.h>
-		printf("remove enemy\n");
+	if (verif_enemy_is_closed(data, enemy->center.case_y,
+			enemy->center.case_x))
 		data->enemy = remove_f_elem_lst(lst);
-	}
 	return (next);
 }

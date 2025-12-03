@@ -1,6 +1,6 @@
-#include "utils_bonus.h"
 #include "cub3d_bonus.h"
 #include "enemy_bonus.h"
+#include "utils_bonus.h"
 
 static t_lst	*add_case_near(t_lst *open, t_lst *closed, t_lst *node,
 		t_data *data)
@@ -38,8 +38,8 @@ static void	get_case_way(t_lst *closed, t_lst *open, t_enemy *enemy)
 	{
 		if (nb_elem_lst == nb_take)
 		{
-			enemy->goal.case_x = ((t_coo*)closed->dt)->x;
-			enemy->goal.case_y = ((t_coo*)closed->dt)->y;
+			enemy->goal.case_x = ((t_coo *)closed->dt)->x;
+			enemy->goal.case_y = ((t_coo *)closed->dt)->y;
 			f_all_lst(closed);
 			f_all_lst(open);
 			return ;

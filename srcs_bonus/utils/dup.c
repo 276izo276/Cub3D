@@ -44,23 +44,3 @@ char	*rmbn_dup(char *line)
 	free(line);
 	return (str);
 }
-
-char	*ft_strdup(char *s)
-{
-	int		i;
-	int		size;
-	char	*str;
-
-	size = ft_strlen(s);
-	str = malloc(sizeof(char) * (size + 1));
-	if (!str)
-		return (NULL);
-	str[size] = 0;
-	i = 0;
-	while (i < size)
-	{
-		str[i] = s[i];
-		i++;
-	}
-	return (str);
-}

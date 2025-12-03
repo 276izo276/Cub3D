@@ -56,8 +56,10 @@ static void	init_player(t_data *data)
 	data->player.invisible = 255;
 }
 
-static void	run_all_init(t_data *data)
+static void	run_all_init(t_data *data, char **av, int ac)
 {
+	data->ac = ac;
+	data->av = av;
 	init_textures(data);
 	init_coa(data);
 	init_sorcerer(data);
@@ -87,12 +89,12 @@ void	init_data(t_data *data, int ac, char **av)
 	init_utils_mini(data);
 	init_ray(data);
 	data->screen = malloc(sizeof(t_img));
+	if (!data->screen)
+		f_exit(data, 1);
 	data->screen->img = mlx_new_image(data->mlx.mlx, data->mlx.width,
 			data->mlx.height);
 	data->screen->data_addr = mlx_get_data_addr(data->screen->img,
 			&data->screen->bits_per_pixel, &data->screen->size_line,
 			&data->screen->endian);
-	data->ac = ac;
-	data->av = av;
-	run_all_init(data);
+	run_all_init(data, av, ac);
 }

@@ -9,10 +9,10 @@ void	free_wall_map(t_data *data)
 	int	x;
 
 	y = 0;
-	while (data->map.tabmap && data->map.tabmap[y])
+	while (data->map.tabmap && data->map.tabmap[y] && data->map.wall_map)
 	{
 		x = 0;
-		while (data->map.tabmap[y][x])
+		while (data->map.tabmap[y][x] && data->map.wall_map[y])
 		{
 			free(data->map.wall_map[y][x]);
 			++x;
@@ -94,7 +94,8 @@ void	f_exit(t_data *data, int code)
 	free(data->screen);
 	if (data->mlx.win)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
-	mlx_destroy_display(data->mlx.mlx);
+	if (data->mlx.mlx)
+		mlx_destroy_display(data->mlx.mlx);
 	free(data->mlx.mlx);
 	free(data->ray);
 	exit(code);
