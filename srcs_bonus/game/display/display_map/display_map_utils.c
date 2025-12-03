@@ -21,23 +21,23 @@ void	draw_player(t_data *data, int pos_x, int pos_y)
 	double			pixel_x;
 	double			pixel_y;
 
-	pixel_y = 0;
-	while (pixel_y < data->map.zoom / 2)
+	pixel_y = -1;
+	color = 0;
+	while (++pixel_y < data->map.zoom / 2)
 	{
-		pixel_x = 0;
-		while (pixel_x < data->map.zoom / 2)
+		pixel_x = -1;
+		while (++pixel_x < data->map.zoom / 2)
 		{
-			color = get_texture_pixel(&data->map.mini.img[MINI_CURS], (pixel_x
-						/ (data->map.zoom / 2))
-					* data->map.mini.img[MINI_CURS].width, (pixel_y
-						/ (data->map.zoom / 2))
-					* data->map.mini.img[MINI_CURS].height);
+			calc_value_player_map((pixel_x / (data->map.zoom / 2))
+				* data->map.mini.img[MINI_CURS].width, (pixel_y
+					/ (data->map.zoom / 2))
+				* data->map.mini.img[MINI_CURS].height, data, &color);
 			if (color != 0)
+			{
 				pixel_put(data, pixel_x + pos_x + (data->map.zoom / 4), pixel_y
 					+ pos_y + (data->map.zoom / 4), data->player.color);
-			++pixel_x;
+			}
 		}
-		++pixel_y;
 	}
 }
 
