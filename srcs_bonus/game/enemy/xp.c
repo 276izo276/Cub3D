@@ -3,6 +3,8 @@
 
 void	win_xp(t_data *data, int type, double *xp)
 {
+	if (type == BIRD || type == SNAKE)
+		return ;
 	if (type == DEMENTOR)
 		*xp += 0.42 / (0.8 + (data->player.xp * 0.1));
 	else if (type == SPIDER)

@@ -52,12 +52,6 @@ int	key_release(int keycode, t_data *data)
 	{
 		if (data->keycode[i] == keycode)
 			data->keycode[i] = 0;
-		// if (keycode == KEY_ALT)
-		// {
-		// 	mlx_mouse_hide(data->mlx.mlx, data->mlx.win);
-		// 	mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.width,
-		// 		data->mlx.height);
-		// }
 		i++;
 	}
 	return (0);

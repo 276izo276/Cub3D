@@ -50,8 +50,8 @@ void	init_expecto_patronum(t_data *data)
 	data->spell[EXPECTO_PATRONUM].base_cooldown = 7;
 	data->spell[EXPECTO_PATRONUM].call = cast_spell;
 	data->spell[EXPECTO_PATRONUM].type = EXPECTO_PATRONUM;
-	data->spell[EXPECTO_PATRONUM].damage.damage_dementor_do = 10;
-	data->spell[EXPECTO_PATRONUM].damage.repulso_force_do = .2;
+	data->spell[EXPECTO_PATRONUM].damage.damage_dementor_do = 1;
+	data->spell[EXPECTO_PATRONUM].damage.repulso_force_do = .4;
 	data->spell[EXPECTO_PATRONUM].damage.repulso_frame_do = 10;
 	data->spell[EXPECTO_PATRONUM].item.speed = 1;
 	data->spell[EXPECTO_PATRONUM].item.radius = 0;

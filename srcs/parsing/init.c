@@ -65,6 +65,8 @@ void	init_data(t_data *data, int ac, char **av)
 	init_utils_mini(data);
 	init_ray(data);
 	data->screen = malloc(sizeof(t_img));
+	if (!data->screen)
+		f_exit(data, 1);
 	data->screen->img = mlx_new_image(data->mlx.mlx, data->mlx.width,
 			data->mlx.height);
 	data->screen->data_addr = mlx_get_data_addr(data->screen->img,

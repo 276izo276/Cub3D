@@ -3,20 +3,28 @@
 
 void	damage_poison_fire(t_enemy *enemy)
 {
-	if (enemy->damage.poison_frame_take > 0)
+	if (enemy->damage.poison_frame_take > 0 && enemy->type != SPIDER)
 	{
 		enemy->life -= enemy->damage.poison_force_take;
 		enemy->damage.poison_frame_take--;
 		if (enemy->damage.poison_frame_take <= 0)
 			enemy->damage.poison_force_take = 0;
 	}
-	if (enemy->damage.fire_frame_take > 0)
+	if (enemy->damage.fire_frame_take > 0 && enemy->type != ELEM)
 	{
 		enemy->life -= enemy->damage.fire_force_take;
 		enemy->damage.fire_frame_take--;
 		if (enemy->damage.fire_frame_take <= 0)
 			enemy->damage.fire_force_take = 0;
 	}
+	if (enemy->type == ELEM)
+		enemy->life -= enemy->damage.damage_elem_take;
+	if (enemy->type == SPIDER)
+		enemy->life -= enemy->damage.damage_spider_take;
+	if (enemy->type == SNAKE)
+		enemy->life -= enemy->damage.damage_snake_take;
+	if (enemy->type == DEMENTOR)
+		enemy->life -= enemy->damage.damage_dementor_take;
 }
 
 void	take_damage_enemy(t_enemy *enemy)

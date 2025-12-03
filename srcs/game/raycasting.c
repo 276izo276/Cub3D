@@ -43,13 +43,13 @@ static void	handle_ray(t_data *data, int i)
 {
 	while (1)
 	{
-		if (data->ray[i].delta_x > 0)
+		if (data->ray[i].delta_x >= 0)
 			data->ray[i].rx = (64 - data->ray[i].coo_x) / data->ray[i].delta_x;
 		else
 			data->ray[i].rx = -data->ray[i].coo_x / data->ray[i].delta_x;
-		if (data->ray[i].delta_y > 0)
+		if (data->ray[i].delta_y >= 0)
 			data->ray[i].ry = (64 - data->ray[i].coo_y) / data->ray[i].delta_y;
-		else
+		else if (data->ray[i].delta_y != 0)
 			data->ray[i].ry = -data->ray[i].coo_y / data->ray[i].delta_y;
 		if (data->ray[i].rx < data->ray[i].ry)
 		{

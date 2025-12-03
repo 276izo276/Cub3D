@@ -37,6 +37,7 @@ void	init_glacius(t_data *data)
 	data->spell[GLACIUS].call = cast_spell;
 	data->spell[GLACIUS].type = GLACIUS;
 	data->spell[GLACIUS].damage.damage_do = 5;
+	data->spell[GLACIUS].damage.damage_elem_do = 15;
 	data->spell[GLACIUS].damage.slow_force_do = 30;
 	data->spell[GLACIUS].damage.slow_frame_do = 35;
 	data->spell[GLACIUS].item.speed = 20;
