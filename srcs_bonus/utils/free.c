@@ -33,7 +33,7 @@ void	f_imgs(t_data *data)
 	while (++i <= 13 && data->map.mini.img[i].img)
 		mlx_destroy_image(data->mlx.mlx, data->map.mini.img[i].img);
 	i = -1;
-	while (++i < NB_TEXTURES)
+	while (++i < NB_TEXTURES && data->img[i].img)
 		mlx_destroy_image(data->mlx.mlx, data->img[i].img);
 	data->img[i].img = NULL;
 }

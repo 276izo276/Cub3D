@@ -10,6 +10,8 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
+void			calc_value_player_map(double pixel_x, double pixel_y,
+					t_data *data, unsigned int *color);
 void			not_a_wall_y_top(t_data *data, int i);
 void			not_a_wall_y_down(t_data *data, int i);
 void			not_a_wall_x_left(t_data *data, int i);
@@ -133,7 +135,6 @@ void			f_item(void *elem);
 void			calc_delta(t_hitray *ray);
 void			open_window(t_data *data, t_mlx *mlx);
 void			display_mini_map(t_data *data, t_map *map);
-t_coo_mini		*init_t_coo_mini(double y, double x);
 void			init_img_mini(t_data *data, t_mini *mini);
 void			print_mini_map(t_data *data);
 void			init_utils_mini(t_data *data);

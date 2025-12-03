@@ -6,7 +6,7 @@
 #include <strings.h>
 #include <unistd.h>
 
-void	play_sound(t_data *data, t_sound *sound, int info, const char **tab)
+static void	play_sound(t_data *data, t_sound *sound, int info, const char **tab)
 {
 	int	null_fd;
 
@@ -35,6 +35,13 @@ void	play_sound(t_data *data, t_sound *sound, int info, const char **tab)
 	}
 }
 
+static void	init_child(t_sound *sound)
+{
+	sound->pid = fork();
+	if (sound->pid == -1)
+		free(sound);
+}
+
 t_sound	*create_sound(t_data *data, int info)
 {
 	t_sound		*sound;
@@ -48,16 +55,14 @@ t_sound	*create_sound(t_data *data, int info)
 		DIE_MP3, PAPER_MP3, COLLECT_WAND_MP3, POPO_MP3, FREEDOM_MP3,
 		FLOO_MP3, HEART_MP3, LVL_UP, WALL_MP3};
 
-	(void)info;
 	sound = malloc(sizeof(t_sound));
+	if (!sound)
+		f_exit(data, 1);
 	bzero(sound, sizeof(t_sound));
 	sound->id = info;
-	sound->pid = fork();
+	init_child(sound);
 	if (sound->pid == -1)
-	{
-		free(sound);
 		return (NULL);
-	}
 	play_sound(data, sound, info, tab);
 	sound->start = get_mtime();
 	sound->duration = -1;

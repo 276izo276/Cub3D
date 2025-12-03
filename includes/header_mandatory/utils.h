@@ -6,7 +6,6 @@
 
 char	*ft_strndup(char *s, int size);
 char	*rmbn_dup(char *line);
-char	*ft_strdup(char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t size);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strlen(const char *str);
