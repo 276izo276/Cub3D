@@ -34,7 +34,7 @@ void	init_utils(t_data *data)
 	data->sensitivity = 175;
 	data->pause_menu.selected = 0;
 	data->pause_menu.elapsed = 0;
-	data->spawn_frame = 5000;
+	data->spawn_frame = 2000;
 	data->last_spawn = get_mtime();
 	data->map.zoom = 128;
 	data->map.last_mouse_x = 960;

@@ -41,7 +41,7 @@ void	spawn_sorcerer(t_data *data, char type)
 
 	y = 0;
 	x = 0;
-	random = rand() % 100;
+	random = rand() % 250;
 	if (random > 1 + data->player.xp * 2)
 		return ;
 	if (spawn_sorcerer_utils(data, type, y, x))

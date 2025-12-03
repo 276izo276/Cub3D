@@ -76,6 +76,7 @@ void	display_blood_border(t_data *data, int start_x, int max_x)
 	if (data->player.life >= 50)
 		return ;
 	life_factor = data->player.life / 50.0;
+	pthread_mutex_lock(&data->m_data_ray);
 	if (data->player.life > 0 && cur > data->sound_frame + (300 + (life_factor
 				* 1000)))
 	{
@@ -83,6 +84,7 @@ void	display_blood_border(t_data *data, int start_x, int max_x)
 				free_sound);
 		data->sound_frame = get_mtime();
 	}
+	pthread_mutex_unlock(&data->m_data_ray);
 	radius = (int)(life_factor * (data->mlx.width) / 2.5);
 	draw_border(data, radius, start_x, max_x);
 }
