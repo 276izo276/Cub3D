@@ -31,7 +31,7 @@ void	init_ventus(t_data *data)
 
 void	init_bombarda(t_data *data)
 {
-	data->spell[BOMBARDA].base_cooldown = 7;
+	data->spell[BOMBARDA].base_cooldown = 6;
 	data->spell[BOMBARDA].call = cast_spell;
 	data->spell[BOMBARDA].type = BOMBARDA;
 	data->spell[BOMBARDA].damage.damage_do = 30;
