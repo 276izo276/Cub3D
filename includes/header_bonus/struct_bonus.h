@@ -994,7 +994,7 @@ struct						s_player
 	long long int			timer_invi;
 	long long int			timer_invi_short;
 	int						protego;
-	int						invisible;
+	unsigned int			invisible;
 	int						coa;
 	double					xp;
 	double					vul_sanen_heal;

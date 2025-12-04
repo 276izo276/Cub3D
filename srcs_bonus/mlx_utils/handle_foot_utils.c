@@ -12,32 +12,40 @@ static void	get_new_color_comp(t_data *data, t_utils_mini *u)
 	data->aff.r_new = (data->aff.color >> 16) & 255;
 	data->aff.g_new = (data->aff.color >> 8) & 255;
 	data->aff.b_new = data->aff.color & 255;
-	data->aff.r_new = (int)((1 - (data->aff.a_new / 255.0))
-			* data->aff.r_old + (data->aff.a_new / 255.0) * data->aff.r_new);
-	data->aff.g_new = (int)((1 - (data->aff.a_new / 255.0))
-			* data->aff.g_old + (data->aff.a_new / 255.0) * data->aff.g_new);
-	data->aff.b_new = (int)((1 - (data->aff.a_new / 255.0))
-			* data->aff.b_old + (data->aff.a_new / 255.0) * data->aff.b_new);
+	data->aff.r_new = (int)((1 - (data->aff.a_new / 255.0)) * data->aff.r_old
+			+ (data->aff.a_new / 255.0) * data->aff.r_new);
+	data->aff.g_new = (int)((1 - (data->aff.a_new / 255.0)) * data->aff.g_old
+			+ (data->aff.a_new / 255.0) * data->aff.g_new);
+	data->aff.b_new = (int)((1 - (data->aff.a_new / 255.0)) * data->aff.b_old
+			+ (data->aff.a_new / 255.0) * data->aff.b_new);
 	*(unsigned int *)u->pixel_addr = (data->aff.r_new << 16)
 		+ (data->aff.g_new << 8) + data->aff.b_new;
 }
 
-void	set_pix_old_player(t_utils_mini *u, int start_y,
-			int start_x, t_data *data)
+void	set_pix_old_player(t_utils_mini *u, int start_y, int start_x,
+		t_data *data)
 {
-	if (start_x < 0 || start_x + u->xfloat >= u->size
-		|| start_y < 0 || start_y + u->yfloat >= u->size)
+	if (start_x < 0 || start_x + u->xfloat >= u->size || start_y < 0 || start_y
+		+ u->yfloat >= u->size)
 		return ;
 	if (u->color != YELLOW)
 	{
-		u->pixel_addr = u->mmap.data_addr + (((int)ceil(u->yfloat)
-					+ start_y) * u->mmap.size_line
-				+ ((int)ceil(u->xfloat) + start_x)
+		if (((int)ceil(u->yfloat) + start_y) < 0 || ((int)ceil(u->yfloat)
+				+ start_y) >= data->u.size || ((int)ceil(u->xfloat)
+				+ start_x) < 0 || ((int)ceil(u->xfloat)
+				+ start_x) >= data->u.size)
+			return ;
+		u->pixel_addr = u->mmap.data_addr + (((int)ceil(u->yfloat) + start_y)
+				* u->mmap.size_line + ((int)ceil(u->xfloat) + start_x)
 				* (u->mmap.bits_per_pixel / 8));
 		get_new_color_comp(data, u);
-		u->pixel_addr = u->mmap.data_addr + (((int)floor(u->yfloat)
-					+ start_y) * u->mmap.size_line
-				+ ((int)floor(u->xfloat) + start_x)
+		if (((int)floor(u->yfloat) + start_y) < 0 || ((int)floor(u->yfloat)
+				+ start_y) >= data->u.size || ((int)floor(u->xfloat)
+				+ start_x) < 0 || ((int)floor(u->xfloat)
+				+ start_x) >= data->u.size)
+			return ;
+		u->pixel_addr = u->mmap.data_addr + (((int)floor(u->yfloat) + start_y)
+				* u->mmap.size_line + ((int)floor(u->xfloat) + start_x)
 				* (u->mmap.bits_per_pixel / 8));
 		get_new_color_comp(data, u);
 	}

@@ -66,10 +66,10 @@ static void	select_your_coa(t_data *data)
 
 int	get_right_color(int color, double distance)
 {
-	int	r;
-	int	g;
-	int	b;
-	int	a;
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
+	unsigned int	a;
 
 	b = (color & 255);
 	g = (color >> 8 & 255);

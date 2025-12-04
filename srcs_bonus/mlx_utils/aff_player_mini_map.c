@@ -68,6 +68,10 @@ void	calc_value_player_map(double pixel_x, double pixel_y, t_data *data,
 	u.ydest = pixel_y - 19;
 	u.xfloat = -(u.xdest) * u.cos_val + (u.ydest) * u.sin_val + 16;
 	u.yfloat = (u.xdest) * u.sin_val + (u.ydest) * u.cos_val + 19;
+	if (u.xfloat >= data->map.mini.img[MINI_CURS].width
+		|| u.xfloat < 0 || u.yfloat < 0 || u.yfloat
+		>= data->map.mini.img[MINI_CURS].height)
+		return ;
 	*color = *(unsigned int *)(data->map.mini.img[MINI_CURS].data_addr
 			+ (((int)u.yfloat) * data->map.mini.img[MINI_CURS].size_line
 				+ ((int)u.xfloat)
