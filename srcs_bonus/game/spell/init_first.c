@@ -33,7 +33,7 @@ void	init_incendio(t_data *data)
 
 void	init_glacius(t_data *data)
 {
-	data->spell[GLACIUS].base_cooldown = 2.5;
+	data->spell[GLACIUS].base_cooldown = 2.0;
 	data->spell[GLACIUS].call = cast_spell;
 	data->spell[GLACIUS].type = GLACIUS;
 	data->spell[GLACIUS].damage.damage_do = 5;
@@ -52,7 +52,7 @@ void	init_glacius(t_data *data)
 
 void	init_repulso(t_data *data)
 {
-	data->spell[REPULSO].base_cooldown = 6;
+	data->spell[REPULSO].base_cooldown = 5;
 	data->spell[REPULSO].call = cast_spell;
 	data->spell[REPULSO].type = REPULSO;
 	data->spell[REPULSO].damage.damage_do = 5;

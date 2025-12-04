@@ -2,7 +2,7 @@
 
 void	init_arania_exumai(t_data *data)
 {
-	data->spell[ARANIA_EXUMAI].base_cooldown = 5;
+	data->spell[ARANIA_EXUMAI].base_cooldown = 3;
 	data->spell[ARANIA_EXUMAI].call = cast_spell;
 	data->spell[ARANIA_EXUMAI].type = ARANIA_EXUMAI;
 	data->spell[ARANIA_EXUMAI].damage.damage_do = 5;
@@ -31,7 +31,7 @@ void	init_protego(t_data *data)
 
 void	init_expelliarmus(t_data *data)
 {
-	data->spell[EXPELLIARMUS].base_cooldown = 6;
+	data->spell[EXPELLIARMUS].base_cooldown = 3.5;
 	data->spell[EXPELLIARMUS].call = cast_spell;
 	data->spell[EXPELLIARMUS].type = EXPELLIARMUS;
 	data->spell[EXPELLIARMUS].damage.damage_do = 25;

@@ -93,6 +93,7 @@ int	low_life_enemy(t_enemy *enemy, t_data *data, t_lst **lst)
 		next = (*lst)->next;
 		data->enemy = remove_elem_lst(*lst);
 		f_elem_lst(*lst);
+		data->nb_enemy--;
 		*lst = next;
 		return (1);
 	}
