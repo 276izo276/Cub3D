@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map_is_closed.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ale-guel <ale-guel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/10 07:45:30 by ale-guel          #+#    #+#             */
+/*   Updated: 2025/12/10 08:04:56 by ale-guel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "color.h"
 #include "ft_printf.h"
 #include "struct.h"
@@ -63,7 +75,7 @@ void	check_map_is_closed(t_data *data)
 	{
 		node = open;
 		open = remove_elem_lst(node);
-		data->map.tabmap[((t_coo*)node->dt)->y][((t_coo*)node->dt)->x] = '0';
+		data->map.tabmap[((t_coo *)node->dt)->y][((t_coo *)node->dt)->x] = '0';
 		closed = move_to_end_lst(node, closed);
 		open = add_case_near(open, closed, node, data);
 	}

@@ -300,15 +300,15 @@ lib/
 
 # path to .h for the main project basic
 MY_HEADER =				\
-includes/cub3d.h		\
-includes/debug.h		\
-includes/parsing.h		\
-includes/player.h		\
-includes/color.h		\
-includes/struct.h		\
-includes/texture.h		\
-includes/time.h			\
-includes/utils.h		\
+includes/header_mandatory/cub3d.h		\
+includes/header_mandatory/debug.h		\
+includes/header_mandatory/parsing.h		\
+includes/header_mandatory/player.h		\
+includes/header_mandatory/color.h		\
+includes/header_mandatory/struct.h		\
+includes/header_mandatory/texture.h		\
+includes/header_mandatory/time.h			\
+includes/header_mandatory/utils.h		\
 
 # set the path to the .h main project bonus
 HEADER_BONUS =							 \
