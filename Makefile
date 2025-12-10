@@ -307,7 +307,7 @@ includes/header_mandatory/player.h		\
 includes/header_mandatory/color.h		\
 includes/header_mandatory/struct.h		\
 includes/header_mandatory/texture.h		\
-includes/header_mandatory/time.h			\
+includes/header_mandatory/time.h		\
 includes/header_mandatory/utils.h		\
 
 # set the path to the .h main project bonus
@@ -321,6 +321,7 @@ includes/header_bonus/struct_bonus.h	\
 includes/header_bonus/texture_bonus.h	\
 includes/header_bonus/time_bonus.h		\
 includes/header_bonus/utils_bonus.h		\
+includes/header_bonus/enemy_bonus.h		\
 
 
 # set the main project header dir
