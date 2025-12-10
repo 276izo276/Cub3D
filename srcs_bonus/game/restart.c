@@ -6,7 +6,7 @@
 /*   By: ale-guel <ale-guel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 07:52:13 by ale-guel          #+#    #+#             */
-/*   Updated: 2025/12/10 07:52:14 by ale-guel         ###   ########.fr       */
+/*   Updated: 2025/12/10 08:40:29 by ale-guel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	restart(t_data *data)
 {
 	int	i;
 
+	data->is_right_handed = 0;
 	clear_all_lst(data);
 	reset_player_status(data);
 	clear_parsing_text(data);
