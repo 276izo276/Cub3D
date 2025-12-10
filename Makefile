@@ -15,7 +15,7 @@ DBG_BONUS ?= 1
 FULL_NAME ?= 1
 
 CC = cc
-CFLAGS = -fsanitize=address,shift,integer-divide-by-zero,unreachable -Wall -Werror -Wextra -MMD -DDEBUG_VALUE=${DEBUG_VALUE} -DDEBUG_VALUE_BONUS=${DEBUG_VALUE_BONUS} -g3
+CFLAGS = -Wall -Werror -Wextra -MMD -DDEBUG_VALUE=${DEBUG_VALUE} -DDEBUG_VALUE_BONUS=${DEBUG_VALUE_BONUS} -O3
 SHELL = /bin/bash
 
 EXECFLAGS = -lXext -lX11 -lXfixes -lm -fsanitize=address,shift,integer-divide-by-zero,unreachable
