@@ -6,7 +6,7 @@
 /*   By: ale-guel <ale-guel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 07:45:36 by ale-guel          #+#    #+#             */
-/*   Updated: 2025/12/10 07:45:37 by ale-guel         ###   ########.fr       */
+/*   Updated: 2025/12/15 09:13:53 by ale-guel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ void	set_floor(char *line, t_data *data)
 {
 	if (!line[1])
 		return ;
+	if (data->map.floor)
+	{
+		ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"\
+Texture >>> Duplicate entry for floor\n"_END);
+		f_exit(data, 1);
+	}
 	data->map.floor = malloc(sizeof(t_color));
 	if (!data->map.floor)
 		return ;
@@ -88,6 +94,12 @@ void	set_ceiling(char *line, t_data *data)
 {
 	if (!line[1])
 		return ;
+	if (data->map.ceiling)
+	{
+		ft_printf_fd(2, _RED _BOLD"Error\n"_PURPLE"\
+Texture >>> Duplicate entry for ceiling\n"_END);
+		f_exit(data, 1);
+	}
 	data->map.ceiling = malloc(sizeof(t_color));
 	if (!data->map.ceiling)
 		return ;

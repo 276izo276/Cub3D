@@ -6,7 +6,7 @@
 /*   By: ale-guel <ale-guel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 07:44:08 by ale-guel          #+#    #+#             */
-/*   Updated: 2025/12/10 07:44:09 by ale-guel         ###   ########.fr       */
+/*   Updated: 2025/12/15 09:16:58 by ale-guel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,9 @@ typedef enum e_key
 	KEY_SPACE = 32,
 	KEY_SHIFT = 65505,
 	KEY_ESCAPE = 65307,
-	KEY_ALT = 65513
+	KEY_ALT = 65513,
+	KEY_RIGHT = 65363,
+	KEY_LEFT = 65361
 }	t_key;
 
 #endif

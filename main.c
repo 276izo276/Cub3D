@@ -6,7 +6,7 @@
 /*   By: ale-guel <ale-guel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 07:59:03 by ale-guel          #+#    #+#             */
-/*   Updated: 2025/12/10 07:59:04 by ale-guel         ###   ########.fr       */
+/*   Updated: 2025/12/15 09:23:53 by ale-guel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int ac, char **av)
 	data.map.mini.player_coo.x = 32;
 	init_img_mini(&data, &data.map.mini);
 	mlx_do_key_autorepeatoff(data.mlx.mlx);
-	mlx_mouse_hide(data.mlx.mlx, data.mlx.win);
 	mlx_mouse_move(data.mlx.mlx, data.mlx.win, data.mlx.width / 2,
 		data.mlx.height / 2);
 	mlx_hook(data.mlx.win, ON_KEYDOWN, 1L << 0, key_press, &data);

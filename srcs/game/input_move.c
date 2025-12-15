@@ -6,7 +6,7 @@
 /*   By: ale-guel <ale-guel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 07:44:57 by ale-guel          #+#    #+#             */
-/*   Updated: 2025/12/10 07:44:58 by ale-guel         ###   ########.fr       */
+/*   Updated: 2025/12/15 09:24:22 by ale-guel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,5 @@ int	key_press(int keycode, t_data *data)
 	while (data->keycode[i] != 0 && i < KEYCODE_NB)
 		i++;
 	data->keycode[i] = keycode;
-	if (keycode == KEY_ALT)
-		mlx_mouse_show(data->mlx.mlx, data->mlx.win);
 	return (0);
 }

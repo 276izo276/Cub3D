@@ -6,7 +6,7 @@
 /*   By: ale-guel <ale-guel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 07:45:50 by ale-guel          #+#    #+#             */
-/*   Updated: 2025/12/10 07:45:51 by ale-guel         ###   ########.fr       */
+/*   Updated: 2025/12/15 09:21:31 by ale-guel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,20 @@ void	verif_file_name(t_data *data)
 	}
 }
 
+static void handle_fail_open(t_data *data)
+{
+	ft_printf_fd(2, _RED _BOLD "Error\n"_PURPLE
+		"Map >>>" " Fail to open map\n"_END);
+	f_exit(data, 1);
+}
+
 void	get_content_file(t_data *data)
 {
 	char	*line;
 
 	data->map.fd = open(data->av[1], O_RDONLY);
 	if (data->map.fd == -1)
-		f_exit(data, 1);
+		handle_fail_open(data);
 	while (get_next_line(data->map.fd, &line))
 	{
 		if (!line)

@@ -6,7 +6,7 @@
 /*   By: ale-guel <ale-guel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 07:44:54 by ale-guel          #+#    #+#             */
-/*   Updated: 2025/12/10 07:44:55 by ale-guel         ###   ########.fr       */
+/*   Updated: 2025/12/15 09:17:39 by ale-guel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static void	handle_input_move(t_data *data, long long int cur)
 				f_exit(data, 0);
 			else if (is_move_player(data, i))
 				move = 1;
-			else if (data->keycode[i] == KEY_E)
+			else if (data->keycode[i] == KEY_E || data->keycode[i] == KEY_RIGHT)
 				rotate_right(data);
-			else if (data->keycode[i] == KEY_Q)
+			else if (data->keycode[i] == KEY_Q || data->keycode[i] == KEY_LEFT)
 				rotate_left(data);
 			i++;
 		}
