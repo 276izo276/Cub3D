@@ -37,7 +37,6 @@
 
 Un FPS rétro en Raycasting (moteur personnalisé en C) entièrement inspiré de l'univers d'Harry Potter. Affrontez un labyrinthe dynamique, maîtrisez un arsenal de sorts complexes, survivez à des créatures mythiques et menez votre coalition à la victoire pour remporter la Coupe de Feu.
 
-![Menu du jeu](<!-- Insère ici le lien vers ton screenshot du menu ou du gameplay -->)
 
 ---
 
@@ -135,7 +134,7 @@ Le labyrinthe est peuplé de 5 types de créatures classées par ordre de diffic
 ### 🪵 Réseau de Cheminées (Téléportation)
 Utilisez la poudre à proximité d'une cheminée pour l'allumer (modification visuelle de la texture). En entrant à l'intérieur, la carte globale s'ouvre, vous permettant de cliquer sur n'importe quelle autre cheminée préalablement activée pour vous y téléporter instantanément.
 
-### 👥 Cape d'Invisibilité (Mécanique Avancée)
+### 👥 Cape d'Invisibilité
 *   Inutile seule, collectez au moins **4 fragments** pour déclencher son pouvoir et devenir totalement invisible aux yeux des ennemis.
 *   **Interface dynamique** : La texture de la cape dans votre inventaire s'assombrit en cercle pour représenter le temps d'effet restant.
 *   **Cumul et Bonus** : Posséder plus de 4 fragments augmente proportionnellement la durée totale de l'invisibilité. Ramasser un fragment pendant que la cape est active rallonge directement le timer en cours en fonction du nombre de fragments récoltés.
