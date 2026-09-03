@@ -37,7 +37,7 @@
 
 Un FPS rétro en Raycasting (moteur personnalisé en C) entièrement inspiré de l'univers d'Harry Potter. Affrontez un labyrinthe dynamique, maîtrisez un arsenal de sorts complexes, survivez à des créatures mythiques et menez votre coalition à la victoire pour remporter la Coupe de Feu.
 
-<video src="ressource/README_asset/Start Menu.mp4" autoplay loop muted playsinline width="100%"></video>
+<video src="https://raw.githubusercontent.com/Unde21/Cub3D/main/ressource/README_asset/start_menu.mp4" autoplay loop muted playsinline width="100%"></video>
 
 ---
 
@@ -85,7 +85,7 @@ Les sorts sont répartis en plusieurs catégories stratégiques :
 *   **Lumos (Interaction)** : Indispensable pour explorer. Ce sort génère une source de lumière intense qui décroît avec le temps. 
     > 🚪 **Portes dynamiques :** Les portes du labyrinthe s'ouvrent *uniquement* sous l'effet de Lumos. La vitesse d'ouverture de la porte est directement proportionnelle à l'intensité lumineuse du sort au moment de l'impact !
 
-	<video src="ressource/README_asset/spell.mp4" autoplay loop muted playsinline width="100%"></video>
+	<video src="https://raw.githubusercontent.com/Unde21/Cub3D/main/ressource/README_asset/spell.mp4" autoplay loop muted playsinline width="100%"></video>
 
 </blockquote>
 </details>
@@ -113,9 +113,9 @@ Le labyrinthe est peuplé de 5 types de créatures classées par ordre de diffic
 *   **Rendement décroissant** : Plus votre niveau s'élève, plus le palier d'XP requis pour monter de niveau est grand. De plus, les monstres les plus faibles rapportent de moins en moins d'XP et finissent par cesser de spawner.
 *   **Intelligence Artificielle** : Les ennemis patrouillent de manière aléatoire. S'ils détectent le joueur (cible prioritaire) ou un autre monstre, ils engagent la traque via un algorithme de pathfinding ($A^*$). Si vous brisez la ligne de vue, le monstre continuera à vous suivre pendant un court laps de temps, simulant le fait qu'il sait que vous êtes passé par ce chemin du labyrinthe.
 
-	<video src="ressource/README_asset/fight.mp4" autoplay loop muted playsinline width="100%"></video>
+	<video src="https://raw.githubusercontent.com/Unde21/Cub3D/main/ressource/README_asset/fight.mp4" autoplay loop muted playsinline width="100%"></video>
 
-	<video src="ressource/README_asset/fight_tornado.mp4" autoplay loop muted playsinline width="100%"></video>
+	<video src="https://raw.githubusercontent.com/Unde21/Cub3D/main/ressource/README_asset/fight_tornado.mp4" autoplay loop muted playsinline width="100%"></video>
 
 </blockquote>
 </details>
@@ -168,7 +168,7 @@ Utilisez la poudre à proximité d'une cheminée pour l'allumer (modification vi
 *   **Messages Ensanglantés** : De manière aléatoire, des messages de sang apparaissent dynamiquement sur les murs pour former des phrases (3 phrases distinctes qui tournent en boucle), renforçant l'ambiance stressante.
 *   **Audio Réactif** : Chaque sort lancé, chaque ennemi et chaque action contextuelle génère un effet sonore unique lié à l'environnement.
 
-<video src="ressource/README_asset/life_border.mp4" autoplay loop muted playsinline width="100%"></video>
+<video src="https://raw.githubusercontent.com/Unde21/Cub3D/main/ressource/README_asset/life_border.mp4" autoplay loop muted playsinline width="100%"></video>
 
 </blockquote>
 </details>
@@ -188,9 +188,9 @@ Utilisez la poudre à proximité d'une cheminée pour l'allumer (modification vi
 *   **Menu Pause** : Permet de suspendre le jeu et d'ajuster précisément la sensibilité de la souris.
 *   **Collection de Baguettes (Skins)** : À leur mort, les monstres ont une faible chance de faire tomber un skin cosmétique qui change l'apparence de votre baguette. Le taux est de **1%** sur les monstres classiques et grimpe à **10%** sur les Sorciers. Changez de skin à la volée en utilisant la molette de la souris en jeu.
 
-<video src="ressource/README_asset/skin.mp4" autoplay loop muted playsinline width="100%"></video>
+<video src="https://raw.githubusercontent.com/Unde21/Cub3D/main/ressource/README_asset/skin.mp4" autoplay loop muted playsinline width="100%"></video>
 
-<video src="ressource/README_asset/map.mp4" autoplay loop muted playsinline width="100%"></video>
+<video src="https://raw.githubusercontent.com/Unde21/Cub3D/main/ressource/README_asset/map.mp4" autoplay loop muted playsinline width="100%"></video>
 
 </blockquote>
 </details>
@@ -243,6 +243,8 @@ make bonus
 ```
 </blockquote>
 </details>
+
+---
 
 <details id= "map">
 	<summary>
