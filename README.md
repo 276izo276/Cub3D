@@ -87,7 +87,9 @@ Les sorts sont répartis en plusieurs catégories stratégiques :
 
 	<video src="https://github.com/user-attachments/assets/2d96d127-fecc-42e9-8d4b-9cc3dfa62dd1" autoplay loop muted playsinline width="100%"></video>
 
-	<video src="https://github.com/user-attachments/assets/8a5597bb-cd97-4501-b9dc-ed36469d9d8d" autoplay loop muted playsinline width="100%"></video>
+	<p align="center">
+  <video src="https://github.com/user-attachments/assets/8a5597bb-cd97-4501-b9dc-ed36469d9d8d" autoplay loop muted playsinline width="100%"></video>
+</p>
 
 </blockquote>
 </details>
