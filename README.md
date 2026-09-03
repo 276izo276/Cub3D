@@ -37,7 +37,7 @@
 
 Un FPS rétro en Raycasting (moteur personnalisé en C) entièrement inspiré de l'univers d'Harry Potter. Affrontez un labyrinthe dynamique, maîtrisez un arsenal de sorts complexes, survivez à des créatures mythiques et menez votre coalition à la victoire pour remporter la Coupe de Feu.
 
-<video src="https://raw.githubusercontent.com/Unde21/Cub3D/main/ressource/README_asset/start_menu.mp4" autoplay loop muted playsinline width="100%"></video>
+<video src="https://github.com/user-attachments/assets/fd5752ee-a53a-4969-9ca0-c20d6a1dede9" autoplay loop muted playsinline width="100%"></video>
 
 ---
 
