@@ -87,6 +87,8 @@ Les sorts sont répartis en plusieurs catégories stratégiques :
 
 	<video src="https://github.com/user-attachments/assets/2d96d127-fecc-42e9-8d4b-9cc3dfa62dd1" autoplay loop muted playsinline width="100%"></video>
 
+	<video src="https://github.com/user-attachments/assets/8a5597bb-cd97-4501-b9dc-ed36469d9d8d" autoplay loop muted playsinline width="100%"></video>
+
 </blockquote>
 </details>
 </dd></dl>
@@ -146,7 +148,7 @@ Utilisez la poudre à proximité d'une cheminée pour l'allumer (modification vi
 *   **Interface dynamique** : La texture de la cape dans votre inventaire s'assombrit en cercle pour représenter le temps d'effet restant.
 *   **Cumul et Bonus** : Posséder plus de 4 fragments augmente proportionnellement la durée totale de l'invisibilité. Ramasser un fragment pendant que la cape est active rallonge directement le timer en cours en fonction du nombre de fragments récoltés.
 
-
+<video src="https://github.com/user-attachments/assets/46e67e87-fd93-4219-9780-f24d2a6b8887" autoplay loop muted playsinline width="100%"></video>
 
 
 </blockquote>
